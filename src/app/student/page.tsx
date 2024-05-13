@@ -73,6 +73,9 @@ const Student = () => {
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
                                     About
                                 </th>
+                                <th scope="col" className="px-6 py-3 whitespace-nowrap">
+                                    view
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -91,6 +94,10 @@ const Student = () => {
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     This is text
                                 </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                <Link href="/student/view-student" className="font-medium text-blue-600 hover:underline">View</Link>
+
+                                </td>
                             </tr>
                             <tr className="bg-white border-b  hover:bg-gray-50">
                                 <td className="w-4 p-4">
@@ -106,6 +113,10 @@ const Student = () => {
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     This is text
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                <Link href="/student/view-student" className="font-medium text-blue-600 hover:underline">View</Link>
+                                    
                                 </td>
                             </tr>
                         </tbody>
