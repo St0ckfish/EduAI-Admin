@@ -1,8 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import CircleProgress from "./circleProgress";
 
 const StudentInfo = () => {
+
     return ( 
         <>
             <div className="grid bg-white rounded-xl p-5 ">
@@ -54,6 +57,9 @@ const StudentInfo = () => {
                     <p className='font-sans text-[20px] text-gray-800 font-semibold'>Certification:</p>
                     <p className='font-sans text-[16px] text-gray-400 font-semibold'>2021-2022 <br /> He got first place in the school</p>
                 </div>
+
+                <CircleProgress/>
+
             </div>
         </>
     );
