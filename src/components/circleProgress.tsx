@@ -2,17 +2,19 @@
 "use client"
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
-const CircleProgress = () => {
+interface CircleProgressProps {
+    percentage: number;
+  }
+  const CircleProgress: React.FC<CircleProgressProps> = ({ percentage }) => {
     const [progress, setProgress] = useState(0);
 
     useEffect(() => {
       const interval = setInterval(() => {
-        setProgress((prevProgress) => (prevProgress < 75 ? prevProgress + 1 : 75));
+        setProgress((prevProgress) => (prevProgress < percentage ? prevProgress + 1 : percentage));
       },40);
   
       return () => clearInterval(interval);
-    }, []);
+    }, [percentage]);
     const radius = 20;
   const circumference = 2 * Math.PI * radius;
   const strokeDasharray = `${circumference} ${circumference}`;
@@ -59,7 +61,6 @@ const CircleProgress = () => {
                             className=" items-center text-gray-300 text-[5px] font-semibold"
                         >
                             {100-progress}
-                            
                         </text>
                         
                     </svg>
