@@ -9,37 +9,37 @@ const NavBar = () => {
   const [isLoginPage, setIsLoginPage] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
-    const toggleNavbar2 = () => {
-        setIsOpen2(!isOpen2)
-    }
-    const [isOpen3, setIsOpen3] = useState(false);
-    const toggleNavbar3 = () => {
-        setIsOpen3(!isOpen3)
-    }
-    const [isOpen4, setIsOpen4] = useState(false);
-    const toggleNavbar4 = () => {
-        setIsOpen4(!isOpen4)
-    }
-    const [isOpen5, setIsOpen5] = useState(false);
-    const toggleNavbar5 = () => {
-        setIsOpen5(!isOpen5)
-    }
-    const [isOpen6, setIsOpen6] = useState(false);
-    const toggleNavbar6 = () => {
-        setIsOpen6(!isOpen6)
-    }
-    const [isOpen7, setIsOpen7] = useState(false);
-    const toggleNavbar7 = () => {
-        setIsOpen7(!isOpen7)
-    }
-    const [isOpen8, setIsOpen8] = useState(false);
-    const toggleNavbar8 = () => {
-        setIsOpen8(!isOpen8)
-    }
-    const [isOpen9, setIsOpen9] = useState(false);
-    const toggleNavbar9 = () => {
-        setIsOpen9(!isOpen9)
-    }
+  const toggleNavbar2 = () => {
+    setIsOpen2(!isOpen2)
+  }
+  const [isOpen3, setIsOpen3] = useState(false);
+  const toggleNavbar3 = () => {
+    setIsOpen3(!isOpen3)
+  }
+  const [isOpen4, setIsOpen4] = useState(false);
+  const toggleNavbar4 = () => {
+    setIsOpen4(!isOpen4)
+  }
+  const [isOpen5, setIsOpen5] = useState(false);
+  const toggleNavbar5 = () => {
+    setIsOpen5(!isOpen5)
+  }
+  const [isOpen6, setIsOpen6] = useState(false);
+  const toggleNavbar6 = () => {
+    setIsOpen6(!isOpen6)
+  }
+  const [isOpen7, setIsOpen7] = useState(false);
+  const toggleNavbar7 = () => {
+    setIsOpen7(!isOpen7)
+  }
+  const [isOpen8, setIsOpen8] = useState(false);
+  const toggleNavbar8 = () => {
+    setIsOpen8(!isOpen8)
+  }
+  const [isOpen9, setIsOpen9] = useState(false);
+  const toggleNavbar9 = () => {
+    setIsOpen9(!isOpen9)
+  }
   const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
 
   useEffect(() => {
@@ -202,86 +202,43 @@ const NavBar = () => {
                       </li>
                       <li>
                         <Link className="flex items-center gap-x-3.5 py-2 px-2.5 mt-4 font-bold text-md font-sans text-[#526484] group rounded-lg hover:bg-gray-100 hover:text-[#3e5af0]" href="/manage-school">
+                          <svg className="h-6 w-6 font-bold font-sans text-[#526484] group-hover:text-[#3e5af0]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">  <circle cx="11" cy="11" r="8" />  <line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>
+                          Search
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="flex items-center gap-x-3.5 py-2 mt-4 px-2.5  font-bold text-md font-sans text-[#526484] group rounded-lg hover:bg-gray-100 hover:text-[#3e5af0]" href="/user-management">
+                          <svg className="h-6 w-6 font-bold font-sans text-[#526484] group-hover:text-[#3e5af0]" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <circle cx="9" cy="7" r="4" />  <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />  <path d="M16 11l2 2l4 -4" /></svg>
+
+                          Administration
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="flex items-center gap-x-3.5 py-2 px-2.5 mt-4 font-bold text-md font-sans text-[#526484] group rounded-lg hover:bg-gray-100 hover:text-[#3e5af0]" href="/manage-school">
                           <svg className="h-6 w-6 font-bold font-sans text-[#526484] group-hover:text-[#3e5af0]" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <line x1="3" y1="21" x2="21" y2="21" />  <line x1="3" y1="10" x2="21" y2="10" />  <polyline points="5 6 12 3 19 6" />  <line x1="4" y1="10" x2="4" y2="21" />  <line x1="20" y1="10" x2="20" y2="21" />  <line x1="8" y1="14" x2="8" y2="17" />  <line x1="12" y1="14" x2="12" y2="17" />  <line x1="16" y1="14" x2="16" y2="17" /></svg>
                           Educational Affairs
                         </Link>
                       </li>
-                      <li>
-                        <Link className="flex items-center gap-x-3.5 py-2 mt-4 px-2.5  font-bold text-md font-sans text-[#526484] group rounded-lg hover:bg-gray-100 hover:text-[#3e5af0]" href="/updates">
-                        <svg className="h-6 w-6 font-bold font-sans text-[#526484] group-hover:text-[#3e5af0]"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
-  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
-</svg>
 
-                          Updates
+                      <li>
+                        <Link className="flex items-center gap-x-3.5 py-2 mt-4 px-2.5  font-bold text-md font-sans text-[#526484] group rounded-lg hover:bg-gray-100 hover:text-[#3e5af0]" href="/feedback">
+                          <svg className="h-6 w-6 font-bold font-sans text-[#526484] group-hover:text-[#3e5af0]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">  <circle cx="12" cy="12" r="3" />  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" /></svg>
+                          Operations
                         </Link>
                       </li>
                       <li>
                         <Link className="flex items-center gap-x-3.5 py-2 mt-4 px-2.5  font-bold text-md font-sans text-[#526484] group rounded-lg hover:bg-gray-100 hover:text-[#3e5af0]" href="/feedback">
-                        <svg className="h-6 w-6 font-bold font-sans text-[#526484] group-hover:text-[#3e5af0]"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round">  <circle cx="12" cy="12" r="3" />  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" /></svg>
-                        Organization Settings
+                          <svg className="h-6 w-6 font-bold font-sans text-[#526484] group-hover:text-[#3e5af0]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                          </svg>
+
+                          Communication
                         </Link>
-                      </li>
-
-                      <li className="" id="users-accordion">
-                        <button onClick={toggleNavbar2} type="button" className="flex items-center gap-x-3.5 py-2 mt-4 px-2.5  font-bold text-md whitespace-nowrap	 font-sans text-[#526484] group rounded-lg hover:bg-gray-100 hover:text-[#3e5af0]">
-                        <svg className="h-6 w-6 font-bold font-sans text-[#526484] group-hover:text-[#3e5af0]"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                        </svg>
-
-                          User Management
-
-                          <svg className="hs-accordion-active:block ms-auto hidden size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m18 15-6-6-6 6" /></svg>
-
-                          <svg className="hs-accordion-active:hidden ms-auto block size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg>
-                        </button>
-                        {
-                                    isOpen2 && (
-                              <div id="users-accordion-sub-1-child" className="hs-accordion-content w-full overflow-hidden transition-[height] duration-300">
-                                <ul className="pt-2 ps-2 ml-10 text-sm font-medium">
-                                  <li>
-                                    <a className="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-neutral-700 rounded-lg hover:bg-gray-100" href="#">
-                                    Driver
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a className="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-neutral-700 rounded-lg hover:bg-gray-100" href="#">
-                                    Employee
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a className="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-neutral-700 rounded-lg hover:bg-gray-100" href="/parent">
-                                    Parent
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <Link className="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-neutral-700 rounded-lg hover:bg-gray-100" href="/student">
-                                    Student
-                                    </Link>
-                                  </li>
-                                  <li>
-                                    <a className="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-neutral-700 rounded-lg hover:bg-gray-100" href="#">
-                                    Teacher
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a className="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-neutral-700 rounded-lg hover:bg-gray-100" href="#">
-                                    Worker
-                                    </a>
-                                  </li>
-                                </ul>
-                              </div>
-                            )
-                                }
-                            
                       </li>
                     </ul>
                   </nav>
                 </div>)}
-
           </div>
-
-
-
         ) : (
           <div></div>
         )}
