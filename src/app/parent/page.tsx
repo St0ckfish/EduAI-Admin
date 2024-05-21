@@ -42,7 +42,7 @@ const Parent = () => {
 
     return ( 
         <>
-            <div className="lg:ml-[270px] mr-[5px] relative mt-10 overflow-x-auto bg-transparent sm:rounded-lg max-[1200px]:w-screen h-screen">
+            <div className="lg:ml-[270px] mr-[5px] relative mt-10 overflow-x-auto bg-transparent sm:rounded-lg h-screen">
                 <div className="flex justify-between max-[502px]:grid max-[502px]:justify-center text-center">
                     <div className="mb-3">
                         <label htmlFor="icon" className="sr-only">Search</label>

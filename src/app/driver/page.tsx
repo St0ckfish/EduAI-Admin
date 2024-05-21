@@ -1,8 +1,9 @@
+/* eslint-disable @next/next/no-img-element */
 "use client"
 import Link from "next/link";
 import { useState, useEffect } from 'react'; // Import useState and useEffect hooks
 
-const Student = () => {
+const Driver = () => {
     const [selectAll, setSelectAll] = useState(false); // State to track whether select all checkbox is checked
 
     // Function to handle click on select all checkbox
@@ -54,7 +55,7 @@ const Student = () => {
                         </div>
                     </div> 
                     <div className="flex justify-center">
-                        <Link href="/add-new-student" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] w-[180px] ease-in font-semibold duration-300">+ Add new school</Link>
+                        <Link href="/add-new-driver" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] w-[180px] ease-in font-semibold duration-300">+ Add new Driver</Link>
                     </div>
                 </div>
                 <div className="overflow-auto relative shadow-md sm:rounded-lg">
@@ -68,10 +69,22 @@ const Student = () => {
                                     </div>
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                    Name School
+                                    Name
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                    Code
+                                    id
+                                </th>
+                                <th scope="col" className="px-6 py-3 whitespace-nowrap">
+                                    Gender
+                                </th>
+                                <th scope="col" className="px-6 py-3 whitespace-nowrap">
+                                    Taxi Number
+                                </th>
+                                <th scope="col" className="px-6 py-3 whitespace-nowrap">
+                                    Address
+                                </th>
+                                <th scope="col" className="px-6 py-3 whitespace-nowrap">
+                                    Mobile
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
                                     About
@@ -88,17 +101,30 @@ const Student = () => {
                                         <input id="checkbox-table-search-1" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
                                     </div>
                                 </td>
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                                <th scope="row" className="px-6 flex items-center py-4 font-medium text-gray-900 whitespace-nowrap ">
+                                    <img src="/images/me.jpg" className="w-[40px] h-[40px] mr-2 rounded-full" alt="#" />
                                     Nahda
                                 </th>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    C45121
+                                    1321312
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    Male
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    5515151
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    sdfsdfsdfsdf
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    002050030
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     This is text
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                <Link href="/student/view-student" className="font-medium text-blue-600 hover:underline">View</Link>
+                                <Link href="/driver/view-driver" className="font-medium text-blue-600 hover:underline">View</Link>
 
                                 </td>
                             </tr>
@@ -108,17 +134,30 @@ const Student = () => {
                                         <input id="checkbox-table-search-1" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
                                     </div>
                                 </td>
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                                <th scope="row" className="px-6 py-4 flex items-center font-medium text-gray-900 whitespace-nowrap ">
+                                <img src="/images/me.jpg" className="w-[40px] h-[40px] mr-2 rounded-full" alt="#" />
                                     Nahda
                                 </th>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    C45121
+                                1321312
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                Male
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                5513131s
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                sdfs2df
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                00515
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     This is text
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                <Link href="/student/view-student" className="font-medium text-blue-600 hover:underline">View</Link>
+                                <Link href="/driver/view-driver" className="font-medium text-blue-600 hover:underline">View</Link>
                                     
                                 </td>
                             </tr>
@@ -130,4 +169,4 @@ const Student = () => {
     );
 }
 
-export default Student;
+export default Driver;
