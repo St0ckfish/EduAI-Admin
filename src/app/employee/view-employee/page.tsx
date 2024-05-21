@@ -14,7 +14,6 @@ const ViewEmployee = () => {
           <div className="grid gap-10 p-5 rounded-xl bg-white justify-center items-center h-[600px]">
           <div className="flex justify-between">
             <h1 className='font-sans text-gray-800 font-semibold'>Number of student in Bus</h1>
-            <img src="/images/bus 1.png" alt="#" />
           </div>
           <DynamicPartition percentage={5} />
 
