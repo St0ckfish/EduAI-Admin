@@ -11,7 +11,7 @@ const ViewWorker = () => {
       <div className="lg:ml-[290px] grid py-4 ">
         <div className="grid grid-cols-2 gap-7 max-[1342px]:grid-cols-1 max-[1342px]:px-5">
           <DriverInfo />
-          <div className="grid gap-10 p-5 rounded-xl bg-white justify-center items-center h-[400px]">
+          <div className="grid gap-10 p-5 rounded-xl bg-white justify-center items-center h-[600px]">
           <div className="flex justify-between">
             <h1 className='font-sans text-gray-800 font-semibold'>Number of student in Bus</h1>
             <img src="/images/bus 1.png" alt="#" />

@@ -124,7 +124,7 @@ const Worker = () => {
                                     This is text
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                <Link href="/driver/view-driver" className="font-medium text-blue-600 hover:underline">View</Link>
+                                <Link href="/worker/view-worker" className="font-medium text-blue-600 hover:underline">View</Link>
 
                                 </td>
                             </tr>
@@ -157,7 +157,7 @@ const Worker = () => {
                                     This is text
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                <Link href="/driver/view-driver" className="font-medium text-blue-600 hover:underline">View</Link>
+                                <Link href="/worker/view-worker" className="font-medium text-blue-600 hover:underline">View</Link>
                                     
                                 </td>
                             </tr>
