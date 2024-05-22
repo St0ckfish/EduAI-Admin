@@ -7,10 +7,14 @@ import { useEffect, useState, useReducer } from "react";
 const NavBar = () => {
   const [pathname, setPathname] = useState('');
   const [isLoginPage, setIsLoginPage] = useState(true);
+  const [small, setSmall] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
   const toggleNavbar2 = () => {
     setIsOpen2(!isOpen2)
+  }
+  const toggleNavbarSmall = () => {
+    setSmall(!small)
   }
   const [isOpen3, setIsOpen3] = useState(false);
   const toggleNavbar3 = () => {
@@ -187,34 +191,80 @@ const NavBar = () => {
             </div>
             {
               isOpen && (
-                <div id="application-sidebar" className={`hs-overlay [--auto-close:lg]  hs-overlay-open:translate-x-0 transition-all duration-300 transform w-[260px] lg:drop-shadow-none drop-shadow-2xl ${!isOpen ? '-translate-x-full hidden ' : ''}fixed inset-y-0 start-0 z-[60] bg-white border-e border-gray-200 lg:block  lg:translate-x-0 lg:end-auto lg:bottom-0`}>
+                <div id="application-sidebar" className={`hs-overlay [--auto-close:lg]  hs-overlay-open:translate-x-0 transition-all duration-300 transform ${small? 'w-[90px]' : 'w-[260px]'} lg:drop-shadow-none drop-shadow-2xl ${!isOpen ? '-translate-x-full hidden ' : ''}fixed ease-in duration-300 inset-y-0 start-0 z-[60] bg-white border-e border-gray-200 lg:block  lg:translate-x-0 lg:end-auto lg:bottom-0`}>
                   <div className="px-8 pt-4">
-                    <img src="/images/logo.png" alt="Logo" />
+                  {
+                          small ? (
+                            <img className="scale-[2] mt-5" src="/images/small logo.png" alt="Logo" />
+
+                          ):(
+                            <img className="w-[150px] -translate-x-7"  src="/images/logo.png" alt="Logo" />
+
+                          )
+                  }
                   </div>
+                  <div className="flex justify-end mr-5 -translate-y-6">
+                      {
+                          !small && (
+<button onClick={toggleNavbarSmall}>
+
+  <img className="scale-[1.4] "  src="/images/nav.png" alt="Logo" />
+</button>
+                            
+                          )
+                          }
+                      </div>
 
                   <nav className="hs-accordion-group p-6 w-full flex flex-col flex-wrap" data-hs-accordion-always-open>
                     <ul className="space-y-1.5 ">
-                      <li>
-                        <Link className="flex items-center gap-x-3.5 py-2 px-2.5 mt-4 font-bold text-md font-sans text-[#526484] group rounded-lg hover:bg-gray-100 hover:text-[#3e5af0]" href="/">
-                          <svg className="h-6 w-6 font-bold font-sans text-[#526484] group-hover:text-[#3e5af0]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" /></svg>
-                          Dashboard
-                        </Link>
-                      </li>
-                      <li>
-                        <Link className="flex items-center gap-x-3.5 py-2 px-2.5 mt-4 font-bold text-md font-sans text-[#526484] group rounded-lg hover:bg-gray-100 hover:text-[#3e5af0]" href="/manage-school">
-                          <svg className="h-6 w-6 font-bold font-sans text-[#526484] group-hover:text-[#3e5af0]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">  <circle cx="11" cy="11" r="8" />  <line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>
-                          Search
-                        </Link>
-                      </li>
-                      <li>
-                        <button onClick={toggleNavbar2} className="flex w-full items-center gap-x-3.5 py-2 mt-4 px-2.5  font-bold text-md font-sans text-[#526484] group rounded-lg hover:bg-gray-100 hover:text-[#3e5af0]" >
-                          <svg className="h-6 w-6 font-bold font-sans text-[#526484] group-hover:text-[#3e5af0]" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <circle cx="9" cy="7" r="4" />  <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />  <path d="M16 11l2 2l4 -4" /></svg>
+                      <div className={`flex ${small? 'w-[40px]' : ''} justify-center`}>
+                      {
+                          small && (
+<button onClick={toggleNavbarSmall}>
 
-                          Administration
+  <img  src="/images/arrow.png" alt="Logo" />
+</button>
+                            
+                          )
+                          }
+                      </div>
+                      <li>
+                        <Link className={`flex ${small? 'w-[40px]' : ''} items-center gap-x-3.5 py-2 px-2.5 mt-4 font-bold text-md font-sans text-[#526484] group rounded-lg hover:bg-gray-100 hover:text-[#3e5af0]`} href="/">
+                          <svg className="h-6 w-6 font-bold font-sans text-[#526484] group-hover:text-[#3e5af0]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" /></svg>
+                          {
+                          !small && (
+
+                            <p>Dashboard</p>
+                          )
+                          }
+                          
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className={`flex ${small? 'w-[40px]' : ''} flex  items-center gap-x-3.5 py-2 px-2.5 mt-4 font-bold text-md font-sans text-[#526484] group rounded-lg hover:bg-gray-100 hover:text-[#3e5af0]`} href="/manage-school">
+                          <svg className="h-6 w-6 font-bold font-sans text-[#526484] group-hover:text-[#3e5af0]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">  <circle cx="11" cy="11" r="8" />  <line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>
+                          {
+                          !small && (
+
+                            <p>Search</p>
+                          )
+                          }
+                          
+                        </Link>
+                      </li>
+                      <li>
+                        <button onClick={toggleNavbar2} className={`flex ${!small? 'w-full' : ''}  items-center gap-x-3.5 py-2 mt-4 px-2.5  font-bold text-md font-sans text-[#526484] group rounded-lg hover:bg-gray-100 hover:text-[#3e5af0]`} >
+                          <svg className="h-6 w-6 font-bold font-sans text-[#526484] group-hover:text-[#3e5af0]" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <circle cx="9" cy="7" r="4" />  <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />  <path d="M16 11l2 2l4 -4" /></svg>
+                          {
+                          !small && (
+
+                            <p>Administration</p>
+                          )
+                          }
                         </button>
                         {
                           isOpen2 && (
-                            <ul className="grid gap-2 ml-9 mt-2 text-[14px] font-semibold">
+                            <ul className={`${small? 'translate-x-5 bg-white rounded-xl p-2 w-[180px]' : ''} grid gap-2 ml-9 mt-2 text-[14px] font-semibold`}>
                               <Link className="hover:text-[#3e5af0]" href="/user-management">User Management</Link>
                               <Link className="hover:text-[#3e5af0]" href="/user-management">Financial Management</Link>
                               <Link className="hover:text-[#3e5af0]" href="/user-management">Organization Setting</Link>
@@ -223,13 +273,19 @@ const NavBar = () => {
                         }
                       </li>
                       <li>
-                        <button onClick={toggleNavbar3} className="flex w-full items-center gap-x-3.5 py-2 px-2.5 mt-4 font-bold text-md font-sans text-[#526484] group rounded-lg hover:bg-gray-100 hover:text-[#3e5af0]" >
+                        <button onClick={toggleNavbar3} className={`flex ${!small? 'w-full' : ''} items-center gap-x-3.5 py-2 px-2.5 mt-4 font-bold text-md font-sans text-[#526484] group rounded-lg hover:bg-gray-100 hover:text-[#3e5af0]`} >
                           <svg className="h-6 w-6 font-bold font-sans text-[#526484] group-hover:text-[#3e5af0]" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <line x1="3" y1="21" x2="21" y2="21" />  <line x1="3" y1="10" x2="21" y2="10" />  <polyline points="5 6 12 3 19 6" />  <line x1="4" y1="10" x2="4" y2="21" />  <line x1="20" y1="10" x2="20" y2="21" />  <line x1="8" y1="14" x2="8" y2="17" />  <line x1="12" y1="14" x2="12" y2="17" />  <line x1="16" y1="14" x2="16" y2="17" /></svg>
-                          Academic
+                          {
+                          !small && (
+
+                            <p>Academic</p>
+                          )
+                          }
+                          
                         </button>
                         {
                           isOpen3 && (
-                            <ul className="grid gap-2 ml-9 mt-2 text-[14px] font-semibold">
+                            <ul className={`${small? 'translate-x-5 bg-white rounded-xl p-2 w-[180px]' : ''} whitespace-nowrap grid gap-2 ml-9 mt-2 text-[14px] font-semibold`}>
                               <Link className="hover:text-[#3e5af0]" href="/">Curriculum Management</Link>
                               <Link className="hover:text-[#3e5af0]" href="/">Course and Resource</Link>
                               <Link className="hover:text-[#3e5af0]" href="/">Educational Affairs</Link>
@@ -239,13 +295,19 @@ const NavBar = () => {
                       </li>
 
                       <li>
-                        <button onClick={toggleNavbar4} className="flex w-full items-center gap-x-3.5 py-2 mt-4 px-2.5  font-bold text-md font-sans text-[#526484] group rounded-lg hover:bg-gray-100 hover:text-[#3e5af0]" >
+                        <button onClick={toggleNavbar4} className={`flex ${!small? 'w-full':''} items-center gap-x-3.5 py-2 mt-4 px-2.5  font-bold text-md font-sans text-[#526484] group rounded-lg hover:bg-gray-100 hover:text-[#3e5af0]`} >
                           <svg className="h-6 w-6 font-bold font-sans text-[#526484] group-hover:text-[#3e5af0]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">  <circle cx="12" cy="12" r="3" />  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" /></svg>
-                          Operations
+                          
+                          {
+                          !small && (
+
+                            <p>Operations</p>
+                          )
+                          }
                         </button>
                         {
                           isOpen4 && (
-                            <ul className="grid gap-2 ml-9 mt-2 text-[14px] font-semibold">
+                            <ul className={`${small? 'translate-x-5 bg-white rounded-xl p-2' : ''} grid gap-2 ml-9 mt-2 text-[14px] font-semibold`}>
                               <Link className="hover:text-[#3e5af0]" href="/">Infrastructure</Link>
                               <Link className="hover:text-[#3e5af0]" href="/">Attendance/Leave</Link>
                             </ul>
@@ -253,16 +315,21 @@ const NavBar = () => {
                         }
                       </li>
                       <li>
-                        <button onClick={toggleNavbar5} className="flex w-full items-center gap-x-3.5 py-2 mt-4 px-2.5  font-bold text-md font-sans text-[#526484] group rounded-lg hover:bg-gray-100 hover:text-[#3e5af0]">
+                        <button onClick={toggleNavbar5} className={`flex ${!small? 'w-full' : ''}  items-center gap-x-3.5 py-2 mt-4 px-2.5  font-bold text-md font-sans text-[#526484] group rounded-lg hover:bg-gray-100 hover:text-[#3e5af0]`}>
                           <svg className="h-6 w-6 font-bold font-sans text-[#526484] group-hover:text-[#3e5af0]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                           </svg>
+                          {
+                          !small && (
 
-                          Communication
+                            <p>Communication</p>
+                          )
+                          }
+                          
                         </button>
                         {
                           isOpen5 && (
-                            <ul className="grid gap-2 ml-9 mt-2 text-[14px] font-semibold">
+                            <ul className={`${small? 'translate-x-5 bg-white rounded-xl p-2 w-[180px]' : ''} grid gap-2 ml-9 mt-2 text-[14px] font-semibold`}>
                               <Link className="hover:text-[#3e5af0]" href="/">Communication</Link>
                             </ul>
                           )
