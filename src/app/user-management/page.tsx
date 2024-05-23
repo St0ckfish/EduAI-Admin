@@ -4,7 +4,7 @@ import Link from "next/link";
 const UserManagment = () => {
     return (
         <>
-            <div className="lg:ml-[290px] mt-12 grid justify-center">
+            <div className={`lg:ml-[290px] mt-12 grid justify-center `}>
 
                 <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-3 grid-cols-2 max-[577px]:grid-cols-1 gap-5">
                     <div className="w-[250px] h-[250px] bg-white rounded-xl shadow-lg grid justify-center items-center">
