@@ -94,6 +94,7 @@ const NavBar = () => {
   }, [width]);
   return (
     <>
+
       <header>
         {isLoginPage ? (
 
@@ -138,7 +139,7 @@ const NavBar = () => {
                         <img className="inline-block size-[38px] rounded-full ring-2 ring-white" src="/images/me.jpg" alt="Image Description" />
                       </button>
 
-                      <div className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-60 bg-white shadow-md rounded-lg p-2" aria-labelledby="hs-dropdown-with-header">
+                      <div className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 fixed hidden right-[40px] top-[80px] min-w-60 bg-white shadow-md rounded-lg p-2" aria-labelledby="hs-dropdown-with-header">
                         <div className="py-3 px-5 -m-2 bg-gray-100 rounded-t-lg">
                           <p className="text-sm text-gray-500">Signed in as</p>
                           <p className="text-sm font-medium text-gray-800">james@site.com</p>
@@ -189,10 +190,9 @@ const NavBar = () => {
                 </button>
               </div>
             </div>
-            {
-              isOpen && (
-                
-                <div id="application-sidebar" className={`hs-overlay [--auto-close:lg]  hs-overlay-open:translate-x-0 transition-all duration-300 transform ${small ? 'w-[90px]' : 'w-[260px]'} lg:drop-shadow-none drop-shadow-2xl ${!isOpen ? '-translate-x-full hidden ' : ''} fixed ease-in duration-300 inset-y-0 start-0 z-[60] bg-white border-e border-gray-200 lg:block  lg:translate-x-0 lg:end-auto lg:bottom-0 lg:mr-[290px]`}>
+
+                <div id="application-sidebar" className={`hs-overlay [--auto-close:lg]  hs-overlay-open:translate-x-0 transition-all duration-300 transform ${small ? 'w-[90px]' : 'w-[260px]'} lg:drop-shadow-none drop-shadow-2xl ${!isOpen ? 'w-0 ' : ''} fixed ease-in duration-300 inset-y-0 start-0 z-[60] bg-white border-e border-gray-200 lg:block  lg:translate-x-0 lg:end-auto lg:bottom-0 `}>
+
                   <div className="px-8 pt-4 ">
                     {
                       small ? (
@@ -216,7 +216,7 @@ const NavBar = () => {
                     }
                   </div>
 
-                  <nav className="hs-accordion-group p-6 w-full flex flex-col flex-wrap" data-hs-accordion-always-open>
+                  <nav className={`hs-accordion-group p-6 w-full flex flex-col flex-wrap ${!isOpen ? 'hidden ' : ''} `} data-hs-accordion-always-open>
                     <ul className="space-y-1.5 ">
                       <div className={`flex ${small ? 'w-[40px]' : ''} justify-center`}>
                         {
@@ -334,7 +334,7 @@ const NavBar = () => {
                       </li>
                     </ul>
                   </nav>
-                </div>)}
+                </div>
           </div>
         ) : (
           <div></div>
