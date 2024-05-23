@@ -190,6 +190,9 @@ const NavBar = () => {
                 </button>
               </div>
             </div>
+{
+  (
+    isOpen &&
 
                 <div id="application-sidebar" className={`hs-overlay [--auto-close:lg]  hs-overlay-open:translate-x-0 transition-all duration-300 transform ${small ? 'w-[90px]' : 'w-[260px]'} lg:drop-shadow-none drop-shadow-2xl ${!isOpen ? 'w-0 ' : ''} fixed ease-in duration-300 inset-y-0 start-0 z-[60] bg-white border-e border-gray-200 lg:block  lg:translate-x-0 lg:end-auto lg:bottom-0 `}>
 
@@ -334,7 +337,8 @@ const NavBar = () => {
                       </li>
                     </ul>
                   </nav>
-                </div>
+                </div>  )
+}
           </div>
         ) : (
           <div></div>
