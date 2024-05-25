@@ -311,7 +311,7 @@ const NavBar = () => {
                         </button>
                        
                             <ul className={`${small ? 'translate-x-5 bg-white rounded-xl p-2 w-[180px]' : ''} hidden group-hover:grid gap-2 ml-9 mt-2 text-[14px] font-semibold`}>
-                              <Link className="hover:text-[#3e5af0]" href="/">Infrastructure</Link>
+                              <Link className="hover:text-[#3e5af0]" href="/infrastructure">Infrastructure</Link>
                               <Link className="hover:text-[#3e5af0]" href="/">Attendance/Leave</Link>
                             </ul>
                       
