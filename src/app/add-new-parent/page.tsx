@@ -64,7 +64,7 @@ const AddNewParent = () => {
                             </label>
                         </div>
                         <div className="flex justify-center text-center">
-                            <button type="submit" className="px-4 py-2 rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl text-white  text-[18px] w-[140px] ease-in duration-300">Add  school</button>
+                            <button type="submit" className="px-4 py-2 rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl text-white  text-[18px] w-[140px] ease-in duration-300">Add  Parent</button>
                         </div>
                     </div>
                 </form>

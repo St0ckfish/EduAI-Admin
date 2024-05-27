@@ -1,5 +1,5 @@
 "use client"
-const EditEmployee = () => {
+const EditRoom = () => {
     return (
         <>
             <div className="lg:ml-[270px] mr-[5px] grid justify-center items-center h-[850px]">
@@ -64,7 +64,7 @@ const EditEmployee = () => {
                             </label>
                         </div>
                         <div className="flex justify-center text-center">
-                            <button type="submit" className="px-4 py-2 rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl text-white  text-[18px] w-[140px] ease-in duration-300">Edit Empolyee</button>
+                            <button type="submit" className="px-4 py-2 rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl text-white  text-[18px] w-[140px] ease-in duration-300">Add  school</button>
                         </div>
                     </div>
                 </form>
@@ -73,4 +73,4 @@ const EditEmployee = () => {
     );
 }
 
-export default EditEmployee;
+export default EditRoom;
