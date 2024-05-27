@@ -15,6 +15,10 @@ const NavBar = () => {
   }
   const toggleNavbarSmall = () => {
     setSmall(!small)
+    setIsOpen2(!isOpen2)
+    setIsOpen3(!isOpen3)
+    setIsOpen4(!isOpen4)
+    setIsOpen5(!isOpen5)
   }
   const [isOpen3, setIsOpen3] = useState(false);
   const toggleNavbar3 = () => {
@@ -190,9 +194,9 @@ const NavBar = () => {
                 </button>
               </div>
             </div>
-{
-  (
-    isOpen &&
+            {
+              (
+                isOpen &&
 
                 <div id="application-sidebar" className={`hs-overlay [--auto-close:lg]  hs-overlay-open:translate-x-0 transition-all duration-300 transform ${small ? 'w-[90px]' : 'w-[260px]'} lg:drop-shadow-none drop-shadow-2xl ${!isOpen ? 'w-0 ' : ''} fixed ease-in duration-300 inset-y-0 start-0 z-[60] bg-white border-e border-gray-200 lg:block  lg:translate-x-0 lg:end-auto lg:bottom-0 `}>
 
@@ -271,12 +275,15 @@ const NavBar = () => {
                             )
                           }
                         </button>
-
-                        <ul className={`${small ? 'translate-x-5 bg-white rounded-xl p-2 w-[180px]' : ''} hidden group-hover:grid gap-2 ml-9 mt-2 text-[14px] font-semibold`}>
-                          <Link className="hover:text-[#3e5af0]" href="/user-management">User Management</Link>
-                          <Link className="hover:text-[#3e5af0]" href="/financial-management">Financial Management</Link>
-                          <Link className="hover:text-[#3e5af0]" href="/organization-setting">Organization Setting</Link>
-                        </ul>
+                        {
+                          isOpen2 && (
+                            <ul className={`${small ? 'translate-x-5 bg-white rounded-xl p-2 w-[180px] hidden group-hover:grid whitespace-nowrap' : ''} hidden group-hover:grid gap-2 ml-9 mt-2 text-[14px] font-semibold`}>
+                              <Link className="hover:text-[#3e5af0]" href="/user-management">User Management</Link>
+                              <Link className="hover:text-[#3e5af0]" href="/financial-management">Financial Management</Link>
+                              <Link className="hover:text-[#3e5af0]" href="/organization-setting">Organization Setting</Link>
+                            </ul>
+                          )
+                        }
                       </li>
                       <li className="relative group">
                         <button onClick={toggleNavbar3} className={`flex ${!small ? 'w-full' : ''} items-center gap-x-3.5 py-2 px-2.5 mt-4 font-bold text-md font-sans text-[#526484] group rounded-lg hover:bg-gray-100 hover:text-[#3e5af0]`} >
@@ -289,12 +296,15 @@ const NavBar = () => {
                           }
 
                         </button>
-                        
-                            <ul className={`${small ? 'translate-x-5 bg-white rounded-xl p-2 w-[180px]' : ''} hidden group-hover:grid gap-2 ml-9 mt-2 text-[14px] font-semibold`}>
+                        {
+                          isOpen3 && (
+                            <ul className={`${small ? 'translate-x-5 bg-white rounded-xl p-2 w-[180px] hidden group-hover:grid whitespace-nowrap' : ''} hidden group-hover:grid gap-2 ml-9 mt-2 text-[14px] font-semibold`}>
                               <Link className="hover:text-[#3e5af0]" href="/">Curriculum Management</Link>
                               <Link className="hover:text-[#3e5af0]" href="/">Course and Resource</Link>
                               <Link className="hover:text-[#3e5af0]" href="/">Educational Affairs</Link>
                             </ul>
+                          )
+                        }
 
                       </li>
 
@@ -309,12 +319,15 @@ const NavBar = () => {
                             )
                           }
                         </button>
-                       
-                            <ul className={`${small ? 'translate-x-5 bg-white rounded-xl p-2 w-[180px]' : ''} hidden group-hover:grid gap-2 ml-9 mt-2 text-[14px] font-semibold`}>
+                        {
+                          isOpen4 && (
+                            <ul className={`${small ? 'translate-x-5 bg-white rounded-xl p-2 w-[180px] hidden group-hover:grid whitespace-nowrap' : ''} hidden group-hover:grid gap-2 ml-9 mt-2 text-[14px] font-semibold`}>
                               <Link className="hover:text-[#3e5af0]" href="/infrastructure">Infrastructure</Link>
                               <Link className="hover:text-[#3e5af0]" href="/">Attendance/Leave</Link>
                             </ul>
-                      
+                          )
+                        }
+
                       </li>
                       <li className="relative group">
                         <button onClick={toggleNavbar5} className={`flex ${!small ? 'w-full' : ''}  items-center gap-x-3.5 py-2 mt-4 px-2.5  font-bold text-md font-sans text-[#526484] group rounded-lg hover:bg-gray-100 hover:text-[#3e5af0]`}>
@@ -329,16 +342,19 @@ const NavBar = () => {
                           }
 
                         </button>
-                        
-                            <ul className={`${small ? 'translate-x-5 bg-white rounded-xl p-2 w-[180px]' : ''} hidden group-hover:grid gap-2 ml-9 mt-2 text-[14px] font-semibold`}>
-                              <Link className="hover:text-[#3e5af0]" href="/">Communication</Link>
-                            </ul>
+                          {
+                            isOpen5 && (
+                              <ul className={`${small ? 'translate-x-5 bg-white rounded-xl p-2 w-[180px] hidden group-hover:grid whitespace-nowrap ' : ''}  gap-2 ml-9 mt-2 text-[14px] font-semibold`}>
+                                <Link className="hover:text-[#3e5af0]" href="/">Communication</Link>
+                              </ul>
+                            )
+                          }
 
                       </li>
                     </ul>
                   </nav>
-                </div>  )
-}
+                </div>)
+            }
           </div>
         ) : (
           <div></div>

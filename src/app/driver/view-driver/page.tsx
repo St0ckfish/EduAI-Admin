@@ -21,16 +21,16 @@ const ViewDriver = () => {
                         <thead className="text-xs text-gray-700 uppercase bg-[#daeafb] ">
                             <tr>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                    Name School
+                                Full Name 
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                    Code
+                                ID
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                    About
+                                Address
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                    view
+                                Status
                                 </th>
                             </tr>
                         </thead>

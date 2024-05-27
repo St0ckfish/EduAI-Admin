@@ -8,7 +8,7 @@ const DriverInfo = () => {
 
     return ( 
         <>
-            <div className="grid bg-white rounded-xl p-5 ">
+            <div className="grid bg-white rounded-xl p-5 h-[700px]">
 
                 <div className="flex justify-between">
                     <h1 className='font-sans text-gray-800 font-semibold'>Driver Information</h1>
@@ -22,7 +22,7 @@ const DriverInfo = () => {
                 <div className="grid justify-center text-center items-center">
                     <img className="w-[120px] h-[120px] rounded-full" src="/images/me.jpg" alt="#student" />
                     <h1 className='font-sans text-gray-800 font-semibold'>Mostapha Taha</h1>
-                    <p className='font-sans text-gray-800 font-semibold'> <span className='font-sans text-gray-400 font-semibold'>Stu ID :</span> 5412</p>
+                    <p className='font-sans text-gray-800 font-semibold'>5412</p>
                 </div>
 
                 <div className="grid justify-start">
@@ -30,34 +30,18 @@ const DriverInfo = () => {
                     <div className="grid grid-cols-2 w-[400px] max-[485px]:w-[240px]">
                         <h3 className='font-sans text-gray-400 font-semibold'>Age:</h3>
                         <p className='font-sans text-gray-800 font-semibold'>10</p>
-                        <h3 className='font-sans text-gray-400 font-semibold'>Class:</h3>
-                        <p className='font-sans text-gray-800 font-semibold'>c2</p>
                         <h3 className='font-sans text-gray-400 font-semibold'>Gender:</h3>
                         <p className='font-sans text-gray-800 font-semibold'>Male</p>
-                        <h3 className='font-sans text-gray-400 font-semibold'>Father Name:</h3>
-                        <p className='font-sans text-gray-800 font-semibold'>Mohamed sayed</p>
-                        <h3 className='font-sans text-gray-400 font-semibold'>Mother Name:</h3>
-                        <p className='font-sans text-gray-800 font-semibold'>Mai Ali</p>
-                        <h3 className='font-sans text-gray-400 font-semibold'>Date Of Birth:</h3>
-                        <p className='font-sans text-gray-800 font-semibold'>02/05/2012</p>
+                        <h3 className='font-sans text-gray-400 font-semibold'>N. of Buss:</h3>
+                        <p className='font-sans text-gray-800 font-semibold'>9874</p>
                         <h3 className='font-sans text-gray-400 font-semibold'>Religion:</h3>
                         <p className='font-sans text-gray-800 font-semibold'>Islam</p>
                         <h3 className='font-sans text-gray-400 font-semibold'>Address:</h3>
                         <p className='font-sans text-gray-800 font-semibold'>13,street, Zamalk,Cairo</p>
-                        <h3 className='font-sans text-gray-400 font-semibold'>Email:</h3>
-                        <p className='font-sans text-gray-800 font-semibold'>Ahmed.M.Sayed@gmail.com</p>
                         <h3 className='font-sans text-gray-400 font-semibold'>Mobile:</h3>
-                        <p className='font-sans text-gray-800 font-semibold'>01220145607</p>
+                        <p className='font-sans text-gray-800 font-semibold'>0110410852</p>
                     </div>
-                </div>
-
-                <div className='grid grid-cols-1 mt-4'>
-                    <p className='font-sans text-[20px] text-gray-800 font-semibold'>About the student:</p>
-                    <p className='font-sans text-[16px] text-gray-400 font-semibold mb-5'>Hi, Iam Ahmed, A 6th grade student, I love science,math and learning new things In my free time, I enjoy reading, writing, and playing football.</p>
-                    <p className='font-sans text-[20px] text-gray-800 font-semibold'>Certification:</p>
-                    <p className='font-sans text-[16px] text-gray-400 font-semibold'>2021-2022 <br /> He got first place in the school</p>
-                </div>
-                
+                </div>                
             </div>
         </>
     );
