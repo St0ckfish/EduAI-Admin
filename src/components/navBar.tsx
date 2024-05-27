@@ -13,13 +13,6 @@ const NavBar = () => {
   const toggleNavbar2 = () => {
     setIsOpen2(!isOpen2)
   }
-  const toggleNavbarSmall = () => {
-    setSmall(!small)
-    setIsOpen2(!isOpen2)
-    setIsOpen3(!isOpen3)
-    setIsOpen4(!isOpen4)
-    setIsOpen5(!isOpen5)
-  }
   const [isOpen3, setIsOpen3] = useState(false);
   const toggleNavbar3 = () => {
     setIsOpen3(!isOpen3)
@@ -47,6 +40,21 @@ const NavBar = () => {
   const [isOpen9, setIsOpen9] = useState(false);
   const toggleNavbar9 = () => {
     setIsOpen9(!isOpen9)
+  }
+  const toggleNavbarSmall = () => {
+    setSmall(!small)
+    if (!small == true){
+      setIsOpen2(true)
+      setIsOpen3(true)
+      setIsOpen4(true)
+      setIsOpen5(true)
+    }
+    if (small == true){
+      setIsOpen2(false)
+      setIsOpen3(false)
+      setIsOpen4(false)
+      setIsOpen5(false)
+    }
   }
   const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
 
