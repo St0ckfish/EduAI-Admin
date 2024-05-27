@@ -54,7 +54,7 @@ const Teacher = () => {
                         </div>
                     </div> 
                     <div className="flex justify-center">
-                        <Link href="/add-new-teacher" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] w-[180px] ease-in font-semibold duration-300">+ Add new school</Link>
+                        <Link href="/add-new-teacher" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] w-[200px] ease-in font-semibold duration-300">+ Add new Teacher</Link>
                     </div>
                 </div>
                 <div className="overflow-auto relative shadow-md sm:rounded-lg">
@@ -98,7 +98,7 @@ const Teacher = () => {
                                     This is text
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                <Link href="/parent/view-teacher" className="font-medium text-blue-600 hover:underline">View</Link>
+                                <Link href="/teacher/view-teacher" className="font-medium text-blue-600 hover:underline">View</Link>
 
                                 </td>
                             </tr>
@@ -118,7 +118,7 @@ const Teacher = () => {
                                     This is text
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                <Link href="/parent/view-teacher" className="font-medium text-blue-600 hover:underline">View</Link>
+                                <Link href="/teacher/view-teacher" className="font-medium text-blue-600 hover:underline">View</Link>
                                     
                                 </td>
                             </tr>
