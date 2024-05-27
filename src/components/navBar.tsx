@@ -277,7 +277,7 @@ const NavBar = () => {
                         </button>
                         {
                           isOpen2 && (
-                            <ul className={`${small ? 'translate-x-5 bg-white rounded-xl p-2 w-[180px] hidden group-hover:grid whitespace-nowrap' : ''}  gap-2 ml-9 mt-2 text-[14px] font-semibold`}>
+                            <ul className={`${small ? 'translate-x-5 bg-white rounded-xl p-2 w-[180px] hidden group-hover:grid whitespace-nowrap' : ''} grid gap-2 ml-9 mt-2 text-[14px] font-semibold`}>
                               <Link className="hover:text-[#3e5af0]" href="/user-management">User Management</Link>
                               <Link className="hover:text-[#3e5af0]" href="/financial-management">Financial Management</Link>
                               <Link className="hover:text-[#3e5af0]" href="/organization-setting">Organization Setting</Link>
@@ -298,7 +298,7 @@ const NavBar = () => {
                         </button>
                         {
                           isOpen3 && (
-                            <ul className={`${small ? 'translate-x-5 bg-white rounded-xl p-2 w-[180px] hidden group-hover:grid whitespace-nowrap' : ''}  gap-2 ml-9 mt-2 text-[14px] font-semibold`}>
+                            <ul className={`${small ? 'translate-x-5 bg-white rounded-xl p-2 w-[180px] hidden group-hover:grid whitespace-nowrap' : ''} grid gap-2 ml-9 mt-2 text-[14px] font-semibold`}>
                               <Link className="hover:text-[#3e5af0]" href="/">Curriculum Management</Link>
                               <Link className="hover:text-[#3e5af0]" href="/">Course and Resource</Link>
                               <Link className="hover:text-[#3e5af0]" href="/">Educational Affairs</Link>
@@ -321,7 +321,7 @@ const NavBar = () => {
                         </button>
                         {
                           isOpen4 && (
-                            <ul className={`${small ? 'translate-x-5 bg-white rounded-xl p-2 w-[180px] hidden group-hover:grid whitespace-nowrap' : ''}  gap-2 ml-9 mt-2 text-[14px] font-semibold`}>
+                            <ul className={`${small ? 'translate-x-5 bg-white rounded-xl p-2 w-[180px] hidden group-hover:grid whitespace-nowrap' : ''} grid gap-2 ml-9 mt-2 text-[14px] font-semibold`}>
                               <Link className="hover:text-[#3e5af0]" href="/infrastructure">Infrastructure</Link>
                               <Link className="hover:text-[#3e5af0]" href="/">Attendance/Leave</Link>
                             </ul>
