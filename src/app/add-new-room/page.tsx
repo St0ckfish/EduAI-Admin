@@ -11,28 +11,28 @@ const AddNewRoom = () => {
                         </div>
                         <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
                             <label htmlFor="name" className="grid text-[18px] font-sans font-semibold">
-                                Student Name
-                                <input id="name" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" />
+                            Room Number
+                                <input id="name" type="number" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" />
                             </label>
                             <label htmlFor="code" className="grid text-[18px] font-sans font-semibold">
-                                ID
+                            Floor
                                 <input id="code" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" />
                             </label>
                             <label htmlFor="about" className="grid text-[18px] font-sans font-semibold">
-                                Age
+                            Room Type
                                 <input id="about" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" />
                             </label>
                             
                             <label htmlFor="Version" className="grid text-[18px] font-sans font-semibold">
-                            Class
+                            Room Category
                                 <input id="Version" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" />
                             </label>
                             <label htmlFor="Version" className="grid text-[18px] font-sans font-semibold">
-                            Father Name
+                            Capacity
                                 <input id="Version" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" />
                             </label>
                             <label htmlFor="Initial" className="grid text-[18px] font-sans font-semibold">
-                            Mother Name
+                            Status
                                 <input id="Initial" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" />
                             </label>
                         </div>

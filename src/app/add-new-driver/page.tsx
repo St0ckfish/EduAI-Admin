@@ -11,7 +11,7 @@ const AddNewDriver = () => {
                         </div>
                         <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
                             <label htmlFor="name" className="grid text-[18px] font-sans font-semibold">
-                                Student Name
+                            Name
                                 <input id="name" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" />
                             </label>
                             <label htmlFor="code" className="grid text-[18px] font-sans font-semibold">
