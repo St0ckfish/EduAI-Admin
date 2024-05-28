@@ -55,7 +55,7 @@ const Book = () => {
                         </div>
                     </div> 
                     <div className="flex justify-center">
-                        <Link href="/add-new-room" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] w-[210px] ease-in font-semibold duration-300">+ Add New Book</Link>
+                        <Link href="/add-new-book" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] w-[210px] ease-in font-semibold duration-300">+ Add New Book</Link>
                     </div>
                 </div>
                 <div className="overflow-auto relative shadow-md sm:rounded-lg">
@@ -123,7 +123,7 @@ const Book = () => {
                                     This is text
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                <Link href="/edit-room" className="font-medium text-blue-600 hover:underline">Edit</Link>
+                                <Link href="/edit-book" className="font-medium text-blue-600 hover:underline">Edit</Link>
 
                                 </td>
                             </tr>
@@ -155,7 +155,7 @@ const Book = () => {
                                     This is text
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                <Link href="/edit-room" className="font-medium text-blue-600 hover:underline">Edit</Link>
+                                <Link href="/edit-book" className="font-medium text-blue-600 hover:underline">Edit</Link>
                                     
                                 </td>
                             </tr>

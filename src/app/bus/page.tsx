@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState, useEffect } from 'react'; // Import useState and useEffect hooks
 
-const Rooms = () => {
+const Bus = () => {
     const [selectAll, setSelectAll] = useState(false); // State to track whether select all checkbox is checked
 
     // Function to handle click on select all checkbox
@@ -55,7 +55,7 @@ const Rooms = () => {
                         </div>
                     </div> 
                     <div className="flex justify-center">
-                        <Link href="/add-new-room" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] w-[210px] ease-in font-semibold duration-300">+ Add New Room</Link>
+                        <Link href="/add-new-bus" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] w-[210px] ease-in font-semibold duration-300">+ Add New Bus</Link>
                     </div>
                 </div>
                 <div className="overflow-auto relative shadow-md sm:rounded-lg">
@@ -123,7 +123,7 @@ const Rooms = () => {
                                     This is text
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                <Link href="/edit-room" className="font-medium text-blue-600 hover:underline">Edit</Link>
+                                <Link href="/edit-bus" className="font-medium text-blue-600 hover:underline">Edit</Link>
 
                                 </td>
                             </tr>
@@ -155,7 +155,7 @@ const Rooms = () => {
                                     This is text
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                <Link href="/edit-room" className="font-medium text-blue-600 hover:underline">Edit</Link>
+                                <Link href="/edit-bus" className="font-medium text-blue-600 hover:underline">Edit</Link>
                                     
                                 </td>
                             </tr>
@@ -167,4 +167,4 @@ const Rooms = () => {
     );
 }
 
-export default Rooms;
+export default Bus;
