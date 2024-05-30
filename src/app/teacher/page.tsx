@@ -68,7 +68,7 @@ const Teacher = () => {
                                     </div>
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                    Name School
+                                    Name
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
                                     Code
