@@ -1,10 +1,14 @@
 "use client"
+
+import dynamic from 'next/dynamic';
 import Calendar from '@/components/calendar';
 import Link from 'next/link';
 import React, { useState } from 'react';
-import ReactApexChart from 'react-apexcharts';
 
-interface ApexChartProps { }
+// Dynamically import ReactApexChart with SSR disabled
+const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
+
+interface ApexChartProps {}
 
 const Dashboard: React.FC<ApexChartProps> = () => {
   const [series, setSeries] = useState([
@@ -48,6 +52,7 @@ const Dashboard: React.FC<ApexChartProps> = () => {
       }
     }
   });
+
 
   return (
     <div className="grid mr-10 justify-center w-full ">
@@ -118,7 +123,7 @@ const Dashboard: React.FC<ApexChartProps> = () => {
             </div>
             <div className=" grid gap-8 w-[200px] ml-3">
               <p className="text-[13px] text-[#F79009]">7:00AM - 8:00AM</p>
-              <p className="text-[16px] text-gray-400">23 Intersted in the event</p>
+              <p className="text-[16px] text-gray-600">23 Intersted in the event</p>
             </div>
           </div>
           <div className="flex justify-evenly items-center">
@@ -138,7 +143,7 @@ const Dashboard: React.FC<ApexChartProps> = () => {
             </div>
             <div className=" grid gap-8 w-[200px] ml-3">
               <p className="text-[13px] text-[#2970FF]">7:00AM - 8:00AM</p>
-              <p className="text-[16px] text-gray-400">23 Intersted in the event</p>
+              <p className="text-[16px] text-gray-600">23 Intersted in the event</p>
             </div>
           </div>
           <div className="grid justify-center ">
@@ -152,8 +157,36 @@ const Dashboard: React.FC<ApexChartProps> = () => {
           <Calendar/>
         </div>
         <div className="grid bg-white rounded-xl shadow-xl p-2 w-[550px]">
-          <p className="font-semibold text-[18px]">Notice Board</p>
+          <p className="font-bold text-[20px]">Notice Board</p>
           <div className="">
+          <h1 className="font-semibold text-[18px] text-[#F79009]">Leslie Alexander</h1>
+          <p>
+          In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo
+          </p>
+          <h1 className="font-semibold text-[18px] text-[#3E5AF0]">Leslie Alexander</h1>
+          <p>
+          In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo
+          </p>
+          <h1 className="font-semibold text-[18px] text-[#57b843]">Leslie Alexander</h1>
+          <p>
+          In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo
+          </p>
+          <h1 className="font-semibold text-[18px] text-[#f03f3f]">Leslie Alexander</h1>
+          <p>
+          In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo
+          </p>
+          <h1 className="font-semibold text-[18px] text-[#F79009]">Leslie Alexander</h1>
+          <p>
+          In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo
+          </p>
+          <h1 className="font-semibold text-[18px] text-[#3E5AF0]">Leslie Alexander</h1>
+          <p>
+          In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo
+          </p>
+          <h1 className="font-semibold text-[18px] text-[#57b843]">Leslie Alexander</h1>
+          <p>
+          In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo
+          </p>
           </div>
         </div>
       </div>
