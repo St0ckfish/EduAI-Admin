@@ -254,7 +254,7 @@ const NavBar = () => {
                         </Link>
                       </li>
                       <li>
-                        <Link className={`flex ${small ? 'w-[40px]' : ''} flex  items-center gap-x-3.5 py-2 px-2.5 mt-4 font-bold text-md font-sans text-[#526484] group rounded-lg hover:bg-gray-100 hover:text-[#3e5af0]`} href="/manage-school">
+                        <Link className={`flex ${small ? 'w-[40px]' : ''} flex  items-center gap-x-3.5 py-2 px-2.5 mt-4 font-bold text-md font-sans text-[#526484] group rounded-lg hover:bg-gray-100 hover:text-[#3e5af0]`} href="/">
                           <svg className="h-6 w-6 font-bold font-sans text-[#526484] group-hover:text-[#3e5af0]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">  <circle cx="11" cy="11" r="8" />  <line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>
                           {
                             !small && (
@@ -349,8 +349,9 @@ const NavBar = () => {
                         </button>
                         {
                           isOpen5 && (
-                            <ul className={`${small ? 'translate-x-5 bg-white rounded-xl p-2 w-[180px] hidden group-hover:grid whitespace-nowrap ' : ''}  gap-2 ml-9 mt-2 text-[14px] font-semibold`}>
-                              <Link className="hover:text-[#3e5af0]" href="/">Communication</Link>
+                            <ul className={`${small ? 'translate-x-5 bg-white rounded-xl p-2 w-[180px] hidden group-hover:grid whitespace-nowrap ' : ''} grid gap-2 ml-9 mt-2 text-[14px] font-semibold`}>
+                              <Link className="hover:text-[#3e5af0]" href="/post-management">Post Management</Link>
+                              <Link className="hover:text-[#3e5af0]" href="/notifies">Notifies</Link>
                             </ul>
                           )
                         }
