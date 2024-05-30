@@ -44,7 +44,7 @@ const Infrastructure = () => {
                             <div className="bg-[#FAEFEF] rounded-full h-[87px] w-[87px] grid items-center justify-center ">
                             <img src="/images/camera.png" alt="#" />
                             </div>
-                            <p className="text-[22px] font-semibold mt-2">Monitoring Cameras</p>
+                            <p className="text-[22px] font-semibold mt-2">Cameras</p>
                         </Link>
                     </div>
                     
