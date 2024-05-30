@@ -5,8 +5,8 @@ import Dashboard from './Dashboard/dashboard';
 export default function Home() {
   return (
     <>
-      <div className="lg:ml-[290px]">
-        {/* <Dashboard/> */}
+      <div className="lg:ml-[290px] mt-12">
+        <Dashboard/>
       </div>
     </>
   );

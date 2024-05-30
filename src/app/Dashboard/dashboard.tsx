@@ -1,95 +1,166 @@
 "use client"
-const Dashboard = () => {
-    return ( 
-        <>
-            <div className="grid gap-8 mt-5 pr-8 max-[1024px]:pl-8">
-                <div className="grid text-start">
-                    <h1 className="font-bold text-[28px] font-sans text-[#041631]">Dashboard</h1>
-                    <p className="text-[#526484] font-sans text-[20px] max-[490px]:text-[18px]">Welcome to Learning Management Dashboard.</p>
-                </div>
-                <div className="grid grid-cols-4 gap-4 max-[843px]:grid-cols-2 max-[525px]:grid-cols-1">
-                    <div className="grid p-4 bg-white rounded-lg">
-                        <p className="text-[#526484] font-sans text-[18px] font-semibold">Total School</p>
-                        <h3 className="font-bold text-[20px] font-sans text-[#041631]">10</h3>
-                        <span className="flex gap-2 items-center">
-                            <svg className="h-5 w-5 text-emerald-500"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round">  <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />  <polyline points="17 6 23 6 23 12" /></svg>
-                            <p className="text-emerald-500">2</p>
-                            <p className="text-[#526484] font-sans text-[16px] whitespace-nowrap"> vs. last month</p>
-                        </span>
-                    </div>
-                    <div className="grid p-4 bg-white rounded-lg">
-                        <p className="text-[#526484] font-sans text-[18px] font-semibold">Demo</p>
-                        <h3 className="font-bold text-[20px] font-sans text-[#041631]">2</h3>
-                        <span className="flex gap-2 items-center">
-                            <svg className="h-5 w-5 text-orange-500"  width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <polyline points="3 7 9 13 13 9 21 17" />  <polyline points="21 10 21 17 14 17" /></svg>
-                            <p className="text-orange-500">2</p>
-                            <p className="text-[#526484] font-sans text-[16px] whitespace-nowrap"> vs. last month</p>
-                        </span>
-                    </div>
-                    <div className="grid p-4 bg-white rounded-lg">
-                        <p className="text-[#526484] font-sans text-[18px] font-semibold">Subscription</p>
-                        <h3 className="font-bold text-[20px] font-sans text-[#041631]">6</h3>
-                        <span className="flex gap-2 items-center">
-                            <svg className="h-5 w-5 text-orange-500"  width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <polyline points="3 7 9 13 13 9 21 17" />  <polyline points="21 10 21 17 14 17" /></svg>
-                            <p className="text-orange-500">2</p>
-                            <p className="text-[#526484] font-sans text-[16px] whitespace-nowrap"> vs. last month</p>
-                        </span>
-                    </div>
-                    <div className="grid p-4 bg-white rounded-lg">
-                        <p className="text-[#526484] font-sans text-[18px] whitespace-nowrap font-semibold">No Action</p>
-                        <h3 className="font-bold text-[20px] font-sans text-[#041631]">2</h3>
-                        
-                    </div>
-                </div>
-                <div className="grid grid-cols-2 gap-4 max-[1599px]:grid-cols-1 max-[630px]:overflow-x-auto">
-                    <div className="grid bg-white rounded-lg p-4 gap-6 max-[630px]:w-[630px]">
-                        <h1 className="font-bold text-[20px] font-sans text-[#041631]">Feedback</h1>
-                        <div className="grid grid-cols-5 items-center">
-                            <p className="text-[#041631] font-sans text-[18px] whitespace-nowrap font-semibold">School</p>
-                            <p className="text-[#041631] font-sans text-[18px] whitespace-nowrap font-semibold">Feedback</p>
-                            <span className="flex items-center">
-                                <div className="h-2.5 w-2.5 rounded-full bg-[#1ee0ac] mr-1"></div>
-                                <p className="text-[#041631] font-sans text-[18px] font-semibold">Solved</p>
-                            </span>
-                            <span className="flex items-center">
-                                <div className="h-2.5 w-2.5 rounded-full bg-[#f4bd0e] mr-1"></div>
-                                <p className="text-[#041631] font-sans text-[18px] font-semibold">Unsolved</p>
-                            </span>
-                            <span className="flex items-center">
-                                <div className="h-2.5 w-2.5 rounded-full bg-[#09c2de] mr-1"></div>
-                                <p className="text-[#041631] font-sans text-[18px] font-semibold">Discussion</p>
-                            </span>
-                        </div>
-                        <div className="grid grid-cols-5 gap-9 max-[630px]:w-[630px]">
-                            <p className="text-[#526484] font-sans text-[16px]">Nahda</p>
-                            <p className="text-[#526484] font-sans text-[16px] ml-8">10</p>
-                            <p className="text-[#526484] font-sans text-[16px] ml-5">6</p>
-                            <p className="text-[#526484] font-sans text-[16px]">3</p>
-                            <p className="text-[#526484] font-sans text-[16px]">1</p>
-                        </div>
-                    </div>
-                    <div className="grid bg-white rounded-lg p-4 gap-6 max-[630px]:w-[630px]">
-                        <h1 className="font-bold text-[20px] font-sans text-[#041631]">Expired</h1>
-                        <p className="text-[#526484] font-sans text-[16px] whitespace-nowrap">About to expire</p>
-                        <div className="grid grid-cols-4 items-center">
-                            <p className="text-[#041631] font-sans text-[18px] whitespace-nowrap font-semibold">School</p>
-                            <p className="text-[#041631] font-sans text-[18px] whitespace-nowrap font-semibold">Expiration Date</p>
-                            <p className="text-[#041631] font-sans text-[18px] font-semibold">Days</p>
-                            <p className="text-[#041631] font-sans text-[18px] font-semibold">Status</p>
-                        </div>
-                        <div className="grid grid-cols-4 max-[630px]:w-[630px]">
-                            <p className="text-[#526484] font-sans text-[16px]">Nahda</p>
-                            <p className="text-[#526484] font-sans text-[16px] ml-8">09/06/2024</p>
-                            <p className="text-[#526484] font-sans text-[16px] ml-5">6</p>
-                            <span className=" text-center text-[#ffffff] font-sans text-[16px] px-2 rounded-2xl bg-[#f4bd0e] w-[60px]">
-                                <p className="">Dimo</p>
-                            </span>
-                        </div>
-                    </div>
-                </div>
+import Calendar from '@/components/calendar';
+import Link from 'next/link';
+import React, { useState } from 'react';
+import ReactApexChart from 'react-apexcharts';
+
+interface ApexChartProps { }
+
+const Dashboard: React.FC<ApexChartProps> = () => {
+  const [series, setSeries] = useState([
+    {
+      name: 'series1',
+      data: [31, 40, 28, 51, 42, 109, 100]
+    },
+    {
+      name: 'series2',
+      data: [11, 32, 45, 32, 34, 52, 41]
+    }
+  ]);
+
+  const [options, setOptions] = useState({
+    chart: {
+      height: 350,
+      type: 'area' as 'area'
+    },
+    colors: ['#FF4560', '#008FFB'],
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth' as 'smooth'
+    },
+    xaxis: {
+      type: 'datetime' as 'datetime',
+      categories: [
+        "2024-06-19T00:00:00.000Z",
+        "2024-06-19T01:30:00.000Z",
+        "2024-06-19T02:30:00.000Z",
+        "2024-06-19T03:30:00.000Z",
+        "2024-06-19T04:30:00.000Z",
+        "2024-06-19T05:30:00.000Z",
+        "2024-06-19T06:30:00.000Z"
+      ]
+    },
+    tooltip: {
+      x: {
+        format: 'dd/MM/yy HH:mm'
+      }
+    }
+  });
+
+  return (
+    <div className="grid mr-10 justify-center w-full ">
+
+      <div className="flex justify-evenly mb-6 w-full ">
+        <div className="bg-white rounded-xl p-2 w-[201px] h-[80px] justify-center items-center shadow-xl">
+          <p className="text-gray-400 text-[12px]">Total student</p>
+          <h1 className="text-[17px] font-semibold">12.130K</h1>
+          <h1 className="text-gray-400 text-[12px]"> <span className="text-green-500 font-semibold">4.63%</span> vs. last Year</h1>
+        </div>
+        <div className="bg-white rounded-xl p-2 w-[201px] h-[80px] justify-center items-center shadow-xl">
+          <p className="text-gray-400 text-[12px]">Total student</p>
+          <h1 className="text-[17px] font-semibold">12.130K</h1>
+          <h1 className="text-gray-400 text-[12px]"> <span className="text-green-500 font-semibold">4.63%</span> vs. last Year</h1>
+        </div>
+        <div className="bg-white rounded-xl p-2 w-[201px] h-[80px] justify-center items-center shadow-xl">
+          <p className="text-gray-400 text-[12px]">Total student</p>
+          <h1 className="text-[17px] font-semibold">12.130K</h1>
+          <h1 className="text-gray-400 text-[12px]"> <span className="text-green-500 font-semibold">4.63%</span> vs. last Year</h1>
+        </div>
+        <div className="bg-white rounded-xl p-2 w-[201px] h-[80px] justify-center items-center shadow-xl">
+          <p className="text-gray-400 text-[12px]">Total student</p>
+          <h1 className="text-[17px] font-semibold">12.130K</h1>
+          <h1 className="text-gray-400 text-[12px]"> <span className="text-green-500 font-semibold">4.63%</span> vs. last Year</h1>
+        </div>
+      </div>
+
+      <div className="flex mb-6 justify-between gap-10 w-full">
+        <div id="chart" className='bg-white rounded-xl p-2 w-[850px] shadow-xl'>
+          <p className="font-semibold text-[18px]">School Finace</p>
+          <ReactApexChart options={options} series={series} type="area" width={800} height={350} />
+        </div>
+        <div className='grid bg-white justify-center items-center p-2 rounded-xl w-[550px] shadow-xl'>
+          <div className="flex justify-evenly items-center">
+            <div className="p-2 bg-[#F9DCA4] h-[75px] w-[66px] rounded-xl justify-center items-center text-center mr-3">
+              <h1 className="text-[18px] font-semibold text-[#F79009]">6</h1>
+              <h1 className="text-[18px] font-semibold text-[#F79009]">Sun</h1>
             </div>
-        </>
-    );
-}
- 
+            <div className=" grid gap-2 w-[150px]">
+              <p className="text-[13px] text-[#F79009]">06 - May -2024</p>
+              <p className="text-[16px] text-gray-400">Event Name</p>
+              <div className="w-full bg-gray-200 rounded-full h-2.5 ">
+                <div
+                  className="bg-[#F79009] h-2.5 rounded-full"
+                  style={{ width: `50%` }}
+                ></div>
+              </div>
+            </div>
+            <div className=" grid gap-8 w-[200px] ml-3">
+              <p className="text-[13px] text-gray-600">7:00AM - 8:00AM</p>
+              <p className="text-[16px] text-gray-600">23 Intersted in the event</p>
+            </div>
+          </div>
+          <div className="flex justify-evenly items-center">
+            <div className="p-2 bg-gray-200 h-[75px] w-[66px] rounded-xl justify-center items-center text-center mr-3">
+              <h1 className="text-[18px] font-semibold text-gray-600">6</h1>
+              <h1 className="text-[18px] font-semibold text-gray-600">Sun</h1>
+            </div>
+            <div className=" grid gap-2 w-[150px]">
+              <p className="text-[13px] text-gray-600">06 - May -2024</p>
+              <p className="text-[16px] text-gray-600">Event Name</p>
+              <div className="w-full bg-gray-200 rounded-full h-2.5 ">
+                <div
+                  className="bg-gray-600 h-2.5 rounded-full"
+                  style={{ width: `50%` }}
+                ></div>
+              </div>
+            </div>
+            <div className=" grid gap-8 w-[200px] ml-3">
+              <p className="text-[13px] text-[#F79009]">7:00AM - 8:00AM</p>
+              <p className="text-[16px] text-gray-400">23 Intersted in the event</p>
+            </div>
+          </div>
+          <div className="flex justify-evenly items-center">
+            <div className="p-2 bg-[#2970ff91] h-[75px] w-[66px] rounded-xl justify-center items-center text-center mr-3">
+              <h1 className="text-[18px] font-semibold text-[#2970FF]">6</h1>
+              <h1 className="text-[18px] font-semibold text-[#2970FF]">Sun</h1>
+            </div>
+            <div className=" grid gap-2 w-[150px]">
+              <p className="text-[13px] text-[#2970FF]">06 - May -2024</p>
+              <p className="text-[16px] text-gray-400">Event Name</p>
+              <div className="w-full bg-gray-200 rounded-full h-2.5 ">
+                <div
+                  className="bg-[#2970FF] h-2.5 rounded-full"
+                  style={{ width: `50%` }}
+                ></div>
+              </div>
+            </div>
+            <div className=" grid gap-8 w-[200px] ml-3">
+              <p className="text-[13px] text-[#2970FF]">7:00AM - 8:00AM</p>
+              <p className="text-[16px] text-gray-400">23 Intersted in the event</p>
+            </div>
+          </div>
+          <div className="grid justify-center ">
+              <button className="px-1 py-1.5 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[14px] w-[120px] ease-in font-semibold duration-300">+ New Event</button>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex mb-6 justify-between gap-10 w-full">
+        <div className="shadow-xl w-[850px] flex justify-center bg-white">
+          <Calendar/>
+        </div>
+        <div className="grid bg-white rounded-xl shadow-xl p-2 w-[550px]">
+          <p className="font-semibold text-[18px]">Notice Board</p>
+          <div className="">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  );
+};
+
+
 export default Dashboard;
