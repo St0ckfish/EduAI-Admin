@@ -304,9 +304,9 @@ const NavBar = () => {
                         {
                           isOpen3 && (
                             <ul className={`${small ? 'translate-x-5 bg-white rounded-xl p-2 w-[180px] hidden group-hover:grid whitespace-nowrap' : ''} grid gap-2 ml-9 mt-2 text-[14px] font-semibold`}>
-                              <Link className="hover:text-[#3e5af0]" href="/">Curriculum Management</Link>
+                              <Link className="hover:text-[#3e5af0]" href="/curriculum-management">Curriculum Management</Link>
                               <Link className="hover:text-[#3e5af0]" href="/">Course and Resource</Link>
-                              <Link className="hover:text-[#3e5af0]" href="/">Educational Affairs</Link>
+                              <Link className="hover:text-[#3e5af0]" href="/educational-affairs">Educational Affairs</Link>
                             </ul>
                           )
                         }
