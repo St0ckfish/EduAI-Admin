@@ -58,7 +58,7 @@ const Scholarship = () => {
                         <Link href="/" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] w-[180px] ease-in font-semibold duration-300">+ Add Scholarship</Link>
                     </div>
                 </div>
-                <div className="flex justify-left gap-5 text-[23px] font-bold mb-5">
+                <div className="flex justify-left gap-5 text-[23px] font-bold mb-5 ml-4">
                     <Link href="/financial-management">
                     Invoices
                     </Link>
