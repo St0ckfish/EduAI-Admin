@@ -8,11 +8,14 @@ const Search = () => {
                 <div className="grid bg-white rounded-xl w-full h-full">
                     <div className="flex gap-2 bg-gray-200 h-[70px] rounded-t-xl items-center pl-3 font-semibold">
                         <Link className="hover:text-blue-500 hover:underline underline-offset-4" href="/">Student</Link>
-                        <Link href="/">Teacher</Link>
-                        <Link href="/">Employee</Link>
-                        <Link href="/">Worker</Link>
-                        <Link href="/">Fees</Link>
-                        <Link href="/">Infrastructure</Link>
+                        <Link className="hover:text-blue-500 hover:underline underline-offset-4" href="/">Teacher</Link>
+                        <Link className="hover:text-blue-500 hover:underline underline-offset-4" href="/">Employee</Link>
+                        <Link className="hover:text-blue-500 hover:underline underline-offset-4" href="/">Worker</Link>
+                        <Link className="hover:text-blue-500 hover:underline underline-offset-4" href="/">Fees</Link>
+                        <Link className="hover:text-blue-500 hover:underline underline-offset-4" href="/">Infrastructure</Link>
+                    </div>
+                    <div>
+                        <div></div>
                     </div>
                 </div>
             </div>
