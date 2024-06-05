@@ -40,7 +40,7 @@ const Infrastructure = () => {
                         </Link>
                     </div>
                     <div className="w-[250px] h-[250px] bg-white rounded-xl shadow-lg grid justify-center items-center">
-                        <Link href="/" className="grid items-center justify-center text-center" >
+                        <Link href="/camera" className="grid items-center justify-center text-center" >
                             <div className="bg-[#FAEFEF] rounded-full h-[87px] w-[87px] grid items-center justify-center ">
                             <img src="/images/camera.png" alt="#" />
                             </div>
