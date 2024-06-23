@@ -1,6 +1,8 @@
 "use client"
 import Link from "next/link";
-import { useState, useEffect } from 'react'; // Import useState and useEffect hooks
+import { useState, useEffect } from 'react';
+import { toast } from "react-toastify";
+
 
 const Parent = () => {
     const [selectAll, setSelectAll] = useState(false); // State to track whether select all checkbox is checked
@@ -40,8 +42,15 @@ const Parent = () => {
         };
     }, []);
 
-    return ( 
+    return (
         <>
+            <div className="flex items-center gap-1 lg:ml-[290px] mt-12 ml-7 text-[18px] max-[550px]:text-[15px]">
+                <Link className="text-[#526484] hover:text-blue-400 hover:underline  font-semibold" href="/">Administration</Link>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{ fill: 'rgba(82, 100, 132, 1)', transform: '', msFilter: '' }}><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg>
+                <Link className="text-[#526484] hover:text-blue-400 hover:underline  font-semibold" href="/user-management">User Management</Link>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{ fill: 'rgba(82, 100, 132, 1)', transform: '', msFilter: '' }}><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg>
+                <Link className="text-[#526484] hover:text-blue-400 hover:underline  font-semibold" href="/parent">Parent</Link>
+            </div>
             <div className="lg:ml-[270px] mr-[5px] relative mt-10 overflow-x-auto bg-transparent sm:rounded-lg h-screen">
                 <div className="flex justify-between max-[502px]:grid max-[502px]:justify-center text-center">
                     <div className="mb-3">
@@ -52,7 +61,7 @@ const Parent = () => {
                             </div>
                             <input type="text" id="icon" name="icon" className="py-2  outline-none border-2 px-4 ps-11 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Search" />
                         </div>
-                    </div> 
+                    </div>
                     <div className="flex justify-center">
                         <Link href="/add-new-parent" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] w-[180px] ease-in font-semibold duration-300">+ Add new Parent</Link>
                     </div>
@@ -68,7 +77,7 @@ const Parent = () => {
                                     </div>
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                    Name 
+                                    Name
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
                                     Code
@@ -98,7 +107,7 @@ const Parent = () => {
                                     This is text
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                <Link href="/parent/view-parent" className="font-medium text-blue-600 hover:underline">View</Link>
+                                    <Link href="/parent/view-parent" className="font-medium text-blue-600 hover:underline">View</Link>
 
                                 </td>
                             </tr>
@@ -118,8 +127,8 @@ const Parent = () => {
                                     This is text
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                <Link href="/parent/view-parent" className="font-medium text-blue-600 hover:underline">View</Link>
-                                    
+                                    <Link href="/parent/view-parent" className="font-medium text-blue-600 hover:underline">View</Link>
+
                                 </td>
                             </tr>
                         </tbody>

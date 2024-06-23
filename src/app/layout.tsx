@@ -3,7 +3,9 @@ import { Inter } from "next/font/google";
 import { Metadata } from "next";
 import "./globals.css";
 import NavBar from "./../components/navBar";
-
+import { Providers } from "@/GlobalRedux/provider";
+import Notification from "@/components/Notifications";
+import 'react-toastify/dist/ReactToastify.css'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,12 +25,16 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
       <head>
         <title>Edu AI-Admin</title>
         <meta name="description" content="Edu AI-Admin" />
-        <link rel="icon" type="image/x-icon" href="/images/Login.png"/>
+        <link rel="icon" type="image/x-icon" href="/images/Login.png" />
       </head>
       <body>
- 
-        <NavBar />
-        {children}
+
+        <Providers>
+          <NavBar />
+          <Notification/>
+          {children}
+        </Providers>
+
       </body>
     </html>
   );
