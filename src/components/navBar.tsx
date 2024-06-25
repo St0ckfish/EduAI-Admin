@@ -191,9 +191,7 @@ const NavBar = () => {
                       <path d="M5 1L10.6869 7.16086C10.8637 7.35239 10.8637 7.64761 10.6869 7.83914L5 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                     </svg>
                   </li>
-                  <li className="text-sm font-semibold text-gray-800 truncate" aria-current="page">
-                    {pathname.slice(1).toUpperCase()}
-                  </li>
+                  
                 </ol>
 
                 <button onClick={OpenSideBar} type="button" className="py-2 px-3 flex justify-center items-center gap-x-1.5 text-xs rounded-lg border border-gray-200 text-gray-500 hover:text-gray-600" data-hs-overlay="#application-sidebar" aria-controls="application-sidebar" aria-label="Sidebar">

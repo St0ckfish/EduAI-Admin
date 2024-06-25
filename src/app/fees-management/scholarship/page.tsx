@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState, useEffect } from 'react'; // Import useState and useEffect hooks
 
-const Employee = () => {
+const Scholarship = () => {
     const [selectAll, setSelectAll] = useState(false); // State to track whether select all checkbox is checked
 
     // Function to handle click on select all checkbox
@@ -44,12 +44,14 @@ const Employee = () => {
     return ( 
         <>
             <div className="flex items-center gap-1 lg:ml-[290px] mt-12 ml-7 text-[18px] max-[550px]:text-[15px]  flex-wrap">
-                <Link className="text-[#526484] hover:text-blue-400 hover:underline  font-semibold" href="/">Administration</Link>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{ fill: 'rgba(82, 100, 132, 1)', transform: '', msFilter: '' }}><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg>
-                <Link className="text-[#526484] hover:text-blue-400 hover:underline  font-semibold" href="/user-management">User Management</Link>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{ fill: 'rgba(82, 100, 132, 1)', transform: '', msFilter: '' }}><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg>
-                <Link className="text-[#526484] hover:text-blue-400 hover:underline  font-semibold" href="/employee">Employee</Link>
-            </div>
+            <Link className="text-[#526484] hover:text-blue-400 hover:underline  font-semibold" href="/">Administration</Link>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{fill: 'rgba(82, 100, 132, 1)',transform: '',msFilter: ''}}><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg>
+            <Link className="text-[#526484] hover:text-blue-400 hover:underline  font-semibold" href="/financial-management">Financial Management</Link>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{fill: 'rgba(82, 100, 132, 1)',transform: '',msFilter: ''}}><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg>
+            <Link className="text-[#526484] hover:text-blue-400 hover:underline  font-semibold" href="/fees-management">Fees Management</Link>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{fill: 'rgba(82, 100, 132, 1)',transform: '',msFilter: ''}}><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg>
+            <Link className="text-[#526484] hover:text-blue-400 hover:underline  font-semibold" href="/scholarship">Scholarship</Link>
+        </div>
             <div className="lg:ml-[270px] mr-[5px] relative mt-10 overflow-x-auto bg-transparent sm:rounded-lg h-screen">
                 <div className="flex justify-between max-[502px]:grid max-[502px]:justify-center text-center">
                     <div className="mb-3">
@@ -62,8 +64,16 @@ const Employee = () => {
                         </div>
                     </div> 
                     <div className="flex justify-center">
-                        <Link href="/add-new-employee" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] w-[210px] ease-in font-semibold duration-300">+ Add New Employee</Link>
+                        <Link href="/" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] w-[180px] ease-in font-semibold duration-300">+ Add Scholarship</Link>
                     </div>
+                </div>
+                <div className="flex justify-left gap-5 text-[23px] font-bold mb-5 ml-4">
+                    <Link href="/financial-management">
+                    Invoices
+                    </Link>
+                    <Link href="/financial-management/scholarship" className="text-blue-500 underline">
+                     Scholarship
+                    </Link>
                 </div>
                 <div className="overflow-auto relative shadow-md sm:rounded-lg">
                     <table className="w-full overflow-x-auto text-sm text-left rtl:text-right text-gray-500 ">
@@ -131,7 +141,7 @@ const Employee = () => {
                                     This is text
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                <Link href="/employee/view-employee" className="font-medium text-blue-600 hover:underline">View</Link>
+                                <Link href="/driver/view-driver" className="font-medium text-blue-600 hover:underline">View</Link>
 
                                 </td>
                             </tr>
@@ -164,7 +174,7 @@ const Employee = () => {
                                     This is text
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                <Link href="/employee/view-employee" className="font-medium text-blue-600 hover:underline">View</Link>
+                                <Link href="/driver/view-driver" className="font-medium text-blue-600 hover:underline">View</Link>
                                     
                                 </td>
                             </tr>
@@ -176,4 +186,4 @@ const Employee = () => {
     );
 }
 
-export default Employee;
+export default Scholarship;
