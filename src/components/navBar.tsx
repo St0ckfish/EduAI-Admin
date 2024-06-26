@@ -287,8 +287,8 @@ const NavBar = () => {
                               <Link className="hover:text-[#3e5af0]" href="/user-management">User Management</Link>
                               <Link className="hover:text-[#3e5af0]" href="/financial-management">Financial Management</Link>
                               <Link className="hover:text-[#3e5af0]" href="/organization-setting">Organization Setting</Link>
-                              <Link className="hover:text-[#3e5af0]" href="/archive">Archive</Link>
                               <Link className="hover:text-[#3e5af0]" href="/document-management">Document Management</Link>
+                              <Link className="hover:text-[#3e5af0]" href="/archive">Archive</Link>
                             </ul>
                           )
                         }

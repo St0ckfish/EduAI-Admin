@@ -17,7 +17,7 @@ const DocumentManagement = () => {
                             <div className="bg-[#FAEFEF] rounded-full h-[87px] w-[87px] grid items-center justify-center ">
                                 <img src="/images/certificate.png" alt="#" />
                             </div>
-                            <p className="text-[22px] font-semibold mt-2">Certificates</p>
+                            <p className="text-[22px] font-semibold mt-2">Certificate</p>
                         </Link>
                     </div>
                     <div className="w-[250px] h-[250px] bg-white rounded-xl shadow-lg grid justify-center items-center">
@@ -25,7 +25,7 @@ const DocumentManagement = () => {
                             <div className="bg-[#FAEFEF] rounded-full h-[87px] w-[87px] grid items-center justify-center ">
                                 <img src="/images/file.png" alt="#" />
                             </div>
-                            <p className="text-[22px] font-semibold mt-2">Transcripts</p>
+                            <p className="text-[22px] font-semibold mt-2">Transcript</p>
                         </Link>
                     </div>
                     <div className="w-[250px] h-[250px] bg-white rounded-xl shadow-lg grid justify-center items-center">
@@ -33,7 +33,7 @@ const DocumentManagement = () => {
                             <div className="bg-[#FAEFEF] rounded-full h-[87px] w-[87px] grid items-center justify-center ">
                                 <img src="/images/management.png" alt="#" />
                             </div>
-                            <p className="text-[22px] font-semibold mt-2">Enrollment<br />Records</p>
+                            <p className="text-[22px] font-semibold mt-2">Enrollment</p>
                         </Link>
                     </div>
                     <div className="w-[250px] h-[250px] bg-white rounded-xl shadow-lg grid justify-center items-center">
@@ -41,7 +41,7 @@ const DocumentManagement = () => {
                             <div className="bg-[#FAEFEF] rounded-full h-[87px] w-[87px] grid items-center justify-center ">
                                 <img src="/images/user.png" alt="#" />
                             </div>
-                            <p className="text-[22px] font-semibold mt-2">Attendance<br />Records</p>
+                            <p className="text-[22px] font-semibold mt-2">Attendance</p>
                         </Link>
                     </div>
                     <div className="w-[250px] h-[250px] bg-white rounded-xl shadow-lg grid justify-center items-center">
@@ -49,7 +49,7 @@ const DocumentManagement = () => {
                             <div className="bg-[#FAEFEF] rounded-full h-[87px] w-[87px] grid items-center justify-center ">
                                 <img src="/images/other.png" alt="#" />
                             </div>
-                            <p className="text-[22px] font-semibold mt-2">Other<br /> Official Documents</p>
+                            <p className="text-[22px] font-semibold mt-2">Other</p>
                         </Link>
                     </div>
                 </div>
