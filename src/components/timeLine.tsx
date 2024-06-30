@@ -94,7 +94,7 @@ const Timeline: React.FC = () => {
             &gt;
           </button>
         </div>
-        <table className="w-full overflow-auto">
+        <table className="w-full overflow-auto"> 
           <thead>
             <tr>
               {['Saturday','Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'].map(day => (
