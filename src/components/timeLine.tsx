@@ -1,6 +1,6 @@
 "use client";
-import React from 'react';
-import { format, startOfMonth, endOfMonth, addDays, eachDayOfInterval, isSameMonth } from 'date-fns';
+import React, { useState } from 'react';
+import { format, startOfMonth, endOfMonth, addMonths, eachDayOfInterval, isSameMonth, isToday } from 'date-fns';
 
 interface Event {
   date: Date;
@@ -35,7 +35,7 @@ const events: Event[] = [
     color: 'bg-red-500'
   },
   {
-    date: new Date(2024, 5, 2),
+    date: new Date(2024, 6, 2),
     name: 'LOL',
     time: '12:00~14:00',
     color: 'bg-orange-400'
@@ -61,29 +61,46 @@ const events: Event[] = [
 ];
 
 const Timeline: React.FC = () => {
-  const today = new Date();
-  const startOfCurrentMonth = startOfMonth(today);
-  const endOfCurrentMonth = endOfMonth(today);
+  const [currentMonth, setCurrentMonth] = useState(new Date());
+
+  const startOfCurrentMonth = startOfMonth(currentMonth);
+  const endOfCurrentMonth = endOfMonth(currentMonth);
   const daysInMonth = eachDayOfInterval({
     start: startOfCurrentMonth,
     end: endOfCurrentMonth
   });
 
+  const handlePrevMonth = () => {
+    setCurrentMonth(addMonths(currentMonth, -1));
+  };
+
+  const handleNextMonth = () => {
+    setCurrentMonth(addMonths(currentMonth, 1));
+  };
+
   return (
-    <div className="container mx-auto">
-      <div className="wrapper bg-white rounded shadow w-full">
+    <div className='grid overflow-auto'>
+
+    <div className="mx-auto overflow-auto w-full">
+      <div className="wrapper bg-white rounded shadow overflow-auto">
         <div className="header flex justify-between border-b p-2">
+          <button onClick={handlePrevMonth} className="p-2">
+            &lt;
+          </button>
           <span className="text-lg font-bold">
-            {format(today, 'yyyy MMMM')}
+            {format(currentMonth, 'yyyy MMMM')}
           </span>
+          <button onClick={handleNextMonth} className="p-2">
+            &gt;
+          </button>
         </div>
-        <table className="w-full">
+        <table className="w-full overflow-auto">
           <thead>
             <tr>
-              {['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].map(day => (
+              {['Saturday','Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'].map(day => (
                 <th
                   key={day}
-                  className="p-2 border-r h-10 xl:w-40 lg:w-30 md:w-30 sm:w-20 w-10 xl:text-sm text-xs"
+                  className="p-2 border-r h-10 w-40 xl:text-sm text-xs"
                 >
                   <span className="xl:block lg:block md:block sm:block hidden">
                     {day}
@@ -103,12 +120,12 @@ const Timeline: React.FC = () => {
                   return (
                     <td
                       key={dayIndex}
-                      className={`border p-1 h-40 xl:w-40 lg:w-30 md:w-30 sm:w-20 w-10 overflow-auto transition cursor-pointer duration-500 ease hover:bg-gray-300 ${
-                        !isSameMonth(day, today) ? 'bg-gray-100' : ''
-                      }`}
+                      className={`border p-1 h-40 w-40  overflow-auto transition cursor-pointer duration-500 ease hover:bg-gray-300 ${
+                        !isSameMonth(day, currentMonth) ? 'bg-gray-100' : ''
+                      } ${isToday(day) ? 'bg-blue-300 shadow-2xl scale-90' : ''}`}
                     >
                       {day && (
-                        <div className="flex flex-col h-40 mx-auto xl:w-40 lg:w-30 md:w-30 sm:w-full w-10 overflow-hidden">
+                        <div className="flex flex-col h-40 mx-auto w-40  overflow-hidden">
                           <div className="top h-5 w-full">
                             <span className="text-gray-500">{format(day, 'd')}</span>
                           </div>
@@ -136,6 +153,8 @@ const Timeline: React.FC = () => {
         </table>
       </div>
     </div>
+    </div>
   );
 };
+
 export default Timeline;

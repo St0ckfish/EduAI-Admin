@@ -1,5 +1,7 @@
 "use client"
 import React, { useState } from 'react';
+import { format } from 'date-fns';
+import { enUS } from 'date-fns/locale';
 
 const Calendar = () => {
     const currentDate = new Date();
@@ -8,7 +10,7 @@ const Calendar = () => {
     const [selectedDate, setSelectedDate] = useState(currentDate);
 
     // Function to handle date selection
-    const handleDateClick = (date: any) => {
+    const handleDateClick = (date: React.SetStateAction<Date>) => {
         setSelectedDate(date);
     };
 
@@ -46,36 +48,37 @@ const Calendar = () => {
         setSelectedDate(new Date(selectedDate.getFullYear(), selectedDate.getMonth() + 1, 1));
     };
 
+    // Format month and year with localization
+    const monthYear = format(selectedDate, 'LLLL yyyy', { locale: enUS });
+
     return (
         <>
             <div className="">
                 <div className="grid w-[500px] h-[550px] max-[1342px]:w-full bg-white rounded-xl p-5">
                     {/* Display month and year */}
                     <div className="flex justify-between mb-7">
-                        <button className='text-[23px] font-sans text-gray-800 font-semibold	' onClick={goToPreviousMonth}>&lt;</button>
-                        <h2 className="mb-3 font-sans text-gray-800 font-semibold	">{selectedDate.toLocaleString('default', { month: 'long' })} {selectedDate.getFullYear()}</h2>
-                        <button className='text-[23px] font-sans text-gray-800 font-semibold	' onClick={goToNextMonth}>&gt;</button>
+                        <button className='text-[23px] font-sans text-gray-800 font-semibold' onClick={goToPreviousMonth}>&lt;</button>
+                        <h2 className="mb-3 font-sans text-gray-800 font-semibold">{monthYear}</h2>
+                        <button className='text-[23px] font-sans text-gray-800 font-semibold' onClick={goToNextMonth}>&gt;</button>
                     </div>
                     {/* Display calendar */}
                     {/* Day names */}
                     <div className="grid grid-cols-7 ">
-                        <p className="font-sans text-gray-300 font-medium	">SUN</p>
-                        <p className="font-sans text-gray-300 font-medium	">MON</p>
-                        <p className="font-sans text-gray-300 font-medium	">TUE</p>
-                        <p className="font-sans text-gray-300 font-medium	">WED</p>
-                        <p className="font-sans text-gray-300 font-medium	">THU</p>
-                        <p className="font-sans text-gray-300 font-medium	">FRI</p>
-                        <p className="font-sans text-gray-300 font-medium	">SAT</p>
+                        <p className="font-sans text-gray-300 font-medium">SUN</p>
+                        <p className="font-sans text-gray-300 font-medium">MON</p>
+                        <p className="font-sans text-gray-300 font-medium">TUE</p>
+                        <p className="font-sans text-gray-300 font-medium">WED</p>
+                        <p className="font-sans text-gray-300 font-medium">THU</p>
+                        <p className="font-sans text-gray-300 font-medium">FRI</p>
+                        <p className="font-sans text-gray-300 font-medium">SAT</p>
                     </div>
                     <div className="grid grid-cols-7 ">
                         {monthDates.map((date, index) => (
                             <div
                                 key={index}
-                                className={`w-8 h-8 flex items-center justify-center rounded-full font-semibold	 ${date ? 'cursor-pointer' : ''
-                                    } ${date && date.getDate() == selectedDate.getDate() ? 'bg-blue-500 text-white' : ''}`}
+                                className={`w-8 h-8 flex items-center justify-center rounded-full font-semibold ${date ? 'cursor-pointer' : ''} ${date && date.getDate() === selectedDate.getDate() ? 'bg-blue-500 text-white' : ''}`}
                                 onClick={() => date && handleDateClick(date)}
                             >
-
                                 {date ? date.getDate() : ''}
                             </div>
                         ))}
