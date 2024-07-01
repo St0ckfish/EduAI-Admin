@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import { format, startOfMonth, endOfMonth, addMonths, eachDayOfInterval, isSameMonth, isToday } from 'date-fns';
+import { format, startOfMonth, endOfMonth, addMonths, eachDayOfInterval, isSameMonth, isToday, startOfWeek, addDays } from 'date-fns';
 
 interface Event {
   date: Date;
@@ -65,9 +65,10 @@ const Timeline: React.FC = () => {
 
   const startOfCurrentMonth = startOfMonth(currentMonth);
   const endOfCurrentMonth = endOfMonth(currentMonth);
+  const startOfFirstWeek = startOfWeek(startOfCurrentMonth, { weekStartsOn: 6 }); // week starts on Saturday
   const daysInMonth = eachDayOfInterval({
-    start: startOfCurrentMonth,
-    end: endOfCurrentMonth
+    start: startOfFirstWeek,
+    end: addDays(endOfCurrentMonth, 6 - endOfCurrentMonth.getDay())
   });
 
   const handlePrevMonth = () => {
@@ -80,79 +81,78 @@ const Timeline: React.FC = () => {
 
   return (
     <div className='grid overflow-auto'>
-
-    <div className="mx-auto overflow-auto w-full">
-      <div className="wrapper bg-white rounded shadow overflow-auto">
-        <div className="header flex justify-between border-b p-2">
-          <button onClick={handlePrevMonth} className="p-2">
-            &lt;
-          </button>
-          <span className="text-lg font-bold">
-            {format(currentMonth, 'yyyy MMMM')}
-          </span>
-          <button onClick={handleNextMonth} className="p-2">
-            &gt;
-          </button>
-        </div>
-        <table className="w-full overflow-auto"> 
-          <thead>
-            <tr>
-              {['Saturday','Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'].map(day => (
-                <th
-                  key={day}
-                  className="p-2 border-r h-10 w-40 xl:text-sm text-xs"
-                >
-                  <span className="xl:block lg:block md:block sm:block hidden">
-                    {day}
-                  </span>
-                  <span className="xl:hidden lg:hidden md:hidden sm:hidden block">
-                    {day.slice(0, 3)}
-                  </span>
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {Array.from({ length: Math.ceil(daysInMonth.length / 7) }).map((_, weekIndex) => (
-              <tr key={weekIndex} className="text-center h-20">
-                {Array.from({ length: 7 }).map((_, dayIndex) => {
-                  const day = daysInMonth[weekIndex * 7 + dayIndex];
-                  return (
-                    <td
-                      key={dayIndex}
-                      className={`border p-1 h-40 w-40  overflow-auto transition cursor-pointer duration-500 ease hover:bg-gray-300 ${
-                        !isSameMonth(day, currentMonth) ? 'bg-gray-100' : ''
-                      } ${isToday(day) ? 'bg-blue-300 shadow-2xl scale-90' : ''}`}
-                    >
-                      {day && (
-                        <div className="flex flex-col h-40 mx-auto w-40  overflow-hidden">
-                          <div className="top h-5 w-full">
-                            <span className="text-gray-500">{format(day, 'd')}</span>
-                          </div>
-                          <div className="bottom flex-grow h-30 py-1 w-full cursor-pointer overflow-auto">
-                            {events
-                              .filter(event => format(event.date, 'yyyy-MM-dd') === format(day, 'yyyy-MM-dd'))
-                              .map((event, idx) => (
-                                <div
-                                  key={idx}
-                                  className={`event ${event.color} text-white rounded px-3 py-1.5 justify-center text-center text-sm mb-1 flex gap-1`}
-                                >
-                                  <span className="event-name">{event.name}</span>
-                                  <span className="time">{event.time}</span>
-                                </div>
-                              ))}
-                          </div>
-                        </div>
-                      )}
-                    </td>
-                  );
-                })}
+      <div className="mx-auto overflow-auto w-full">
+        <div className="wrapper bg-white rounded shadow overflow-auto">
+          <div className="header flex justify-between border-b p-2">
+            <button onClick={handlePrevMonth} className="p-2">
+              &lt;
+            </button>
+            <span className="text-lg font-bold">
+              {format(currentMonth, 'yyyy MMMM')}
+            </span>
+            <button onClick={handleNextMonth} className="p-2">
+              &gt;
+            </button>
+          </div>
+          <table className="w-full overflow-auto"> 
+            <thead>
+              <tr>
+                {['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'].map(day => (
+                  <th
+                    key={day}
+                    className="p-2 border-r h-10 w-40 xl:text-sm text-xs"
+                  >
+                    <span className="xl:block lg:block md:block sm:block hidden">
+                      {day}
+                    </span>
+                    <span className="xl:hidden lg:hidden md:hidden sm:hidden block">
+                      {day.slice(0, 3)}
+                    </span>
+                  </th>
+                ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {Array.from({ length: Math.ceil(daysInMonth.length / 7) }).map((_, weekIndex) => (
+                <tr key={weekIndex} className="text-center h-20">
+                  {Array.from({ length: 7 }).map((_, dayIndex) => {
+                    const day = daysInMonth[weekIndex * 7 + dayIndex];
+                    return (
+                      <td
+                        key={dayIndex}
+                        className={`border p-1 h-40 w-40 overflow-auto transition cursor-pointer duration-500 ease hover:bg-gray-300 ${
+                          !isSameMonth(day, currentMonth) ? 'bg-gray-100' : ''
+                        } ${isToday(day) ? 'bg-blue-300 shadow-2xl scale-90' : ''}`}
+                      >
+                        {day && (
+                          <div className="flex flex-col h-40 mx-auto w-40 overflow-hidden">
+                            <div className="top h-5 w-full">
+                              <span className="text-gray-500">{format(day, 'd')}</span>
+                            </div>
+                            <div className="bottom flex-grow h-30 py-1 w-full cursor-pointer overflow-auto">
+                              {events
+                                .filter(event => format(event.date, 'yyyy-MM-dd') === format(day, 'yyyy-MM-dd'))
+                                .map((event, idx) => (
+                                  <div
+                                    key={idx}
+                                    className={`event ${event.color} text-white rounded px-3 py-1.5 justify-center text-center text-sm mb-1 flex gap-1`}
+                                  >
+                                    <span className="event-name">{event.name}</span>
+                                    <span className="time">{event.time}</span>
+                                  </div>
+                                ))}
+                            </div>
+                          </div>
+                        )}
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
     </div>
   );
 };
