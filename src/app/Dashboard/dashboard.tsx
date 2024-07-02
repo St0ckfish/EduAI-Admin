@@ -28,7 +28,7 @@ const Dashboard: React.FC<ApexChartProps> = () => {
       width: 800,
       type: 'area' as 'area'
     },
-    colors: ['#FF4560', '#008FFB'],
+    colors: ['#f19b78', '#008FFB'],
     dataLabels: {
       enabled: false
     },
@@ -83,13 +83,13 @@ const Dashboard: React.FC<ApexChartProps> = () => {
       </div>
 
       <div className="2xl:flex grid grid-cols-1 mb-6 justify-between gap-10 w-full overflow-x-auto ">
-        <div className="flex overflow-x-auto">
+        <div className="flex overflow-x-auto rounded-xl">
           <div id="chart" className='bg-white rounded-xl p-2 w-[850px] shadow-xl overflow-x-auto'>
             <p className="font-semibold text-[18px]">School Finace</p>
             <ReactApexChart options={options} series={series} type="area" width={options.chart.width} height={options.chart.height} />
           </div>
         </div>
-        <div className="grid overflow-x-auto">
+        <div className="grid overflow-x-auto rounded-xl">
           <div className='grid bg-white justify-center items-center p-2 rounded-xl w-[550px] shadow-xl max-[1536px]:w-[850px] max-[1536px]:h-[450px] overflow-x-auto'>
             <div className="flex justify-evenly items-center">
               <div className="p-2 bg-[#F9DCA4] h-[75px] w-[66px] rounded-xl justify-center items-center text-center mr-3">
@@ -165,7 +165,7 @@ const Dashboard: React.FC<ApexChartProps> = () => {
             <Calendar />
           </div>
         </div>
-        <div className="grid overflow-x-auto">
+        <div className="grid overflow-x-auto rounded-xl">
 
           <div className="grid bg-white rounded-xl shadow-xl p-2 w-[550px]  max-[1536px]:w-full overflow-x-auto">
             <p className="font-bold text-[20px]">Notice Board</p>

@@ -112,7 +112,6 @@ const NavBar = () => {
     <>
 
       <header>
-        {isLoginPage ? (
 
           <div>
 
@@ -367,7 +366,7 @@ const NavBar = () => {
           </div>
         ) : (
           <div></div>
-        )}
+
       </header>
     </>
   );

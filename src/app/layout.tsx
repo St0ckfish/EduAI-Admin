@@ -1,3 +1,5 @@
+"use client";
+
 import React, { ReactNode } from "react";
 import { Inter } from "next/font/google";
 import { Metadata } from "next";
@@ -6,6 +8,7 @@ import NavBar from "./../components/navBar";
 import { Providers } from "@/GlobalRedux/provider";
 import Notification from "@/components/Notifications";
 import 'react-toastify/dist/ReactToastify.css'
+import { usePathname } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +21,10 @@ interface RootLayoutProps {
   children: ReactNode;
 }
 
+
 const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
+  const pathname = usePathname();
+  const isLoginPage = pathname === "/login";
 
   return (
     <html lang="en">
@@ -30,7 +36,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
       <body>
 
         <Providers>
-          <NavBar />
+        {!isLoginPage && <NavBar /> }
           <Notification/>
           {children}
         </Providers>
