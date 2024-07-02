@@ -364,7 +364,6 @@ const NavBar = () => {
                 </div>)
             }
           </div>
-        ) : (
           <div></div>
 
       </header>
