@@ -6,6 +6,9 @@ import { useGetAllEmployeesQuery } from "@/features/employeeApi";
 import Spinner from "@/components/spinner";
 
 const Employee = () => {
+    type Employee = {
+        [key: string]: any; // Allows any property with any value
+    };
     const [search, setSearch] = useState("");
     const { data, error, isLoading, refetch } = useGetAllEmployeesQuery(null);
     const [selectAll, setSelectAll] = useState(false); 
@@ -113,9 +116,9 @@ const Employee = () => {
                             </tr>
                         </thead>
                         <tbody>
-                        {data?.data.content.filter((employee) => {
-                                return search.toLocaleLowerCase() === '' ? employee : employee.name.toLocaleLowerCase().includes(search)
-                            }).map((employee, index) => (
+                        {data?.data.content.filter((employee: Employee) => {
+                            return search.toLocaleLowerCase() === '' ? employee : employee.name.toLocaleLowerCase().includes(search);
+                        }).map((employee: Employee, index: number) => (
                             <tr key={employee.id} className="bg-white border-b  hover:bg-gray-50">
                                 <td className="w-4 p-4">
                                     <div className="flex items-center">
