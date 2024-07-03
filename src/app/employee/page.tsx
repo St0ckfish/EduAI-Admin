@@ -1,22 +1,29 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 import Link from "next/link";
-import { useState, useEffect } from 'react'; // Import useState and useEffect hooks
+import { useState, useEffect } from 'react';
+import { useGetAllEmployeesQuery } from "@/features/employeeApi";
+import Spinner from "@/components/spinner";
 
 const Employee = () => {
-    const [selectAll, setSelectAll] = useState(false); // State to track whether select all checkbox is checked
+    const [search, setSearch] = useState("");
+    const { data, error, isLoading, refetch } = useGetAllEmployeesQuery(null);
+    const [selectAll, setSelectAll] = useState(false); 
 
-    // Function to handle click on select all checkbox
+    useEffect(() => {
+        if (data) console.log("Response Data:", data);
+        if (error) console.log("Error:", error);
+      }, [data, error]);
+
     const handleSelectAll = () => {
-        setSelectAll(!selectAll); // Toggle select all state
-        const checkboxes = document.querySelectorAll<HTMLInputElement>('input[type="checkbox"]:not(#checkbox-all-search)'); // Select all checkboxes except select all checkbox
+        setSelectAll(!selectAll); 
+        const checkboxes = document.querySelectorAll<HTMLInputElement>('input[type="checkbox"]:not(#checkbox-all-search)'); 
         checkboxes.forEach(checkbox => {
-            checkbox.checked = !selectAll; // Set checked state of each checkbox based on select all state
+            checkbox.checked = !selectAll;
         });
     };
 
     useEffect(() => {
-        // Function to handle click on other checkboxes
         const handleOtherCheckboxes = () => {
             const allCheckboxes = document.querySelectorAll<HTMLInputElement>('input[type="checkbox"]:not(#checkbox-all-search)');
             const allChecked = Array.from(allCheckboxes).every(checkbox => checkbox.checked);
@@ -27,19 +34,23 @@ const Employee = () => {
             }
         };
 
-        // Add event listeners to other checkboxes
         const otherCheckboxes = document.querySelectorAll<HTMLInputElement>('input[type="checkbox"]:not(#checkbox-all-search)');
         otherCheckboxes.forEach(checkbox => {
             checkbox.addEventListener('change', handleOtherCheckboxes);
         });
 
         return () => {
-            // Remove event listeners when component unmounts
             otherCheckboxes.forEach(checkbox => {
                 checkbox.removeEventListener('change', handleOtherCheckboxes);
             });
         };
     }, []);
+    if (isLoading)
+        return (
+            <div className="h-screen w-full justify-center items-center flex ">
+                <Spinner />
+            </div>
+    );
 
     return ( 
         <>
@@ -58,7 +69,7 @@ const Employee = () => {
                             <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-4">
                                 <svg className="flex-shrink-0 size-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
                             </div>
-                            <input type="text" id="icon" name="icon" className="py-2  outline-none border-2 px-4 ps-11 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Search" />
+                            <input onChange={(e) => setSearch(e.target.value)} type="text" id="icon" name="icon" className="py-2  outline-none border-2 px-4 ps-11 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Search" />
                         </div>
                     </div> 
                     <div className="flex justify-center">
@@ -85,10 +96,10 @@ const Employee = () => {
                                     Gender
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                    Taxi Number
+                                Nationality
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                    Address
+                                Email
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
                                     Mobile
@@ -102,72 +113,51 @@ const Employee = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr className="bg-white border-b  hover:bg-gray-50">
+                        {data?.data.content.filter((employee:any) => {
+                                return search.toLocaleLowerCase() === '' ? employee : employee.name.toLocaleLowerCase().includes(search)
+                            }).map((employee, index) => (
+                            <tr key={employee.id} className="bg-white border-b  hover:bg-gray-50">
                                 <td className="w-4 p-4">
                                     <div className="flex items-center">
                                         <input id="checkbox-table-search-1" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
                                     </div>
                                 </td>
                                 <th scope="row" className="px-6 flex items-center py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                    <img src="/images/me.jpg" className="w-[40px] h-[40px] mr-2 rounded-full" alt="#" />
-                                    Nahda
+                                    <div>
+                                        {
+                                            employee.picture == null ?
+                                            <img src="/images/man.png" className="w-[40px] h-[40px] mr-2 rounded-full" alt="#" />
+                                            :
+                                            <img src={employee.picture} className="w-[40px] h-[40px] mr-2 rounded-full" alt="#" />
+
+                                        }
+                                    </div>
+                                    <p> {employee.name} </p>
                                 </th>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    1321312
+                                {employee.id}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    Male
+                                    {employee.gender}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    5515151
+                                    {employee.nationality}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    sdfsdfsdfsdf
+                                    {employee.email}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    002050030
+                                    {employee.number}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    This is text
+                                    {employee.about}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                 <Link href="/employee/view-employee" className="font-medium text-blue-600 hover:underline">View</Link>
 
                                 </td>
                             </tr>
-                            <tr className="bg-white border-b  hover:bg-gray-50">
-                                <td className="w-4 p-4">
-                                    <div className="flex items-center">
-                                        <input id="checkbox-table-search-1" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
-                                    </div>
-                                </td>
-                                <th scope="row" className="px-6 py-4 flex items-center font-medium text-gray-900 whitespace-nowrap ">
-                                <img src="/images/me.jpg" className="w-[40px] h-[40px] mr-2 rounded-full" alt="#" />
-                                    Nahda
-                                </th>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                1321312
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                Male
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                5513131s
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                sdfs2df
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                00515
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    This is text
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                <Link href="/employee/view-employee" className="font-medium text-blue-600 hover:underline">View</Link>
-                                    
-                                </td>
-                            </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>
