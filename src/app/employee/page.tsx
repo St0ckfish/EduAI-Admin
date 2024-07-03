@@ -113,7 +113,7 @@ const Employee = () => {
                             </tr>
                         </thead>
                         <tbody>
-                        {data?.data.content.filter((employee:any) => {
+                        {data?.data.content.filter((employee) => {
                                 return search.toLocaleLowerCase() === '' ? employee : employee.name.toLocaleLowerCase().includes(search)
                             }).map((employee, index) => (
                             <tr key={employee.id} className="bg-white border-b  hover:bg-gray-50">
