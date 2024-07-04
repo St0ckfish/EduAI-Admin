@@ -156,7 +156,7 @@ const Employee = () => {
                                     {employee.about}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                <Link href="/employee/view-employee" className="font-medium text-blue-600 hover:underline">View</Link>
+                                <Link href={`/employee/view-employee/${employee.id}`} className="font-medium text-blue-600 hover:underline">View</Link>
 
                                 </td>
                             </tr>

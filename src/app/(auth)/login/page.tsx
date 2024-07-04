@@ -71,8 +71,8 @@ const Login = () => {
                         </form>
                     </div>
                 </div>
-                <div className="max-[1040px]:hidden">
-                    <img className="w-[800px] h-[928px]" src="images/loginbg.png" alt="#" />
+                <div className="max-[1040px]:hidden flex justify-end">
+                    <img className="w-[800px] h-[928px]" src="images/signin.png" alt="#" />
                 </div>
             </div>
         </>

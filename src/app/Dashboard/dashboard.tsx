@@ -79,6 +79,11 @@ const Dashboard: React.FC<ApexChartProps> = () => {
             <h1 className="text-[17px] font-semibold">12.130K</h1>
             <h1 className="text-gray-400 text-[12px]"> <span className="text-green-500 font-semibold">4.63%</span> vs. last Year</h1>
           </div>
+          <div className="bg-white rounded-xl p-2 w-[201px] h-[80px] justify-center items-center shadow-xl max-[576px]:h-[100px]">
+            <p className="text-gray-400 text-[12px]">Total student</p>
+            <h1 className="text-[17px] font-semibold">12.130K</h1>
+            <h1 className="text-gray-400 text-[12px]"> <span className="text-green-500 font-semibold">4.63%</span> vs. last Year</h1>
+          </div>
         </div>
       </div>
 
