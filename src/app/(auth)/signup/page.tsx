@@ -146,7 +146,7 @@ const signup = () => {
                                                 {nationalityData &&
                                                 Object.entries(nationalityData.data).map(([key, value]) => (
                                                     <option key={String(value)} value={key}>
-                                                    {value}
+                                                    {String(value)}
                                                     </option>
                                                 ))}
                                             </select>
