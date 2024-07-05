@@ -2,7 +2,7 @@
 "use client"
 import Link from "next/link";
 
-const EmployeeInfo = ({data}) => {
+const EmployeeInfo = ({ data }: { data: any }) => {
 
     return ( 
         <>

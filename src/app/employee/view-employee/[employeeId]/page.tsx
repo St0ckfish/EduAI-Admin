@@ -10,7 +10,13 @@ import { useEffect } from "react";
 import Link from "next/link";
 import Spinner from "@/components/spinner";
 
-const ViewEmployee = ({ params }) => {
+interface ViewEmployeeProps {
+  params: {
+    employeeId: string;
+  };
+}
+
+const ViewEmployee: React.FC<ViewEmployeeProps> = ({ params }) => {
   const { data, error, isLoading } = useGetEmployeeByIdQuery(params.employeeId);
   useEffect(() => {
     if (data) {
