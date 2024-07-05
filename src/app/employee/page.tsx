@@ -125,8 +125,8 @@ const Employee = () => {
                                         <input id="checkbox-table-search-1" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
                                     </div>
                                 </td>
-                                <th scope="row" className="px-6 flex items-center py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                    <div>
+                                <th scope="row" className="px-6 flex items-center py-4 gap-2 font-medium text-gray-900 whitespace-nowrap">
+                                    <div className="w-[50px]">
                                         {
                                             employee.picture == null ?
                                             <img src="/images/man.png" className="w-[40px] h-[40px] mr-2 rounded-full" alt="#" />
