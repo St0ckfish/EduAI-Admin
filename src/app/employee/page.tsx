@@ -129,10 +129,9 @@ const Employee = () => {
                                     <div className="w-[50px]">
                                         {
                                             employee.picture == null ?
-                                            <img src="/images/man.png" className="w-[40px] h-[40px] mr-2 rounded-full" alt="#" />
+                                            <img src="/images/userr.png" className="w-[40px] h-[40px] mr-2 rounded-full" alt="#" />
                                             :
                                             <img src={employee.picture} className="w-[40px] h-[40px] mr-2 rounded-full" alt="#" />
-
                                         }
                                     </div>
                                     <p> {employee.name} </p>

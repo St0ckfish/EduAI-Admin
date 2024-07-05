@@ -47,7 +47,7 @@ export const employeeApi = createApi({
         }),
         //
         getEmployeeById: builder.query({
-            query: id => `cases/categories/${id}`,
+            query: id => `/api/v1/management/employee/${id}`,
         }),
         //
         updateEmployees: builder.mutation({
