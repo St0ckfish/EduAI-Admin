@@ -33,14 +33,14 @@ export const employeeApi = createApi({
         //
         deleteEmployees: builder.mutation({
             query: id => ({
-                url: `cases/categories/${id}`,
-                method: "DELETE",
+                url: `/api/v1/management/employee/account-lock/${id}?locked=true`,
+                method: "PUT",
             }),
         }),
         //
         createEmployees: builder.mutation({
             query: formData => ({
-                url: `cases/categories`,
+                url: `/api/v1/management/employee/new?type=EMPLOYEE`,
                 method: "POST",
                 body: formData,
             }),

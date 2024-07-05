@@ -2,7 +2,7 @@
 "use client"
 import Link from "next/link";
 import { useState, useEffect } from 'react';
-import { useGetAllEmployeesQuery } from "@/features/employeeApi";
+import { useGetAllEmployeesQuery, useDeleteEmployeesMutation } from "@/features/employeeApi";
 import Spinner from "@/components/spinner";
 
 const Employee = () => {
@@ -113,6 +113,9 @@ const Employee = () => {
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
                                     view
                                 </th>
+                                <th scope="col" className="px-6 py-3 whitespace-nowrap">
+                                    Action
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -155,8 +158,10 @@ const Employee = () => {
                                     {employee.about}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                <Link href={`/employee/view-employee/${employee.id}`} className="font-medium text-blue-600 hover:underline">View</Link>
-
+                                    <Link href={`/employee/view-employee/${employee.id}`} className="font-medium text-blue-600 hover:underline">View</Link>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <button className="px-2 py-1 rounded-lg text-white bg-red-500 font-semibold shadow-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">Lock</button>
                                 </td>
                             </tr>
                             ))}

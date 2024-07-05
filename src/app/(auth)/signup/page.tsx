@@ -27,14 +27,12 @@ const signup = () => {
     const onSubmit = async (data: any) => {
         try {
             const result = await loginDashboard(data).unwrap();
-            console.log("Login success:", result);
-            const token = result.token;
-            Cookie.set("token", result.data);
+            console.log("Account maked success:", result);
             toast.success("Login Success");
-            router.replace("/");
+            router.replace("/login");
         } catch (err:any) {
             toast.error(err.data.message);
-            console.error("Failed to login:", err);
+            console.error("Failed to make account:", err);
         }
     };
     useEffect(() => {
