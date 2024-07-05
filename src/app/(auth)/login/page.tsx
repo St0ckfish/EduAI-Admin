@@ -60,7 +60,7 @@ const Login = () => {
                                 <button disabled={isLoading} type="submit" className="px-4 py-2 rounded-xl bg-[#367aff] hover:bg-[#4a5cc5] hover:shadow-xl text-white font-bold text-[18px] w-[450px] max-[471px]:w-[350px] ease-in duration-300">{isLoading ? " Loading..." : "Login"}</button>
                             </div>
                             {error && (
-                                <p className="text-[#e81123]">
+                                <p className="text-[#e81123] font-semibold">
                                 Username or Password are not valid!
                                 </p>
                             )}
