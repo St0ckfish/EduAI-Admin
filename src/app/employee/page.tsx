@@ -7,7 +7,7 @@ import Spinner from "@/components/spinner";
 
 const Employee = () => {
     type Employee = {
-        [key: string]: any; // Allows any property with any value
+        [key: string]: any; 
     };
     const [search, setSearch] = useState("");
     const { data, error, isLoading, refetch } = useGetAllEmployeesQuery(null);

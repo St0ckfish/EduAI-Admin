@@ -179,8 +179,6 @@ const NavBar = () => {
                 </div>
               </nav>
             </header>
-
-
             <div className="sticky top-0 inset-x-0 z-20 bg-white border-y px-4 sm:px-6 md:px-8 lg:hidden ">
               <div className="flex justify-between items-center py-2">
                 <ol className="ms-3 flex items-center whitespace-nowrap">
