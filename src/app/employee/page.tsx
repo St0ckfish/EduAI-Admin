@@ -2,7 +2,7 @@
 "use client"
 import Link from "next/link";
 import { useState, useEffect } from 'react';
-import { useGetAllEmployeesQuery, useDeleteEmployeesMutation } from "@/features/employeeApi";
+import { useGetAllEmployeesQuery } from "@/features/employeeApi";
 import Spinner from "@/components/spinner";
 
 const Employee = () => {
