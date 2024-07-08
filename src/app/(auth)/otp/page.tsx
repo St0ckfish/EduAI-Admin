@@ -19,10 +19,10 @@ const OTP = () => {
         // Check if the value is empty and index is greater than 0
         if (!value && index > 0) {
             // If the current input is empty, focus on the previous input
-            inputRefs[index - 1].current.focus();
+            inputRefs[index - 1].current!.focus();
         } else if (value && index < inputRefs.length - 1) {
             // If the current input has a value and it's not the last input, focus on the next input
-            inputRefs[index + 1].current.focus();
+            inputRefs[index + 1].current!.focus();
         }
     };
     console.log(otp);
