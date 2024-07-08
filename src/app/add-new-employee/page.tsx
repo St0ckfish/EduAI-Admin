@@ -105,55 +105,40 @@ const AddNewEmployee = () => {
               <input id="fatherName" type="number" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("regionId", { required: true })} />
               {errors.regionId && <span className="text-red-600">This field is required</span>}
             </label>
-            <label htmlFor="firstName_en" className="grid text-[18px] font-sans font-semibold">
-            firstName_en
-              <input id="firstName_en" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("firstName_en", { required: true })} />
-              {errors.firstName_en && <span className="text-red-600">This field is required</span>}
+            <label htmlFor="name_en" className="grid text-[18px] font-sans font-semibold">
+            name_en
+              <input id="name_en" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("name_en", { required: true })} />
+              {errors.name_en && <span className="text-red-600">This field is required</span>}
             </label>
-            <label htmlFor="firstName_en" className="grid text-[18px] font-sans font-semibold">
-            firstName_ar
-              <input id="firstName_ar" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("firstName_ar", { required: true })} />
-              {errors.firstName_ar && <span className="text-red-600">This field is required</span>}
+            <label htmlFor="name_en" className="grid text-[18px] font-sans font-semibold">
+            name_ar
+              <input id="name_ar" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("name_ar", { required: true })} />
+              {errors.name_ar && <span className="text-red-600">This field is required</span>}
             </label>
-            <label htmlFor="firstName_fr" className="grid text-[18px] font-sans font-semibold">
-            firstName_fr
-              <input id="firstName_fr" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("firstName_fr", { required: true })} />
-              {errors.firstName_fr && <span className="text-red-600">This field is required</span>}
+            <label htmlFor="name_fr" className="grid text-[18px] font-sans font-semibold">
+            name_fr
+              <input id="name_fr" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("name_fr", { required: true })} />
+              {errors.name_fr && <span className="text-red-600">This field is required</span>}
             </label>
-            <label htmlFor="lastName_en" className="grid text-[18px] font-sans font-semibold">
-            lastName_en
-              <input id="firstName_en" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("lastName_en", { required: true })} />
-              {errors.lastName_en && <span className="text-red-600">This field is required</span>}
-            </label>
-            <label htmlFor="lastName_ar" className="grid text-[18px] font-sans font-semibold">
-            lastName_ar
-              <input id="lastName_ar" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("lastName_ar", { required: true })} />
-              {errors.lastName_ar && <span className="text-red-600">This field is required</span>}
-            </label>
-            <label htmlFor="lastName_fr" className="grid text-[18px] font-sans font-semibold">
-            lastName_fr
-              <input id="lastName_fr" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("lastName_fr", { required: true })} />
-              {errors.lastName_fr && <span className="text-red-600">This field is required</span>}
-            </label>
-            <label htmlFor="about_en" className="grid text-[18px] font-sans font-semibold">
-            about_en
-              <input id="about_en" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("about_en", { required: true })} />
-              {errors.about_en && <span className="text-red-600">This field is required</span>}
-            </label>
-            <label htmlFor="about_ar" className="grid text-[18px] font-sans font-semibold">
-            about_ar
-              <input id="about_ar" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("about_ar", { required: true })} />
-              {errors.about_ar && <span className="text-red-600">This field is required</span>}
-            </label>
-            <label htmlFor="about_fr" className="grid text-[18px] font-sans font-semibold">
-            about_fr
-              <input id="about_fr" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("about_fr", { required: true })} />
-              {errors.about_fr && <span className="text-red-600">This field is required</span>}
+            <label htmlFor="about" className="grid text-[18px] font-sans font-semibold">
+            about
+              <input id="about" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("about", { required: true })} />
+              {errors.about && <span className="text-red-600">This field is required</span>}
             </label>
             <label htmlFor="birthDate" className="grid text-[18px] font-sans font-semibold">
               Date Of Birth
               <input id="birthDate" type="date" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("birthDate", { required: true })} />
               {errors.birthDate && <span className="text-red-600">This field is required</span>}
+            </label>
+            <label htmlFor="qualification" className="grid items-center text-[18px] font-sans font-semibold mt-4">
+                <select defaultValue="" id="qualification" {...register("qualification", { required: true })} className="w-[400px] h-[55px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]">
+                    <option selected value="">Select religion </option>
+                    <option  value="HIGH_SCHOOL_DIPLOMA">High School Diploma </option>
+                    <option  value="MASTER_DEGREE">Master Degree </option>
+                    <option  value="BACHELOR_DEGREE">Bachelor Degree </option>
+                    <option  value="DOCTORATE_DEGREE">Doctorate Degree </option>
+                </select>
+                {errors.qualification && <span className="text-[#e81123] text-[18px]">Qualification is Required</span>}
             </label>
           </div>
           <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
