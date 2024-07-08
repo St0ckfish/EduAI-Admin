@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client"
 /* eslint-disable @next/next/no-img-element */
-import { useState, useRef } from 'react';
+import { useState, useRef, ChangeEvent } from 'react';
 import Spinner from "@/components/spinner";
 
 const OTP = () => {
@@ -10,7 +10,7 @@ const OTP = () => {
     const [otp, setOtp] = useState(['', '', '', '', '', '']);
     const inputRefs = Array.from({ length: 6 }, () => useRef(null));
 
-    const handleInput = (index, e) => {
+    const handleInput = (index: number, e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         const newOtp = [...otp];
         newOtp[index] = value;
