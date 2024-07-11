@@ -6,11 +6,9 @@ import Link from "next/link";
 import { useState, useEffect } from 'react';
 
 const Driver = () => {
-    type Driver = {
-        [key: string]: any; 
-    };
+    type Driver = Record<string, any>;
     const [search, setSearch] = useState("");
-    const { data, error, isLoading, refetch } = useGetAllDriversQuery(null);
+    const { data, error, isLoading } = useGetAllDriversQuery(null);
     const [selectAll, setSelectAll] = useState(false); 
 
     useEffect(() => {
@@ -122,7 +120,7 @@ const Driver = () => {
                         <tbody>
                         {data?.data.content.filter((driver: Driver) => {
                             return search.toLocaleLowerCase() === '' ? driver : driver.name.toLocaleLowerCase().includes(search);
-                        }).map((driver: Driver, index: number) => (
+                        }).map((driver: Driver) => (
                             <tr key={driver.id} className="bg-white border-b  hover:bg-gray-50">
                                 <td className="w-4 p-4">
                                     <div className="flex items-center">

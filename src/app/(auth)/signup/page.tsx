@@ -28,7 +28,7 @@ const signup = () => {
         try {
             const result = await loginDashboard(data).unwrap();
             console.log("Account maked success:", result);
-            toast.success("Login Success");
+            toast.success("Account created Success");
             router.replace("/login");
         } catch (err:any) {
             toast.error(err.data.message);

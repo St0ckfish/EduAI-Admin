@@ -40,7 +40,7 @@ export const workerApi = createApi({
         //
         createWorkers: builder.mutation({
             query: formData => ({
-                url: `/api/v1/management/employee/new?type=EMPLOYEE`,
+                url: `/api/v1/management/employee/new?type=WORKER`,
                 method: "POST",
                 body: formData,
             }),

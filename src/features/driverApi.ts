@@ -40,7 +40,7 @@ export const driverApi = createApi({
         //
         createDrivers: builder.mutation({
             query: formData => ({
-                url: `/api/v1/management/employee/new?type=EMPLOYEE`,
+                url: `/api/v1/management/employee/new?type=DRIVER`,
                 method: "POST",
                 body: formData,
             }),

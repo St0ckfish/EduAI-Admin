@@ -1,13 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
-import Calendar from "@/components/calendar";
-import Exams from "@/components/exams";
-import DriverInfo from "@/components/driverInfo";
 import DynamicPartition from "@/components/dynamicPartition";
 import { useGetEmployeeByIdQuery } from "@/features/employeeApi";
 import EmployeeInfo from "@/components/employeeInfo";
 import { useEffect } from "react";
-import Link from "next/link";
 import Spinner from "@/components/spinner";
 
 interface ViewEmployeeProps {
