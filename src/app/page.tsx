@@ -1,14 +1,14 @@
-import Image from "next/image";
-import Link from "next/link";
+"use client"
 import Dashboard from './Dashboard/dashboard';
-import Timeline from "@/components/timeLine";
+import { useSelector } from 'react-redux';
+import { RootState } from "@/GlobalRedux/store";
 
 export default function Home() {
+  const booleanValue = useSelector((state: RootState) => state.boolean.value);
   return (
     <>
-      <div className="lg:ml-[290px] mt-12">
+      <div className={` ${booleanValue ? "lg:ml-[40px]" : "lg:ml-[290px]"} mt-12`}>
         <Dashboard/>
-      {/* <Timeline /> */}
       </div>
     </>
   );

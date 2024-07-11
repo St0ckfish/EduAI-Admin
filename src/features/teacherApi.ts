@@ -33,21 +33,21 @@ export const teacherApi = createApi({
         //
         deleteTeachers: builder.mutation({
             query: id => ({
-                url: `/api/v1/management/employee/account-lock/${id}?locked=true`,
+                url: `/api/v1/management/teacher/account-lock/${id}?locked=true`,
                 method: "PUT",
             }),
         }),
         //
         createTeachers: builder.mutation({
             query: formData => ({
-                url: `/api/v1/management/employee/new?type=EMPLOYEE`,
+                url: `/api/v1/management/teacher/new`,
                 method: "POST",
                 body: formData,
             }),
         }),
         //
         getTeacherById: builder.query({
-            query: id => `/api/v1/management/employee/${id}`,
+            query: id => `/api/v1/management/teacher/${id}`,
         }),
         //
         updateTeachers: builder.mutation({

@@ -4,6 +4,8 @@ import DriverInfo from "@/components/driverInfo";
 import Spinner from "@/components/spinner";
 import { useGetDriverByIdQuery } from "@/features/driverApi";
 import { useEffect } from "react";
+import { useSelector } from 'react-redux';
+import { RootState } from "@/GlobalRedux/store";
 
 interface ViewDriverProps {
     params: {
@@ -12,6 +14,9 @@ interface ViewDriverProps {
   }
 
 const ViewDriver : React.FC<ViewDriverProps> = ({ params }) => {
+
+  const booleanValue = useSelector((state: RootState) => state.boolean.value);
+
 
     const { data, error, isLoading } = useGetDriverByIdQuery(params.driverId);
   useEffect(() => {
@@ -32,7 +37,7 @@ const ViewDriver : React.FC<ViewDriverProps> = ({ params }) => {
 
   return (
     <>
-      <div className="lg:ml-[290px] grid py-4 ">
+      <div className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} grid py-4 `}>
         <div className="grid grid-cols-2 gap-7 max-[1342px]:grid-cols-1 max-[1342px]:px-5">
           <DriverInfo data={data} />
           <div className="grid gap-10 p-5 rounded-xl bg-white justify-center items-center h-[400px]">

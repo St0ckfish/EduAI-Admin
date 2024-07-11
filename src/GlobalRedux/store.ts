@@ -5,9 +5,11 @@ import { signupApi } from "../features/signupApi"
 import { teacherApi } from "@/features/teacherApi";
 import { driverApi } from "@/features/driverApi";
 import { workerApi } from "@/features/workerApi";
+import booleanReducer from '@/features/boolyanSlice';
 
 export const store = configureStore({
   reducer: {
+    boolean: booleanReducer,
     [loginApi.reducerPath]: loginApi.reducer,
     [signupApi.reducerPath]: signupApi.reducer,
     [employeeApi.reducerPath]: employeeApi.reducer,

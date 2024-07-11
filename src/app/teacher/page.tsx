@@ -6,9 +6,7 @@ import { useState, useEffect } from 'react';
 
 const Teacher = () => {
 
-    type Teacher = {
-        [key: string]: any; 
-    };
+    type Teacher = Record<string, any>;
     const [search, setSearch] = useState("");
     const { data, error, isLoading, refetch } = useGetAllTeachersQuery(null);
     const [selectAll, setSelectAll] = useState(false); 
@@ -83,7 +81,7 @@ const Teacher = () => {
                 <div className="overflow-auto relative shadow-md sm:rounded-lg">
                     <table className="w-full overflow-x-auto text-sm text-left rtl:text-right text-gray-500 ">
                         <thead className="text-xs text-gray-700 uppercase bg-[#daeafb] ">
-                            <tr>
+                        <tr>
                                 <th scope="col" className="p-4">
                                     <div className="flex items-center">
                                         {/* Add event listener for select all checkbox */}
@@ -94,7 +92,19 @@ const Teacher = () => {
                                     Name
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                    Code
+                                    id
+                                </th>
+                                <th scope="col" className="px-6 py-3 whitespace-nowrap">
+                                    Gender
+                                </th>
+                                <th scope="col" className="px-6 py-3 whitespace-nowrap">
+                                Nationality
+                                </th>
+                                <th scope="col" className="px-6 py-3 whitespace-nowrap">
+                                Email
+                                </th>
+                                <th scope="col" className="px-6 py-3 whitespace-nowrap">
+                                    Mobile
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
                                     About
@@ -102,30 +112,55 @@ const Teacher = () => {
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
                                     view
                                 </th>
+                                <th scope="col" className="px-6 py-3 whitespace-nowrap">
+                                    Action
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                        {data?.data.content.filter((teacher: Teacher) => {
                             return search.toLocaleLowerCase() === '' ? teacher : teacher.name.toLocaleLowerCase().includes(search);
-                        }).map((teacher: Teacher, index: number) => (
+                        }).map((teacher: Teacher) => (
                             <tr key={teacher.id} className="bg-white border-b  hover:bg-gray-50">
                                 <td className="w-4 p-4">
                                     <div className="flex items-center">
                                         <input id="checkbox-table-search-1" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
                                     </div>
                                 </td>
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                    Nahda
+                                <th scope="row" className="px-6 flex items-center py-4 gap-2 font-medium text-gray-900 whitespace-nowrap">
+                                    <div className="w-[50px]">
+                                        {
+                                            teacher.picture == null ?
+                                            <img src="/images/userr.png" className="w-[40px] h-[40px] mr-2 rounded-full" alt="#" />
+                                            :
+                                            <img src={teacher.picture} className="w-[40px] h-[40px] mr-2 rounded-full" alt="#" />
+                                        }
+                                    </div>
+                                    <p> {teacher.name} </p>
                                 </th>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    C45121
+                                {teacher.id}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    This is text
+                                    {teacher.gender}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                <Link href="/teacher/view-teacher" className="font-medium text-blue-600 hover:underline">View</Link>
-
+                                    {teacher.nationality}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    {teacher.email}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    {teacher.number}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    {teacher.about}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <Link href={`/teacher/view-teacher/${teacher.id}`} className="font-medium text-blue-600 hover:underline">View</Link>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <button className="px-2 py-1 rounded-lg text-white bg-red-500 font-semibold shadow-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">Lock</button>
                                 </td>
                             </tr>
                             ))}

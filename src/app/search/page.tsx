@@ -1,10 +1,14 @@
+"use client"
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
+import { useSelector } from 'react-redux';
+import { RootState } from "@/GlobalRedux/store";
 
 const Search = () => {
+    const booleanValue = useSelector((state: RootState) => state.boolean.value);
     return ( 
         <>
-        <div className="lg:ml-[290px] mt-12">
+        <div className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} mt-12`}>
             <div className="flex w-full h-full justify-center p-2 overflow-auto">
                 <div className="grid bg-white rounded-xl w-full h-full overflow-auto ">
                     <div className="flex gap-2 bg-gray-200 h-[70px] rounded-t-xl items-center pl-3 font-semibold overflow-auto">

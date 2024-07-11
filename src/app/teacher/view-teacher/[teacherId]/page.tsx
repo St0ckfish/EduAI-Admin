@@ -1,7 +1,4 @@
 import Calendar from "@/components/calendar";
-import Exams from "@/components/exams";
-import StudentInfo from "@/components/studentInfo";
-import CircleProgress from "@/components/circleProgress";
 import TeacherInfo from "@/components/teacherInfo";
 
 const ViewTeacher = () => {

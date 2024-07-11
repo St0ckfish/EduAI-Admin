@@ -3,8 +3,13 @@
 
 import Link from "next/link";
 import { useEffect, useState, useReducer } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { toggle } from "@/features/boolyanSlice";
+import { RootState } from "@/GlobalRedux/store";
 
 const NavBar = () => {
+  const dispatch = useDispatch();
+  const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const [pathname, setPathname] = useState('');
   const [isLoginPage, setIsLoginPage] = useState(true);
   const [small, setSmall] = useState(false);
@@ -191,7 +196,7 @@ const NavBar = () => {
                   
                 </ol>
 
-                <button onClick={OpenSideBar} type="button" className="py-2 px-3 flex justify-center items-center gap-x-1.5 text-xs rounded-lg border border-gray-200 text-gray-500 hover:text-gray-600" data-hs-overlay="#application-sidebar" aria-controls="application-sidebar" aria-label="Sidebar">
+                <button onClick={() => { OpenSideBar();  }} type="button" className="py-2 px-3 flex justify-center items-center gap-x-1.5 text-xs rounded-lg border border-gray-200 text-gray-500 hover:text-gray-600" data-hs-overlay="#application-sidebar" aria-controls="application-sidebar" aria-label="Sidebar">
                   <svg className="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 8L21 12L17 16M3 12H13M3 6H13M3 18H13" /></svg>
                   <span className="sr-only">Sidebar</span>
                 </button>
@@ -217,7 +222,7 @@ const NavBar = () => {
                   <div className="flex justify-end mr-5 -translate-y-6">
                     {
                       !small && (
-                        <button onClick={toggleNavbarSmall}>
+                        <button onClick={()=>{toggleNavbarSmall(); dispatch(toggle());}}>
 
                           <img className="scale-[1.4] " src="/images/nav.png" alt="Logo" />
                         </button>
@@ -231,7 +236,7 @@ const NavBar = () => {
                       <div className={`flex ${small ? 'w-[40px]' : ''} justify-center`}>
                         {
                           small && (
-                            <button onClick={toggleNavbarSmall}>
+                            <button onClick={()=>{toggleNavbarSmall(); dispatch(toggle());}}>
 
                               <img src="/images/arrow.png" alt="Logo" />
                             </button>
