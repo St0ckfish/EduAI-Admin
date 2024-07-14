@@ -1,6 +1,6 @@
 "use client"
 import Spinner from "@/components/spinner";
-import { useGetAllTeachersQuery } from "@/features/teacherApi";
+import { useGetAllTeachersQuery } from "@/features/User-Management/teacherApi";
 import Link from "next/link";
 import { useState, useEffect } from 'react';
 

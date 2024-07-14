@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 import Spinner from "@/components/spinner";
-import { useGetAllWorkersQuery } from "@/features/workerApi";
+import { useGetAllWorkersQuery } from "@/features/User-Management/workerApi";
 import Link from "next/link";
 import { useState, useEffect } from 'react';
 

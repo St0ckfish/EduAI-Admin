@@ -42,7 +42,7 @@ const Login = () => {
                         <form className="grid gap-10" onSubmit={handleSubmit(onSubmit)}>
                             <label htmlFor="email" className="grid text-[#041631] text-start text-[18px] font-sans font-semibold">
                                 Your Email
-                                <input id="email" {...register("username", { required: true })} placeholder="Enter Your Email" className={`w-[450px] py-3 px-4 rounded-xl border ${errors.username ? "border-[#d74f41]" : "border-zinc-300"}  outline-none max-[471px]:w-[350px]`} type="email" />
+                                <input id="email" {...register("username", { required: true })} placeholder="Enter Your Email" className={`w-[450px] py-3 px-4 rounded-xl border ${errors.username ? "border-[#d74f41]" : "border-zinc-300"}  outline-none max-[471px]:w-[350px]`} />
                                 {errors.username && <span className="text-[#e81123] text-[13px]">Email is Required</span>}
                             </label>
                             <label htmlFor="password" className="grid text-[#041631] text-start text-[18px] font-sans font-semibold">

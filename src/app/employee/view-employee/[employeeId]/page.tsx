@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
 import DynamicPartition from "@/components/dynamicPartition";
-import { useGetEmployeeByIdQuery } from "@/features/employeeApi";
+import { useGetEmployeeByIdQuery } from "@/features/User-Management/employeeApi";
 import EmployeeInfo from "@/components/employeeInfo";
 import { useEffect } from "react";
 import Spinner from "@/components/spinner";

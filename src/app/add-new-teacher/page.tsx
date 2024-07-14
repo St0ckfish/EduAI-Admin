@@ -2,15 +2,15 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import Spinner from "@/components/spinner";
-import { useCreateTeachersMutation } from "@/features/teacherApi";
+import { useCreateTeachersMutation } from "@/features/User-Management/teacherApi";
 import { useGetAllNationalitysQuery } from "@/features/signupApi";
 import { toast } from "react-toastify";
 
 
 const AddNewTeacher = () => {
-  const { data: nationalityData, error: nationalityError, isLoading: nationalityLoading } = useGetAllNationalitysQuery(null);
+  const { data: nationalityData, isLoading: nationalityLoading } = useGetAllNationalitysQuery(null);
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const [createTeacher, { isLoading, isSuccess, isError, error }] = useCreateTeachersMutation();
+  const [createTeacher, { isLoading }] = useCreateTeachersMutation();
 
   const onSubmit = async (data: any) => {
     try {

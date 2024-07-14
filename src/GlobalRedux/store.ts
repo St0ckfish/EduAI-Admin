@@ -1,10 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { loginApi } from "../features/loginApi";
-import { employeeApi } from "../features/employeeApi"
+import { employeeApi } from "../features/User-Management/employeeApi"
 import { signupApi } from "../features/signupApi"
-import { teacherApi } from "@/features/teacherApi";
-import { driverApi } from "@/features/driverApi";
-import { workerApi } from "@/features/workerApi";
+import { teacherApi } from "@/features/User-Management/teacherApi";
+import { driverApi } from "@/features/User-Management/driverApi";
+import { workerApi } from "@/features/User-Management/workerApi";
+import { departmentApi } from "@/features/Organization-Setteings/departmentApi";
 import booleanReducer from '@/features/boolyanSlice';
 
 export const store = configureStore({
@@ -15,6 +16,7 @@ export const store = configureStore({
     [employeeApi.reducerPath]: employeeApi.reducer,
     [teacherApi.reducerPath]: teacherApi.reducer,
     [driverApi.reducerPath]: driverApi.reducer,
+    [departmentApi.reducerPath]: departmentApi.reducer,
     [workerApi.reducerPath]: workerApi.reducer,
   },
   middleware: getDefaultMiddleware =>
@@ -22,6 +24,7 @@ export const store = configureStore({
       .concat(loginApi.middleware)
       .concat(signupApi.middleware)
       .concat(employeeApi.middleware)
+      .concat(departmentApi.middleware)
       .concat(teacherApi.middleware)
       .concat(driverApi.middleware)
       .concat(workerApi.middleware)

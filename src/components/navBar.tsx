@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState, useReducer } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { toggle } from "@/features/boolyanSlice";
 import { RootState } from "@/GlobalRedux/store";
@@ -65,7 +65,6 @@ const NavBar = () => {
       setIsOpen5(false)
     }
   }
-  const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
 
   useEffect(() => {
     setPathname(window.location.pathname);

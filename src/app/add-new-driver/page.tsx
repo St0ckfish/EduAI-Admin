@@ -2,15 +2,15 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import Spinner from "@/components/spinner";
-import { useCreateDriversMutation } from "@/features/driverApi";
+import { useCreateDriversMutation } from "@/features/User-Management/driverApi";
 import { useGetAllNationalitysQuery } from "@/features/signupApi";
 import { toast } from "react-toastify";
 
 
 const AddNewDriver = () => {
-  const { data: nationalityData, error: nationalityError, isLoading: nationalityLoading } = useGetAllNationalitysQuery(null);
+  const { data: nationalityData, isLoading: nationalityLoading } = useGetAllNationalitysQuery(null);
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const [createDriver, { isLoading, isSuccess, isError, error }] = useCreateDriversMutation();
+  const [createDriver, { isLoading }] = useCreateDriversMutation();
 
   const onSubmit = async (data: any) => {
     try {

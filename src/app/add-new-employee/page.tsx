@@ -2,7 +2,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import Spinner from "@/components/spinner";
-import { useCreateEmployeesMutation } from "@/features/employeeApi";
+import { useCreateEmployeesMutation } from "@/features/User-Management/employeeApi";
 import { useGetAllNationalitysQuery } from "@/features/signupApi";
 import { toast } from "react-toastify";
 

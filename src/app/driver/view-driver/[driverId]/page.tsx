@@ -2,7 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 import DriverInfo from "@/components/driverInfo";
 import Spinner from "@/components/spinner";
-import { useGetDriverByIdQuery } from "@/features/driverApi";
+import { useGetDriverByIdQuery } from "@/features/User-Management/driverApi";
 import { useEffect } from "react";
 import { useSelector } from 'react-redux';
 import { RootState } from "@/GlobalRedux/store";

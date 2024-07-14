@@ -3,7 +3,7 @@
 import DynamicPartition from "@/components/dynamicPartition";
 import Spinner from "@/components/spinner";
 import WorkerInfo from "@/components/workerInfo";
-import { useGetWorkerByIdQuery } from "@/features/workerApi";
+import { useGetWorkerByIdQuery } from "@/features/User-Management/workerApi";
 import { useEffect } from "react";
 interface ViewWorkerProps {
   params: {
