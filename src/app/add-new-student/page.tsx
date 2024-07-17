@@ -16,9 +16,9 @@ const AddNewStudent = () => {
     const onSubmit = async (data: any) => {
         try {
             await createStudent(data).unwrap();
-            toast.success('parent created successfully');
+            toast.success('Student created successfully');
         } catch (err) {
-            toast.error('Failed to create parent: ');
+            toast.error('Failed to create Student: ');
         }
     };
 
@@ -167,7 +167,7 @@ const AddNewStudent = () => {
           </div>
           <div className="flex justify-center text-center">
             <button disabled={isLoading} type="submit" className="px-4 py-2 rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl text-white text-[18px] w-[180px] ease-in duration-300">
-              {isLoading ? " Adding..." : "Add Parent"}
+              {isLoading ? " Adding..." : "Add Student"}
             </button>
           </div>
         </div>
