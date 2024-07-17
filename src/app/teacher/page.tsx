@@ -1,14 +1,18 @@
+/* eslint-disable @next/next/no-img-element */
 "use client"
 import Spinner from "@/components/spinner";
 import { useGetAllTeachersQuery } from "@/features/User-Management/teacherApi";
+import { RootState } from "@/GlobalRedux/store";
 import Link from "next/link";
 import { useState, useEffect } from 'react';
+import { useSelector } from "react-redux";
 
 const Teacher = () => {
+    const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
     type Teacher = Record<string, any>;
     const [search, setSearch] = useState("");
-    const { data, error, isLoading, refetch } = useGetAllTeachersQuery(null);
+    const { data, error, isLoading } = useGetAllTeachersQuery(null);
     const [selectAll, setSelectAll] = useState(false); 
 
     useEffect(() => {
@@ -56,14 +60,14 @@ const Teacher = () => {
 
     return ( 
         <>
-            <div className="flex items-center gap-1 lg:ml-[290px] mt-12 ml-7 text-[18px] max-[550px]:text-[15px]">
+            <div className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-12 ml-7 text-[18px] max-[550px]:text-[15px]  flex-wrap`}>
                 <Link className="text-[#526484] hover:text-blue-400 hover:underline  font-semibold" href="/">Administration</Link>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{ fill: 'rgba(82, 100, 132, 1)', transform: '', msFilter: '' }}><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg>
                 <Link className="text-[#526484] hover:text-blue-400 hover:underline  font-semibold" href="/user-management">User Management</Link>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{ fill: 'rgba(82, 100, 132, 1)', transform: '', msFilter: '' }}><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg>
                 <Link className="text-[#526484] hover:text-blue-400 hover:underline  font-semibold" href="/teacher">Teacher</Link>
             </div>
-            <div className="lg:ml-[270px] mr-[5px] relative mt-10 overflow-x-auto bg-transparent sm:rounded-lg max-[1200px]:w-screen h-screen">
+            <div className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mr-[5px] relative mt-10 overflow-x-auto bg-transstudent sm:rounded-lg h-screen`}>
                 <div className="flex justify-between max-[502px]:grid max-[502px]:justify-center text-center">
                     <div className="mb-3">
                         <label htmlFor="icon" className="sr-only">Search</label>
