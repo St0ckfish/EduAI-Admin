@@ -9,6 +9,7 @@ import { departmentApi } from "@/features/Organization-Setteings/departmentApi";
 import booleanReducer from '@/features/boolyanSlice';
 import { semesterApi } from "@/features/Organization-Setteings/semesterApi";
 import { positionApi } from "@/features/Organization-Setteings/positionApi";
+import { parentApi } from "@/features/User-Management/parentApi";
 
 export const store = configureStore({
   reducer: {
@@ -22,6 +23,8 @@ export const store = configureStore({
     [workerApi.reducerPath]: workerApi.reducer,
     [semesterApi.reducerPath]: semesterApi.reducer,
     [positionApi.reducerPath]: positionApi.reducer,
+    [parentApi.reducerPath]: parentApi.reducer,
+    
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware()
@@ -33,6 +36,7 @@ export const store = configureStore({
       .concat(driverApi.middleware)
       .concat(workerApi.middleware)
       .concat(semesterApi.middleware)
+      .concat(parentApi.middleware)
       .concat(positionApi.middleware)
 });
 
