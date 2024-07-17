@@ -156,7 +156,7 @@ const Department = () => {
                                     {Department.description}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <Link href={`/department/${Department.id}`} className="font-medium text-blue-600 hover:underline">View</Link>
+                                    <Link href={`/organization-setting/department/${Department.id}`} className="font-medium text-blue-600 hover:underline">View</Link>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <button disabled={isDeleting} onClick={() => handleDelete(Department.id)} className="px-2 py-1 rounded-lg text-white bg-red-500 font-semibold shadow-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">Delete</button>

@@ -7,6 +7,8 @@ import { driverApi } from "@/features/User-Management/driverApi";
 import { workerApi } from "@/features/User-Management/workerApi";
 import { departmentApi } from "@/features/Organization-Setteings/departmentApi";
 import booleanReducer from '@/features/boolyanSlice';
+import { semesterApi } from "@/features/Organization-Setteings/semesterApi";
+import { positionApi } from "@/features/Organization-Setteings/positionApi";
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +20,8 @@ export const store = configureStore({
     [driverApi.reducerPath]: driverApi.reducer,
     [departmentApi.reducerPath]: departmentApi.reducer,
     [workerApi.reducerPath]: workerApi.reducer,
+    [semesterApi.reducerPath]: semesterApi.reducer,
+    [positionApi.reducerPath]: positionApi.reducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware()
@@ -28,6 +32,8 @@ export const store = configureStore({
       .concat(teacherApi.middleware)
       .concat(driverApi.middleware)
       .concat(workerApi.middleware)
+      .concat(semesterApi.middleware)
+      .concat(positionApi.middleware)
 });
 
 export type RootState = ReturnType<typeof store.getState>;

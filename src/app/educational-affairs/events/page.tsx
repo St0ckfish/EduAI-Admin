@@ -2,9 +2,12 @@
 
 import Modal from "@/components/model";
 import Timeline from "@/components/timeLine";
+import { RootState } from "@/GlobalRedux/store";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const Events = () => {
+    const booleanValue = useSelector((state: RootState) => state.boolean.value);
     
     const [isModalOpen, setModalOpen] = useState(false);
 
@@ -17,7 +20,7 @@ const Events = () => {
     };
     return ( 
         <>
-            <div className="lg:ml-[270px] mt-7">
+            <div className={` ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-7`}>
                 <div className="flex justify-end">
                     <button onClick={handleOpenModal} className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] w-[180px] ease-in font-semibold duration-300">+ Add Event</button>
                 </div>

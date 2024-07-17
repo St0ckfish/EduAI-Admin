@@ -17,7 +17,11 @@ export const signupApi = createApi({
             query: () => "/api/v1/public/enumeration/nationality",
         }),
         //
+        getAllRoles: builder.query({
+            query: () => "/api/v1/public/enumeration/employee-role",
+        }),
+        //
     }),
 });
 
-export const { useSignupApiDashboardMutation, useGetAllNationalitysQuery } = signupApi;
+export const { useSignupApiDashboardMutation, useGetAllNationalitysQuery, useGetAllRolesQuery } = signupApi;
