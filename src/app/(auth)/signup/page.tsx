@@ -7,7 +7,7 @@ import { useGetAllNationalitysQuery, useSignupApiDashboardMutation } from "@/fea
 import { useRouter } from "next/navigation";
 import Cookie from "js-cookie";
 import { toast } from "react-toastify";
-import { useEffect } from "react";
+import React ,{ useEffect } from "react";
 
 const signup = () => {
     const router = useRouter();
