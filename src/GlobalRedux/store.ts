@@ -10,6 +10,7 @@ import booleanReducer from '@/features/boolyanSlice';
 import { semesterApi } from "@/features/Organization-Setteings/semesterApi";
 import { positionApi } from "@/features/Organization-Setteings/positionApi";
 import { parentApi } from "@/features/User-Management/parentApi";
+import { studentApi } from "@/features/User-Management/studentApi";
 
 export const store = configureStore({
   reducer: {
@@ -24,6 +25,7 @@ export const store = configureStore({
     [semesterApi.reducerPath]: semesterApi.reducer,
     [positionApi.reducerPath]: positionApi.reducer,
     [parentApi.reducerPath]: parentApi.reducer,
+    [studentApi.reducerPath]: studentApi.reducer,
     
   },
   middleware: getDefaultMiddleware =>
@@ -38,6 +40,7 @@ export const store = configureStore({
       .concat(semesterApi.middleware)
       .concat(parentApi.middleware)
       .concat(positionApi.middleware)
+      .concat(studentApi.middleware)
 });
 
 export type RootState = ReturnType<typeof store.getState>;
