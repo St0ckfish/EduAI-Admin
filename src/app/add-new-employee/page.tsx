@@ -8,9 +8,9 @@ import { toast } from "react-toastify";
 
 
 const AddNewEmployee = () => {
-  const { data: nationalityData, isLoading: nationalityLoading } = useGetAllNationalitysQuery(null);
+  const { data: nationalityData, error: nationalityError, isLoading: nationalityLoading } = useGetAllNationalitysQuery(null);
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const [createEmployee, { isLoading }] = useCreateEmployeesMutation();
+  const [createEmployee, { isLoading, isSuccess, isError, error }] = useCreateEmployeesMutation();
 
   const onSubmit = async (data: any) => {
     try {
@@ -106,22 +106,22 @@ const AddNewEmployee = () => {
               {errors.regionId && <span className="text-red-600">This field is required</span>}
             </label>
             <label htmlFor="name_en" className="grid text-[18px] font-sans font-semibold">
-            Name EN
+            name_en
               <input id="name_en" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("name_en", { required: true })} />
               {errors.name_en && <span className="text-red-600">This field is required</span>}
             </label>
             <label htmlFor="name_en" className="grid text-[18px] font-sans font-semibold">
-            Name AR
+            name_ar
               <input id="name_ar" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("name_ar", { required: true })} />
               {errors.name_ar && <span className="text-red-600">This field is required</span>}
             </label>
             <label htmlFor="name_fr" className="grid text-[18px] font-sans font-semibold">
-            Name FR
+            name_fr
               <input id="name_fr" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("name_fr", { required: true })} />
               {errors.name_fr && <span className="text-red-600">This field is required</span>}
             </label>
             <label htmlFor="about" className="grid text-[18px] font-sans font-semibold">
-            About
+            about
               <input id="about" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("about", { required: true })} />
               {errors.about && <span className="text-red-600">This field is required</span>}
             </label>
@@ -131,14 +131,15 @@ const AddNewEmployee = () => {
               {errors.birthDate && <span className="text-red-600">This field is required</span>}
             </label>
             <label htmlFor="qualification" className="grid items-center text-[18px] font-sans font-semibold mt-4">
+            Qualification
                 <select defaultValue="" id="qualification" {...register("qualification", { required: true })} className="w-[400px] h-[55px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]">
-                    <option selected value="">Select religion </option>
+                    <option selected value="">Select qualification </option>
                     <option  value="HIGH_SCHOOL_DIPLOMA">High School Diploma </option>
                     <option  value="MASTER_DEGREE">Master Degree </option>
                     <option  value="BACHELOR_DEGREE">Bachelor Degree </option>
                     <option  value="DOCTORATE_DEGREE">Doctorate Degree </option>
                 </select>
-                {errors.qualification && <span className="text-[#e81123] text-[18px]">Qualification is Required</span>}
+                {errors.qualification && <span className="text-[#e81123] text-[18px]">This field is Required</span>}
             </label>
           </div>
           <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
