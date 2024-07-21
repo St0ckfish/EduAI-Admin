@@ -28,7 +28,7 @@ export const positionApi = createApi({
     }),
     endpoints: builder => ({
         getAllPositions: builder.query({
-            query: () => "/api/v1/management/position/all?size=1000000&page=1",
+            query: () => "/api/v1/management/position/all?size=1000000&page=0",
         }),
         //
         deletePositions: builder.mutation({

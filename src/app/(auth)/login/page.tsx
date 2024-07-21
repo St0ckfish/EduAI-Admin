@@ -1,8 +1,6 @@
 "use client"
 /* eslint-disable @next/next/no-img-element */
-import Spinner from "@/components/spinner";
 import { useForm } from "react-hook-form";
-import { useRef, useEffect, useState } from "react";
 import { useLoginDashboardMutation } from "@/features/loginApi";
 import { useRouter } from "next/navigation";
 import Cookie from "js-cookie";
@@ -17,7 +15,6 @@ const Login = () => {
     try {
       const result = await loginDashboard(data).unwrap();
       console.log("Login success:", result);
-      const token = result.token;
       Cookie.set("token", result.data);
       toast.success("Login Success");
       router.replace("/");

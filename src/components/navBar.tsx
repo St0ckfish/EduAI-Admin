@@ -3,15 +3,13 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { toggle } from "@/features/boolyanSlice";
-import { RootState } from "@/GlobalRedux/store";
+import Cookie from "js-cookie";
 
 const NavBar = () => {
   const dispatch = useDispatch();
-  const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const [pathname, setPathname] = useState('');
-  const [isLoginPage, setIsLoginPage] = useState(true);
   const [small, setSmall] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [profile, setProfile] = useState(false);
@@ -34,22 +32,6 @@ const NavBar = () => {
   const toggleNavbar5 = () => {
     setIsOpen5(!isOpen5)
   }
-  const [isOpen6, setIsOpen6] = useState(false);
-  const toggleNavbar6 = () => {
-    setIsOpen6(!isOpen6)
-  }
-  const [isOpen7, setIsOpen7] = useState(false);
-  const toggleNavbar7 = () => {
-    setIsOpen7(!isOpen7)
-  }
-  const [isOpen8, setIsOpen8] = useState(false);
-  const toggleNavbar8 = () => {
-    setIsOpen8(!isOpen8)
-  }
-  const [isOpen9, setIsOpen9] = useState(false);
-  const toggleNavbar9 = () => {
-    setIsOpen9(!isOpen9)
-  }
   const toggleNavbarSmall = () => {
     setSmall(!small)
     if (!small == true) {
@@ -70,15 +52,6 @@ const NavBar = () => {
     setPathname(window.location.pathname);
 
   }, [pathname]);
-
-  useEffect(() => {
-    if (pathname === '/login' || pathname === '/forget-password' || pathname === '/reset-password' || pathname === '/otp') {
-      setIsLoginPage(false);
-    } else {
-      setIsLoginPage(true);
-    }
-  }, [pathname]);
-
   const OpenSideBar = () => {
     setIsOpen(!isOpen)
   }
@@ -112,6 +85,11 @@ const NavBar = () => {
       setIsOpen(true); // Always set to true for large screens
     }
   }, [width]);
+
+  const DeleteCookie = () => {
+    Cookie.remove("token");
+
+  }
   return (
     <>
 
@@ -169,7 +147,7 @@ const NavBar = () => {
                                 <svg className="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
                                 Profile
                               </Link>
-                              <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:text-white hover:bg-red-500 focus:ring-2 focus:ring-blue-500" href="/login">
+                              <Link onClick={DeleteCookie} className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:text-white hover:bg-red-500 focus:ring-2 focus:ring-blue-500" href="/login">
                                 Sign out
                               </Link>
                             </div>

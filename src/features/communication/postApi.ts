@@ -12,8 +12,8 @@ const getTokenFromCookie = () => {
     return getCookie("token");
 };
 
-export const semesterApi = createApi({
-    reducerPath: "semesterApi",
+export const postApi = createApi({
+    reducerPath: "postApi",
     baseQuery: fetchBaseQuery({
         baseUrl: baseUrl,
         prepareHeaders: headers => {
@@ -21,38 +21,48 @@ export const semesterApi = createApi({
 
             if (token) {
                 headers.set("Authorization", `Bearer ${token}`);
+                console.log(`Bearer ${token}`);
+                
             }
 
             return headers;
         },
     }),
     endpoints: builder => ({
-        getAllSemesters: builder.query({
-            query: () => "/api/v1/management/semester/all?size=1000000&page=0",
+        getAllPosts: builder.query({
+            query: () => "/api/v1/management/post/all?size=1000000&page=0",
         }),
         //
-        deleteSemesters: builder.mutation({
+        deletePosts: builder.mutation({
             query: id => ({
-                url: `/api/v1/management/semester/${id}`,
+                url: `/api/v1/management/employee/account-lock/${id}?locked=true`,
                 method: "PUT",
             }),
         }),
         //
-        createSemesters: builder.mutation({
+        createPosts: builder.mutation({
             query: formData => ({
-                url: `/api/v1/management/semester`,
+                url: `/api/v1/management/post`,
                 method: "POST",
                 body: formData,
             }),
         }),
         //
-        getSemesterById: builder.query({
-            query: id => `/api/v1/management/semester/${id}`,
+        getPostById: builder.query({
+            query: id => `/api/v1/management/post/${id}`,
         }),
         //
-        updateSemesters: builder.mutation({
+        updatePosts: builder.mutation({
             query: ({ formData, id }) => ({
-                url: `/api/v1/management/semester/${id}`,
+                url: `/api/v1/management/post/${id}`,
+                method: "PATCH",
+                body: formData,
+            }),
+        }),
+        //
+        updatePostsFiles: builder.mutation({
+            query: ({ formData, id }) => ({
+                url: `/api/v1/management/post/${id}/files`,
                 method: "PATCH",
                 body: formData,
             }),
@@ -61,9 +71,10 @@ export const semesterApi = createApi({
 });
 
 export const {
-    useGetAllSemestersQuery,
-    useDeleteSemestersMutation,
-    useCreateSemestersMutation,
-    useGetSemesterByIdQuery,
-    useUpdateSemestersMutation,
-} = semesterApi;
+    useGetAllPostsQuery,
+    useDeletePostsMutation,
+    useCreatePostsMutation,
+    useGetPostByIdQuery,
+    useUpdatePostsMutation,
+    useUpdatePostsFilesMutation,
+} = postApi;
