@@ -66,11 +66,17 @@ const Certificate = () => {
             </div>
             <div className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mr-[5px] relative mt-10 overflow-x-auto bg-transparent sm:rounded-lg h-screen`}>
             <div className="flex justify-left gap-5 text-[23px] font-bold mb-[80px] mt-[50px] ml-4">
-                    <Link href="/post-management" className="text-blue-500 underline">
-                        Post
+                    <Link href="/document-management/certificate" className="text-blue-500 underline">
+                    Completion 
                     </Link>
-                    <Link href="/post-management/reviews">
-                        Reviews
+                    <Link href="/document-management/achievement">
+                    Achievement
+                    </Link>
+                    <Link href="/document-management/participation">
+                    Participation
+                    </Link>
+                    <Link href="/document-management/professional-development">
+                    Professional Development
                     </Link>
                 </div>
                 <div className="flex justify-between max-[502px]:grid max-[502px]:justify-center text-center">

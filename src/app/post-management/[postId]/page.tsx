@@ -6,7 +6,15 @@ import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import Spinner from "@/components/spinner";
 
-const EditPost = ({ params }) => {
+
+interface EditPostProps {
+    params: {
+        postId: string;
+    };
+}
+
+
+const EditPost = ({ params }: EditPostProps) => {
     const booleanValue = useSelector((state: RootState) => state.boolean.value);
     const { register, handleSubmit,setValue, formState: { errors } } = useForm();
     const { data: post, isLoading } = useGetPostByIdQuery(params.postId);
