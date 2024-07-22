@@ -1,16 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 import Spinner from "@/components/spinner";
-import { useGetAllPostsQuery } from "@/features/communication/postApi";
+import { useGetAllCertificatesQuery } from "@/features/Document-Management/certificatesApi";
 import Link from "next/link";
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from "@/GlobalRedux/store";
 const Certificate = () => {
     const booleanValue = useSelector((state: RootState) => state.boolean.value);
-    type Post = Record<string, any>;
+    type Certificate = Record<string, any>;
     const [search, setSearch] = useState("");
-    const { data, error, isLoading } = useGetAllPostsQuery(null);
+    const { data, error, isLoading } = useGetAllCertificatesQuery(null);
     const [selectAll, setSelectAll] = useState(false); 
 
     useEffect(() => {
@@ -65,17 +65,17 @@ const Certificate = () => {
                 <Link className="text-[#526484] hover:text-blue-400 hover:underline  font-semibold" href="/document-management/certificate">Certificate</Link>
             </div>
             <div className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mr-[5px] relative mt-10 overflow-x-auto bg-transparent sm:rounded-lg h-screen`}>
-            <div className="flex justify-left gap-5 text-[23px] font-bold mb-[80px] mt-[50px] ml-4">
+            <div className="flex justify-left gap-5 text-[20px] font-semibold mb-[80px] mt-[50px] ml-4">
                     <Link href="/document-management/certificate" className="text-blue-500 underline">
                     Completion 
                     </Link>
-                    <Link href="/document-management/achievement">
+                    <Link href="/document-management/certificate/achievement">
                     Achievement
                     </Link>
-                    <Link href="/document-management/participation">
+                    <Link href="/document-management/certificate/participation">
                     Participation
                     </Link>
-                    <Link href="/document-management/professional-development">
+                    <Link href="/document-management/certificate/professional-development">
                     Professional Development
                     </Link>
                 </div>
@@ -90,7 +90,7 @@ const Certificate = () => {
                         </div>
                     </div> 
                     <div className="flex justify-center">
-                        <Link href="/post-management/add-new-post" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] w-[180px] ease-in font-semibold duration-300">+ Add new Post</Link>
+                        <Link href="/document-management/certificate/add-new-certificate" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] ease-in font-semibold duration-300">+ Add  Completion Certificates </Link>
                     </div>
                 </div>
                 <div className="overflow-auto relative shadow-md sm:rounded-lg">
@@ -124,31 +124,31 @@ const Certificate = () => {
                             </tr>
                         </thead>
                         <tbody>
-                        {data?.data.content.filter((post: Post) => {
-                            return search.toLocaleLowerCase() === '' ? post : post.title.toLocaleLowerCase().includes(search);
-                        }).map((post: Post) => (
-                            <tr key={post.id} className="bg-white border-b  hover:bg-gray-50">
+                        {data?.data.content.filter((certificate: Certificate) => {
+                            return search.toLocaleLowerCase() === '' ? certificate : certificate.title.toLocaleLowerCase().includes(search);
+                        }).map((certificate: Certificate) => (
+                            <tr key={certificate.id} className="bg-white border-b  hover:bg-gray-50">
                                 <td className="w-4 p-4">
                                     <div className="flex items-center">
                                         <input id="checkbox-table-search-1" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
                                     </div>
                                 </td>
                                 <th scope="row" className="px-6 py-4 whitespace-nowrap">
-                                    <p> {post.title_en} </p>
+                                    <p> {certificate.title_en} </p>
                                 </th>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                {post.id}
+                                {certificate.id}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                {post.content_en}
+                                {certificate.content_en}
                                 </td>
                                 <td className="flex gap-2 px-6 py-4 whitespace-nowrap">
-                                {post.attachments.map((img:any, index:number) => (
+                                {certificate.attachments.map((img:any, index:number) => (
                                     <img className="w-[200px] rounded-md" src={img.viewLink} alt="#" key={index} />
                                  ))}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <Link href={`/post-management/${post.id}`} className="font-medium text-blue-600 hover:underline">edit</Link>
+                                    <Link href={`/document-management/certificate/${certificate.id}`} className="font-medium text-blue-600 hover:underline">edit</Link>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <button className="px-2 py-1 rounded-lg text-white bg-red-500 font-semibold shadow-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">Delete</button>

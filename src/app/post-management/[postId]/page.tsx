@@ -1,11 +1,9 @@
 "use client"
-import { useUpdatePostsMutation, useUpdatePostsFilesMutation, useGetPostByIdQuery } from "@/features/communication/postApi";
+import { useGetPostByIdQuery, useUpdatePostsMutation, useUpdatePostsFilesMutation } from "@/features/communication/postApi";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { useEffect } from "react";
-import Spinner from "@/components/spinner";
-
 
 interface EditPostProps {
     params: {
@@ -13,26 +11,39 @@ interface EditPostProps {
     };
 }
 
+interface TextFormData {
+    title_en: string;
+    title_fr: string;
+    title_ar: string;
+    content_en: string;
+    content_fr: string;
+    content_ar: string;
+}
+
+interface FileFormData {
+    file: FileList;
+}
 
 const EditPost = ({ params }: EditPostProps) => {
     const booleanValue = useSelector((state: RootState) => state.boolean.value);
-    const { register, handleSubmit,setValue, formState: { errors } } = useForm();
     const { data: post, isLoading } = useGetPostByIdQuery(params.postId);
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm<TextFormData>();
+    const { register: registerFile, handleSubmit: handleSubmitFile, formState: { errors: fileErrors } } = useForm<FileFormData>();
     const [updatePost, { isLoading: isUpdatingPost, error: updatePostError }] = useUpdatePostsMutation();
     const [updatePostFiles, { isLoading: isUpdatingFiles, error: updateFilesError }] = useUpdatePostsFilesMutation();
 
     useEffect(() => {
         if (post) {
-          setValue("title_en", post.data.title_en);
-          setValue("title_ar", post.data.title_ar);
-          setValue("title_fr", post.data.title_fr);
-          setValue("content_en", post.data.content_en);
-          setValue("content_ar", post.data.content_ar);
-          setValue("content_fr", post.data.content_fr);
+            setValue("title_en", post.title_en);
+            setValue("title_fr", post.title_fr);
+            setValue("title_ar", post.title_ar);
+            setValue("content_en", post.content_en);
+            setValue("content_fr", post.content_fr);
+            setValue("content_ar", post.content_ar);
         }
-      }, [post, setValue]);
+    }, [post, setValue]);
 
-    const onSubmitText = async (data: any) => {
+    const onSubmitText: SubmitHandler<TextFormData> = async (data) => {
         try {
             await updatePost({ formData: data, id: params.postId }).unwrap();
             // Handle successful post update (e.g., show a success message or redirect)
@@ -41,7 +52,7 @@ const EditPost = ({ params }: EditPostProps) => {
         }
     };
 
-    const onSubmitFile = async (data: { file: any[]; }) => {
+    const onSubmitFile: SubmitHandler<FileFormData> = async (data) => {
         const fileData = { file: data.file[0] };
         try {
             await updatePostFiles({ formData: fileData, id: params.postId }).unwrap();
@@ -50,12 +61,8 @@ const EditPost = ({ params }: EditPostProps) => {
             console.error("Failed to update files", err);
         }
     };
-    if (isLoading)
-        return (
-            <div className="h-screen w-full justify-center items-center flex ">
-                <Spinner />
-            </div>
-    );
+
+    if (isLoading) return <div>Loading...</div>;
 
     return (
         <div className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-20`}>
@@ -82,7 +89,7 @@ const EditPost = ({ params }: EditPostProps) => {
                                     {...register("title_en", { required: "Title in English is required" })}
                                     className="px-3 py-2 h-[60px] rounded-lg border border-[#d7dbe0] outline-none"
                                 />
-                                {errors.title_en && <span className="text-red-500">{errors.title_en.message?.toString()}</span>}
+                                {errors.title_en && <span className="text-red-500">{errors.title_en.message}</span>}
                             </label>
                             <label className="grid">
                                 Title (français)
@@ -92,7 +99,7 @@ const EditPost = ({ params }: EditPostProps) => {
                                     {...register("title_fr", { required: "Title in French is required" })}
                                     className="px-3 py-2 h-[60px] rounded-lg border border-[#d7dbe0] outline-none"
                                 />
-                                {errors.title_fr && <span className="text-red-500">{errors.title_fr.message?.toString()}</span>}
+                                {errors.title_fr && <span className="text-red-500">{errors.title_fr.message}</span>}
                             </label>
                             <label className="grid">
                                 Title (Arabic)
@@ -102,7 +109,7 @@ const EditPost = ({ params }: EditPostProps) => {
                                     {...register("title_ar", { required: "Title in Arabic is required" })}
                                     className="px-3 py-2 h-[60px] rounded-lg border border-[#d7dbe0] outline-none"
                                 />
-                                {errors.title_ar && <span className="text-red-500">{errors.title_ar.message?.toString()}</span>}
+                                {errors.title_ar && <span className="text-red-500">{errors.title_ar.message}</span>}
                             </label>
                             <label className="grid">
                                 Content (English)
@@ -112,7 +119,7 @@ const EditPost = ({ params }: EditPostProps) => {
                                     {...register("content_en", { required: "Content in English is required" })}
                                     className="px-3 py-2 h-[60px] rounded-lg border border-[#d7dbe0] outline-none"
                                 />
-                                {errors.content_en && <span className="text-red-500">{errors.content_en.message?.toString()}</span>}
+                                {errors.content_en && <span className="text-red-500">{errors.content_en.message}</span>}
                             </label>
                             <label className="grid">
                                 Content (français)
@@ -122,7 +129,7 @@ const EditPost = ({ params }: EditPostProps) => {
                                     {...register("content_fr", { required: "Content in French is required" })}
                                     className="px-3 py-2 h-[60px] rounded-lg border border-[#d7dbe0] outline-none"
                                 />
-                                {errors.content_fr && <span className="text-red-500">{errors.content_fr.message?.toString()}</span>}
+                                {errors.content_fr && <span className="text-red-500">{errors.content_fr.message}</span>}
                             </label>
                             <label className="grid">
                                 Content (Arabic)
@@ -132,13 +139,13 @@ const EditPost = ({ params }: EditPostProps) => {
                                     {...register("content_ar", { required: "Content in Arabic is required" })}
                                     className="px-3 py-2 h-[60px] rounded-lg border border-[#d7dbe0] outline-none"
                                 />
-                                {errors.content_ar && <span className="text-red-500">{errors.content_ar.message?.toString()}</span>}
+                                {errors.content_ar && <span className="text-red-500">{errors.content_ar.message}</span>}
                             </label>
                         </div>
                     </div>
                 </div>
             </form>
-            <form onSubmit={handleSubmit(onSubmitFile)}>
+            <form onSubmit={handleSubmitFile(onSubmitFile)}>
                 <div className="p-10 rounded-xl border border-[#d7dbe0]">
                     <div className="w-full flex justify-between font-semibold text-[18px] mb-10 items-center">
                         <h1 className="text-[20px]">Images or Videos</h1>
@@ -161,9 +168,9 @@ const EditPost = ({ params }: EditPostProps) => {
                                     <p className="mb-2 text-sm text-gray-500"><span className="font-semibold">Click to upload</span> or drag and drop</p>
                                     <p className="text-xs text-gray-500">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                                 </div>
-                                <input id="dropzone-file" type="file" {...register("file", { required: "File is required" })} className="hidden" />
+                                <input id="dropzone-file" type="file" {...registerFile("file", { required: "File is required" })} className="hidden" />
                             </label>
-                            {errors.file && <span className="text-red-500">{errors.file.message?.toString()}</span>}
+                            {fileErrors.file && <span className="text-red-500">{fileErrors.file.message}</span>}
                         </div>
                     </div>
                 </div>
@@ -173,4 +180,3 @@ const EditPost = ({ params }: EditPostProps) => {
 };
 
 export default EditPost;
-
