@@ -3,15 +3,15 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import Spinner from "@/components/spinner";
-import { useCreateCertificatesMutation } from "@/features/Document-Management/certificatesApi";
+import { useCreateParticipationsMutation } from "@/features/Document-Management/participationApi";
 import { toast } from "react-toastify";
 import { useSelector } from 'react-redux';
 import { RootState } from '@/GlobalRedux/store';
 
-const AddNewCertificate = () => {
+const AddNewParticipation = () => {
     const booleanValue = useSelector((state: RootState) => state.boolean.value);
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const [createCertificate, { isLoading }] = useCreateCertificatesMutation();
+    const [createCertificate, { isLoading }] = useCreateParticipationsMutation();
 
     const onSubmit = async (formData: any) => {
         const data = new FormData();
@@ -20,7 +20,7 @@ const AddNewCertificate = () => {
             stage: formData.stage,
             issueDate: formData.issueDate
         }));
-        data.append('files', formData.file[0]); // Assuming 'endDate' is the file input
+        data.append('file', formData.file[0]); // Assuming 'endDate' is the file input
 
         try {
             await createCertificate(data).unwrap();
@@ -47,18 +47,28 @@ const AddNewCertificate = () => {
                                 <line x1="12" y1="14" x2="12" y2="17" />
                                 <line x1="16" y1="14" x2="16" y2="17" />
                             </svg>
-                            <h1 className="text-[22px] font-sans font-semibold">Completion Certificates</h1>
+                            <h1 className="text-[22px] font-sans font-semibold">Participation Certificates</h1>
                         </div>
                         <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
-                            <label htmlFor="studentId" className="grid text-[18px] font-sans font-semibold">
-                                Student Id
-                                <input id="studentId" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("studentId", { required: true })} />
-                                {errors.studentId && <span className="text-red-600">This field is required</span>}
+                            <label htmlFor="userId" className="grid text-[18px] font-sans font-semibold">
+                            User Id
+                                <input id="userId" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("userId", { required: true })} />
+                                {errors.userId && <span className="text-red-600">This field is required</span>}
                             </label>
-                            <label htmlFor="stage" className="grid text-[18px] font-sans font-semibold">
-                                Educational stage
-                                <input id="stage" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("stage", { required: true })} />
-                                {errors.stage && <span className="text-red-600">This field is required</span>}
+                            <label htmlFor="title_en" className="grid text-[18px] font-sans font-semibold">
+                            Title (en)
+                                <input id="title_en" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("title_en", { required: true })} />
+                                {errors.title_en && <span className="text-red-600">This field is required</span>}
+                            </label>
+                            <label htmlFor="title_ar" className="grid text-[18px] font-sans font-semibold">
+                            Title (ar)
+                                <input id="title_ar" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("title_ar", { required: true })} />
+                                {errors.title_ar && <span className="text-red-600">This field is required</span>}
+                            </label>
+                            <label htmlFor="title_en" className="grid text-[18px] font-sans font-semibold">
+                            Title (fr)
+                                <input id="title_fr" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("title_fr", { required: true })} />
+                                {errors.title_fr && <span className="text-red-600">This field is required</span>}
                             </label>
                             <label htmlFor="issueDate" className="grid text-[18px] font-sans font-semibold">
                                 Graduation Semester
@@ -85,4 +95,4 @@ const AddNewCertificate = () => {
     );
 }
 
-export default AddNewCertificate;
+export default AddNewParticipation;

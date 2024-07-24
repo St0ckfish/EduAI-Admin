@@ -16,6 +16,9 @@ import { certificatesApi } from "@/features/Document-Management/certificatesApi"
 import { achievementApi } from "@/features/Document-Management/achievementApi";
 import { participationApi } from "@/features/Document-Management/participationApi";
 import { professionalApi } from "@/features/Document-Management/professionalApi";
+import { courseApi } from "@/features/Acadimic/courseApi";
+import { employeePermissionApi } from "@/features/Organization-Setteings/employeePermissionApi";
+import { departmentPermissionApi } from "@/features/Organization-Setteings/departmentPermissionApi";
 
 export const store = configureStore({
   reducer: {
@@ -24,6 +27,9 @@ export const store = configureStore({
     [signupApi.reducerPath]: signupApi.reducer,
     [employeeApi.reducerPath]: employeeApi.reducer,
     [teacherApi.reducerPath]: teacherApi.reducer,
+    [courseApi.reducerPath]: courseApi.reducer,
+    [employeePermissionApi.reducerPath]: employeePermissionApi.reducer,
+    [departmentPermissionApi.reducerPath]: departmentPermissionApi.reducer,
     [driverApi.reducerPath]: driverApi.reducer,
     [participationApi.reducerPath]: participationApi.reducer,
     [professionalApi.reducerPath]: professionalApi.reducer,
@@ -42,9 +48,12 @@ export const store = configureStore({
     getDefaultMiddleware()
       .concat(loginApi.middleware)
       .concat(achievementApi.middleware)
+      .concat(employeePermissionApi.middleware)
+      .concat(departmentPermissionApi.middleware)
       .concat(participationApi.middleware)
       .concat(professionalApi.middleware)
       .concat(certificatesApi.middleware)
+      .concat(courseApi.middleware)
       .concat(signupApi.middleware)
       .concat(employeeApi.middleware)
       .concat(departmentApi.middleware)

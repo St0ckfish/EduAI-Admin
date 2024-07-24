@@ -65,7 +65,7 @@ const Certificate = () => {
                 <Link className="text-[#526484] hover:text-blue-400 hover:underline  font-semibold" href="/document-management/certificate">Certificate</Link>
             </div>
             <div className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mr-[5px] relative mt-10 overflow-x-auto bg-transparent sm:rounded-lg h-screen`}>
-            <div className="flex justify-left gap-5 text-[20px] font-semibold mb-[80px] mt-[50px] ml-4">
+            <div className="flex justify-left gap-5 text-[20px] max-[725px]:text-[15px] flex-wrap font-semibold mb-[80px] mt-[50px] ml-4">
                     <Link href="/document-management/certificate" className="text-blue-500 underline">
                     Completion 
                     </Link>

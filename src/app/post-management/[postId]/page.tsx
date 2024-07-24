@@ -4,6 +4,7 @@ import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useEffect } from "react";
+import Spinner from "@/components/spinner";
 
 interface EditPostProps {
     params: {
@@ -29,17 +30,17 @@ const EditPost = ({ params }: EditPostProps) => {
     const { data: post, isLoading } = useGetPostByIdQuery(params.postId);
     const { register, handleSubmit, setValue, formState: { errors } } = useForm<TextFormData>();
     const { register: registerFile, handleSubmit: handleSubmitFile, formState: { errors: fileErrors } } = useForm<FileFormData>();
-    const [updatePost, { isLoading: isUpdatingPost, error: updatePostError }] = useUpdatePostsMutation();
-    const [updatePostFiles, { isLoading: isUpdatingFiles, error: updateFilesError }] = useUpdatePostsFilesMutation();
+    const [updatePost] = useUpdatePostsMutation();
+    const [updatePostFiles] = useUpdatePostsFilesMutation();
 
     useEffect(() => {
         if (post) {
-            setValue("title_en", post.title_en);
-            setValue("title_fr", post.title_fr);
-            setValue("title_ar", post.title_ar);
-            setValue("content_en", post.content_en);
-            setValue("content_fr", post.content_fr);
-            setValue("content_ar", post.content_ar);
+            setValue("title_en", post.data.title_en);
+            setValue("title_fr", post.data.title_fr);
+            setValue("title_ar", post.data.title_ar);
+            setValue("content_en", post.data.content_en);
+            setValue("content_fr", post.data.content_fr);
+            setValue("content_ar", post.data.content_ar);
         }
     }, [post, setValue]);
 
@@ -62,7 +63,12 @@ const EditPost = ({ params }: EditPostProps) => {
         }
     };
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return (
+    <div className="h-screen w-full justify-center items-center flex ">
+        <Spinner />
+    </div>
+
+    )
 
     return (
         <div className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-20`}>

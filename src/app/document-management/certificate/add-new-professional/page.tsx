@@ -3,15 +3,15 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import Spinner from "@/components/spinner";
-import { useCreateCertificatesMutation } from "@/features/Document-Management/certificatesApi";
+import { useCreateProfessionalsMutation } from "@/features/Document-Management/professionalApi";
 import { toast } from "react-toastify";
 import { useSelector } from 'react-redux';
 import { RootState } from '@/GlobalRedux/store';
 
-const AddNewCertificate = () => {
+const AddNewProfessional = () => {
     const booleanValue = useSelector((state: RootState) => state.boolean.value);
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const [createCertificate, { isLoading }] = useCreateCertificatesMutation();
+    const [createCertificate, { isLoading }] = useCreateProfessionalsMutation();
 
     const onSubmit = async (formData: any) => {
         const data = new FormData();
@@ -20,7 +20,7 @@ const AddNewCertificate = () => {
             stage: formData.stage,
             issueDate: formData.issueDate
         }));
-        data.append('files', formData.file[0]); // Assuming 'endDate' is the file input
+        data.append('file', formData.endDate[0]); // Assuming 'endDate' is the file input
 
         try {
             await createCertificate(data).unwrap();
@@ -47,28 +47,28 @@ const AddNewCertificate = () => {
                                 <line x1="12" y1="14" x2="12" y2="17" />
                                 <line x1="16" y1="14" x2="16" y2="17" />
                             </svg>
-                            <h1 className="text-[22px] font-sans font-semibold">Completion Certificates</h1>
+                            <h1 className="text-[22px] font-sans font-semibold">Professional Certificates</h1>
                         </div>
                         <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
-                            <label htmlFor="studentId" className="grid text-[18px] font-sans font-semibold">
-                                Student Id
-                                <input id="studentId" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("studentId", { required: true })} />
-                                {errors.studentId && <span className="text-red-600">This field is required</span>}
+                            <label htmlFor="userId" className="grid text-[18px] font-sans font-semibold">
+                            User Id
+                                <input id="userId" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("userId", { required: true })} />
+                                {errors.userId && <span className="text-red-600">This field is required</span>}
                             </label>
-                            <label htmlFor="stage" className="grid text-[18px] font-sans font-semibold">
-                                Educational stage
-                                <input id="stage" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("stage", { required: true })} />
-                                {errors.stage && <span className="text-red-600">This field is required</span>}
+                            <label htmlFor="type" className="grid text-[18px] font-sans font-semibold">
+                            Type
+                                <input id="type" type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("type", { required: true })} />
+                                {errors.type && <span className="text-red-600">This field is required</span>}
                             </label>
                             <label htmlFor="issueDate" className="grid text-[18px] font-sans font-semibold">
                                 Graduation Semester
                                 <input id="issueDate" type="date" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("issueDate", { required: true })} />
                                 {errors.issueDate && <span className="text-red-600">This field is required</span>}
                             </label>
-                            <label htmlFor="file" className="grid text-[18px] font-sans font-semibold">
+                            <label htmlFor="endDate" className="grid text-[18px] font-sans font-semibold">
                                 Document
-                                <input id="file" type="file" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("file", { required: true })} />
-                                {errors.file && <span className="text-red-600">This field is required</span>}
+                                <input id="endDate" type="file" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("endDate", { required: true })} />
+                                {errors.endDate && <span className="text-red-600">This field is required</span>}
                             </label>
                         </div>
 
@@ -85,4 +85,4 @@ const AddNewCertificate = () => {
     );
 }
 
-export default AddNewCertificate;
+export default AddNewProfessional;

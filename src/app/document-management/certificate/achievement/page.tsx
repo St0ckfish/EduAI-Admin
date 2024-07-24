@@ -66,15 +66,15 @@ const Achievement = () => {
                 <Link className="text-[#526484] hover:text-blue-400 hover:underline  font-semibold" href="/document-management/certificate">Certificate</Link>
             </div>
             <div className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mr-[5px] relative mt-10 overflow-x-auto bg-transparent sm:rounded-lg h-screen`}>
-                <div className="flex justify-left gap-5 text-[20px] font-semibold mb-[80px] mt-[50px] ml-4">
+                <div className="flex justify-left gap-5 text-[20px] max-[725px]:text-[15px] flex-wrap font-semibold mb-[80px] mt-[50px] ml-4">
                     <Link href="/document-management/certificate">
                         Completion
                     </Link>
                     <Link href="/document-management/certificate/achievement" className="text-blue-500 underline">
                         Achievement
                     </Link>
-                    <Link href="/document-management/certificate/achievement">
-                        Achievement
+                    <Link href="/document-management/certificate/participation">
+                    Participation
                     </Link>
                     <Link href="/document-management/certificate/professional-development">
                         Professional Development
@@ -91,7 +91,7 @@ const Achievement = () => {
                         </div>
                     </div> 
                     <div className="flex justify-center">
-                        <Link href="/document-management/achievement/add-new-achievement" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] ease-in font-semibold duration-300">+ Add  Completion Achievements </Link>
+                        <Link href="/document-management/certificate/add-new-achievement" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] ease-in font-semibold duration-300">+ Add  Completion Achievements </Link>
                     </div>
                 </div>
                 <div className="overflow-auto relative shadow-md sm:rounded-lg">

@@ -66,7 +66,7 @@ const Participation = () => {
                 <Link className="text-[#526484] hover:text-blue-400 hover:underline  font-semibold" href="/document-management/certificate">Certificate</Link>
             </div>
             <div className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mr-[5px] relative mt-10 overflow-x-auto bg-transparent sm:rounded-lg h-screen`}>
-                <div className="flex justify-left gap-5 text-[20px] font-semibold mb-[80px] mt-[50px] ml-4">
+                <div className="flex justify-left gap-5 text-[20px] max-[725px]:text-[15px] flex-wrap font-semibold mb-[80px] mt-[50px] ml-4">
                     <Link href="/document-management/certificate">
                         Completion
                     </Link>
@@ -76,8 +76,8 @@ const Participation = () => {
                     <Link href="/document-management/certificate/participation" className="text-blue-500 underline">
                         Participation
                     </Link>
-                    <Link href="/document-management/certificate/participation-development">
-                        Participation Development
+                    <Link href="/document-management/certificate/professional-development">
+                    Professional Development
                     </Link>
                 </div>
                 <div className="flex justify-between max-[502px]:grid max-[502px]:justify-center text-center">
@@ -91,7 +91,7 @@ const Participation = () => {
                         </div>
                     </div> 
                     <div className="flex justify-center">
-                        <Link href="/document-management/participation/add-new-participation" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] ease-in font-semibold duration-300">+ Add  Completion Participations </Link>
+                        <Link href="/document-management/certificate/add-new-participation" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] ease-in font-semibold duration-300">+ Add  Completion Participations </Link>
                     </div>
                 </div>
                 <div className="overflow-auto relative shadow-md sm:rounded-lg">

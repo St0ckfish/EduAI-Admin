@@ -1,7 +1,22 @@
+"use client"
+import { RootState } from "@/GlobalRedux/store";
+import Link from "next/link";
+import { useSelector } from "react-redux";
+
 const Permissions = () => {
+    const booleanValue = useSelector((state: RootState) => state.boolean.value);
+
     return ( 
         <>
-            <div className="lg:ml-[270px] mr-[5px]  flex justify-center items-center h-[650px] relative mt-10 overflow-x-auto bg-transparent sm:rounded-lg max-[1200px]:w-screen">
+        <div className={`flex justify-left gap-5 text-[20px] max-[725px]:text-[15px] flex-wrap ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} font-semibold mb-[80px] mt-[50px] ml-4`}>
+                    <Link href="/organization-setting/permissions/add" >
+                    Department 
+                    </Link>
+                    <Link href="/organization-setting/permissions/add/employee" className="text-blue-500 underline">
+                    Employee
+                    </Link>
+                </div>
+            <div className="lg:ml-[270px] mr-[5px]  flex justify-center items-center h-[650px] relative mt-5 overflow-x-auto bg-transparent sm:rounded-lg max-[1200px]:w-screen">
             <div className="overflow-auto relative shadow-md sm:rounded-lg">
                     <table className="w-[1000px] h-[600px] overflow-x-auto text-sm text-left rtl:text-right text-gray-500 ">
                         <thead className="text-xs text-gray-700 uppercase bg-[#daeafb] ">

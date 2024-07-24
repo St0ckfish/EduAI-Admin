@@ -67,17 +67,17 @@ const ProfessionalDevelopment = () => {
                 <Link className="text-[#526484] hover:text-blue-400 hover:underline  font-semibold" href="/document-management/professional">Professional</Link>
             </div>
             <div className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mr-[5px] relative mt-10 overflow-x-auto bg-transparent sm:rounded-lg h-screen`}>
-                <div className="flex justify-left gap-5 text-[20px] font-semibold mb-[80px] mt-[50px] ml-4">
-                    <Link href="/document-management/professional">
+                <div className="flex justify-left gap-5 text-[20px] max-[725px]:text-[15px] flex-wrap font-semibold mb-[80px] mt-[50px] ml-4">
+                    <Link href="/document-management/certificate">
                         Completion
                     </Link>
-                    <Link href="/document-management/professional/achievement" >
+                    <Link href="/document-management/certificate/achievement" >
                         Achievement
                     </Link>
-                    <Link href="/document-management/professional/participation">
+                    <Link href="/document-management/certificate/participation">
                         Participation
                     </Link>
-                    <Link href="/document-management/professional/professional-development" className="text-blue-500 underline">
+                    <Link href="/document-management/certificate/professional-development" className="text-blue-500 underline">
                         Professional Development
                     </Link>
                 </div>
@@ -92,7 +92,7 @@ const ProfessionalDevelopment = () => {
                         </div>
                     </div> 
                     <div className="flex justify-center">
-                        <Link href="/document-management/professional/add-new-professional" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] ease-in font-semibold duration-300">+ Add  Completion Professionals </Link>
+                        <Link href="/document-management/certificate/add-new-professional" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] ease-in font-semibold duration-300">+ Add  Completion Professionals </Link>
                     </div>
                 </div>
                 <div className="overflow-auto relative shadow-md sm:rounded-lg">
