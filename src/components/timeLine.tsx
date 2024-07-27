@@ -85,13 +85,13 @@ const Timeline: React.FC = () => {
         <div className="wrapper bg-white rounded shadow overflow-auto">
           <div className="header flex justify-between border-b p-2">
             <button onClick={handlePrevMonth} className="p-2">
-              &lt;
+            <svg className="h-6 w-6"  width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <polyline points="15 6 9 12 15 18" /></svg>
             </button>
             <span className="text-lg font-bold">
               {format(currentMonth, 'yyyy MMMM')}
             </span>
             <button onClick={handleNextMonth} className="p-2">
-              &gt;
+            <svg className="h-6 w-6"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round">  <polyline points="9 18 15 12 9 6" /></svg>
             </button>
           </div>
           <table className="w-full overflow-auto"> 
