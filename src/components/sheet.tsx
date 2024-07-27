@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
-const Sheet = ({ isOpen, onClose, children }) => {
+interface SheetProps {
+  isOpen: boolean;
+  onClose: () => void;
+  children: ReactNode;
+}
+
+const Sheet: React.FC<SheetProps> = ({ isOpen, onClose, children }) => {
   return (
     <div
       className={`fixed inset-0 z-[150] bg-black bg-opacity-50 transition-opacity duration-300 ${
