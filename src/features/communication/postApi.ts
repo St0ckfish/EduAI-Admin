@@ -33,6 +33,10 @@ export const postApi = createApi({
             query: () => "/api/v1/management/post/all?size=1000000&page=0",
         }),
         //
+        getAllAllPosts: builder.query({
+            query: () => "/api/v1/post/all?size=1000000&page=0",
+        }),
+        //
         deletePosts: builder.mutation({
             query: id => ({
                 url: `/api/v1/management/employee/account-lock/${id}?locked=true`,
@@ -77,4 +81,5 @@ export const {
     useGetPostByIdQuery,
     useUpdatePostsMutation,
     useUpdatePostsFilesMutation,
+    useGetAllAllPostsQuery
 } = postApi;

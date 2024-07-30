@@ -332,6 +332,7 @@ const NavBar = () => {
                         {
                           isOpen5 && (
                             <ul className={`${small ? 'translate-x-5 bg-white rounded-xl p-2 w-[180px] hidden group-hover:grid whitespace-nowrap ' : ''} grid gap-2 ml-9 mt-2 text-[14px] font-semibold`}>
+                              <Link className="hover:text-[#3e5af0]" href="/post-management/news">News</Link>
                               <Link className="hover:text-[#3e5af0]" href="/post-management">Post Management</Link>
                               <Link className="hover:text-[#3e5af0]" href="/notifies">Notifies</Link>
                             </ul>

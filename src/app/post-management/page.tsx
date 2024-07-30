@@ -9,8 +9,8 @@ import { RootState } from "@/GlobalRedux/store";
 
 const PostManagment = () => {
     const booleanValue = useSelector((state: RootState) => state.boolean.value);
-    type Post = Record<string, any>;
     const [search, setSearch] = useState("");
+    type Post = Record<string, any>;
     const { data, error, isLoading } = useGetAllPostsQuery(null);
     const [selectAll, setSelectAll] = useState(false); 
 
@@ -130,10 +130,12 @@ const PostManagment = () => {
                                 <td className="px-6 py-4 whitespace-nowrap">
                                 {post.content_en}
                                 </td>
-                                <td className="flex gap-2 px-6 py-4 whitespace-nowrap">
-                                {post.attachments.map((img:any, index:number) => (
-                                    <img className="w-[200px] rounded-md" src={img.viewLink} alt="#" key={index} />
-                                 ))}
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <div className="grid grid-cols-2 gap-2">
+                                        {post.attachments.map((img:any, index:number) => (
+                                            <img className="w-[200px] rounded-md" src={img.viewLink} alt="#" key={index} />
+                                        ))}
+                                    </div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <Link href={`/post-management/${post.id}`} className="font-medium text-blue-600 hover:underline">edit</Link>
