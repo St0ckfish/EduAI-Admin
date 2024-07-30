@@ -103,19 +103,19 @@ const signup = () => {
                             {step === 1 && (
                                 <div className="grid grid-cols-1 gap-3 w-full">
                                     <label htmlFor="username" className="grid text-[#9a9a9a] text-start text-[15px] w-full font-sans font-semibold">
-                                        <input id="username" {...register("username", { required: true })} placeholder=" username" className={` py-3 px-4 rounded-xl border ${errors.username ? "border-[#d74f41]" : "border-zinc-300"}  outline-none w-[400px]`} type="text" />
+                                        <input id="username" {...register("username", { required: true })} placeholder=" username" className={` py-3 px-4 rounded-xl border ${errors.username ? "border-[#d74f41]" : "border-zinc-300"}  outline-none w-[400px] max-[458px]:w-[350px]`} type="text" />
                                         {errors.username && <span className="text-[#e81123] text-[13px]">Username is Required</span>}
                                     </label>
                                     <label htmlFor="email" className="grid text-[#9a9a9a] text-start text-[15px] w-full font-sans font-semibold">
-                                        <input id="email" {...register("email", { required: true })} placeholder=" email" className={` py-3 px-4 rounded-xl border ${errors.email ? "border-[#d74f41]" : "border-zinc-300"}  outline-none w-[400px] `} type="email" />
+                                        <input id="email" {...register("email", { required: true })} placeholder=" email" className={` py-3 px-4 rounded-xl border ${errors.email ? "border-[#d74f41]" : "border-zinc-300"}  outline-none w-[400px] max-[458px]:w-[350px]`} type="email" />
                                         {errors.email && <span className="text-[#e81123] text-[13px]">Email is Required</span>}
                                     </label>
                                     <label htmlFor="password" className="grid text-[#9a9a9a] text-start text-[15px] w-full font-sans font-semibold">
-                                        <input id="password" {...register("password", { required: true })} placeholder=" password" className={` py-3 px-4 rounded-xl border ${errors.password ? "border-[#d74f41]" : "border-zinc-300"}  outline-none w-[400px]`} type="password" />
+                                        <input id="password" {...register("password", { required: true })} placeholder=" password" className={` py-3 px-4 rounded-xl border ${errors.password ? "border-[#d74f41]" : "border-zinc-300"}  outline-none w-[400px] max-[458px]:w-[350px]`} type="password" />
                                         {errors.password && <span className="text-[#e81123] text-[13px]">Password is Required</span>}
                                     </label>
                                     <label htmlFor="nid" className="grid text-[#9a9a9a] text-start text-[15px] w-full font-sans font-semibold">
-                                        <input id="nid" {...register("nid", { required: true })} placeholder=" NID" className={` py-3 px-4 rounded-xl border ${errors.nid ? "border-[#d74f41]" : "border-zinc-300"}  outline-none w-[400px]`} type="number" />
+                                        <input id="nid" {...register("nid", { required: true })} placeholder=" NID" className={` py-3 px-4 rounded-xl border ${errors.nid ? "border-[#d74f41]" : "border-zinc-300"}  outline-none w-[400px] max-[458px]:w-[350px]`} type="number" />
                                         {errors.nid && <span className="text-[#e81123] text-[13px]">NID is Required</span>}
                                     </label>
                                     <div className="flex justify-end gap-3 w-full mt-12">
@@ -133,11 +133,11 @@ const signup = () => {
                             {step === 2 && (
                                 <div className="grid grid-cols-1 gap-3">
                                     <label htmlFor="regionId" className="grid text-[#9a9a9a] text-start text-[15px] font-sans font-semibold">
-                                        <input id="regionId" {...register("regionId", { required: true })} placeholder=" regionId" className={` py-3 px-4 rounded-xl border ${errors.regionId ? "border-[#d74f41]" : "border-zinc-300"}  outline-none w-[400px]`} type="number" />
+                                        <input id="regionId" {...register("regionId", { required: true })} placeholder=" regionId" className={` py-3 px-4 rounded-xl border ${errors.regionId ? "border-[#d74f41]" : "border-zinc-300"}  outline-none w-[400px] max-[458px]:w-[350px]`} type="number" />
                                         {errors.regionId && <span className="text-[#e81123] text-[13px]">regionId is Required</span>}
                                     </label>
                                     <label htmlFor="gender" className="grid text-[#9a9a9a] text-start text-[15px] font-sans font-semibold">
-                                        <select defaultValue="" id="gender" {...register("gender", { required: true })} className={`border ${errors.gender ? "border-[#d74f41]" : "border-zinc-300"} text-[#9a9a9a] text-sm outline-none rounded-xl h-full py-3 px-4 w-[400px]`}>
+                                        <select defaultValue="" id="gender" {...register("gender", { required: true })} className={`border ${errors.gender ? "border-[#d74f41]" : "border-zinc-300"} text-[#9a9a9a] text-sm outline-none rounded-xl h-full py-3 px-4 w-[400px] max-[458px]:w-[350px]`}>
                                             <option selected value="">Select gender </option>
                                             <option value="MALE">Male </option>
                                             <option value="FEMALE">Female </option>
@@ -145,7 +145,7 @@ const signup = () => {
                                         {errors.gender && <span className="text-[#e81123] text-[13px]">Gender is Required</span>}
                                     </label>
                                     <label htmlFor="religion" className="grid text-[#9a9a9a] text-start text-[15px] font-sans font-semibold">
-                                        <select defaultValue="" id="religion" {...register("religion", { required: true })} className={`border ${errors.religion ? "border-[#d74f41]" : "border-zinc-300"} text-[#9a9a9a] text-sm outline-none rounded-xl h-full py-3 px-4 w-[400px]`}>
+                                        <select defaultValue="" id="religion" {...register("religion", { required: true })} className={`border ${errors.religion ? "border-[#d74f41]" : "border-zinc-300"} text-[#9a9a9a] text-sm outline-none rounded-xl h-full py-3 px-4 w-[400px] max-[458px]:w-[350px]`}>
                                             <option selected value="">Select religion </option>
                                             <option value="MUSLIM">Muslim </option>
                                             <option value="CHRISTIAN">Christian </option>
@@ -154,7 +154,7 @@ const signup = () => {
                                         {errors.religion && <span className="text-[#e81123] text-[13px]">Religion is Required</span>}
                                     </label>
                                     <label htmlFor="number" className="grid text-[#9a9a9a] text-start text-[15px] font-sans font-semibold">
-                                        <input id="number" {...register("number", { required: true })} placeholder=" number" className={` py-3 px-4 rounded-xl border ${errors.number ? "border-[#d74f41]" : "border-zinc-300"}  outline-none w-[400px]`} type="number" />
+                                        <input id="number" {...register("number", { required: true })} placeholder=" number" className={` py-3 px-4 rounded-xl border ${errors.number ? "border-[#d74f41]" : "border-zinc-300"}  outline-none w-[400px] max-[458px]:w-[350px]`} type="number" />
                                         {errors.number && <span className="text-[#e81123] text-[13px]">number is Required</span>}
                                     </label>
                                     <div className="flex justify-end gap-3 w-full mt-12">
@@ -172,7 +172,7 @@ const signup = () => {
                             {step === 3 && (
                                 <div className="grid grid-cols-1 gap-3">
                                     <label htmlFor="nationality" className="grid text-[#9a9a9a] text-start text-[15px] font-sans font-semibold">
-                                        <select defaultValue="" id="nationality" {...register("nationality", { required: true })} className={`border ${errors.nationality ? "border-[#d74f41]" : "border-zinc-300"} text-[#9a9a9a] text-sm outline-none rounded-xl w-[400px] h-full py-3 px-4 `}>
+                                        <select defaultValue="" id="nationality" {...register("nationality", { required: true })} className={`border ${errors.nationality ? "border-[#d74f41]" : "border-zinc-300"} text-[#9a9a9a] text-sm outline-none rounded-xl w-[400px] max-[458px]:w-[350px] h-full py-3 px-4 `}>
                                             <option selected value="">Select Nationality </option>
                                             {nationalityData &&
                                                 Object.entries(nationalityData.data).map(([key, value]) => (
@@ -185,7 +185,7 @@ const signup = () => {
                                     </label>
                                     <label htmlFor="employeeType" className="grid text-[#9a9a9a] text-start text-[15px] font-sans font-semibold">
 
-                                        <select defaultValue="" id="religion" {...register("employeeType", { required: true })} className={`border ${errors.employeeType ? "border-[#d74f41]" : "border-zinc-300"} text-[#9a9a9a] text-sm outline-none  w-[400px] rounded-xl h-full py-3 px-4 `}>
+                                        <select defaultValue="" id="religion" {...register("employeeType", { required: true })} className={`border ${errors.employeeType ? "border-[#d74f41]" : "border-zinc-300"} text-[#9a9a9a] text-sm outline-none  w-[400px] max-[458px]:w-[350px] rounded-xl h-full py-3 px-4 `}>
                                             <option selected value="">Select religion </option>
                                             <option value="EMPLOYEE">Employee </option>
                                             <option value="DRIVER">Driver </option>
@@ -195,7 +195,7 @@ const signup = () => {
                                     </label>
                                     <label htmlFor="qualification" className="grid text-[#9a9a9a] text-start text-[15px] font-sans font-semibold">
 
-                                        <select defaultValue="" id="qualification" {...register("qualification", { required: true })} className={`border ${errors.qualification ? "border-[#d74f41]" : "border-zinc-300"} text-[#9a9a9a] text-sm outline-none  w-[400px] rounded-xl h-full py-3 px-4 `}>
+                                        <select defaultValue="" id="qualification" {...register("qualification", { required: true })} className={`border ${errors.qualification ? "border-[#d74f41]" : "border-zinc-300"} text-[#9a9a9a] text-sm outline-none w-[400px] max-[458px]:w-[350px] rounded-xl h-full py-3 px-4 `}>
                                             <option selected value="">Select religion </option>
                                             <option value="HIGH_SCHOOL_DIPLOMA">High School Diploma </option>
                                             <option value="MASTER_DEGREE">Master Degree </option>
@@ -206,7 +206,7 @@ const signup = () => {
                                     </label>
                                     <label htmlFor="birthDate" className="grid text-[#9a9a9a] text-start text-[15px] font-sans font-semibold">
 
-                                        <input id="birthDate" {...register("birthDate", { required: true })} placeholder=" NID" className={`w-[400px] py-3 px-4 rounded-xl border ${errors.birthDate ? "border-[#d74f41]" : "border-zinc-300"}  outline-none`} type="date" />
+                                        <input id="birthDate" {...register("birthDate", { required: true })} placeholder=" NID" className={`w-[400px] max-[458px]:w-[350px] py-3 px-4 rounded-xl border ${errors.birthDate ? "border-[#d74f41]" : "border-zinc-300"}  outline-none`} type="date" />
                                         {errors.birthDate && <span className="text-[#e81123] text-[13px]">birthDate is Required</span>}
                                     </label>
                                     <div className="flex justify-end gap-3 w-full mt-12">
@@ -225,27 +225,27 @@ const signup = () => {
                                 <div className="grid grid-cols-1 gap-3">
                                     <label htmlFor="name_en" className="grid text-[#9a9a9a] text-start text-[15px] font-sans font-semibold">
 
-                                        <input id="name_en" {...register("name_en", { required: true })} placeholder=" English Name" className={`w-[400px] py-3 px-4 rounded-xl border ${errors.name_en ? "border-[#d74f41]" : "border-zinc-300"}  outline-none max-[530px]:w-[190px]`} type="text" />
+                                        <input id="name_en" {...register("name_en", { required: true })} placeholder=" English Name" className={`w-[400px] py-3 px-4 rounded-xl border ${errors.name_en ? "border-[#d74f41]" : "border-zinc-300"}  outline-none max-[458px]:w-[350px]`} type="text" />
                                         {errors.name_en && <span className="text-[#e81123] text-[13px]">English Name is Required</span>}
                                     </label>
                                     <label htmlFor="name_ar" className="grid text-[#9a9a9a] text-start text-[15px] font-sans font-semibold">
 
-                                        <input id="name_ar" {...register("name_ar", { required: true })} placeholder=" Arabic Name" className={`w-[400px] py-3 px-4 rounded-xl border ${errors.name_ar ? "border-[#d74f41]" : "border-zinc-300"}  outline-none max-[530px]:w-[190px]`} type="text" />
+                                        <input id="name_ar" {...register("name_ar", { required: true })} placeholder=" Arabic Name" className={`w-[400px] py-3 px-4 rounded-xl border ${errors.name_ar ? "border-[#d74f41]" : "border-zinc-300"}  outline-none max-[458px]:w-[350px]`} type="text" />
                                         {errors.name_ar && <span className="text-[#e81123] text-[13px]">Arabic Name is Required</span>}
                                     </label>
                                     <label htmlFor="name_fr" className="grid text-[#9a9a9a] text-start text-[15px] font-sans font-semibold">
 
-                                        <input id="name_fr" {...register("name_fr", { required: true })} placeholder=" French Name" className={`w-[400px] py-3 px-4 rounded-xl border ${errors.name_fr ? "border-[#d74f41]" : "border-zinc-300"}  outline-none max-[530px]:w-[190px]`} type="text" />
+                                        <input id="name_fr" {...register("name_fr", { required: true })} placeholder=" French Name" className={`w-[400px] py-3 px-4 rounded-xl border ${errors.name_fr ? "border-[#d74f41]" : "border-zinc-300"}  outline-none max-[458px]:w-[350px]`} type="text" />
                                         {errors.name_fr && <span className="text-[#e81123] text-[13px]">French Name is Required</span>}
                                     </label>
                                     <label htmlFor="schoolId" className="grid text-[#9a9a9a] text-start text-[15px] font-sans font-semibold">
 
-                                        <input id="schoolId" {...register("schoolId", { required: true })} placeholder=" schoolId" className={`w-[400px] py-3 px-4 rounded-xl border ${errors.schoolId ? "border-[#d74f41]" : "border-zinc-300"}  outline-none max-[530px]:w-[190px]`} type="number" />
+                                        <input id="schoolId" {...register("schoolId", { required: true })} placeholder=" schoolId" className={`w-[400px] py-3 px-4 rounded-xl border ${errors.schoolId ? "border-[#d74f41]" : "border-zinc-300"}  outline-none max-[458px]:w-[350px]`} type="number" />
                                         {errors.schoolId && <span className="text-[#e81123] text-[13px]">schoolId is Required</span>}
                                     </label>
                                     <label htmlFor="about" className="grid text-[#9a9a9a] text-start text-[15px] font-sans font-semibold w-full">
                                         Your about
-                                        <textarea id="about" {...register("about", { required: true })} placeholder=" about" className={`w-[400px] py-3 px-4 rounded-xl border ${errors.about ? "border-[#d74f41]" : "border-zinc-300"}  outline-none `} />
+                                        <textarea id="about" {...register("about", { required: true })} placeholder=" about" className={`w-[400px] max-[458px]:w-[350px] py-3 px-4 rounded-xl border ${errors.about ? "border-[#d74f41]" : "border-zinc-300"}  outline-none `} />
                                         {errors.about && <span className="text-[#e81123] text-[13px]">about is Required</span>}
                                     </label>
                                     <div className="flex justify-end gap-3 w-full mt-12">
