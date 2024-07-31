@@ -3,6 +3,7 @@ import { useCreatePostsMutation } from "@/features/communication/postApi";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 const AddNewPost = () => {
     const booleanValue = useSelector((state: RootState) => state.boolean.value);
@@ -10,10 +11,31 @@ const AddNewPost = () => {
     const [createPost] = useCreatePostsMutation();
 
     const onSubmit = async (data: any) => {
+        // Create FormData object
+        const formData = new FormData();
+
+        // Append JSON stringified post data
+        const postData = {
+            title_en: data.title_en,
+            title_fr: data.title_fr,
+            title_ar: data.title_ar,
+            content_en: data.content_en,
+            content_fr: data.content_fr,
+            content_ar: data.content_ar
+        };
+        formData.append('post', JSON.stringify(postData));
+
+        // Append file data
+        if (data.files && data.files[0]) {
+            formData.append('files', data.files[0]);
+        }
+
         try {
-            await createPost(data).unwrap();
+            await createPost(formData).unwrap();
+            toast.success("Create post Success");
         } catch (err) {
             console.error("Failed to create post", err);
+            toast.error("Failed to create post");
         }
     };
 
@@ -106,7 +128,7 @@ const AddNewPost = () => {
                                         <p className="mb-2 text-sm text-gray-500"><span className="font-semibold">Click to upload</span> or drag and drop</p>
                                         <p className="text-xs text-gray-500">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                                     </div>
-                                    <input id="dropzone-file" type="file" className="hidden" />
+                                    <input {...register("files")}  id="dropzone-file" type="file" className="hidden" />
                                 </label>
                             </div>
                         </div>
