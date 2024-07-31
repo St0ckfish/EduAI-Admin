@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
-import { toast } from "react-toastify";
 import Link from "next/link";
 import { useState, useEffect } from 'react';
 import { useGetAllStudentsQuery } from "@/features/User-Management/studentApi";
@@ -171,6 +170,9 @@ const Student = () => {
                             ))}
                         </tbody>
                     </table>
+                    {
+                        (data?.data.content.length == 0 || data == null) && <div className="flex justify-center text-center text-[18px] w-full py-3 font-semibold">There is No Data</div>
+                    }
                 </div>
             </div>
         </>

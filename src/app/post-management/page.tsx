@@ -147,6 +147,9 @@ const PostManagment = () => {
                             ))}
                         </tbody>
                     </table>
+                    {
+                        (data?.data.content.length == 0 || data == null) && <div className="flex justify-center text-center text-[18px] w-full py-3 font-semibold">There is No Data</div>
+                    }
                 </div>
             </div>
         </>
