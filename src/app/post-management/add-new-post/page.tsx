@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 const AddNewPost = () => {
     const booleanValue = useSelector((state: RootState) => state.boolean.value);
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const [createPost] = useCreatePostsMutation();
+    const [createPost, {isLoading}] = useCreatePostsMutation();
 
     const onSubmit = async (data: any) => {
         // Create FormData object
@@ -48,7 +48,8 @@ const AddNewPost = () => {
                             <h1 className="text-[20px]">Title</h1>
                             <button className="flex gap-2" type="submit">
                                 <svg className="h-6 w-6 text-[#09244b]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">  <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />  <polyline points="17 21 17 13 7 13 7 21" />  <polyline points="7 3 7 8 15 8" /></svg>
-                                Save
+                                {isLoading?
+                                "Saving...": "Save"}
                             </button>
                         </div>
                         <div className="grid grid-cols-2 max-[614px]:grid-cols-1 gap-3 font-semibold">

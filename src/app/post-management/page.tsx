@@ -59,7 +59,7 @@ const PostManagment = () => {
     return (
         <>
             <div className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mr-[5px] relative mt-10 overflow-x-auto bg-transparent sm:rounded-lg h-screen`}>
-            <div className="flex justify-left gap-5 text-[23px] font-bold mb-[80px] mt-[50px] ml-4">
+            <div className="flex justify-left gap-5 text-[23px] font-semibold mb-[80px] mt-[20px] ml-4">
                     <Link href="/post-management" className="text-blue-500 underline">
                         Post
                     </Link>
@@ -87,7 +87,6 @@ const PostManagment = () => {
                         <tr>
                                 <th scope="col" className="p-4">
                                     <div className="flex items-center">
-                                        {/* Add event listener for select all checkbox */}
                                         <input id="checkbox-all-search" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 -gray-800 focus:ring-2" onChange={handleSelectAll} />
                                     </div>
                                 </th>

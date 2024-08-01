@@ -1,12 +1,16 @@
+"use client"
 /* eslint-disable @next/next/no-img-element */
-
 import Link from "next/link";
+import { useSelector } from 'react-redux';
+import { RootState } from "@/GlobalRedux/store";
 
 const Reviews = () => {
+    const booleanValue = useSelector((state: RootState) => state.boolean.value);
+
     return (
         <>
-            <div className="lg:ml-[290px] mt-12 pr-5 overflow-x-auto md:px-6">
-                <div className="flex justify-left gap-5 text-[23px] font-bold mb-5 ml-4">
+            <div className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mr-[5px] relative mt-10 overflow-x-auto bg-transparent sm:rounded-lg h-screen`}>
+                <div className="flex justify-left gap-5 text-[23px] font-semibold mb-[40px] mt-[20px] ml-4">
                     <Link href="/post-management">
                         Post
                     </Link>
