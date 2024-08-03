@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
-import Link from "next/link";
 import { useEffect, useState } from "react";
 interface CircleProgressProps {
     percentage: number;
