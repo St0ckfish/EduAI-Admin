@@ -39,7 +39,7 @@ export const postApi = createApi({
         //
         deletePosts: builder.mutation({
             query: id => ({
-                url: `/api/v1/management/employee/account-lock/${id}?locked=true`,
+                url: `/api/v1/management/post/${id}`,
                 method: "PUT",
             }),
         }),

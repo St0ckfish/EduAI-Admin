@@ -1,6 +1,5 @@
 "use client"
 import Card from "@/components/card";
-/* eslint-disable @next/next/no-img-element */
 import { RootState } from "@/GlobalRedux/store";
 import Link from "next/link";
 import { useSelector } from "react-redux";
