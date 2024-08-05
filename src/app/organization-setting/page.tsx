@@ -1,4 +1,5 @@
 "use client"
+import Card from "@/components/card";
 /* eslint-disable @next/next/no-img-element */
 import { RootState } from "@/GlobalRedux/store";
 import Link from "next/link";
@@ -6,6 +7,44 @@ import { useSelector } from "react-redux";
 
 const OrganizationSettings = () => {
     const booleanValue = useSelector((state: RootState) => state.boolean.value);
+    const settings = [
+        {
+            href: "/organization-setting/reports",
+            imgSrc: "/images/reports.png",
+            title: "Reports",
+            description: "All user Reports",
+        },
+        {
+            href: "/organization-setting/permissions/department-permission",
+            imgSrc: "/images/permetions.png",
+            title: "Permission",
+            description: "All Permissions ",
+        },
+        {
+            href: "/organization-setting/semester",
+            imgSrc: "/images/Semester.png",
+            title: "Semester",
+            description: "Enter semester information",
+        },
+        {
+            href: "/organization-setting/department",
+            imgSrc: "/images/exams.png",
+            title: "Department",
+            description: "Enter Departments information",
+        },
+        {
+            href: "/organization-setting/position",
+            imgSrc: "/images/user.png",
+            title: "Position",
+            description: "Enter Position information",
+        },
+        {
+            href: "/organization-setting/annual",
+            imgSrc: "/images/events.png",
+            title: "Annual Leave",
+            description: "All Annual Leave",
+        },
+    ];
     return (
         <>
         <div className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-12 ml-7 text-[18px] max-[550px]:text-[15px]  flex-wrap`}>
@@ -14,51 +53,17 @@ const OrganizationSettings = () => {
             <Link className="text-[#526484] hover:text-blue-400 hover:underline text-[18px] font-semibold" href="/organization-setting">Organization Setting</Link>
         </div>
             <div className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} mt-12 grid justify-center `}>
-
-                <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-2 grid-cols-2 max-[577px]:grid-cols-1 gap-5">
-                    <div className="w-[250px] h-[250px] bg-white rounded-xl shadow-lg grid justify-center items-center">
-                        <Link href="/organization-setting/reports" className="grid items-center justify-center text-center" >
-                            <div className="bg-[#FAEFEF] rounded-full h-[87px] w-[87px] grid items-center justify-center ">
-                                <img src="/images/reports.png" alt="#" />
-                            </div>
-                            <p className="text-[22px] font-semibold mt-2">Reports</p>
-                        </Link>
-                    </div>
-                    <div className="w-[250px] h-[250px] bg-white rounded-xl shadow-lg grid justify-center items-center">
-                        <Link href="/organization-setting/permissions/department-permission" className="grid items-center justify-center text-center" >
-                            <div className="bg-[#FAEFEF] rounded-full h-[87px] w-[87px] grid items-center justify-center ">
-                                <img src="/images/permetions.png" alt="#" />
-                            </div>
-                            <p className="text-[22px] font-semibold mt-2">Permission</p>
-                        </Link>
-                    </div>
-                    <div className="w-[250px] h-[250px] bg-white rounded-xl shadow-lg grid justify-center items-center">
-                        <Link href="/organization-setting/semester" className="grid items-center justify-center text-center" >
-                            <div className="bg-[#FAEFEF] rounded-full h-[87px] w-[87px] grid items-center justify-center ">
-                                <img src="/images/Semester.png" alt="#" />
-                            </div>
-                            <p className="text-[22px] font-semibold mt-2">Semester</p>
-                        </Link>
-                    </div>
-                    <div className="w-[250px] h-[250px] bg-white rounded-xl shadow-lg grid justify-center items-center">
-                        <Link href="/organization-setting/department" className="grid items-center justify-center text-center" >
-                            <div className="bg-[#FAEFEF] rounded-full h-[87px] w-[87px] grid items-center justify-center ">
-                                <img src="/images/exams.png" alt="#" />
-                            </div>
-                            <p className="text-[22px] font-semibold mt-2">Department</p>
-                        </Link>
-                    </div>
-                    <div className="w-[250px] h-[250px] bg-white rounded-xl shadow-lg grid justify-center items-center">
-                        <Link href="/organization-setting/position" className="grid items-center justify-center text-center" >
-                            <div className="bg-[#FAEFEF] rounded-full h-[87px] w-[87px] grid items-center justify-center ">
-                                <img src="/images/user.png" alt="#" />
-                            </div>
-                            <p className="text-[22px] font-semibold mt-2">Position</p>
-                        </Link>
-                    </div>
-                    
+            <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-3 grid-cols-2 max-[577px]:grid-cols-1 gap-5">
+                    {settings.map((item, index) => (
+                        <Card
+                            key={index}
+                            href={item.href}
+                            imgSrc={item.imgSrc}
+                            title={item.title}
+                            description={item.description}
+                        />
+                    ))}
                 </div>
-
             </div>
         </>
     );
