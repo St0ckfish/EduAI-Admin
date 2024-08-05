@@ -26,11 +26,9 @@ const News = () => {
     const handleDelete = async (id: string) => {
         try {
           await deletePosts(id).unwrap();
-          alert(`Case with ID ${id} deleted successfully`);
           toast.success("Delete post Success");
           void refetch();
         } catch (err) {
-          alert("Failed to delete the Case");
           toast.error("Can not Delete post");
 
         }
