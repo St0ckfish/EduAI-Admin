@@ -4,12 +4,23 @@ import dynamic from 'next/dynamic';
 import Calendar from '@/components/calendar';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
+import Modal from '@/components/model';
 
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 interface ApexChartProps { }
 
 const Dashboard: React.FC<ApexChartProps> = () => {
+
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+      setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+      setModalOpen(false);
+  };
 
   const [series, setSeries] = useState([
     {
@@ -157,7 +168,7 @@ const Dashboard: React.FC<ApexChartProps> = () => {
               </div>
             </div>
             <div className="grid justify-center ">
-              <button className="px-1 py-1.5 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[14px] w-[120px] ease-in font-semibold duration-300">+ New Event</button>
+              <button onClick={handleOpenModal} className="px-1 py-1.5 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[14px] w-[120px] ease-in font-semibold duration-300">+ New Event</button>
             </div>
           </div>
         </div>
@@ -207,7 +218,36 @@ const Dashboard: React.FC<ApexChartProps> = () => {
           </div>
         </div>
       </div>
-
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+                    
+                    
+                    <h2 className="text-xl mb-4 font-light"> Event Name</h2>
+                    <div className="mb-4 rounded-sm">
+                        <input
+                            type="text"
+                            placeholder="Event Name "
+                            className="w-full px-4 py-2 border bg-[#ffffff] shadow-md rounded-xl  border-[#436789] focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+                    <h2 className="text-xl mb-4 font-light">  Event Date</h2>
+                    <div className="mb-4 rounded-sm">
+                        <input
+                            type="date"
+                            className="w-full px-4 py-2 border bg-[#ffffff] rounded-xl shadow-md border-[#436789] focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+                    <div className="flex justify-between">
+                        <button className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] w-[180px] ease-in font-semibold duration-300">
+                            Add 
+                        </button>
+                        <button
+                            onClick={handleCloseModal}
+                            className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#e44949] hover:bg-[#af4747] hover:shadow-xl mb-5 mr-3 text-white text-[18px] w-[180px] ease-in font-semibold duration-300"
+                        >
+                            Cancel
+                        </button>
+                    </div>
+                </Modal>
     </div>
   );
 };
