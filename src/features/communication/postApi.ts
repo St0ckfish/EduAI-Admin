@@ -40,7 +40,7 @@ export const postApi = createApi({
         deletePosts: builder.mutation({
             query: id => ({
                 url: `/api/v1/management/post/${id}`,
-                method: "PUT",
+                method: "DELETE",
             }),
         }),
         //
@@ -59,7 +59,7 @@ export const postApi = createApi({
         updatePosts: builder.mutation({
             query: ({ formData, id }) => ({
                 url: `/api/v1/management/post/${id}`,
-                method: "PATCH",
+                method: "PUT",
                 body: formData,
             }),
         }),

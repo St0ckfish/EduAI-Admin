@@ -2,8 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import Calendar from '@/components/calendar';
-import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Modal from '@/components/model';
 
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
