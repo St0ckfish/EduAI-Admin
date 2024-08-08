@@ -71,6 +71,13 @@ export const postApi = createApi({
                 body: formData,
             }),
         }),
+        //
+        putPostLike: builder.mutation({
+            query: ({ like, id }) => ({
+                url: `/api/v1/post/${id}/like?liked=${like}`,
+                method: "PUT",
+            }),
+        }),
     }),
 });
 
@@ -81,5 +88,6 @@ export const {
     useGetPostByIdQuery,
     useUpdatePostsMutation,
     useUpdatePostsFilesMutation,
-    useGetAllAllPostsQuery
+    useGetAllAllPostsQuery,
+    usePutPostLikeMutation
 } = postApi;
