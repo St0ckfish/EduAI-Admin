@@ -18,7 +18,8 @@ const AddNewAchievement = () => {
         data.append('certificate', JSON.stringify({
             studentId: formData.studentId,
             stage: formData.stage,
-            issueDate: formData.issueDate
+            issueDate: formData.issueDate,
+            subject: formData.subject
         }));
         data.append('file', formData.endDate[0]); // Assuming 'endDate' is the file input
 

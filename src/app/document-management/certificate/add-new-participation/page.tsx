@@ -16,8 +16,10 @@ const AddNewParticipation = () => {
     const onSubmit = async (formData: any) => {
         const data = new FormData();
         data.append('certificate', JSON.stringify({
-            studentId: formData.studentId,
-            stage: formData.stage,
+            userId: formData.userId,
+            title_en: formData.title_en,
+            title_ar: formData.title_ar,
+            title_fr: formData.title_fr,
             issueDate: formData.issueDate
         }));
         data.append('file', formData.file[0]); // Assuming 'endDate' is the file input

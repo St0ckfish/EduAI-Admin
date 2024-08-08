@@ -220,7 +220,7 @@ const Dashboard: React.FC<ApexChartProps> = () => {
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
                     
                     
-                    <h2 className="text-xl mb-4 font-light"> Event Name</h2>
+                    <h2 className="text-xl mb-4 font-semibold"> Event Name</h2>
                     <div className="mb-4 rounded-sm">
                         <input
                             type="text"
@@ -228,7 +228,7 @@ const Dashboard: React.FC<ApexChartProps> = () => {
                             className="w-full px-4 py-2 border bg-[#ffffff] shadow-md rounded-xl  border-[#436789] focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
-                    <h2 className="text-xl mb-4 font-light">  Event Date</h2>
+                    <h2 className="text-xl mb-4 font-semibold">  Event Date</h2>
                     <div className="mb-4 rounded-sm">
                         <input
                             type="date"
@@ -241,7 +241,7 @@ const Dashboard: React.FC<ApexChartProps> = () => {
                         </button>
                         <button
                             onClick={handleCloseModal}
-                            className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#e44949] hover:bg-[#af4747] hover:shadow-xl mb-5 mr-3 text-white text-[18px] w-[180px] ease-in font-semibold duration-300"
+                            className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#ffffff] hover:shadow-xl mb-5 mr-3 border text-black text-[18px] w-[180px] ease-in font-semibold duration-300"
                         >
                             Cancel
                         </button>

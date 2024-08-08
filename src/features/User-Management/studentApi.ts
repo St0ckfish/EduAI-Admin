@@ -28,12 +28,12 @@ export const studentApi = createApi({
     }),
     endpoints: builder => ({
         getAllStudents: builder.query({
-            query: () => "/api/v1/management/student/all?size=1000000&page=0&archived=false",
+            query: ({archived}) => `/api/v1/management/student/all?size=1000000&page=0&archived=${archived}`,
         }),
         //
         deleteStudents: builder.mutation({
-            query: id => ({
-                url: `/api/v1/management/student/account-lock/${id}?locked=true`,
+            query: ({id, lock}) => ({
+                url: `/api/v1/management/student/account-lock/${id}?locked=${lock}`,
                 method: "PUT",
             }),
         }),

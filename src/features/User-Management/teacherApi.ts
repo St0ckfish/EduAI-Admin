@@ -28,12 +28,12 @@ export const teacherApi = createApi({
     }),
     endpoints: builder => ({
         getAllTeachers: builder.query({
-            query: () => "/api/v1/management/teacher/all?size=1000000000&page=0&archived=false",
+            query: ({archived}) => `/api/v1/management/teacher/all?size=1000000000&page=0&archived=${archived}`,
         }),
         //
         deleteTeachers: builder.mutation({
-            query: id => ({
-                url: `/api/v1/management/teacher/account-lock/${id}?locked=true`,
+            query: ({id, lock}) => ({
+                url: `/api/v1/management/teacher/account-lock/${id}?locked=${lock}`,
                 method: "PUT",
             }),
         }),

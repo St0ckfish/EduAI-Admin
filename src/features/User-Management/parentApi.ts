@@ -28,12 +28,12 @@ export const parentApi = createApi({
     }),
     endpoints: builder => ({
         getAllParents: builder.query({
-            query: () => "/api/v1/management/parent/all?size=1000000&page=0&archived=false",
+            query: ({archived}) => `/api/v1/management/parent/all?size=1000000&page=0&archived=${archived}`,
         }),
         //
         deleteParents: builder.mutation({
-            query: id => ({
-                url: `/api/v1/management/parent/account-lock/${id}?locked=true`,
+            query: ({id, lock}) => ({
+                url: `/api/v1/management/parent/account-lock/${id}?locked=${lock}`,
                 method: "PUT",
             }),
         }),

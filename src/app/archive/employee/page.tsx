@@ -1,17 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
-import Spinner from "@/components/spinner";
-import { useGetAllParticipationsQuery } from "@/features/Document-Management/participationApi";
 import Link from "next/link";
 import { useState, useEffect } from 'react';
+import { useGetAllEmployeesQuery, useDeleteEmployeesMutation } from "@/features/User-Management/employeeApi";
+import Spinner from "@/components/spinner";
 import { useSelector } from 'react-redux';
 import { RootState } from "@/GlobalRedux/store";
+import { toast } from "react-toastify";
 
-const Participation = () => {
+const ArchiveEmployee = () => {
     const booleanValue = useSelector((state: RootState) => state.boolean.value);
-    type Participation = Record<string, any>;
+
+    type Employee = Record<string, any>;
     const [search, setSearch] = useState("");
-    const { data, error, isLoading } = useGetAllParticipationsQuery(null);
+    const { data, error, isLoading, refetch } = useGetAllEmployeesQuery({
+        archived: "true"
+    });
     const [selectAll, setSelectAll] = useState(false); 
 
     useEffect(() => {
@@ -19,9 +23,24 @@ const Participation = () => {
         if (error) console.log("Error:", error);
       }, [data, error]);
 
+      const [deleteEmployees] = useDeleteEmployeesMutation();
+
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteEmployees({
+        id:id,
+        lock:"false"
+      }).unwrap();
+      toast.success(`Employee with ID ${id} unLocked successfully`);
+      void refetch();
+    } catch (err) {
+      toast.error("Failed to unlock the Employee");
+    }
+  };
+
     const handleSelectAll = () => {
-        setSelectAll(!selectAll);
-        const checkboxes = document.querySelectorAll<HTMLInputElement>('input[type="checkbox"]:not(#checkbox-all-search)');
+        setSelectAll(!selectAll); 
+        const checkboxes = document.querySelectorAll<HTMLInputElement>('input[type="checkbox"]:not(#checkbox-all-search)'); 
         checkboxes.forEach(checkbox => {
             checkbox.checked = !selectAll;
         });
@@ -49,37 +68,23 @@ const Participation = () => {
             });
         };
     }, []);
-
     if (isLoading)
         return (
             <div className="h-screen w-full justify-center items-center flex ">
                 <Spinner />
             </div>
     );
-    return (
+
+    return ( 
         <>
-        <div className="flex items-center gap-1 lg:ml-[290px] mt-12 ml-7 text-[18px] max-[550px]:text-[15px]  flex-wrap">
+            <div className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-12 ml-7 text-[18px] max-[550px]:text-[15px]  flex-wrap`}>
                 <Link className="text-[#526484] hover:text-blue-400 hover:underline  font-semibold" href="/">Administration</Link>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{ fill: 'rgba(82, 100, 132, 1)', transform: '', msFilter: '' }}><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg>
-                <Link className="text-[#526484] hover:text-blue-400 hover:underline  font-semibold" href="/document-management">Document Management</Link>
+                <Link className="text-[#526484] hover:text-blue-400 hover:underline  font-semibold" href="/archive">Archive</Link>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{ fill: 'rgba(82, 100, 132, 1)', transform: '', msFilter: '' }}><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg>
-                <Link className="text-[#526484] hover:text-blue-400 hover:underline  font-semibold" href="/document-management/certificate">Certificate</Link>
+                <Link className="text-[#526484] hover:text-blue-400 hover:underline  font-semibold" href="/archive/employee">Employee</Link>
             </div>
             <div className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mr-[5px] relative mt-10 overflow-x-auto bg-transparent sm:rounded-lg h-screen`}>
-                <div className="flex justify-left gap-5 text-[20px] max-[725px]:text-[15px] flex-wrap font-semibold mb-[80px] mt-[50px] ml-4">
-                    <Link href="/document-management/certificate">
-                        Completion
-                    </Link>
-                    <Link href="/document-management/certificate/achievement" >
-                        Achievement
-                    </Link>
-                    <Link href="/document-management/certificate/participation" className="text-blue-500 underline">
-                        Participation
-                    </Link>
-                    <Link href="/document-management/certificate/professional-development">
-                    Professional Development
-                    </Link>
-                </div>
                 <div className="flex justify-between max-[502px]:grid max-[502px]:justify-center text-center">
                     <div className="mb-3">
                         <label htmlFor="icon" className="sr-only">Search</label>
@@ -91,13 +96,13 @@ const Participation = () => {
                         </div>
                     </div> 
                     <div className="flex justify-center">
-                        <Link href="/document-management/certificate/add-new-participation" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] ease-in font-semibold duration-300">+ Add  Completion Participations </Link>
+                        <Link href="/add-new-employee" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] w-[210px] ease-in font-semibold duration-300">+ Add New Employee</Link>
                     </div>
                 </div>
                 <div className="overflow-auto relative shadow-md sm:rounded-lg">
                     <table className="w-full overflow-x-auto text-sm text-left rtl:text-right text-gray-500 ">
                         <thead className="text-xs text-gray-700 uppercase bg-[#daeafb] ">
-                        <tr>
+                            <tr>
                                 <th scope="col" className="p-4">
                                     <div className="flex items-center">
                                         {/* Add event listener for select all checkbox */}
@@ -105,16 +110,28 @@ const Participation = () => {
                                     </div>
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                User Name
+                                    Name
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                User Id
+                                    id
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                role
+                                    Gender
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                issue Date
+                                Nationality
+                                </th>
+                                <th scope="col" className="px-6 py-3 whitespace-nowrap">
+                                Email
+                                </th>
+                                <th scope="col" className="px-6 py-3 whitespace-nowrap">
+                                Status
+                                </th>
+                                <th scope="col" className="px-6 py-3 whitespace-nowrap">
+                                    Mobile
+                                </th>
+                                <th scope="col" className="px-6 py-3 whitespace-nowrap">
+                                    About
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
                                     view
@@ -125,33 +142,52 @@ const Participation = () => {
                             </tr>
                         </thead>
                         <tbody>
-                        {data?.data.content.filter((participation: Participation) => {
-                            return search.toLocaleLowerCase() === '' ? participation : participation.title.toLocaleLowerCase().includes(search);
-                        }).map((participation: Participation) => (
-                            <tr key={participation.id} className="bg-white border-b  hover:bg-gray-50">
+                        {data?.data.content.filter((employee: Employee) => {
+                            return search.toLocaleLowerCase() === '' ? employee : employee.name.toLocaleLowerCase().includes(search);
+                        }).map((employee: Employee) => (
+                            <tr key={employee.id} className="bg-white border-b  hover:bg-gray-50">
                                 <td className="w-4 p-4">
                                     <div className="flex items-center">
                                         <input id="checkbox-table-search-1" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
                                     </div>
                                 </td>
-                                <th scope="row" className="px-6 py-4 whitespace-nowrap">
-                                    <p> {participation.userName} </p>
+                                <th scope="row" className="px-6 flex items-center py-4 gap-2 font-medium text-gray-900 whitespace-nowrap">
+                                    <div className="w-[50px]">
+                                        {
+                                            employee.picture == null ?
+                                            <img src="/images/userr.png" className="w-[40px] h-[40px] mr-2 rounded-full" alt="#" />
+                                            :
+                                            <img src={employee.picture} className="w-[40px] h-[40px] mr-2 rounded-full" alt="#" />
+                                        }
+                                    </div>
+                                    <p> {employee.name} </p>
                                 </th>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                {participation.userId}
+                                {employee.id}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                {participation.role}
-                                </td>
-                                <td className="flex gap-2 px-6 py-4 whitespace-nowrap">
-                                    
-                                {participation.issueDate}
+                                    {employee.gender}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <Link href={`/document-management/certificate/participation/${participation.id}`} className="font-medium text-blue-600 hover:underline"><img src="/images/print.png" alt="#" /></Link>
+                                    {employee.nationality}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <button className="px-2 py-1 rounded-lg text-white bg-red-500 font-semibold shadow-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">Delete</button>
+                                    {employee.email}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <div className={`w-2 h-2 rounded-full ${employee.locked? "bg-[#b95f5f]"  : "bg-[#57d198]"}`}></div>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    {employee.number}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    {employee.about}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <Link href={`/employee/view-employee/${employee.id}`} className="font-medium text-blue-600 hover:underline">View</Link>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <button onClick={()=> handleDelete(employee.id)} className="px-2 py-1 rounded-lg text-white bg-red-500 font-semibold shadow-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">Unlock</button>
                                 </td>
                             </tr>
                             ))}
@@ -163,7 +199,7 @@ const Participation = () => {
                 </div>
             </div>
         </>
-      );
+    );
 }
- 
-export default Participation;
+
+export default ArchiveEmployee;

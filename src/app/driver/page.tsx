@@ -1,18 +1,35 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 import Spinner from "@/components/spinner";
-import { useGetAllDriversQuery } from "@/features/User-Management/driverApi";
+import { useGetAllDriversQuery, useDeleteDriversMutation } from "@/features/User-Management/driverApi";
 import Link from "next/link";
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from "@/GlobalRedux/store";
+import { toast } from "react-toastify";
 
 const Driver = () => {
     const booleanValue = useSelector((state: RootState) => state.boolean.value);
     type Driver = Record<string, any>;
     const [search, setSearch] = useState("");
-    const { data, error, isLoading } = useGetAllDriversQuery(null);
+    const { data, error, isLoading, refetch } = useGetAllDriversQuery({
+        archived: "false"
+    });
     const [selectAll, setSelectAll] = useState(false); 
+  const [deleteDrivers] = useDeleteDriversMutation();
+
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteDrivers({
+        id:id,
+        lock:"true"
+      }).unwrap();
+      toast.success(`Driver with ID ${id} Locked successfully`);
+      void refetch();
+    } catch (err) {
+      toast.error("Failed to delete the Driver");
+    }
+  };
 
     useEffect(() => {
         if (data) console.log("Response Data:", data);
@@ -107,6 +124,9 @@ const Driver = () => {
                                 Email
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
+                                Status
+                                </th>
+                                <th scope="col" className="px-6 py-3 whitespace-nowrap">
                                     Mobile
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
@@ -154,6 +174,9 @@ const Driver = () => {
                                     {driver.email}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
+                                    <div className={`w-2 h-2 rounded-full ${driver.lock? "bg-[#b95f5f]"  : "bg-[#57d198]"}`}></div>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
                                     {driver.number}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
@@ -163,7 +186,7 @@ const Driver = () => {
                                     <Link href={`/driver/view-driver/${driver.id}`} className="font-medium text-blue-600 hover:underline">View</Link>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <button className="px-2 py-1 rounded-lg text-white bg-red-500 font-semibold shadow-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">Lock</button>
+                                    <button onClick={()=> handleDelete(driver.id)} className="px-2 py-1 rounded-lg text-white bg-red-500 font-semibold shadow-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">Lock</button>
                                 </td>
                             </tr>
                             ))}

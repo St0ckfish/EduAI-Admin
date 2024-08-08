@@ -106,16 +106,16 @@ const ProfessionalDevelopment = () => {
                                     </div>
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                    Title
+                                type
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                    id
+                                user Name
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                Content
+                                user Id
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                    Image
+                                issue Date
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
                                     view
@@ -136,21 +136,21 @@ const ProfessionalDevelopment = () => {
                                     </div>
                                 </td>
                                 <th scope="row" className="px-6 py-4 whitespace-nowrap">
-                                    <p> {professional.title_en} </p>
+                                    <p> {professional.type} </p>
                                 </th>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                {professional.id}
+                                {professional.userName}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                {professional.content_en}
+                                {professional.userId}
                                 </td>
                                 <td className="flex gap-2 px-6 py-4 whitespace-nowrap">
-                                {professional.attachments.map((img:any, index:number) => (
-                                    <img className="w-[200px] rounded-md" src={img.viewLink} alt="#" key={index} />
-                                 ))}
+                                    {professional.issueDate}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <Link href={`/document-management/professional/${professional.id}`} className="font-medium text-blue-600 hover:underline">edit</Link>
+                                    <Link href={`/document-management/certificate/professional-development/${professional.id}`} className="font-medium text-blue-600 hover:underline">
+                                        <img src="/images/print.png" alt="#" />
+                                    </Link>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <button className="px-2 py-1 rounded-lg text-white bg-red-500 font-semibold shadow-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">Delete</button>
@@ -159,6 +159,9 @@ const ProfessionalDevelopment = () => {
                             ))}
                         </tbody>
                     </table>
+                    {
+                        (data?.data.content.length == 0 || data == null) && <div className="flex justify-center text-center text-[18px] w-full py-3 font-semibold">There is No Data</div>
+                    }
                 </div>
             </div>
         </>

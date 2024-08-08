@@ -20,7 +20,7 @@ const AddNewCertificate = () => {
             stage: formData.stage,
             issueDate: formData.issueDate
         }));
-        data.append('files', formData.file[0]); // Assuming 'endDate' is the file input
+        data.append('file', formData.file[0]); // Assuming 'endDate' is the file input
 
         try {
             await createCertificate(data).unwrap();

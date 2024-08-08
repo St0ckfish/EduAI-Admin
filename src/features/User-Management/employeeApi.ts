@@ -28,12 +28,12 @@ export const employeeApi = createApi({
     }),
     endpoints: builder => ({
         getAllEmployees: builder.query({
-            query: () => "api/v1/management/employee/all?size=1000000000&page=0&type=EMPLOYEE",
+            query: ({archived}) => `api/v1/management/employee/all?size=1000000000&page=0&type=EMPLOYEE&archived=${archived}`,
         }),
         //
         deleteEmployees: builder.mutation({
-            query: id => ({
-                url: `/api/v1/management/employee/account-lock/${id}?locked=true`,
+            query: ({id, lock}) => ({
+                url: `/api/v1/management/employee/account-lock/${id}?locked=${lock}`,
                 method: "PUT",
             }),
         }),

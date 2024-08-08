@@ -16,8 +16,8 @@ const AddNewProfessional = () => {
     const onSubmit = async (formData: any) => {
         const data = new FormData();
         data.append('certificate', JSON.stringify({
-            studentId: formData.studentId,
-            stage: formData.stage,
+            userId: formData.userId,
+            type: formData.type,
             issueDate: formData.issueDate
         }));
         data.append('file', formData.endDate[0]); // Assuming 'endDate' is the file input

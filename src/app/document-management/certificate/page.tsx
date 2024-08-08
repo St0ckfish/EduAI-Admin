@@ -104,16 +104,16 @@ const Certificate = () => {
                                     </div>
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                    Title
+                                Stage
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                    id
+                                Student Name
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                Content
+                                Student Id
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                    Image
+                                Issue Date
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
                                     view
@@ -134,21 +134,21 @@ const Certificate = () => {
                                     </div>
                                 </td>
                                 <th scope="row" className="px-6 py-4 whitespace-nowrap">
-                                    <p> {certificate.title_en} </p>
+                                    <p> {certificate.stage} </p>
                                 </th>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                {certificate.id}
+                                {certificate.studentName}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                {certificate.content_en}
+                                {certificate.studentId}
                                 </td>
                                 <td className="flex gap-2 px-6 py-4 whitespace-nowrap">
-                                {certificate.attachments.map((img:any, index:number) => (
-                                    <img className="w-[200px] rounded-md" src={img.viewLink} alt="#" key={index} />
-                                 ))}
+                                    {certificate.issueDate}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <Link href={`/document-management/certificate/${certificate.id}`} className="font-medium text-blue-600 hover:underline">edit</Link>
+                                    <Link href={`/document-management/certificate/${certificate.id}`} className="font-medium text-blue-600 hover:underline">
+                                        <img src="/images/print.png" alt="#" />
+                                    </Link>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <button className="px-2 py-1 rounded-lg text-white bg-red-500 font-semibold shadow-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">Delete</button>
@@ -157,6 +157,9 @@ const Certificate = () => {
                             ))}
                         </tbody>
                     </table>
+                    {
+                        (data?.data.content.length == 0 || data == null) && <div className="flex justify-center text-center text-[18px] w-full py-3 font-semibold">There is No Data</div>
+                    }
                 </div>
             </div>
         </>

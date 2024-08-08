@@ -2,10 +2,11 @@
 "use client"
 import Link from "next/link";
 import { useState, useEffect } from 'react';
-import { useGetAllParentsQuery } from "@/features/User-Management/parentApi";
+import { useDeleteParentsMutation, useGetAllParentsQuery } from "@/features/User-Management/parentApi";
 import Spinner from "@/components/spinner";
 import { useSelector } from 'react-redux';
 import { RootState } from "@/GlobalRedux/store";
+import { toast } from "react-toastify";
 
 const Parent = () => {
     const [selectAll, setSelectAll] = useState(false);
@@ -13,12 +14,29 @@ const Parent = () => {
 
     type Parent = Record<string, any>;
     const [search, setSearch] = useState("");
-    const { data, error, isLoading } = useGetAllParentsQuery(null);
+    const { data, error, isLoading, refetch } = useGetAllParentsQuery({
+        archived: "false"
+    });
 
     useEffect(() => {
         if (data) console.log("Response Data:", data);
         if (error) console.log("Error:", error);
       }, [data, error]);
+
+      const [deleteParents] = useDeleteParentsMutation();
+
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteParents({
+        id:id,
+        lock:"true"
+      }).unwrap();
+      toast.success(`Parent with ID ${id} unLocked successfully`);
+      void refetch();
+    } catch (err) {
+      toast.error("Failed to unlock the Parent");
+    }
+  };
 
     const handleSelectAll = () => {
         setSelectAll(!selectAll);
@@ -108,6 +126,9 @@ const Parent = () => {
                                 Email
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
+                                Status
+                                </th>
+                                <th scope="col" className="px-6 py-3 whitespace-nowrap">
                                     Mobile
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
@@ -155,6 +176,9 @@ const Parent = () => {
                                     {parent.email}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
+                                <div className={`w-2 h-2 rounded-full ${parent.locked? "bg-[#b95f5f]"  : "bg-[#57d198]"}`}></div>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
                                     {parent.number}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
@@ -164,7 +188,7 @@ const Parent = () => {
                                     <Link href={`/parent/view-parent/${parent.id}`} className="font-medium text-blue-600 hover:underline">View</Link>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <button className="px-2 py-1 rounded-lg text-white bg-red-500 font-semibold shadow-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">Lock</button>
+                                    <button onClick={()=> handleDelete(parent.id)} className="px-2 py-1 rounded-lg text-white bg-red-500 font-semibold shadow-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">Lock</button>
                                 </td>
                             </tr>
                             ))}

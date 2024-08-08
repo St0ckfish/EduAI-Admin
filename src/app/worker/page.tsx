@@ -1,24 +1,42 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 import Spinner from "@/components/spinner";
-import { useGetAllWorkersQuery } from "@/features/User-Management/workerApi";
+import { useDeleteWorkersMutation, useGetAllWorkersQuery } from "@/features/User-Management/workerApi";
 import { RootState } from "@/GlobalRedux/store";
 import Link from "next/link";
 import { useState, useEffect } from 'react';
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const Worker = () => {
     const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
     type Worker = Record<string, any>;
     const [search, setSearch] = useState("");
-    const { data, error, isLoading } = useGetAllWorkersQuery(null);
+    const { data, error, isLoading, refetch } = useGetAllWorkersQuery({
+        archived: "false"
+    });
     const [selectAll, setSelectAll] = useState(false); 
 
     useEffect(() => {
         if (data) console.log("Response Data:", data);
         if (error) console.log("Error:", error);
       }, [data, error]);
+
+      const [deleteWorker] = useDeleteWorkersMutation();
+
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteWorker({
+        id:id,
+        lock:"true"
+      }).unwrap();
+      toast.success(`Worker with ID ${id} Locked successfully`);
+      void refetch();
+    } catch (err) {
+      toast.error("Failed to lock the Worker");
+    }
+  };
 
     const handleSelectAll = () => {
         setSelectAll(!selectAll);
@@ -108,6 +126,9 @@ const Worker = () => {
                                 Email
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
+                                status
+                                </th>
+                                <th scope="col" className="px-6 py-3 whitespace-nowrap">
                                     Mobile
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
@@ -155,6 +176,9 @@ const Worker = () => {
                                     {worker.email}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
+                                    <div className={`w-2 h-2 rounded-full ${worker.locked? "bg-[#b95f5f]"  : "bg-[#57d198]"}`}></div>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
                                     {worker.number}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
@@ -164,7 +188,7 @@ const Worker = () => {
                                     <Link href={`/worker/view-worker/${worker.id}`} className="font-medium text-blue-600 hover:underline">View</Link>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <button className="px-2 py-1 rounded-lg text-white bg-red-500 font-semibold shadow-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">Lock</button>
+                                    <button onClick={()=> handleDelete(worker.id)} className="px-2 py-1 rounded-lg text-white bg-red-500 font-semibold shadow-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">Lock</button>
                                 </td>
                             </tr>
                             ))}

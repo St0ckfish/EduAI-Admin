@@ -12,7 +12,7 @@ const Archive = () => {
         <div className={`lg:ml-[290px] mt-12 grid justify-center `}>
         <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-3 grid-cols-2 max-[577px]:grid-cols-1 gap-5">
             <div className="w-[250px] h-[250px] bg-white rounded-xl shadow-lg grid justify-center items-center">
-                <Link href="/driver" className="grid items-center justify-center text-center" >
+                <Link href="/archive/driver" className="grid items-center justify-center text-center" >
                     <div className="bg-[#ebebeb] rounded-full h-[87px] w-[87px] grid items-center justify-center ">
                         <img src="/images/driver.png" alt="#" />
                     </div>
@@ -20,7 +20,7 @@ const Archive = () => {
                 </Link>
             </div>
             <div className="w-[250px] h-[250px] bg-white rounded-xl shadow-lg grid justify-center items-center">
-                <Link href="/employee" className="grid items-center justify-center text-center" >
+                <Link href="/archive/employee" className="grid items-center justify-center text-center" >
                     <div className="bg-[#ebebeb] rounded-full h-[87px] w-[87px] grid items-center justify-center ">
                         <img src="/images/employee.png" alt="#" />
                     </div>
@@ -28,7 +28,7 @@ const Archive = () => {
                 </Link>
             </div>
             <div className="w-[250px] h-[250px] bg-white rounded-xl shadow-lg grid justify-center items-center">
-                <Link href="/parent" className="grid items-center justify-center text-center" >
+                <Link href="/archive/parent" className="grid items-center justify-center text-center" >
                     <div className="bg-[#ebebeb] rounded-full h-[87px] w-[87px] grid items-center justify-center ">
                         <img src="/images/Vector.png" alt="#" />
                     </div>
@@ -36,7 +36,7 @@ const Archive = () => {
                 </Link>
             </div>
             <div className="w-[250px] h-[250px] bg-white rounded-xl shadow-lg grid justify-center items-center">
-                <Link href="/student" className="grid items-center justify-center text-center" >
+                <Link href="/archive//student" className="grid items-center justify-center text-center" >
                     <div className="bg-[#ebebeb] rounded-full h-[87px] w-[87px] grid items-center justify-center ">
                     <img src="/images/student.png" alt="#" />
                     </div>
@@ -44,7 +44,7 @@ const Archive = () => {
                 </Link>
             </div>
             <div className="w-[250px] h-[250px] bg-white rounded-xl shadow-lg grid justify-center items-center">
-                <Link href="/teacher" className="grid items-center justify-center text-center" >
+                <Link href="/archive//teacher" className="grid items-center justify-center text-center" >
                     <div className="bg-[#ebebeb] rounded-full h-[87px] w-[87px] grid items-center justify-center ">
                     <img src="/images/Teacher.png" alt="#" />
                     </div>
@@ -52,7 +52,7 @@ const Archive = () => {
                 </Link>
             </div>
             <div className="w-[250px] h-[250px] bg-white rounded-xl shadow-lg grid justify-center items-center">
-                <Link href="/worker" className="grid items-center justify-center text-center" >
+                <Link href="/archive//worker" className="grid items-center justify-center text-center" >
                     <div className="bg-[#ebebeb] rounded-full h-[87px] w-[87px] grid items-center justify-center ">
                     <img src="/images/Worker.png" alt="#" />
                     </div>
