@@ -16,6 +16,9 @@ export const signupApi = createApi({
         getAllNationalitys: builder.query({
             query: () => "/api/v1/public/enumeration/nationality",
         }),
+        getAllReginionID: builder.query({
+            query: () => "/api/v1/location/public/region?city-id",
+        }),
         //
         getAllRoles: builder.query({
             query: () => "/api/v1/public/enumeration/employee-role",
@@ -24,4 +27,4 @@ export const signupApi = createApi({
     }),
 });
 
-export const { useSignupApiDashboardMutation, useGetAllNationalitysQuery, useGetAllRolesQuery } = signupApi;
+export const { useSignupApiDashboardMutation, useGetAllNationalitysQuery, useGetAllRolesQuery, useGetAllReginionIDQuery } = signupApi;

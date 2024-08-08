@@ -3,7 +3,7 @@
 "use client"
 import Spinner from "@/components/spinner";
 import { useForm } from "react-hook-form";
-import { useGetAllNationalitysQuery, useSignupApiDashboardMutation } from "@/features/signupApi";
+import { useGetAllNationalitysQuery, useSignupApiDashboardMutation, useGetAllReginionIDQuery } from "@/features/signupApi";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import React, { useEffect, useState } from "react";
@@ -17,6 +17,7 @@ const signup = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [loginDashboard, { isLoading, error }] = useSignupApiDashboardMutation();
     const { data: nationalityData, error: nationalityError, isLoading: nationalityLoading } = useGetAllNationalitysQuery(null);
+    const { data: rigiond } = useGetAllReginionIDQuery(null);
 
     useEffect(() => {
         if (nationalityData) {
@@ -133,7 +134,16 @@ const signup = () => {
                             {step === 2 && (
                                 <div className="grid grid-cols-1 gap-3">
                                     <label htmlFor="regionId" className="grid text-[#9a9a9a] text-start text-[15px] font-sans font-semibold">
-                                        <input id="regionId" {...register("regionId", { required: true })} placeholder=" regionId" className={` py-3 px-4 rounded-xl border ${errors.regionId ? "border-[#d74f41]" : "border-zinc-300"}  outline-none w-[400px] max-[458px]:w-[350px]`} type="number" />
+                                        <select defaultValue="" id="regionId" {...register("regionId", { required: true })} className={`border ${errors.regionId ? "border-[#d74f41]" : "border-zinc-300"} text-[#9a9a9a] text-sm outline-none rounded-xl w-[400px] max-[458px]:w-[350px] h-full py-3 px-4 `}>
+                                            <option selected value="">Select Region Id </option>
+                                            {rigiond &&
+                                                rigiond.data.map((rigion: { id: string | number | readonly string[] | undefined; name: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; }, index: React.Key | null | undefined) => (
+                                                    <option key={index} value={rigion.id}>
+                                                        {rigion.name}
+                                                    </option>
+                                                ))
+                                            }
+                                        </select>
                                         {errors.regionId && <span className="text-[#e81123] text-[13px]">regionId is Required</span>}
                                     </label>
                                     <label htmlFor="gender" className="grid text-[#9a9a9a] text-start text-[15px] font-sans font-semibold">
