@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState, useEffect } from 'react';
 
-const FeesManagement = () => {
+const Medical = () => {
     const [selectAll, setSelectAll] = useState(false);
 
     const handleSelectAll = () => {
@@ -39,13 +39,13 @@ const FeesManagement = () => {
 
     return ( 
         <>
-        <div className="flex items-center gap-1 lg:ml-[290px] mt-12 ml-7 text-[18px] max-[550px]:text-[15px] flex-wrap">
-            <Link className="text-[#526484] hover:text-blue-400 hover:underline  font-semibold" href="/">Administration</Link>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{fill: 'rgba(82, 100, 132, 1)',transform: '',msFilter: ''}}><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg>
-            <Link className="text-[#526484] hover:text-blue-400 hover:underline  font-semibold" href="/financial-management">Financial Management</Link>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{fill: 'rgba(82, 100, 132, 1)',transform: '',msFilter: ''}}><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg>
-            <Link className="text-[#526484] hover:text-blue-400 hover:underline  font-semibold" href="/fees-management">Fees Management</Link>
-        </div>
+        <div className="flex items-center gap-1 lg:ml-[290px] mt-12 ml-7 text-[18px] max-[550px]:text-[15px]  flex-wrap">
+                <Link className="text-[#526484] hover:text-blue-400 hover:underline  font-semibold" href="/">Administration</Link>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{ fill: 'rgba(82, 100, 132, 1)', transform: '', msFilter: '' }}><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg>
+                <Link className="text-[#526484] hover:text-blue-400 hover:underline  font-semibold" href="/document-management">Document Management</Link>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{ fill: 'rgba(82, 100, 132, 1)', transform: '', msFilter: '' }}><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg>
+                <Link className="text-[#526484] hover:text-blue-400 hover:underline  font-semibold" href="/document-management/other">Other</Link>
+            </div>
             <div className="lg:ml-[270px] mr-[5px] relative mt-10 overflow-x-auto bg-transparent sm:rounded-lg h-screen">
                 <div className="flex justify-between max-[502px]:grid max-[502px]:justify-center text-center">
                     <div className="mb-3">
@@ -61,12 +61,21 @@ const FeesManagement = () => {
                         <Link href="/" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] w-[180px] ease-in font-semibold duration-300">+ Add Invoices</Link>
                     </div>
                 </div>
-                <div className="flex justify-left gap-5 text-[23px] font-semibold mb-5 ml-4">
-                    <Link href="/financial-management" className="text-blue-500 underline">
-                    Invoices
+                <div className="flex justify-left gap-5 text-[20px] max-[725px]:text-[15px] flex-wrap font-semibold mb-[80px] mt-[50px] ml-4">
+                    <Link href="/document-management/other">
+                    ID Cards
                     </Link>
-                    <Link href="/fees-management/scholarship">
-                    Scholarship
+                    <Link href="/document-management/other/medical"  className="text-blue-500 underline">
+                    Medical Records
+                    </Link>
+                    <Link href="/document-management/other/disciplinary">
+                    Disciplinary Records
+                    </Link>
+                    <Link href="/document-management/other/financial">
+                    Financial Aid
+                    </Link>
+                    <Link href="/document-management/other/legal" >
+                    Legal Documents
                     </Link>
                 </div>
                 <div className="overflow-auto relative shadow-md sm:rounded-lg">
@@ -179,4 +188,4 @@ const FeesManagement = () => {
     );
 }
 
-export default FeesManagement;
+export default Medical;
