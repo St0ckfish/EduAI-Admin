@@ -12,7 +12,7 @@ const News = () => {
     const booleanValue = useSelector((state: RootState) => state.boolean.value);
     type Post = Record<string, any>;
     const { data, error, isLoading, refetch } = useGetAllAllPostsQuery(null);
-    const [deletePosts, { isLoading: isDeleting }] = useDeletePostsMutation();
+    const [deletePosts] = useDeletePostsMutation();
 
     useEffect(() => {
         if (data) console.log("Response Data:", data);

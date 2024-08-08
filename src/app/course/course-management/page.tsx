@@ -11,7 +11,10 @@ import { RootState } from "@/GlobalRedux/store";
 const CourseManagement = () => {
     const booleanValue = useSelector((state: RootState) => state.boolean.value);
     const [search, setSearch] = useState("");
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState<number | boolean | null>(false);
+    const toggleNavbar = (index: number) => {
+        setOpen(open === index ? null : index);
+    };
     type Course = Record<string, any>;
     const { data, isLoading, refetch } = useGetAllCoursesQuery(null);
     const [deleteCourse, { isLoading: isDeleting }] =
@@ -53,13 +56,13 @@ const CourseManagement = () => {
                 <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3 p-3">
                     {data?.data.content.filter((course: Course) => {
                         return search.toLocaleLowerCase() === '' ? course : course.name.toLocaleLowerCase().includes(search);
-                    }).map((course: Course) => (
+                    }).map((course: Course, index:number) => (
                         <div key={course.id} className="p-2 bg-white rounded-lg grid gap-2">
                             <div className="grid p-2 bg-[#f4bd0e]  text-[25px] font-bold text-white rounded-xl h-[220px]">
                                 <div className="flex justify-end text-end">
                                     <div className="flex gap-2 items-start">
                                         {
-                                            open ? (
+                                            open === index ? (
                                                 <div className="flex bg-white h-[35px] px-1.5 py-1 rounded-full gap-2">
                                                     <button disabled={isDeleting} onClick={() => handleDelete(course.id)
                                             }>
@@ -68,7 +71,7 @@ const CourseManagement = () => {
                                                         </svg>
                                                     </button>
                                                     <Link href={`/course/course-management/${course.id}`}>
-                                                        <svg className="h-6 w-6 text-blue-500"  viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" stroke-Linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />  <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />  <line x1="16" y1="5" x2="19" y2="8" /></svg>
+                                                        <svg className="h-6 w-6 text-blue-500"  viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />  <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />  <line x1="16" y1="5" x2="19" y2="8" /></svg>
                                                     </Link>
                                                 </div>
                                             ):(
@@ -79,12 +82,12 @@ const CourseManagement = () => {
                                                         </svg>
                                                     </button>
                                                     <button>
-                                                    <svg className="h-6 w-6 text-blue-500"  viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" stroke-Linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />  <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />  <line x1="16" y1="5" x2="19" y2="8" /></svg>
+                                                    <svg className="h-6 w-6 text-blue-500"  viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />  <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />  <line x1="16" y1="5" x2="19" y2="8" /></svg>
                                                     </button>
                                                 </div>
                                             )
                                         }
-                                        <button onClick={() => setOpen(!open)}>
+                                        <button onClick={() => toggleNavbar(index)}>
                                             <svg className="h-6 w-6 text-white mt-1.5" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <circle cx="12" cy="12" r="1" />  <circle cx="12" cy="19" r="1" />  <circle cx="12" cy="5" r="1" /></svg>
                                         </button>
                                     </div>
@@ -98,7 +101,7 @@ const CourseManagement = () => {
                                 <p className="text-[12px] text-[#526484]">{course.description} </p>
                             </div>
                             <div className="flex gap-2 items-center font-semibold">
-                                <img src="/images/me.jpg" className="w-[40px] h-[40px] mr-2 rounded-full" alt="#" />
+                                <img src="/images/userr.png" className="w-[40px] h-[40px] mr-2 rounded-full" alt="#" />
                                 {course.eduSystemName}
                             </div>
                             <div className="border-t border-gray-300 p-1 flex justify-evenly">
