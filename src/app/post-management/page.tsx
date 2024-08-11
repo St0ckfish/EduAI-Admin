@@ -112,7 +112,7 @@ const PostManagment = () => {
                         </thead>
                         <tbody>
                         {data?.data.content.filter((post: Post) => {
-                            return search.toLocaleLowerCase() === '' ? post : post.title.toLocaleLowerCase().includes(search);
+                            return search.toLocaleLowerCase() === '' ? post : post.title_en.toLocaleLowerCase().includes(search);
                         }).map((post: Post) => (
                             <tr key={post.id} className="bg-white border-b  hover:bg-gray-50">
                                 <td className="w-4 p-4">

@@ -28,7 +28,7 @@ export const driverApi = createApi({
     }),
     endpoints: builder => ({
         getAllDrivers: builder.query({
-            query: ({archived}) => `api/v1/management/employee/all?size=1000000000&page=0&type=DRIVER&archived=${archived}`,
+            query: ({archived, page, size}) => `api/v1/management/employee/all?size=${size}&page=${page}&type=DRIVER&archived=${archived}`,
         }),
         //
         deleteDrivers: builder.mutation({

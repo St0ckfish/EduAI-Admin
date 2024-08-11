@@ -3,18 +3,29 @@
 import Spinner from "@/components/spinner";
 import { useGetAllDriversQuery, useDeleteDriversMutation } from "@/features/User-Management/driverApi";
 import Link from "next/link";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, SetStateAction } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from "@/GlobalRedux/store";
 import { toast } from "react-toastify";
+import Pagination from "@/components/pagination";
 
 const ArchiveDriver = () => {
+    const [currentPage, setCurrentPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+    
+    const onPageChange = (page: SetStateAction<number>) => {
+        setCurrentPage(page);
+    };
     const booleanValue = useSelector((state: RootState) => state.boolean.value);
     type Driver = Record<string, any>;
     const [search, setSearch] = useState("");
     const { data, error, isLoading, refetch } = useGetAllDriversQuery({
-        archived: "true"
+        archived: "true",
+        page: currentPage,
+        size: rowsPerPage
     });
+    const totalRows = data?.data.content.length+50;
+
     const [selectAll, setSelectAll] = useState(false); 
   const [deleteDrivers] = useDeleteDriversMutation();
 
@@ -196,6 +207,16 @@ const ArchiveDriver = () => {
                     {
                         (data?.data.content.length == 0 || data == null) && <div className="flex justify-center text-center text-[18px] w-full py-3 font-semibold">There is No Data</div>
                     }
+                </div>
+                <div className="overflow-auto relative">
+
+                    <Pagination
+                    totalRows={totalRows}
+                    rowsPerPage={rowsPerPage}
+                    setRowsPerPage={setRowsPerPage}
+                    currentPage={currentPage}
+                    onPageChange={onPageChange}
+                />
                 </div>
             </div>
         </>
