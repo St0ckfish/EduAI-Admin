@@ -26,7 +26,7 @@ const Driver = () => {
         size: rowsPerPage
     });
     const [selectAll, setSelectAll] = useState(false); 
-    const totalRows = data?.data.content.length+100;
+    const totalRows = data?.data.content ? data?.data.content.length : 1;
   const [deleteDrivers] = useDeleteDriversMutation();
 
   const handleDelete = async (id: string) => {

@@ -104,15 +104,15 @@ const AddNewDriver = () => {
             <label htmlFor="regionId" className="grid text-[18px] font-sans font-semibold">
             RegionId
             <select defaultValue="" id="regionId" {...register("regionId", { required: true })} className={`border ${errors.regionId ? "border-[#d74f41]" : "border-zinc-300"} text-[#000000] text-[18px] outline-none rounded-xl w-[400px] max-[458px]:w-[350px] h-full py-3 px-4 `}>
-                                            <option selected value="">Select Region Id </option>
-                                            {rigiond &&
-                                                rigiond.data.map((rigion: { id: string | number | readonly string[] | undefined; name: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; }, index: React.Key | null | undefined) => (
-                                                    <option key={index} value={rigion.id}>
-                                                        {rigion.name}
-                                                    </option>
-                                                ))
-                                            }
-                                        </select>
+                <option selected value="">Select Region Id </option>
+                {rigiond &&
+                    rigiond.data.map((rigion: { id: string | number | readonly string[] | undefined; name: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; }, index: React.Key | null | undefined) => (
+                        <option key={index} value={rigion.id}>
+                            {rigion.name}
+                        </option>
+                    ))
+                }
+            </select>
               {errors.regionId && <span className="text-red-600">This field is required</span>}
             </label>
             <label htmlFor="name_en" className="grid text-[18px] font-sans font-semibold">
@@ -163,12 +163,12 @@ const AddNewDriver = () => {
               {errors.number && <span className="text-red-600">This field is required</span>}
             </label>
             <label htmlFor="positionId" className="grid text-[18px] font-sans font-semibold">
-            positionId
+            Position Id
               <input id="positionId" type="number" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("positionId", { required: true })} />
               {errors.positionId && <span className="text-red-600">This field is required</span>}
             </label>
             <label htmlFor="salary" className="grid text-[18px] font-sans font-semibold">
-            salary
+            Salary
               <input id="salary" type="number" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("salary", { required: true })} />
               {errors.salary && <span className="text-red-600">This field is required</span>}
             </label>

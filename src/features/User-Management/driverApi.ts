@@ -52,9 +52,15 @@ export const driverApi = createApi({
         //
         updateDrivers: builder.mutation({
             query: ({ formData, id }) => ({
-                url: `cases/categories/${id}`,
-                method: "PATCH",
+                url: `/api/v1/management/employee/${id}/update`,
+                method: "PUT",
                 body: formData,
+            }),
+        }),
+        //
+        getDrivers: builder.query({
+            query: ( id ) => ({
+                url: `/api/v1/management/employee/${id}/update`,
             }),
         }),
     }),
@@ -66,4 +72,5 @@ export const {
     useCreateDriversMutation,
     useGetDriverByIdQuery,
     useUpdateDriversMutation,
+    useGetDriversQuery
 } = driverApi;
