@@ -36,7 +36,7 @@ const Pagination = ({ totalRows, rowsPerPage, setRowsPerPage, currentPage, onPag
         const pageNumbers = [];
         
         if (totalPages <= 5) {
-            for (let i = 0; i < totalPages; i++) {
+            for (let i = 0; i <= totalPages; i++) {
                 pageNumbers.push(
                     <button
                         key={i}

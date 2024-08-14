@@ -8,8 +8,23 @@ import { useSelector } from 'react-redux';
 import { RootState } from "@/GlobalRedux/store";
 import { toast } from "react-toastify";
 import Pagination from "@/components/pagination";
+// import Sheet from "@/components/sheet";
+// import DriverInfo from "@/components/driverInfo";
 
 const Driver = () => {
+    //   const [isSheetOpen, setIsSheetOpen] = useState(false);
+
+    //   const handleOpen = () => setIsSheetOpen(true);
+    //   const handleClose = () => setIsSheetOpen(false);
+        //     <div className="p-8">
+        //     <button
+        //       className="bg-blue-500 text-white px-4 py-2 rounded"
+        //       onClick={handleOpen}
+        //     >
+        //       Open Sheet
+        //     </button>
+        //     
+        //   </div>
     
     const [currentPage, setCurrentPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -27,7 +42,7 @@ const Driver = () => {
     });
     const [selectAll, setSelectAll] = useState(false); 
     const totalRows = data?.data.content ? data?.data.content.length : 1;
-  const [deleteDrivers] = useDeleteDriversMutation();
+    const [deleteDrivers] = useDeleteDriversMutation();
 
   const handleDelete = async (id: string) => {
     try {
@@ -106,7 +121,7 @@ const Driver = () => {
                         </div>
                     </div> 
                     <div className="flex justify-center">
-                        <Link href="/add-new-driver" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] w-[180px] ease-in font-semibold duration-300">+ Add new Driver</Link>
+                        <Link href="/add-new-driver" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] w-[180px] ease-in font-semibold duration-300">+ New Driver</Link>
                     </div>
                 </div>
                 <div className="overflow-auto relative shadow-md sm:rounded-lg">
@@ -155,7 +170,7 @@ const Driver = () => {
                         {data?.data.content.filter((driver: Driver) => {
                             return search.toLocaleLowerCase() === '' ? driver : driver.name.toLocaleLowerCase().includes(search);
                         }).map((driver: Driver) => (
-                            <tr key={driver.id} className="bg-white border-b  hover:bg-gray-50">
+                            <tr key={driver.id} className="bg-white border-b  hover:bg-gray-50 "  >{/* onClick={handleOpen} */}
                                 <td className="w-4 p-4">
                                     <div className="flex items-center">
                                         <input id="checkbox-table-search-1" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
@@ -219,6 +234,10 @@ const Driver = () => {
                 />
                 </div>
             </div>
+            {/* <Sheet isOpen={isSheetOpen} onClose={handleClose}>
+              <h2 className="text-2xl font-semibold mb-4">Sheet Content</h2>
+              <DriverInfo data={data} />
+         </Sheet> */}
         </>
     );
 }

@@ -19,6 +19,7 @@ import { professionalApi } from "@/features/Document-Management/professionalApi"
 import { courseApi } from "@/features/Acadimic/courseApi";
 import { employeePermissionApi } from "@/features/Organization-Setteings/employeePermissionApi";
 import { departmentPermissionApi } from "@/features/Organization-Setteings/departmentPermissionApi";
+import { bankApi } from "@/features/Financial/bankApi";
 import { classApi } from "@/features/Infrastructure/classApi";
 
 export const store = configureStore({
@@ -28,6 +29,7 @@ export const store = configureStore({
     [signupApi.reducerPath]: signupApi.reducer,
     [employeeApi.reducerPath]: employeeApi.reducer,
     [teacherApi.reducerPath]: teacherApi.reducer,
+    [bankApi.reducerPath]: bankApi.reducer,
     [courseApi.reducerPath]: courseApi.reducer,
     [employeePermissionApi.reducerPath]: employeePermissionApi.reducer,
     [departmentPermissionApi.reducerPath]: departmentPermissionApi.reducer,
@@ -59,6 +61,7 @@ export const store = configureStore({
       .concat(signupApi.middleware)
       .concat(employeeApi.middleware)
       .concat(classApi.middleware)
+      .concat(bankApi.middleware)
       .concat(departmentApi.middleware)
       .concat(teacherApi.middleware)
       .concat(driverApi.middleware)

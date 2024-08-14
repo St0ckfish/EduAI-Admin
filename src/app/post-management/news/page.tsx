@@ -140,7 +140,6 @@ const News = () => {
                         </div>
                         <div className="flex justify-between gap-3 ">
                             <p className="text-[#65676b]">2 Comments</p>
-                            <p className="text-[#65676b]">12 share</p>
                         </div>
                     </div>
                     <div className=" border-[#65676b] border-y flex gap-10 max-[505px]:gap-8 items-center py-3 font-semibold text-[#65676b] px-2 justify-center">
@@ -159,12 +158,6 @@ const News = () => {
                             <button className="flex gap-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{ fill: 'rgba(101, 103, 107, 1)' }}><path d="M20 2H4c-1.103 0-2 .897-2 2v18l5.333-4H20c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zm0 14H6.667L4 18V4h16v12z"></path></svg>
                                 Comment
-                            </button>
-                        </div>
-                        <div className="flex gap-3">
-                            <button className="flex gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"style={{fill: 'rgba(101, 103, 107, 1)', transform: 'scaleX(-1)', }}><path d="M11 7.05V4a1 1 0 0 0-1-1 1 1 0 0 0-.7.29l-7 7a1 1 0 0 0 0 1.42l7 7A1 1 0 0 0 11 18v-3.1h.85a10.89 10.89 0 0 1 8.36 3.72 1 1 0 0 0 1.11.35A1 1 0 0 0 22 18c0-9.12-8.08-10.68-11-10.95zm.85 5.83a14.74 14.74 0 0 0-2 .13A1 1 0 0 0 9 14v1.59L4.42 11 9 6.41V8a1 1 0 0 0 1 1c.91 0 8.11.2 9.67 6.43a13.07 13.07 0 0 0-7.82-2.55z"></path></svg>
-                                Sahre
                             </button>
                         </div>
                     </div>
