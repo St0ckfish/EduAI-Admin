@@ -2,7 +2,7 @@
 "use client"
 import Modal from "@/components/model";
 import Spinner from "@/components/spinner";
-import { useGetAllBankAcountsQuery, useDeleteBankAcountsMutation, useCreateBankAcountsMutation, useGetBankAcountByIdQuery, useUpdateBankAcountsMutation } from "@/features/Financial/bankApi";
+import { useGetAllBankAcountsQuery, useDeleteBankAcountsMutation, useCreateBankAcountsMutation, useUpdateBankAcountsMutation } from "@/features/Financial/bankApi";
 import { RootState } from "@/GlobalRedux/store";
 import { useForm } from 'react-hook-form';
 import Link from "next/link";
@@ -14,10 +14,41 @@ const Bank = () => {
     const booleanValue = useSelector((state: RootState) => state.boolean.value);
     const [search, setSearch] = useState("");
     const [isModalOpen, setModalOpen] = useState(false);
+    const [isModalOpen2, setModalOpen2] = useState(false);
 
     const [createAcount, { isLoading: isCreating }] = useCreateBankAcountsMutation();
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const [UpdateAcount, { isLoading: isUpdating }] = useUpdateBankAcountsMutation();
+    const [editAcount, setEditAcount] = useState({
+        id: "",
+        bankName: "",
+        bankShortName: "",
+        beneficiaryName: "",
+        beneficiaryAddress: "",
+        beneficiaryAccountNumber: "",
+      });
 
+      const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+      
+      const handleOpenModal2 = (bank: Record<string, any>) => {
+        setEditAcount({
+          id: bank.id,
+          bankName: bank.bankName,
+          bankShortName: bank.bankShortName,
+          beneficiaryName: bank.beneficiaryName,
+          beneficiaryAddress: bank.beneficiaryAddress,
+          beneficiaryAccountNumber: bank.beneficiaryAccountNumber,
+        });
+        setValue("bankName", bank.bankName); 
+        setValue("bankShortName", bank.bankShortName);
+        setValue("beneficiaryName", bank.beneficiaryName);
+        setValue("beneficiaryAddress", bank.beneficiaryAddress);
+        setValue("beneficiaryAccountNumber", bank.beneficiaryAccountNumber);
+        setModalOpen2(true);
+      };
+
+      const handleCloseModal2 = () => {
+        setModalOpen2(false);
+      };
     
     const handleOpenModal = () => {
         setModalOpen(true);
@@ -46,6 +77,18 @@ const Bank = () => {
           toast.success('Acount created successfully');
         } catch (err) {
             toast.error('Failed to create Acount');
+        }
+      };
+
+      const onSubmitUpdate = async (data: any) => {
+        const { id } = editAcount;
+        try {
+          await UpdateAcount({ id, formData: data }).unwrap();
+          toast.success('Acount Update successfully');
+          void refetch();
+          setModalOpen2(false);
+        } catch (err) {
+            toast.error('Failed to Update Acount');
         }
       };
     const [open, setOpen] = useState<number | boolean | null>(false);
@@ -106,7 +149,7 @@ const Bank = () => {
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                             </svg>
                                         </button>
-                                        <button onClick={handleOpenModal}>
+                                        <button onClick={()=> handleOpenModal2(bank)}>
                                             <svg className="h-6 w-6 text-blue-500" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />  <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />  <line x1="16" y1="5" x2="19" y2="8" /></svg>
                                         </button>
                                     </div>
@@ -276,6 +319,76 @@ const Bank = () => {
                         }
                         <button
                             onClick={handleCloseModal}
+                            className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#ffffff] hover:shadow-xl mb-5 mr-3 border text-black text-[18px] w-[180px] ease-in font-semibold duration-300"
+                            >
+                            Cancel
+                        </button>
+                    </div>
+                            </form>
+                </Modal>
+                <Modal isOpen={isModalOpen2} onClose={handleCloseModal2}>
+                    
+                    <form onSubmit={handleSubmit(onSubmitUpdate)}>
+
+                    <h2 className="text-xl mb-4 font-semibold"> Bank Name</h2>
+                    <div className="mb-4 rounded-sm">
+                        <input
+                            type="text"
+                            placeholder="Bank Name "
+                            {...register("bankName", { required: true })}
+                            className="w-full px-4 py-2 border bg-[#ffffff] shadow-md rounded-xl  border-[#436789] focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            />
+                        {errors.bankName && <span className="text-red-600">This field is required</span>}
+                    </div>
+                    <h2 className="text-xl mb-4 font-semibold">Beneficiary Address</h2>
+                    <div className="mb-4 rounded-sm">
+                        <input
+                        placeholder="Beneficiary Address"
+                        {...register("beneficiaryAddress", { required: true })}
+                        type="text"
+                        className="w-full px-4 py-2 border bg-[#ffffff] rounded-xl shadow-md border-[#436789] focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                        {errors.beneficiaryAddress && <span className="text-red-600">This field is required</span>}
+                    </div>
+                    <h2 className="text-xl mb-4 font-semibold">Beneficiary Name</h2>
+                    <div className="mb-4 rounded-sm">
+                        <input
+                        {...register("beneficiaryName", { required: true })}
+                        type="text"
+                        placeholder="Beneficiary Name"
+                        className="w-full px-4 py-2 border bg-[#ffffff] shadow-md rounded-xl  border-[#436789] focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                        {errors.beneficiaryName && <span className="text-red-600">This field is required</span>}
+                    </div>
+                    <h2 className="text-xl mb-4 font-semibold">Beneficiary Account Number</h2>
+                    <div className="mb-4 rounded-sm">
+                        <input
+                        {...register("beneficiaryAccountNumber", { required: true })}
+                            placeholder="Beneficiary Account"
+                            type="text"
+                            className="w-full px-4 py-2 border bg-[#ffffff] rounded-xl shadow-md border-[#436789] focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            />
+                            {errors.beneficiaryAccountNumber && <span className="text-red-600">This field is required</span>}
+                    </div>
+                    <h2 className="text-xl mb-4 font-semibold">Bank Short Name</h2>
+                    <div className="mb-4 rounded-sm">
+                        <input
+                        {...register("bankShortName", { required: true })}
+                            placeholder="Bank Short Name"
+                            type="text"
+                            className="w-full px-4 py-2 border bg-[#ffffff] rounded-xl shadow-md border-[#436789] focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            />
+                            {errors.bankShortName && <span className="text-red-600">This field is required</span>}
+                    </div>
+                    <div className="flex justify-between">
+                        {
+                            isUpdating? <Spinner/> : 
+                            <button type="submit" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] w-[180px] ease-in font-semibold duration-300">
+                                Edit 
+                            </button>
+                        }
+                        <button
+                            onClick={handleCloseModal2}
                             className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#ffffff] hover:shadow-xl mb-5 mr-3 border text-black text-[18px] w-[180px] ease-in font-semibold duration-300"
                             >
                             Cancel

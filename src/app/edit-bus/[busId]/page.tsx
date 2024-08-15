@@ -1,30 +1,51 @@
-"use client";
-import React from 'react';
+"use client"
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import Spinner from "@/components/spinner";
-import { useCreateBussMutation } from "@/features/Infrastructure/busApi";
+import { useUpdateBussMutation, useGetBusByIdQuery } from "@/features/Infrastructure/busApi";
 import { toast } from "react-toastify";
 import { useSelector } from 'react-redux';
 import { RootState } from '@/GlobalRedux/store';
 
-
-const AddNewBus = () => {
+interface ViewBusProps {
+    params: {
+      busId: string;
+    };
+  }
+const EditBus: React.FC<ViewBusProps> = ({params}) => {
     const booleanValue = useSelector((state: RootState) => state.boolean.value);
+    const { data, error, isLoading } = useGetBusByIdQuery(params.busId);
 
-  const { register, handleSubmit, formState: { errors } } = useForm();
-  const [createBus, { isLoading }] = useCreateBussMutation();
+    useEffect(() => {
+        if (data) {
+            setValue("busNumber", data.data.busNumber);
+            setValue("busCapacity", data.data.busCapacity);
+        }
+        if (error) {
+          console.error("Error:", error);
+        }
+      }, [data, error]);
+
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+  const [createBus, { isLoading:isCreating }] = useUpdateBussMutation();
 
   const onSubmit = async (data: any) => {
     try {
-      await createBus(data).unwrap();
+      await createBus({formData: data, id:params.busId}).unwrap();
       toast.success('Bus created successfully');
     } catch (err) {
         toast.error('Failed to create Bus');
     }
   };
+  if (isLoading)
+    return (
+      <div className="h-screen w-full justify-center items-center flex ">
+        <Spinner />
+      </div>
+    );
     return (
         <>
-            <div className="lg:ml-[270px] mr-[5px] grid justify-center items-center h-[850px]">
+<div className="lg:ml-[270px] mr-[5px] grid justify-center items-center h-[850px]">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="grid p-10 bg-white rounded-xl items-center justify-center xl:w-[1000px] lg:w-[750px] xl:h-[800px] h-[900px] gap-5 md:w-[600px] sm:w-[500px]">
                         <div className="flex items-center justify-start gap-2">
@@ -47,7 +68,7 @@ const AddNewBus = () => {
                         
                         <div className="flex justify-center text-center">
                             {
-                                isLoading? <Spinner/> :
+                                isCreating? <Spinner/> :
                             <button type="submit" className="px-4 py-2 rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl text-white  text-[18px] w-[140px] ease-in duration-300">Add Bus</button>
                             }
                         </div>
@@ -58,4 +79,4 @@ const AddNewBus = () => {
     );
 }
 
-export default AddNewBus;
+export default EditBus;

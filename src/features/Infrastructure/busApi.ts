@@ -12,8 +12,8 @@ const getTokenFromCookie = () => {
     return getCookie("token");
 };
 
-export const bankApi = createApi({
-    reducerPath: "bankApi",
+export const busApi = createApi({
+    reducerPath: "busApi",
     baseQuery: fetchBaseQuery({
         baseUrl: baseUrl,
         prepareHeaders: headers => {
@@ -27,32 +27,32 @@ export const bankApi = createApi({
         },
     }),
     endpoints: builder => ({
-        getAllBankAcounts: builder.query({
-            query: () => "/api/v1/bank-account/all?size=1000000&page=0&getActive=1",
+        getAllBuss: builder.query({
+            query: () => "/api/v1/bus/all?size=1000000&page=0&getActive=1",
         }),
         //
-        deleteBankAcounts: builder.mutation({
+        deleteBuss: builder.mutation({
             query: id => ({
-                url: `/api/v1/bank-account/${id}`,
+                url: `/api/v1/bus/${id}`,
                 method: "DELETE",
             }),
         }),
         //
-        createBankAcounts: builder.mutation({
+        createBuss: builder.mutation({
             query: formData => ({
-                url: `/api/v1/bank-account`,
+                url: `/api/v1/bus`,
                 method: "POST",
                 body: formData,
             }),
         }),
         //
-        getBankAcountById: builder.query({
-            query: id => `/api/v1/bank-account/${id}`,
+        getBusById: builder.query({
+            query: id => `/api/v1/bus/${id}`,
         }),
         //
-        updateBankAcounts: builder.mutation({
+        updateBuss: builder.mutation({
             query: ({ formData, id }) => ({
-                url: `/api/v1/bank-account/${id}`,
+                url: `/api/v1/bus/${id}`,
                 method: "PUT",
                 body: formData,
             }),
@@ -61,9 +61,9 @@ export const bankApi = createApi({
 });
 
 export const {
-    useGetAllBankAcountsQuery,
-    useDeleteBankAcountsMutation,
-    useCreateBankAcountsMutation,
-    useGetBankAcountByIdQuery,
-    useUpdateBankAcountsMutation,
-} = bankApi;
+    useGetAllBussQuery,
+    useDeleteBussMutation,
+    useCreateBussMutation,
+    useGetBusByIdQuery,
+    useUpdateBussMutation,
+} = busApi;
