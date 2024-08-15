@@ -2,8 +2,9 @@
 "use client"
 import Modal from "@/components/model";
 import Spinner from "@/components/spinner";
-import { useGetAllBankAcountsQuery, useDeleteBankAcountsMutation } from "@/features/Financial/bankApi";
+import { useGetAllBankAcountsQuery, useDeleteBankAcountsMutation, useCreateBankAcountsMutation, useGetBankAcountByIdQuery, useUpdateBankAcountsMutation } from "@/features/Financial/bankApi";
 import { RootState } from "@/GlobalRedux/store";
+import { useForm } from 'react-hook-form';
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -14,8 +15,12 @@ const Bank = () => {
     const [search, setSearch] = useState("");
     const [isModalOpen, setModalOpen] = useState(false);
 
-  const handleOpenModal = () => {
-      setModalOpen(true);
+    const [createAcount, { isLoading: isCreating }] = useCreateBankAcountsMutation();
+    const { register, handleSubmit, formState: { errors } } = useForm();
+
+    
+    const handleOpenModal = () => {
+        setModalOpen(true);
   };
 
   const handleCloseModal = () => {
@@ -30,8 +35,17 @@ const Bank = () => {
           toast.success("Delete post Success");
           void refetch();
         } catch (err) {
-          toast.error("Can not Delete post");
-
+            toast.error("Can not Delete post");
+            
+        }
+    };
+    const onSubmit = async (data: any) => {
+        try {
+          await createAcount(data).unwrap();
+          void refetch();
+          toast.success('Acount created successfully');
+        } catch (err) {
+            toast.error('Failed to create Acount');
         }
       };
     const [open, setOpen] = useState<number | boolean | null>(false);
@@ -201,50 +215,73 @@ const Bank = () => {
                 </div>
                 <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
                     
-                    
+                    <form onSubmit={handleSubmit(onSubmit)}>
+
                     <h2 className="text-xl mb-4 font-semibold"> Bank Name</h2>
                     <div className="mb-4 rounded-sm">
                         <input
                             type="text"
                             placeholder="Bank Name "
+                            {...register("bankName", { required: true })}
                             className="w-full px-4 py-2 border bg-[#ffffff] shadow-md rounded-xl  border-[#436789] focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
+                            />
+                        {errors.bankName && <span className="text-red-600">This field is required</span>}
                     </div>
                     <h2 className="text-xl mb-4 font-semibold">Beneficiary Address</h2>
                     <div className="mb-4 rounded-sm">
                         <input
                         placeholder="Beneficiary Address"
-                            type="text"
-                            className="w-full px-4 py-2 border bg-[#ffffff] rounded-xl shadow-md border-[#436789] focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        {...register("beneficiaryAddress", { required: true })}
+                        type="text"
+                        className="w-full px-4 py-2 border bg-[#ffffff] rounded-xl shadow-md border-[#436789] focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
+                        {errors.beneficiaryAddress && <span className="text-red-600">This field is required</span>}
                     </div>
                     <h2 className="text-xl mb-4 font-semibold">Beneficiary Name</h2>
                     <div className="mb-4 rounded-sm">
                         <input
-                            type="text"
-                            placeholder="Beneficiary Name"
-                            className="w-full px-4 py-2 border bg-[#ffffff] shadow-md rounded-xl  border-[#436789] focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        {...register("beneficiaryName", { required: true })}
+                        type="text"
+                        placeholder="Beneficiary Name"
+                        className="w-full px-4 py-2 border bg-[#ffffff] shadow-md rounded-xl  border-[#436789] focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
+                        {errors.beneficiaryName && <span className="text-red-600">This field is required</span>}
                     </div>
                     <h2 className="text-xl mb-4 font-semibold">Beneficiary Account Number</h2>
                     <div className="mb-4 rounded-sm">
                         <input
+                        {...register("beneficiaryAccountNumber", { required: true })}
                             placeholder="Beneficiary Account"
                             type="text"
                             className="w-full px-4 py-2 border bg-[#ffffff] rounded-xl shadow-md border-[#436789] focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
+                            />
+                            {errors.beneficiaryAccountNumber && <span className="text-red-600">This field is required</span>}
+                    </div>
+                    <h2 className="text-xl mb-4 font-semibold">Bank Short Name</h2>
+                    <div className="mb-4 rounded-sm">
+                        <input
+                        {...register("bankShortName", { required: true })}
+                            placeholder="Bank Short Name"
+                            type="text"
+                            className="w-full px-4 py-2 border bg-[#ffffff] rounded-xl shadow-md border-[#436789] focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            />
+                            {errors.bankShortName && <span className="text-red-600">This field is required</span>}
                     </div>
                     <div className="flex justify-between">
-                        <button className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] w-[180px] ease-in font-semibold duration-300">
-                            Add 
-                        </button>
+                        {
+                            isCreating? <Spinner/> : 
+                            <button type="submit" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] w-[180px] ease-in font-semibold duration-300">
+                                Add 
+                            </button>
+                        }
                         <button
                             onClick={handleCloseModal}
                             className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#ffffff] hover:shadow-xl mb-5 mr-3 border text-black text-[18px] w-[180px] ease-in font-semibold duration-300"
-                        >
+                            >
                             Cancel
                         </button>
                     </div>
+                            </form>
                 </Modal>
             </div>
         </>

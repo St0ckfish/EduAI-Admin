@@ -28,7 +28,7 @@ export const teacherApi = createApi({
     }),
     endpoints: builder => ({
         getAllTeachers: builder.query({
-            query: ({archived}) => `/api/v1/management/teacher/all?size=1000000000&page=0&archived=${archived}`,
+            query: ({archived, page, size}) => `/api/v1/management/teacher/all?size=${size}&page=${page}&archived=${archived}`,
         }),
         //
         deleteTeachers: builder.mutation({

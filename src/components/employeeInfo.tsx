@@ -25,7 +25,6 @@ const EmployeeInfo = ({ data }: { data: any }) => {
                     <img src={data.data.picture} className="w-[120px] h-[120px] mr-2 rounded-full" alt="#" />
                 }
                     <h1 className='font-sans text-gray-800 font-semibold'>{data.data.name}</h1>
-                    <p className='font-sans text-gray-800 font-semibold'>{data.data.id}</p>
                 </div>
 
                 <div className="grid justify-start">

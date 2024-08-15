@@ -1,27 +1,41 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 import Link from "next/link";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, SetStateAction } from 'react';
 import { useDeleteEmployeesMutation, useGetAllEmployeesQuery } from "@/features/User-Management/employeeApi";
 import Spinner from "@/components/spinner";
 import { useSelector } from 'react-redux';
 import { RootState } from "@/GlobalRedux/store";
 import { toast } from "react-toastify";
+import Pagination from "@/components/pagination";
 
 const Employee = () => {
     const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
     type Employee = Record<string, any>;
     const [search, setSearch] = useState("");
+    const [currentPage, setCurrentPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
     const { data, error, isLoading, refetch } = useGetAllEmployeesQuery({
-        archived: "false"
+        archived: "false",
+        page: currentPage,
+        size: rowsPerPage
     });
     const [selectAll, setSelectAll] = useState(false); 
+    
+    const onPageChange = (page: SetStateAction<number>) => {
+        setCurrentPage(page);
+    };
+    const onElementChange = (ele: SetStateAction<number>) => {
+        setRowsPerPage(ele);
+        setCurrentPage(0);
+    };
 
     useEffect(() => {
         if (data) console.log("Response Data:", data);
         if (error) console.log("Error:", error);
       }, [data, error]);
+      const totalRows = data?.data.content.length;
 
       const [deleteEmployees] = useDeleteEmployeesMutation();
 
@@ -96,7 +110,7 @@ const Employee = () => {
                         </div>
                     </div> 
                     <div className="flex justify-center">
-                        <Link href="/add-new-employee" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] w-[210px] ease-in font-semibold duration-300">+ Add New Employee</Link>
+                        <Link href="/add-new-employee" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] w-[210px] ease-in font-semibold duration-300">+ New Employee</Link>
                     </div>
                 </div>
                 <div className="overflow-auto relative shadow-md sm:rounded-lg">
@@ -125,13 +139,7 @@ const Employee = () => {
                                 Email
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                Status
-                                </th>
-                                <th scope="col" className="px-6 py-3 whitespace-nowrap">
                                     Mobile
-                                </th>
-                                <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                    About
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
                                     view
@@ -175,13 +183,7 @@ const Employee = () => {
                                     {employee.email}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className={`w-2 h-2 rounded-full ${employee.locked? "bg-[#b95f5f]"  : "bg-[#57d198]"}`}></div>
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
                                     {employee.number}
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    {employee.about}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <Link href={`/employee/view-employee/${employee.id}`} className="font-medium text-blue-600 hover:underline">View</Link>
@@ -196,6 +198,15 @@ const Employee = () => {
                     {
                         (data?.data.content.length == 0 || data == null) && <div className="flex justify-center text-center text-[18px] w-full py-3 font-semibold">There is No Data</div>
                     }
+                </div>
+                <div className="overflow-auto relative">
+                    <Pagination
+                    totalElements={totalRows}
+                    elementsPerPage={rowsPerPage}
+                    onChangeElementsPerPage={onElementChange}
+                    currentPage={currentPage}
+                    onChangePage={onPageChange}
+                />
                 </div>
             </div>
         </>

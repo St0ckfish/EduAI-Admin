@@ -28,7 +28,7 @@ export const employeeApi = createApi({
     }),
     endpoints: builder => ({
         getAllEmployees: builder.query({
-            query: ({archived}) => `api/v1/management/employee/all?size=1000000000&page=0&type=EMPLOYEE&archived=${archived}`,
+            query: ({archived, page, size}) => `api/v1/management/employee/all?size=${size}&page=${page}&type=EMPLOYEE&archived=${archived}`,
         }),
         //
         deleteEmployees: builder.mutation({

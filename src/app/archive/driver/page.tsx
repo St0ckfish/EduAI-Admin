@@ -16,6 +16,10 @@ const ArchiveDriver = () => {
     const onPageChange = (page: SetStateAction<number>) => {
         setCurrentPage(page);
     };
+    const onElementChange = (ele: SetStateAction<number>) => {
+        setRowsPerPage(ele);
+        setCurrentPage(0);
+    };
     const booleanValue = useSelector((state: RootState) => state.boolean.value);
     type Driver = Record<string, any>;
     const [search, setSearch] = useState("");
@@ -135,13 +139,7 @@ const ArchiveDriver = () => {
                                 Email
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                Status
-                                </th>
-                                <th scope="col" className="px-6 py-3 whitespace-nowrap">
                                     Mobile
-                                </th>
-                                <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                    About
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
                                     view
@@ -185,13 +183,7 @@ const ArchiveDriver = () => {
                                     {driver.email}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className={`w-2 h-2 rounded-full ${driver.locked? "bg-[#b95f5f]"  : "bg-[#57d198]"}`}></div>
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
                                     {driver.number}
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    {driver.about}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <Link href={`/driver/view-driver/${driver.id}`} className="font-medium text-blue-600 hover:underline">View</Link>
@@ -209,13 +201,12 @@ const ArchiveDriver = () => {
                     }
                 </div>
                 <div className="overflow-auto relative">
-
                     <Pagination
-                    totalRows={totalRows}
-                    rowsPerPage={rowsPerPage}
-                    setRowsPerPage={setRowsPerPage}
+                    totalElements={totalRows}
+                    elementsPerPage={rowsPerPage}
+                    onChangeElementsPerPage={onElementChange}
                     currentPage={currentPage}
-                    onPageChange={onPageChange}
+                    onChangePage={onPageChange}
                 />
                 </div>
             </div>

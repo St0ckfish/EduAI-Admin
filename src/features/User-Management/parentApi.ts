@@ -28,7 +28,7 @@ export const parentApi = createApi({
     }),
     endpoints: builder => ({
         getAllParents: builder.query({
-            query: ({archived}) => `/api/v1/management/parent/all?size=1000000&page=0&archived=${archived}`,
+            query: ({archived, page, size}) => `/api/v1/management/parent/all?size=${size}&page=${page}&archived=${archived}`,
         }),
         //
         deleteParents: builder.mutation({
