@@ -50,7 +50,7 @@ const CourseManagement = () => {
                         </div>
                     </div>
                     <div className="flex justify-center">
-                        <button className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] ease-in font-semibold duration-300">+ Add New Course</button>
+                        <Link href="/course/course-management/add-course" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] ease-in font-semibold duration-300">+ Add New Course</Link>
                     </div>
                 </div>
                 <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3 p-3">

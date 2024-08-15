@@ -34,7 +34,7 @@ export const courseApi = createApi({
         deleteCourses: builder.mutation({
             query: id => ({
                 url: `/api/v1/management/course/${id}`,
-                method: "PUT",
+                method: "DELETE",
             }),
         }),
         //
