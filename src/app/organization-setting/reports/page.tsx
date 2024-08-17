@@ -1,7 +1,42 @@
+"use client"
 /* eslint-disable @next/next/no-img-element */
+import Spinner from "@/components/spinner";
+import { useGetAllReportsQuery, useDeleteReportsMutation } from "@/features/Organization-Setteings/reportApi";
 import Link from "next/link";
+import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from "@/GlobalRedux/store";
+import { toast } from "react-toastify";
+
 
 const Report = () => {
+    const booleanValue = useSelector((state: RootState) => state.boolean.value);
+
+    const { data, error, isLoading, refetch } = useGetAllReportsQuery(null);
+
+    const [deleteReport] = useDeleteReportsMutation();
+
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteReport(id).unwrap();
+      toast.success(`Employee with ID ${id} unLocked successfully`);
+      void refetch();
+    } catch (err) {
+      toast.error("Failed to unlock the Employee");
+    }
+  };
+
+    useEffect(() => {
+        if (data) console.log("Response Data:", data);
+        if (error) console.log("Error:", error);
+      }, [data, error]);
+
+    if (isLoading)
+        return (
+            <div className="h-screen w-full justify-center items-center flex ">
+                <Spinner />
+            </div>
+    );
     return (
         <>
             <div className="lg:ml-[270px] mr-[5px]  grid justify-center items-center h-[650px] relative mt-10 overflow-x-auto bg-transparent sm:rounded-lg max-[1200px]:w-screen">

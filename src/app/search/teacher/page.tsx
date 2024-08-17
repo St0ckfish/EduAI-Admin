@@ -2,29 +2,29 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { useState, useEffect } from 'react';
-import {  useGetAllStudentsQuery } from "@/features/User-Management/studentApi";
+import {  useGetAllTeachersQuery } from "@/features/User-Management/teacherApi";
 import Spinner from "@/components/spinner";
 import { useSelector } from 'react-redux';
 import { RootState } from "@/GlobalRedux/store";
 
-const Search = () => {
+const TeahcerSearch = () => {
     const booleanValue = useSelector((state: RootState) => state.boolean.value);
-    type Student = Record<string, any>;
-    const { data, error, isLoading } = useGetAllStudentsQuery({
+    type Teacher = Record<string, any>;
+    const { data, error, isLoading } = useGetAllTeachersQuery({
         archived: "false",
         page: 0,
         size: 1000000
     });
     const [searchTerm, setSearchTerm] = useState('');
-    const [filteredStudents, setFilteredStudents] = useState<Student[]>([]);
+    const [filteredTeachers, setFilteredTeachers] = useState<Teacher[]>([]);
   
     useEffect(() => {
         if (data) {
           console.log("Response Data:", data);
-          const filtered = data.data.content.filter((student: Student) =>
+          const filtered = data.data.content.filter((student: Teacher) =>
             student.name.toLowerCase().includes(searchTerm.toLowerCase())
           );
-          setFilteredStudents(filtered);
+          setFilteredTeachers(filtered);
         }
         if (error) {
           console.log("Error:", error);
@@ -36,8 +36,8 @@ const Search = () => {
             <div className="flex w-full h-full justify-center p-2 overflow-auto">
                 <div className="grid bg-white rounded-xl w-full h-full overflow-auto ">
                     <div className="flex gap-2 bg-gray-200 h-[70px] rounded-t-xl items-center pl-3 font-semibold overflow-auto">
-                        <Link className="text-blue-500 underline underline-offset-4" href="/search">Student</Link>
-                        <Link className="hover:text-blue-500 hover:underline underline-offset-4" href="/search/teacher">Teacher</Link>
+                        <Link className="hover:text-blue-500 hover:underline underline-offset-4" href="/search">Student</Link>
+                        <Link className="text-blue-500 underline underline-offset-4" href="/search/teacher">Teacher</Link>
                         <Link className="hover:text-blue-500 hover:underline underline-offset-4" href="/search/employee">Employee</Link>
                         <Link className="hover:text-blue-500 hover:underline underline-offset-4" href="/search/worker">Worker</Link>
                         <Link className="hover:text-blue-500 hover:underline underline-offset-4" href="/search/fees">Fees</Link>
@@ -62,20 +62,35 @@ const Search = () => {
                                 </div>
                             </div>
                             <div className="mt-3">
-                                <p className="font-semibold">0 Students Found</p>
+                                <p className="font-semibold">{filteredTeachers.length} Teachers Found</p>
                             </div>
-                            <div className="h-[450px] grid justify-center items-center">
-                                {
+                            <div className="h-[450px] grid w-full overflow-y-auto">
+                            {
                                     isLoading ? <Spinner/>:
-                                    <div>
-                                        {filteredStudents.length > 0 && searchTerm ? (
-                                            <ul>
-                                                {filteredStudents.map((student) => (
-                                                <li key={student.id}>{student.name}</li>
+                                    <div className="h-full w-full  overflow-y-auto">
+                                        {filteredTeachers.length > 0 && searchTerm ? (
+                                            <ul className="mt-12 w-full overflow-y-auto">
+                                                {filteredTeachers.map((student) => (
+                                                <div key={student.id} className="flex hover:bg-gray-200 cursor-pointer items-center border border-[#f5f6f7] rounded-lg px-2 py-1 w-full">
+                                                    <div>
+                                                    {
+                                                        student.picture == null ?
+                                                        <img src="/images/userr.png" className="w-[40px] h-[40px] mr-2 rounded-full" alt="#" />
+                                                        :
+                                                        <img src={student.picture} className="w-[40px] h-[40px] mr-2 rounded-full" alt="#" />
+                                                    }
+                                                    </div>
+                                                    <div className="grid gap-2">
+                                                        <p className="font-semibold">{student.name}</p>
+                                                        <p className="font-semibold text-[#536471]">ID: {student.id}</p>
+                                                    </div>
+                                                </div>
                                                 ))}
                                             </ul>
                                             ) : (
-                                                  <img src="/images/nothing.png" alt="" />
+                                                <div className="h-full flex items-center justify-center">
+                                                    <img src="/images/nothing.png" alt="" />
+                                                </div>
                                             )}
                                     </div>
                                 }
@@ -90,4 +105,4 @@ const Search = () => {
      );
 }
  
-export default Search;
+export default TeahcerSearch;
