@@ -1,12 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import Spinner from "@/components/spinner";
-import { useGetAllAllPostsQuery, useDeletePostsMutation, usePutPostLikeMutation } from "@/features/communication/postApi";
+import {
+    useGetAllAllPostsQuery, useDeletePostsMutation, usePutPostLikeMutation, useCreateCommentMutation, useGetAllCommentsQuery
+} from "@/features/communication/postApi";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, SetStateAction, AwaitedReactNode, JSXElementConstructor, ReactElement, ReactNode, ReactPortal } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import { toast } from "react-toastify";
+import { useForm } from "react-hook-form";
 
 const News = () => {
     const booleanValue = useSelector((state: RootState) => state.boolean.value);
@@ -15,6 +18,13 @@ const News = () => {
     const [deletePosts] = useDeletePostsMutation();
     const [putLike] = usePutPostLikeMutation();
 
+    const [selectedId, setSelectedId] = useState(null);
+    const { data: Comments, isLoading: isComment } = useGetAllCommentsQuery(selectedId, {
+        skip: !selectedId,
+    });
+    const handleClick = (id: SetStateAction<null>) => {
+        setSelectedId(id);
+    };
     useEffect(() => {
         if (data) console.log("Response Data:", data);
         if (error) console.log("Error:", error);
@@ -26,6 +36,22 @@ const News = () => {
     const [open2, setOpen2] = useState<number | boolean | null>(false);
     const toggleNavbar2 = (index: number) => {
         setOpen2(open2 === index ? null : index);
+    };
+    const [open3, setOpen3] = useState<number | boolean | null>(false);
+    const toggleNavbar3 = (index: number) => {
+        setOpen3(open3 === index ? null : index);
+    };
+
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const [createSemester, { isLoading: isCreating }] = useCreateCommentMutation();
+
+    const onSubmit = (id: string) => async (data: any) => {
+        try {
+            await createSemester({ formData: data, id: id }).unwrap();
+            toast.success('Comment Added successfully');
+        } catch (err) {
+            toast.error('Failed to create Comment');
+        }
     };
 
     const handleDelete = async (id: string) => {
@@ -137,13 +163,13 @@ const News = () => {
                                 ))}
                             </div>
                         </div>
-                        <div className="flex justify-between mt-2 items-center font-semibold">
+                        <div className="flex justify-between mt-2 items-center font-semibold mb-3">
                             <div className="flex items-center">
                                 <img src="/images/like.png" className="w-[20px] h-[20px] mr-2 rounded-full" alt="user" />
                                 <p className="text-[#65676b]">{post.likesCount}</p>
                             </div>
                             <div className="flex justify-between gap-3 ">
-                                <p className="text-[#65676b]">2 Comments</p>
+                                <button onClick={() => { handleClick(post.id); toggleNavbar3(index) }} className="text-[#65676b] hover:border-b border-spacing-2">Comments</button>
                             </div>
                         </div>
                         <div className=" border-[#65676b] border-y flex gap-10 max-[505px]:gap-8 items-center py-3 font-semibold text-[#65676b] px-2 justify-center">
@@ -168,12 +194,36 @@ const News = () => {
                         {
                             open2 === index && (
                                 <div className="w-full mt-4 flex gap-3 items-center">
-                                    <input placeholder="Write Comment" type="text" className="w-full font-semibold outline-none border border-slate-200 rounded-md px-3 py-2" />
-                                    <button className="px-3 py-1.5 bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl ease-in duration-300 rounded-lg">
-                                    <svg className="h-7 w-7 text-white"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round">  <polygon points="3 11 22 2 13 21 11 13 3 11" /></svg>
-                                    </button>
+                                    <form onSubmit={handleSubmit(onSubmit(post.id))} className="w-full mt-4 flex gap-3 items-center">
+                                        <input placeholder="Write Comment" type="text" className={`w-full font-semibold outline-none border  rounded-md px-3 py-2 ${errors.comment ? "border-red-500" : "border-slate-200"} `} {...register("comment", { required: true })} />
+                                        {
+                                            isCreating ? <Spinner /> :
+                                                <button type="submit" className="px-3 py-1.5 bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl ease-in duration-300 rounded-lg" >
+                                                    <svg className="h-7 w-7 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">  <polygon points="3 11 22 2 13 21 11 13 3 11" /></svg>
+                                                </button>
+                                        }
+                                    </form>
                                 </div>
-                                )}
+                            )}
+                        {
+                            open3 === index && (
+                                <div className="w-full mt-4 flex gap-3 items-center">
+                                    {
+                                        isComment ? <Spinner /> :
+                                            <div className="grid h-full w-full overflow-y-auto">
+                                                {Comments.data.content.map((comment: {
+                                                    creatorName: ReactNode; comment: string | number | bigint | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | null | undefined;
+                                                }, index: number) => (
+                                                    <div key={index} className="flex items-center gap-2">
+                                                        <h1 className="font-semibold text-gray-400">{comment.creatorName}:</h1>
+                                                        <p className="font-semibold">{comment.comment}</p>
+                                                    </div>
+                                                )
+                                                )}
+                                            </div>
+                                    }
+                                </div>
+                            )}
                     </div>
                 ))}
             </div>

@@ -33,6 +33,10 @@ export const postApi = createApi({
             query: () => "/api/v1/management/post/all?size=1000000&page=0",
         }),
         //
+        getAllComments: builder.query({
+            query: (id) => `/api/v1/post/${id}/comment/all?size=10&page=0`,
+        }),
+        //
         getAllAllPosts: builder.query({
             query: () => "/api/v1/post/all?size=1000000&page=0",
         }),
@@ -78,6 +82,14 @@ export const postApi = createApi({
                 method: "PUT",
             }),
         }),
+        //
+        createComment: builder.mutation({
+            query: ( {id, formData} ) => ({
+                url: `/api/v1/post/${id}/comment`,
+                method: "POST",
+                body: formData,
+            }),
+        }),
     }),
 });
 
@@ -89,5 +101,7 @@ export const {
     useUpdatePostsMutation,
     useUpdatePostsFilesMutation,
     useGetAllAllPostsQuery,
-    usePutPostLikeMutation
+    usePutPostLikeMutation,
+    useCreateCommentMutation,
+    useGetAllCommentsQuery
 } = postApi;
