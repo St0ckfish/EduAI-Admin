@@ -1,19 +1,20 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
+
 import Spinner from "@/components/spinner";
-import { useGetProfessionalByIdQuery } from "@/features/Document-Management/professionalApi";
+import { useGetAchievementByIdQuery } from "@/features/Document-Management/achievementApi";
 import Link from "next/link";
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from "@/GlobalRedux/store";
 interface ViewDriverProps {
     params: {
-        professionalID: string;
+        achievementId: string;
     };
 }
-const ViewProfessional: React.FC<ViewDriverProps> = ({ params }) => {
+const ViewAchievement: React.FC<ViewDriverProps> = ({ params }) => {
     const booleanValue = useSelector((state: RootState) => state.boolean.value);
-    const { data, error, isLoading } = useGetProfessionalByIdQuery(params.professionalID);
+    const { data, error, isLoading } = useGetAchievementByIdQuery(params.achievementId);
     useEffect(() => {
         if (data) {
             console.log(data);
@@ -47,4 +48,4 @@ const ViewProfessional: React.FC<ViewDriverProps> = ({ params }) => {
     );
 }
 
-export default ViewProfessional;
+export default ViewAchievement;

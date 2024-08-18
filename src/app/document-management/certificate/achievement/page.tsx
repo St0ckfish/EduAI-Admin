@@ -105,16 +105,16 @@ const Achievement = () => {
                                     </div>
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                    Title
+                                Stage
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                    id
+                                Student Name
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                Content
+                                Student Id
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                    Image
+                                Issue Date
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
                                     view
@@ -135,21 +135,19 @@ const Achievement = () => {
                                     </div>
                                 </td>
                                 <th scope="row" className="px-6 py-4 whitespace-nowrap">
-                                    <p> {achievement.title_en} </p>
+                                    <p> {achievement.stage} </p>
                                 </th>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                {achievement.id}
+                                {achievement.studentName}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                {achievement.content_en}
+                                {achievement.studentId}
                                 </td>
                                 <td className="flex gap-2 px-6 py-4 whitespace-nowrap">
-                                {achievement.attachments.map((img:any, index:number) => (
-                                    <img className="w-[200px] rounded-md" src={img.viewLink} alt="#" key={index} />
-                                 ))}
+                                    {achievement.issueDate}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <Link href={`/document-management/achievement/${achievement.id}`} className="font-medium text-blue-600 hover:underline">edit</Link>
+                                    <Link href={`/document-management/certificate/achievement/${achievement.id}`} className="font-medium text-blue-600 hover:underline"><img src="/images/print.png" alt="#" /></Link>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <button className="px-2 py-1 rounded-lg text-white bg-red-500 font-semibold shadow-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">Delete</button>
