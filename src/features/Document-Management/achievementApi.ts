@@ -34,7 +34,7 @@ export const achievementApi = createApi({
         deleteAchievements: builder.mutation({
             query: id => ({
                 url: `/api/v1/management/certificate/achievement/${id}`,
-                method: "PUT",
+                method: "DELETE",
             }),
         }),
         //

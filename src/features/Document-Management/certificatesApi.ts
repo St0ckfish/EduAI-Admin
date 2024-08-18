@@ -34,7 +34,7 @@ export const certificatesApi = createApi({
         deleteCertificates: builder.mutation({
             query: id => ({
                 url: `/api/v1/management/certificate/completion/${id}`,
-                method: "PUT",
+                method: "DELETE",
             }),
         }),
         //

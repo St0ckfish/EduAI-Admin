@@ -34,7 +34,7 @@ export const participationApi = createApi({
         deleteParticipations: builder.mutation({
             query: id => ({
                 url: `/api/v1/management/certificate/participation/${id}`,
-                method: "PUT",
+                method: "DELETE",
             }),
         }),
         //

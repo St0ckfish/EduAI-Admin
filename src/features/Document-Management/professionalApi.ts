@@ -34,7 +34,7 @@ export const professionalApi = createApi({
         deleteProfessionals: builder.mutation({
             query: id => ({
                 url: `/api/v1/management/certificate/professional-development/${id}`,
-                method: "PUT",
+                method: "DELETE",
             }),
         }),
         //

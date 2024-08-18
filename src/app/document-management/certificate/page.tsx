@@ -1,16 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 import Spinner from "@/components/spinner";
-import { useGetAllCertificatesQuery } from "@/features/Document-Management/certificatesApi";
+import { useGetAllCertificatesQuery, useDeleteCertificatesMutation } from "@/features/Document-Management/certificatesApi";
 import Link from "next/link";
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from "@/GlobalRedux/store";
+import { toast } from "react-toastify";
 const Certificate = () => {
     const booleanValue = useSelector((state: RootState) => state.boolean.value);
     type Certificate = Record<string, any>;
     const [search, setSearch] = useState("");
-    const { data, error, isLoading } = useGetAllCertificatesQuery(null);
+    const { data, error, isLoading, refetch } = useGetAllCertificatesQuery(null);
     const [selectAll, setSelectAll] = useState(false); 
 
     useEffect(() => {
@@ -25,6 +26,18 @@ const Certificate = () => {
             checkbox.checked = !selectAll;
         });
     };
+
+    const [deleteCeftificates] = useDeleteCertificatesMutation();
+
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteCeftificates(id).unwrap();
+      toast.success(`Certificate with ID ${id} Deleted successfully`);
+      void refetch();
+    } catch (err) {
+      toast.error("Failed to Delete the Certificate");
+    }
+  };
 
     useEffect(() => {
         const handleOtherCheckboxes = () => {
@@ -151,7 +164,7 @@ const Certificate = () => {
                                     </Link>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <button className="px-2 py-1 rounded-lg text-white bg-red-500 font-semibold shadow-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">Delete</button>
+                                    <button onClick={()=> handleDelete(certificate.id)} className="px-2 py-1 rounded-lg text-white bg-red-500 font-semibold shadow-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">Delete</button>
                                 </td>
                             </tr>
                             ))}

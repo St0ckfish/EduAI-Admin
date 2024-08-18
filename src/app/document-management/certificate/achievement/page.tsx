@@ -1,17 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 import Spinner from "@/components/spinner";
-import { useGetAllAchievementsQuery } from "@/features/Document-Management/achievementApi";
+import { useGetAllAchievementsQuery, useDeleteAchievementsMutation } from "@/features/Document-Management/achievementApi";
 import Link from "next/link";
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from "@/GlobalRedux/store";
+import { toast } from "react-toastify";
 
 const Achievement = () => {
     const booleanValue = useSelector((state: RootState) => state.boolean.value);
     type Achievement = Record<string, any>;
     const [search, setSearch] = useState("");
-    const { data, error, isLoading } = useGetAllAchievementsQuery(null);
+    const { data, error, isLoading, refetch } = useGetAllAchievementsQuery(null);
     const [selectAll, setSelectAll] = useState(false); 
 
     useEffect(() => {
@@ -25,6 +26,18 @@ const Achievement = () => {
         checkboxes.forEach(checkbox => {
             checkbox.checked = !selectAll;
         });
+    };
+
+    const [deleteCeftificates] = useDeleteAchievementsMutation();
+
+    const handleDelete = async (id: string) => {
+      try {
+        await deleteCeftificates(id).unwrap();
+        toast.success(`Certificate with ID ${id} Deleted successfully`);
+        void refetch();
+      } catch (err) {
+        toast.error("Failed to Delete the Certificate");
+      }
     };
 
     useEffect(() => {
@@ -150,7 +163,7 @@ const Achievement = () => {
                                     <Link href={`/document-management/certificate/achievement/${achievement.id}`} className="font-medium text-blue-600 hover:underline"><img src="/images/print.png" alt="#" /></Link>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <button className="px-2 py-1 rounded-lg text-white bg-red-500 font-semibold shadow-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">Delete</button>
+                                    <button onClick={() => handleDelete(achievement.id)} className="px-2 py-1 rounded-lg text-white bg-red-500 font-semibold shadow-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">Delete</button>
                                 </td>
                             </tr>
                             ))}
