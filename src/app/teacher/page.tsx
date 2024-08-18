@@ -27,7 +27,6 @@ const Teacher = () => {
         if (data) console.log("Response Data:", data);
         if (error) console.log("Error:", error);
       }, [data, error]);
-      const totalRows = data?.data.content.length;
 
     
     const onPageChange = (page: SetStateAction<number>) => {
@@ -202,7 +201,7 @@ const Teacher = () => {
                 </div>
                 <div className="overflow-auto relative">
                     <Pagination
-                    totalElements={totalRows}
+                    totalPages={data?.data.totalPages}
                     elementsPerPage={rowsPerPage}
                     onChangeElementsPerPage={onElementChange}
                     currentPage={currentPage}

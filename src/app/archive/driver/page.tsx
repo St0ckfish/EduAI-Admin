@@ -28,7 +28,6 @@ const ArchiveDriver = () => {
         page: currentPage,
         size: rowsPerPage
     });
-    const totalRows = data?.data.content.length;
 
     const [selectAll, setSelectAll] = useState(false); 
   const [deleteDrivers] = useDeleteDriversMutation();
@@ -202,7 +201,7 @@ const ArchiveDriver = () => {
                 </div>
                 <div className="overflow-auto relative">
                     <Pagination
-                    totalElements={totalRows}
+                    totalPages={data?.data.totalPages}
                     elementsPerPage={rowsPerPage}
                     onChangeElementsPerPage={onElementChange}
                     currentPage={currentPage}

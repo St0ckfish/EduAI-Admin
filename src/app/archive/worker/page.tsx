@@ -17,7 +17,7 @@ const Worker = () => {
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [search, setSearch] = useState("");
     const { data, error, isLoading, refetch } = useGetAllWorkersQuery({
-        archived: "false",
+        archived: "true",
         page: currentPage,
         size: rowsPerPage
     });
@@ -35,7 +35,6 @@ const Worker = () => {
         if (data) console.log("Response Data:", data);
         if (error) console.log("Error:", error);
       }, [data, error]);
-      const totalRows = data?.data.content.length;
 
       const [deleteWorker] = useDeleteWorkersMutation();
 
@@ -202,7 +201,7 @@ const Worker = () => {
                 </div>
                 <div className="overflow-auto relative">
                     <Pagination
-                    totalElements={totalRows}
+                    totalPages={data?.data.totalPages}
                     elementsPerPage={rowsPerPage}
                     onChangeElementsPerPage={onElementChange}
                     currentPage={currentPage}

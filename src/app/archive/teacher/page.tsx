@@ -17,7 +17,7 @@ const Teacher = () => {
     type Teacher = Record<string, any>;
     const [search, setSearch] = useState("");
     const { data, error, isLoading, refetch } = useGetAllTeachersQuery({
-        archived: "false",
+        archived: "true",
         page: currentPage,
         size: rowsPerPage
     });
@@ -34,7 +34,6 @@ const Teacher = () => {
         if (data) console.log("Response Data:", data);
         if (error) console.log("Error:", error);
       }, [data, error]);
-      const totalRows = data?.data.content.length;
       const [deleteTeachers] = useDeleteTeachersMutation();
 
   const handleDelete = async (id: string) => {
@@ -200,7 +199,7 @@ const Teacher = () => {
                 </div>
                 <div className="overflow-auto relative">
                     <Pagination
-                    totalElements={totalRows}
+                    totalPages={data?.data.totalPages}
                     elementsPerPage={rowsPerPage}
                     onChangeElementsPerPage={onElementChange}
                     currentPage={currentPage}

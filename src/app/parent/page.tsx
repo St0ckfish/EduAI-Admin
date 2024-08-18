@@ -22,7 +22,6 @@ const Parent = () => {
         page: currentPage,
         size: rowsPerPage
     });
-    const totalRows = data?.data.content.length;
 
     
     const onPageChange = (page: SetStateAction<number>) => {
@@ -47,10 +46,10 @@ const Parent = () => {
         id:id,
         lock:"true"
       }).unwrap();
-      toast.success(`Parent with ID ${id} unLocked successfully`);
+      toast.success(`Parent with ID ${id} Locked successfully`);
       void refetch();
     } catch (err) {
-      toast.error("Failed to unlock the Parent");
+      toast.error("Failed to lock the Parent");
     }
   };
 
@@ -204,7 +203,7 @@ const Parent = () => {
                 </div>
                 <div className="overflow-auto relative">
                     <Pagination
-                    totalElements={totalRows}
+                    totalPages={data?.data.totalPages}
                     elementsPerPage={rowsPerPage}
                     onChangeElementsPerPage={onElementChange}
                     currentPage={currentPage}

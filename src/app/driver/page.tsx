@@ -45,7 +45,6 @@ const Driver = () => {
         setCurrentPage(0);
     };
     const [selectAll, setSelectAll] = useState(false); 
-    const totalRows = data?.data.content ? data?.data.content.length : 1;
     const [deleteDrivers] = useDeleteDriversMutation();
 
   const handleDelete = async (id: string) => {
@@ -217,7 +216,7 @@ const Driver = () => {
                 </div>
                 <div className="overflow-auto relative">
                     <Pagination
-                    totalElements={totalRows}
+                    totalPages={data?.data.totalPages}
                     elementsPerPage={rowsPerPage}
                     onChangeElementsPerPage={onElementChange}
                     currentPage={currentPage}

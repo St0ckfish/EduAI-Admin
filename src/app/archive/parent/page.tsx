@@ -27,7 +27,7 @@ const Parent = () => {
     type Parent = Record<string, any>;
     const [search, setSearch] = useState("");
     const { data, error, isLoading, refetch } = useGetAllParentsQuery({
-        archived: "false",
+        archived: "true",
         page: currentPage,
         size: rowsPerPage
     });
@@ -36,7 +36,6 @@ const Parent = () => {
         if (data) console.log("Response Data:", data);
         if (error) console.log("Error:", error);
       }, [data, error]);
-      const totalRows = data?.data.content.length;
       const [deleteParents] = useDeleteParentsMutation();
 
   const handleDelete = async (id: string) => {
@@ -202,7 +201,7 @@ const Parent = () => {
                 </div>
                 <div className="overflow-auto relative">
                     <Pagination
-                    totalElements={totalRows}
+                    totalPages={data?.data.totalPages}
                     elementsPerPage={rowsPerPage}
                     onChangeElementsPerPage={onElementChange}
                     currentPage={currentPage}

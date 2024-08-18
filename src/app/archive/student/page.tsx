@@ -18,7 +18,7 @@ const Student = () => {
     const [currentPage, setCurrentPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const { data, error, isLoading, refetch } = useGetAllStudentsQuery({
-        archived: "false",
+        archived: "true",
         page: currentPage,
         size: rowsPerPage
     });
@@ -35,7 +35,6 @@ const Student = () => {
         if (data) console.log("Response Data:", data);
         if (error) console.log("Error:", error);
       }, [data, error]);
-      const totalRows = data?.data.content.length;
       const [deleteStudents] = useDeleteStudentsMutation();
 
   const handleDelete = async (id: string) => {
@@ -201,7 +200,7 @@ const Student = () => {
                 </div>
                 <div className="overflow-auto relative">
                     <Pagination
-                    totalElements={totalRows}
+                    totalPages={data?.data.totalPages}
                     elementsPerPage={rowsPerPage}
                     onChangeElementsPerPage={onElementChange}
                     currentPage={currentPage}

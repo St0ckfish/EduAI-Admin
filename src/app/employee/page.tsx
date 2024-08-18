@@ -35,7 +35,6 @@ const Employee = () => {
         if (data) console.log("Response Data:", data);
         if (error) console.log("Error:", error);
       }, [data, error]);
-      const totalRows = data?.data.content.length;
 
       const [deleteEmployees] = useDeleteEmployeesMutation();
 
@@ -45,10 +44,10 @@ const Employee = () => {
         id:id,
         lock:"true"
       }).unwrap();
-      toast.success(`Employee with ID ${id} unLocked successfully`);
+      toast.success(`Employee with ID ${id} Locked successfully`);
       void refetch();
     } catch (err) {
-      toast.error("Failed to unlock the Employee");
+      toast.error("Failed to lock the Employee");
     }
   };
 
@@ -201,7 +200,7 @@ const Employee = () => {
                 </div>
                 <div className="overflow-auto relative">
                     <Pagination
-                    totalElements={totalRows}
+                   totalPages={data?.data.totalPages}
                     elementsPerPage={rowsPerPage}
                     onChangeElementsPerPage={onElementChange}
                     currentPage={currentPage}
