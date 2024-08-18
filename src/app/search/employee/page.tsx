@@ -70,7 +70,7 @@ const EmployeeSearch = () => {
                                     </div>
                                 </div>
                                 <div className="mt-3">
-                                    <p className="font-semibold">{filteredTeachers.length} Teachers Found</p>
+                                    <p className="font-semibold">{filteredTeachers.length} Employees Found</p>
                                 </div>
                                 <div className="h-[450px] grid w-full overflow-y-auto">
                                     {
@@ -104,7 +104,7 @@ const EmployeeSearch = () => {
                                     }
                                 </div>
                             </div>
-                            <div className="border rounded-xl h-full w-full grid items-center">
+                            <div className="border rounded-xl h-full w-full grid items-center text-ellipsis overflow-hidden">
                                 {
                                     isEmployee ? <Spinner /> :
                                         <div className="grid justify-center items-center mt-16">

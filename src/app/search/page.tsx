@@ -1,8 +1,8 @@
 "use client"
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-import { useState, useEffect } from 'react';
-import {  useGetAllStudentsQuery } from "@/features/User-Management/studentApi";
+import { useState, useEffect, SetStateAction } from 'react';
+import {  useGetAllStudentsQuery, useGetStudentByIdQuery } from "@/features/User-Management/studentApi";
 import Spinner from "@/components/spinner";
 import { useSelector } from 'react-redux';
 import { RootState } from "@/GlobalRedux/store";
@@ -30,6 +30,14 @@ const Search = () => {
           console.log("Error:", error);
         }
       }, [data, searchTerm, error]);
+
+      const [selectedId, setSelectedId] = useState(null);
+    const { data: EmployeeQ, isLoading: isEmployee } = useGetStudentByIdQuery(selectedId, {
+        skip: !selectedId,
+    });
+    const handleClick = (id: SetStateAction<null>) => {
+        setSelectedId(id);
+    };
     return ( 
         <>
         <div className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} mt-12`}>
@@ -62,26 +70,89 @@ const Search = () => {
                                 </div>
                             </div>
                             <div className="mt-3">
-                                <p className="font-semibold">0 Students Found</p>
+                                <p className="font-semibold">{filteredStudents.length} Students Found</p>
                             </div>
-                            <div className="h-[450px] grid justify-center items-center">
+                            <div className="h-[450px] grid w-full overflow-y-auto">
+                                    {
+                                        isLoading ? <Spinner /> :
+                                            <div className="h-full w-full  overflow-y-auto">
+                                                {filteredStudents.length > 0 && searchTerm ? (
+                                                    <ul className="mt-12 w-full overflow-y-auto grid gap-2">
+                                                        {filteredStudents.map((student) => (
+                                                            <div onClick={() => handleClick(student.id)} key={student.id} className="flex hover:bg-gray-200 cursor-pointer items-center border border-[#f5f6f7] rounded-lg px-2 py-1 w-full">
+                                                                <div>
+                                                                    {
+                                                                        student.picture == null ?
+                                                                            <img src="/images/userr.png" className="w-[40px] h-[40px] mr-2 rounded-full" alt="#" />
+                                                                            :
+                                                                            <img src={student.picture} className="w-[40px] h-[40px] mr-2 rounded-full" alt="#" />
+                                                                    }
+                                                                </div>
+                                                                <div className="grid gap-2">
+                                                                    <p className="font-semibold">{student.name}</p>
+                                                                    <p className="font-semibold text-[#536471]">ID: {student.id}</p>
+                                                                </div>
+                                                            </div>
+                                                        ))}
+                                                    </ul>
+                                                ) : (
+                                                    <div className="h-full flex items-center justify-center">
+                                                        <img src="/images/nothing.png" alt="" />
+                                                    </div>
+                                                )}
+                                            </div>
+                                    }
+                                </div>
+                            </div>
+                            <div className="border rounded-xl h-full w-full grid items-center text-ellipsis overflow-hidden">
                                 {
-                                    isLoading ? <Spinner/>:
-                                    <div>
-                                        {filteredStudents.length > 0 && searchTerm ? (
-                                            <ul>
-                                                {filteredStudents.map((student) => (
-                                                <li key={student.id}>{student.name}</li>
-                                                ))}
-                                            </ul>
-                                            ) : (
-                                                  <img src="/images/nothing.png" alt="" />
-                                            )}
-                                    </div>
+                                    isEmployee ? <Spinner /> :
+                                        <div className="grid justify-center items-center mt-16">
+                                            {
+                                                EmployeeQ ? <div>
+                                                    
+                                            <div className="justify-end flex">
+                                                <Link className=" px-2 py-1 rounded-lg bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl text-white ease-in font-semibold duration-300" href={`/student/view-student/${EmployeeQ.data.id}`}>View</Link>
+                                            </div>
+                                            <div className="grid justify-center text-center items-center">
+                                                {
+                                                    EmployeeQ?.data.picture == null ?
+                                                        <img src="/images/userr.png" className="w-[120px] h-[120px] mr-2 rounded-full" alt="#" />
+                                                        :
+                                                        <img src={EmployeeQ?.data.picture} className="w-[120px] h-[120px] mr-2 rounded-full" alt="#" />
+                                                }
+                                                <h1 className='font-sans text-gray-800 font-semibold'>{EmployeeQ?.data.name}</h1>
+                                            </div>
+
+                                            <div className="grid justify-start">
+                                                <h1 className='font-sans text-[22px] text-gray-800 font-semibold'>Basic Details</h1>
+                                                <div className="grid grid-cols-2 w-[400px] max-[485px]:w-[240px]">
+                                                    <h3 className='font-sans text-gray-400 font-semibold'>Email:</h3>
+                                                    <p className='font-sans text-gray-800 font-semibold'>{EmployeeQ?.data.email}</p>
+                                                    <h3 className='font-sans text-gray-400 font-semibold'>Salary:</h3>
+                                                    <p className='font-sans text-gray-800 font-semibold'>{EmployeeQ?.data.salary == null ? `Not specified` : EmployeeQ?.data.salary}</p>
+                                                    <h3 className='font-sans text-gray-400 font-semibold'>Age:</h3>
+                                                    <p className='font-sans text-gray-800 font-semibold'>{EmployeeQ?.data.birthDate}</p>
+                                                    <h3 className='font-sans text-gray-400 font-semibold'>Gender:</h3>
+                                                    <p className='font-sans text-gray-800 font-semibold'>{EmployeeQ?.data.gender}</p>
+                                                    <h3 className='font-sans text-gray-400 font-semibold'>Position:</h3>
+                                                    <p className='font-sans text-gray-800 font-semibold'>{EmployeeQ?.data.role}</p>
+                                                    <h3 className='font-sans text-gray-400 font-semibold'>Religion:</h3>
+                                                    <p className='font-sans text-gray-800 font-semibold'>{EmployeeQ?.data.religion}</p>
+                                                    <h3 className='font-sans text-gray-400 font-semibold'>Address:</h3>
+                                                    <p className='font-sans text-gray-800 font-semibold'>{EmployeeQ?.data.nationality}</p>
+                                                    <h3 className='font-sans text-gray-400 font-semibold'>Mobile:</h3>
+                                                    <p className='font-sans text-gray-800 font-semibold'>{EmployeeQ?.data.phoneNumber}</p>
+                                                    <h3 className='font-sans text-gray-400 font-semibold'>About:</h3>
+                                                    <p className='font-sans text-gray-800 font-semibold'>{EmployeeQ?.data.about}</p>
+                                                </div>
+                                            </div>
+                                                </div>
+                                             : <div></div>
+                                            }
+                                        </div>
                                 }
                             </div>
-                        </div>
-                        <div className="border rounded-xl h-full w-full"></div>
                     </div>
                 </div>
             </div>
