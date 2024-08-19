@@ -15,7 +15,7 @@ interface RootLayoutProps {
 
 const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
   const pathname = usePathname();
-  const isLoginPage = pathname === "/login" || pathname === "/signup" || pathname === "/new-password" || pathname === "/forget-password" || pathname === "/otp";
+  const isLoginPage = pathname === "/login" || pathname === "/signup" || pathname === "/new-password" || pathname === "/forget-password" || pathname === "/otp" || pathname === "/choose-account";
 
   return (
     <html lang="en">

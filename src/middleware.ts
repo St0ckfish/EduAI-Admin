@@ -6,7 +6,10 @@ export async function middleware(req: NextRequest) {
     const publicPaths = [
         '/login', 
         '/signup', 
-        '/resetpassword', 
+        '/forget-password', 
+        '/new-password', 
+        '/choose-account', 
+        '/otp', 
         '/_next/', 
         '/static/', 
         '/public/', 
@@ -24,6 +27,6 @@ export async function middleware(req: NextRequest) {
 
 export const config = {
     matcher: [
-        '/((?!api|_next/static|_next/image|static|public|images|login|signup|otp|new-password|forget-password|favicon.ico).*)',
+        '/((?!api|_next/static|_next/image|static|public|images|choose-account|login|signup|otp|new-password|forget-password|favicon.ico).*)',
     ],
 };

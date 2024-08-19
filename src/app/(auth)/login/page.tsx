@@ -8,8 +8,8 @@ import { toast } from "react-toastify";
 
 const Login = () => {
     const router = useRouter();
-  const { register, handleSubmit, formState: { errors } } = useForm();
-  const [loginDashboard, { isLoading, error }] = useLoginDashboardMutation();
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const [loginDashboard, { isLoading, error }] = useLoginDashboardMutation();
 
   const onSubmit = async (data: any) => {
     try {
