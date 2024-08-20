@@ -67,6 +67,10 @@ const Notifies = () => {
                 <Link className="text-[#526484] hover:text-blue-400 hover:underline text-[18px] font-semibold" href="/notifies">Notifies</Link>
             </div>
             <div className="lg:ml-[290px] mt-12">
+            <div className="flex justify-end">
+                        <Link href="/notifies/send-notifications" className="flex gap-2 items-center px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] ease-in font-semibold duration-300">                                                    <svg className="h-7 w-7 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">  <polygon points="3 11 22 2 13 21 11 13 3 11" /></svg>
+                        Send Notifications</Link>
+                    </div>
                 <div className="grid w-full h-full bg-white rounded-xl justify-center items-center p-5 gap-3">
                     <div className="flex w-full justify-start mb-5">
                         <h1 className="text-[22px] font-semibold">Notifications</h1>
@@ -86,7 +90,7 @@ const Notifies = () => {
                                 <div className="flex w-full justify-between">
                                     <div className="grid justify-center gap-4 items-center">
                                         <h1 className="font-semibold flex items-center gap-2">{notifi.title} <span className="text-gray-400 text-[12px]">{formatTransactionDate(notifi.timestamp)}</span> {notifi.read ? "":<div className="flex ml-1 w-2.5 h-2.5 rounded-full bg-[#3e5af0]"></div>}  </h1>
-                                        <p className="text-gray-700 text-[15px] font-semibold">{notifi.description}</p>
+                                        <div dangerouslySetInnerHTML={{ __html: notifi.description }} />
                                     </div>
                                     <div className="flex gap-2 items-start">
                                         {

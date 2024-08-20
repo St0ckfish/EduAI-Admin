@@ -47,10 +47,18 @@ export const notificationsApi = createApi({
                 method: "DELETE",
             }),
         }),
+        //
+        createNotifications: builder.mutation({
+            query: (formData) => ({
+                url: `/api/v1/management/notification/users-by-role`,
+                method: "POST",
+                body: formData
+            }),
+        }),
         
     }),
 });
 
 export const {
-    useGetAllNotificationsQuery, usePutNotifiReadMutation, useDeleteNotificationMutation
+    useGetAllNotificationsQuery, usePutNotifiReadMutation, useDeleteNotificationMutation, useCreateNotificationsMutation
 } = notificationsApi;
