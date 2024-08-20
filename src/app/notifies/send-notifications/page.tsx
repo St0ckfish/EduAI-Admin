@@ -5,11 +5,14 @@ import { useCreateNotificationsMutation } from "@/features/communication/notfica
 import Spinner from "@/components/spinner";
 import {  useState } from "react";
 import { toast } from "react-toastify";
-import ReactQuill from "react-quill";
+// import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css'; 
+import dynamic from 'next/dynamic';
+
 
 const SendNotifications = () => {
     const [title, setTitle] = useState("");
+    const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
     const [description, setDescription] = useState("");
     const [roles, setRoles] = useState<string[]>([]);
     const [createNotification, { isLoading }] = useCreateNotificationsMutation();
