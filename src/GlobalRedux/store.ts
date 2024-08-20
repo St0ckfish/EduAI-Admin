@@ -23,6 +23,7 @@ import { departmentPermissionApi } from "@/features/Organization-Setteings/depar
 import { bankApi } from "@/features/Financial/bankApi";
 import { busApi } from "@/features/Infrastructure/busApi";
 import { feesApi } from "@/features/Financial/feesApi";
+import { notificationsApi } from "@/features/communication/notficationsApi";
 import { classApi } from "@/features/Infrastructure/classApi";
 
 export const store = configureStore({
@@ -30,6 +31,7 @@ export const store = configureStore({
     boolean: booleanReducer,
     [loginApi.reducerPath]: loginApi.reducer,
     [signupApi.reducerPath]: signupApi.reducer,
+    [notificationsApi.reducerPath]: notificationsApi.reducer,
     [employeeApi.reducerPath]: employeeApi.reducer,
     [reportApi.reducerPath]: reportApi.reducer,
     [teacherApi.reducerPath]: teacherApi.reducer,
@@ -61,6 +63,7 @@ export const store = configureStore({
       .concat(employeePermissionApi.middleware)
       .concat(busApi.middleware)
       .concat(departmentPermissionApi.middleware)
+      .concat(notificationsApi.middleware)
       .concat(reportApi.middleware)
       .concat(participationApi.middleware)
       .concat(professionalApi.middleware)
