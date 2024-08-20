@@ -20,10 +20,10 @@ const Report = () => {
   const handleDelete = async (id: string) => {
     try {
       await deleteReport(id).unwrap();
-      toast.success(`Employee with ID ${id} unLocked successfully`);
+      toast.success(`report deleted successfully`);
       void refetch();
     } catch (err) {
-      toast.error("Failed to unlock the Employee");
+      toast.error("Failed to delete the report");
     }
   };
 
@@ -51,7 +51,6 @@ const Report = () => {
                 </div>
                 <div className="overflow-auto relative shadow-md sm:rounded-lg">
                     <table className="w-[1000px] h-[600px] overflow-x-auto text-sm text-left rtl:text-right text-gray-500 ">
-
                         <tbody>
                         {
                         data?.data.content.map((notifi: Notifi, index: number) => (
@@ -71,7 +70,7 @@ const Report = () => {
                                 <td className="px-6 py-4 ">
                                     <div className="grid grid-cols-1 gap-3">
 
-                                        Ask CDCR San Quintin State Prison 2008.<br/> We installed Purex dispensers throughout the prison to comba
+                                       {notifi.message}
 
 
                                     </div>
@@ -79,7 +78,7 @@ const Report = () => {
                                 <td className="px-6 py-4 ">
                                     <div className="grid grid-cols-2 gap-3">
 
-                                        <button><svg className="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <button onClick={()=>handleDelete(notifi.id)}><svg className="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                         </svg></button>
 
