@@ -22,6 +22,7 @@ import { employeePermissionApi } from "@/features/Organization-Setteings/employe
 import { departmentPermissionApi } from "@/features/Organization-Setteings/departmentPermissionApi";
 import { bankApi } from "@/features/Financial/bankApi";
 import { busApi } from "@/features/Infrastructure/busApi";
+import { dashboardApi } from "@/features/dashboard/dashboardApi";
 import { feesApi } from "@/features/Financial/feesApi";
 import { notificationsApi } from "@/features/communication/notficationsApi";
 import { classApi } from "@/features/Infrastructure/classApi";
@@ -33,6 +34,7 @@ export const store = configureStore({
     [signupApi.reducerPath]: signupApi.reducer,
     [notificationsApi.reducerPath]: notificationsApi.reducer,
     [employeeApi.reducerPath]: employeeApi.reducer,
+    [dashboardApi.reducerPath]: dashboardApi.reducer,
     [reportApi.reducerPath]: reportApi.reducer,
     [teacherApi.reducerPath]: teacherApi.reducer,
     [bankApi.reducerPath]: bankApi.reducer,
@@ -76,6 +78,7 @@ export const store = configureStore({
       .concat(bankApi.middleware)
       .concat(departmentApi.middleware)
       .concat(teacherApi.middleware)
+      .concat(dashboardApi.middleware)
       .concat(driverApi.middleware)
       .concat(workerApi.middleware)
       .concat(semesterApi.middleware)

@@ -33,8 +33,8 @@ export const reportApi = createApi({
         //
         deleteReports: builder.mutation({
             query: id => ({
-                url: `/api/v1/management/department/${id}`,
-                method: "PUT",
+                url: `/api/v1/management/report/${id}`,
+                method: "DELETE",
             }),
         }),
         //
