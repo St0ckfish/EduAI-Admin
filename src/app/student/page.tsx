@@ -201,9 +201,9 @@ const Student = () => {
                 </div>
                 <div className="overflow-auto relative">
                     <Pagination
-                    totalPages={data?.data.totalPages}
+                    totalPages={data?.data.totalPagesCount}
                     elementsPerPage={rowsPerPage}
-                    onChangeElementsPerPage={onElementChange}
+                    onChangeElementsPerPage={onElementChange} 
                     currentPage={currentPage}
                     onChangePage={onPageChange}
                 />

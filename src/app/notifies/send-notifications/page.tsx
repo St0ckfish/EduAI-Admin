@@ -5,17 +5,16 @@ import { useCreateNotificationsMutation } from "@/features/communication/notfica
 import Spinner from "@/components/spinner";
 import {  useState } from "react";
 import { toast } from "react-toastify";
-// import ReactQuill from "react-quill";
-import 'react-quill/dist/quill.snow.css'; 
-import dynamic from 'next/dynamic';
+import TextEditor from "@/components/textEditor";
+// 
 
 
 const SendNotifications = () => {
     const [title, setTitle] = useState("");
-    const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
     const [description, setDescription] = useState("");
     const [roles, setRoles] = useState<string[]>([]);
     const [createNotification, { isLoading }] = useCreateNotificationsMutation();
+    const [editorContent, setEditorContent] = useState('');
 
     const roleOptions = ["SUPER_ADMIN", "ADMIN", "TEACHER", "STUDENT", "PARENT", "EMPLOYEE"];
 
@@ -95,13 +94,11 @@ const SendNotifications = () => {
                             <label className="grid gap-2 font-semibold text-[18px]" htmlFor="description">
                                 Description
                                 <div className="mb-5 bg-[#ffffff] ">
-                                    <ReactQuill 
-                                        id="description" 
-                                        placeholder="Write description...." 
-                                        className=''
-                                        value={description}
-                                        onChange={setDescription}
-                                    />
+                                <TextEditor
+                                    value={description}
+                                    onChange={setDescription}
+                                    placeholder="Enter your content here..."
+                                />
                                 </div>
                             </label>
                             <div>
