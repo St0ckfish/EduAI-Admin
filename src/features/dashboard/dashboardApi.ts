@@ -46,6 +46,10 @@ export const dashboardApi = createApi({
         getAllNotices: builder.query({
             query: () => "/api/v1/dashboard/notice-board",
         }),
+        //
+        getAllCountrys: builder.query({
+            query: () => "/api/v1/management/country/all",
+        }),
     }),
 });
 
@@ -55,4 +59,5 @@ export const {
     useGetAllWorkersQuery,
     useGetAllStudentsQuery,
     useGetAllTeachersQuery,
+    useGetAllCountrysQuery
 } = dashboardApi;

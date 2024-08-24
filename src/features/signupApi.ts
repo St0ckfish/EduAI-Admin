@@ -23,8 +23,20 @@ export const signupApi = createApi({
         getAllRoles: builder.query({
             query: () => "/api/v1/public/enumeration/employee-role",
         }),
+        
         //
+        getAllLevels: builder.query({
+            query: () => "/api/v1/public/enumeration/study-level",
+        }),
+        //
+        getAllRegistrations: builder.query({
+            query: () => "/api/v1/public/enumeration/registration-type",
+        }),
+        //
+        getAllLanguages: builder.query({
+            query: () => "/api/v1/public/enumeration/language",
+        }),
     }),
 });
 
-export const { useSignupApiDashboardMutation, useGetAllNationalitysQuery, useGetAllRolesQuery, useGetAllReginionIDQuery } = signupApi;
+export const { useSignupApiDashboardMutation, useGetAllNationalitysQuery, useGetAllRolesQuery, useGetAllReginionIDQuery, useGetAllLevelsQuery, useGetAllRegistrationsQuery, useGetAllLanguagesQuery } = signupApi;
