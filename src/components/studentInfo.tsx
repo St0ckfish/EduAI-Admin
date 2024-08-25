@@ -1,9 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-"use client"
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import CircleProgress from "./circleProgress";
-import DynamicPartition from "./dynamicPartition";
 
 const StudentInfo = ({data}:{data:any}) => {
 

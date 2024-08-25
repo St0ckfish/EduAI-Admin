@@ -26,6 +26,7 @@ import { dashboardApi } from "@/features/dashboard/dashboardApi";
 import { feesApi } from "@/features/Financial/feesApi";
 import { notificationsApi } from "@/features/communication/notficationsApi";
 import { classApi } from "@/features/Infrastructure/classApi";
+import { labApi } from "@/features/Infrastructure/labApi";
 
 export const store = configureStore({
   reducer: {
@@ -39,6 +40,7 @@ export const store = configureStore({
     [teacherApi.reducerPath]: teacherApi.reducer,
     [bankApi.reducerPath]: bankApi.reducer,
     [feesApi.reducerPath]: feesApi.reducer,
+    [labApi.reducerPath]: labApi.reducer,
     [courseApi.reducerPath]: courseApi.reducer,
     [busApi.reducerPath]: busApi.reducer,
     [employeePermissionApi.reducerPath]: employeePermissionApi.reducer,
@@ -62,6 +64,7 @@ export const store = configureStore({
     getDefaultMiddleware()
       .concat(loginApi.middleware)
       .concat(achievementApi.middleware)
+      .concat(labApi.middleware)
       .concat(employeePermissionApi.middleware)
       .concat(busApi.middleware)
       .concat(departmentPermissionApi.middleware)
