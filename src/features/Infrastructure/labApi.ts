@@ -33,26 +33,26 @@ export const labApi = createApi({
         //
         deleteLabs: builder.mutation({
             query: id => ({
-                url: `/api/v1/management/classroom/${id}`,
-                method: "PUT",
+                url: `/api/v1/management/lab/${id}`,
+                method: "DELETE",
             }),
         }),
         //
         createLabs: builder.mutation({
             query: formData => ({
-                url: `/api/v1/management/classroom/`,
+                url: `/api/v1/management/lab/`,
                 method: "POST",
                 body: formData,
             }),
         }),
         //
         getLabById: builder.query({
-            query: id => `/api/v1/management/classroom/${id}`,
+            query: id => `/api/v1/management/lab/${id}`,
         }),
         //
         updateLabs: builder.mutation({
             query: ({ formData, id }) => ({
-                url: `/api/v1/management/classroom/${id}`,
+                url: `/api/v1/management/lab/${id}`,
                 method: "PATCH",
                 body: formData,
             }),

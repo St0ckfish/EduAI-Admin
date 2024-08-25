@@ -1,7 +1,7 @@
 "use client"
 /* eslint-disable @next/next/no-img-element */
 import Spinner from "@/components/spinner";
-import { useGetAllBussQuery, useDeleteBussMutation } from "@/features/Infrastructure/busApi";
+import { useGetAllLabsQuery, useDeleteLabsMutation } from "@/features/Infrastructure/labApi";
 import Link from "next/link";
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -9,7 +9,7 @@ import { RootState } from "@/GlobalRedux/store";
 import { toast } from "react-toastify";
 
 const Lab = () => {
-    const { data, error, isLoading, refetch } = useGetAllBussQuery(null);
+    const { data, error, isLoading, refetch } = useGetAllLabsQuery(null);
     const booleanValue = useSelector((state: RootState) => state.boolean.value);
     const [search, setSearch] = useState("");
 
@@ -18,7 +18,7 @@ const Lab = () => {
         if (error) console.log("Error:", error);
       }, [data, error]);
 
-    const [deleteBuses] = useDeleteBussMutation();
+    const [deleteBuses] = useDeleteLabsMutation();
     type Bus = Record<string, any>;
 
   const handleDelete = async (id: number) => {
@@ -26,23 +26,11 @@ const Lab = () => {
     try {
       await deleteBuses(id).unwrap();
       
-      toast.success(`Bus with ID ${id} Deleted successfully`);
+      toast.success(`Lab with ID ${id} Deleted successfully`);
       void refetch();
     } catch (err) {
-      toast.error("Failed to Delete the Bus");
+      toast.error("Failed to Delete the Lab");
     }
-  };
-
-  const formatTransactionDate = (dateString: string | number | Date) => {
-    if (!dateString) return "No transaction date";
-    const formatter = new Intl.DateTimeFormat("en-EG", {
-      timeZone: "Asia/Riyadh",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour12: false,
-    });
-    return formatter.format(new Date(dateString));
   };
 
     const [selectAll, setSelectAll] = useState(false);
@@ -106,7 +94,7 @@ const Lab = () => {
                         </div>
                     </div> 
                     <div className="flex justify-center">
-                        <Link href="/add-new-bus" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] w-[210px] ease-in font-semibold duration-300">+ Add New Bus</Link>
+                        <Link href="/infrastructure/lab/add-lab" className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] w-[210px] ease-in font-semibold duration-300">+ New Lab</Link>
                     </div>
                 </div>
                 <div className="overflow-auto relative shadow-md sm:rounded-lg">
@@ -119,19 +107,31 @@ const Lab = () => {
                                     </div>
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                    Bus Number
+                                building Number
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                bus Capacity
+                                 category
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                school Id
+                                lab Name
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                created At
+                                lab Type
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                updated At
+                                room Number
+                                </th>
+                                <th scope="col" className="px-6 py-3 whitespace-nowrap">
+                                max Capacity
+                                </th>
+                                <th scope="col" className="px-6 py-3 whitespace-nowrap">
+                                floor Number
+                                </th>
+                                <th scope="col" className="px-6 py-3 whitespace-nowrap">
+                                type
+                                </th>
+                                <th scope="col" className="px-6 py-3 whitespace-nowrap">
+                                status
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
                                 Action
@@ -143,7 +143,7 @@ const Lab = () => {
                         </thead>
                         <tbody>
                         {data?.data.content.filter((bus: Bus) => {
-                            return search.toLocaleLowerCase() === '' ? bus : bus.name.toLocaleLowerCase().includes(search);
+                            return search.toLocaleLowerCase() === '' ? bus : bus.labName.toLocaleLowerCase().includes(search);
                         }).map((bus: Bus, index:number) => (
                             <tr key={index} className="bg-white border-b  hover:bg-gray-50">
                                 <td className="w-4 p-4">
@@ -152,26 +152,37 @@ const Lab = () => {
                                     </div>
                                 </td>
                                 <th scope="row" className="px-6 flex items-center py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                    {bus.busNumber}
+                                    {bus.buildingNumber}
                                 </th>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    {bus.busCapacity}
+                                    {bus.category}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                {bus.schoolId}
+                                {bus.labName}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    {formatTransactionDate(bus.createdAt)}
+                                    {bus.labType}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    {formatTransactionDate(bus.updatedAt)}
+                                    {bus.roomNumber}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <button onClick={()=> handleDelete(bus.busId)} className="px-2 py-1 rounded-lg text-white bg-red-500 font-semibold shadow-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">Delete</button>
+                                    {bus.maxCapacity}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                <Link href={`/edit-bus/${bus.busId}`} className="font-medium text-blue-600 hover:underline">Edit</Link>
-
+                                    {bus.floorNumber}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    {bus.type}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    {bus.status}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <button onClick={()=> handleDelete(bus.roomId)} className="px-2 py-1 rounded-lg text-white bg-red-500 font-semibold shadow-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">Delete</button>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <Link href={`/infrastructure/lab/${bus.roomId}`} className="font-medium text-blue-600 hover:underline">Edit</Link>
                                 </td>
                             </tr>
                             ))}
