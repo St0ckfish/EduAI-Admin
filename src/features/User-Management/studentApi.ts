@@ -40,7 +40,7 @@ export const studentApi = createApi({
         //
         createStudents: builder.mutation({
             query: formData => ({
-                url: `/api/v1/management/student/new`,
+                url: `/api/v1/auth/student-registration`,
                 method: "POST",
                 body: formData,
             }),
