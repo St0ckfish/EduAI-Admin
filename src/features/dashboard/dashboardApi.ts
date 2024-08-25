@@ -50,6 +50,18 @@ export const dashboardApi = createApi({
         getAllCountrys: builder.query({
             query: () => "/api/v1/management/country/all",
         }),
+        //
+        getTeacherAttendence: builder.query({
+            query: () => "/api/v1/dashboard/teachers-attendance",
+        }),
+        //
+        getEmployeeAttendence: builder.query({
+            query: () => "/api/v1/dashboard/employees-attendance",
+        }),
+        //
+        getWorkerAttendence: builder.query({
+            query: () => "/api/v1/dashboard/workers-attendance",
+        }),
     }),
 });
 
@@ -59,5 +71,8 @@ export const {
     useGetAllWorkersQuery,
     useGetAllStudentsQuery,
     useGetAllTeachersQuery,
-    useGetAllCountrysQuery
+    useGetAllCountrysQuery,
+    useGetTeacherAttendenceQuery,
+    useGetEmployeeAttendenceQuery,
+    useGetWorkerAttendenceQuery,
 } = dashboardApi;

@@ -44,9 +44,9 @@ const Archive = () => {
                 </Link>
             </div>
             <div className="w-[250px] h-[250px] bg-white rounded-xl shadow-lg grid justify-center items-center">
-                <Link href="/archive//teacher" className="grid items-center justify-center text-center" >
+                <Link href="/archive/teacher" className="grid items-center justify-center text-center" >
                     <div className="bg-[#ebebeb] rounded-full h-[87px] w-[87px] grid items-center justify-center ">
-                    <img src="/images/Teacher.png" alt="#" />
+                    <img src="/images/teacher.png" alt="#" />
                     </div>
                     <p className="text-[22px] font-semibold mt-2">Teacher</p>
                 </Link>

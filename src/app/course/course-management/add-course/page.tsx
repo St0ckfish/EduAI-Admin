@@ -91,8 +91,9 @@ const AddCourse = () => {
                                 <input id="name" {...register("description_fr", { required: true })}  type="text" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" />
                                 {errors.description_fr && <span className="text-red-600">This field is required</span>}
                             </label>
-                            <label htmlFor="countryId" className="grid text-[#9a9a9a] text-start text-[15px] font-sans font-semibold">
-                                <select defaultValue="" id="countryId" {...register("countryId")} className={`border ${errors.countryId ? "border-[#d74f41]" : "border-zinc-300"} text-[#9a9a9a] text-sm outline-none rounded-xl w-[400px] max-[458px]:w-[350px] h-full py-3 px-4 `}>
+                            <label htmlFor="countryId" className="grid text-[#000000] text-start text-[15px] font-sans font-semibold">
+                            Country
+                                <select defaultValue="" id="countryId" {...register("countryId")} className={`border ${errors.countryId ? "border-[#d74f41]" : "border-zinc-300"} text-[#000000] text-sm outline-none rounded-xl w-[400px] max-[458px]:w-[350px] h-full py-3 px-4 `}>
                                     <option selected value="">Select Country </option>
                                     {CountryData &&
                                         Object.entries(CountryData.data).map(([key, value]) => (
@@ -103,8 +104,9 @@ const AddCourse = () => {
                                 </select>
                                 {errors.countryId && <span className="text-[#e81123] text-[13px]">Country is Required</span>}
                             </label>
-                            <label htmlFor="level" className="grid text-[#9a9a9a] text-start text-[15px] font-sans font-semibold">
-                                <select defaultValue="" id="level" {...register("level", { required: true })} className={`border ${errors.level ? "border-[#d74f41]" : "border-zinc-300"} text-[#9a9a9a] text-sm outline-none rounded-xl w-[400px] max-[458px]:w-[350px] h-full py-3 px-4 `}>
+                            <label htmlFor="level" className="grid text-[#000000] text-start text-[15px] font-sans font-semibold">
+                            Study Level 
+                                <select defaultValue="" id="level" {...register("level", { required: true })} className={`border ${errors.level ? "border-[#d74f41]" : "border-zinc-300"} text-[#000000] text-sm outline-none rounded-xl w-[400px] max-[458px]:w-[350px] h-full py-3 px-4 `}>
                                     <option selected value="">Select Study Level </option>
                                     {LevelData &&
                                         Object.entries(LevelData.data).map(([key, value]) => (
@@ -115,8 +117,9 @@ const AddCourse = () => {
                                 </select>
                                 {errors.level && <span className="text-[#e81123] text-[13px]">Study Level is Required</span>}
                             </label>
-                            <label htmlFor="registrationType" className="grid text-[#9a9a9a] text-start text-[15px] font-sans font-semibold">
-                                <select defaultValue="" id="registrationType" {...register("registrationType", { required: true })} className={`border ${errors.registrationType ? "border-[#d74f41]" : "border-zinc-300"} text-[#9a9a9a] text-sm outline-none rounded-xl w-[400px] max-[458px]:w-[350px] h-full py-3 px-4 `}>
+                            <label htmlFor="registrationType" className="grid text-[#000000] text-start text-[15px] font-sans font-semibold">
+                            Registration
+                                <select defaultValue="" id="registrationType" {...register("registrationType", { required: true })} className={`border ${errors.registrationType ? "border-[#d74f41]" : "border-zinc-300"} text-[#000000] text-sm outline-none rounded-xl w-[400px] max-[458px]:w-[350px] h-full py-3 px-4 `}>
                                     <option selected value="">Select Registration </option>
                                     {RegData &&
                                         Object.entries(RegData.data).map(([key, value]) => (
@@ -127,8 +130,9 @@ const AddCourse = () => {
                                 </select>
                                 {errors.registrationType && <span className="text-[#e81123] text-[13px]">Registration is Required</span>}
                             </label>
-                            <label htmlFor="language" className="grid text-[#9a9a9a] text-start text-[15px] font-sans font-semibold">
-                                <select defaultValue="" id="language" {...register("language", { required: true })} className={`border ${errors.language ? "border-[#d74f41]" : "border-zinc-300"} text-[#9a9a9a] text-sm outline-none rounded-xl w-[400px] max-[458px]:w-[350px] h-full py-3 px-4 `}>
+                            <label htmlFor="language" className="grid text-[#000000] text-start text-[15px] font-sans font-semibold">
+                            Language
+                                <select defaultValue="" id="language" {...register("language", { required: true })} className={`border ${errors.language ? "border-[#d74f41]" : "border-zinc-300"} text-[#000000] text-sm outline-none rounded-xl w-[400px] max-[458px]:w-[350px] h-full py-3 px-4 `}>
                                     <option selected value="">Select Language </option>
                                     {LangData &&
                                         Object.entries(LangData.data).map(([key, value]) => (

@@ -14,7 +14,6 @@ const SendNotifications = () => {
     const [description, setDescription] = useState("");
     const [roles, setRoles] = useState<string[]>([]);
     const [createNotification, { isLoading }] = useCreateNotificationsMutation();
-    const [editorContent, setEditorContent] = useState('');
 
     const roleOptions = ["SUPER_ADMIN", "ADMIN", "TEACHER", "STUDENT", "PARENT", "EMPLOYEE"];
 
@@ -43,14 +42,14 @@ const SendNotifications = () => {
 
     return (
         <>
-            <div className="flex items-center gap-1 lg:ml-[290px] mt-12 ml-7">
+            <div className="flex items-center gap-1 lg:ml-[290px] mt-12 ml-7 flex-wrap">
                 <Link className="text-[#526484] hover:text-blue-400 hover:underline text-[18px] font-semibold" href="/">Communications</Link>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{ fill: 'rgba(82, 100, 132, 1)', transform: '', msFilter: '' }}><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg>
                 <Link className="text-[#526484] hover:text-blue-400 hover:underline text-[18px] font-semibold" href="/notifies">Notifies</Link>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{ fill: 'rgba(82, 100, 132, 1)', transform: '', msFilter: '' }}><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg>
                 <Link className="text-[#526484] hover:text-blue-400 hover:underline text-[18px] font-semibold" href="/send-notifications">Send Notifications</Link>
             </div>
-            <div className="lg:ml-[290px] mt-12 grid sm:flex gap-10">
+            <div className="lg:ml-[290px] mt-12 flex max-[1500px]:grid gap-10">
                 <div className="grid w-full h-full bg-white rounded-xl items-center p-5 gap-3">
                     {roleOptions.map(role => (
                         <label key={role} htmlFor={role} className="flex gap-2 font-semibold text-[18px] items-center">
@@ -82,7 +81,7 @@ const SendNotifications = () => {
                         <div className="grid w-full h-full gap-6">
                             <label className="grid gap-2 font-semibold text-[18px]" htmlFor="title">
                                 Title
-                                <textarea 
+                                <input 
                                     className="border border-gray-200 outline-none px-4 py-2 rounded-xl" 
                                     placeholder="Write title...." 
                                     name="title" 

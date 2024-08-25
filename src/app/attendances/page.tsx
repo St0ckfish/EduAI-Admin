@@ -3,9 +3,15 @@ import AttendCard from "@/components/AttendCard";
 import { RootState } from "@/GlobalRedux/store";
 import Link from "next/link";
 import { useSelector } from "react-redux";
+import { useGetEmployeeAttendenceQuery, useGetTeacherAttendenceQuery, useGetWorkerAttendenceQuery } from "@/features/dashboard/dashboardApi";
+import Spinner from "@/components/spinner";
 
 const Attendance = () => {
     const booleanValue = useSelector((state: RootState) => state.boolean.value);
+    const { employeedata, isLoading: isLoadingE } = useGetEmployeeAttendenceQuery(null);
+    const { teacherdata, isLoading: isLoadingT } = useGetTeacherAttendenceQuery(null);
+    const { workerdata, isLoading: isLoadingW } = useGetWorkerAttendenceQuery(null);
+
     const UserManagments = [
         {
             href: "/driver-attendance",
@@ -32,7 +38,7 @@ const Attendance = () => {
         },
         {
             href: "/teacher-attendance",
-            imgSrc: "/images/Teacher.png",
+            imgSrc: "/images/teacher.png",
             title: "Teacher",
             description: "520",
             number:20
@@ -45,6 +51,13 @@ const Attendance = () => {
             number:20
         },
     ];
+
+    if (isLoadingE || isLoadingT || isLoadingW)
+        return (
+            <div className="h-screen w-full justify-center items-center flex ">
+                <Spinner />
+            </div>
+    );
     return (
         <>
         <div className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} mt-12 ml-7 flex-wrap`}>
