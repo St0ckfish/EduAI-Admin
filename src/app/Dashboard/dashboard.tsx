@@ -12,24 +12,28 @@ import { useRouter } from "next/navigation";
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 const Dashboard: React.FC = () => {
+  
   const router = useRouter();
-  const { data: userData, error: userError, isLoading: userLoading } = useGetAllCurrentUserQuery(null);
-
-  const { data: students, isLoading: isStudents } = useGetAllStudentsQuery(null);
-  const { data: employees, isLoading: isEmployee } = useGetAllEmployeesQuery(null);
-  const { data: teachers, isLoading: isTeacher } = useGetAllTeachersQuery(null);
-  const { data: workers, isLoading: isWorker } = useGetAllWorkersQuery(null);
-  const { data: notices, isLoading: isNotices } = useGetAllNoticesQuery(null);
+  
+  const { data: students,error:err1, isLoading: isStudents } = useGetAllStudentsQuery(null);
+  const { data: employees,error:err2, isLoading: isEmployee } = useGetAllEmployeesQuery(null);
+  const { data: teachers,error:err3, isLoading: isTeacher } = useGetAllTeachersQuery(null);
+  const { data: workers,error:err4, isLoading: isWorker } = useGetAllWorkersQuery(null);
+  // const { data: notices, isLoading: isNotices } = useGetAllNoticesQuery(null);
 
   useEffect(() => {
-    if (userData) console.log("Response Data:", userData);
-    if (notices) console.log("Response Data:", notices);
-    if(userError){
-      Cookie.remove("token");
-      router.replace("/login");
+    if (students || employees || teachers || workers) {
+      console.log(teachers);
+      console.log(employees);
+      console.log(students);
+      console.log(workers);
     }
-  }, [students, notices, userData, userError, router]);
-
+    if (err1 || err2 || err3 || err4) {
+      router.replace("/login");
+      Cookie.remove("token");
+    }
+  }, [router, students, employees, teachers, workers, err1, err2, err3, err4]);
+  
   const [isModalOpen, setModalOpen] = useState(false);
 
   const handleOpenModal = () => {
@@ -83,7 +87,7 @@ const Dashboard: React.FC = () => {
     }
   });
 
-  if (isStudents || isEmployee || isWorker || isTeacher || isNotices || userLoading)
+  if (isStudents || isEmployee || isWorker || isTeacher)
     return (
       <div className="h-screen w-full justify-center items-center flex ">
         <Spinner />
@@ -96,23 +100,23 @@ const Dashboard: React.FC = () => {
       <div className="grid overflow-x-auto">
         <div className="flex w-full justify-evenly gap-4 mb-6  max-[812px]:justify-center max-[576px]:h-[120px] whitespace-nowrap">
           <div className="bg-white rounded-xl p-2 w-[201px] h-[80px] justify-center items-center shadow-xl max-[576px]:h-[100px]">
-            <p className="text-gray-400 text-[12px]">{students.message} </p>
-            <h1 className="text-[17px] font-semibold">{students.data} 🧑‍🎓</h1>
+            <p className="text-gray-400 text-[12px]">{students?.message} </p>
+            <h1 className="text-[17px] font-semibold">{students?.data} 🧑‍🎓</h1>
             {/* <h1 className="text-gray-400 text-[12px]"> <span className="text-green-500 font-semibold">4.63%</span> vs. last Year</h1> */}
           </div>
           <div className="bg-white rounded-xl p-2 w-[201px] h-[80px] justify-center items-center shadow-xl max-[576px]:h-[100px]">
-            <p className="text-gray-400 text-[12px]">{employees.message}</p>
-            <h1 className="text-[17px] font-semibold">{employees.data} 👨‍💼</h1>
+            <p className="text-gray-400 text-[12px]">{employees?.message}</p>
+            <h1 className="text-[17px] font-semibold">{employees?.data} 👨‍💼</h1>
             {/* <h1 className="text-gray-400 text-[12px]"> <span className="text-green-500 font-semibold">4.63%</span> vs. last Year</h1> */}
           </div>
           <div className="bg-white rounded-xl p-2 w-[201px] h-[80px] justify-center items-center shadow-xl max-[576px]:h-[100px]">
-            <p className="text-gray-400 text-[12px]">{teachers.message}</p>
-            <h1 className="text-[17px] font-semibold">{teachers.data} 👨‍🏫</h1>
+            <p className="text-gray-400 text-[12px]">{teachers?.message}</p>
+            <h1 className="text-[17px] font-semibold">{teachers?.data} 👨‍🏫</h1>
             {/* <h1 className="text-gray-400 text-[12px]"> <span className="text-green-500 font-semibold">4.63%</span> vs. last Year</h1> */}
           </div>
           <div className="bg-white rounded-xl p-2 w-[201px] h-[80px] justify-center items-center shadow-xl max-[576px]:h-[100px]">
-            <p className="text-gray-400 text-[12px]">{workers.message}</p>
-            <h1 className="text-[17px] font-semibold">{workers.data} 🧑‍🏭</h1>
+            <p className="text-gray-400 text-[12px]">{workers?.message}</p>
+            <h1 className="text-[17px] font-semibold">{workers?.data} 🧑‍🏭</h1>
             {/* <h1 className="text-gray-400 text-[12px]"> <span className="text-green-500 font-semibold">4.63%</span> vs. last Year</h1> */}
           </div>
           <div className="bg-white rounded-xl p-2 w-[201px] h-[80px] justify-center items-center shadow-xl max-[576px]:h-[100px]">
