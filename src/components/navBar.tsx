@@ -17,6 +17,10 @@ const NavBar = () => {
 
   useEffect(() => {
     if (userData) console.log("Response Data:", userData);
+    if (userError) {
+      router.replace("/login");
+      Cookie.remove("token");
+    }
   }, [userData, userError, router]);
   const dispatch = useDispatch();
   const [pathname, setPathname] = useState('');
