@@ -4,32 +4,40 @@ import dynamic from 'next/dynamic';
 import Calendar from '@/components/calendar';
 import React, { useEffect, useState } from 'react';
 import Modal from '@/components/model';
-import { useGetAllStudentsQuery, useGetAllEmployeesQuery, useGetAllTeachersQuery, useGetAllWorkersQuery, useGetAllNoticesQuery } from '@/features/dashboard/dashboardApi';
+import { useGetAllStudentsQuery, useGetAllEmployeesQuery, useGetAllTeachersQuery, useGetAllWorkersQuery, useGetAllNoticesQuery, useGetAllCurrentUserQuery } from '@/features/dashboard/dashboardApi';
 import Spinner from '@/components/spinner';
+import Cookie from "js-cookie";
+import { useRouter } from "next/navigation";
 
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 const Dashboard: React.FC = () => {
+  const router = useRouter();
+  const { data: userData, error: userError, isLoading: userLoading } = useGetAllCurrentUserQuery(null);
 
-  const {data: students, isLoading: isStudents} = useGetAllStudentsQuery(null);
-  const {data: employees, isLoading: isEmployee} = useGetAllEmployeesQuery(null);
-  const {data: teachers, isLoading: isTeacher} = useGetAllTeachersQuery(null);
-  const {data: workers, isLoading: isWorker} = useGetAllWorkersQuery(null);
-  const {data: notices, isLoading: isNotices} = useGetAllNoticesQuery(null);
+  const { data: students, isLoading: isStudents } = useGetAllStudentsQuery(null);
+  const { data: employees, isLoading: isEmployee } = useGetAllEmployeesQuery(null);
+  const { data: teachers, isLoading: isTeacher } = useGetAllTeachersQuery(null);
+  const { data: workers, isLoading: isWorker } = useGetAllWorkersQuery(null);
+  const { data: notices, isLoading: isNotices } = useGetAllNoticesQuery(null);
 
   useEffect(() => {
-    if (students) console.log("Response Data:", students);
+    if (userData) console.log("Response Data:", userData);
     if (notices) console.log("Response Data:", notices);
-  }, [students, notices]);
+    if(userError){
+      Cookie.remove("token");
+      router.replace("/login");
+    }
+  }, [students, notices, userData, userError, router]);
 
   const [isModalOpen, setModalOpen] = useState(false);
 
   const handleOpenModal = () => {
-      setModalOpen(true);
+    setModalOpen(true);
   };
 
   const handleCloseModal = () => {
-      setModalOpen(false);
+    setModalOpen(false);
   };
 
   const [series, setSeries] = useState([
@@ -75,12 +83,12 @@ const Dashboard: React.FC = () => {
     }
   });
 
-  if (isStudents || isEmployee || isWorker || isTeacher || isNotices)
+  if (isStudents || isEmployee || isWorker || isTeacher || isNotices || userLoading)
     return (
-        <div className="h-screen w-full justify-center items-center flex ">
-            <Spinner />
-        </div>
-);
+      <div className="h-screen w-full justify-center items-center flex ">
+        <Spinner />
+      </div>
+    );
 
 
   return (
@@ -239,35 +247,35 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-                    
-                    
-                    <h2 className="text-xl mb-4 font-semibold"> Event Name</h2>
-                    <div className="mb-4 rounded-sm">
-                        <input
-                            type="text"
-                            placeholder="Event Name "
-                            className="w-full px-4 py-2 border bg-[#ffffff] shadow-md rounded-xl  border-[#436789] focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                    </div>
-                    <h2 className="text-xl mb-4 font-semibold">  Event Date</h2>
-                    <div className="mb-4 rounded-sm">
-                        <input
-                            type="date"
-                            className="w-full px-4 py-2 border bg-[#ffffff] rounded-xl shadow-md border-[#436789] focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                    </div>
-                    <div className="flex justify-between">
-                        <button className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] w-[180px] ease-in font-semibold duration-300">
-                            Add 
-                        </button>
-                        <button
-                            onClick={handleCloseModal}
-                            className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#ffffff] hover:shadow-xl mb-5 mr-3 border text-black text-[18px] w-[180px] ease-in font-semibold duration-300"
-                        >
-                            Cancel
-                        </button>
-                    </div>
-                </Modal>
+
+
+        <h2 className="text-xl mb-4 font-semibold"> Event Name</h2>
+        <div className="mb-4 rounded-sm">
+          <input
+            type="text"
+            placeholder="Event Name "
+            className="w-full px-4 py-2 border bg-[#ffffff] shadow-md rounded-xl  border-[#436789] focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <h2 className="text-xl mb-4 font-semibold">  Event Date</h2>
+        <div className="mb-4 rounded-sm">
+          <input
+            type="date"
+            className="w-full px-4 py-2 border bg-[#ffffff] rounded-xl shadow-md border-[#436789] focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div className="flex justify-between">
+          <button className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] w-[180px] ease-in font-semibold duration-300">
+            Add
+          </button>
+          <button
+            onClick={handleCloseModal}
+            className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#ffffff] hover:shadow-xl mb-5 mr-3 border text-black text-[18px] w-[180px] ease-in font-semibold duration-300"
+          >
+            Cancel
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 };

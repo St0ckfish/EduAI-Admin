@@ -32,7 +32,7 @@ const AddPosition = () => {
                         </div>
                         <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
                             <label htmlFor="departmentId" className="grid text-[18px] font-sans font-semibold">
-                            Name
+                            Department Id
                                 <input id="departmentId" type="number" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("departmentId", { required: true })} />
                                 {errors.departmentId && <span className="text-red-600">This field is required</span>}
                             </label>

@@ -27,6 +27,10 @@ export const dashboardApi = createApi({
         },
     }),
     endpoints: builder => ({
+        getAllCurrentUser: builder.query({
+            query: () => "/api/v1/my-account/profile/employee",
+        }),
+        //
         getAllEmployees: builder.query({
             query: () => "/api/v1/dashboard/employees-count",
         }),
@@ -66,6 +70,7 @@ export const dashboardApi = createApi({
 });
 
 export const {
+    useGetAllCurrentUserQuery,
     useGetAllEmployeesQuery,
     useGetAllNoticesQuery,
     useGetAllWorkersQuery,
