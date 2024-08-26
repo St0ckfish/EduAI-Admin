@@ -150,9 +150,9 @@ const NavBar = () => {
                         userLoading ? <p>........</p> :
                           <div>
                             {
-                              !userData.data.hasPicture ?
+                              !userData?.data.hasPicture ?
                                 <img className="inline-block size-[38px] rounded-full ring-2 ring-white" src="/images/userr.png" alt="Image Description" /> :
-                                <img className="inline-block size-[38px] rounded-full ring-2 ring-white" src={userData.data.picture} alt="Image Description" />
+                                <img className="inline-block size-[38px] rounded-full ring-2 ring-white" src={userData?.data.picture} alt="Image Description" />
                             }
                           </div>
                       }
@@ -163,7 +163,7 @@ const NavBar = () => {
                         <div className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 fixed  right-[40px] top-[80px] min-w-60 bg-white shadow-md rounded-lg p-2" aria-labelledby="hs-dropdown-with-header">
                           <div className="py-3 px-5 -m-2 bg-gray-100 rounded-t-lg">
                             <p className="text-sm text-gray-500">Signed in as</p>
-                            <p className="text-sm font-medium text-gray-800">{userData.data.email}</p>
+                            <p className="text-sm font-medium text-gray-800">{userData?.data.email}</p>
                           </div>
                           <div className="mt-2 py-2 first:pt-0 last:pb-0">
                             <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" href="/profile">

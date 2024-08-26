@@ -14,7 +14,7 @@ import { toast } from "react-toastify";
 const Report = () => {
     const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
-    const { data, error, isLoading, refetch } = useGetAllReportsQuery(null);
+    const { data, error, isLoading, refetch } = useGetAllReportsQuery("REPORT");
     type Notifi = Record<string, any>;
 
     const [deleteReport] = useDeleteReportsMutation();

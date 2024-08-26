@@ -12,8 +12,8 @@ const getTokenFromCookie = () => {
     return getCookie("token");
 };
 
-export const reportApi = createApi({
-    reducerPath: "reportApi",
+export const officeApi = createApi({
+    reducerPath: "officeApi",
     baseQuery: fetchBaseQuery({
         baseUrl: baseUrl,
         prepareHeaders: headers => {
@@ -27,32 +27,32 @@ export const reportApi = createApi({
         },
     }),
     endpoints: builder => ({
-        getAllReports: builder.query({
-            query: (type) => `/api/v1/management/report/all?size=1000000&page=0&deleted=false&type=${type}`,
+        getAllOffices: builder.query({
+            query: () => "/api/v1/management/office/all?size=10&page=0&semesterId",
         }),
         //
-        deleteReports: builder.mutation({
+        deleteOffices: builder.mutation({
             query: id => ({
-                url: `/api/v1/management/report/${id}`,
+                url: `/api/v1/management/office/${id}`,
                 method: "DELETE",
             }),
         }),
         //
-        createReports: builder.mutation({
+        createOffices: builder.mutation({
             query: formData => ({
-                url: `/api/v1/management/department`,
+                url: `/api/v1/management/office/`,
                 method: "POST",
                 body: formData,
             }),
         }),
         //
-        getReportById: builder.query({
-            query: id => `/api/v1/management/department/${id}`,
+        getOfficeById: builder.query({
+            query: id => `/api/v1/management/office/${id}`,
         }),
         //
-        updateReports: builder.mutation({
+        updateOffices: builder.mutation({
             query: ({ formData, id }) => ({
-                url: `/api/v1/management/department/${id}`,
+                url: `/api/v1/management/office/${id}`,
                 method: "PATCH",
                 body: formData,
             }),
@@ -61,9 +61,9 @@ export const reportApi = createApi({
 });
 
 export const {
-    useGetAllReportsQuery,
-    useDeleteReportsMutation,
-    useCreateReportsMutation,
-    useGetReportByIdQuery,
-    useUpdateReportsMutation,
-} = reportApi;
+    useGetAllOfficesQuery,
+    useDeleteOfficesMutation,
+    useCreateOfficesMutation,
+    useGetOfficeByIdQuery,
+    useUpdateOfficesMutation,
+} = officeApi;

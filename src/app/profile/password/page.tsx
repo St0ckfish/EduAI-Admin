@@ -7,7 +7,7 @@ const Password = () => {
             <div className="lg:ml-[270px] mt-7">
                 <div className="grid w-full h-full bg-white rounded-xl p-7">
                     <div>
-                    <div className="flex justify-left gap-5 text-[18px] font-bold mb-5 ml-4">
+                    <div className="flex justify-left gap-5 text-[18px] font-semibold mb-5 ml-4">
                     <Link href="/profile" >
                     My Profile
                     </Link>
