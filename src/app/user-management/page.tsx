@@ -37,7 +37,7 @@ const UserManagment = () => {
         },
         {
             href: "/teacher",
-            imgSrc: "/images/teacher.png",
+            imgSrc: "/images/Teacher.png",
             title: "Teacher",
             description: "All Teachers",
         },

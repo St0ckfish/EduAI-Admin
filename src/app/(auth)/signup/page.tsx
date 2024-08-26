@@ -1,92 +1,87 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @next/next/no-img-element */
-"use client"
+"use client";
 import Spinner from "@/components/spinner";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { useGetAllNationalitysQuery, useSignupApiDashboardMutation, useGetAllReginionIDQuery } from "@/features/signupApi";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import React, { useEffect, useState } from "react";
 
-const signup = () => {
-    const router = useRouter();
-    const [step, setStep] = useState(1);
-    const handleNext = () => setStep(step + 1);
-    const handlePrevious = () => setStep(step - 1);
+// Define the validation schema using Zod
+const signupSchema = z.object({
+  username: z.string().nonempty("Username is required"),
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(8, "Password must be at least 8 characters long"),
+  nid: z.string().nonempty("NID is required"),
+  regionId: z.string().nonempty("Region ID is required"),
+  gender: z.string().nonempty("Gender is required"),
+  religion: z.string().nonempty("Religion is required"),
+  number: z.string().nonempty("Number is required"),
+  nationality: z.string().nonempty("Nationality is required"),
+  employeeType: z.string().nonempty("Employee type is required"),
+  qualification: z.string().nonempty("Qualification is required"),
+  birthDate: z.string().nonempty("Birthdate is required"),
+  name_en: z.string().nonempty("English name is required"),
+  name_ar: z.string().nonempty("Arabic name is required"),
+  name_fr: z.string().nonempty("French name is required"),
+  schoolId: z.string().nonempty("School ID is required"),
+  about: z.string().nonempty("About ID is required"),
+});
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const [loginDashboard, { isLoading, error }] = useSignupApiDashboardMutation();
-    const { data: nationalityData, error: nationalityError, isLoading: nationalityLoading } = useGetAllNationalitysQuery(null);
-    const { data: rigiond } = useGetAllReginionIDQuery(null);
+const Signup = () => {
+  const router = useRouter();
+  const [step, setStep] = useState(1);
+  const handleNext = () => setStep(step + 1);
+  const handlePrevious = () => setStep(step - 1);
 
-    useEffect(() => {
-        if (nationalityData) {
-            console.log("Response Data:", nationalityData);
-        }
-        if (nationalityError) {
-            console.log("Error:", nationalityError);
-        }
-    }, [nationalityData, nationalityError]);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(signupSchema),
+  });
 
-    const onSubmit = async (data: any) => {
-        try {
-            const result = await loginDashboard(data).unwrap();
-            console.log("Account maked success:", result);
-            toast.success("Account created Success");
-            router.replace("/login");
-        } catch (err: any) {
-            toast.error(err.data.message);
-            console.error("Failed to make account:", err);
-        }
-    };
-    useEffect(() => {
-        if (
-            errors.username ||
-            errors.email ||
-            errors.password ||
-            errors.nid ||
-            errors.regionId ||
-            errors.gender ||
-            errors.religion ||
-            errors.number ||
-            errors.nationality ||
-            errors.employeeType ||
-            errors.qualification ||
-            errors.birthDate ||
-            errors.name_en ||
-            errors.name_ar ||
-            errors.name_fr ||
-            errors.schoolId ||
-            errors.about
-        ) {
-            toast.warn("Please Complete all inputs");
-        }
-    }, [
-        errors.username,
-        errors.email,
-        errors.password,
-        errors.nid,
-        errors.regionId,
-        errors.gender,
-        errors.religion,
-        errors.number,
-        errors.nationality,
-        errors.employeeType,
-        errors.qualification,
-        errors.birthDate,
-        errors.name_en,
-        errors.name_ar,
-        errors.name_fr,
-        errors.schoolId,
-        errors.about
-    ]);
+  const [loginDashboard, { isLoading, error }] = useSignupApiDashboardMutation();
+  const { data: nationalityData, error: nationalityError, isLoading: nationalityLoading } = useGetAllNationalitysQuery(null);
+  const { data: rigiond } = useGetAllReginionIDQuery(null);
 
-    if (nationalityLoading)
-        return (
-            <div className="grid grid-cols-2 justify-center items-center ease-in duration-300 max-[1040px]:grid-cols-1 h-screen bg-white">
-                <Spinner />
-            </div>
-        );
+  useEffect(() => {
+    if (nationalityData) {
+      console.log("Response Data:", nationalityData);
+    }
+    if (nationalityError) {
+      console.log("Error:", nationalityError);
+    }
+  }, [nationalityData, nationalityError]);
+
+  const onSubmit = async (data: any) => {
+    try {
+      const result = await loginDashboard(data).unwrap();
+      console.log("Account created successfully:", result);
+      toast.success("Account created successfully");
+      router.replace("/login");
+    } catch (err) {
+      toast.error((err as any).data?.message || "Failed to create account");
+      console.error("Failed to create account:", err);
+    }
+  };
+
+  useEffect(() => {
+    if (Object.keys(errors).length > 0) {
+      toast.warn("Please complete all required inputs");
+    }
+  }, [errors]);
+
+  if (nationalityLoading)
+    return (
+      <div className="grid grid-cols-2 justify-center items-center ease-in duration-300 max-[1040px]:grid-cols-1 h-screen bg-white">
+        <Spinner />
+      </div>
+    );
 
     return (
         <>
@@ -113,7 +108,7 @@ const signup = () => {
                                     </label>
                                     <label htmlFor="password" className="grid text-[#9a9a9a] text-start text-[15px] w-full font-sans font-semibold">
                                         <input id="password" {...register("password", { required: true })} placeholder=" password" className={` py-3 px-4 rounded-xl border ${errors.password ? "border-[#d74f41]" : "border-zinc-300"}  outline-none w-[400px] max-[458px]:w-[350px]`} type="password" />
-                                        {errors.password && <span className="text-[#e81123] text-[13px]">Password is Required</span>}
+                                        {errors.password && <span className="text-[#e81123] text-[13px]">Password must be at least 8 characters long 123 (@_#*&) A_Z a_z</span>}
                                     </label>
                                     <label htmlFor="nid" className="grid text-[#9a9a9a] text-start text-[15px] w-full font-sans font-semibold">
                                         <input id="nid" {...register("nid", { required: true })} placeholder=" NID" className={` py-3 px-4 rounded-xl border ${errors.nid ? "border-[#d74f41]" : "border-zinc-300"}  outline-none w-[400px] max-[458px]:w-[350px]`} type="number" />
@@ -215,7 +210,7 @@ const signup = () => {
                                         {errors.qualification && <span className="text-[#e81123] text-[13px]">Qualification is Required</span>}
                                     </label>
                                     <label htmlFor="birthDate" className="grid text-[#9a9a9a] text-start text-[15px] font-sans font-semibold">
-
+                                        Birthday
                                         <input id="birthDate" {...register("birthDate", { required: true })} placeholder=" NID" className={`w-[400px] max-[458px]:w-[350px] py-3 px-4 rounded-xl border ${errors.birthDate ? "border-[#d74f41]" : "border-zinc-300"}  outline-none`} type="date" />
                                         {errors.birthDate && <span className="text-[#e81123] text-[13px]">birthDate is Required</span>}
                                     </label>
@@ -254,7 +249,6 @@ const signup = () => {
                                         {errors.schoolId && <span className="text-[#e81123] text-[13px]">schoolId is Required</span>}
                                     </label>
                                     <label htmlFor="about" className="grid text-[#9a9a9a] text-start text-[15px] font-sans font-semibold w-full">
-                                        Your about
                                         <textarea id="about" {...register("about", { required: true })} placeholder=" about" className={`w-[400px] max-[458px]:w-[350px] py-3 px-4 rounded-xl border ${errors.about ? "border-[#d74f41]" : "border-zinc-300"}  outline-none `} />
                                         {errors.about && <span className="text-[#e81123] text-[13px]">about is Required</span>}
                                     </label>
@@ -287,4 +281,4 @@ const signup = () => {
     );
 }
 
-export default signup;
+export default Signup;
