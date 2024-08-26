@@ -28,10 +28,6 @@ const Dashboard: React.FC = () => {
       console.log(students);
       console.log(workers);
     }
-    if (err1 || err2 || err3 || err4) {
-      router.replace("/login");
-      Cookie.remove("token");
-    }
   }, [router, students, employees, teachers, workers, err1, err2, err3, err4]);
   
   const [isModalOpen, setModalOpen] = useState(false);
