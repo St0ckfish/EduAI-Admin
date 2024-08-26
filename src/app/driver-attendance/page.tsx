@@ -1,34 +1,25 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 import Spinner from "@/components/spinner";
-import { useGetAllDriversQuery, useDeleteDriversMutation } from "@/features/User-Management/driverApi";
+import { useGetAllDriversQuery, useDeleteDriversMutation, useGetDriverByIdQuery } from "@/features/User-Management/driverApi";
 import Link from "next/link";
 import { useState, useEffect, SetStateAction } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from "@/GlobalRedux/store";
 import { toast } from "react-toastify";
 import Pagination from "@/components/pagination";
-// import Sheet from "@/components/sheet";
-// import DriverInfo from "@/components/driverInfo";
+import Sheet from "@/components/sheet";
+import DriverInfo from "@/components/driverInfo";
 
 const DriverAttendance = () => {
-    //   const [isSheetOpen, setIsSheetOpen] = useState(false);
+    const [isSheetOpen, setIsSheetOpen] = useState(false);
 
-    //   const handleOpen = () => setIsSheetOpen(true);
-    //   const handleClose = () => setIsSheetOpen(false);
-        //     <div className="p-8">
-        //     <button
-        //       className="bg-blue-500 text-white px-4 py-2 rounded"
-        //       onClick={handleOpen}
-        //     >
-        //       Open Sheet
-        //     </button>
-        //     
-        //   </div>
-    
+    const handleOpen = () => setIsSheetOpen(true);
+    const handleClose = () => setIsSheetOpen(false);
+
     const [currentPage, setCurrentPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    
+
     const onPageChange = (page: SetStateAction<number>) => {
         setCurrentPage(page);
     };
@@ -44,26 +35,26 @@ const DriverAttendance = () => {
         setRowsPerPage(ele);
         setCurrentPage(0);
     };
-    const [selectAll, setSelectAll] = useState(false); 
+    const [selectAll, setSelectAll] = useState(false);
     const [deleteDrivers] = useDeleteDriversMutation();
 
-  const handleDelete = async (id: string) => {
-    try {
-      await deleteDrivers({
-        id:id,
-        lock:"true"
-      }).unwrap();
-      toast.success(`Driver with ID ${id} Locked successfully`);
-      void refetch();
-    } catch (err) {
-      toast.error("Failed to delete the Driver");
-    }
-  };
+    const handleDelete = async (id: string) => {
+        try {
+            await deleteDrivers({
+                id: id,
+                lock: "true"
+            }).unwrap();
+            toast.success(`Driver with ID ${id} Locked successfully`);
+            void refetch();
+        } catch (err) {
+            toast.error("Failed to delete the Driver");
+        }
+    };
 
     useEffect(() => {
         if (data) console.log("Response Data:", data);
         if (error) console.log("Error:", error);
-      }, [data, error]);
+    }, [data, error]);
 
     const handleSelectAll = () => {
         setSelectAll(!selectAll);
@@ -96,18 +87,26 @@ const DriverAttendance = () => {
         };
     }, []);
 
+    const [selectedId, setSelectedId] = useState(null);
+    const { data: EmployeeQ, isLoading: isEmployee } = useGetDriverByIdQuery(selectedId, {
+        skip: !selectedId,
+    });
+    const handleClick = (id: SetStateAction<null>) => {
+        setSelectedId(id);
+    };
+
     if (isLoading)
         return (
             <div className="h-screen w-full justify-center items-center flex ">
                 <Spinner />
             </div>
-    );
+        );
 
-    return ( 
+    return (
         <>
             <div className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-12 ml-7 text-[18px] max-[550px]:text-[15px]  flex-wrap`}>
                 <Link className="text-[#526484] hover:text-blue-400 hover:underline text-[18px] font-semibold" href="/">Operations</Link>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{fill: 'rgba(82, 100, 132, 1)',transform: '',msFilter: ''}}><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{ fill: 'rgba(82, 100, 132, 1)', transform: '', msFilter: '' }}><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg>
                 <Link className="text-[#526484] hover:text-blue-400 hover:underline text-[18px] font-semibold" href="/attendances">Attendances</Link>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{ fill: 'rgba(82, 100, 132, 1)', transform: '', msFilter: '' }}><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg>
                 <Link className="text-[#526484] hover:text-blue-400 hover:underline  font-semibold" href="/driver-attendance">Driver</Link>
@@ -122,12 +121,12 @@ const DriverAttendance = () => {
                             </div>
                             <input onChange={(e) => setSearch(e.target.value)} type="text" id="icon" name="icon" className="py-2  outline-none border-2 px-4 ps-11 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Search" />
                         </div>
-                    </div> 
+                    </div>
                 </div>
                 <div className="overflow-auto relative shadow-md sm:rounded-lg">
                     <table className="w-full overflow-x-auto text-sm text-left rtl:text-right text-gray-500 ">
                         <thead className="text-xs text-gray-700 uppercase bg-[#daeafb] ">
-                        <tr>
+                            <tr>
                                 <th scope="col" className="p-4">
                                     <div className="flex items-center">
                                         {/* Add event listener for select all checkbox */}
@@ -144,10 +143,10 @@ const DriverAttendance = () => {
                                     Gender
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                Nationality
+                                    Nationality
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                Email
+                                    Email
                                 </th>
                                 <th scope="col" className="px-6 py-3 whitespace-nowrap">
                                     Mobile
@@ -161,50 +160,50 @@ const DriverAttendance = () => {
                             </tr>
                         </thead>
                         <tbody>
-                        {data?.data.content.filter((driver: Driver) => {
-                            return search.toLocaleLowerCase() === '' ? driver : driver.name.toLocaleLowerCase().includes(search);
-                        }).map((driver: Driver) => (
-                            <tr key={driver.id} className="bg-white border-b  hover:bg-gray-50 "  >{/* onClick={handleOpen} */}
-                                <td className="w-4 p-4">
-                                    <div className="flex items-center">
-                                        <input id="checkbox-table-search-1" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
-                                    </div>
-                                </td>
-                                <th scope="row" className="px-6 flex items-center py-4 gap-2 font-medium text-gray-900 whitespace-nowrap">
-                                    <div className="w-[50px]">
-                                        {
-                                            driver.picture == null ?
-                                            <img src="/images/userr.png" className="w-[40px] h-[40px] mr-2 rounded-full" alt="#" />
-                                            :
-                                            <img src={driver.picture} className="w-[40px] h-[40px] mr-2 rounded-full" alt="#" />
-                                        }
-                                    </div>
-                                    <p> {driver.name} </p>
-                                </th>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                {driver.id}
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    {driver.gender}
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    {driver.nationality}
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    {driver.email}
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    {driver.number}
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <Link href={`/driver/view-driver/${driver.id}`} className="font-medium text-blue-600 hover:underline">View</Link>
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <button onClick={()=> handleDelete(driver.id)} className="px-2 py-1 rounded-lg text-white bg-red-500 font-semibold shadow-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">Lock</button>
-                                </td>
-                            </tr>
+                            {data?.data.content.filter((driver: Driver) => {
+                                return search.toLocaleLowerCase() === '' ? driver : driver.name.toLocaleLowerCase().includes(search);
+                            }).map((driver: Driver) => (
+                                <tr key={driver.id} className="bg-white border-b  hover:bg-gray-50 "  >{/*  */}
+                                    <td className="w-4 p-4">
+                                        <div className="flex items-center">
+                                            <input id="checkbox-table-search-1" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
+                                        </div>
+                                    </td>
+                                    <th scope="row" className="px-6 flex items-center py-4 gap-2 font-medium text-gray-900 whitespace-nowrap">
+                                        <div className="w-[50px]">
+                                            {
+                                                driver.picture == null ?
+                                                    <img src="/images/userr.png" className="w-[40px] h-[40px] mr-2 rounded-full" alt="#" />
+                                                    :
+                                                    <img src={driver.picture} className="w-[40px] h-[40px] mr-2 rounded-full" alt="#" />
+                                            }
+                                        </div>
+                                        <p> {driver.name} </p>
+                                    </th>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        {driver.id}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        {driver.gender}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        {driver.nationality}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        {driver.email}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        {driver.number}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <button onClick={() => { handleOpen(); handleClick(driver.id) }} className="font-medium text-blue-600 hover:underline">View</button>
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <button onClick={() => handleDelete(driver.id)} className="px-2 py-1 rounded-lg text-white bg-red-500 font-semibold shadow-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">Lock</button>
+                                    </td>
+                                </tr>
                             ))}
-                            
+
                         </tbody>
                     </table>
                     {
@@ -213,18 +212,27 @@ const DriverAttendance = () => {
                 </div>
                 <div className="overflow-auto relative">
                     <Pagination
-                    totalPages={data?.data.totalPages}
-                    elementsPerPage={rowsPerPage}
-                    onChangeElementsPerPage={onElementChange}
-                    currentPage={currentPage}
-                    onChangePage={onPageChange}
-                />
+                        totalPages={data?.data.totalPages}
+                        elementsPerPage={rowsPerPage}
+                        onChangeElementsPerPage={onElementChange}
+                        currentPage={currentPage}
+                        onChangePage={onPageChange}
+                    />
                 </div>
             </div>
-            {/* <Sheet isOpen={isSheetOpen} onClose={handleClose}>
-              <h2 className="text-2xl font-semibold mb-4">Sheet Content</h2>
-              <DriverInfo data={data} />
-         </Sheet> */}
+            <Sheet isOpen={isSheetOpen} onClose={handleClose}>
+                {
+                    EmployeeQ && (
+                        <>
+                            <h2 className="text-2xl font-semibold mb-4">Sheet Content</h2>
+                            {
+                                isEmployee ? <Spinner /> :
+                                    <DriverInfo data={EmployeeQ} />
+                            }
+                        </>
+                    )
+                }
+            </Sheet>
         </>
     );
 }

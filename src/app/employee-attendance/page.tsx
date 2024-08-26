@@ -2,14 +2,20 @@
 "use client"
 import Link from "next/link";
 import { useState, useEffect, SetStateAction } from 'react';
-import { useDeleteEmployeesMutation, useGetAllEmployeesQuery } from "@/features/User-Management/employeeApi";
+import { useDeleteEmployeesMutation, useGetAllEmployeesQuery, useGetEmployeeByIdQuery } from "@/features/User-Management/employeeApi";
 import Spinner from "@/components/spinner";
 import { useSelector } from 'react-redux';
 import { RootState } from "@/GlobalRedux/store";
 import { toast } from "react-toastify";
 import Pagination from "@/components/pagination";
+import EmployeeInfo from "@/components/employeeInfo";
+import Sheet from "@/components/sheet";
 
 const EmployeeAttendance = () => {
+    const [isSheetOpen, setIsSheetOpen] = useState(false);
+
+    const handleOpen = () => setIsSheetOpen(true);
+    const handleClose = () => setIsSheetOpen(false);
     const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
     type Employee = Record<string, any>;
@@ -81,6 +87,15 @@ const EmployeeAttendance = () => {
             });
         };
     }, []);
+
+    const [selectedId, setSelectedId] = useState(null);
+    const { data: EmployeeQ, isLoading: isEmployee } = useGetEmployeeByIdQuery(selectedId, {
+        skip: !selectedId,
+    });
+    const handleClick = (id: SetStateAction<null>) => {
+        setSelectedId(id);
+    };
+    
     if (isLoading)
         return (
             <div className="h-screen w-full justify-center items-center flex ">
@@ -182,7 +197,7 @@ const EmployeeAttendance = () => {
                                     {employee.number}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <Link href={`/employee/view-employee/${employee.id}`} className="font-medium text-blue-600 hover:underline">View</Link>
+                                    <button onClick={() => { handleOpen(); handleClick(employee.id) }} className="font-medium text-blue-600 hover:underline">View</button>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <button onClick={()=> handleDelete(employee.id)} className="px-2 py-1 rounded-lg text-white bg-red-500 font-semibold shadow-lg ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">Lock</button>
@@ -205,6 +220,19 @@ const EmployeeAttendance = () => {
                 />
                 </div>
             </div>
+            <Sheet isOpen={isSheetOpen} onClose={handleClose}>
+                {
+                    EmployeeQ && (
+                        <>
+                            <h2 className="text-2xl font-semibold mb-4">Sheet Content</h2>
+                            {
+                                isEmployee ? <Spinner /> :
+                                    <EmployeeInfo data={EmployeeQ} />
+                            }
+                        </>
+                    )
+                }
+            </Sheet>
         </>
     );
 }

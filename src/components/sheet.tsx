@@ -15,7 +15,7 @@ const Sheet: React.FC<SheetProps> = ({ isOpen, onClose, children }) => {
       onClick={onClose}
     >
       <div
-        className={`bg-white h-full w-[370px] max-w-full transform transition-transform duration-300 ${
+        className={`bg-white h-full w-[400px] max-w-full transform transition-transform duration-300 ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
         onClick={(e) => e.stopPropagation()}
