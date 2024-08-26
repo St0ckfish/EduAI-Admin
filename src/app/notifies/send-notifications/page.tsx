@@ -65,7 +65,7 @@ const SendNotifications = () => {
                             ) : (
                                 <>
                                     <div className="bg-[#dbdada] rounded-full h-[60px] w-[60px] grid items-center justify-center">
-                                        <img src={`/images/${role.toLowerCase()}.png`} alt={role} />
+                                        <img src={ role == "TEACHER" ? `/images/Teacher.png` : `/images/${role.toLowerCase()}.png`} alt={role} />
                                     </div>
                                     {role.charAt(0) + role.slice(1).toLowerCase()}
                                 </>

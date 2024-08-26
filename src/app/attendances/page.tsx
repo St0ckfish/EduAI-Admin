@@ -38,7 +38,7 @@ const Attendance = () => {
         },
         {
             href: "/teacher-attendance",
-            imgSrc: "/images/teacher.png",
+            imgSrc: "/images/Teacher.png",
             title: "Teacher",
             description: "520",
             number:20
