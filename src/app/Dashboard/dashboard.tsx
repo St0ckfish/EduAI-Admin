@@ -55,17 +55,18 @@ const Dashboard: React.FC = () => {
     chart: {
       height: 350,
       width: 800,
-      type: 'area' as 'area'
+      //type: 'area' as 'area'
+      type: 'area' as const 
     },
     colors: ['#f19b78', '#008FFB'],
     dataLabels: {
       enabled: false
     },
     stroke: {
-      curve: 'smooth' as 'smooth'
+      curve: 'smooth' as const
     },
     xaxis: {
-      type: 'datetime' as 'datetime',
+      type: 'datetime' as const,
       categories: [
         "2024-06-19T00:00:00.000Z",
         "2024-06-19T01:30:00.000Z",
