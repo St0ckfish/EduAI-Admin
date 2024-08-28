@@ -28,6 +28,7 @@ import { notificationsApi } from "@/features/communication/notficationsApi";
 import { classApi } from "@/features/Infrastructure/classApi";
 import { labApi } from "@/features/Infrastructure/labApi";
 import { officeApi } from "@/features/Infrastructure/officeApi";
+import { attendanceApi } from "@/features/attendance/attendanceApi";
 
 export const store = configureStore({
   reducer: {
@@ -40,6 +41,7 @@ export const store = configureStore({
     [reportApi.reducerPath]: reportApi.reducer,
     [teacherApi.reducerPath]: teacherApi.reducer,
     [bankApi.reducerPath]: bankApi.reducer,
+    [attendanceApi.reducerPath]: attendanceApi.reducer,
     [feesApi.reducerPath]: feesApi.reducer,
     [labApi.reducerPath]: labApi.reducer,
     [courseApi.reducerPath]: courseApi.reducer,
@@ -79,6 +81,7 @@ export const store = configureStore({
       .concat(feesApi.middleware)
       .concat(courseApi.middleware)
       .concat(signupApi.middleware)
+      .concat(attendanceApi.middleware)
       .concat(employeeApi.middleware)
       .concat(classApi.middleware)
       .concat(bankApi.middleware)

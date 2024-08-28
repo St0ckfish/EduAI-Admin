@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, useEffect, SetStateAction } from 'react';
 import { useDeleteEmployeesMutation, useGetAllEmployeesQuery, useGetEmployeeByIdQuery } from "@/features/User-Management/employeeApi";
+import { useCreateAttendanceMutation } from "@/features/attendance/attendanceApi";
 import Spinner from "@/components/spinner";
 import { useSelector } from 'react-redux';
 import { RootState } from "@/GlobalRedux/store";
@@ -28,15 +29,76 @@ const EmployeeAttendance = () => {
         size: rowsPerPage
     });
     const [selectedStates, setSelectedStates] = useState<string[]>([]);
+    const [createAttendance] = useCreateAttendanceMutation();
 
-    const handleSelect = (label: string, index: string | number | undefined) => {
-        setSelectedStates((prevStates: any) => {
+    const handleSelect = (label: string, index: number, userId: undefined) => {
+        setSelectedStates((prevStates) => {
             const newStates = [...prevStates];
-            if (typeof index === 'number') {
-                newStates[index] = newStates[index] === label ? '' : label; // Toggle selection
-            }
+            newStates[index] = newStates[index] === label ? label : label; // Toggle selection
             return newStates;
         });
+
+        // Check if the "P" button is clicked
+        if (label === 'P') {
+            // Prepare attendance data
+            const attendanceData = {
+                userId: userId,
+                status: 'PRESENT',
+                absenceReason: null,
+                checkInTime: null,
+                checkOutTime: null,
+            };
+
+            // Send the data using the mutation hook
+            createAttendance(attendanceData)
+                .unwrap()
+                .then((response) => {
+                    console.log('Attendance recorded:', response);
+                })
+                .catch((error) => {
+                    console.error('Failed to record attendance:', error);
+                });
+        }
+        if (label === 'A') {
+            // Prepare attendance data
+            const attendanceData = {
+                userId: userId,
+                status: 'ABSENT',
+                absenceReason: null,
+                checkInTime: null,
+                checkOutTime: null,
+            };
+
+            // Send the data using the mutation hook
+            createAttendance(attendanceData)
+                .unwrap()
+                .then((response) => {
+                    console.log('Attendance recorded:', response);
+                })
+                .catch((error) => {
+                    console.error('Failed to record attendance:', error);
+                });
+        }
+        if (label === 'L') {
+            // Prepare attendance data
+            const attendanceData = {
+                userId: userId,
+                status: 'LEAVE',
+                absenceReason: null,
+                checkInTime: null,
+                checkOutTime: null,
+            };
+
+            // Send the data using the mutation hook
+            createAttendance(attendanceData)
+                .unwrap()
+                .then((response) => {
+                    console.log('Attendance recorded:', response);
+                })
+                .catch((error) => {
+                    console.error('Failed to record attendance:', error);
+                });
+        }
     };
     const [selectAll, setSelectAll] = useState(false);
 
@@ -135,7 +197,7 @@ const EmployeeAttendance = () => {
                         </div>
                     </div>
                 </div>
-                <div className="flex gap-4 flex-wrap">
+                <div className="flex gap-4 flex-wrap justify-center">
                 {data?.data.content
                 .filter((employee: Employee) => {
                     return search.toLocaleLowerCase() === '' ? employee : employee.name.toLocaleLowerCase().includes(search);
@@ -152,11 +214,11 @@ const EmployeeAttendance = () => {
                                     )}
                                 </div>
                                 <p className="mt-4 text-[22px]"> {employee.name} </p>
-                                <p className="whitespace-nowrap font-semibold text-[#526484]">Driver: {employee.id}</p>
+                                <p className="whitespace-nowrap font-semibold text-[#526484]">Employee: {employee.id}</p>
                             </div>
                         </div>
                         <div className="flex gap-4 justify-center items-center text-center">
-                            {['P', 'A', 'L'].map((label) => (
+                        {['P', 'A', 'L'].map((label) => (
                                 <label
                                     key={label}
                                     className={`p-5 w-[55px] h-[55px] text-center rounded-full border flex items-center justify-center text-[24px] font-semibold cursor-pointer
@@ -174,7 +236,7 @@ const EmployeeAttendance = () => {
                                         type="checkbox"
                                         className="hidden"
                                         checked={selectedStates[index] === label}
-                                        onChange={() => handleSelect(label, index)}
+                                        onChange={() => handleSelect(label, index, employee.id)}
                                     />
                                     {label}
                                 </label>

@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import Pagination from "@/components/pagination";
 import Sheet from "@/components/sheet";
 import DriverInfo from "@/components/driverInfo";
+import { useCreateAttendanceMutation } from "@/features/attendance/attendanceApi";
 
 const DriverAttendance = () => {
     const [isSheetOpen, setIsSheetOpen] = useState(false);
@@ -21,15 +22,76 @@ const DriverAttendance = () => {
     const [rowsPerPage, setRowsPerPage] = useState(10);
 
     const [selectedStates, setSelectedStates] = useState<string[]>([]);
+    const [createAttendance] = useCreateAttendanceMutation();
 
-    const handleSelect = (label: string, index: string | number | undefined) => {
-        setSelectedStates((prevStates: any) => {
+    const handleSelect = (label: string, index: number, userId: undefined) => {
+        setSelectedStates((prevStates) => {
             const newStates = [...prevStates];
-            if (typeof index === 'number') {
-                newStates[index] = newStates[index] === label ? '' : label; // Toggle selection
-            }
+            newStates[index] = newStates[index] === label ? label : label; // Toggle selection
             return newStates;
         });
+
+        // Check if the "P" button is clicked
+        if (label === 'P') {
+            // Prepare attendance data
+            const attendanceData = {
+                userId: userId,
+                status: 'PRESENT',
+                absenceReason: null,
+                checkInTime: null,
+                checkOutTime: null,
+            };
+
+            // Send the data using the mutation hook
+            createAttendance(attendanceData)
+                .unwrap()
+                .then((response) => {
+                    console.log('Attendance recorded:', response);
+                })
+                .catch((error) => {
+                    console.error('Failed to record attendance:', error);
+                });
+        }
+        if (label === 'A') {
+            // Prepare attendance data
+            const attendanceData = {
+                userId: userId,
+                status: 'ABSENT',
+                absenceReason: null,
+                checkInTime: null,
+                checkOutTime: null,
+            };
+
+            // Send the data using the mutation hook
+            createAttendance(attendanceData)
+                .unwrap()
+                .then((response) => {
+                    console.log('Attendance recorded:', response);
+                })
+                .catch((error) => {
+                    console.error('Failed to record attendance:', error);
+                });
+        }
+        if (label === 'L') {
+            // Prepare attendance data
+            const attendanceData = {
+                userId: userId,
+                status: 'LEAVE',
+                absenceReason: null,
+                checkInTime: null,
+                checkOutTime: null,
+            };
+
+            // Send the data using the mutation hook
+            createAttendance(attendanceData)
+                .unwrap()
+                .then((response) => {
+                    console.log('Attendance recorded:', response);
+                })
+                .catch((error) => {
+                    console.error('Failed to record attendance:', error);
+                });
+        }
     };
 
     const onPageChange = (page: SetStateAction<number>) => {
@@ -135,7 +197,7 @@ const DriverAttendance = () => {
                         </div>
                     </div>
                 </div>
-                <div className="flex gap-4 flex-wrap">
+                <div className="flex gap-4 flex-wrap justify-center">
                 {data?.data.content
                 .filter((driver: Driver) => {
                     return search.toLocaleLowerCase() === '' ? driver : driver.name.toLocaleLowerCase().includes(search);
@@ -174,7 +236,7 @@ const DriverAttendance = () => {
                                         type="checkbox"
                                         className="hidden"
                                         checked={selectedStates[index] === label}
-                                        onChange={() => handleSelect(label, index)}
+                                        onChange={() => handleSelect(label, index, driver.id)}
                                     />
                                     {label}
                                 </label>
