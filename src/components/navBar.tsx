@@ -9,8 +9,13 @@ import Cookie from "js-cookie";
 import { useGetAllCurrentUserQuery } from "@/features/dashboard/dashboardApi";
 import { useRouter } from "next/navigation";
 // import Spinner from "./spinner";
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { useSelector } from 'react-redux';
+import { setLanguage } from '@/features/language/languageSlice';
+import { RootState } from "@/GlobalRedux/store";
 
 const NavBar = () => {
+
   const router = useRouter();
   const { data: userData, error: userError, isLoading: userLoading } = useGetAllCurrentUserQuery(null);
 
@@ -23,6 +28,7 @@ const NavBar = () => {
     }
   }, [userData, userError, router]);
   const dispatch = useDispatch();
+  const dispatch2 = useDispatch();
   const [pathname, setPathname] = useState('');
   const [small, setSmall] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -96,7 +102,7 @@ const NavBar = () => {
 
   useEffect(() => {
     if (width !== undefined && width >= 1023) {
-      setIsOpen(true); // Always set to true for large screens
+      setIsOpen(true);
     }
   }, [width]);
 
@@ -104,6 +110,13 @@ const NavBar = () => {
     Cookie.remove("token");
 
   }
+
+  const currentLanguage = useSelector((state: RootState) => state.language.language);
+
+  const handleLanguageChange = (language: any) => {
+    console.log(currentLanguage);
+    dispatch2(setLanguage(language));
+  };
   return (
     <>
 
@@ -143,6 +156,52 @@ const NavBar = () => {
                   <Link href="/" type="button" className="w-[2.375rem] h-[2.375rem] inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none" data-hs-offcanvas="#hs-offcanvas-right">
                     <svg className="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>
                   </Link>
+                  <DropdownMenu.Root>
+                    <DropdownMenu.Trigger asChild>
+                      <button
+                        className="rounded-full w-[35px] h-[35px] inline-flex items-center justify-center text-violet11 bg-white outline-none hover:bg-violet3"
+                        aria-label="Customise options"
+                      >
+                        {currentLanguage === "en"
+                          ? <img src="/images/en.png" alt="#" />
+
+                          : currentLanguage === "ar"
+                            ? <img src="/images/ar.png" alt="#" />
+                            : currentLanguage === "fr"
+                              ? <img src="/images/fr.png" alt="#" />
+                              : <img src="/images/fr.png" alt="#" />
+                        }
+                      </button>
+                    </DropdownMenu.Trigger>
+                    <DropdownMenu.Portal>
+                      <DropdownMenu.Content
+                        className="min-w-[150px] justify-center grid gap-5 mt-5 mr-2 bg-white rounded-md p-[5px] font-semibold  shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
+                        sideOffset={5}
+                      >
+                        <DropdownMenu.Item
+                          className="group text-[13px] mt-2 leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
+                        >
+                          <button onClick={() => handleLanguageChange('ar')} className="text-[20px] px-4 py-2 rounded-lg hover:bg-slate-100">
+                            Arabic
+                          </button>
+                        </DropdownMenu.Item>
+                        <DropdownMenu.Item
+                          className="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
+                        >
+                          <button onClick={() => handleLanguageChange('en')} className="text-[20px] px-4 py-2 rounded-lg hover:bg-slate-100">
+                            English
+                          </button>
+                        </DropdownMenu.Item>
+                        <DropdownMenu.Item
+                          className="group mb-2 text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
+                        >
+                          <button onClick={() => handleLanguageChange('fr')} className="text-[20px] px-4 py-2 rounded-lg hover:bg-slate-100">
+                            French
+                          </button>
+                        </DropdownMenu.Item>
+                      </DropdownMenu.Content>
+                    </DropdownMenu.Portal>
+                  </DropdownMenu.Root>
 
                   <div className="hs-dropdown [--placement:bottom-right] relative inline-flex">
                     <button onClick={toggleProfile} id="hs-dropdown-with-header" type="button" className="w-[2.375rem] h-[2.375rem] inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none">
@@ -251,7 +310,16 @@ const NavBar = () => {
                         {
                           !small && (
 
-                            <p>Dashboard</p>
+                            <p>
+                              {currentLanguage === "en"
+                                ? "Dashboard"
+                                : currentLanguage === "ar"
+                                  ? "لوحة القيادة"
+                                  : currentLanguage === "fr"
+                                    ? "Tableau de bord"
+                                    : "Dashboard"
+                              }
+                            </p>
                           )
                         }
 
@@ -263,7 +331,16 @@ const NavBar = () => {
                         {
                           !small && (
 
-                            <p>Search</p>
+                            <p>
+                              {currentLanguage === "en"
+                                ? "Search"
+                                : currentLanguage === "ar"
+                                  ? "البحث"
+                                  : currentLanguage === "fr"
+                                    ? "Recherche"
+                                    : "Recherche"
+                              }
+                            </p>
                           )
                         }
 
@@ -280,18 +357,71 @@ const NavBar = () => {
                         </svg>
                         {
                           !small && (
-                            <p>Administration</p>
+                            <p>
+                              {currentLanguage === "en"
+                                ? "Administration"
+                                : currentLanguage === "ar"
+                                  ? "إدارة"
+                                  : currentLanguage === "fr"
+                                    ? "Gestion"
+                                    : "Gestion"
+                              }
+                            </p>
                           )
                         }
                       </button>
                       {
                         isOpen2 && (
                           <ul className={`${small ? 'translate-x-5 bg-white rounded-xl p-2 w-[180px] hidden group-hover:grid whitespace-nowrap' : ''} grid gap-2 ml-9 mt-2 text-[14px] font-semibold`}>
-                            <Link className="hover:text-[#3e5af0]" href="/user-management">User Management</Link>
-                            <Link className="hover:text-[#3e5af0]" href="/financial-management">Financial Management</Link>
-                            <Link className="hover:text-[#3e5af0]" href="/organization-setting">Organization Setting</Link>
-                            <Link className="hover:text-[#3e5af0]" href="/document-management">Document Management</Link>
-                            <Link className="hover:text-[#3e5af0]" href="/archive">Archive</Link>
+                            <Link className="hover:text-[#3e5af0]" href="/user-management">
+                              {currentLanguage === "en"
+                                ? "User Management"
+                                : currentLanguage === "ar"
+                                  ? "إدارة المستخدمين"
+                                  : currentLanguage === "fr"
+                                    ? "Gestion des utilisateurs"
+                                    : "User Management"} {/* Default to English */}
+                            </Link>
+
+                            <Link className="hover:text-[#3e5af0]" href="/financial-management">
+                              {currentLanguage === "en"
+                                ? "Financial Management"
+                                : currentLanguage === "ar"
+                                  ? "الإدارة المالية"
+                                  : currentLanguage === "fr"
+                                    ? "Gestion financière"
+                                    : "Financial Management"} {/* Default to English */}
+                            </Link>
+
+                            <Link className="hover:text-[#3e5af0]" href="/organization-setting">
+                              {currentLanguage === "en"
+                                ? "Organization Setting"
+                                : currentLanguage === "ar"
+                                  ? "إعدادات المنظمة"
+                                  : currentLanguage === "fr"
+                                    ? "Paramètres org."
+                                    : "Organization Setting"} {/* Default to English */}
+                            </Link>
+
+                            <Link className="hover:text-[#3e5af0]" href="/document-management">
+                              {currentLanguage === "en"
+                                ? "Document Management"
+                                : currentLanguage === "ar"
+                                  ? "إدارة المستندات"
+                                  : currentLanguage === "fr"
+                                    ? "Gestion des documents"
+                                    : "Document Management"} {/* Default to English */}
+                            </Link>
+
+                            <Link className="hover:text-[#3e5af0]" href="/archive">
+                              {currentLanguage === "en"
+                                ? "Archive"
+                                : currentLanguage === "ar"
+                                  ? "الأرشيف"
+                                  : currentLanguage === "fr"
+                                    ? "Archives"
+                                    : "Archive"} {/* Default to English */}
+                            </Link>
                           </ul>
                         )
                       }
@@ -302,7 +432,16 @@ const NavBar = () => {
                         {
                           !small && (
 
-                            <p>Academic</p>
+                            <p>
+                              {currentLanguage === "en"
+                                ? "Academic"
+                                : currentLanguage === "ar"
+                                  ? "أكاديمي"
+                                  : currentLanguage === "fr"
+                                    ? "Académique"
+                                    : "Académique"
+                              }
+                            </p>
                           )
                         }
 
@@ -310,9 +449,35 @@ const NavBar = () => {
                       {
                         isOpen3 && (
                           <ul className={`${small ? 'translate-x-5 bg-white rounded-xl p-2 w-[180px] hidden group-hover:grid whitespace-nowrap' : ''} grid gap-2 ml-9 mt-2 text-[14px] font-semibold`}>
-                            <Link className="hover:text-[#3e5af0]" href="/curriculum-management">Curriculum Management</Link>
-                            <Link className="hover:text-[#3e5af0]" href="/course">Course and Resource</Link>
-                            <Link className="hover:text-[#3e5af0]" href="/educational-affairs">Educational Affairs</Link>
+                            <Link className="hover:text-[#3e5af0]" href="/curriculum-management">
+                              {currentLanguage === "en"
+                                ? "Curriculum Management"
+                                : currentLanguage === "ar"
+                                  ? "إدارة المناهج"
+                                  : currentLanguage === "fr"
+                                    ? "Gestion du curriculum"
+                                    : "Curriculum Management"} {/* Default to English */}
+                            </Link>
+
+                            <Link className="hover:text-[#3e5af0]" href="/course">
+                              {currentLanguage === "en"
+                                ? "Course and Resource"
+                                : currentLanguage === "ar"
+                                  ? "الدورات والموارد"
+                                  : currentLanguage === "fr"
+                                    ? "Cours et Ressources"
+                                    : "Course and Resource"} {/* Default to English */}
+                            </Link>
+
+                            <Link className="hover:text-[#3e5af0]" href="/educational-affairs">
+                              {currentLanguage === "en"
+                                ? "Educational Affairs"
+                                : currentLanguage === "ar"
+                                  ? "الشؤون التعليمية"
+                                  : currentLanguage === "fr"
+                                    ? "Affaires Éducatives"
+                                    : "Educational Affairs"} {/* Default to English */}
+                            </Link>
                           </ul>
                         )
                       }
@@ -326,15 +491,41 @@ const NavBar = () => {
                         {
                           !small && (
 
-                            <p>Operations</p>
+                            <p>
+                              {currentLanguage === "en"
+                                ? "Operations"
+                                : currentLanguage === "ar"
+                                  ? "العمليات"
+                                  : currentLanguage === "fr"
+                                    ? "Opérations"
+                                    : "Opérations"
+                              }
+                            </p>
                           )
                         }
                       </button>
                       {
                         isOpen4 && (
                           <ul className={`${small ? 'translate-x-5 bg-white rounded-xl p-2 w-[180px] hidden group-hover:grid whitespace-nowrap' : ''} grid gap-2 ml-9 mt-2 text-[14px] font-semibold`}>
-                            <Link className="hover:text-[#3e5af0]" href="/infrastructure">Infrastructure</Link>
-                            <Link className="hover:text-[#3e5af0]" href="/attendances">Attendance/Leave</Link>
+                            <Link className="hover:text-[#3e5af0]" href="/infrastructure">
+                              {currentLanguage === "en"
+                                ? "Infrastructure"
+                                : currentLanguage === "ar"
+                                  ? "البنية التحتية"
+                                  : currentLanguage === "fr"
+                                    ? "Infrastructure"
+                                    : "Infrastructure"} {/* Default to English */}
+                            </Link>
+
+                            <Link className="hover:text-[#3e5af0]" href="/attendances">
+                              {currentLanguage === "en"
+                                ? "Attendance/Leave"
+                                : currentLanguage === "ar"
+                                  ? "الحضور / الإجازة"
+                                  : currentLanguage === "fr"
+                                    ? "Présence/Absence"
+                                    : "Attendance/Leave"} {/* Default to English */}
+                            </Link>
                           </ul>
                         )
                       }
@@ -348,7 +539,16 @@ const NavBar = () => {
                         {
                           !small && (
 
-                            <p>Communication</p>
+                            <p>
+                              {currentLanguage === "en"
+                                ? "Communication"
+                                : currentLanguage === "ar"
+                                  ? "التواصل"
+                                  : currentLanguage === "fr"
+                                    ? "Communication"
+                                    : "Communication"
+                              }
+                            </p>
                           )
                         }
 
@@ -356,9 +556,35 @@ const NavBar = () => {
                       {
                         isOpen5 && (
                           <ul className={`${small ? 'translate-x-5 bg-white rounded-xl p-2 w-[180px] hidden group-hover:grid whitespace-nowrap ' : ''} grid gap-2 ml-9 mt-2 text-[14px] font-semibold`}>
-                            <Link className="hover:text-[#3e5af0]" href="/post-management/news">News</Link>
-                            <Link className="hover:text-[#3e5af0]" href="/post-management">Post Management</Link>
-                            <Link className="hover:text-[#3e5af0]" href="/notifies">Notifies</Link>
+                            <Link className="hover:text-[#3e5af0]" href="/post-management/news">
+                              {currentLanguage === "en"
+                                ? "News"
+                                : currentLanguage === "ar"
+                                  ? "الأخبار"
+                                  : currentLanguage === "fr"
+                                    ? "Nouvelles"
+                                    : "News"} {/* Default to English */}
+                            </Link>
+
+                            <Link className="hover:text-[#3e5af0]" href="/post-management">
+                              {currentLanguage === "en"
+                                ? "Post Management"
+                                : currentLanguage === "ar"
+                                  ? "إدارة المشاركات"
+                                  : currentLanguage === "fr"
+                                    ? "Gestion des publications"
+                                    : "Post Management"} {/* Default to English */}
+                            </Link>
+
+                            <Link className="hover:text-[#3e5af0]" href="/notifies">
+                              {currentLanguage === "en"
+                                ? "Notifies"
+                                : currentLanguage === "ar"
+                                  ? "الإشعارات"
+                                  : currentLanguage === "fr"
+                                    ? "Notifications"
+                                    : "Notifies"} {/* Default to English */}
+                            </Link>
                           </ul>
                         )
                       }

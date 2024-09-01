@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import booleanReducer from '@/features/boolyanSlice';
+import languageSlice from '@/features/language/languageSlice';
 import { loginApi } from "../features/loginApi";
 import { employeeApi } from "../features/User-Management/employeeApi"
 import { signupApi } from "../features/signupApi"
@@ -33,6 +34,7 @@ import { attendanceApi } from "@/features/attendance/attendanceApi";
 export const store = configureStore({
   reducer: {
     boolean: booleanReducer,
+    language: languageSlice,
     [loginApi.reducerPath]: loginApi.reducer,
     [signupApi.reducerPath]: signupApi.reducer,
     [notificationsApi.reducerPath]: notificationsApi.reducer,

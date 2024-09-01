@@ -8,10 +8,14 @@ import { useGetAllStudentsQuery, useGetAllEmployeesQuery, useGetAllTeachersQuery
 import Spinner from '@/components/spinner';
 import Cookie from "js-cookie";
 import { useRouter } from "next/navigation";
+import { useSelector } from 'react-redux';
+import { RootState } from '@/GlobalRedux/store';
 
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 const Dashboard: React.FC = () => {
+  const currentLanguage = useSelector((state: RootState) => state.language.language);
+
   
   const router = useRouter();
   
@@ -213,7 +217,15 @@ const Dashboard: React.FC = () => {
         <div className="grid overflow-x-auto rounded-xl">
 
           <div className="grid bg-white rounded-xl shadow-xl p-2 w-[550px]  max-[1536px]:w-full overflow-x-auto">
-            <p className="font-bold text-[20px]">Notice Board</p>
+              <p className="font-bold text-[20px]">
+                {currentLanguage === "en"
+                  ? "Notice Board"
+                  : currentLanguage === "ar"
+                  ? "لوحة الإعلانات"
+                  : currentLanguage === "fr"
+                  ? "Tableau d'affichage"
+                  : "Notice Board"}
+              </p>
             <div className="">
               <h1 className="font-semibold text-[18px] text-[#F79009]">Leslie Alexander</h1>
               <p>
@@ -258,7 +270,7 @@ const Dashboard: React.FC = () => {
             className="w-full px-4 py-2 border bg-[#ffffff] shadow-md rounded-xl  border-[#436789] focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
-        <h2 className="text-xl mb-4 font-semibold">  Event Date</h2>
+        <h2 className="text-xl mb-4 font-semibold">Event Date</h2>
         <div className="mb-4 rounded-sm">
           <input
             type="date"
