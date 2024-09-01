@@ -10,9 +10,9 @@ const Attendance = () => {
     const booleanValue = useSelector((state: RootState) => state.boolean.value);
     const currentLanguage = useSelector((state: RootState) => state.language.language);
 
-    // const { employeedata, isLoading: isLoadingE } = useGetEmployeeAttendenceQuery(null);
-    // const { teacherdata, isLoading: isLoadingT } = useGetTeacherAttendenceQuery(null);
-    // const { workerdata, isLoading: isLoadingW } = useGetWorkerAttendenceQuery(null);
+    const { data: employeedata, isLoading: isLoadingE } = useGetEmployeeAttendenceQuery(null);
+    const { data: teacherdata, isLoading: isLoadingT } = useGetTeacherAttendenceQuery(null);
+    const { data: workerdata, isLoading: isLoadingW } = useGetWorkerAttendenceQuery(null);
 
     const UserManagments = [
         {
@@ -62,7 +62,7 @@ const Attendance = () => {
                     : currentLanguage === "fr"
                         ? "450"
                         : "450", // Default to English
-            number: 20,
+            number: employeedata?.data,
         },
         {
             href: "/student-attendance",
@@ -100,7 +100,7 @@ const Attendance = () => {
                     : currentLanguage === "fr"
                         ? "520"
                         : "520", // Default to English
-            number: 20,
+            number: teacherdata?.data,
         },
         {
             href: "/worker-attendance",
@@ -119,16 +119,16 @@ const Attendance = () => {
                     : currentLanguage === "fr"
                         ? "602"
                         : "602", // Default to English
-            number: 20,
+            number: workerdata?.data,
         },
     ];
 
-    // if (isLoadingE || isLoadingT || isLoadingW)
-    //     return (
-    //         <div className="h-screen w-full justify-center items-center flex ">
-    //             <Spinner />
-    //         </div>
-    // );
+    if (isLoadingE || isLoadingT || isLoadingW)
+        return (
+            <div className="h-screen w-full justify-center items-center flex ">
+                <Spinner />
+            </div>
+    );
     return (
         <>
             <div className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} mt-12 ml-7 flex-wrap`}>

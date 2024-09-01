@@ -1,3 +1,7 @@
+"use client"
+import { RootState } from "@/GlobalRedux/store";
+import { useSelector } from "react-redux";
+
 type PaginationProps = {
   totalPages: number;
   currentPage: number;
@@ -14,6 +18,7 @@ const Pagination: React.FC<PaginationProps> = ({
   totalPages,
 }) => {
   const numOfPages = totalPages;
+  const currentLanguage = useSelector((state: RootState) => state.language.language);
 
   const prevPage = () => {
     let prevPage = currentPage - 1;
@@ -124,7 +129,13 @@ const Pagination: React.FC<PaginationProps> = ({
     >
       <div style={{ display: "flex", alignItems: "center", gap: "1rem" }} className="font-semibold">
         <label htmlFor="elementsPerPage" style={{ fontSize: "14px" }}>
-          Show
+        {currentLanguage === "en"
+    ? "Show"
+    : currentLanguage === "ar"
+    ? "عرض"
+    : currentLanguage === "fr"
+    ? "Afficher"
+    : "Show"}
         </label>
         <select
           id="elementsPerPage"
@@ -143,7 +154,13 @@ const Pagination: React.FC<PaginationProps> = ({
           ))}
         </select>
         <label htmlFor="elementsPerPage" style={{ fontSize: "14px" }}>
-          Rows
+        {currentLanguage === "en"
+    ? "Rows"
+    : currentLanguage === "ar"
+    ? "الصفوف"
+    : currentLanguage === "fr"
+    ? "Lignes"
+    : "Rows"}
         </label>
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
