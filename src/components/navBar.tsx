@@ -204,39 +204,87 @@ const NavBar = () => {
                   </DropdownMenu.Root>
 
                   <div className="hs-dropdown [--placement:bottom-right] relative inline-flex">
-                    <button onClick={toggleProfile} id="hs-dropdown-with-header" type="button" className="w-[2.375rem] h-[2.375rem] inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none">
-                      {
-                        userLoading ? <p>........</p> :
-                          <div>
-                            {
-                              !userData?.data.hasPicture ?
-                                <img className="inline-block size-[38px] rounded-full ring-2 ring-white" src="/images/userr.png" alt="Image Description" /> :
-                                <img className="inline-block size-[38px] rounded-full ring-2 ring-white" src={userData?.data.picture} alt="Image Description" />
-                            }
-                          </div>
-                      }
-                    </button>
+                  
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger asChild>
+        <button
+          onClick={toggleProfile}
+          id="hs-dropdown-with-header"
+          type="button"
+          className="w-[2.375rem] h-[2.375rem] outline-none inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
+        >
+          {userLoading ? (
+            <p>........</p>
+          ) : (
+            <div>
+              {!userData?.data.hasPicture ? (
+                <img
+                  className="inline-block w-[38px] h-[38px] rounded-full ring-2 ring-white"
+                  src="/images/userr.png"
+                  alt="User Avatar"
+                />
+              ) : (
+                <img
+                  className="inline-block w-[38px] h-[38px] rounded-full ring-2 ring-white"
+                  src={userData?.data.picture}
+                  alt="User Avatar"
+                />
+              )}
+            </div>
+          )}
+        </button>
+      </DropdownMenu.Trigger>
 
-                    {
-                      profile && (
-                        <div className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 fixed  right-[40px] top-[80px] min-w-60 bg-white shadow-md rounded-lg p-2" aria-labelledby="hs-dropdown-with-header">
-                          <div className="py-3 px-5 -m-2 bg-gray-100 rounded-t-lg">
-                            <p className="text-sm text-gray-500">Signed in as</p>
-                            <p className="text-sm font-medium text-gray-800">{userData?.data.email}</p>
-                          </div>
-                          <div className="mt-2 py-2 first:pt-0 last:pb-0">
-                            <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" href="/profile">
-                              <svg className="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
-                              Profile
-                            </Link>
-                            <Link onClick={DeleteCookie} className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:text-white hover:bg-red-500 focus:ring-2 focus:ring-blue-500" href="/login">
-                              Sign out
-                            </Link>
-                          </div>
-                        </div>
-
-                      )
-                    }
+      {profile && (
+        <DropdownMenu.Content
+          className="fixed right-[20px] top-[20px] min-w-60 bg-white shadow-md rounded-lg p-2"
+          aria-labelledby="hs-dropdown-with-header"
+          align="end"
+          sideOffset={5}
+        >
+          <div className="py-3 px-5 bg-gray-100 rounded-t-lg">
+            <p className="text-sm text-gray-500">Signed in as</p>
+            <p className="text-sm font-medium text-gray-800">{userData?.data.email}</p>
+          </div>
+          <div className="mt-2 py-2">
+            <DropdownMenu.Item asChild>
+              <Link
+                className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm outline-none border-none text-gray-800 hover:bg-gray-100  "
+                href="/profile"
+              >
+                <svg
+                  className="flex-shrink-0 w-4 h-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+                Profile
+              </Link>
+            </DropdownMenu.Item>
+            <DropdownMenu.Item asChild>
+              <a
+                onClick={DeleteCookie}
+                className="flex items-center gap-x-3.5 py-2 px-3 outline-none border-none rounded-lg text-sm text-gray-800 hover:text-white hover:bg-red-500  "
+                href="/login"
+              >
+                Sign out
+              </a>
+            </DropdownMenu.Item>
+          </div>
+        </DropdownMenu.Content>
+      )}
+    </DropdownMenu.Root>
                   </div>
                 </div>
 
