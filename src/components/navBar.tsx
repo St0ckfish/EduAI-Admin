@@ -446,7 +446,7 @@ const NavBar = () => {
                     />
                   ) : (
                     <img
-                      className="w-[150px] -translate-x-7"
+                      className="w-[150px] -translate-x-7 translate-y-3"
                       src="/images/logo.png"
                       alt="Logo"
                     />
@@ -461,11 +461,23 @@ const NavBar = () => {
                       dispatch(toggle());
                     }}
                   >
-                    <img
-                      className="scale-[1.4]"
-                      src="/images/nav.png"
-                      alt="Logo"
-                    />
+                    <svg
+                      className="h-8 w-8 text-[#556786]"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      strokeWidth="2"
+                      stroke="currentColor"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      {" "}
+                      <path stroke="none" d="M0 0h24v24H0z" />{" "}
+                      <line x1="4" y1="6" x2="20" y2="6" />{" "}
+                      <line x1="4" y1="12" x2="20" y2="12" />{" "}
+                      <line x1="4" y1="18" x2="20" y2="18" />
+                    </svg>
                   </button>
                 )}
               </div>
@@ -485,7 +497,21 @@ const NavBar = () => {
                           dispatch(toggle());
                         }}
                       >
-                        <img src="/images/arrow.png" alt="Logo" />
+                        <svg
+                          className="h-6 w-6 text-[#556786]"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          strokeWidth="2"
+                          stroke="currentColor"
+                          fill="none"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          {" "}
+                          <path stroke="none" d="M0 0h24v24H0z" />{" "}
+                          <polyline points="9 6 15 12 9 18" />
+                        </svg>
                       </button>
                     )}
                   </div>

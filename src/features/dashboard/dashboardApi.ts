@@ -63,6 +63,10 @@ export const dashboardApi = createApi({
       query: () => "/api/v1/dashboard/employees-attendance",
     }),
     //
+    getEventsInMonth: builder.query({
+      query: () => "/api/v1/dashboard/month-event-count",
+    }),
+    //
     getWorkerAttendence: builder.query({
       query: () => "/api/v1/dashboard/workers-attendance",
     }),
@@ -76,6 +80,7 @@ export const {
   useGetAllWorkersQuery,
   useGetAllStudentsQuery,
   useGetAllTeachersQuery,
+  useGetEventsInMonthQuery,
   useGetAllCountrysQuery,
   useGetTeacherAttendenceQuery,
   useGetEmployeeAttendenceQuery,

@@ -109,7 +109,7 @@ const DocumentManagement = () => {
           : currentLanguage === "ar"
             ? "بعض المعلومات حول بطاقات الهوية، السجلات الطبية، السجلات التأديبية، وثائق المساعدة المالية، الوثائق القانونية"
             : currentLanguage === "fr"
-              ? "Quelques informations sur les cartes d'identité, les dossiers médicaux, les dossiers disciplinaires, les documents d'aide financière, les documents légaux"
+              ? "Quelques informations sur les cartes d'identité, les dossiers médicaux, les dossiers disciplinaires, les documents d'aide financière"
               : "Some information about ID Cards, Medical Records, Disciplinary Records, Financial Aid Documents, Legal Documents", // Default to English
     },
   ];

@@ -384,7 +384,13 @@ const ArchiveDriver = () => {
           </table>
           {(data?.data.content.length == 0 || data == null) && (
             <div className="flex w-full justify-center py-3 text-center text-[18px] font-semibold">
-              There is No Data
+              {currentLanguage === "en"
+                ? "There is No Data"
+                : currentLanguage === "ar"
+                  ? "لا توجد بيانات"
+                  : currentLanguage === "fr"
+                    ? "Il n'y a pas de données"
+                    : "There is No Data"}
             </div>
           )}
         </div>

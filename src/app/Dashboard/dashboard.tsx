@@ -11,6 +11,7 @@ import {
   useGetAllWorkersQuery,
   useGetAllNoticesQuery,
   useGetAllCurrentUserQuery,
+  useGetEventsInMonthQuery,
 } from "@/features/dashboard/dashboardApi";
 import Spinner from "@/components/spinner";
 import Cookie from "js-cookie";
@@ -29,6 +30,11 @@ const Dashboard: React.FC = () => {
 
   const router = useRouter();
 
+  const {
+    data: events,
+    error: err0,
+    isLoading: isEvents,
+  } = useGetEventsInMonthQuery(null);
   const {
     data: students,
     error: err1,
@@ -114,7 +120,7 @@ const Dashboard: React.FC = () => {
     },
   });
 
-  if (isStudents || isEmployee || isWorker || isTeacher)
+  if (isStudents || isEmployee || isWorker || isTeacher || isEvents)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -147,7 +153,16 @@ const Dashboard: React.FC = () => {
           </div>
           <div className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-white p-2 shadow-xl max-[576px]:h-[100px]">
             <p className="text-[12px] text-gray-400">Events</p>
-            <h1 className="text-[17px] font-semibold">⏰ in this month</h1>
+            <h1 className="text-[17px] font-semibold">
+              {events?.data}⏰{" "}
+              {currentLanguage === "en"
+                ? "in this month"
+                : currentLanguage === "ar"
+                  ? "هذا الشهر"
+                  : currentLanguage === "fr"
+                    ? "ce mois-ci"
+                    : "in this month"}
+            </h1>
             {/* <h1 className="text-gray-400 text-[12px]"> <span className="text-green-500 font-semibold">4.63%</span> vs. last Year</h1> */}
           </div>
         </div>
@@ -159,7 +174,16 @@ const Dashboard: React.FC = () => {
             id="chart"
             className="w-[850px] overflow-x-auto rounded-xl bg-white p-2 shadow-xl"
           >
-            <p className="text-[18px] font-semibold">School Finace</p>
+            <p className="text-[18px] font-semibold">
+              {" "}
+              {currentLanguage === "en"
+                ? "School Finance"
+                : currentLanguage === "ar"
+                  ? "مالية المدرسة"
+                  : currentLanguage === "fr"
+                    ? "Finance de l'école"
+                    : "School Finance"}
+            </p>
             <ReactApexChart
               options={options}
               series={series}

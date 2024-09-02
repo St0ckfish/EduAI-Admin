@@ -2,12 +2,19 @@
 "use client";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { useGetAllInvoicesQuery } from "@/features/Financial/feesApi";
+import {
+  useDeleteInvoicesMutation,
+  useGetAllInvoicesQuery,
+} from "@/features/Financial/feesApi";
 import Spinner from "@/components/spinner";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const FeesManagement = () => {
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const [selectAll, setSelectAll] = useState(false);
   const { data, error, isLoading, refetch } = useGetAllInvoicesQuery(null);
   useEffect(() => {
@@ -57,6 +64,20 @@ const FeesManagement = () => {
       });
     };
   }, []);
+
+  const [deleteInvoice] = useDeleteInvoicesMutation();
+
+  const handleDelete = async (id: number) => {
+    console.log(id);
+    try {
+      await deleteInvoice(id).unwrap();
+
+      toast.success(`Bus with ID ${id} Deleted successfully`);
+      void refetch();
+    } catch (err) {
+      toast.error("Failed to Delete the Bus");
+    }
+  };
   const formatTransactionDate = (dateString: string | number | Date) => {
     if (!dateString) return "No transaction date";
     const formatter = new Intl.DateTimeFormat("en-EG", {
@@ -78,45 +99,70 @@ const FeesManagement = () => {
 
   return (
     <>
-      <div className="ml-7 mt-12 flex flex-wrap items-center gap-1 text-[18px] max-[550px]:text-[15px] lg:ml-[290px]">
+      <div
+        className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} ml-7 mt-12 flex-wrap text-[18px] max-[550px]:text-[15px]`}
+      >
         <Link
           className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
           href="/"
         >
-          Administration
+          {currentLanguage === "en"
+            ? "Administration"
+            : currentLanguage === "ar"
+              ? "الإدارة"
+              : currentLanguage === "fr"
+                ? "Administration"
+                : "Administration"}{" "}
+          {/* Default to English */}
         </Link>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
           viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)", transform: "", msFilter: "" }}
+          style={{ fill: "rgba(82, 100, 132, 1)" }}
         >
-          <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
+          <path d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
         </svg>
         <Link
           className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
           href="/financial-management"
         >
-          Financial Management
+          {currentLanguage === "en"
+            ? "Financial Management"
+            : currentLanguage === "ar"
+              ? "الإدارة المالية"
+              : currentLanguage === "fr"
+                ? "Gestion Financière"
+                : "Financial Management"}{" "}
+          {/* Default to English */}
         </Link>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
           viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)", transform: "", msFilter: "" }}
+          style={{ fill: "rgba(82, 100, 132, 1)" }}
         >
-          <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
+          <path d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
         </svg>
         <Link
           className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
           href="/fees-management"
         >
-          Fees Management
+          {currentLanguage === "en"
+            ? "Fees Management"
+            : currentLanguage === "ar"
+              ? "إدارة الرسوم"
+              : currentLanguage === "fr"
+                ? "Gestion des Frais"
+                : "Fees Management"}{" "}
+          {/* Default to English */}
         </Link>
       </div>
-      <div className="relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg lg:ml-[270px]">
+      <div
+        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
+      >
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">
             <label htmlFor="icon" className="sr-only">
@@ -141,6 +187,7 @@ const FeesManagement = () => {
                 </svg>
               </div>
               <input
+                onChange={e => setSearch(e.target.value)}
                 type="text"
                 id="icon"
                 name="icon"
@@ -151,10 +198,17 @@ const FeesManagement = () => {
           </div>
           <div className="flex justify-center">
             <Link
-              href="/"
-              className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+              href="/fees-management/new-invoice"
+              className="mb-5 mr-3 whitespace-nowrap rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
             >
-              + Add Invoices
+              {currentLanguage === "en"
+                ? "+ Add Invoices"
+                : currentLanguage === "ar"
+                  ? "+ إضافة الفواتير"
+                  : currentLanguage === "fr"
+                    ? "+ Ajouter des factures"
+                    : "+ Add Invoices"}{" "}
+              {/* Default to English */}
             </Link>
           </div>
         </div>
@@ -163,9 +217,25 @@ const FeesManagement = () => {
             href="/financial-management"
             className="text-blue-500 underline"
           >
-            Invoices
+            {currentLanguage === "en"
+              ? "Invoices"
+              : currentLanguage === "ar"
+                ? "الفواتير"
+                : currentLanguage === "fr"
+                  ? "Factures"
+                  : "Invoices"}{" "}
+            {/* Default to English */}
           </Link>
-          <Link href="/fees-management/scholarship">Scholarship</Link>
+          <Link href="/fees-management/scholarship">
+            {currentLanguage === "en"
+              ? "Scholarship"
+              : currentLanguage === "ar"
+                ? "منحة دراسية"
+                : currentLanguage === "fr"
+                  ? "Bourse d'études"
+                  : "Scholarship"}{" "}
+            {/* Default to English */}
+          </Link>
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
           <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
@@ -182,25 +252,74 @@ const FeesManagement = () => {
                   </div>
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Name
+                  {currentLanguage === "en"
+                    ? "Name"
+                    : currentLanguage === "ar"
+                      ? "الاسم"
+                      : currentLanguage === "fr"
+                        ? "Nom"
+                        : "Name"}{" "}
+                  {/* Default to English */}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Paid Amount
+                  {currentLanguage === "en"
+                    ? "Paid Amount"
+                    : currentLanguage === "ar"
+                      ? "المبلغ المدفوع"
+                      : currentLanguage === "fr"
+                        ? "Montant Payé"
+                        : "Paid Amount"}{" "}
+                  {/* Default to English */}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  total Fees Amount
+                  {currentLanguage === "en"
+                    ? "Total Fees Amount"
+                    : currentLanguage === "ar"
+                      ? "إجمالي مبلغ الرسوم"
+                      : currentLanguage === "fr"
+                        ? "Montant Total des Frais"
+                        : "Total Fees Amount"}{" "}
+                  {/* Default to English */}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Invoice Date
+                  {currentLanguage === "en"
+                    ? "Invoice Date"
+                    : currentLanguage === "ar"
+                      ? "تاريخ الفاتورة"
+                      : currentLanguage === "fr"
+                        ? "Date de la Facture"
+                        : "Invoice Date"}{" "}
+                  {/* Default to English */}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Status
+                  {currentLanguage === "en"
+                    ? "Status"
+                    : currentLanguage === "ar"
+                      ? "الحالة"
+                      : currentLanguage === "fr"
+                        ? "Statut"
+                        : "Status"}{" "}
+                  {/* Default to English */}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  discount
+                  {currentLanguage === "en"
+                    ? "Discount"
+                    : currentLanguage === "ar"
+                      ? "الخصم"
+                      : currentLanguage === "fr"
+                        ? "Réduction"
+                        : "Discount"}{" "}
+                  {/* Default to English */}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  action
+                  {currentLanguage === "en"
+                    ? "Action"
+                    : currentLanguage === "ar"
+                      ? "الإجراء"
+                      : currentLanguage === "fr"
+                        ? "Action"
+                        : "Action"}{" "}
+                  {/* Default to English */}
                 </th>
               </tr>
             </thead>
@@ -209,7 +328,7 @@ const FeesManagement = () => {
                 .filter((invoice: Invoice) => {
                   return search.toLocaleLowerCase() === ""
                     ? invoice
-                    : invoice.name.toLocaleLowerCase().includes(search);
+                    : invoice.billedToName.toLocaleLowerCase().includes(search);
                 })
                 .map((invoice: Invoice, index: number) => (
                   <tr
@@ -260,7 +379,9 @@ const FeesManagement = () => {
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
                       <div className="flex items-center gap-3">
-                        <button>
+                        <button
+                          onClick={() => handleDelete(invoice.billedToId)}
+                        >
                           <svg
                             className="h-6 w-6 text-red-500"
                             fill="none"
@@ -307,7 +428,13 @@ const FeesManagement = () => {
           </table>
           {(data?.data.content.length == 0 || data == null) && (
             <div className="flex w-full justify-center py-3 text-center text-[18px] font-semibold">
-              There is No Data
+              {currentLanguage === "en"
+                ? "There is No Data"
+                : currentLanguage === "ar"
+                  ? "لا توجد بيانات"
+                  : currentLanguage === "fr"
+                    ? "Il n'y a pas de données"
+                    : "There is No Data"}
             </div>
           )}
         </div>

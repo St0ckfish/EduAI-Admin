@@ -13,6 +13,10 @@ import { toast } from "react-toastify";
 import Pagination from "@/components/pagination";
 
 const Student = () => {
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
+
   const [selectAll, setSelectAll] = useState(false);
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
@@ -204,28 +208,76 @@ const Student = () => {
                   </div>
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Name
+                  {currentLanguage === "en"
+                    ? "Name"
+                    : currentLanguage === "ar"
+                      ? "الاسم"
+                      : currentLanguage === "fr"
+                        ? "Nom"
+                        : "Name"}{" "}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  id
+                  {currentLanguage === "en"
+                    ? "ID"
+                    : currentLanguage === "ar"
+                      ? "الرقم"
+                      : currentLanguage === "fr"
+                        ? "Identifiant"
+                        : "ID"}{" "}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Gender
+                  {currentLanguage === "en"
+                    ? "Gender"
+                    : currentLanguage === "ar"
+                      ? "الجنس"
+                      : currentLanguage === "fr"
+                        ? "Genre"
+                        : "Gender"}{" "}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Nationality
+                  {currentLanguage === "en"
+                    ? "Nationality"
+                    : currentLanguage === "ar"
+                      ? "الجنسية"
+                      : currentLanguage === "fr"
+                        ? "Nationalité"
+                        : "Nationality"}{" "}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Email
+                  {currentLanguage === "en"
+                    ? "Email"
+                    : currentLanguage === "ar"
+                      ? "البريد الإلكتروني"
+                      : currentLanguage === "fr"
+                        ? "Courriel"
+                        : "Email"}{" "}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Mobile
+                  {currentLanguage === "en"
+                    ? "Mobile"
+                    : currentLanguage === "ar"
+                      ? "الجوال"
+                      : currentLanguage === "fr"
+                        ? "Mobile"
+                        : "Mobile"}{" "}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  view
+                  {currentLanguage === "en"
+                    ? "View"
+                    : currentLanguage === "ar"
+                      ? "عرض"
+                      : currentLanguage === "fr"
+                        ? "Voir"
+                        : "View"}{" "}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Action
+                  {currentLanguage === "en"
+                    ? "Action"
+                    : currentLanguage === "ar"
+                      ? "الإجراء"
+                      : currentLanguage === "fr"
+                        ? "Action"
+                        : "Action"}{" "}
                 </th>
               </tr>
             </thead>
@@ -308,7 +360,13 @@ const Student = () => {
           </table>
           {(data?.data.content.length == 0 || data == null) && (
             <div className="flex w-full justify-center py-3 text-center text-[18px] font-semibold">
-              There is No Data
+              {currentLanguage === "en"
+                ? "There is No Data"
+                : currentLanguage === "ar"
+                  ? "لا توجد بيانات"
+                  : currentLanguage === "fr"
+                    ? "Il n'y a pas de données"
+                    : "There is No Data"}
             </div>
           )}
         </div>

@@ -1,24 +1,26 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
+import { RootState } from "@/GlobalRedux/store";
 import Link from "next/link";
-import { useState, useEffect } from "react"; // Import useState and useEffect hooks
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const Scholarship = () => {
-  const [selectAll, setSelectAll] = useState(false); // State to track whether select all checkbox is checked
-
-  // Function to handle click on select all checkbox
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
+  const [selectAll, setSelectAll] = useState(false);
   const handleSelectAll = () => {
-    setSelectAll(!selectAll); // Toggle select all state
+    setSelectAll(!selectAll);
     const checkboxes = document.querySelectorAll<HTMLInputElement>(
       'input[type="checkbox"]:not(#checkbox-all-search)',
-    ); // Select all checkboxes except select all checkbox
+    );
     checkboxes.forEach(checkbox => {
-      checkbox.checked = !selectAll; // Set checked state of each checkbox based on select all state
+      checkbox.checked = !selectAll;
     });
   };
 
   useEffect(() => {
-    // Function to handle click on other checkboxes
     const handleOtherCheckboxes = () => {
       const allCheckboxes = document.querySelectorAll<HTMLInputElement>(
         'input[type="checkbox"]:not(#checkbox-all-search)',
@@ -34,8 +36,6 @@ const Scholarship = () => {
         setSelectAll(allChecked);
       }
     };
-
-    // Add event listeners to other checkboxes
     const otherCheckboxes = document.querySelectorAll<HTMLInputElement>(
       'input[type="checkbox"]:not(#checkbox-all-search)',
     );
@@ -44,7 +44,6 @@ const Scholarship = () => {
     });
 
     return () => {
-      // Remove event listeners when component unmounts
       otherCheckboxes.forEach(checkbox => {
         checkbox.removeEventListener("change", handleOtherCheckboxes);
       });
@@ -58,52 +57,80 @@ const Scholarship = () => {
           className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
           href="/"
         >
-          Administration
+          {currentLanguage === "en"
+            ? "Administration"
+            : currentLanguage === "ar"
+              ? "الإدارة"
+              : currentLanguage === "fr"
+                ? "Administration"
+                : "Administration"}{" "}
+          {/* Default to English */}
         </Link>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
           viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)", transform: "", msFilter: "" }}
+          style={{ fill: "rgba(82, 100, 132, 1)" }}
         >
-          <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
+          <path d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
         </svg>
         <Link
           className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
           href="/financial-management"
         >
-          Financial Management
+          {currentLanguage === "en"
+            ? "Financial Management"
+            : currentLanguage === "ar"
+              ? "الإدارة المالية"
+              : currentLanguage === "fr"
+                ? "Gestion Financière"
+                : "Financial Management"}{" "}
+          {/* Default to English */}
         </Link>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
           viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)", transform: "", msFilter: "" }}
+          style={{ fill: "rgba(82, 100, 132, 1)" }}
         >
-          <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
+          <path d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
         </svg>
         <Link
           className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
           href="/fees-management"
         >
-          Fees Management
+          {currentLanguage === "en"
+            ? "Fees Management"
+            : currentLanguage === "ar"
+              ? "إدارة الرسوم"
+              : currentLanguage === "fr"
+                ? "Gestion des Frais"
+                : "Fees Management"}{" "}
+          {/* Default to English */}
         </Link>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
           viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)", transform: "", msFilter: "" }}
+          style={{ fill: "rgba(82, 100, 132, 1)" }}
         >
-          <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
+          <path d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
         </svg>
         <Link
           className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
           href="/scholarship"
         >
-          Scholarship
+          {currentLanguage === "en"
+            ? "Scholarship"
+            : currentLanguage === "ar"
+              ? "منحة دراسية"
+              : currentLanguage === "fr"
+                ? "Bourse d'études"
+                : "Scholarship"}{" "}
+          {/* Default to English */}
         </Link>
       </div>
       <div className="relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg lg:ml-[270px]">

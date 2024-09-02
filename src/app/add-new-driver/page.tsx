@@ -14,6 +14,9 @@ import { RootState } from "@/GlobalRedux/store";
 
 const AddNewDriver = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
 
   const { data: nationalityData, isLoading: nationalityLoading } =
     useGetAllNationalitysQuery(null);
@@ -52,52 +55,80 @@ const AddNewDriver = () => {
           className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
           href="/"
         >
-          Administration
+          {currentLanguage === "en"
+            ? "Administration"
+            : currentLanguage === "ar"
+              ? "الإدارة"
+              : currentLanguage === "fr"
+                ? "Administration"
+                : "Administration"}{" "}
+          {/* Default to English */}
         </Link>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
           viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)", transform: "", msFilter: "" }}
+          style={{ fill: "rgba(82, 100, 132, 1)" }}
         >
-          <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
+          <path d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
         </svg>
         <Link
           className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
           href="/user-management"
         >
-          User Management
+          {currentLanguage === "en"
+            ? "User Management"
+            : currentLanguage === "ar"
+              ? "إدارة المستخدمين"
+              : currentLanguage === "fr"
+                ? "Gestion des utilisateurs"
+                : "User Management"}{" "}
+          {/* Default to English */}
         </Link>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
           viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)", transform: "", msFilter: "" }}
+          style={{ fill: "rgba(82, 100, 132, 1)" }}
         >
-          <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
+          <path d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
         </svg>
         <Link
           className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
           href="/driver"
         >
-          Driver
+          {currentLanguage === "en"
+            ? "Driver"
+            : currentLanguage === "ar"
+              ? "السائق"
+              : currentLanguage === "fr"
+                ? "Chauffeur"
+                : "Driver"}{" "}
+          {/* Default to English */}
         </Link>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
           viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)", transform: "", msFilter: "" }}
+          style={{ fill: "rgba(82, 100, 132, 1)" }}
         >
-          <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
+          <path d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
         </svg>
         <Link
           className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
           href="/add-new-driver"
         >
-          Add Driver
+          {currentLanguage === "en"
+            ? "Add Driver"
+            : currentLanguage === "ar"
+              ? "إضافة سائق"
+              : currentLanguage === "fr"
+                ? "Ajouter un chauffeur"
+                : "Add Driver"}{" "}
+          {/* Default to English */}
         </Link>
       </div>
       <div
