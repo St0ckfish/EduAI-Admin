@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-'use client'
+"use client";
 import DynamicPartition from "@/components/dynamicPartition";
 import { useGetEmployeeByIdQuery } from "@/features/User-Management/employeeApi";
 import EmployeeInfo from "@/components/employeeInfo";
@@ -25,20 +25,24 @@ const ViewEmployee: React.FC<ViewEmployeeProps> = ({ params }) => {
 
   if (isLoading)
     return (
-        <div className="h-screen w-full justify-center items-center flex ">
-            <Spinner />
-        </div>
-);
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
 
   return (
     <>
-      <div className="lg:ml-[290px] grid py-4 ">
+      <div className="grid py-4 lg:ml-[290px]">
         <div className="grid grid-cols-2 gap-7 max-[1342px]:grid-cols-1 max-[1342px]:px-5">
-        <EmployeeInfo data={data}/>
-          <div className="grid gap-10 p-5 rounded-xl bg-white justify-center items-center h-[400px]">
+          <EmployeeInfo data={data} />
+          <div className="grid h-[400px] items-center justify-center gap-10 rounded-xl bg-white p-5">
             <div className="grid justify-start">
-              <h1 className='font-sans text-gray-800 font-semibold'>Available days of absence</h1>
-              <h1 className='font-sans text-gray-400 font-semibold text-[14px]'>14 day in year</h1>
+              <h1 className="font-sans font-semibold text-gray-800">
+                Available days of absence
+              </h1>
+              <h1 className="font-sans text-[14px] font-semibold text-gray-400">
+                14 day in year
+              </h1>
             </div>
             <DynamicPartition percentage={5} />
           </div>
@@ -46,6 +50,6 @@ const ViewEmployee: React.FC<ViewEmployeeProps> = ({ params }) => {
       </div>
     </>
   );
-}
+};
 
 export default ViewEmployee;

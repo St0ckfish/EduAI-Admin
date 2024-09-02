@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useGetParentByIdQuery } from "@/features/User-Management/parentApi";
 import CircleProgress from "@/components/circleProgress";
 import ParentInfo from "@/components/parentInfo";
@@ -11,7 +11,7 @@ interface ViewParentProps {
   };
 }
 
-const ViewParent: React.FC<ViewParentProps> = ({params}) => {
+const ViewParent: React.FC<ViewParentProps> = ({ params }) => {
   const { data, error, isLoading } = useGetParentByIdQuery(params.parentId);
 
   useEffect(() => {
@@ -25,26 +25,26 @@ const ViewParent: React.FC<ViewParentProps> = ({params}) => {
 
   if (isLoading)
     return (
-        <div className="h-screen w-full justify-center items-center flex ">
-            <Spinner />
-        </div>
-);
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
 
   return (
     <>
-      <div className="lg:ml-[290px] grid py-4 ">
+      <div className="grid py-4 lg:ml-[290px]">
         <div className="grid grid-cols-2 gap-7 max-[1342px]:grid-cols-1 max-[1342px]:px-5">
           <ParentInfo data={data} />
-          <div className="grid gap-10 p-5 rounded-xl bg-white justify-center items-center h-[400px]">
-          <div className="flex justify-start">
-            <h1 className='font-sans text-gray-800 font-semibold'>Feed</h1>
-          </div>
-          <CircleProgress percentage={75}/>
+          <div className="grid h-[400px] items-center justify-center gap-10 rounded-xl bg-white p-5">
+            <div className="flex justify-start">
+              <h1 className="font-sans font-semibold text-gray-800">Feed</h1>
+            </div>
+            <CircleProgress percentage={75} />
           </div>
         </div>
       </div>
     </>
   );
-}
+};
 
 export default ViewParent;

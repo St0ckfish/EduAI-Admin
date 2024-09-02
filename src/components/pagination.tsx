@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 
@@ -18,7 +18,9 @@ const Pagination: React.FC<PaginationProps> = ({
   totalPages,
 }) => {
   const numOfPages = totalPages;
-  const currentLanguage = useSelector((state: RootState) => state.language.language);
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
 
   const prevPage = () => {
     let prevPage = currentPage - 1;
@@ -40,7 +42,7 @@ const Pagination: React.FC<PaginationProps> = ({
     activeClass: boolean;
   }) => (
     <button
-    className=" rounded-xl"
+      className="rounded-xl"
       key={pageNum}
       style={{
         padding: "0.75rem 1rem",
@@ -52,7 +54,7 @@ const Pagination: React.FC<PaginationProps> = ({
       }}
       onClick={() => onChangePage(pageNum)}
     >
-      {pageNum+1}
+      {pageNum + 1}
     </button>
   );
 
@@ -125,17 +127,20 @@ const Pagination: React.FC<PaginationProps> = ({
         padding: "0.5rem 1.5rem",
         color: "#1A202C",
       }}
-      className="bg-[#daeafb] mt-4 rounded-lg"
+      className="mt-4 rounded-lg bg-[#daeafb]"
     >
-      <div style={{ display: "flex", alignItems: "center", gap: "1rem" }} className="font-semibold">
+      <div
+        style={{ display: "flex", alignItems: "center", gap: "1rem" }}
+        className="font-semibold"
+      >
         <label htmlFor="elementsPerPage" style={{ fontSize: "14px" }}>
-        {currentLanguage === "en"
-    ? "Show"
-    : currentLanguage === "ar"
-    ? "عرض"
-    : currentLanguage === "fr"
-    ? "Afficher"
-    : "Show"}
+          {currentLanguage === "en"
+            ? "Show"
+            : currentLanguage === "ar"
+              ? "عرض"
+              : currentLanguage === "fr"
+                ? "Afficher"
+                : "Show"}
         </label>
         <select
           id="elementsPerPage"
@@ -154,13 +159,13 @@ const Pagination: React.FC<PaginationProps> = ({
           ))}
         </select>
         <label htmlFor="elementsPerPage" style={{ fontSize: "14px" }}>
-        {currentLanguage === "en"
-    ? "Rows"
-    : currentLanguage === "ar"
-    ? "الصفوف"
-    : currentLanguage === "fr"
-    ? "Lignes"
-    : "Rows"}
+          {currentLanguage === "en"
+            ? "Rows"
+            : currentLanguage === "ar"
+              ? "الصفوف"
+              : currentLanguage === "fr"
+                ? "Lignes"
+                : "Rows"}
         </label>
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
@@ -171,34 +176,34 @@ const Pagination: React.FC<PaginationProps> = ({
             cursor: "pointer",
           }}
           onClick={prevPage}
-          className="px-3 py-2 rounded-lg bg-white"
+          className="rounded-lg bg-white px-3 py-2"
         >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M15 18L9 12L15 6"
-                stroke="#0077cc"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M15 18L9 12L15 6"
+              stroke="#0077cc"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </button>
         {renderPageButton()}
 
         <button
           style={{
-            visibility: currentPage === numOfPages-1 ? "hidden" : "visible",
+            visibility: currentPage === numOfPages - 1 ? "hidden" : "visible",
             border: "none",
             cursor: "pointer",
           }}
           onClick={nextPage}
-          className="px-3 py-2 rounded-lg bg-white"
+          className="rounded-lg bg-white px-3 py-2"
         >
           <svg
             width="24"

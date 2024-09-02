@@ -1,9 +1,5 @@
 const Camera = () => {
-    return ( 
-        <>
-            Camera page
-        </>
-    );
-}
- 
+  return <>Camera page</>;
+};
+
 export default Camera;

@@ -1,7 +1,5 @@
 const Annual = () => {
-    return ( 
-        <></>
-     );
-}
- 
+  return <></>;
+};
+
 export default Annual;

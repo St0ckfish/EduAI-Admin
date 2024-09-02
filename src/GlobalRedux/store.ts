@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import booleanReducer from '@/features/boolyanSlice';
-import languageSlice from '@/features/language/languageSlice';
+import booleanReducer from "@/features/boolyanSlice";
+import languageSlice from "@/features/language/languageSlice";
 import { loginApi } from "../features/loginApi";
-import { employeeApi } from "../features/User-Management/employeeApi"
-import { signupApi } from "../features/signupApi"
+import { employeeApi } from "../features/User-Management/employeeApi";
+import { signupApi } from "../features/signupApi";
 import { teacherApi } from "@/features/User-Management/teacherApi";
 import { driverApi } from "@/features/User-Management/driverApi";
 import { workerApi } from "@/features/User-Management/workerApi";
@@ -64,7 +64,6 @@ export const store = configureStore({
     [studentApi.reducerPath]: studentApi.reducer,
     [achievementApi.reducerPath]: achievementApi.reducer,
     [certificatesApi.reducerPath]: certificatesApi.reducer,
-    
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware()
@@ -95,8 +94,8 @@ export const store = configureStore({
       .concat(semesterApi.middleware)
       .concat(parentApi.middleware)
       .concat(positionApi.middleware)
-      .concat(studentApi.middleware) 
-      .concat(postApi.middleware) 
+      .concat(studentApi.middleware)
+      .concat(postApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

@@ -1,8 +1,5 @@
 const DepartmentId = () => {
-    return ( 
-        <>
-        </>
-     );
-}
- 
+  return <></>;
+};
+
 export default DepartmentId;

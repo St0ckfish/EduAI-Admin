@@ -5,17 +5,22 @@ import "./globals.css";
 import NavBar from "./../components/navBar";
 import { Providers } from "@/GlobalRedux/provider";
 import Notification from "@/components/Notifications";
-import 'react-toastify/dist/ReactToastify.css'
+import "react-toastify/dist/ReactToastify.css";
 import { usePathname } from "next/navigation";
 
 interface RootLayoutProps {
   children: ReactNode;
 }
 
-
 const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
   const pathname = usePathname();
-  const isLoginPage = pathname === "/login" || pathname === "/signup" || pathname === "/new-password" || pathname === "/forget-password" || pathname === "/otp" || pathname === "/choose-account";
+  const isLoginPage =
+    pathname === "/login" ||
+    pathname === "/signup" ||
+    pathname === "/new-password" ||
+    pathname === "/forget-password" ||
+    pathname === "/otp" ||
+    pathname === "/choose-account";
 
   return (
     <html lang="en">
@@ -25,13 +30,11 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
         <link rel="icon" type="image/x-icon" href="/images/Login.png" />
       </head>
       <body>
-
         <Providers>
-        {!isLoginPage && <NavBar /> }
-          <Notification/>
+          {!isLoginPage && <NavBar />}
+          <Notification />
           {children}
         </Providers>
-
       </body>
     </html>
   );

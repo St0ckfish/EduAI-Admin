@@ -1,6 +1,9 @@
 "use client";
 import Spinner from "@/components/spinner";
-import { useGetAllNationalitysQuery, useGetAllReginionIDQuery } from "@/features/signupApi";
+import {
+  useGetAllNationalitysQuery,
+  useGetAllReginionIDQuery,
+} from "@/features/signupApi";
 import {
   useGetDriversQuery,
   useUpdateDriversMutation,
@@ -15,9 +18,8 @@ interface ViewParentProps {
   };
 }
 
-
-const EditParent: React.FC<ViewParentProps>  = ({params}) => {
-    const { data, error, isLoading } = useGetDriversQuery(params.parentId);
+const EditParent: React.FC<ViewParentProps> = ({ params }) => {
+  const { data, error, isLoading } = useGetDriversQuery(params.parentId);
   const [createDriver, { isLoading: isUpdating }] = useUpdateDriversMutation();
   const { data: rigiond } = useGetAllReginionIDQuery(null);
   const { data: nationalityData } = useGetAllNationalitysQuery(null);
@@ -29,15 +31,15 @@ const EditParent: React.FC<ViewParentProps>  = ({params}) => {
   } = useForm();
   useEffect(() => {
     if (data) {
-        setValue("email", data.data.email);
-        setValue("nid", data.data.nid);
-        setValue("about", data.data.about);
-        setValue("number", data.data.number);
-        setValue("salary", data.data.salary);
-        setValue("name_en", data.data.name_en);
-        setValue("name_ar", data.data.name_ar);
-        setValue("name_fr", data.data.name_fr);
-        setValue("positionId", data.data.positionId);
+      setValue("email", data.data.email);
+      setValue("nid", data.data.nid);
+      setValue("about", data.data.about);
+      setValue("number", data.data.number);
+      setValue("salary", data.data.salary);
+      setValue("name_en", data.data.name_en);
+      setValue("name_ar", data.data.name_ar);
+      setValue("name_fr", data.data.name_fr);
+      setValue("positionId", data.data.positionId);
     }
     if (error) {
       console.error("Error:", error);
@@ -49,23 +51,21 @@ const EditParent: React.FC<ViewParentProps>  = ({params}) => {
       await createDriver({ formData: data, id: params.parentId }).unwrap();
       toast.success("Driver Updated successfully");
     } catch (err) {
-      toast.error(
-        "Failed to Update Driver"
-      );
+      toast.error("Failed to Update Driver");
     }
   };
 
   if (isLoading)
     return (
-      <div className="h-screen w-full justify-center items-center flex ">
+      <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
       </div>
     );
   return (
     <>
-      <div className="lg:ml-[270px] mr-[5px] grid justify-center items-center h-[850px]">
+      <div className="mr-[5px] grid h-[850px] items-center justify-center lg:ml-[270px]">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="grid p-10 bg-white rounded-xl items-center justify-center xl:w-[1000px] lg:w-[750px] my-10 gap-5 md:w-[600px] sm:w-[500px]">
+          <div className="my-10 grid items-center justify-center gap-5 rounded-xl bg-white p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:w-[1000px]">
             <div className="flex items-center justify-start gap-2">
               <svg
                 className="h-6 w-6 font-bold text-[#526484] group-hover:text-[#3e5af0]"
@@ -88,20 +88,20 @@ const EditParent: React.FC<ViewParentProps>  = ({params}) => {
                 <line x1="12" y1="14" x2="12" y2="17" />
                 <line x1="16" y1="14" x2="16" y2="17" />
               </svg>
-              <h1 className="text-[22px] font-sans font-semibold">
-              Parent Information
+              <h1 className="font-sans text-[22px] font-semibold">
+                Parent Information
               </h1>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
               <label
                 htmlFor="email"
-                className="grid text-[18px] font-sans font-semibold"
+                className="grid font-sans text-[18px] font-semibold"
               >
                 Email
                 <input
                   id="email"
                   type="email"
-                  className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("email", { required: true })}
                 />
                 {errors.email && (
@@ -110,13 +110,13 @@ const EditParent: React.FC<ViewParentProps>  = ({params}) => {
               </label>
               <label
                 htmlFor="nid"
-                className="grid text-[18px] font-sans font-semibold"
+                className="grid font-sans text-[18px] font-semibold"
               >
                 NID
                 <input
                   id="nid"
                   type="text"
-                  className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("nid", { required: true })}
                 />
                 {errors.nid && (
@@ -125,12 +125,12 @@ const EditParent: React.FC<ViewParentProps>  = ({params}) => {
               </label>
               <label
                 htmlFor="gender"
-                className="grid text-[18px] font-sans font-semibold"
+                className="grid font-sans text-[18px] font-semibold"
               >
                 Gender
                 <select
                   id="gender"
-                  className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("gender", { required: true })}
                 >
                   <option selected value="">
@@ -145,12 +145,12 @@ const EditParent: React.FC<ViewParentProps>  = ({params}) => {
               </label>
               <label
                 htmlFor="religion"
-                className="grid text-[18px] font-sans font-semibold"
+                className="grid font-sans text-[18px] font-semibold"
               >
                 Religion
                 <select
                   id="religion"
-                  className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("religion", { required: true })}
                 >
                   <option selected value="">
@@ -168,13 +168,13 @@ const EditParent: React.FC<ViewParentProps>  = ({params}) => {
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
               <label
                 htmlFor="name_en"
-                className="grid text-[18px] font-sans font-semibold"
+                className="grid font-sans text-[18px] font-semibold"
               >
                 Name (EN)
                 <input
                   id="name_en"
                   type="text"
-                  className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("name_en", { required: true })}
                 />
                 {errors.name_en && (
@@ -183,13 +183,13 @@ const EditParent: React.FC<ViewParentProps>  = ({params}) => {
               </label>
               <label
                 htmlFor="name_en"
-                className="grid text-[18px] font-sans font-semibold"
+                className="grid font-sans text-[18px] font-semibold"
               >
                 Name (AR)
                 <input
                   id="name_ar"
                   type="text"
-                  className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("name_ar", { required: true })}
                 />
                 {errors.name_ar && (
@@ -198,54 +198,96 @@ const EditParent: React.FC<ViewParentProps>  = ({params}) => {
               </label>
               <label
                 htmlFor="name_fr"
-                className="grid text-[18px] font-sans font-semibold"
+                className="grid font-sans text-[18px] font-semibold"
               >
                 Name (FR)
                 <input
                   id="name_fr"
                   type="text"
-                  className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("name_fr", { required: true })}
                 />
                 {errors.name_fr && (
                   <span className="text-red-600">This field is required</span>
                 )}
               </label>
-              <label htmlFor="regionId" className="grid text-[18px] font-sans font-semibold">
-            RegionId
-            <select defaultValue="" id="regionId" {...register("regionId", { required: true })} className={`border ${errors.regionId ? "border-[#d74f41]" : "border-zinc-300"} text-[#000000] text-[18px] outline-none rounded-xl w-[400px] max-[458px]:w-[350px] h-full py-3 px-4 `}>
-                <option selected value="">Select Region Id </option>
-                {rigiond &&
-                    rigiond.data.map((rigion: { id: string | number | readonly string[] | undefined; name: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; }, index: React.Key | null | undefined) => (
-                        <option key={index} value={rigion.id}>
-                            {rigion.name}
-                        </option>
-                    ))
-                }
-            </select>
-              {errors.regionId && <span className="text-red-600">This field is required</span>}
-            </label>
-            <label htmlFor="nationality" className="grid text-[18px] font-sans font-semibold">
-              Your Nationality
-              <select id="nationality" className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]" {...register("nationality", { required: true })}>
-                <option value="">Select Nationality</option>
-                {nationalityData && Object.entries(nationalityData.data).map(([key, value]) => (
-                  <option key={key} value={key}>
-                    {String(value)}
+              <label
+                htmlFor="regionId"
+                className="grid font-sans text-[18px] font-semibold"
+              >
+                RegionId
+                <select
+                  defaultValue=""
+                  id="regionId"
+                  {...register("regionId", { required: true })}
+                  className={`border ${errors.regionId ? "border-[#d74f41]" : "border-zinc-300"} h-full w-[400px] rounded-xl px-4 py-3 text-[18px] text-[#000000] outline-none max-[458px]:w-[350px]`}
+                >
+                  <option selected value="">
+                    Select Region Id{" "}
                   </option>
-                ))}
-              </select>
-              {errors.nationality && <span className="text-red-600">This field is required</span>}
-            </label>
+                  {rigiond &&
+                    rigiond.data.map(
+                      (
+                        rigion: {
+                          id: string | number | readonly string[] | undefined;
+                          name:
+                            | string
+                            | number
+                            | bigint
+                            | boolean
+                            | React.ReactElement<
+                                any,
+                                string | React.JSXElementConstructor<any>
+                              >
+                            | Iterable<React.ReactNode>
+                            | React.ReactPortal
+                            | Promise<React.AwaitedReactNode>
+                            | null
+                            | undefined;
+                        },
+                        index: React.Key | null | undefined,
+                      ) => (
+                        <option key={index} value={rigion.id}>
+                          {rigion.name}
+                        </option>
+                      ),
+                    )}
+                </select>
+                {errors.regionId && (
+                  <span className="text-red-600">This field is required</span>
+                )}
+              </label>
+              <label
+                htmlFor="nationality"
+                className="grid font-sans text-[18px] font-semibold"
+              >
+                Your Nationality
+                <select
+                  id="nationality"
+                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  {...register("nationality", { required: true })}
+                >
+                  <option value="">Select Nationality</option>
+                  {nationalityData &&
+                    Object.entries(nationalityData.data).map(([key, value]) => (
+                      <option key={key} value={key}>
+                        {String(value)}
+                      </option>
+                    ))}
+                </select>
+                {errors.nationality && (
+                  <span className="text-red-600">This field is required</span>
+                )}
+              </label>
               <label
                 htmlFor="about"
-                className="grid text-[18px] font-sans font-semibold"
+                className="grid font-sans text-[18px] font-semibold"
               >
                 About
                 <input
                   id="about"
                   type="text"
-                  className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("about", { required: true })}
                 />
                 {errors.about && (
@@ -254,13 +296,13 @@ const EditParent: React.FC<ViewParentProps>  = ({params}) => {
               </label>
               <label
                 htmlFor="birthDate"
-                className="grid text-[18px] font-sans font-semibold"
+                className="grid font-sans text-[18px] font-semibold"
               >
                 Date Of Birth
                 <input
                   id="birthDate"
                   type="date"
-                  className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("birthDate", { required: true })}
                 />
                 {errors.birthDate && (
@@ -269,14 +311,14 @@ const EditParent: React.FC<ViewParentProps>  = ({params}) => {
               </label>
               <label
                 htmlFor="qualification"
-                className="grid items-center text-[18px] font-sans font-semibold"
+                className="grid items-center font-sans text-[18px] font-semibold"
               >
                 Select Qualification
                 <select
                   defaultValue=""
                   id="qualification"
                   {...register("qualification", { required: true })}
-                  className="w-[400px] h-[55px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]"
+                  className="h-[55px] w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
                 >
                   <option selected value="">
                     Select qualification
@@ -289,7 +331,7 @@ const EditParent: React.FC<ViewParentProps>  = ({params}) => {
                   <option value="DOCTORATE_DEGREE">Doctorate Degree </option>
                 </select>
                 {errors.qualification && (
-                  <span className="text-[#e81123] text-[18px]">
+                  <span className="text-[18px] text-[#e81123]">
                     Qualification is Required
                   </span>
                 )}
@@ -298,13 +340,13 @@ const EditParent: React.FC<ViewParentProps>  = ({params}) => {
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
               <label
                 htmlFor="hireDate"
-                className="grid text-[18px] font-sans font-semibold"
+                className="grid font-sans text-[18px] font-semibold"
               >
                 hireDate
                 <input
                   id="hireDate"
                   type="date"
-                  className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("hireDate", { required: true })}
                 />
                 {errors.hireDate && (
@@ -313,13 +355,13 @@ const EditParent: React.FC<ViewParentProps>  = ({params}) => {
               </label>
               <label
                 htmlFor="number"
-                className="grid text-[18px] font-sans font-semibold"
+                className="grid font-sans text-[18px] font-semibold"
               >
                 Mobile
                 <input
                   id="number"
                   type="text"
-                  className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("number", { required: true })}
                 />
                 {errors.number && (
@@ -328,13 +370,13 @@ const EditParent: React.FC<ViewParentProps>  = ({params}) => {
               </label>
               <label
                 htmlFor="positionId"
-                className="grid text-[18px] font-sans font-semibold"
+                className="grid font-sans text-[18px] font-semibold"
               >
                 Position Id
                 <input
                   id="positionId"
                   type="number"
-                  className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("positionId", { required: true })}
                 />
                 {errors.positionId && (
@@ -343,12 +385,12 @@ const EditParent: React.FC<ViewParentProps>  = ({params}) => {
               </label>
               <label
                 htmlFor="employeeStatus"
-                className="grid text-[18px] font-sans font-semibold"
+                className="grid font-sans text-[18px] font-semibold"
               >
                 Employee Status
                 <select
                   id="employeeStatus"
-                  className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("employeeStatus", { required: true })}
                 >
                   <option selected value="">
@@ -364,12 +406,12 @@ const EditParent: React.FC<ViewParentProps>  = ({params}) => {
               </label>
               <label
                 htmlFor="employeeType"
-                className="grid text-[18px] font-sans font-semibold"
+                className="grid font-sans text-[18px] font-semibold"
               >
                 Employee Type
                 <select
                   id="employeeType"
-                  className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("employeeType", { required: true })}
                 >
                   <option selected value="">
@@ -385,13 +427,13 @@ const EditParent: React.FC<ViewParentProps>  = ({params}) => {
               </label>
               <label
                 htmlFor="salary"
-                className="grid text-[18px] font-sans font-semibold"
+                className="grid font-sans text-[18px] font-semibold"
               >
                 Salary
                 <input
                   id="salary"
                   type="number"
-                  className="w-[400px] py-3 px-4 rounded-xl border border-zinc-300 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("salary", { required: true })}
                 />
                 {errors.salary && (
@@ -400,16 +442,17 @@ const EditParent: React.FC<ViewParentProps>  = ({params}) => {
               </label>
             </div>
             <div className="flex justify-center text-center">
-              {
-                isUpdating ? <Spinner /> :
-              <button
-              disabled={isLoading}
-              type="submit"
-              className="px-4 py-2 rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl text-white text-[18px] w-[180px] ease-in duration-300"
-              >
-                Edit Parent
-              </button>
-              }
+              {isUpdating ? (
+                <Spinner />
+              ) : (
+                <button
+                  disabled={isLoading}
+                  type="submit"
+                  className="w-[180px] rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                >
+                  Edit Parent
+                </button>
+              )}
             </div>
           </div>
         </form>

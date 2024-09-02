@@ -1,110 +1,133 @@
 const SyllabusManagement = () => {
-    return ( 
-        <>
-            <div className="lg:ml-[290px] mt-12 ">
-                <div className="flex justify-between max-[502px]:grid max-[502px]:justify-center text-center w-full px-8">
-                    <div className="mb-3">
-                        <label htmlFor="icon" className="sr-only">Search</label>
-                        <div className="relative min-w-72 md:min-w-80">
-                            <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-4">
-                                <svg className="flex-shrink-0 size-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
-                            </div>
-                            <input type="text" id="icon" name="icon" className="py-2  outline-none border-2 px-4 ps-11 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Search" />
-                        </div>
-                    </div>
-                    <div className="flex justify-center">
-                        <button className="px-4 py-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] hover:bg-[#4a5cc5] hover:shadow-xl mb-5 mr-3 text-white text-[18px] w-[180px] ease-in font-semibold duration-300">6-Jun-2024</button>
-                    </div>
-                </div>
-                <div className="flex h-full w-full justify-center items-center p-5 overflow-hidden">
-                    <div className="grid bg-white rounded-xl h-full w-full">
-                        <div className="w-full bg-[#DCEBFB] flex justify-evenly p-2 pl-8 items-center h-[60px] rounded-t-xl">
-                            <div className="w-full text-start">
-                                <p className="font-semibold">Course Title:</p>
-                            </div>
-                            <div className="w-full text-center">
-                                <p className="font-semibold">Course Number:</p>
-                            </div>
-                        </div>
-                        <div className="pl-8">
-                            <p className="font-semibold">Course Description:</p>
-                        </div>
-                        <div className="overflow-auto">
-                        <div className="overflow-auto relative ">
-                    <table className="w-full overflow-x-auto text-sm text-left rtl:text-right text-gray-500 ">
-                        <thead>
-                            <tr className="bg-white  hover:bg-gray-50 text-black font-semibold">
-                                
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-2 border-[#dcebfb] ">
-                                
-                                </th>
-                                <td className="px-6 py-4 whitespace-nowrap border-2 border-[#dcebfb]">
-                                Educational Delivery Methodologies
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap border-2 border-[#dcebfb]">
-                                Evidence Of Mastery
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap border-2 border-[#dcebfb]">
-                                Comments
-                                </td>
-                            </tr>
-                        </thead>
-                        
-                        <tbody className="text-xs text-gray-700 uppercase bg-[#ebeef2] ">
-                            <tr>
-                                <th scope="col" className="px-6 py-3 whitespace-nowrap border-2 border-[#dcebfb]">
-                                Standard :
-                                </th>
-                                <th scope="col" className="px-6 py-3 whitespace-nowrap border-2 border-[#dcebfb]">
-                                
-                                </th>
-                                <th scope="col" className="px-6 py-3 whitespace-nowrap border-2 border-[#dcebfb]">
-                                
-                                </th>
-                                <th scope="col" className="px-6 py-3 whitespace-nowrap border-2 border-[#dcebfb] ">
-                                
-                                </th>
-                            </tr>
-                        </tbody>
-                        <tbody>
-                            <tr className="bg-white  hover:bg-gray-50">
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-2 border-[#dcebfb]">
-                                Cluster 1 :
-                                </th>
-                                <td className="px-6 py-4 whitespace-nowrap border-2 border-[#dcebfb]">
-                                    
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap border-2 border-[#dcebfb]">
-                                    
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap border-2 border-[#dcebfb]">
-                                    
-                                </td>
-                            </tr>
-                            <tr className="bg-white  hover:bg-gray-50">
-                                
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-2 border-[#dcebfb] ">
-                                Cluster 2 :
-                                </th>
-                                <td className="px-6 py-4 whitespace-nowrap border-2 border-[#dcebfb]">
-                                    
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap border-2 border-[#dcebfb]">
-
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap border-2 border-[#dcebfb]">
-                                    
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                        </div>
-                    </div>
-                </div>
+  return (
+    <>
+      <div className="mt-12 lg:ml-[290px]">
+        <div className="flex w-full justify-between px-8 text-center max-[502px]:grid max-[502px]:justify-center">
+          <div className="mb-3">
+            <label htmlFor="icon" className="sr-only">
+              Search
+            </label>
+            <div className="relative min-w-72 md:min-w-80">
+              <div className="pointer-events-none absolute inset-y-0 start-0 z-20 flex items-center ps-4">
+                <svg
+                  className="size-4 flex-shrink-0 text-gray-400"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="m21 21-4.3-4.3" />
+                </svg>
+              </div>
+              <input
+                type="text"
+                id="icon"
+                name="icon"
+                className="block w-full rounded-lg border-2 border-gray-200 px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
+                placeholder="Search"
+              />
             </div>
-        </>
-     );
-}
- 
+          </div>
+          <div className="flex justify-center">
+            <button className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl">
+              6-Jun-2024
+            </button>
+          </div>
+        </div>
+        <div className="flex h-full w-full items-center justify-center overflow-hidden p-5">
+          <div className="grid h-full w-full rounded-xl bg-white">
+            <div className="flex h-[60px] w-full items-center justify-evenly rounded-t-xl bg-[#DCEBFB] p-2 pl-8">
+              <div className="w-full text-start">
+                <p className="font-semibold">Course Title:</p>
+              </div>
+              <div className="w-full text-center">
+                <p className="font-semibold">Course Number:</p>
+              </div>
+            </div>
+            <div className="pl-8">
+              <p className="font-semibold">Course Description:</p>
+            </div>
+            <div className="overflow-auto">
+              <div className="relative overflow-auto">
+                <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
+                  <thead>
+                    <tr className="bg-white font-semibold text-black hover:bg-gray-50">
+                      <th
+                        scope="row"
+                        className="whitespace-nowrap border-2 border-[#dcebfb] px-6 py-4 font-medium text-gray-900"
+                      ></th>
+                      <td className="whitespace-nowrap border-2 border-[#dcebfb] px-6 py-4">
+                        Educational Delivery Methodologies
+                      </td>
+                      <td className="whitespace-nowrap border-2 border-[#dcebfb] px-6 py-4">
+                        Evidence Of Mastery
+                      </td>
+                      <td className="whitespace-nowrap border-2 border-[#dcebfb] px-6 py-4">
+                        Comments
+                      </td>
+                    </tr>
+                  </thead>
+
+                  <tbody className="bg-[#ebeef2] text-xs uppercase text-gray-700">
+                    <tr>
+                      <th
+                        scope="col"
+                        className="whitespace-nowrap border-2 border-[#dcebfb] px-6 py-3"
+                      >
+                        Standard :
+                      </th>
+                      <th
+                        scope="col"
+                        className="whitespace-nowrap border-2 border-[#dcebfb] px-6 py-3"
+                      ></th>
+                      <th
+                        scope="col"
+                        className="whitespace-nowrap border-2 border-[#dcebfb] px-6 py-3"
+                      ></th>
+                      <th
+                        scope="col"
+                        className="whitespace-nowrap border-2 border-[#dcebfb] px-6 py-3"
+                      ></th>
+                    </tr>
+                  </tbody>
+                  <tbody>
+                    <tr className="bg-white hover:bg-gray-50">
+                      <th
+                        scope="row"
+                        className="whitespace-nowrap border-2 border-[#dcebfb] px-6 py-4 font-medium text-gray-900"
+                      >
+                        Cluster 1 :
+                      </th>
+                      <td className="whitespace-nowrap border-2 border-[#dcebfb] px-6 py-4"></td>
+                      <td className="whitespace-nowrap border-2 border-[#dcebfb] px-6 py-4"></td>
+                      <td className="whitespace-nowrap border-2 border-[#dcebfb] px-6 py-4"></td>
+                    </tr>
+                    <tr className="bg-white hover:bg-gray-50">
+                      <th
+                        scope="row"
+                        className="whitespace-nowrap border-2 border-[#dcebfb] px-6 py-4 font-medium text-gray-900"
+                      >
+                        Cluster 2 :
+                      </th>
+                      <td className="whitespace-nowrap border-2 border-[#dcebfb] px-6 py-4"></td>
+                      <td className="whitespace-nowrap border-2 border-[#dcebfb] px-6 py-4"></td>
+                      <td className="whitespace-nowrap border-2 border-[#dcebfb] px-6 py-4"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
 export default SyllabusManagement;

@@ -1,32 +1,38 @@
 /* eslint-disable @next/next/no-img-element */
-"use client"
+"use client";
 import Link from "next/link";
 import { ReactNode } from "react";
 
 interface CardProps {
-    href: string;
-    imgSrc?: string;
-    icon?: ReactNode;
-    title: string;
-    description: string;
+  href: string;
+  imgSrc?: string;
+  icon?: ReactNode;
+  title: string;
+  description: string;
 }
 
-const Card: React.FC<CardProps> = ({ href, imgSrc, icon, title, description }) => (
-    <div className="w-[250px] h-[250px] bg-white rounded-xl shadow-lg grid justify-center items-end">
-        <Link href={href} className="grid items-center justify-center text-center">
-            <div className="flex justify-center">
-                <div className="bg-[#FAEFEF] rounded-full h-[87px] w-[87px] grid items-center justify-center">
-                    {imgSrc ? <img src={imgSrc} alt={title} /> : icon}
-                </div>
-            </div>
-            <p className="text-[22px] font-semibold mt-2">{title}</p>
-            <div className="flex items-end mt-4 rounded-xl">
-                <div className="flex px-2.5 items-center w-[250px] h-[80px] text-start bg-[#FAEFEF] rounded-b-xl text-[13px] text-[#526484] font-semibold">
-                    <p>{description}</p>
-                </div>
-            </div>
-        </Link>
-    </div>
+const Card: React.FC<CardProps> = ({
+  href,
+  imgSrc,
+  icon,
+  title,
+  description,
+}) => (
+  <div className="grid h-[250px] w-[250px] items-end justify-center rounded-xl bg-white shadow-lg">
+    <Link href={href} className="grid items-center justify-center text-center">
+      <div className="flex justify-center">
+        <div className="grid h-[87px] w-[87px] items-center justify-center rounded-full bg-[#FAEFEF]">
+          {imgSrc ? <img src={imgSrc} alt={title} /> : icon}
+        </div>
+      </div>
+      <p className="mt-2 text-[22px] font-semibold">{title}</p>
+      <div className="mt-4 flex items-end rounded-xl">
+        <div className="flex h-[80px] w-[250px] items-center rounded-b-xl bg-[#FAEFEF] px-2.5 text-start text-[13px] font-semibold text-[#526484]">
+          <p>{description}</p>
+        </div>
+      </div>
+    </Link>
+  </div>
 );
 
 export default Card;

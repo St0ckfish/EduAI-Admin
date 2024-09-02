@@ -1,11 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
-"use client"
+"use client";
 import Link from "next/link";
-import { useState, useEffect, SetStateAction } from 'react';
-import { useDeleteEmployeesMutation, useGetAllEmployeesQuery, useGetEmployeeByIdQuery } from "@/features/User-Management/employeeApi";
+import { useState, useEffect, SetStateAction } from "react";
+import {
+  useDeleteEmployeesMutation,
+  useGetAllEmployeesQuery,
+  useGetEmployeeByIdQuery,
+} from "@/features/User-Management/employeeApi";
 import { useCreateAttendanceMutation } from "@/features/attendance/attendanceApi";
 import Spinner from "@/components/spinner";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import { toast } from "react-toastify";
 import Pagination from "@/components/pagination";
@@ -13,266 +17,348 @@ import EmployeeInfo from "@/components/employeeInfo";
 import Sheet from "@/components/sheet";
 
 const EmployeeAttendance = () => {
-    const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
 
-    const handleOpen = () => setIsSheetOpen(true);
-    const handleClose = () => setIsSheetOpen(false);
-    const booleanValue = useSelector((state: RootState) => state.boolean.value);
+  const handleOpen = () => setIsSheetOpen(true);
+  const handleClose = () => setIsSheetOpen(false);
+  const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
-    type Employee = Record<string, any>;
-    const [search, setSearch] = useState("");
-    const [currentPage, setCurrentPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
-    const { data, error, isLoading, refetch } = useGetAllEmployeesQuery({
-        archived: "false",
-        page: currentPage,
-        size: rowsPerPage
+  type Employee = Record<string, any>;
+  const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const { data, error, isLoading, refetch } = useGetAllEmployeesQuery({
+    archived: "false",
+    page: currentPage,
+    size: rowsPerPage,
+  });
+  const [selectedStates, setSelectedStates] = useState<string[]>([]);
+  const [createAttendance] = useCreateAttendanceMutation();
+
+  const handleSelect = (label: string, index: number, userId: undefined) => {
+    setSelectedStates(prevStates => {
+      const newStates = [...prevStates];
+      newStates[index] = newStates[index] === label ? label : label; // Toggle selection
+      return newStates;
     });
-    const [selectedStates, setSelectedStates] = useState<string[]>([]);
-    const [createAttendance] = useCreateAttendanceMutation();
 
-    const handleSelect = (label: string, index: number, userId: undefined) => {
-        setSelectedStates((prevStates) => {
-            const newStates = [...prevStates];
-            newStates[index] = newStates[index] === label ? label : label; // Toggle selection
-            return newStates;
+    // Check if the "P" button is clicked
+    if (label === "P") {
+      // Prepare attendance data
+      const attendanceData = {
+        userId: userId,
+        status: "PRESENT",
+        absenceReason: null,
+        checkInTime: null,
+        checkOutTime: null,
+      };
+
+      // Send the data using the mutation hook
+      createAttendance(attendanceData)
+        .unwrap()
+        .then(response => {
+          console.log("Attendance recorded:", response);
+        })
+        .catch(error => {
+          console.error("Failed to record attendance:", error);
         });
+    }
+    if (label === "A") {
+      // Prepare attendance data
+      const attendanceData = {
+        userId: userId,
+        status: "ABSENT",
+        absenceReason: null,
+        checkInTime: null,
+        checkOutTime: null,
+      };
 
-        // Check if the "P" button is clicked
-        if (label === 'P') {
-            // Prepare attendance data
-            const attendanceData = {
-                userId: userId,
-                status: 'PRESENT',
-                absenceReason: null,
-                checkInTime: null,
-                checkOutTime: null,
-            };
-
-            // Send the data using the mutation hook
-            createAttendance(attendanceData)
-                .unwrap()
-                .then((response) => {
-                    console.log('Attendance recorded:', response);
-                })
-                .catch((error) => {
-                    console.error('Failed to record attendance:', error);
-                });
-        }
-        if (label === 'A') {
-            // Prepare attendance data
-            const attendanceData = {
-                userId: userId,
-                status: 'ABSENT',
-                absenceReason: null,
-                checkInTime: null,
-                checkOutTime: null,
-            };
-
-            // Send the data using the mutation hook
-            createAttendance(attendanceData)
-                .unwrap()
-                .then((response) => {
-                    console.log('Attendance recorded:', response);
-                })
-                .catch((error) => {
-                    console.error('Failed to record attendance:', error);
-                });
-        }
-        if (label === 'L') {
-            // Prepare attendance data
-            const attendanceData = {
-                userId: userId,
-                status: 'LEAVE',
-                absenceReason: null,
-                checkInTime: null,
-                checkOutTime: null,
-            };
-
-            // Send the data using the mutation hook
-            createAttendance(attendanceData)
-                .unwrap()
-                .then((response) => {
-                    console.log('Attendance recorded:', response);
-                })
-                .catch((error) => {
-                    console.error('Failed to record attendance:', error);
-                });
-        }
-    };
-    const [selectAll, setSelectAll] = useState(false);
-
-    const onPageChange = (page: SetStateAction<number>) => {
-        setCurrentPage(page);
-    };
-    const onElementChange = (ele: SetStateAction<number>) => {
-        setRowsPerPage(ele);
-        setCurrentPage(0);
-    };
-
-    useEffect(() => {
-        if (data) console.log("Response Data:", data);
-        if (error) console.log("Error:", error);
-    }, [data, error]);
-
-    const [deleteEmployees] = useDeleteEmployeesMutation();
-
-    const handleDelete = async (id: string) => {
-        try {
-            await deleteEmployees({
-                id: id,
-                lock: "true"
-            }).unwrap();
-            toast.success(`Employee with ID ${id} Locked successfully`);
-            void refetch();
-        } catch (err) {
-            toast.error("Failed to lock the Employee");
-        }
-    };
-
-    const handleSelectAll = () => {
-        setSelectAll(!selectAll);
-        const checkboxes = document.querySelectorAll<HTMLInputElement>('input[type="checkbox"]:not(#checkbox-all-search)');
-        checkboxes.forEach(checkbox => {
-            checkbox.checked = !selectAll;
+      // Send the data using the mutation hook
+      createAttendance(attendanceData)
+        .unwrap()
+        .then(response => {
+          console.log("Attendance recorded:", response);
+        })
+        .catch(error => {
+          console.error("Failed to record attendance:", error);
         });
-    };
+    }
+    if (label === "L") {
+      // Prepare attendance data
+      const attendanceData = {
+        userId: userId,
+        status: "LEAVE",
+        absenceReason: null,
+        checkInTime: null,
+        checkOutTime: null,
+      };
 
-    useEffect(() => {
-        const handleOtherCheckboxes = () => {
-            const allCheckboxes = document.querySelectorAll<HTMLInputElement>('input[type="checkbox"]:not(#checkbox-all-search)');
-            const allChecked = Array.from(allCheckboxes).every(checkbox => checkbox.checked);
-            const selectAllCheckbox = document.getElementById('checkbox-all-search') as HTMLInputElement | null;
-            if (selectAllCheckbox) {
-                selectAllCheckbox.checked = allChecked;
-                setSelectAll(allChecked);
-            }
-        };
-
-        const otherCheckboxes = document.querySelectorAll<HTMLInputElement>('input[type="checkbox"]:not(#checkbox-all-search)');
-        otherCheckboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', handleOtherCheckboxes);
+      // Send the data using the mutation hook
+      createAttendance(attendanceData)
+        .unwrap()
+        .then(response => {
+          console.log("Attendance recorded:", response);
+        })
+        .catch(error => {
+          console.error("Failed to record attendance:", error);
         });
+    }
+  };
+  const [selectAll, setSelectAll] = useState(false);
 
-        return () => {
-            otherCheckboxes.forEach(checkbox => {
-                checkbox.removeEventListener('change', handleOtherCheckboxes);
-            });
-        };
-    }, []);
+  const onPageChange = (page: SetStateAction<number>) => {
+    setCurrentPage(page);
+  };
+  const onElementChange = (ele: SetStateAction<number>) => {
+    setRowsPerPage(ele);
+    setCurrentPage(0);
+  };
 
-    const [selectedId, setSelectedId] = useState(null);
-    const { data: EmployeeQ, isLoading: isEmployee } = useGetEmployeeByIdQuery(selectedId, {
-        skip: !selectedId,
-    });
-    const handleClick = (id: SetStateAction<null>) => {
-        setSelectedId(id);
-    };
+  useEffect(() => {
+    if (data) console.log("Response Data:", data);
+    if (error) console.log("Error:", error);
+  }, [data, error]);
 
-    if (isLoading)
-        return (
-            <div className="h-screen w-full justify-center items-center flex ">
-                <Spinner />
-            </div>
-        );
+  const [deleteEmployees] = useDeleteEmployeesMutation();
 
-    return (
-        <>
-            <div className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-12 ml-7 text-[18px] max-[550px]:text-[15px]  flex-wrap`}>
-                <Link className="text-[#526484] hover:text-blue-400 hover:underline text-[18px] font-semibold" href="/">Operations</Link>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{ fill: 'rgba(82, 100, 132, 1)', transform: '', msFilter: '' }}><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg>
-                <Link className="text-[#526484] hover:text-blue-400 hover:underline text-[18px] font-semibold" href="/attendances">Attendances</Link>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{ fill: 'rgba(82, 100, 132, 1)', transform: '', msFilter: '' }}><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg>
-                <Link className="text-[#526484] hover:text-blue-400 hover:underline  font-semibold" href="/employee-attendance">Employee</Link>
-            </div>
-            <div className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mr-[5px] relative mt-10 overflow-x-auto bg-transparent sm:rounded-lg h-screen`}>
-                <div className="flex justify-between max-[502px]:grid max-[502px]:justify-center text-center">
-                    <div className="mb-3">
-                        <label htmlFor="icon" className="sr-only">Search</label>
-                        <div className="relative min-w-72 md:min-w-80">
-                            <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-4">
-                                <svg className="flex-shrink-0 size-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
-                            </div>
-                            <input onChange={(e) => setSearch(e.target.value)} type="text" id="icon" name="icon" className="py-2  outline-none border-2 px-4 ps-11 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Search" />
-                        </div>
-                    </div>
-                </div>
-                <div className="flex gap-4 flex-wrap justify-center">
-                {data?.data.content
-                .filter((employee: Employee) => {
-                    return search.toLocaleLowerCase() === '' ? employee : employee.name.toLocaleLowerCase().includes(search);
-                })
-                .map((employee: Employee, index: number) => (
-                    <div key={index} className="grid bg-white rounded-xl shadow-lg justify-center items-center w-[300px] h-[320px]">
-                        <div className="px-6 grid items-center py-4 justify-center gap-2 font-medium text-gray-900 whitespace-nowrap">
-                            <div className="w-[120px] grid justify-center items-center text-center">
-                                <div className="flex justify-center">
-                                    {employee.picture == null ? (
-                                        <img src="/images/userr.png" className="w-[100px] h-[100px] rounded-full" alt="#" />
-                                    ) : (
-                                        <img src={employee.picture} className="w-[100px] h-[100px] rounded-full" alt="#" />
-                                    )}
-                                </div>
-                                <p className="mt-4 text-[22px]"> {employee.name} </p>
-                                <p className="whitespace-nowrap font-semibold text-[#526484]">Employee: {employee.id}</p>
-                            </div>
-                        </div>
-                        <div className="flex gap-4 justify-center items-center text-center">
-                        {['P', 'A', 'L'].map((label) => (
-                                <label
-                                    key={label}
-                                    className={`p-5 w-[55px] h-[55px] text-center rounded-full border flex items-center justify-center text-[24px] font-semibold cursor-pointer
-                                        ${selectedStates[index] === label
-                                            ? label === 'P'
-                                                ? 'bg-green-300 text-white'
-                                                : label === 'A'
-                                                ? 'bg-red-500 text-white'
-                                                : 'bg-yellow-300 text-white'
-                                            : 'bg-white'
-                                        }
-                                    `}
-                                >
-                                    <input
-                                        type="checkbox"
-                                        className="hidden"
-                                        checked={selectedStates[index] === label}
-                                        onChange={() => handleSelect(label, index, employee.id)}
-                                    />
-                                    {label}
-                                </label>
-                            ))}
-                        </div>
-                    </div>
-                ))}
-                    {
-                        (data?.data.content.length == 0 || data == null) && <div className="flex justify-center text-center text-[18px] w-full py-3 font-semibold">There is No Data</div>
-                    }
-                </div>
-                <div className="overflow-auto relative">
-                    <Pagination
-                        totalPages={data?.data.totalPages}
-                        elementsPerPage={rowsPerPage}
-                        onChangeElementsPerPage={onElementChange}
-                        currentPage={currentPage}
-                        onChangePage={onPageChange}
-                    />
-                </div>
-            </div>
-            <Sheet isOpen={isSheetOpen} onClose={handleClose}>
-                {
-                    EmployeeQ && (
-                        <>
-                            <h2 className="text-2xl font-semibold mb-4">Sheet Content</h2>
-                            {
-                                isEmployee ? <Spinner /> :
-                                    <EmployeeInfo data={EmployeeQ} />
-                            }
-                        </>
-                    )
-                }
-            </Sheet>
-        </>
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteEmployees({
+        id: id,
+        lock: "true",
+      }).unwrap();
+      toast.success(`Employee with ID ${id} Locked successfully`);
+      void refetch();
+    } catch (err) {
+      toast.error("Failed to lock the Employee");
+    }
+  };
+
+  const handleSelectAll = () => {
+    setSelectAll(!selectAll);
+    const checkboxes = document.querySelectorAll<HTMLInputElement>(
+      'input[type="checkbox"]:not(#checkbox-all-search)',
     );
-}
+    checkboxes.forEach(checkbox => {
+      checkbox.checked = !selectAll;
+    });
+  };
+
+  useEffect(() => {
+    const handleOtherCheckboxes = () => {
+      const allCheckboxes = document.querySelectorAll<HTMLInputElement>(
+        'input[type="checkbox"]:not(#checkbox-all-search)',
+      );
+      const allChecked = Array.from(allCheckboxes).every(
+        checkbox => checkbox.checked,
+      );
+      const selectAllCheckbox = document.getElementById(
+        "checkbox-all-search",
+      ) as HTMLInputElement | null;
+      if (selectAllCheckbox) {
+        selectAllCheckbox.checked = allChecked;
+        setSelectAll(allChecked);
+      }
+    };
+
+    const otherCheckboxes = document.querySelectorAll<HTMLInputElement>(
+      'input[type="checkbox"]:not(#checkbox-all-search)',
+    );
+    otherCheckboxes.forEach(checkbox => {
+      checkbox.addEventListener("change", handleOtherCheckboxes);
+    });
+
+    return () => {
+      otherCheckboxes.forEach(checkbox => {
+        checkbox.removeEventListener("change", handleOtherCheckboxes);
+      });
+    };
+  }, []);
+
+  const [selectedId, setSelectedId] = useState(null);
+  const { data: EmployeeQ, isLoading: isEmployee } = useGetEmployeeByIdQuery(
+    selectedId,
+    {
+      skip: !selectedId,
+    },
+  );
+  const handleClick = (id: SetStateAction<null>) => {
+    setSelectedId(id);
+  };
+
+  if (isLoading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
+
+  return (
+    <>
+      <div
+        className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} ml-7 mt-12 flex-wrap text-[18px] max-[550px]:text-[15px]`}
+      >
+        <Link
+          className="text-[18px] font-semibold text-[#526484] hover:text-blue-400 hover:underline"
+          href="/"
+        >
+          Operations
+        </Link>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          style={{ fill: "rgba(82, 100, 132, 1)", transform: "", msFilter: "" }}
+        >
+          <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
+        </svg>
+        <Link
+          className="text-[18px] font-semibold text-[#526484] hover:text-blue-400 hover:underline"
+          href="/attendances"
+        >
+          Attendances
+        </Link>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          style={{ fill: "rgba(82, 100, 132, 1)", transform: "", msFilter: "" }}
+        >
+          <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
+        </svg>
+        <Link
+          className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
+          href="/employee-attendance"
+        >
+          Employee
+        </Link>
+      </div>
+      <div
+        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
+      >
+        <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
+          <div className="mb-3">
+            <label htmlFor="icon" className="sr-only">
+              Search
+            </label>
+            <div className="relative min-w-72 md:min-w-80">
+              <div className="pointer-events-none absolute inset-y-0 start-0 z-20 flex items-center ps-4">
+                <svg
+                  className="size-4 flex-shrink-0 text-gray-400"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="m21 21-4.3-4.3" />
+                </svg>
+              </div>
+              <input
+                onChange={e => setSearch(e.target.value)}
+                type="text"
+                id="icon"
+                name="icon"
+                className="block w-full rounded-lg border-2 border-gray-200 px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
+                placeholder="Search"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-wrap justify-center gap-4">
+          {data?.data.content
+            .filter((employee: Employee) => {
+              return search.toLocaleLowerCase() === ""
+                ? employee
+                : employee.name.toLocaleLowerCase().includes(search);
+            })
+            .map((employee: Employee, index: number) => (
+              <div
+                key={index}
+                className="grid h-[320px] w-[300px] items-center justify-center rounded-xl bg-white shadow-lg"
+              >
+                <div className="grid items-center justify-center gap-2 whitespace-nowrap px-6 py-4 font-medium text-gray-900">
+                  <div className="grid w-[120px] items-center justify-center text-center">
+                    <div className="flex justify-center">
+                      {employee.picture == null ? (
+                        <img
+                          src="/images/userr.png"
+                          className="h-[100px] w-[100px] rounded-full"
+                          alt="#"
+                        />
+                      ) : (
+                        <img
+                          src={employee.picture}
+                          className="h-[100px] w-[100px] rounded-full"
+                          alt="#"
+                        />
+                      )}
+                    </div>
+                    <p className="mt-4 text-[22px]"> {employee.name} </p>
+                    <p className="whitespace-nowrap font-semibold text-[#526484]">
+                      Employee: {employee.id}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center justify-center gap-4 text-center">
+                  {["P", "A", "L"].map(label => (
+                    <label
+                      key={label}
+                      className={`flex h-[55px] w-[55px] cursor-pointer items-center justify-center rounded-full border p-5 text-center text-[24px] font-semibold ${
+                        selectedStates[index] === label
+                          ? label === "P"
+                            ? "bg-green-300 text-white"
+                            : label === "A"
+                              ? "bg-red-500 text-white"
+                              : "bg-yellow-300 text-white"
+                          : "bg-white"
+                      } `}
+                    >
+                      <input
+                        type="checkbox"
+                        className="hidden"
+                        checked={selectedStates[index] === label}
+                        onChange={() => handleSelect(label, index, employee.id)}
+                      />
+                      {label}
+                    </label>
+                  ))}
+                </div>
+              </div>
+            ))}
+          {(data?.data.content.length == 0 || data == null) && (
+            <div className="flex w-full justify-center py-3 text-center text-[18px] font-semibold">
+              There is No Data
+            </div>
+          )}
+        </div>
+        <div className="relative overflow-auto">
+          <Pagination
+            totalPages={data?.data.totalPages}
+            elementsPerPage={rowsPerPage}
+            onChangeElementsPerPage={onElementChange}
+            currentPage={currentPage}
+            onChangePage={onPageChange}
+          />
+        </div>
+      </div>
+      <Sheet isOpen={isSheetOpen} onClose={handleClose}>
+        {EmployeeQ && (
+          <>
+            <h2 className="mb-4 text-2xl font-semibold">Sheet Content</h2>
+            {isEmployee ? <Spinner /> : <EmployeeInfo data={EmployeeQ} />}
+          </>
+        )}
+      </Sheet>
+    </>
+  );
+};
 
 export default EmployeeAttendance;

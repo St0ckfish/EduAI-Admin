@@ -1,14 +1,11 @@
 interface EditCourseProps {
-    params: {
-        postId: string;
-    };
+  params: {
+    postId: string;
+  };
 }
 
 const EditCourse = ({ params }: EditCourseProps) => {
-    return ( 
-        <>
-        </>
-     );
-}
- 
+  return <></>;
+};
+
 export default EditCourse;

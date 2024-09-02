@@ -1,27 +1,24 @@
-import { createSlice } from '@reduxjs/toolkit';
-
+import { createSlice } from "@reduxjs/toolkit";
 
 interface BooleanState {
   value: boolean;
 }
 
-
 const initialState: BooleanState = {
   value: false,
 };
 
-
 const booleanSlice = createSlice({
-  name: 'boolean',
+  name: "boolean",
   initialState,
   reducers: {
-    toggle: (state) => {
+    toggle: state => {
       state.value = !state.value;
     },
-    setTrue: (state) => {
+    setTrue: state => {
       state.value = true;
     },
-    setFalse: (state) => {
+    setFalse: state => {
       state.value = false;
     },
   },

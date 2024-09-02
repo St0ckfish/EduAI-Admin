@@ -1,24 +1,22 @@
-"use client"
+"use client";
 /* eslint-disable @next/next/no-img-element */
 import DriverInfo from "@/components/driverInfo";
 import Spinner from "@/components/spinner";
 import { useGetDriverByIdQuery } from "@/features/User-Management/driverApi";
 import { useEffect } from "react";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 
 interface ViewDriverProps {
-    params: {
-        driverId: string;
-    };
-  }
+  params: {
+    driverId: string;
+  };
+}
 
-const ViewDriver : React.FC<ViewDriverProps> = ({ params }) => {
-
+const ViewDriver: React.FC<ViewDriverProps> = ({ params }) => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
-
-    const { data, error, isLoading } = useGetDriverByIdQuery(params.driverId);
+  const { data, error, isLoading } = useGetDriverByIdQuery(params.driverId);
   useEffect(() => {
     if (data) {
       console.log(data);
@@ -30,79 +28,80 @@ const ViewDriver : React.FC<ViewDriverProps> = ({ params }) => {
 
   if (isLoading)
     return (
-        <div className="h-screen w-full justify-center items-center flex ">
-            <Spinner />
-        </div>
-);
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
 
   return (
     <>
-      <div className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} grid py-4 `}>
+      <div
+        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} grid py-4`}
+      >
         <div className="grid grid-cols-2 gap-7 max-[1342px]:grid-cols-1 max-[1342px]:px-5">
           <DriverInfo data={data} />
-          <div className="grid gap-10 p-5 rounded-xl bg-white justify-center items-center h-[400px]">
-          <div className="flex justify-between">
-            <h1 className='font-sans text-gray-800 font-semibold'>Number of student in Bus</h1>
-            <img src="/images/bus 1.png" alt="#" />
-          </div>
-          <div className="rounded-xl bg-white p-5 grid w-[500px] max-[1342px]:w-full">
-                <div className="overflow-auto relative shadow-md sm:rounded-lg">
-                    <table className="w-full overflow-x-auto text-sm text-left rtl:text-right text-gray-500 ">
-                        <thead className="text-xs text-gray-700 uppercase bg-[#daeafb] ">
-                            <tr>
-                                <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                Full Name 
-                                </th>
-                                <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                ID
-                                </th>
-                                <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                Address
-                                </th>
-                                <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                                Status
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr className="bg-white border-b  hover:bg-gray-50">
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                    Nahda
-                                </th>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    C45121
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    This is text
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    kdsk
-                                </td>
-                            </tr>
-                            <tr className="bg-white border-b  hover:bg-gray-50">
-                                
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                    Nahda
-                                </th>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    C45121
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    This is text
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    sdsdd
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+          <div className="grid h-[400px] items-center justify-center gap-10 rounded-xl bg-white p-5">
+            <div className="flex justify-between">
+              <h1 className="font-sans font-semibold text-gray-800">
+                Number of student in Bus
+              </h1>
+              <img src="/images/bus 1.png" alt="#" />
+            </div>
+            <div className="grid w-[500px] rounded-xl bg-white p-5 max-[1342px]:w-full">
+              <div className="relative overflow-auto shadow-md sm:rounded-lg">
+                <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
+                  <thead className="bg-[#daeafb] text-xs uppercase text-gray-700">
+                    <tr>
+                      <th scope="col" className="whitespace-nowrap px-6 py-3">
+                        Full Name
+                      </th>
+                      <th scope="col" className="whitespace-nowrap px-6 py-3">
+                        ID
+                      </th>
+                      <th scope="col" className="whitespace-nowrap px-6 py-3">
+                        Address
+                      </th>
+                      <th scope="col" className="whitespace-nowrap px-6 py-3">
+                        Status
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="border-b bg-white hover:bg-gray-50">
+                      <th
+                        scope="row"
+                        className="whitespace-nowrap px-6 py-4 font-medium text-gray-900"
+                      >
+                        Nahda
+                      </th>
+                      <td className="whitespace-nowrap px-6 py-4">C45121</td>
+                      <td className="whitespace-nowrap px-6 py-4">
+                        This is text
+                      </td>
+                      <td className="whitespace-nowrap px-6 py-4">kdsk</td>
+                    </tr>
+                    <tr className="border-b bg-white hover:bg-gray-50">
+                      <th
+                        scope="row"
+                        className="whitespace-nowrap px-6 py-4 font-medium text-gray-900"
+                      >
+                        Nahda
+                      </th>
+                      <td className="whitespace-nowrap px-6 py-4">C45121</td>
+                      <td className="whitespace-nowrap px-6 py-4">
+                        This is text
+                      </td>
+                      <td className="whitespace-nowrap px-6 py-4">sdsdd</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </>
   );
-}
+};
 
 export default ViewDriver;

@@ -2,6 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 body {
-    background-color: #f5f6fa;
-    display: grid;
+  background-color: #f5f6fa;
+  display: grid;
 }
