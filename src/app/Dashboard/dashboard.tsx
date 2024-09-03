@@ -10,14 +10,15 @@ import {
   useGetAllTeachersQuery,
   useGetAllWorkersQuery,
   useGetAllNoticesQuery,
-  useGetAllCurrentUserQuery,
   useGetEventsInMonthQuery,
 } from "@/features/dashboard/dashboardApi";
+import { format, parseISO } from "date-fns";
 import Spinner from "@/components/spinner";
-import Cookie from "js-cookie";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
+import { useGetAllEventsDashboardQuery } from "@/features/events/eventsApi";
+import Link from "next/link";
 
 const ReactApexChart = dynamic(() => import("react-apexcharts"), {
   ssr: false,
@@ -32,7 +33,6 @@ const Dashboard: React.FC = () => {
 
   const {
     data: events,
-    error: err0,
     isLoading: isEvents,
   } = useGetEventsInMonthQuery(null);
   const {
@@ -55,16 +55,32 @@ const Dashboard: React.FC = () => {
     error: err4,
     isLoading: isWorker,
   } = useGetAllWorkersQuery(null);
+  const {
+    data: mettings,
+    isLoading: isMeeting,
+  } = useGetAllEventsDashboardQuery(null);
   // const { data: notices, isLoading: isNotices } = useGetAllNoticesQuery(null);
 
   useEffect(() => {
-    if (students || employees || teachers || workers) {
+    if (students || employees || teachers || workers || mettings) {
       console.log(teachers);
       console.log(employees);
       console.log(students);
       console.log(workers);
+      console.log(mettings);
     }
-  }, [router, students, employees, teachers, workers, err1, err2, err3, err4]);
+  }, [
+    router,
+    students,
+    employees,
+    teachers,
+    workers,
+    err1,
+    err2,
+    err3,
+    err4,
+    mettings,
+  ]);
 
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -91,7 +107,6 @@ const Dashboard: React.FC = () => {
     chart: {
       height: 350,
       width: 800,
-      //type: 'area' as 'area'
       type: "area" as const,
     },
     colors: ["#f19b78", "#008FFB"],
@@ -120,7 +135,16 @@ const Dashboard: React.FC = () => {
     },
   });
 
-  if (isStudents || isEmployee || isWorker || isTeacher || isEvents)
+  type Meeting = Record<string, any>;
+
+  if (
+    isStudents ||
+    isEmployee ||
+    isWorker ||
+    isTeacher ||
+    isEvents ||
+    isMeeting
+  )
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -134,22 +158,18 @@ const Dashboard: React.FC = () => {
           <div className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-white p-2 shadow-xl max-[576px]:h-[100px]">
             <p className="text-[12px] text-gray-400">{students?.message} </p>
             <h1 className="text-[17px] font-semibold">{students?.data} 🧑‍🎓</h1>
-            {/* <h1 className="text-gray-400 text-[12px]"> <span className="text-green-500 font-semibold">4.63%</span> vs. last Year</h1> */}
           </div>
           <div className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-white p-2 shadow-xl max-[576px]:h-[100px]">
             <p className="text-[12px] text-gray-400">{employees?.message}</p>
             <h1 className="text-[17px] font-semibold">{employees?.data} 👨‍💼</h1>
-            {/* <h1 className="text-gray-400 text-[12px]"> <span className="text-green-500 font-semibold">4.63%</span> vs. last Year</h1> */}
           </div>
           <div className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-white p-2 shadow-xl max-[576px]:h-[100px]">
             <p className="text-[12px] text-gray-400">{teachers?.message}</p>
             <h1 className="text-[17px] font-semibold">{teachers?.data} 👨‍🏫</h1>
-            {/* <h1 className="text-gray-400 text-[12px]"> <span className="text-green-500 font-semibold">4.63%</span> vs. last Year</h1> */}
           </div>
           <div className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-white p-2 shadow-xl max-[576px]:h-[100px]">
             <p className="text-[12px] text-gray-400">{workers?.message}</p>
             <h1 className="text-[17px] font-semibold">{workers?.data} 🧑‍🏭</h1>
-            {/* <h1 className="text-gray-400 text-[12px]"> <span className="text-green-500 font-semibold">4.63%</span> vs. last Year</h1> */}
           </div>
           <div className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-white p-2 shadow-xl max-[576px]:h-[100px]">
             <p className="text-[12px] text-gray-400">Events</p>
@@ -163,7 +183,6 @@ const Dashboard: React.FC = () => {
                     ? "ce mois-ci"
                     : "in this month"}
             </h1>
-            {/* <h1 className="text-gray-400 text-[12px]"> <span className="text-green-500 font-semibold">4.63%</span> vs. last Year</h1> */}
           </div>
         </div>
       </div>
@@ -196,89 +215,52 @@ const Dashboard: React.FC = () => {
         <div className="flex justify-center">
           <div className="grid overflow-x-auto rounded-2xl">
             <div className="grid w-[550px] items-center justify-center overflow-x-auto rounded-2xl bg-white p-2 shadow-xl max-[1536px]:h-[450px] max-[1536px]:w-[850px]">
-              <div className="flex items-center justify-evenly">
-                <div className="mr-3 h-[75px] w-[66px] items-center justify-center rounded-xl bg-[#F9DCA4] p-2 text-center">
-                  <h1 className="text-[18px] font-semibold text-[#F79009]">
-                    6
-                  </h1>
-                  <h1 className="text-[18px] font-semibold text-[#F79009]">
-                    Sun
-                  </h1>
-                </div>
-                <div className="grid w-[150px] gap-2">
-                  <p className="text-[13px] text-[#F79009]">06 - May -2024</p>
-                  <p className="text-[16px] text-gray-400">Event Name</p>
-                  <div className="h-2.5 w-full rounded-full bg-gray-200">
-                    <div
-                      className="h-2.5 rounded-full bg-[#F79009]"
-                      style={{ width: `50%` }}
-                    ></div>
+              {mettings?.data.content.map((meeting: Meeting) => (
+                <div
+                  key={meeting.id}
+                  className="flex items-center justify-evenly"
+                >
+                  <div className="mr-3 h-[75px] w-[66px] items-center justify-center rounded-xl bg-[#F9DCA4] p-2 text-center">
+                    <h1 className="text-[18px] font-semibold text-[#F79009]">
+                      {format(parseISO(meeting.startDate), 'd')}
+                    </h1>
+                    <h1 className="text-[18px] font-semibold text-[#F79009]">
+                    {format(parseISO(meeting.startDate), 'EEE')}
+
+                    </h1>
+                  </div>
+                  <div className="grid w-[150px] gap-2">
+                    <p className="text-[13px] text-[#F79009]">{format(parseISO(meeting.startDate), 'dd - MMMM - yyyy')}
+                    </p>
+                    <p className="text-[16px] text-gray-400">{meeting.title}</p>
+                    <div className="h-2.5 w-full rounded-full bg-gray-200">
+                      <div
+                        className="h-2.5 rounded-full bg-[#F79009]"
+                        style={{ width: `22%` }}
+                      ></div>
+                    </div>
+                  </div>
+                  <div className="ml-3 grid w-[200px] gap-8">
+                    <p className="text-[13px] text-[#F79009]">
+                      {format(parseISO(meeting.startDate), "hh:mm a")} -{" "}
+                      {format(parseISO(meeting.endDate), "hh:mm a")}
+                    </p>
+                    <p className="text-[16px] text-gray-600">
+                      23 Intersted in the event
+                    </p>
                   </div>
                 </div>
-                <div className="ml-3 grid w-[200px] gap-8">
-                  <p className="text-[13px] text-[#F79009]">7:00AM - 8:00AM</p>
-                  <p className="text-[16px] text-gray-600">
-                    23 Intersted in the event
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center justify-evenly">
-                <div className="mr-3 h-[75px] w-[66px] items-center justify-center rounded-xl bg-gray-200 p-2 text-center">
-                  <h1 className="text-[18px] font-semibold text-gray-600">6</h1>
-                  <h1 className="text-[18px] font-semibold text-gray-600">
-                    Sun
-                  </h1>
-                </div>
-                <div className="grid w-[150px] gap-2">
-                  <p className="text-[13px] text-gray-600">06 - May -2024</p>
-                  <p className="text-[16px] text-gray-600">Event Name</p>
-                  <div className="h-2.5 w-full rounded-full bg-gray-200">
-                    <div
-                      className="h-2.5 rounded-full bg-gray-600"
-                      style={{ width: `50%` }}
-                    ></div>
-                  </div>
-                </div>
-                <div className="ml-3 grid w-[200px] gap-8">
-                  <p className="text-[13px] text-gray-600">7:00AM - 8:00AM</p>
-                  <p className="text-[16px] text-gray-600">
-                    23 Intersted in the event
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center justify-evenly">
-                <div className="mr-3 h-[75px] w-[66px] items-center justify-center rounded-xl bg-[#2970ff91] p-2 text-center">
-                  <h1 className="text-[18px] font-semibold text-[#2970FF]">
-                    6
-                  </h1>
-                  <h1 className="text-[18px] font-semibold text-[#2970FF]">
-                    Sun
-                  </h1>
-                </div>
-                <div className="grid w-[150px] gap-2">
-                  <p className="text-[13px] text-[#2970FF]">06 - May -2024</p>
-                  <p className="text-[16px] text-gray-400">Event Name</p>
-                  <div className="h-2.5 w-full rounded-full bg-gray-200">
-                    <div
-                      className="h-2.5 rounded-full bg-[#2970FF]"
-                      style={{ width: `50%` }}
-                    ></div>
-                  </div>
-                </div>
-                <div className="ml-3 grid w-[200px] gap-8">
-                  <p className="text-[13px] text-[#2970FF]">7:00AM - 8:00AM</p>
-                  <p className="text-[16px] text-gray-600">
-                    23 Intersted in the event
-                  </p>
-                </div>
-              </div>
+              ))}
               <div className="grid justify-center">
                 <button
                   onClick={handleOpenModal}
-                  className="mb-5 mr-3 w-[120px] whitespace-nowrap rounded-xl bg-[#3E5AF0] px-1 py-1.5 text-[14px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                  className=" mr-3 w-[120px] whitespace-nowrap rounded-xl bg-[#3E5AF0] px-1 py-1.5 text-[14px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
                 >
                   + New Event
                 </button>
+              </div>
+              <div className="flex justify-end text-end">
+                <Link href="/educational-affairs/events" className="text-blue-500 underline font-semibold">More Events</Link>
               </div>
             </div>
           </div>

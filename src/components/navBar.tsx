@@ -268,12 +268,12 @@ const NavBar = () => {
                             className="rounded-lg px-4 py-2 text-[20px] hover:bg-slate-100"
                           >
                             {currentLanguage === "en"
-    ? "Arabic"
-    : currentLanguage === "ar"
-    ? "العربية"
-    : currentLanguage === "fr"
-    ? "Arabe"
-    : "Arabic"}
+                              ? "Arabic"
+                              : currentLanguage === "ar"
+                                ? "العربية"
+                                : currentLanguage === "fr"
+                                  ? "Arabe"
+                                  : "Arabic"}
                           </button>
                         </DropdownMenu.Item>
                         <DropdownMenu.Item className="text-violet11 data-[disabled]:text-mauve8 data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1 group relative flex h-[25px] select-none items-center rounded-[3px] px-[5px] text-[13px] leading-none outline-none data-[disabled]:pointer-events-none">
@@ -282,12 +282,12 @@ const NavBar = () => {
                             className="rounded-lg px-4 py-2 text-[20px] hover:bg-slate-100"
                           >
                             {currentLanguage === "en"
-    ? "English"
-    : currentLanguage === "ar"
-    ? "الإنجليزية"
-    : currentLanguage === "fr"
-    ? "Anglais"
-    : "English"}
+                              ? "English"
+                              : currentLanguage === "ar"
+                                ? "الإنجليزية"
+                                : currentLanguage === "fr"
+                                  ? "Anglais"
+                                  : "English"}
                           </button>
                         </DropdownMenu.Item>
                         <DropdownMenu.Item className="text-violet11 data-[disabled]:text-mauve8 data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1 group relative mb-2 flex h-[25px] select-none items-center rounded-[3px] px-[5px] text-[13px] leading-none outline-none data-[disabled]:pointer-events-none">
@@ -296,12 +296,12 @@ const NavBar = () => {
                             className="rounded-lg px-4 py-2 text-[20px] hover:bg-slate-100"
                           >
                             {currentLanguage === "en"
-    ? "French"
-    : currentLanguage === "ar"
-    ? "الفرنسية"
-    : currentLanguage === "fr"
-    ? "Français"
-    : "French"}
+                              ? "French"
+                              : currentLanguage === "ar"
+                                ? "الفرنسية"
+                                : currentLanguage === "fr"
+                                  ? "Français"
+                                  : "French"}
                           </button>
                         </DropdownMenu.Item>
                       </DropdownMenu.Content>
@@ -348,13 +348,13 @@ const NavBar = () => {
                         >
                           <div className="rounded-t-lg bg-gray-100 px-5 py-3">
                             <p className="text-sm text-gray-500">
-                            {currentLanguage === "en"
-    ? "Signed in as"
-    : currentLanguage === "ar"
-    ? "مسجل الدخول باسم"
-    : currentLanguage === "fr"
-    ? "Connecté en tant que"
-    : "Signed in as"}
+                              {currentLanguage === "en"
+                                ? "Signed in as"
+                                : currentLanguage === "ar"
+                                  ? "مسجل الدخول باسم"
+                                  : currentLanguage === "fr"
+                                    ? "Connecté en tant que"
+                                    : "Signed in as"}
                             </p>
                             <p className="text-sm font-medium text-gray-800">
                               {userData?.data.email}
@@ -384,12 +384,12 @@ const NavBar = () => {
                                   <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                                 </svg>
                                 {currentLanguage === "en"
-    ? "Profile"
-    : currentLanguage === "ar"
-    ? "الملف الشخصي"
-    : currentLanguage === "fr"
-    ? "Profil"
-    : "Profile"}
+                                  ? "Profile"
+                                  : currentLanguage === "ar"
+                                    ? "الملف الشخصي"
+                                    : currentLanguage === "fr"
+                                      ? "Profil"
+                                      : "Profile"}
                               </Link>
                             </DropdownMenu.Item>
                             <DropdownMenu.Item asChild>
@@ -399,12 +399,12 @@ const NavBar = () => {
                                 href="/login"
                               >
                                 {currentLanguage === "en"
-    ? "Sign out"
-    : currentLanguage === "ar"
-    ? "تسجيل الخروج"
-    : currentLanguage === "fr"
-    ? "Déconnexion"
-    : "Sign out"}
+                                  ? "Sign out"
+                                  : currentLanguage === "ar"
+                                    ? "تسجيل الخروج"
+                                    : currentLanguage === "fr"
+                                      ? "Déconnexion"
+                                      : "Sign out"}
                               </a>
                             </DropdownMenu.Item>
                           </div>
