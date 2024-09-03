@@ -31,7 +31,7 @@ const Schedule = () => {
             + Add Event
           </button>
         </div>
-        <Timeline />
+        {/* <Timeline /> */}
         <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
           <h2 className="mb-4 text-xl font-light"> Event Name</h2>
           <div className="mb-4 rounded-sm">
