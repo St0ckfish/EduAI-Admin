@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <>
       <div
-        className={` ${booleanValue ? "lg:ml-[40px]" : "lg:ml-[290px]"} mt-12`}
+        className={`${booleanValue ? "bg-lg:ml-[40px]" : "lg:ml-[290px]"} mt-12`}
       >
         <Dashboard />
       </div>

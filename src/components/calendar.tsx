@@ -57,12 +57,12 @@ const Calendar = () => {
 
   return (
     <div className="calendar-component">
-      <div className="grid h-[550px] w-[500px] rounded-xl bg-white p-5 max-[1342px]:w-full">
+      <div className="grid h-[550px] w-[500px] rounded-xl bg-bgPrimary p-5 max-[1342px]:w-full">
         {/* Display month and year */}
         <div className="mb-7 flex items-center justify-between">
           <button
             aria-label="Previous month"
-            className="rounded-lg border p-2 font-sans text-[23px] font-semibold text-blue-500"
+            className="rounded-lg border border-bgSecondary p-2 font-sans text-[23px] font-semibold text-primary"
             onClick={goToPreviousMonth}
           >
             <svg
@@ -83,13 +83,13 @@ const Calendar = () => {
           </button>
           <h2
             aria-live="polite"
-            className="mb-3 font-sans font-semibold text-gray-800"
+            className="mb-3 font-sans font-semibold text-textSecondary"
           >
             {monthYear}
           </h2>
           <button
             aria-label="Next month"
-            className="rounded-lg border p-2 font-sans text-[23px] font-semibold text-blue-500"
+            className="rounded-lg border border-bgSecondary p-2 font-sans text-[23px] font-semibold text-primary"
             onClick={goToNextMonth}
           >
             <svg
@@ -111,43 +111,43 @@ const Calendar = () => {
         <div className="grid grid-cols-7" role="row">
           <div
             role="columnheader"
-            className="font-sans font-medium text-gray-300"
+            className="font-sans font-medium text-textSecondary"
           >
             SUN
           </div>
           <div
             role="columnheader"
-            className="font-sans font-medium text-gray-300"
+            className="font-sans font-medium text-textSecondary"
           >
             MON
           </div>
           <div
             role="columnheader"
-            className="font-sans font-medium text-gray-300"
+            className="font-sans font-medium text-textSecondary"
           >
             TUE
           </div>
           <div
             role="columnheader"
-            className="font-sans font-medium text-gray-300"
+            className="font-sans font-medium text-textSecondary"
           >
             WED
           </div>
           <div
             role="columnheader"
-            className="font-sans font-medium text-gray-300"
+            className="font-sans font-medium text-textSecondary"
           >
             THU
           </div>
           <div
             role="columnheader"
-            className="font-sans font-medium text-gray-300"
+            className="font-sans font-medium text-textSecondary"
           >
             FRI
           </div>
           <div
             role="columnheader"
-            className="font-sans font-medium text-gray-300"
+            className="font-sans font-medium text-textSecondary"
           >
             SAT
           </div>
@@ -164,9 +164,8 @@ const Calendar = () => {
                   : "false"
               }
               aria-label={date ? format(date, "MMMM d, yyyy") : ""}
-              className={`flex h-8 w-8 cursor-pointer items-center justify-center rounded-full font-semibold ${
-                date ? "hover:bg-blue-100 focus:bg-blue-300" : ""
-              } ${date && date.getDate() === selectedDate.getDate() ? "bg-blue-500 text-white" : ""}`}
+              className={`text-textSecondary flex h-8 w-8 cursor-pointer items-center justify-center rounded-full font-semibold ${date ? "hover:bg-blue-100 focus:bg-primary" : ""
+                } ${date && date.getDate() === selectedDate.getDate() ? "bg-primary text-white" : ""}`}
               onClick={() => date && handleDateClick(date)}
             >
               {date ? date.getDate() : ""}
@@ -174,13 +173,13 @@ const Calendar = () => {
           ))}
         </div>
         <div className="mt-4 grid grid-cols-2">
-          <p className="font-sans font-semibold text-gray-800">Tuesday:</p>
-          <p className="font-sans font-semibold text-gray-400">
+          <p className="font-sans font-semibold text-textPrimary">Tuesday:</p>
+          <p className="font-sans font-semibold text-textSecondary">
             On Tuesday he comes to school and reads carefully. His activity is
             so good.
           </p>
-          <p className="font-sans font-semibold text-gray-800">Homework:</p>
-          <p className="font-sans font-semibold text-gray-400">
+          <p className="font-sans font-semibold text-textPrimary">Homework:</p>
+          <p className="font-sans font-semibold text-textSecondary">
             He completed his homework. <br /> He is the most active student of
             the class.
           </p>

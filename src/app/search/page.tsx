@@ -53,7 +53,7 @@ const Search = () => {
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} mt-12`}
       >
         <div className="flex h-full w-full justify-center overflow-auto p-2">
-          <div className="grid h-full w-full overflow-auto rounded-xl bg-white">
+          <div className="grid h-full w-full overflow-auto rounded-xl bg-bgPrimary">
             <div className="flex h-[70px] items-center gap-7 overflow-auto rounded-t-xl bg-gray-200 pl-3 font-semibold">
               <Link
                 className="text-blue-500 underline underline-offset-4"

@@ -131,28 +131,28 @@ const Dashboard: React.FC = () => {
     <div className="mr-10 grid w-full justify-center overflow-x-auto p-6">
       <div className="grid overflow-x-auto">
         <div className="mb-6 flex w-full justify-evenly gap-4 whitespace-nowrap max-[812px]:justify-center max-[576px]:h-[120px]">
-          <div className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-white p-2 shadow-xl max-[576px]:h-[100px]">
-            <p className="text-[12px] text-gray-400">{students?.message} </p>
+          <div className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]">
+            <p className="text-[12px] text-textSecondary">{students?.message} </p>
             <h1 className="text-[17px] font-semibold">{students?.data} 🧑‍🎓</h1>
             {/* <h1 className="text-gray-400 text-[12px]"> <span className="text-green-500 font-semibold">4.63%</span> vs. last Year</h1> */}
           </div>
-          <div className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-white p-2 shadow-xl max-[576px]:h-[100px]">
-            <p className="text-[12px] text-gray-400">{employees?.message}</p>
+          <div className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]">
+            <p className="text-[12px] text-textSecondary">{employees?.message}</p>
             <h1 className="text-[17px] font-semibold">{employees?.data} 👨‍💼</h1>
             {/* <h1 className="text-gray-400 text-[12px]"> <span className="text-green-500 font-semibold">4.63%</span> vs. last Year</h1> */}
           </div>
-          <div className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-white p-2 shadow-xl max-[576px]:h-[100px]">
-            <p className="text-[12px] text-gray-400">{teachers?.message}</p>
+          <div className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]">
+            <p className="text-[12px] text-textSecondary">{teachers?.message}</p>
             <h1 className="text-[17px] font-semibold">{teachers?.data} 👨‍🏫</h1>
             {/* <h1 className="text-gray-400 text-[12px]"> <span className="text-green-500 font-semibold">4.63%</span> vs. last Year</h1> */}
           </div>
-          <div className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-white p-2 shadow-xl max-[576px]:h-[100px]">
-            <p className="text-[12px] text-gray-400">{workers?.message}</p>
+          <div className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]">
+            <p className="text-[12px] text-textSecondary">{workers?.message}</p>
             <h1 className="text-[17px] font-semibold">{workers?.data} 🧑‍🏭</h1>
             {/* <h1 className="text-gray-400 text-[12px]"> <span className="text-green-500 font-semibold">4.63%</span> vs. last Year</h1> */}
           </div>
-          <div className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-white p-2 shadow-xl max-[576px]:h-[100px]">
-            <p className="text-[12px] text-gray-400">Events</p>
+          <div className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]">
+            <p className="text-[12px] text-textSecondary">Events</p>
             <h1 className="text-[17px] font-semibold">
               {events?.data}⏰{" "}
               {currentLanguage === "en"
@@ -172,7 +172,7 @@ const Dashboard: React.FC = () => {
         <div className="flex overflow-x-auto rounded-xl max-[1535px]:justify-center">
           <div
             id="chart"
-            className="w-[850px] overflow-x-auto rounded-xl bg-white p-2 shadow-xl"
+            className="w-[850px] overflow-x-auto rounded-xl bg-bgPrimary p-2 shadow-xl"
           >
             <p className="text-[18px] font-semibold">
               {" "}
@@ -195,28 +195,28 @@ const Dashboard: React.FC = () => {
         </div>
         <div className="flex justify-center">
           <div className="grid overflow-x-auto rounded-2xl">
-            <div className="grid w-[550px] items-center justify-center overflow-x-auto rounded-2xl bg-white p-2 shadow-xl max-[1536px]:h-[450px] max-[1536px]:w-[850px]">
+            <div className="grid w-[550px] items-center justify-center overflow-x-auto rounded-2xl bg-bgPrimary p-2 shadow-xl max-[1536px]:h-[450px] max-[1536px]:w-[850px]">
               <div className="flex items-center justify-evenly">
                 <div className="mr-3 h-[75px] w-[66px] items-center justify-center rounded-xl bg-[#F9DCA4] p-2 text-center">
-                  <h1 className="text-[18px] font-semibold text-[#F79009]">
+                  <h1 className="text-[18px] font-semibold text-warning">
                     6
                   </h1>
-                  <h1 className="text-[18px] font-semibold text-[#F79009]">
+                  <h1 className="text-[18px] font-semibold text-warning">
                     Sun
                   </h1>
                 </div>
                 <div className="grid w-[150px] gap-2">
-                  <p className="text-[13px] text-[#F79009]">06 - May -2024</p>
+                  <p className="text-[13px] text-warning">06 - May -2024</p>
                   <p className="text-[16px] text-gray-400">Event Name</p>
                   <div className="h-2.5 w-full rounded-full bg-gray-200">
                     <div
-                      className="h-2.5 rounded-full bg-[#F79009]"
+                      className="h-2.5 rounded-full bg-warning"
                       style={{ width: `50%` }}
                     ></div>
                   </div>
                 </div>
                 <div className="ml-3 grid w-[200px] gap-8">
-                  <p className="text-[13px] text-[#F79009]">7:00AM - 8:00AM</p>
+                  <p className="text-[13px] text-warning">7:00AM - 8:00AM</p>
                   <p className="text-[16px] text-gray-600">
                     23 Intersted in the event
                   </p>
@@ -248,25 +248,25 @@ const Dashboard: React.FC = () => {
               </div>
               <div className="flex items-center justify-evenly">
                 <div className="mr-3 h-[75px] w-[66px] items-center justify-center rounded-xl bg-[#2970ff91] p-2 text-center">
-                  <h1 className="text-[18px] font-semibold text-[#2970FF]">
+                  <h1 className="text-[18px] font-semibold te-warning">
                     6
                   </h1>
-                  <h1 className="text-[18px] font-semibold text-[#2970FF]">
+                  <h1 className="text-[18px] font-semibold te-warning">
                     Sun
                   </h1>
                 </div>
                 <div className="grid w-[150px] gap-2">
-                  <p className="text-[13px] text-[#2970FF]">06 - May -2024</p>
+                  <p className="text-[13px] text-primary">06 - May -2024</p>
                   <p className="text-[16px] text-gray-400">Event Name</p>
                   <div className="h-2.5 w-full rounded-full bg-gray-200">
                     <div
-                      className="h-2.5 rounded-full bg-[#2970FF]"
+                      className="h-2.5 rounded-full bg-primary"
                       style={{ width: `50%` }}
                     ></div>
                   </div>
                 </div>
                 <div className="ml-3 grid w-[200px] gap-8">
-                  <p className="text-[13px] text-[#2970FF]">7:00AM - 8:00AM</p>
+                  <p className="text-[13px] text-primary">7:00AM - 8:00AM</p>
                   <p className="text-[16px] text-gray-600">
                     23 Intersted in the event
                   </p>
@@ -275,7 +275,7 @@ const Dashboard: React.FC = () => {
               <div className="grid justify-center">
                 <button
                   onClick={handleOpenModal}
-                  className="mb-5 mr-3 w-[120px] whitespace-nowrap rounded-xl bg-[#3E5AF0] px-1 py-1.5 text-[14px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                  className="mb-5 mr-3 w-[120px] whitespace-nowrap rounded-xl bg-primary px-1 py-1.5 text-[14px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
                 >
                   + New Event
                 </button>
@@ -287,12 +287,12 @@ const Dashboard: React.FC = () => {
 
       <div className="mb-6 grid w-full grid-cols-1 justify-between gap-10 overflow-x-auto 2xl:flex">
         <div className="grid overflow-x-auto rounded-2xl">
-          <div className="flex w-[850px] justify-center overflow-x-auto rounded-2xl bg-white shadow-xl max-[1536px]:w-full">
+          <div className="flex w-[850px] justify-center overflow-x-auto rounded-2xl bg-bgPrimary shadow-xl max-[1536px]:w-full">
             <Calendar />
           </div>
         </div>
         <div className="grid overflow-x-auto rounded-xl">
-          <div className="grid w-[550px] overflow-x-auto rounded-xl bg-white p-2 shadow-xl max-[1536px]:w-full">
+          <div className="grid w-[550px] overflow-x-auto rounded-xl bg-bgPrimary p-2 shadow-xl max-[1536px]:w-full">
             <p className="text-[20px] font-bold">
               {currentLanguage === "en"
                 ? "Notice Board"
@@ -303,52 +303,52 @@ const Dashboard: React.FC = () => {
                     : "Notice Board"}
             </p>
             <div className="">
-              <h1 className="text-[18px] font-semibold text-[#F79009]">
+              <h1 className="text-[18px] font-semibold text-warning">
                 Leslie Alexander
               </h1>
-              <p>
+              <p className="text-textSecondary">
                 In a laoreet purus. Integer turpis quam, laoreet id orci nec,
                 ultrices lacinia nunc. Aliquam erat vo
               </p>
-              <h1 className="text-[18px] font-semibold text-[#3E5AF0]">
+              <h1 className="text-[18px] font-semibold text-primary">
                 Leslie Alexander
               </h1>
-              <p>
+              <p className="text-textSecondary">
                 In a laoreet purus. Integer turpis quam, laoreet id orci nec,
                 ultrices lacinia nunc. Aliquam erat vo
               </p>
-              <h1 className="text-[18px] font-semibold text-[#57b843]">
+              <h1 className="text-[18px] font-semibold text-seccess">
                 Leslie Alexander
               </h1>
-              <p>
+              <p className="text-textSecondary">
                 In a laoreet purus. Integer turpis quam, laoreet id orci nec,
                 ultrices lacinia nunc. Aliquam erat vo
               </p>
-              <h1 className="text-[18px] font-semibold text-[#f03f3f]">
+              <h1 className="text-[18px] font-semibold text-error">
                 Leslie Alexander
               </h1>
-              <p>
+              <p className="text-textSecondary">
                 In a laoreet purus. Integer turpis quam, laoreet id orci nec,
                 ultrices lacinia nunc. Aliquam erat vo
               </p>
-              <h1 className="text-[18px] font-semibold text-[#F79009]">
+              <h1 className="text-[18px] font-semibold text-warning">
                 Leslie Alexander
               </h1>
-              <p>
+              <p className="text-textSecondary">
                 In a laoreet purus. Integer turpis quam, laoreet id orci nec,
                 ultrices lacinia nunc. Aliquam erat vo
               </p>
-              <h1 className="text-[18px] font-semibold text-[#3E5AF0]">
+              <h1 className="text-[18px] font-semibold text-primary">
                 Leslie Alexander
               </h1>
-              <p>
+              <p className="text-textSecondary">
                 In a laoreet purus. Integer turpis quam, laoreet id orci nec,
                 ultrices lacinia nunc. Aliquam erat vo
               </p>
-              <h1 className="text-[18px] font-semibold text-[#57b843]">
+              <h1 className="text-[18px] font-semibold text-success">
                 Leslie Alexander
               </h1>
-              <p>
+              <p className="text-textSecondary">
                 In a laoreet purus. Integer turpis quam, laoreet id orci nec,
                 ultrices lacinia nunc. Aliquam erat vo
               </p>
@@ -357,23 +357,23 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-        <h2 className="mb-4 text-xl font-semibold"> Event Name</h2>
+        <h2 className="mb-4 text-textPrimary text-xl font-semibold"> Event Name</h2>
         <div className="mb-4 rounded-sm">
           <input
             type="text"
             placeholder="Event Name "
-            className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded-xl border border-secondary bg-bgSecondary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
         <h2 className="mb-4 text-xl font-semibold">Event Date</h2>
         <div className="mb-4 rounded-sm">
           <input
             type="date"
-            className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded-xl border border-secondary bg-bgSecondary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
         <div className="flex justify-between">
-          <button className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl">
+          <button className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl">
             Add
           </button>
           <button

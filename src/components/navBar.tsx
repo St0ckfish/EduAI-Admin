@@ -13,6 +13,9 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useSelector } from "react-redux";
 import { setLanguage } from "@/features/language/languageSlice";
 import { RootState } from "@/GlobalRedux/store";
+import { useTheme } from "next-themes"
+import { FiSun, FiMoon } from "react-icons/fi"
+
 
 const NavBar = () => {
   const router = useRouter();
@@ -21,6 +24,14 @@ const NavBar = () => {
     error: userError,
     isLoading: userLoading,
   } = useGetAllCurrentUserQuery(null);
+
+  // Theme Changer 
+  const { theme, setTheme } = useTheme();
+  const [ isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, [])
 
   useEffect(() => {
     if (userData) console.log("Response Data:", userData);
@@ -127,7 +138,7 @@ const NavBar = () => {
     <>
       <header>
         <div>
-          <header className="sticky inset-x-0 top-0 z-[48] flex w-full flex-wrap border-b bg-white py-2.5 text-sm sm:flex-nowrap sm:justify-start sm:py-4 lg:ps-64">
+          <header className="sticky inset-x-0 top-0 z-[48] flex w-full flex-wrap border-b dark:border-bgSecondary bg-bgPrimary py-2.5 text-sm sm:flex-nowrap sm:justify-start sm:py-4 lg:ps-64">
             <nav
               className="mx-auto flex w-full basis-full items-center px-4 sm:px-6"
               aria-label="Global"
@@ -192,16 +203,26 @@ const NavBar = () => {
                       type="text"
                       id="icon"
                       name="icon"
-                      className="block w-full rounded-lg border-2 border-gray-200 px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
+                      className="block w-full rounded-lg border-2 border-bgSecondary px-4 py-2 ps-11 text-sm outline-none focus:border-primary focus:ring-primary disabled:pointer-events-none disabled:opacity-50"
                       placeholder="Search"
                     />
                   </div>
                 </div>
+                
                 <div className="flex flex-row items-center justify-end gap-2">
+                 {isClient && (
+              <>
+                {theme == 'dark'? 
+                <button className="text-textPrimary" onClick={() => setTheme("light")}><FiMoon/></button>
+                : 
+                <button className="text-textPrimary" onClick={() => setTheme("dark")}><FiSun/></button>
+                }
+              </>
+            )}
                   <Link
                     href="/notifies"
                     type="button"
-                    className="inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 disabled:pointer-events-none disabled:opacity-50"
+                    className="text-textPrimary inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold hover:bg-bgSecondary disabled:pointer-events-none disabled:opacity-50"
                   >
                     <svg
                       className="size-4 flex-shrink-0"
@@ -222,7 +243,7 @@ const NavBar = () => {
                   <Link
                     href="/"
                     type="button"
-                    className="inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 disabled:pointer-events-none disabled:opacity-50"
+                    className="text-textPrimary inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold hover:bg-bgSecondary disabled:pointer-events-none disabled:opacity-50"
                     data-hs-offcanvas="#hs-offcanvas-right"
                   >
                     <svg
@@ -315,7 +336,7 @@ const NavBar = () => {
                           onClick={toggleProfile}
                           id="hs-dropdown-with-header"
                           type="button"
-                          className="inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 outline-none hover:bg-gray-100 disabled:pointer-events-none disabled:opacity-50"
+                          className="inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 rounded-full border border-bgSecondayr text-sm font-semibold text-gray-800 outline-none hover:bg-gray-100 disabled:pointer-events-none disabled:opacity-50"
                         >
                           {userLoading ? (
                             <p>........</p>
@@ -323,13 +344,13 @@ const NavBar = () => {
                             <div>
                               {!userData?.data.hasPicture ? (
                                 <img
-                                  className="inline-block h-[38px] w-[38px] rounded-full ring-2 ring-white"
+                                  className="inline-block h-[38px] w-[38px] rounded-full ring-2 ring-bgSecondary"
                                   src="/images/userr.png"
                                   alt="User Avatar"
                                 />
                               ) : (
                                 <img
-                                  className="inline-block h-[38px] w-[38px] rounded-full ring-2 ring-white"
+                                  className="inline-block h-[38px] w-[38px] rounded-full ring-2 ring-bgSecondary"
                                   src={userData?.data.picture}
                                   alt="User Avatar"
                                 />
@@ -395,7 +416,7 @@ const NavBar = () => {
                             <DropdownMenu.Item asChild>
                               <a
                                 onClick={DeleteCookie}
-                                className="flex items-center gap-x-3.5 rounded-lg border-none px-3 py-2 text-sm text-gray-800 outline-none hover:bg-red-500 hover:text-white"
+                                className="flex items-center gap-x-3.5 rounded-lg border-none px-3 py-2 text-sm text-gray-800 outline-none hover:bg-bgPrimary hover:text-white"
                                 href="/login"
                               >
                                 {currentLanguage === "en"
@@ -416,10 +437,10 @@ const NavBar = () => {
               </div>
             </nav>
           </header>
-          <div className="sticky inset-x-0 top-0 z-20 border-y bg-white px-4 sm:px-6 md:px-8 lg:hidden">
+          <div className="sticky inset-x-0 top-0 z-20 border-y border-bgSecondary bg-bgPrimary px-4 sm:px-6 md:px-8 lg:hidden">
             <div className="flex items-center justify-between py-2">
               <ol className="ms-3 flex items-center whitespace-nowrap">
-                <li className="flex items-center text-sm text-gray-800">
+                <li className="flex items-center text-sm text-textPrimary">
                   Application Layout
                   <svg
                     className="mx-3 size-2.5 flex-shrink-0 overflow-visible text-gray-400"
@@ -444,7 +465,7 @@ const NavBar = () => {
                   OpenSideBar();
                 }}
                 type="button"
-                className="flex items-center justify-center gap-x-1.5 rounded-lg border border-gray-200 px-3 py-2 text-xs text-gray-500 hover:text-gray-600"
+                className="flex items-center justify-center gap-x-1.5 rounded-lg border border-bgSecondary px-3 py-2 text-xs text-gray-500 hover:text-gray-600"
                 data-hs-overlay="#application-sidebar"
                 aria-controls="application-sidebar"
                 aria-label="Sidebar"
@@ -470,7 +491,7 @@ const NavBar = () => {
           {isOpen && (
             <div
               id="application-sidebar"
-              className={`hs-overlay hs-overlay-open:translate-x-0 transform transition-all duration-300 [--auto-close:lg] ${small ? "w-[90px]" : "w-[260px]"} drop-shadow-2xl lg:drop-shadow-none ${!isOpen ? "w-0" : ""} fixed inset-y-0 start-0 z-[60] border-e border-gray-200 bg-white duration-300 ease-in lg:bottom-0 lg:end-auto lg:block lg:translate-x-0`}
+              className={`hs-overlay hs-overlay-open:translate-x-0 transform transition-all duration-300 [--auto-close:lg] ${small ? "w-[90px]" : "w-[260px]"} drop-shadow-2xl lg:drop-shadow-none ${!isOpen ? "w-0" : ""} fixed inset-y-0 start-0 z-[60] border-e border-bgSecondary bg-bgPrimary duration-300 ease-in lg:bottom-0 lg:end-auto lg:block lg:translate-x-0`}
             >
               <div className="px-8 pt-4">
                 <Link href="/">
@@ -553,7 +574,7 @@ const NavBar = () => {
                   </div>
                   <li>
                     <Link
-                      className={`flex ${small ? "w-[40px]" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-[#526484] hover:bg-gray-100 hover:text-[#3e5af0]`}
+                      className={`flex ${small ? "w-[40px]" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-[#526484] hover:bg-bgSecondary hover:text-[#3e5af0]`}
                       href="/"
                     >
                       <svg
@@ -584,7 +605,7 @@ const NavBar = () => {
                   </li>
                   <li>
                     <Link
-                      className={`flex ${small ? "w-[40px]" : ""} text-md group mt-4 flex items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-[#526484] hover:bg-gray-100 hover:text-[#3e5af0]`}
+                      className={`flex ${small ? "w-[40px]" : ""} text-md group mt-4 flex items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-[#526484] hover:bg-bgSecondary hover:text-[#3e5af0]`}
                       href="/search"
                     >
                       <svg
@@ -616,7 +637,7 @@ const NavBar = () => {
                   <li className="group relative">
                     <button
                       onClick={toggleNavbar2}
-                      className={`flex ${!small ? "w-full" : ""} open text-md mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-[#526484] hover:bg-gray-100 group-hover:text-[#3e5af0]`}
+                      className={`flex ${!small ? "w-full" : ""} open text-md mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-[#526484] hover:bg-bgSecondary group-hover:text-[#3e5af0]`}
                     >
                       <svg
                         className="h-6 w-6 font-sans font-bold text-[#526484] group-hover:text-[#3e5af0]"
@@ -722,7 +743,7 @@ const NavBar = () => {
                   <li className="group relative">
                     <button
                       onClick={toggleNavbar3}
-                      className={`flex ${!small ? "w-full" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-[#526484] hover:bg-gray-100 hover:text-[#3e5af0]`}
+                      className={`flex ${!small ? "w-full" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-[#526484] hover:bg-bgSecondary hover:text-[#3e5af0]`}
                     >
                       <svg
                         className="h-6 w-6 font-sans font-bold text-[#526484] group-hover:text-[#3e5af0]"
@@ -793,7 +814,7 @@ const NavBar = () => {
                   <li className="group relative">
                     <button
                       onClick={toggleNavbar4}
-                      className={`flex ${!small ? "w-full" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-[#526484] hover:bg-gray-100 hover:text-[#3e5af0]`}
+                      className={`flex ${!small ? "w-full" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-[#526484] hover:bg-bgSecondary hover:text-[#3e5af0]`}
                     >
                       <svg
                         className="h-6 w-6 font-sans font-bold text-[#526484] group-hover:text-[#3e5af0]"
@@ -858,7 +879,7 @@ const NavBar = () => {
                   <li className="group relative">
                     <button
                       onClick={toggleNavbar5}
-                      className={`flex ${!small ? "w-full" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-[#526484] hover:bg-gray-100 hover:text-[#3e5af0]`}
+                      className={`flex ${!small ? "w-full" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-[#526484] hover:bg-bgSecondary hover:text-[#3e5af0]`}
                     >
                       <svg
                         className="h-6 w-6 font-sans font-bold text-[#526484] group-hover:text-[#3e5af0]"

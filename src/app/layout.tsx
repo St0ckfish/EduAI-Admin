@@ -7,6 +7,9 @@ import { Providers } from "@/GlobalRedux/provider";
 import Notification from "@/components/Notifications";
 import "react-toastify/dist/ReactToastify.css";
 import { usePathname } from "next/navigation";
+import ThemeProvider from "./providers/themeProvider";
+
+
 
 interface RootLayoutProps {
   children: ReactNode;
@@ -23,17 +26,19 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
     pathname === "/choose-account";
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <title>Edu AI-Admin</title>
         <meta name="description" content="Edu AI-Admin" />
         <link rel="icon" type="image/x-icon" href="/images/Login.png" />
       </head>
-      <body>
+      <body className="bg-bgSecondary" >
         <Providers>
-          {!isLoginPage && <NavBar />}
-          <Notification />
-          {children}
+          <ThemeProvider attribute="class" defaultTheme='system' enableSystem >
+            {!isLoginPage && <NavBar />}
+            <Notification />
+            {children}
+          </ThemeProvider>
         </Providers>
       </body>
     </html>
