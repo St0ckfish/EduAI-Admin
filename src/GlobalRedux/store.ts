@@ -29,6 +29,7 @@ import { notificationsApi } from "@/features/communication/notficationsApi";
 import { classApi } from "@/features/Infrastructure/classApi";
 import { labApi } from "@/features/Infrastructure/labApi";
 import { officeApi } from "@/features/Infrastructure/officeApi";
+import { eventsApi } from "@/features/events/eventsApi";
 import { attendanceApi } from "@/features/attendance/attendanceApi";
 
 export const store = configureStore({
@@ -42,6 +43,7 @@ export const store = configureStore({
     [dashboardApi.reducerPath]: dashboardApi.reducer,
     [reportApi.reducerPath]: reportApi.reducer,
     [teacherApi.reducerPath]: teacherApi.reducer,
+    [eventsApi.reducerPath]: eventsApi.reducer,
     [bankApi.reducerPath]: bankApi.reducer,
     [attendanceApi.reducerPath]: attendanceApi.reducer,
     [feesApi.reducerPath]: feesApi.reducer,
@@ -78,6 +80,7 @@ export const store = configureStore({
       .concat(officeApi.middleware)
       .concat(participationApi.middleware)
       .concat(professionalApi.middleware)
+      .concat(eventsApi.middleware)
       .concat(certificatesApi.middleware)
       .concat(feesApi.middleware)
       .concat(courseApi.middleware)

@@ -10,67 +10,23 @@ import {
   isToday,
   startOfWeek,
   addDays,
+  parseISO,
 } from "date-fns";
 
-interface Event {
-  date: Date;
-  name: string;
-  time: string;
-  color: string;
+interface Meeting {
+  id: number;
+  title: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  isAttendee: boolean;
 }
 
-const events: Event[] = [
-  {
-    date: new Date(2024, 5, 2),
-    name: "Meeting",
-    time: "12:00~14:00",
-    color: "bg-black",
-  },
-  {
-    date: new Date(2024, 5, 2),
-    name: "Meeting",
-    time: "12:00~14:00",
-    color: "bg-blue-500",
-  },
-  {
-    date: new Date(2024, 5, 2),
-    name: "Meeting",
-    time: "12:00~14:00",
-    color: "bg-gray-400",
-  },
-  {
-    date: new Date(2024, 5, 2),
-    name: "Meeting",
-    time: "12:00~14:00",
-    color: "bg-red-500",
-  },
-  {
-    date: new Date(2024, 6, 2),
-    name: "LOL",
-    time: "12:00~14:00",
-    color: "bg-orange-400",
-  },
-  {
-    date: new Date(2024, 5, 5),
-    name: "Conference",
-    time: "18:00~20:00",
-    color: "bg-red-400",
-  },
-  {
-    date: new Date(2024, 5, 5),
-    name: "sdfkjsdf",
-    time: "18:00~20:00",
-    color: "bg-black",
-  },
-  {
-    date: new Date(2024, 5, 18),
-    name: "Workshop",
-    time: "09:00~12:00",
-    color: "bg-green-400",
-  },
-];
+interface TimelineProps {
+  meetings: Meeting[];
+}
 
-const Timeline: React.FC = () => {
+const Timeline: React.FC<TimelineProps> = ({ meetings }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
   const startOfCurrentMonth = startOfMonth(currentMonth);
@@ -94,8 +50,8 @@ const Timeline: React.FC = () => {
   return (
     <div className="grid overflow-auto">
       <div className="mx-auto w-full overflow-auto">
-        <div className="wrapper overflow-auto rounded bg-white shadow">
-          <div className="header flex justify-between border-b p-2">
+        <div className="wrapper w-full overflow-auto rounded bg-white shadow">
+          <div className="header flex w-full justify-between border-b p-2 max-[1500px]:w-[1185px]">
             <button onClick={handlePrevMonth} className="p-2">
               <svg
                 className="h-6 w-6"
@@ -168,7 +124,11 @@ const Timeline: React.FC = () => {
                           key={dayIndex}
                           className={`ease h-40 w-40 cursor-pointer overflow-auto border p-1 transition duration-500 hover:bg-gray-300 ${
                             !isSameMonth(day, currentMonth) ? "bg-gray-100" : ""
-                          } ${isToday(day) ? "scale-90 bg-blue-300 shadow-2xl" : ""}`}
+                          } ${
+                            isToday(day)
+                              ? "scale-90 bg-blue-300 shadow-2xl"
+                              : ""
+                          }`}
                         >
                           {day && (
                             <div className="mx-auto flex h-40 w-40 flex-col overflow-hidden">
@@ -178,21 +138,36 @@ const Timeline: React.FC = () => {
                                 </span>
                               </div>
                               <div className="bottom h-30 w-full flex-grow cursor-pointer overflow-auto py-1">
-                                {events
+                                {meetings
                                   .filter(
-                                    event =>
-                                      format(event.date, "yyyy-MM-dd") ===
-                                      format(day, "yyyy-MM-dd"),
+                                    meeting =>
+                                      format(
+                                        parseISO(meeting.startDate),
+                                        "yyyy-MM-dd",
+                                      ) === format(day, "yyyy-MM-dd"),
                                   )
-                                  .map((event, idx) => (
+                                  .map(meeting => (
                                     <div
-                                      key={idx}
-                                      className={`event ${event.color} mb-1 flex justify-center gap-1 rounded px-3 py-1.5 text-center text-sm text-white`}
+                                      key={meeting.id}
+                                      className="event mb-1 flex flex-col justify-center gap-1 rounded bg-blue-500 px-3 py-1.5 text-center text-sm text-white"
                                     >
-                                      <span className="event-name">
-                                        {event.name}
+                                      <span className="event-name text-[18px] font-semibold">
+                                        {meeting.title}
                                       </span>
-                                      <span className="time">{event.time}</span>
+                                      {/* <span className="description">
+                                        {meeting.description}
+                                      </span> */}
+                                      <span className="time">
+                                        {format(
+                                          parseISO(meeting.startDate),
+                                          "hh:mm a",
+                                        )}{" "}
+                                        -{" "}
+                                        {format(
+                                          parseISO(meeting.endDate),
+                                          "hh:mm a",
+                                        )}
+                                      </span>
                                     </div>
                                   ))}
                               </div>

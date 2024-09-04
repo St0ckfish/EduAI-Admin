@@ -304,6 +304,7 @@ const NavBar = () => {
                                 : currentLanguage === "fr"
                                   ? "Arabe"
                                   : "Arabic"}
+                              
                           </button>
                         </DropdownMenu.Item>
                         <DropdownMenu.Item className="text-violet11 data-[disabled]:text-mauve8 data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1 group relative flex h-[25px] select-none items-center rounded-[3px] px-[5px] text-[13px] leading-none outline-none data-[disabled]:pointer-events-none">

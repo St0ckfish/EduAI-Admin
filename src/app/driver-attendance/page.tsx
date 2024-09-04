@@ -2,7 +2,6 @@
 "use client";
 import Spinner from "@/components/spinner";
 import {
-  useGetAllDriversQuery,
   useDeleteDriversMutation,
   useGetDriverByIdQuery,
 } from "@/features/User-Management/driverApi";
@@ -14,7 +13,7 @@ import { toast } from "react-toastify";
 import Pagination from "@/components/pagination";
 import Sheet from "@/components/sheet";
 import DriverInfo from "@/components/driverInfo";
-import { useCreateAttendanceMutation } from "@/features/attendance/attendanceApi";
+import { useCreateAttendanceMutation, useGetAllEmpolyeesAttendQuery, useUpdateAttendanceMutation } from "@/features/attendance/attendanceApi";
 
 const DriverAttendance = () => {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
@@ -27,73 +26,49 @@ const DriverAttendance = () => {
 
   const [selectedStates, setSelectedStates] = useState<string[]>([]);
   const [createAttendance] = useCreateAttendanceMutation();
+  const [updateAttendance] = useUpdateAttendanceMutation();
 
-  const handleSelect = (label: string, index: number, userId: undefined) => {
+  const handleSelect = (label: string, index: number, userId: undefined, driverStatus: string | null, attendenceId: number, checkin: Date, checkout: Date) => {
     setSelectedStates(prevStates => {
       const newStates = [...prevStates];
       newStates[index] = newStates[index] === label ? label : label; // Toggle selection
       return newStates;
     });
-
-    // Check if the "P" button is clicked
-    if (label === "P") {
-      // Prepare attendance data
-      const attendanceData = {
-        userId: userId,
-        status: "PRESENT",
-        absenceReason: null,
-        checkInTime: null,
-        checkOutTime: null,
-      };
-
-      // Send the data using the mutation hook
+  
+    const attendanceData = {
+      userId: userId,
+      attendenceId: attendenceId,
+      status: label === "P" ? "PRESENT" : label === "A" ? "ABSENT" : "LEAVE",
+      absenceReason: null,
+      checkInTime: checkin,
+      checkOutTime: checkout,
+    };
+  
+    if (driverStatus === null) {
+      // Use createAttendance if status is null
       createAttendance(attendanceData)
         .unwrap()
         .then(response => {
           console.log("Attendance recorded:", response);
+          refetch();
+          toast.success("Attendance recorded successfully");
         })
         .catch(error => {
           console.error("Failed to record attendance:", error);
+          toast.error("Failed to record attendance");
         });
-    }
-    if (label === "A") {
-      // Prepare attendance data
-      const attendanceData = {
-        userId: userId,
-        status: "ABSENT",
-        absenceReason: null,
-        checkInTime: null,
-        checkOutTime: null,
-      };
-
-      // Send the data using the mutation hook
-      createAttendance(attendanceData)
+    } else {
+      // Use updateAttendance if status is not null
+      updateAttendance({ formData: attendanceData, id: attendanceData.attendenceId })
         .unwrap()
         .then(response => {
-          console.log("Attendance recorded:", response);
+          console.log("Attendance updated:", response);
+          refetch();
+          toast.info("Attendance updated successfully");
         })
         .catch(error => {
-          console.error("Failed to record attendance:", error);
-        });
-    }
-    if (label === "L") {
-      // Prepare attendance data
-      const attendanceData = {
-        userId: userId,
-        status: "LEAVE",
-        absenceReason: null,
-        checkInTime: null,
-        checkOutTime: null,
-      };
-
-      // Send the data using the mutation hook
-      createAttendance(attendanceData)
-        .unwrap()
-        .then(response => {
-          console.log("Attendance recorded:", response);
-        })
-        .catch(error => {
-          console.error("Failed to record attendance:", error);
+          console.error("Failed to update attendance:", error);
+          toast.error("Failed to update attendance");
         });
     }
   };
@@ -104,8 +79,9 @@ const DriverAttendance = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   type Driver = Record<string, any>;
   const [search, setSearch] = useState("");
-  const { data, error, isLoading, refetch } = useGetAllDriversQuery({
-    archived: "false",
+  const { data, error, isLoading, refetch } = useGetAllEmpolyeesAttendQuery({
+    employeeType: "DRIVER",
+    role: "EMPLOYEE",
     page: currentPage,
     size: rowsPerPage,
   });
@@ -277,7 +253,7 @@ const DriverAttendance = () => {
             .filter((driver: Driver) => {
               return search.toLocaleLowerCase() === ""
                 ? driver
-                : driver.name.toLocaleLowerCase().includes(search);
+                : driver.userFullName.toLocaleLowerCase().includes(search);
             })
             .map((driver: Driver, index: number) => (
               <div
@@ -301,35 +277,38 @@ const DriverAttendance = () => {
                         />
                       )}
                     </div>
-                    <p className="mt-4 text-[22px]"> {driver.name} </p>
+                    <p className="mt-4 text-[22px]"> {driver.userFullName} </p>
                     <p className="whitespace-nowrap font-semibold text-[#526484]">
-                      Driver: {driver.id}
+                      Driver: {driver.userId}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center justify-center gap-4 text-center">
-                  {["P", "A", "L"].map(label => (
-                    <label
-                      key={label}
-                      className={`flex h-[55px] w-[55px] cursor-pointer items-center justify-center rounded-full border p-5 text-center text-[24px] font-semibold ${
-                        selectedStates[index] === label
-                          ? label === "P"
-                            ? "bg-green-300 text-white"
-                            : label === "A"
-                              ? "bg-red-500 text-white"
-                              : "bg-yellow-300 text-white"
-                          : "bg-white"
-                      } `}
-                    >
-                      <input
-                        type="checkbox"
-                        className="hidden"
-                        checked={selectedStates[index] === label}
-                        onChange={() => handleSelect(label, index, driver.id)}
-                      />
-                      {label}
-                    </label>
-                  ))}
+                {["P", "A", "L"].map(label => (
+                  <label
+                    key={label}
+                    className={`flex h-[55px] w-[55px] cursor-pointer items-center justify-center rounded-full border p-5 text-center text-[24px] font-semibold ${
+                      selectedStates[index] === label || 
+                      (label === "P" && driver.status === "PRESENT") || 
+                      (label === "L" && driver.status === "LEAVE") || 
+                      (label === "A" && driver.status === "ABSENT")
+                        ? label === "P"
+                          ? "bg-green-300 text-white"
+                          : label === "A"
+                            ? "bg-red-500 text-white"
+                            : "bg-yellow-300 text-white"
+                        : "bg-white"
+                    } `}
+                  >
+                    <input
+                      type="checkbox"
+                      className="hidden"
+                      checked={selectedStates[index] === label}
+                      onChange={() => handleSelect(label, index, driver.userId, driver.status, driver.attendanceId, driver.checkInTime, driver.checkOutTime)}
+                    />
+                    {label}
+                  </label>
+                ))}
                 </div>
               </div>
             ))}
@@ -341,7 +320,7 @@ const DriverAttendance = () => {
         </div>
         <div className="relative overflow-auto">
           <Pagination
-            totalPages={data?.data.totalPages}
+            totalPages={data?.data.totalPagesCount}
             elementsPerPage={rowsPerPage}
             onChangeElementsPerPage={onElementChange}
             currentPage={currentPage}

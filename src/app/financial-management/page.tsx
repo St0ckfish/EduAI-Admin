@@ -57,7 +57,7 @@ const FinancialManagement = () => {
     },
     {
       href: "/financial-management/bank",
-      icon: <FaBuilding  size={40} />,
+      icon: <FaBuilding size={40} />,
       title:
         currentLanguage === "en"
           ? "Bank"

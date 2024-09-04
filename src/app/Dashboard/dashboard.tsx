@@ -9,18 +9,35 @@ import {
   useGetAllEmployeesQuery,
   useGetAllTeachersQuery,
   useGetAllWorkersQuery,
-  useGetAllNoticesQuery,
-  useGetAllCurrentUserQuery,
   useGetEventsInMonthQuery,
 } from "@/features/dashboard/dashboardApi";
+import { format, parseISO } from "date-fns";
 import Spinner from "@/components/spinner";
-import Cookie from "js-cookie";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
+import { useCreateEventsMutation, useGetAllEventsDashboardQuery } from "@/features/events/eventsApi";
+import Link from "next/link";
+import { toast } from "react-toastify";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 
 const ReactApexChart = dynamic(() => import("react-apexcharts"), {
   ssr: false,
+});
+
+const eventSchema = z.object({
+  creatorId: z.string().optional(),
+  startTime: z.string().min(1, "Start time is required"),
+  endTime: z.string().min(1, "End time is required"),
+  title_en: z.string().optional(),
+  title_ar: z.string().optional(),
+  title_fr: z.string().optional(),
+  description_en: z.string().optional(),
+  description_ar: z.string().optional(),
+  description_fr: z.string().optional(),
+  file: z.any().optional() // Include file in schema to handle it
 });
 
 const Dashboard: React.FC = () => {
@@ -32,7 +49,6 @@ const Dashboard: React.FC = () => {
 
   const {
     data: events,
-    error: err0,
     isLoading: isEvents,
   } = useGetEventsInMonthQuery(null);
   const {
@@ -55,16 +71,40 @@ const Dashboard: React.FC = () => {
     error: err4,
     isLoading: isWorker,
   } = useGetAllWorkersQuery(null);
+  const {
+    data: mettings,
+    isLoading: isMeeting,
+  } = useGetAllEventsDashboardQuery(null);
   // const { data: notices, isLoading: isNotices } = useGetAllNoticesQuery(null);
-
+  const [createEvent] = useCreateEventsMutation();
   useEffect(() => {
-    if (students || employees || teachers || workers) {
+    if (students || employees || teachers || workers || mettings) {
       console.log(teachers);
       console.log(employees);
       console.log(students);
       console.log(workers);
+      console.log(mettings);
     }
-  }, [router, students, employees, teachers, workers, err1, err2, err3, err4]);
+  }, [
+    router,
+    students,
+    employees,
+    teachers,
+    workers,
+    err1,
+    err2,
+    err3,
+    err4,
+    mettings,
+  ]);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    resolver: zodResolver(eventSchema),
+  });
 
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -87,11 +127,44 @@ const Dashboard: React.FC = () => {
     },
   ]);
 
+  const onSubmit = async (formData: any) => {
+    try {
+      const formDataToSend = new FormData();
+      // Create JSON object for request key
+      const requestData = {
+        creatorId: formData.creatorId,
+        startTime: formData.startTime,
+        endTime: formData.endTime,
+        title_en: formData.title_en,
+        title_ar: formData.title_ar,
+        title_fr: formData.title_fr,
+        description_en: formData.description_en,
+        description_ar: formData.description_ar,
+        description_fr: formData.description_fr,
+      };
+      toast.success("Event created success")
+      // Append the JSON data as a string to FormData
+      formDataToSend.append("request", JSON.stringify(requestData));
+      
+      // Append the file if it exists
+      const file = formData.file?.[0];
+      if (file) {
+        formDataToSend.append("file", file); // Append the file correctly
+      }
+      
+      const result = await createEvent(formDataToSend).unwrap();
+      console.log("Event created:", result);
+      handleCloseModal();
+    } catch (error) {
+      toast.error("Fiald Create Event")
+      console.error("Failed to create event:", error);
+    }
+  };
+
   const [options, setOptions] = useState({
     chart: {
       height: 350,
       width: 800,
-      //type: 'area' as 'area'
       type: "area" as const,
     },
     colors: ["#f19b78", "#008FFB"],
@@ -120,7 +193,16 @@ const Dashboard: React.FC = () => {
     },
   });
 
-  if (isStudents || isEmployee || isWorker || isTeacher || isEvents)
+  type Meeting = Record<string, any>;
+
+  if (
+    isStudents ||
+    isEmployee ||
+    isWorker ||
+    isTeacher ||
+    isEvents ||
+    isMeeting
+  )
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -136,26 +218,22 @@ const Dashboard: React.FC = () => {
               {students?.message}{" "}
             </p>
             <h1 className="text-[17px] font-semibold">{students?.data} 🧑‍🎓</h1>
-            {/* <h1 className="text-gray-400 text-[12px]"> <span className="text-green-500 font-semibold">4.63%</span> vs. last Year</h1> */}
           </div>
           <div className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]">
             <p className="text-[12px] text-textSecondary">
               {employees?.message}
             </p>
             <h1 className="text-[17px] font-semibold">{employees?.data} 👨‍💼</h1>
-            {/* <h1 className="text-gray-400 text-[12px]"> <span className="text-green-500 font-semibold">4.63%</span> vs. last Year</h1> */}
           </div>
           <div className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]">
             <p className="text-[12px] text-textSecondary">
               {teachers?.message}
             </p>
             <h1 className="text-[17px] font-semibold">{teachers?.data} 👨‍🏫</h1>
-            {/* <h1 className="text-gray-400 text-[12px]"> <span className="text-green-500 font-semibold">4.63%</span> vs. last Year</h1> */}
           </div>
           <div className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]">
             <p className="text-[12px] text-textSecondary">{workers?.message}</p>
             <h1 className="text-[17px] font-semibold">{workers?.data} 🧑‍🏭</h1>
-            {/* <h1 className="text-gray-400 text-[12px]"> <span className="text-green-500 font-semibold">4.63%</span> vs. last Year</h1> */}
           </div>
           <div className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]">
             <p className="text-[12px] text-textSecondary">Events</p>
@@ -169,7 +247,6 @@ const Dashboard: React.FC = () => {
                     ? "ce mois-ci"
                     : "in this month"}
             </h1>
-            {/* <h1 className="text-gray-400 text-[12px]"> <span className="text-green-500 font-semibold">4.63%</span> vs. last Year</h1> */}
           </div>
         </div>
       </div>
@@ -202,83 +279,52 @@ const Dashboard: React.FC = () => {
         <div className="flex justify-center">
           <div className="grid overflow-x-auto rounded-2xl">
             <div className="grid w-[550px] items-center justify-center overflow-x-auto rounded-2xl bg-bgPrimary p-2 shadow-xl max-[1536px]:h-[450px] max-[1536px]:w-[850px]">
-              <div className="flex items-center justify-evenly">
-                <div className="mr-3 h-[75px] w-[66px] items-center justify-center rounded-xl bg-[#F9DCA4] p-2 text-center">
-                  <h1 className="text-[18px] font-semibold text-warning">6</h1>
-                  <h1 className="text-[18px] font-semibold text-warning">
-                    Sun
-                  </h1>
-                </div>
-                <div className="grid w-[150px] gap-2">
-                  <p className="text-[13px] text-warning">06 - May -2024</p>
-                  <p className="text-[16px] text-gray-400">Event Name</p>
-                  <div className="h-2.5 w-full rounded-full bg-gray-200">
-                    <div
-                      className="h-2.5 rounded-full bg-warning"
-                      style={{ width: `50%` }}
-                    ></div>
+              {mettings?.data.content.map((meeting: Meeting) => (
+                <div
+                  key={meeting.id}
+                  className="flex items-center justify-evenly"
+                >
+                  <div className="mr-3 h-[75px] w-[66px] items-center justify-center rounded-xl bg-[#F9DCA4] p-2 text-center">
+                    <h1 className="text-[18px] font-semibold text-warning">
+                      {format(parseISO(meeting.startDate), 'd')}
+                    </h1>
+                    <h1 className="text-[18px] font-semibold text-warning">
+                    {format(parseISO(meeting.startDate), 'EEE')}
+
+                    </h1>
+                  </div>
+                  <div className="grid w-[150px] gap-2">
+                    <p className="text-[13px] text-warning">{format(parseISO(meeting.startDate), 'dd - MMMM - yyyy')}
+                    </p>
+                    <p className="text-[16px] text-gray-400">{meeting.title}</p>
+                    <div className="h-2.5 w-full rounded-full bg-gray-200">
+                      <div
+                        className="h-2.5 rounded-full bg-warning"
+                        style={{ width: `22%` }}
+                      ></div>
+                    </div>
+                  </div>
+                  <div className="ml-3 grid w-[200px] gap-8">
+                    <p className="text-[13px] text-warning">
+                      {format(parseISO(meeting.startDate), "hh:mm a")} -{" "}
+                      {format(parseISO(meeting.endDate), "hh:mm a")}
+                    </p>
+                    <p className="text-[16px] text-gray-600">
+                      23 Intersted in the event
+                    </p>
                   </div>
                 </div>
-                <div className="ml-3 grid w-[200px] gap-8">
-                  <p className="text-[13px] text-warning">7:00AM - 8:00AM</p>
-                  <p className="text-[16px] text-gray-600">
-                    23 Intersted in the event
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center justify-evenly">
-                <div className="mr-3 h-[75px] w-[66px] items-center justify-center rounded-xl bg-gray-200 p-2 text-center">
-                  <h1 className="text-[18px] font-semibold text-gray-600">6</h1>
-                  <h1 className="text-[18px] font-semibold text-gray-600">
-                    Sun
-                  </h1>
-                </div>
-                <div className="grid w-[150px] gap-2">
-                  <p className="text-[13px] text-gray-600">06 - May -2024</p>
-                  <p className="text-[16px] text-gray-600">Event Name</p>
-                  <div className="h-2.5 w-full rounded-full bg-gray-200">
-                    <div
-                      className="h-2.5 rounded-full bg-gray-600"
-                      style={{ width: `50%` }}
-                    ></div>
-                  </div>
-                </div>
-                <div className="ml-3 grid w-[200px] gap-8">
-                  <p className="text-[13px] text-gray-600">7:00AM - 8:00AM</p>
-                  <p className="text-[16px] text-gray-600">
-                    23 Intersted in the event
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center justify-evenly">
-                <div className="mr-3 h-[75px] w-[66px] items-center justify-center rounded-xl bg-[#2970ff91] p-2 text-center">
-                  <h1 className="te-warning text-[18px] font-semibold">6</h1>
-                  <h1 className="te-warning text-[18px] font-semibold">Sun</h1>
-                </div>
-                <div className="grid w-[150px] gap-2">
-                  <p className="text-[13px] text-primary">06 - May -2024</p>
-                  <p className="text-[16px] text-gray-400">Event Name</p>
-                  <div className="h-2.5 w-full rounded-full bg-gray-200">
-                    <div
-                      className="h-2.5 rounded-full bg-primary"
-                      style={{ width: `50%` }}
-                    ></div>
-                  </div>
-                </div>
-                <div className="ml-3 grid w-[200px] gap-8">
-                  <p className="text-[13px] text-primary">7:00AM - 8:00AM</p>
-                  <p className="text-[16px] text-gray-600">
-                    23 Intersted in the event
-                  </p>
-                </div>
-              </div>
+              ))}
               <div className="grid justify-center">
                 <button
                   onClick={handleOpenModal}
-                  className="mb-5 mr-3 w-[120px] whitespace-nowrap rounded-xl bg-primary px-1 py-1.5 text-[14px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+                  className=" mr-3 w-[120px] whitespace-nowrap rounded-xl bg-primary px-1 py-1.5 text-[14px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
                 >
                   + New Event
                 </button>
+              </div>
+              <div className="flex justify-end text-end">
+                <Link href="/educational-affairs/events" className="text-blue-500 underline font-semibold">More Events</Link>
               </div>
             </div>
           </div>
@@ -357,36 +403,127 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-        <h2 className="mb-4 text-xl font-semibold text-textPrimary">
-          {" "}
-          Event Name
-        </h2>
-        <div className="mb-4 rounded-sm">
-          <input
-            type="text"
-            placeholder="Event Name "
-            className="w-full rounded-xl border border-secondary bg-bgSecondary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-        <h2 className="mb-4 text-xl font-semibold">Event Date</h2>
-        <div className="mb-4 rounded-sm">
-          <input
-            type="date"
-            className="w-full rounded-xl border border-secondary bg-bgSecondary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-        <div className="flex justify-between">
-          <button className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl">
-            Add
-          </button>
-          <button
-            onClick={handleCloseModal}
-            className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl border bg-[#ffffff] px-4 py-2 text-[18px] font-semibold text-black duration-300 ease-in hover:shadow-xl"
-          >
-            Cancel
-          </button>
-        </div>
-      </Modal>
+          <h2 className="mb-4 text-xl font-light">Create Event</h2>
+          <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2 gap-5" encType="multipart/form-data">
+            {/* Creator ID */}
+            <div className="mb-4">
+              <input
+                type="number"
+                {...register("creatorId")}
+                placeholder="Creator ID"
+                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              {errors.creatorId && <p className="text-red-500">{errors.creatorId.message as string}</p>}
+            </div>
+
+            {/* Start Time */}
+            <div className="mb-4">
+              <input
+                type="datetime-local"
+                {...register("startTime")}
+                placeholder="Start Time"
+                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              {errors.startTime && <p className="text-red-500">{errors.startTime.message as string}</p>}
+            </div>
+
+            {/* End Time */}
+            <div className="mb-4">
+              <input
+                type="datetime-local"
+                {...register("endTime")}
+                placeholder="End Time"
+                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              {errors.endTime && <p className="text-red-500">{errors.endTime.message as string}</p>}
+            </div>
+
+            {/* Title in English */}
+            <div className="mb-4">
+              <input
+                type="text"
+                {...register("title_en")}
+                placeholder="Title (English)"
+                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              {errors.title_en && <p className="text-red-500">{errors.title_en.message as string}</p>}
+            </div>
+
+            {/* Title in Arabic */}
+            <div className="mb-4">
+              <input
+                type="text"
+                {...register("title_ar")}
+                placeholder="Title (Arabic)"
+                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              {errors.title_ar && <p className="text-red-500">{errors.title_ar.message as string}</p>}
+            </div>
+
+            {/* Title in French */}
+            <div className="mb-4">
+              <input
+                type="text"
+                {...register("title_fr")}
+                placeholder="Title (French)"
+                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              {errors.title_fr && <p className="text-red-500">{errors.title_fr.message as string}</p>}
+            </div>
+
+            {/* Description in English */}
+            <div className="mb-4">
+              <input
+                {...register("description_en")}
+                placeholder="Description (English)"
+                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              {errors.description_en && <p className="text-red-500">{errors.description_en.message as string}</p>}
+            </div>
+
+            {/* Description in Arabic */}
+            <div className="mb-4">
+              <input
+                {...register("description_ar")}
+                placeholder="Description (Arabic)"
+                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              {errors.description_ar && <p className="text-red-500">{errors.description_ar.message as string}</p>}
+            </div>
+
+            {/* Description in French */}
+            <div className="mb-4">
+              <input
+                {...register("description_fr")}
+                placeholder="Description (French)"
+                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              {errors.description_fr && <p className="text-red-500">{errors.description_fr.message as string}</p>}
+            </div>
+
+            {/* File Input */}
+            <div className="mb-4">
+              <input
+                type="file"
+                {...register("file")}
+                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              {errors.file && <p className="text-red-500">{errors.file.message as string}</p>}
+            </div>
+
+            <div className="flex justify-between">
+              <button type="submit" className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl">
+                Add
+              </button>
+              <button
+                onClick={handleCloseModal}
+                className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-[#e44949] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#af4747] hover:shadow-xl"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </Modal>
     </div>
   );
 };

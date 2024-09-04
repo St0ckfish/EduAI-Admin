@@ -4,10 +4,9 @@ import Link from "next/link";
 import { useState, useEffect, SetStateAction } from "react";
 import {
   useDeleteEmployeesMutation,
-  useGetAllEmployeesQuery,
   useGetEmployeeByIdQuery,
 } from "@/features/User-Management/employeeApi";
-import { useCreateAttendanceMutation } from "@/features/attendance/attendanceApi";
+import { useCreateAttendanceMutation, useGetAllEmpolyeesAttendQuery, useUpdateAttendanceMutation } from "@/features/attendance/attendanceApi";
 import Spinner from "@/components/spinner";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
@@ -27,80 +26,58 @@ const EmployeeAttendance = () => {
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const { data, error, isLoading, refetch } = useGetAllEmployeesQuery({
-    archived: "false",
+  const { data, error, isLoading, refetch } = useGetAllEmpolyeesAttendQuery({
+    employeeType: "EMPLOYEE",
+    role: "EMPLOYEE",
     page: currentPage,
     size: rowsPerPage,
   });
   const [selectedStates, setSelectedStates] = useState<string[]>([]);
   const [createAttendance] = useCreateAttendanceMutation();
+  const [updateAttendance] = useUpdateAttendanceMutation();
 
-  const handleSelect = (label: string, index: number, userId: undefined) => {
+
+  const handleSelect = (label: string, index: number, userId: undefined, driverStatus: string | null, attendenceId: number, checkin: Date, checkout: Date) => {
     setSelectedStates(prevStates => {
       const newStates = [...prevStates];
       newStates[index] = newStates[index] === label ? label : label; // Toggle selection
       return newStates;
     });
-
-    // Check if the "P" button is clicked
-    if (label === "P") {
-      // Prepare attendance data
-      const attendanceData = {
-        userId: userId,
-        status: "PRESENT",
-        absenceReason: null,
-        checkInTime: null,
-        checkOutTime: null,
-      };
-
-      // Send the data using the mutation hook
+  
+    const attendanceData = {
+      userId: userId,
+      attendenceId: attendenceId,
+      status: label === "P" ? "PRESENT" : label === "A" ? "ABSENT" : "LEAVE",
+      absenceReason: null,
+      checkInTime: checkin,
+      checkOutTime: checkout,
+    };
+  
+    if (driverStatus === null) {
+      // Use createAttendance if status is null
       createAttendance(attendanceData)
         .unwrap()
         .then(response => {
           console.log("Attendance recorded:", response);
+          refetch();
+          toast.success("Attendance recorded successfully");
         })
         .catch(error => {
           console.error("Failed to record attendance:", error);
+          toast.error("Failed to record attendance");
         });
-    }
-    if (label === "A") {
-      // Prepare attendance data
-      const attendanceData = {
-        userId: userId,
-        status: "ABSENT",
-        absenceReason: null,
-        checkInTime: null,
-        checkOutTime: null,
-      };
-
-      // Send the data using the mutation hook
-      createAttendance(attendanceData)
+    } else {
+      // Use updateAttendance if status is not null
+      updateAttendance({ formData: attendanceData, id: attendanceData.attendenceId })
         .unwrap()
         .then(response => {
-          console.log("Attendance recorded:", response);
+          console.log("Attendance updated:", response);
+          refetch();
+          toast.info("Attendance updated successfully");
         })
         .catch(error => {
-          console.error("Failed to record attendance:", error);
-        });
-    }
-    if (label === "L") {
-      // Prepare attendance data
-      const attendanceData = {
-        userId: userId,
-        status: "LEAVE",
-        absenceReason: null,
-        checkInTime: null,
-        checkOutTime: null,
-      };
-
-      // Send the data using the mutation hook
-      createAttendance(attendanceData)
-        .unwrap()
-        .then(response => {
-          console.log("Attendance recorded:", response);
-        })
-        .catch(error => {
-          console.error("Failed to record attendance:", error);
+          console.error("Failed to update attendance:", error);
+          toast.error("Failed to update attendance");
         });
     }
   };
@@ -277,7 +254,7 @@ const EmployeeAttendance = () => {
             .filter((employee: Employee) => {
               return search.toLocaleLowerCase() === ""
                 ? employee
-                : employee.name.toLocaleLowerCase().includes(search);
+                : employee.userFullName.toLocaleLowerCase().includes(search);
             })
             .map((employee: Employee, index: number) => (
               <div
@@ -301,9 +278,9 @@ const EmployeeAttendance = () => {
                         />
                       )}
                     </div>
-                    <p className="mt-4 text-[22px]"> {employee.name} </p>
+                    <p className="mt-4 text-[22px]"> {employee.userFullName} </p>
                     <p className="whitespace-nowrap font-semibold text-[#526484]">
-                      Employee: {employee.id}
+                      Employee: {employee.userId}
                     </p>
                   </div>
                 </div>
@@ -312,7 +289,7 @@ const EmployeeAttendance = () => {
                     <label
                       key={label}
                       className={`flex h-[55px] w-[55px] cursor-pointer items-center justify-center rounded-full border p-5 text-center text-[24px] font-semibold ${
-                        selectedStates[index] === label
+                        selectedStates[index] === label || (label === "P" && employee.status === "PRESENT") || (label === "L" && employee.status === "LEAVE") || (label === "A" && employee.status === "ABSENT")
                           ? label === "P"
                             ? "bg-green-300 text-white"
                             : label === "A"
@@ -325,7 +302,7 @@ const EmployeeAttendance = () => {
                         type="checkbox"
                         className="hidden"
                         checked={selectedStates[index] === label}
-                        onChange={() => handleSelect(label, index, employee.id)}
+                        onChange={() => handleSelect(label, index, employee.userId, employee.status, employee.attendanceId, employee.checkInTime, employee.checkOutTime)}
                       />
                       {label}
                     </label>
@@ -341,7 +318,7 @@ const EmployeeAttendance = () => {
         </div>
         <div className="relative overflow-auto">
           <Pagination
-            totalPages={data?.data.totalPages}
+            totalPages={data?.data.totalPagesCount}
             elementsPerPage={rowsPerPage}
             onChangeElementsPerPage={onElementChange}
             currentPage={currentPage}

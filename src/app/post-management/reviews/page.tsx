@@ -3,12 +3,15 @@
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
+import Soon from "@/components/soon";
 
 const Reviews = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   return (
     <>
+         <Soon/>
+
       <div
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
