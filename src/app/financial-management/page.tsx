@@ -4,7 +4,7 @@ import Card from "@/components/card";
 import { RootState } from "@/GlobalRedux/store";
 import Link from "next/link";
 import { useSelector } from "react-redux";
-import { FaDollarSign, FaWallet, FaBank } from 'react-icons/fa';
+import { FaDollarSign, FaWallet, FaBuilding } from 'react-icons/fa';
 
 
 
@@ -57,7 +57,7 @@ const FinancialManagement = () => {
     },
     {
       href: "/financial-management/bank",
-      icon: <FaBank size={40} />,
+      icon: <FaBuilding  size={40} />,
       title:
         currentLanguage === "en"
           ? "Bank"
