@@ -27,8 +27,16 @@ export const attendanceApi = createApi({
     },
   }),
   endpoints: builder => ({
-    getAllBuss: builder.query({
-      query: () => "/api/v1/bus/all?size=1000000&page=0&getActive=1",
+    getAllEmpolyeesAttend: builder.query({
+      query: ({role, size, page, employeeType}) => `/api/v1/employee-attendance/by-role?date=&role=${role}&size=${size}&page=${page}&employeeType=${employeeType}`,
+    }),
+    //
+    getDriversCount: builder.query({
+      query: () => `/api/v1/dashboard/drivers-count`,
+    }),
+    //
+    getDriversAttend: builder.query({
+      query: () => `/api/v1/dashboard/drivers-attendance?status=PRESENT`,
     }),
     //
     deleteBuss: builder.mutation({
@@ -50,9 +58,9 @@ export const attendanceApi = createApi({
       query: id => `/api/v1/bus/${id}`,
     }),
     //
-    updateBuss: builder.mutation({
+    updateAttendance: builder.mutation({
       query: ({ formData, id }) => ({
-        url: `/api/v1/bus/${id}`,
+        url: `/api/v1/employee-attendance/${id}`,
         method: "PUT",
         body: formData,
       }),
@@ -61,9 +69,11 @@ export const attendanceApi = createApi({
 });
 
 export const {
-  useGetAllBussQuery,
+  useGetAllEmpolyeesAttendQuery,
+  useGetDriversCountQuery,
+  useGetDriversAttendQuery,
   useDeleteBussMutation,
   useCreateAttendanceMutation,
   useGetBusByIdQuery,
-  useUpdateBussMutation,
+  useUpdateAttendanceMutation,
 } = attendanceApi;

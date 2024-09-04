@@ -4,11 +4,14 @@ import { RootState } from "@/GlobalRedux/store";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import {
+  useGetAllEmployeesQuery,
+  useGetAllStudentsQuery,
   useGetEmployeeAttendenceQuery,
   useGetTeacherAttendenceQuery,
   useGetWorkerAttendenceQuery,
 } from "@/features/dashboard/dashboardApi";
 import Spinner from "@/components/spinner";
+import { useGetDriversAttendQuery, useGetDriversCountQuery } from "@/features/attendance/attendanceApi";
 
 const Attendance = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
@@ -18,10 +21,18 @@ const Attendance = () => {
 
   const { data: employeedata, isLoading: isLoadingE } =
     useGetEmployeeAttendenceQuery(null);
+  const { data: driverCount, isLoading: isCount } =
+  useGetDriversCountQuery(null);
+  const { data: driverAttend, isLoading: isAttend } =
+  useGetDriversAttendQuery(null);
   const { data: teacherdata, isLoading: isLoadingT } =
-    useGetTeacherAttendenceQuery(null);
+  useGetTeacherAttendenceQuery(null);
   const { data: workerdata, isLoading: isLoadingW } =
-    useGetWorkerAttendenceQuery(null);
+  useGetWorkerAttendenceQuery(null);
+  const { data: employeeCount, isLoading: isECount } =
+  useGetAllEmployeesQuery(null);
+  const { data: studentCount, isLoading: isSCount } =
+  useGetAllStudentsQuery(null);
 
   const UserManagments = [
     {
@@ -56,15 +67,8 @@ const Attendance = () => {
             : currentLanguage === "fr"
               ? "Chauffeur"
               : "Driver", // Default to English
-      description:
-        currentLanguage === "en"
-          ? "400"
-          : currentLanguage === "ar"
-            ? "٤٠٠"
-            : currentLanguage === "fr"
-              ? "400"
-              : "400", // Default to English
-      number: 20,
+      description: driverCount?.data,
+      number: driverAttend?.data,
     },
     {
       href: "/employee-attendance",
@@ -77,14 +81,7 @@ const Attendance = () => {
             : currentLanguage === "fr"
               ? "Employé"
               : "Employee", // Default to English
-      description:
-        currentLanguage === "en"
-          ? "450"
-          : currentLanguage === "ar"
-            ? "٤٥٠"
-            : currentLanguage === "fr"
-              ? "450"
-              : "450", // Default to English
+      description: employeeCount?.data, // Default to English
       number: employeedata?.data,
     },
     {
@@ -98,14 +95,7 @@ const Attendance = () => {
             : currentLanguage === "fr"
               ? "Étudiant"
               : "Student", // Default to English
-      description:
-        currentLanguage === "en"
-          ? "300"
-          : currentLanguage === "ar"
-            ? "٣٠٠"
-            : currentLanguage === "fr"
-              ? "300"
-              : "300", // Default to English
+      description: studentCount?.data, // Default to English
       number: 20,
     },
     {
@@ -152,7 +142,7 @@ const Attendance = () => {
     },
   ];
 
-  if (isLoadingE || isLoadingT || isLoadingW)
+  if (isLoadingE || isLoadingT || isLoadingW || isCount || isAttend || isECount || isSCount)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />

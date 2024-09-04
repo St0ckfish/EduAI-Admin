@@ -56,11 +56,11 @@ export const dashboardApi = createApi({
     }),
     //
     getTeacherAttendence: builder.query({
-      query: () => "/api/v1/dashboard/teachers-attendance",
+      query: () => "/api/v1/dashboard/teachers-attendance?status=PRESENT",
     }),
     //
     getEmployeeAttendence: builder.query({
-      query: () => "/api/v1/dashboard/employees-attendance",
+      query: () => "/api/v1/dashboard/employees-attendance?status=PRESENT",
     }),
     //
     getEventsInMonth: builder.query({
@@ -68,7 +68,7 @@ export const dashboardApi = createApi({
     }),
     //
     getWorkerAttendence: builder.query({
-      query: () => "/api/v1/dashboard/workers-attendance",
+      query: () => "/api/v1/dashboard/workers-attendance?status=PRESENT",
     }),
   }),
 });
