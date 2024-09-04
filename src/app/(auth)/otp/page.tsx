@@ -73,13 +73,13 @@ const OTP = () => {
 
   return (
     <>
-      <div className="grid h-screen grid-cols-2 items-center justify-center bg-white duration-300 ease-in max-[1040px]:grid-cols-1">
+      <div className="grid h-screen grid-cols-2 items-center justify-center bg-bgSecondary duration-300 ease-in max-[1040px]:grid-cols-1">
         <div className="grid items-center justify-center text-center">
           <div className="mb-10 grid">
-            <h1 className="font-sans text-[28px] font-bold text-[#041631]">
+            <h1 className="font-sans text-[28px] font-bold text-primary">
               Check your Email
             </h1>
-            <p className="font-sans text-[20px] font-semibold text-[#526484]">{`OTP code has been sent to ${email}`}</p>
+            <p className="font-sans text-[20px] font-semibold text-secondary">{`OTP code has been sent to ${email}`}</p>
           </div>
           <div className="grid items-center justify-center">
             <form id="otp-form" onSubmit={handleSubmit}>
@@ -89,7 +89,7 @@ const OTP = () => {
                     key={index}
                     ref={inputRefs[index]}
                     type="text"
-                    className="h-14 w-14 appearance-none rounded-lg border-2 bg-white p-4 text-center text-2xl font-extrabold text-slate-900 outline-none hover:border-slate-200 focus:border-indigo-400 focus:bg-white focus:ring-2 focus:ring-indigo-100"
+                    className="h-14 w-14 appearance-none rounded-lg border-2 bg-bgSecondary p-4 text-center text-2xl font-extrabold text-textPrimary outline-none hover:border-borderPrimary focus:border-indigo-400 focus:bg-bgPrimary focus:ring-2 focus:ring-indigo-100"
                     pattern="\d*"
                     maxLength={1}
                     value={value}
@@ -104,18 +104,18 @@ const OTP = () => {
                 <div className="grid justify-center gap-3 text-center">
                   <button
                     type="submit"
-                    className="w-[140px] rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] font-bold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                    className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] font-bold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                   >
                     Verify
                   </button>
-                  <p className="font-sans text-[17px] font-semibold text-[#e44f4f]">{`${formatTime(timer)}`}</p>
+                  <p className="font-sans text-[17px] font-semibold text-warning">{`${formatTime(timer)}`}</p>
                   <button
                     onClick={() => {
                       SendOtpAgian();
                       setTimer(180);
                     }}
                     type="button"
-                    className="w-[140px] rounded-xl border-2 border-[#3E5AF0] px-4 py-2 text-[18px] font-bold text-[#3E5AF0] duration-300 ease-in hover:shadow-xl"
+                    className="w-[140px] rounded-xl border-2 border-primary px-4 py-2 text-[18px] font-bold text-primary duration-300 ease-in hover:shadow-xl"
                   >
                     Send Again
                   </button>

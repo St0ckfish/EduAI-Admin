@@ -13,17 +13,17 @@ const Profile = () => {
   return (
     <>
       <div className="mt-7 lg:ml-[270px]">
-        <div className="grid h-full w-full rounded-xl bg-white p-7">
+        <div className="grid h-full w-full rounded-xl bg-bgPrimary p-7">
           <div>
             <div className="justify-left mb-5 ml-4 flex gap-5 text-[18px] font-semibold">
-              <Link href="/profile" className="text-blue-500 underline">
+              <Link href="/profile" className="text-primary underline">
                 My Profile
               </Link>
               <Link href="/profile/password">Password</Link>
             </div>
           </div>
-          <div className="text-semibold flex h-full w-full justify-between rounded-xl border-2 border-gray-200 p-5">
-            <div className="text-semibold flex items-center gap-2 text-[15px] text-black">
+          <div className="bg-bgPrimary text-semibold flex h-full w-full justify-between rounded-xl border-2 border-borderPrimary p-5">
+            <div className="text-semibold flex items-center gap-2 text-[15px] text-textPrimary">
               <img
                 src="/images/userr.png"
                 className="mr-2 h-[40px] w-[40px] rounded-full"
@@ -33,17 +33,17 @@ const Profile = () => {
                 <p>Mostapha Taha</p>
                 <p>School manager</p>
                 <p>
-                  ID: <span className="text-gray-400">1385</span>
+                  ID: <span className="text-textSecondary">1385</span>
                 </p>
               </span>
             </div>
           </div>
-          <div className="text-semibold mt-5 flex h-full w-full rounded-xl border-2 border-gray-200 p-5">
+          <div className="bg-bgPrimary text-semibold mt-5 flex h-full w-full rounded-xl border-2 border-borderPrimary p-5">
             <div className="grid w-full gap-2">
               <div className="flex w-full justify-between">
                 <h1 className="text-[20px] font-bold">Admin Information</h1>
                 <div>
-                  <button className="flex gap-1 rounded-full border border-gray-300 px-3 py-1 font-semibold text-gray-500">
+                  <button className="flex gap-1 rounded-full border border-borderPrimary px-3 py-1 font-semibold text-textPrimary">
                     Edit
                     <svg
                       className="h-6 w-6 text-gray-500"
@@ -74,7 +74,7 @@ const Profile = () => {
                     <input
                       id="name"
                       type="text"
-                      className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                      className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                     />
                   </label>
                   <label
@@ -85,7 +85,7 @@ const Profile = () => {
                     <input
                       id="code"
                       type="text"
-                      className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                      className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                     />
                   </label>
                   <label
@@ -96,7 +96,7 @@ const Profile = () => {
                     <input
                       id="about"
                       type="text"
-                      className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                      className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                     />
                   </label>
                   <label
@@ -107,7 +107,7 @@ const Profile = () => {
                     <input
                       id="about"
                       type="text"
-                      className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                      className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                     />
                   </label>
                 </div>
@@ -120,7 +120,7 @@ const Profile = () => {
                     <input
                       id="Version"
                       type="text"
-                      className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                      className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                     />
                   </label>
                   <label
@@ -131,7 +131,7 @@ const Profile = () => {
                     <input
                       id="Expiration"
                       type="date"
-                      className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                      className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                     />
                   </label>
                   <label
@@ -142,7 +142,7 @@ const Profile = () => {
                     <input
                       id="Version"
                       type="text"
-                      className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                      className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                     />
                   </label>
                   <label
@@ -153,7 +153,7 @@ const Profile = () => {
                     <input
                       id="Initial"
                       type="text"
-                      className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                      className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                     />
                   </label>
                 </div>
@@ -166,7 +166,7 @@ const Profile = () => {
                     <input
                       id="name"
                       type="text"
-                      className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                      className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                     />
                   </label>
                   <label
@@ -177,7 +177,7 @@ const Profile = () => {
                     <input
                       id="code"
                       type="text"
-                      className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                      className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                     />
                   </label>
                 </div>

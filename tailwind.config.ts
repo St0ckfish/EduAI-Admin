@@ -23,6 +23,8 @@ const config: Config = {
         error: "var(--error)",
         success: "var(--success)",
         info: "var(--info)",
+        borderPrimary: "var(--border-primary)",
+        hover: "#4a5cc5",
       },
     },
   },

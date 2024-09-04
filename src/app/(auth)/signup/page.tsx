@@ -94,7 +94,7 @@ const Signup = () => {
 
   return (
     <>
-      <div className="grid h-screen grid-cols-2 items-center justify-center bg-white px-4 duration-300 ease-in max-[1040px]:grid-cols-1">
+      <div className="grid h-screen grid-cols-2 items-center justify-center bg-bgSecondary px-4 duration-300 ease-in max-[1040px]:grid-cols-1">
         <div className="gird items-center justify-center text-center">
           <div>
             <img
@@ -104,10 +104,10 @@ const Signup = () => {
             />
           </div>
           <div className="mb-5 grid">
-            <h1 className="font-sans text-[28px] font-bold text-[#041631]">
+            <h1 className="font-sans text-[28px] font-bold text-primary">
               Sign Up
             </h1>
-            <p className="font-sans text-[20px] font-semibold text-[#526484]">
+            <p className="font-sans text-[20px] font-semibold text-secondary">
               Sign up to enjoy the application
             </p>
           </div>
@@ -123,11 +123,11 @@ const Signup = () => {
                       id="username"
                       {...register("username", { required: true })}
                       placeholder=" username"
-                      className={`rounded-xl border px-4 py-3 ${errors.username ? "border-[#d74f41]" : "border-zinc-300"} w-[400px] outline-none max-[458px]:w-[350px]`}
+                      className={`rounded-xl border px-4 py-3 ${errors.username ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                       type="text"
                     />
                     {errors.username && (
-                      <span className="text-[13px] text-[#e81123]">
+                      <span className="text-[13px] text-error">
                         Username is Required
                       </span>
                     )}
@@ -140,11 +140,11 @@ const Signup = () => {
                       id="email"
                       {...register("email", { required: true })}
                       placeholder=" email"
-                      className={`rounded-xl border px-4 py-3 ${errors.email ? "border-[#d74f41]" : "border-zinc-300"} w-[400px] outline-none max-[458px]:w-[350px]`}
+                      className={`rounded-xl border px-4 py-3 ${errors.email ? "border-warning" : "border-zinc-300"} w-[400px] outline-none max-[458px]:w-[350px]`}
                       type="email"
                     />
                     {errors.email && (
-                      <span className="text-[13px] text-[#e81123]">
+                      <span className="text-[13px] text-error">
                         Email is Required
                       </span>
                     )}
@@ -157,11 +157,11 @@ const Signup = () => {
                       id="password"
                       {...register("password", { required: true })}
                       placeholder=" password"
-                      className={`rounded-xl border px-4 py-3 ${errors.password ? "border-[#d74f41]" : "border-zinc-300"} w-[400px] outline-none max-[458px]:w-[350px]`}
+                      className={`rounded-xl border px-4 py-3 ${errors.password ? "border-warning" : "border-zinc-300"} w-[400px] outline-none max-[458px]:w-[350px]`}
                       type="password"
                     />
                     {errors.password && (
-                      <span className="text-[13px] text-[#e81123]">
+                      <span className="text-[13px] text-error">
                         Password must be at least 8 characters long 123 (@_#*&)
                         A_Z a_z
                       </span>
@@ -175,17 +175,17 @@ const Signup = () => {
                       id="nid"
                       {...register("nid", { required: true })}
                       placeholder=" NID"
-                      className={`rounded-xl border px-4 py-3 ${errors.nid ? "border-[#d74f41]" : "border-zinc-300"} w-[400px] outline-none max-[458px]:w-[350px]`}
+                      className={`rounded-xl border px-4 py-3 ${errors.nid ? "border-warning" : "border-zinc-300"} w-[400px] outline-none max-[458px]:w-[350px]`}
                       type="number"
                     />
                     {errors.nid && (
-                      <span className="text-[13px] text-[#e81123]">
+                      <span className="text-[13px] text-error">
                         NID is Required
                       </span>
                     )}
                   </label>
                   <div className="mt-12 flex w-full justify-end gap-3">
-                    <p className="flex w-[120px] cursor-no-drop items-center justify-center gap-2 rounded-xl border border-[#e6e8e7] bg-white px-3 py-2 font-semibold text-[#367aff]">
+                    <p className="flex w-[120px] cursor-no-drop items-center justify-center gap-2 rounded-xl border border-[#e6e8e7] bg-white px-3 py-2 font-semibold text-primary">
                       <svg
                         className="h-5 w-5"
                         width="24"
@@ -204,7 +204,7 @@ const Signup = () => {
                       Previous
                     </p>
                     <button
-                      className="flex w-[120px] items-center justify-center gap-2 rounded-xl bg-[#367aff] px-3 py-2 font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                      className="flex w-[120px] items-center justify-center gap-2 rounded-xl bg-primary px-3 py-2 font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                       onClick={handleNext}
                     >
                       Next
@@ -234,7 +234,7 @@ const Signup = () => {
                       defaultValue=""
                       id="regionId"
                       {...register("regionId", { required: true })}
-                      className={`border ${errors.regionId ? "border-[#d74f41]" : "border-zinc-300"} h-full w-[400px] rounded-xl px-4 py-3 text-sm text-[#9a9a9a] outline-none max-[458px]:w-[350px]`}
+                      className={`border ${errors.regionId ? "border-warning" : "border-zinc-300"} h-full w-[400px] rounded-xl px-4 py-3 text-sm text-[#9a9a9a] outline-none max-[458px]:w-[350px]`}
                     >
                       <option selected value="">
                         Select Region Id{" "}
@@ -272,7 +272,7 @@ const Signup = () => {
                         )}
                     </select>
                     {errors.regionId && (
-                      <span className="text-[13px] text-[#e81123]">
+                      <span className="text-[13px] text-error">
                         regionId is Required
                       </span>
                     )}
@@ -285,7 +285,7 @@ const Signup = () => {
                       defaultValue=""
                       id="gender"
                       {...register("gender", { required: true })}
-                      className={`border ${errors.gender ? "border-[#d74f41]" : "border-zinc-300"} h-full w-[400px] rounded-xl px-4 py-3 text-sm text-[#9a9a9a] outline-none max-[458px]:w-[350px]`}
+                      className={`border ${errors.gender ? "border-warning" : "border-zinc-300"} h-full w-[400px] rounded-xl px-4 py-3 text-sm text-[#9a9a9a] outline-none max-[458px]:w-[350px]`}
                     >
                       <option selected value="">
                         Select gender{" "}
@@ -294,7 +294,7 @@ const Signup = () => {
                       <option value="FEMALE">Female </option>
                     </select>
                     {errors.gender && (
-                      <span className="text-[13px] text-[#e81123]">
+                      <span className="text-[13px] text-error">
                         Gender is Required
                       </span>
                     )}
@@ -307,7 +307,7 @@ const Signup = () => {
                       defaultValue=""
                       id="religion"
                       {...register("religion", { required: true })}
-                      className={`border ${errors.religion ? "border-[#d74f41]" : "border-zinc-300"} h-full w-[400px] rounded-xl px-4 py-3 text-sm text-[#9a9a9a] outline-none max-[458px]:w-[350px]`}
+                      className={`border ${errors.religion ? "border-warning" : "border-zinc-300"} h-full w-[400px] rounded-xl px-4 py-3 text-sm text-[#9a9a9a] outline-none max-[458px]:w-[350px]`}
                     >
                       <option selected value="">
                         Select religion{" "}
@@ -317,7 +317,7 @@ const Signup = () => {
                       <option value="OTHERS">Others </option>
                     </select>
                     {errors.religion && (
-                      <span className="text-[13px] text-[#e81123]">
+                      <span className="text-[13px] text-error">
                         Religion is Required
                       </span>
                     )}
@@ -330,18 +330,18 @@ const Signup = () => {
                       id="number"
                       {...register("number", { required: true })}
                       placeholder=" number"
-                      className={`rounded-xl border px-4 py-3 ${errors.number ? "border-[#d74f41]" : "border-zinc-300"} w-[400px] outline-none max-[458px]:w-[350px]`}
+                      className={`rounded-xl border px-4 py-3 ${errors.number ? "border-warning" : "border-zinc-300"} w-[400px] outline-none max-[458px]:w-[350px]`}
                       type="number"
                     />
                     {errors.number && (
-                      <span className="text-[13px] text-[#e81123]">
+                      <span className="text-[13px] text-error">
                         number is Required
                       </span>
                     )}
                   </label>
                   <div className="mt-12 flex w-full justify-end gap-3">
                     <button
-                      className="flex w-[120px] items-center justify-center gap-2 rounded-xl bg-[#367aff] px-3 py-2 font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                      className="flex w-[120px] items-center justify-center gap-2 rounded-xl bg-primary px-3 py-2 font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                       onClick={handlePrevious}
                     >
                       <svg
@@ -362,7 +362,7 @@ const Signup = () => {
                       Previous
                     </button>
                     <button
-                      className="flex w-[120px] items-center justify-center gap-2 rounded-xl bg-[#367aff] px-3 py-2 font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                      className="flex w-[120px] items-center justify-center gap-2 rounded-xl bg-primary px-3 py-2 font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                       onClick={handleNext}
                     >
                       Next
@@ -392,7 +392,7 @@ const Signup = () => {
                       defaultValue=""
                       id="nationality"
                       {...register("nationality", { required: true })}
-                      className={`border ${errors.nationality ? "border-[#d74f41]" : "border-zinc-300"} h-full w-[400px] rounded-xl px-4 py-3 text-sm text-[#9a9a9a] outline-none max-[458px]:w-[350px]`}
+                      className={`border ${errors.nationality ? "border-warning" : "border-zinc-300"} h-full w-[400px] rounded-xl px-4 py-3 text-sm text-[#9a9a9a] outline-none max-[458px]:w-[350px]`}
                     >
                       <option selected value="">
                         Select Nationality{" "}
@@ -407,7 +407,7 @@ const Signup = () => {
                         )}
                     </select>
                     {errors.nationality && (
-                      <span className="text-[13px] text-[#e81123]">
+                      <span className="text-[13px] text-error">
                         Nationality is Required
                       </span>
                     )}
@@ -420,7 +420,7 @@ const Signup = () => {
                       defaultValue=""
                       id="religion"
                       {...register("employeeType", { required: true })}
-                      className={`border ${errors.employeeType ? "border-[#d74f41]" : "border-zinc-300"} h-full w-[400px] rounded-xl px-4 py-3 text-sm text-[#9a9a9a] outline-none max-[458px]:w-[350px]`}
+                      className={`border ${errors.employeeType ? "border-warning" : "border-zinc-300"} h-full w-[400px] rounded-xl px-4 py-3 text-sm text-[#9a9a9a] outline-none max-[458px]:w-[350px]`}
                     >
                       <option selected value="">
                         Select religion{" "}
@@ -430,7 +430,7 @@ const Signup = () => {
                       <option value="WORKER">Worker </option>
                     </select>
                     {errors.employeeType && (
-                      <span className="text-[13px] text-[#e81123]">
+                      <span className="text-[13px] text-error">
                         Employee Type is Required
                       </span>
                     )}
@@ -443,7 +443,7 @@ const Signup = () => {
                       defaultValue=""
                       id="qualification"
                       {...register("qualification", { required: true })}
-                      className={`border ${errors.qualification ? "border-[#d74f41]" : "border-zinc-300"} h-full w-[400px] rounded-xl px-4 py-3 text-sm text-[#9a9a9a] outline-none max-[458px]:w-[350px]`}
+                      className={`border ${errors.qualification ? "border-warning" : "border-zinc-300"} h-full w-[400px] rounded-xl px-4 py-3 text-sm text-[#9a9a9a] outline-none max-[458px]:w-[350px]`}
                     >
                       <option selected value="">
                         Select religion{" "}
@@ -458,7 +458,7 @@ const Signup = () => {
                       </option>
                     </select>
                     {errors.qualification && (
-                      <span className="text-[13px] text-[#e81123]">
+                      <span className="text-[13px] text-error">
                         Qualification is Required
                       </span>
                     )}
@@ -472,18 +472,18 @@ const Signup = () => {
                       id="birthDate"
                       {...register("birthDate", { required: true })}
                       placeholder=" NID"
-                      className={`w-[400px] rounded-xl border px-4 py-3 max-[458px]:w-[350px] ${errors.birthDate ? "border-[#d74f41]" : "border-zinc-300"} outline-none`}
+                      className={`w-[400px] rounded-xl border px-4 py-3 max-[458px]:w-[350px] ${errors.birthDate ? "border-warning" : "border-zinc-300"} outline-none`}
                       type="date"
                     />
                     {errors.birthDate && (
-                      <span className="text-[13px] text-[#e81123]">
+                      <span className="text-[13px] text-error">
                         birthDate is Required
                       </span>
                     )}
                   </label>
                   <div className="mt-12 flex w-full justify-end gap-3">
                     <button
-                      className="flex w-[120px] items-center justify-center gap-2 rounded-xl bg-[#367aff] px-3 py-2 font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                      className="flex w-[120px] items-center justify-center gap-2 rounded-xl bg-primary px-3 py-2 font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                       onClick={handlePrevious}
                     >
                       <svg
@@ -504,7 +504,7 @@ const Signup = () => {
                       Previous
                     </button>
                     <button
-                      className="flex w-[120px] items-center justify-center gap-2 rounded-xl bg-[#367aff] px-3 py-2 font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                      className="flex w-[120px] items-center justify-center gap-2 rounded-xl bg-primary px-3 py-2 font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                       onClick={handleNext}
                     >
                       Next
@@ -534,11 +534,11 @@ const Signup = () => {
                       id="name_en"
                       {...register("name_en", { required: true })}
                       placeholder=" English Name"
-                      className={`w-[400px] rounded-xl border px-4 py-3 ${errors.name_en ? "border-[#d74f41]" : "border-zinc-300"} outline-none max-[458px]:w-[350px]`}
+                      className={`w-[400px] rounded-xl border px-4 py-3 ${errors.name_en ? "border-warning" : "border-zinc-300"} outline-none max-[458px]:w-[350px]`}
                       type="text"
                     />
                     {errors.name_en && (
-                      <span className="text-[13px] text-[#e81123]">
+                      <span className="text-[13px] text-error">
                         English Name is Required
                       </span>
                     )}
@@ -551,11 +551,11 @@ const Signup = () => {
                       id="name_ar"
                       {...register("name_ar", { required: true })}
                       placeholder=" Arabic Name"
-                      className={`w-[400px] rounded-xl border px-4 py-3 ${errors.name_ar ? "border-[#d74f41]" : "border-zinc-300"} outline-none max-[458px]:w-[350px]`}
+                      className={`w-[400px] rounded-xl border px-4 py-3 ${errors.name_ar ? "border-warning" : "border-zinc-300"} outline-none max-[458px]:w-[350px]`}
                       type="text"
                     />
                     {errors.name_ar && (
-                      <span className="text-[13px] text-[#e81123]">
+                      <span className="text-[13px] text-error">
                         Arabic Name is Required
                       </span>
                     )}
@@ -568,11 +568,11 @@ const Signup = () => {
                       id="name_fr"
                       {...register("name_fr", { required: true })}
                       placeholder=" French Name"
-                      className={`w-[400px] rounded-xl border px-4 py-3 ${errors.name_fr ? "border-[#d74f41]" : "border-zinc-300"} outline-none max-[458px]:w-[350px]`}
+                      className={`w-[400px] rounded-xl border px-4 py-3 ${errors.name_fr ? "border-warning" : "border-zinc-300"} outline-none max-[458px]:w-[350px]`}
                       type="text"
                     />
                     {errors.name_fr && (
-                      <span className="text-[13px] text-[#e81123]">
+                      <span className="text-[13px] text-error">
                         French Name is Required
                       </span>
                     )}
@@ -585,11 +585,11 @@ const Signup = () => {
                       id="schoolId"
                       {...register("schoolId", { required: true })}
                       placeholder=" schoolId"
-                      className={`w-[400px] rounded-xl border px-4 py-3 ${errors.schoolId ? "border-[#d74f41]" : "border-zinc-300"} outline-none max-[458px]:w-[350px]`}
+                      className={`w-[400px] rounded-xl border px-4 py-3 ${errors.schoolId ? "border-warning" : "border-zinc-300"} outline-none max-[458px]:w-[350px]`}
                       type="number"
                     />
                     {errors.schoolId && (
-                      <span className="text-[13px] text-[#e81123]">
+                      <span className="text-[13px] text-error">
                         schoolId is Required
                       </span>
                     )}
@@ -602,17 +602,17 @@ const Signup = () => {
                       id="about"
                       {...register("about", { required: true })}
                       placeholder=" about"
-                      className={`w-[400px] rounded-xl border px-4 py-3 max-[458px]:w-[350px] ${errors.about ? "border-[#d74f41]" : "border-zinc-300"} outline-none`}
+                      className={`w-[400px] rounded-xl border px-4 py-3 max-[458px]:w-[350px] ${errors.about ? "border-warning" : "border-zinc-300"} outline-none`}
                     />
                     {errors.about && (
-                      <span className="text-[13px] text-[#e81123]">
+                      <span className="text-[13px] text-error">
                         about is Required
                       </span>
                     )}
                   </label>
                   <div className="mt-12 flex w-full justify-end gap-3">
                     <button
-                      className="flex w-[120px] items-center justify-center gap-2 rounded-xl bg-[#367aff] px-3 py-2 font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                      className="flex w-[120px] items-center justify-center gap-2 rounded-xl bg-primary px-3 py-2 font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                       onClick={handlePrevious}
                     >
                       <svg
@@ -635,7 +635,7 @@ const Signup = () => {
                     <button
                       disabled={isLoading}
                       type="submit"
-                      className="flex w-[120px] items-center justify-center gap-2 rounded-xl bg-[#367aff] px-3 py-2 font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                      className="flex w-[120px] items-center justify-center gap-2 rounded-xl bg-primary px-3 py-2 font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                     >
                       {isLoading ? " Loading..." : "SignUp"}
                     </button>
@@ -643,7 +643,7 @@ const Signup = () => {
                 </div>
               )}
               {error && (
-                <p className="font-semibold text-[#e81123]">
+                <p className="font-semibold text-error">
                   You may not have completed the data or entered it correctly!
                 </p>
               )}
@@ -653,7 +653,7 @@ const Signup = () => {
                 </p>
                 <a
                   href="/login"
-                  className="flex font-sans font-medium text-[#367aff] hover:underline"
+                  className="flex font-sans font-medium text-primary hover:underline"
                 >
                   Login
                 </a>

@@ -280,13 +280,13 @@ const NavBar = () => {
                     </DropdownMenu.Trigger>
                     <DropdownMenu.Portal>
                       <DropdownMenu.Content
-                        className="data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade z-50 mr-2 mt-5 grid min-w-[150px] justify-center gap-5 rounded-md bg-white p-[5px] font-semibold shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform]"
+                        className="data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade z-50 mr-2 mt-5 grid min-w-[150px] justify-center gap-5 rounded-md bg-bgPrimary p-[5px] font-semibold shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform]"
                         sideOffset={5}
                       >
                         <DropdownMenu.Item className="text-violet11 data-[disabled]:text-mauve8 data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1 group relative mt-2 flex h-[25px] select-none items-center rounded-[3px] px-[5px] text-[13px] leading-none outline-none data-[disabled]:pointer-events-none">
                           <button
                             onClick={() => handleLanguageChange("ar")}
-                            className="rounded-lg px-4 py-2 text-[20px] hover:bg-slate-100"
+                            className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
                           >
                             {currentLanguage === "en"
     ? "Arabic"
@@ -300,7 +300,7 @@ const NavBar = () => {
                         <DropdownMenu.Item className="text-violet11 data-[disabled]:text-mauve8 data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1 group relative flex h-[25px] select-none items-center rounded-[3px] px-[5px] text-[13px] leading-none outline-none data-[disabled]:pointer-events-none">
                           <button
                             onClick={() => handleLanguageChange("en")}
-                            className="rounded-lg px-4 py-2 text-[20px] hover:bg-slate-100"
+                            className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
                           >
                             {currentLanguage === "en"
     ? "English"
@@ -314,7 +314,7 @@ const NavBar = () => {
                         <DropdownMenu.Item className="text-violet11 data-[disabled]:text-mauve8 data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1 group relative mb-2 flex h-[25px] select-none items-center rounded-[3px] px-[5px] text-[13px] leading-none outline-none data-[disabled]:pointer-events-none">
                           <button
                             onClick={() => handleLanguageChange("fr")}
-                            className="rounded-lg px-4 py-2 text-[20px] hover:bg-slate-100"
+                            className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
                           >
                             {currentLanguage === "en"
     ? "French"
@@ -362,13 +362,13 @@ const NavBar = () => {
 
                       {profile && (
                         <DropdownMenu.Content
-                          className="fixed right-[20px] top-[20px] min-w-60 rounded-lg bg-white p-2 shadow-md"
+                          className="fixed text-textPrimary right-[20px] top-[20px] min-w-60 rounded-lg bg-bgPrimary p-2 shadow-md"
                           aria-labelledby="hs-dropdown-with-header"
                           align="end"
                           sideOffset={5}
                         >
-                          <div className="rounded-t-lg bg-gray-100 px-5 py-3">
-                            <p className="text-sm text-gray-500">
+                          <div className="rounded-t-lg bg-bgPrimary px-5 py-3">
+                            <p className="text-sm text-textPrimary">
                             {currentLanguage === "en"
     ? "Signed in as"
     : currentLanguage === "ar"
@@ -377,14 +377,14 @@ const NavBar = () => {
     ? "Connecté en tant que"
     : "Signed in as"}
                             </p>
-                            <p className="text-sm font-medium text-gray-800">
+                            <p className="text-sm font-medium text-textPrimary">
                               {userData?.data.email}
                             </p>
                           </div>
                           <div className="mt-2 py-2">
                             <DropdownMenu.Item asChild>
                               <Link
-                                className="flex items-center gap-x-3.5 rounded-lg border-none px-3 py-2 text-sm text-gray-800 outline-none hover:bg-gray-100"
+                                className="flex items-center gap-x-3.5 rounded-lg border-none px-3 py-2 text-sm text-textPrimary outline-none hover:bg-bgSecondary"
                                 href="/profile"
                               >
                                 <svg
@@ -416,7 +416,7 @@ const NavBar = () => {
                             <DropdownMenu.Item asChild>
                               <a
                                 onClick={DeleteCookie}
-                                className="flex items-center gap-x-3.5 rounded-lg border-none px-3 py-2 text-sm text-gray-800 outline-none hover:bg-bgPrimary hover:text-white"
+                                className="flex items-center gap-x-3.5 rounded-lg border-none px-3 py-2 text-sm text-textPrimary outline-none hover:bg-error hover:text-white"
                                 href="/login"
                               >
                                 {currentLanguage === "en"

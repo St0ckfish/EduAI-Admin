@@ -275,7 +275,7 @@ const Dashboard: React.FC = () => {
               <div className="grid justify-center">
                 <button
                   onClick={handleOpenModal}
-                  className="mb-5 mr-3 w-[120px] whitespace-nowrap rounded-xl bg-primary px-1 py-1.5 text-[14px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                  className="mb-5 mr-3 w-[120px] whitespace-nowrap rounded-xl bg-primary px-1 py-1.5 text-[14px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                 >
                   + New Event
                 </button>
@@ -373,7 +373,7 @@ const Dashboard: React.FC = () => {
           />
         </div>
         <div className="flex justify-between">
-          <button className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl">
+          <button className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl">
             Add
           </button>
           <button

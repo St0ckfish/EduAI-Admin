@@ -9,14 +9,15 @@ body {
 
 .light {
   --primary: #3E5AF0;
-  --bg-primary: #f5f6fa;
-  --bg-secondary: #e5e5e5; 
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f6fa;
   --text-primary: #041631;
   --text-secondary: #89939E;
   --warning: #f4bd0e;
   --error: #E53835;
   --success: #2E7D31;
   --info: #09c2de;
+  --border-primary: #D9D9D9;
 }
 
 .dark {
@@ -29,4 +30,5 @@ body {
   --error: #EB675E;
   --success: #1AC877;
   --info: #34E4B5;
+  --border-primary: #2A2D32;
 }
