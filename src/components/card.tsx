@@ -6,17 +6,17 @@ import { ReactNode } from "react";
 interface CardProps {
   href: string;
   icon?: ReactNode;
+  imgSrc?: string;
   title: string;
   description: string;
 }
 
-const Card: React.FC<CardProps> = ({ href, icon, title, description }) => (
+const Card: React.FC<CardProps> = ({ href, icon, title, imgSrc, description }) => (
   <div className="grid h-[250px] w-[250px] items-end justify-center rounded-xl bg-bgPrimary shadow-lg">
     <Link href={href} className="grid items-center justify-center text-center">
       <div className="flex justify-center">
         <div className="grid h-[87px] w-[87px] items-center justify-center rounded-full bg-bgSecondary">
-          {/* {imgSrc ? <img src={imgSrc} alt={title} /> : icon} */}
-          {icon}
+          {imgSrc ? <img src={imgSrc} alt={title} /> : icon}
         </div>
       </div>
       <p className="mt-2 text-[22px] font-semibold">{title}</p>
