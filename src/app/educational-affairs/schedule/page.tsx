@@ -1,6 +1,7 @@
 "use client";
 
 import Modal from "@/components/model";
+import Soon from "@/components/soon";
 import Timeline from "@/components/timeLine";
 import { RootState } from "@/GlobalRedux/store";
 import { useState } from "react";
@@ -20,6 +21,7 @@ const Schedule = () => {
   };
   return (
     <>
+    <Soon/>
       <div
         className={` ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-7`}
       >

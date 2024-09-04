@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
+import Soon from "@/components/soon";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
@@ -49,6 +50,8 @@ const Other = () => {
 
   return (
     <>
+        <Soon/>
+
       <div className="ml-7 mt-12 flex flex-wrap items-center gap-1 text-[18px] max-[550px]:text-[15px] lg:ml-[290px]">
         <Link
           className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"

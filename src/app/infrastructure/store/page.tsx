@@ -1,5 +1,8 @@
+import Soon from "@/components/soon";
+
 const Store = () => {
-  return <></>;
+  return <>    <Soon/>
+</>;
 };
 
 export default Store;

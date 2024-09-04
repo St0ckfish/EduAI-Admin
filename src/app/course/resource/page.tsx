@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
+import Soon from "@/components/soon";
 import Link from "next/link";
 import { useState, useEffect } from "react"; // Import useState and useEffect hooks
 
@@ -52,7 +53,8 @@ const Resource = () => {
   }, []);
 
   return (
-    <>
+    <>    <Soon/>
+
       <div className="relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg lg:ml-[270px]">
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">
