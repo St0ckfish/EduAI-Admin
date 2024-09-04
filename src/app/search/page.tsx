@@ -54,9 +54,9 @@ const Search = () => {
       >
         <div className="flex h-full w-full justify-center overflow-auto p-2">
           <div className="grid h-full w-full overflow-auto rounded-xl bg-bgPrimary">
-            <div className="flex h-[70px] items-center gap-7 overflow-auto rounded-t-xl bg-gray-200 pl-3 font-semibold">
+            <div className="bg-bgPrimary flex h-[70px] items-center gap-7 overflow-auto rounded-t-xl pl-3 font-semibold">
               <Link
-                className="text-blue-500 underline underline-offset-4"
+                className="text-primary underline underline-offset-4"
                 href="/search"
               >
                 {currentLanguage === "en"
@@ -69,7 +69,7 @@ const Search = () => {
                 {/* Default to English */}
               </Link>
               <Link
-                className="underline-offset-4 hover:text-blue-500 hover:underline"
+                className="underline-offset-4 hover:text-primary hover:underline"
                 href="/search/teacher"
               >
                 {currentLanguage === "en"
@@ -82,7 +82,7 @@ const Search = () => {
                 {/* Default to English */}
               </Link>
               <Link
-                className="underline-offset-4 hover:text-blue-500 hover:underline"
+                className="underline-offset-4 hover:text-primary hover:underline"
                 href="/search/employee"
               >
                 {currentLanguage === "en"
@@ -95,7 +95,7 @@ const Search = () => {
                 {/* Default to English */}
               </Link>
               <Link
-                className="underline-offset-4 hover:text-blue-500 hover:underline"
+                className="underline-offset-4 hover:text-primary hover:underline"
                 href="/search/worker"
               >
                 {currentLanguage === "en"
@@ -108,7 +108,7 @@ const Search = () => {
                 {/* Default to English */}
               </Link>
               <Link
-                className="underline-offset-4 hover:text-blue-500 hover:underline"
+                className="underline-offset-4 hover:text-primary hover:underline"
                 href="/search/fees"
               >
                 {currentLanguage === "en"
@@ -121,7 +121,7 @@ const Search = () => {
                 {/* Default to English */}
               </Link>
               <Link
-                className="underline-offset-4 hover:text-blue-500 hover:underline"
+                className="underline-offset-4 hover:text-primary hover:underline"
                 href="/search/infrastructure"
               >
                 {currentLanguage === "en"
@@ -144,7 +144,7 @@ const Search = () => {
                     <div className="relative min-w-48 md:min-w-80">
                       <div className="pointer-events-none absolute inset-y-0 start-0 z-20 flex items-center ps-4">
                         <svg
-                          className="size-4 flex-shrink-0 text-gray-400"
+                          className="size-4 flex-shrink-0 text-textSecondary"
                           xmlns="http://www.w3.org/2000/svg"
                           width="24"
                           height="24"
@@ -165,7 +165,7 @@ const Search = () => {
                         type="text"
                         id="icon"
                         name="icon"
-                        className="block w-full rounded-lg border-2 border-gray-200 px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
+                        className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-primary focus:ring-primary disabled:pointer-events-none disabled:opacity-50"
                         placeholder="Search"
                       />
                     </div>
@@ -173,7 +173,7 @@ const Search = () => {
                   <div>
                     <select
                       id="countries"
-                      className="block h-full w-full rounded-lg border border-gray-300 bg-gray-50 p-1.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+                      className="block h-full w-full rounded-lg border border-borderPrimary bg-bgSecondary p-1.5 text-sm text-textPrimary focus:border-primary focus:ring-primary"
                     >
                       <option selected>Search by Name </option>
                     </select>
@@ -203,7 +203,7 @@ const Search = () => {
                             <div
                               onClick={() => handleClick(student.id)}
                               key={student.id}
-                              className="flex w-full cursor-pointer items-center rounded-lg border border-[#f5f6f7] px-2 py-1 hover:bg-gray-200"
+                              className="flex w-full cursor-pointer items-center rounded-lg border border-borderPrimary px-2 py-1 hover:bg-bgSecondary"
                             >
                               <div>
                                 {student.picture == null ? (
@@ -238,7 +238,7 @@ const Search = () => {
                   )}
                 </div>
               </div>
-              <div className="grid h-full w-full items-center overflow-hidden text-ellipsis rounded-xl border">
+              <div className="grid h-full w-full items-center overflow-hidden text-ellipsis rounded-xl border border-borderPrimary">
                 {isEmployee ? (
                   <Spinner />
                 ) : (
@@ -247,7 +247,7 @@ const Search = () => {
                       <div>
                         <div className="flex justify-end">
                           <Link
-                            className="rounded-lg bg-[#3E5AF0] px-2 py-1 font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                            className="rounded-lg bg-primary px-2 py-1 font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                             href={`/student/view-student/${EmployeeQ.data.id}`}
                           >
                             View
@@ -267,70 +267,70 @@ const Search = () => {
                               alt="#"
                             />
                           )}
-                          <h1 className="font-sans font-semibold text-gray-800">
+                          <h1 className="font-sans font-semibold text-textPrimary">
                             {EmployeeQ?.data.name}
                           </h1>
                         </div>
 
                         <div className="grid justify-start">
-                          <h1 className="font-sans text-[22px] font-semibold text-gray-800">
+                          <h1 className="font-sans text-[22px] font-semibold text-textPrimary">
                             Basic Details
                           </h1>
                           <div className="grid w-[400px] grid-cols-2 max-[485px]:w-[240px]">
-                            <h3 className="font-sans font-semibold text-gray-400">
+                            <h3 className="font-sans font-semibold text-textSecondary">
                               Email:
                             </h3>
-                            <p className="font-sans font-semibold text-gray-800">
+                            <p className="font-sans font-semibold text-textPrimary">
                               {EmployeeQ?.data.email}
                             </p>
-                            <h3 className="font-sans font-semibold text-gray-400">
+                            <h3 className="font-sans font-semibold text-textSecondary">
                               Salary:
                             </h3>
-                            <p className="font-sans font-semibold text-gray-800">
+                            <p className="font-sans font-semibold text-textPrimary">
                               {EmployeeQ?.data.salary == null
                                 ? `Not specified`
                                 : EmployeeQ?.data.salary}
                             </p>
-                            <h3 className="font-sans font-semibold text-gray-400">
+                            <h3 className="font-sans font-semibold text-textSecondary">
                               Age:
                             </h3>
-                            <p className="font-sans font-semibold text-gray-800">
+                            <p className="font-sans font-semibold text-textPrimary">
                               {EmployeeQ?.data.birthDate}
                             </p>
-                            <h3 className="font-sans font-semibold text-gray-400">
+                            <h3 className="font-sans font-semibold text-textSecondary">
                               Gender:
                             </h3>
-                            <p className="font-sans font-semibold text-gray-800">
+                            <p className="font-sans font-semibold text-textPrimary">
                               {EmployeeQ?.data.gender}
                             </p>
-                            <h3 className="font-sans font-semibold text-gray-400">
+                            <h3 className="font-sans font-semibold text-textSecondary">
                               Position:
                             </h3>
-                            <p className="font-sans font-semibold text-gray-800">
+                            <p className="font-sans font-semibold text-textPrimary">
                               {EmployeeQ?.data.role}
                             </p>
-                            <h3 className="font-sans font-semibold text-gray-400">
+                            <h3 className="font-sans font-semibold text-textSecondary">
                               Religion:
                             </h3>
-                            <p className="font-sans font-semibold text-gray-800">
+                            <p className="font-sans font-semibold text-textPrimary">
                               {EmployeeQ?.data.religion}
                             </p>
-                            <h3 className="font-sans font-semibold text-gray-400">
+                            <h3 className="font-sans font-semibold text-textSecondary">
                               Address:
                             </h3>
-                            <p className="font-sans font-semibold text-gray-800">
+                            <p className="font-sans font-semibold text-textPrimary">
                               {EmployeeQ?.data.nationality}
                             </p>
-                            <h3 className="font-sans font-semibold text-gray-400">
+                            <h3 className="font-sans font-semibold text-textSecondary">
                               Mobile:
                             </h3>
-                            <p className="font-sans font-semibold text-gray-800">
+                            <p className="font-sans font-semibold text-textPrimary">
                               {EmployeeQ?.data.phoneNumber}
                             </p>
-                            <h3 className="font-sans font-semibold text-gray-400">
+                            <h3 className="font-sans font-semibold text-textSecondary">
                               About:
                             </h3>
-                            <p className="font-sans font-semibold text-gray-800">
+                            <p className="font-sans font-semibold text-textPrimary">
                               {EmployeeQ?.data.about}
                             </p>
                           </div>

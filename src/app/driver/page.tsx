@@ -127,7 +127,7 @@ const Driver = () => {
         } ml-7 mt-12 flex-wrap text-[18px] max-[550px]:text-[15px]`}
       >
         <Link
-          className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
+          className="font-semibold text-secondary hover:text-hover hover:underline"
           href="/"
         >
           {currentLanguage === "en"
@@ -149,7 +149,7 @@ const Driver = () => {
           <path d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
         </svg>
         <Link
-          className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
+          className="font-semibold text-secondary hover:text-hover hover:underline"
           href="/user-management"
         >
           {currentLanguage === "en"
@@ -171,7 +171,7 @@ const Driver = () => {
           <path d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
         </svg>
         <Link
-          className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
+          className="font-semibold text-secondary hover:text-hover hover:underline"
           href="/driver"
         >
           {currentLanguage === "en"
@@ -197,7 +197,7 @@ const Driver = () => {
             <div className="relative min-w-72 md:min-w-80">
               <div className="pointer-events-none absolute inset-y-0 start-0 z-20 flex items-center ps-4">
                 <svg
-                  className="size-4 flex-shrink-0 text-gray-400"
+                  className="size-4 flex-shrink-0 text-textSecondary"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
@@ -217,7 +217,7 @@ const Driver = () => {
                 type="text"
                 id="icon"
                 name="icon"
-                className="block w-full rounded-lg border-2 border-gray-200 px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
+                className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
                 placeholder="Search"
               />
             </div>
@@ -225,7 +225,7 @@ const Driver = () => {
           <div className="flex justify-center">
             <Link
               href="/add-new-driver"
-              className="mb-5 mr-3 whitespace-nowrap rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+              className="mb-5 mr-3 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               {currentLanguage === "en"
                 ? "+ New Driver"
@@ -240,7 +240,7 @@ const Driver = () => {
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
           <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
-            <thead className="bg-[#daeafb] text-xs uppercase text-gray-700">
+            <thead className="bg-bgPrimary text-xs uppercase text-textPrimary">
               <tr>
                 <th scope="col" className="p-4">
                   <div className="flex items-center">
@@ -248,7 +248,7 @@ const Driver = () => {
                     <input
                       id="checkbox-all-search"
                       type="checkbox"
-                      className="-gray-800 h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500"
+                      className="-gray-800 h-4 w-4 rounded border-borderPrimary bg-bgPrimary text-primary focus:ring-2 focus:ring-blue-500"
                       onChange={handleSelectAll}
                     />
                   </div>
@@ -345,7 +345,7 @@ const Driver = () => {
                 .map((driver: Driver) => (
                   <tr
                     key={driver.id}
-                    className="border-b bg-white hover:bg-gray-50"
+                    className="border-b bg-bgPrimary hover:bg-bgSecondary"
                   >
                     {/* onClick={handleOpen} */}
                     <td className="w-4 p-4">
@@ -353,31 +353,32 @@ const Driver = () => {
                         <input
                           id="checkbox-table-search-1"
                           type="checkbox"
-                          className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500"
+                          className="h-4 w-4 rounded border-borderPrimary bg-bgPrimary text-primary focus:ring-2 focus:ring-hover"
                         />
                       </div>
                     </td>
                     <th
-                      scope="row"
-                      className="flex items-center gap-2 whitespace-nowrap px-6 py-4 font-medium text-gray-900"
-                    >
-                      <div className="w-[50px]">
-                        {driver.picture == null ? (
-                          <img
-                            src="/images/userr.png"
-                            className="mr-2 h-[40px] w-[40px] rounded-full"
-                            alt="#"
-                          />
-                        ) : (
-                          <img
-                            src={driver.picture}
-                            className="mr-2 h-[40px] w-[40px] rounded-full"
-                            alt="#"
-                          />
-                        )}
-                      </div>
-                      <p> {driver.name} </p>
-                    </th>
+  scope="row"
+  className="flex bg-bgPrimary items-center gap-2 whitespace-nowrap px-6 py-4 font-medium text-textPrimary hover:bg-bgSecondary transition-colors duration-300"
+>
+  <div className="w-[50px]">
+    {driver.picture == null ? (
+      <img
+        src="/images/userr.png"
+        className="mr-2 h-[40px] w-[40px] rounded-full"
+        alt="#"
+      />
+    ) : (
+      <img
+        src={driver.picture}
+        className="mr-2 h-[40px] w-[40px] rounded-full"
+        alt="#"
+      />
+    )}
+  </div>
+  <p className="text-textSecondary hover:text-primary">{driver.name}</p>
+</th>
+
                     <td className="whitespace-nowrap px-6 py-4">{driver.id}</td>
                     <td className="whitespace-nowrap px-6 py-4">
                       {driver.gender}
@@ -394,7 +395,7 @@ const Driver = () => {
                     <td className="whitespace-nowrap px-6 py-4">
                       <Link
                         href={`/driver/view-driver/${driver.id}`}
-                        className="font-medium text-blue-600 hover:underline"
+                        className="font-medium text-primary hover:underline"
                       >
                         {currentLanguage === "en"
                           ? "View"
@@ -408,7 +409,7 @@ const Driver = () => {
                     <td className="whitespace-nowrap px-6 py-4">
                       <button
                         onClick={() => handleDelete(driver.id)}
-                        className="rounded-lg bg-red-500 px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+                        className="rounded-lg bg-error px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
                       >
                         {currentLanguage === "en"
                           ? "Lock"

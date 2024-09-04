@@ -154,7 +154,7 @@ const Employee = () => {
             <div className="relative min-w-72 md:min-w-80">
               <div className="pointer-events-none absolute inset-y-0 start-0 z-20 flex items-center ps-4">
                 <svg
-                  className="size-4 flex-shrink-0 text-gray-400"
+                  className="size-4 flex-shrink-0 text-secondary"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
@@ -174,7 +174,7 @@ const Employee = () => {
                 type="text"
                 id="icon"
                 name="icon"
-                className="block w-full rounded-lg border-2 border-gray-200 px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
+                className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
                 placeholder="Search"
               />
             </div>
@@ -182,7 +182,7 @@ const Employee = () => {
           <div className="flex justify-center">
             <Link
               href="/add-new-employee"
-              className="mb-5 mr-3 w-[210px] whitespace-nowrap rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+              className="mb-5 mr-3 w-[210px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
             >
               + New Employee
             </Link>
@@ -190,7 +190,7 @@ const Employee = () => {
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
           <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
-            <thead className="bg-[#daeafb] text-xs uppercase text-gray-700">
+            <thead className="bg-bgPrimary text-xs uppercase text-textPrimary">
               <tr>
                 <th scope="col" className="p-4">
                   <div className="flex items-center">
@@ -198,7 +198,7 @@ const Employee = () => {
                     <input
                       id="checkbox-all-search"
                       type="checkbox"
-                      className="-gray-800 h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500"
+                      className="-gray-800 h-4 w-4 rounded border-borderPrimary bg-bgPrimary text-primary focus:ring-2 focus:ring-hover"
                       onChange={handleSelectAll}
                     />
                   </div>
@@ -239,20 +239,20 @@ const Employee = () => {
                 .map((employee: Employee) => (
                   <tr
                     key={employee.id}
-                    className="border-b bg-white hover:bg-gray-50"
+                    className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary"
                   >
                     <td className="w-4 p-4">
                       <div className="flex items-center">
                         <input
                           id="checkbox-table-search-1"
                           type="checkbox"
-                          className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500"
+                          className="h-4 w-4 rounded border-borderPrimary bg-bgSecondary text-primary focus:ring-2 focus:ring-hover"
                         />
                       </div>
                     </td>
                     <th
                       scope="row"
-                      className="flex items-center gap-2 whitespace-nowrap px-6 py-4 font-medium text-gray-900"
+                      className="flex items-center gap-2 whitespace-nowrap px-6 py-4 font-medium text-textSecondary"
                     >
                       <div className="w-[50px]">
                         {employee.picture == null ? (
@@ -269,7 +269,7 @@ const Employee = () => {
                           />
                         )}
                       </div>
-                      <p> {employee.name} </p>
+                      <p className="text-textSecondary"> {employee.name} </p>
                     </th>
                     <td className="whitespace-nowrap px-6 py-4">
                       {employee.id}
@@ -297,7 +297,7 @@ const Employee = () => {
                     <td className="whitespace-nowrap px-6 py-4">
                       <button
                         onClick={() => handleDelete(employee.id)}
-                        className="rounded-lg bg-red-500 px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+                        className="rounded-lg bg-error px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
                       >
                         Lock
                       </button>

@@ -127,13 +127,13 @@ const Pagination: React.FC<PaginationProps> = ({
         padding: "0.5rem 1.5rem",
         color: "#1A202C",
       }}
-      className="mt-4 rounded-lg bg-[#daeafb]"
+      className="mt-4 rounded-lg bg-bgPrimary"
     >
       <div
         style={{ display: "flex", alignItems: "center", gap: "1rem" }}
         className="font-semibold"
       >
-        <label htmlFor="elementsPerPage" style={{ fontSize: "14px" }}>
+        <label htmlFor="elementsPerPage" className="text-textPrimary" style={{ fontSize: "14px" }}>
           {currentLanguage === "en"
             ? "Show"
             : currentLanguage === "ar"
@@ -148,7 +148,7 @@ const Pagination: React.FC<PaginationProps> = ({
             padding: "0.75rem",
             outline: "none",
           }}
-          className="rounded-xl"
+          className="rounded-xl text-textPrimary"
           value={elementsPerPage}
           onChange={e => onChangeElementsPerPage(Number(e.target.value))}
         >
@@ -158,7 +158,7 @@ const Pagination: React.FC<PaginationProps> = ({
             </option>
           ))}
         </select>
-        <label htmlFor="elementsPerPage" style={{ fontSize: "14px" }}>
+        <label htmlFor="elementsPerPage" className="text-textPrimary" style={{ fontSize: "14px" }}>
           {currentLanguage === "en"
             ? "Rows"
             : currentLanguage === "ar"
@@ -176,7 +176,7 @@ const Pagination: React.FC<PaginationProps> = ({
             cursor: "pointer",
           }}
           onClick={prevPage}
-          className="rounded-lg bg-white px-3 py-2"
+          className="rounded-lg bg-bgSecondary px-3 py-2"
         >
           <svg
             width="24"
@@ -203,7 +203,7 @@ const Pagination: React.FC<PaginationProps> = ({
             cursor: "pointer",
           }}
           onClick={nextPage}
-          className="rounded-lg bg-white px-3 py-2"
+          className="rounded-lg bg-bgSecondary px-3 py-2"
         >
           <svg
             width="24"

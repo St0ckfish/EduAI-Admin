@@ -5,6 +5,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import Card from "@/components/card";
+import { FaUserGraduate, FaCar, FaBriefcase, FaUserFriends, FaChalkboardTeacher, FaHardHat } from 'react-icons/fa';
 
 const UserManagment = () => {
   const currentLanguage = useSelector(
@@ -14,28 +15,7 @@ const UserManagment = () => {
   const UserManagments = [
     {
       href: "/driver",
-      icon: (
-        <svg
-          className="h-12 w-12 font-sans text-[#000000] group-hover:text-[#3e5af0]"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          strokeWidth="2"
-          stroke="currentColor"
-          fill="none"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path stroke="none" d="M0 0h24v24H0z" />
-          <circle cx="6" cy="17" r="2" />
-          <circle cx="18" cy="17" r="2" />
-          <path d="M4 17h-2v-11a1 1 0 0 1 1 -1h14a5 7 0 0 1 5 7v5h-2m-4 0h-8" />
-          <polyline points="16 5 17.5 12 22 12" />
-          <line x1="2" y1="10" x2="17" y2="10" />
-          <line x1="7" y1="5" x2="7" y2="10" />
-          <line x1="12" y1="5" x2="12" y2="10" />
-        </svg>
-      ),
+      icon: <FaCar size={40} />,
       title:
         currentLanguage === "en"
           ? "Driver"
@@ -55,7 +35,7 @@ const UserManagment = () => {
     },
     {
       href: "/employee",
-      imgSrc: "/images/employee.png",
+      icon: <FaBriefcase size={40} />,
       title:
         currentLanguage === "en"
           ? "Employee"
@@ -75,7 +55,8 @@ const UserManagment = () => {
     },
     {
       href: "/parent",
-      imgSrc: "/images/Vector.png",
+      icon: <FaUserFriends  size={40} />,
+
       title:
         currentLanguage === "en"
           ? "Parent"
@@ -95,7 +76,7 @@ const UserManagment = () => {
     },
     {
       href: "/student",
-      imgSrc: "/images/student.png",
+      icon: <FaUserGraduate size={40}/>,
       title:
         currentLanguage === "en"
           ? "Student"
@@ -115,7 +96,7 @@ const UserManagment = () => {
     },
     {
       href: "/teacher",
-      imgSrc: "/images/Teacher.png",
+      icon: <FaChalkboardTeacher size={40}/>,
       title:
         currentLanguage === "en"
           ? "Teacher"
@@ -135,7 +116,7 @@ const UserManagment = () => {
     },
     {
       href: "/worker",
-      imgSrc: "/images/Worker.png",
+      icon: <FaHardHat size={40}/>,
       title:
         currentLanguage === "en"
           ? "Worker"
@@ -163,7 +144,7 @@ const UserManagment = () => {
         className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} ml-7 mt-12 flex-wrap text-[18px] max-[550px]:text-[15px]`}
       >
         <Link
-          className="text-[18px] font-semibold text-[#526484] hover:text-blue-400 hover:underline"
+          className="text-[18px] font-semibold text-secondary hover:text-primary hover:underline"
           href="/"
         >
           {currentLanguage === "en"

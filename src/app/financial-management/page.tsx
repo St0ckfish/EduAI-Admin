@@ -4,6 +4,7 @@ import Card from "@/components/card";
 import { RootState } from "@/GlobalRedux/store";
 import Link from "next/link";
 import { useSelector } from "react-redux";
+import { FaDollarSign, FaWallet, FaBuilding } from 'react-icons/fa';
 
 const FinancialManagement = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
@@ -14,6 +15,7 @@ const FinancialManagement = () => {
   const financials = [
     {
       href: "/fees-management",
+      icon: <FaDollarSign size={40} />,
       imgSrc: "/images/dollar.png",
       title:
         currentLanguage === "en"
@@ -34,6 +36,7 @@ const FinancialManagement = () => {
     },
     {
       href: "/financial-management/budget",
+      icon: <FaWallet size={40} />,
       imgSrc: "/images/wallet.png",
       title:
         currentLanguage === "en"
@@ -54,6 +57,7 @@ const FinancialManagement = () => {
     },
     {
       href: "/financial-management/bank",
+      icon: <FaBuilding  size={40} />,
       imgSrc: "/images/bank.png",
       title:
         currentLanguage === "en"
@@ -123,6 +127,7 @@ const FinancialManagement = () => {
               key={index}
               href={item.href}
               imgSrc={item.imgSrc}
+              icon={item.icon}
               title={item.title}
               description={item.description}
             />
