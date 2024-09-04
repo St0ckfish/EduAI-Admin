@@ -13,9 +13,8 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useSelector } from "react-redux";
 import { setLanguage } from "@/features/language/languageSlice";
 import { RootState } from "@/GlobalRedux/store";
-import { useTheme } from "next-themes"
-import { FiSun, FiMoon } from "react-icons/fi"
-
+import { useTheme } from "next-themes";
+import { FiSun, FiMoon } from "react-icons/fi";
 
 const NavBar = () => {
   const router = useRouter();
@@ -25,13 +24,13 @@ const NavBar = () => {
     isLoading: userLoading,
   } = useGetAllCurrentUserQuery(null);
 
-  // Theme Changer 
+  // Theme Changer
   const { theme, setTheme } = useTheme();
-  const [ isClient, setIsClient] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (userData) console.log("Response Data:", userData);
@@ -138,7 +137,7 @@ const NavBar = () => {
     <>
       <header>
         <div>
-          <header className="sticky inset-x-0 top-0 z-[48] flex w-full flex-wrap border-b dark:border-bgSecondary bg-bgPrimary py-2.5 text-sm sm:flex-nowrap sm:justify-start sm:py-4 lg:ps-64">
+          <header className="sticky inset-x-0 top-0 z-[48] flex w-full flex-wrap border-b bg-bgPrimary py-2.5 text-sm dark:border-bgSecondary sm:flex-nowrap sm:justify-start sm:py-4 lg:ps-64">
             <nav
               className="mx-auto flex w-full basis-full items-center px-4 sm:px-6"
               aria-label="Global"
@@ -208,21 +207,31 @@ const NavBar = () => {
                     />
                   </div>
                 </div>
-                
+
                 <div className="flex flex-row items-center justify-end gap-2">
-                 {isClient && (
-              <>
-                {theme == 'dark'? 
-                <button className="text-textPrimary" onClick={() => setTheme("light")}><FiMoon/></button>
-                : 
-                <button className="text-textPrimary" onClick={() => setTheme("dark")}><FiSun/></button>
-                }
-              </>
-            )}
+                  {isClient && (
+                    <>
+                      {theme == "dark" ? (
+                        <button
+                          className="text-textPrimary"
+                          onClick={() => setTheme("light")}
+                        >
+                          <FiMoon />
+                        </button>
+                      ) : (
+                        <button
+                          className="text-textPrimary"
+                          onClick={() => setTheme("dark")}
+                        >
+                          <FiSun />
+                        </button>
+                      )}
+                    </>
+                  )}
                   <Link
                     href="/notifies"
                     type="button"
-                    className="text-textPrimary inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold hover:bg-bgSecondary disabled:pointer-events-none disabled:opacity-50"
+                    className="inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-textPrimary hover:bg-bgSecondary disabled:pointer-events-none disabled:opacity-50"
                   >
                     <svg
                       className="size-4 flex-shrink-0"
@@ -243,7 +252,7 @@ const NavBar = () => {
                   <Link
                     href="/"
                     type="button"
-                    className="text-textPrimary inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold hover:bg-bgSecondary disabled:pointer-events-none disabled:opacity-50"
+                    className="inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-textPrimary hover:bg-bgSecondary disabled:pointer-events-none disabled:opacity-50"
                     data-hs-offcanvas="#hs-offcanvas-right"
                   >
                     <svg
@@ -289,12 +298,12 @@ const NavBar = () => {
                             className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
                           >
                             {currentLanguage === "en"
-    ? "Arabic"
-    : currentLanguage === "ar"
-    ? "العربية"
-    : currentLanguage === "fr"
-    ? "Arabe"
-    : "Arabic"}
+                              ? "Arabic"
+                              : currentLanguage === "ar"
+                                ? "العربية"
+                                : currentLanguage === "fr"
+                                  ? "Arabe"
+                                  : "Arabic"}
                           </button>
                         </DropdownMenu.Item>
                         <DropdownMenu.Item className="text-violet11 data-[disabled]:text-mauve8 data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1 group relative flex h-[25px] select-none items-center rounded-[3px] px-[5px] text-[13px] leading-none outline-none data-[disabled]:pointer-events-none">
@@ -303,12 +312,12 @@ const NavBar = () => {
                             className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
                           >
                             {currentLanguage === "en"
-    ? "English"
-    : currentLanguage === "ar"
-    ? "الإنجليزية"
-    : currentLanguage === "fr"
-    ? "Anglais"
-    : "English"}
+                              ? "English"
+                              : currentLanguage === "ar"
+                                ? "الإنجليزية"
+                                : currentLanguage === "fr"
+                                  ? "Anglais"
+                                  : "English"}
                           </button>
                         </DropdownMenu.Item>
                         <DropdownMenu.Item className="text-violet11 data-[disabled]:text-mauve8 data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1 group relative mb-2 flex h-[25px] select-none items-center rounded-[3px] px-[5px] text-[13px] leading-none outline-none data-[disabled]:pointer-events-none">
@@ -317,12 +326,12 @@ const NavBar = () => {
                             className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
                           >
                             {currentLanguage === "en"
-    ? "French"
-    : currentLanguage === "ar"
-    ? "الفرنسية"
-    : currentLanguage === "fr"
-    ? "Français"
-    : "French"}
+                              ? "French"
+                              : currentLanguage === "ar"
+                                ? "الفرنسية"
+                                : currentLanguage === "fr"
+                                  ? "Français"
+                                  : "French"}
                           </button>
                         </DropdownMenu.Item>
                       </DropdownMenu.Content>
@@ -336,7 +345,7 @@ const NavBar = () => {
                           onClick={toggleProfile}
                           id="hs-dropdown-with-header"
                           type="button"
-                          className="inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 rounded-full border border-bgSecondayr text-sm font-semibold text-gray-800 outline-none hover:bg-gray-100 disabled:pointer-events-none disabled:opacity-50"
+                          className="border-bgSecondayr inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 rounded-full border text-sm font-semibold text-gray-800 outline-none hover:bg-gray-100 disabled:pointer-events-none disabled:opacity-50"
                         >
                           {userLoading ? (
                             <p>........</p>
@@ -362,20 +371,20 @@ const NavBar = () => {
 
                       {profile && (
                         <DropdownMenu.Content
-                          className="fixed text-textPrimary right-[20px] top-[20px] min-w-60 rounded-lg bg-bgPrimary p-2 shadow-md"
+                          className="fixed right-[20px] top-[20px] min-w-60 rounded-lg bg-bgPrimary p-2 text-textPrimary shadow-md"
                           aria-labelledby="hs-dropdown-with-header"
                           align="end"
                           sideOffset={5}
                         >
                           <div className="rounded-t-lg bg-bgPrimary px-5 py-3">
                             <p className="text-sm text-textPrimary">
-                            {currentLanguage === "en"
-    ? "Signed in as"
-    : currentLanguage === "ar"
-    ? "مسجل الدخول باسم"
-    : currentLanguage === "fr"
-    ? "Connecté en tant que"
-    : "Signed in as"}
+                              {currentLanguage === "en"
+                                ? "Signed in as"
+                                : currentLanguage === "ar"
+                                  ? "مسجل الدخول باسم"
+                                  : currentLanguage === "fr"
+                                    ? "Connecté en tant que"
+                                    : "Signed in as"}
                             </p>
                             <p className="text-sm font-medium text-textPrimary">
                               {userData?.data.email}
@@ -405,12 +414,12 @@ const NavBar = () => {
                                   <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                                 </svg>
                                 {currentLanguage === "en"
-    ? "Profile"
-    : currentLanguage === "ar"
-    ? "الملف الشخصي"
-    : currentLanguage === "fr"
-    ? "Profil"
-    : "Profile"}
+                                  ? "Profile"
+                                  : currentLanguage === "ar"
+                                    ? "الملف الشخصي"
+                                    : currentLanguage === "fr"
+                                      ? "Profil"
+                                      : "Profile"}
                               </Link>
                             </DropdownMenu.Item>
                             <DropdownMenu.Item asChild>
@@ -420,12 +429,12 @@ const NavBar = () => {
                                 href="/login"
                               >
                                 {currentLanguage === "en"
-    ? "Sign out"
-    : currentLanguage === "ar"
-    ? "تسجيل الخروج"
-    : currentLanguage === "fr"
-    ? "Déconnexion"
-    : "Sign out"}
+                                  ? "Sign out"
+                                  : currentLanguage === "ar"
+                                    ? "تسجيل الخروج"
+                                    : currentLanguage === "fr"
+                                      ? "Déconnexion"
+                                      : "Sign out"}
                               </a>
                             </DropdownMenu.Item>
                           </div>

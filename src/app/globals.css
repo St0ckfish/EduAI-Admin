@@ -3,32 +3,32 @@
 @tailwind utilities;
 
 body {
-  background-color: #f5f6fa; 
+  background-color: #f5f6fa;
   display: grid;
 }
 
 .light {
-  --primary: #3E5AF0;
+  --primary: #3e5af0;
   --bg-primary: #ffffff;
   --bg-secondary: #f5f6fa;
   --text-primary: #041631;
-  --text-secondary: #89939E;
+  --text-secondary: #89939e;
   --warning: #f4bd0e;
-  --error: #E53835;
-  --success: #2E7D31;
+  --error: #e53835;
+  --success: #2e7d31;
   --info: #09c2de;
-  --border-primary: #D9D9D9;
+  --border-primary: #d9d9d9;
 }
 
 .dark {
-  --primary: #566DF2;
+  --primary: #566df2;
   --bg-primary: #0d0d0d;
   --bg-secondary: #171c23;
-  --text-primary:  #CEE0FB;
+  --text-primary: #cee0fb;
   --text-secondary: #526484;
-  --warning: #F89B22;
-  --error: #EB675E;
-  --success: #1AC877;
-  --info: #34E4B5;
-  --border-primary: #2A2D32;
+  --warning: #f89b22;
+  --error: #eb675e;
+  --success: #1ac877;
+  --info: #34e4b5;
+  --border-primary: #2a2d32;
 }

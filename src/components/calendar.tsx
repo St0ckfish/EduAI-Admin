@@ -164,8 +164,9 @@ const Calendar = () => {
                   : "false"
               }
               aria-label={date ? format(date, "MMMM d, yyyy") : ""}
-              className={`text-textSecondary flex h-8 w-8 cursor-pointer items-center justify-center rounded-full font-semibold ${date ? "hover:bg-blue-100 focus:bg-primary" : ""
-                } ${date && date.getDate() === selectedDate.getDate() ? "bg-primary text-white" : ""}`}
+              className={`flex h-8 w-8 cursor-pointer items-center justify-center rounded-full font-semibold text-textSecondary ${
+                date ? "hover:bg-blue-100 focus:bg-primary" : ""
+              } ${date && date.getDate() === selectedDate.getDate() ? "bg-primary text-white" : ""}`}
               onClick={() => date && handleDateClick(date)}
             >
               {date ? date.getDate() : ""}

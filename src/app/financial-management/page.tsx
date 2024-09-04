@@ -4,7 +4,7 @@ import Card from "@/components/card";
 import { RootState } from "@/GlobalRedux/store";
 import Link from "next/link";
 import { useSelector } from "react-redux";
-import { FaDollarSign, FaWallet, FaBuilding } from 'react-icons/fa';
+import { FaDollarSign, FaWallet, FaBuilding } from "react-icons/fa";
 
 const FinancialManagement = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
@@ -55,7 +55,7 @@ const FinancialManagement = () => {
     },
     {
       href: "/financial-management/bank",
-      icon: <FaBuilding  size={40} />,
+      icon: <FaBuilding size={40} />,
       title:
         currentLanguage === "en"
           ? "Bank"
@@ -80,7 +80,7 @@ const FinancialManagement = () => {
         className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} ml-7 mt-12 flex-wrap`}
       >
         <Link
-          className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
+          className="font-semibold text-secondary hover:text-blue-400 hover:underline"
           href="/"
         >
           {currentLanguage === "en"

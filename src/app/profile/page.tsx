@@ -22,7 +22,7 @@ const Profile = () => {
               <Link href="/profile/password">Password</Link>
             </div>
           </div>
-          <div className="bg-bgPrimary text-semibold flex h-full w-full justify-between rounded-xl border-2 border-borderPrimary p-5">
+          <div className="text-semibold flex h-full w-full justify-between rounded-xl border-2 border-borderPrimary bg-bgPrimary p-5">
             <div className="text-semibold flex items-center gap-2 text-[15px] text-textPrimary">
               <img
                 src="/images/userr.png"
@@ -38,7 +38,7 @@ const Profile = () => {
               </span>
             </div>
           </div>
-          <div className="bg-bgPrimary text-semibold mt-5 flex h-full w-full rounded-xl border-2 border-borderPrimary p-5">
+          <div className="text-semibold mt-5 flex h-full w-full rounded-xl border-2 border-borderPrimary bg-bgPrimary p-5">
             <div className="grid w-full gap-2">
               <div className="flex w-full justify-between">
                 <h1 className="text-[20px] font-bold">Admin Information</h1>

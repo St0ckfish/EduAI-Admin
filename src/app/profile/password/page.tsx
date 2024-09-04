@@ -17,7 +17,7 @@ const Password = () => {
               </Link>
             </div>
           </div>
-          <div className=" text-semibold mt-5 flex h-full w-full rounded-xl border-2 border-borderPrimary p-5">
+          <div className="text-semibold mt-5 flex h-full w-full rounded-xl border-2 border-borderPrimary p-5">
             <div className="grid w-full gap-2">
               <div className="grid justify-center">
                 <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">

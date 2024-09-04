@@ -5,7 +5,14 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import Card from "@/components/card";
-import { FaUserGraduate, FaCar, FaBriefcase, FaUserFriends, FaChalkboardTeacher, FaHardHat } from 'react-icons/fa';
+import {
+  FaUserGraduate,
+  FaCar,
+  FaBriefcase,
+  FaUserFriends,
+  FaChalkboardTeacher,
+  FaHardHat,
+} from "react-icons/fa";
 
 const UserManagment = () => {
   const currentLanguage = useSelector(
@@ -55,7 +62,7 @@ const UserManagment = () => {
     },
     {
       href: "/parent",
-      icon: <FaUserFriends  size={40} />,
+      icon: <FaUserFriends size={40} />,
 
       title:
         currentLanguage === "en"
@@ -76,7 +83,7 @@ const UserManagment = () => {
     },
     {
       href: "/student",
-      icon: <FaUserGraduate size={40}/>,
+      icon: <FaUserGraduate size={40} />,
       title:
         currentLanguage === "en"
           ? "Student"
@@ -96,7 +103,7 @@ const UserManagment = () => {
     },
     {
       href: "/teacher",
-      icon: <FaChalkboardTeacher size={40}/>,
+      icon: <FaChalkboardTeacher size={40} />,
       title:
         currentLanguage === "en"
           ? "Teacher"
@@ -116,7 +123,7 @@ const UserManagment = () => {
     },
     {
       href: "/worker",
-      icon: <FaHardHat size={40}/>,
+      icon: <FaHardHat size={40} />,
       title:
         currentLanguage === "en"
           ? "Worker"

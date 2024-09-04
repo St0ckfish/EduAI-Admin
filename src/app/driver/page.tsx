@@ -358,26 +358,28 @@ const Driver = () => {
                       </div>
                     </td>
                     <th
-  scope="row"
-  className="flex bg-bgPrimary items-center gap-2 whitespace-nowrap px-6 py-4 font-medium text-textPrimary hover:bg-bgSecondary transition-colors duration-300"
->
-  <div className="w-[50px]">
-    {driver.picture == null ? (
-      <img
-        src="/images/userr.png"
-        className="mr-2 h-[40px] w-[40px] rounded-full"
-        alt="#"
-      />
-    ) : (
-      <img
-        src={driver.picture}
-        className="mr-2 h-[40px] w-[40px] rounded-full"
-        alt="#"
-      />
-    )}
-  </div>
-  <p className="text-textSecondary hover:text-primary">{driver.name}</p>
-</th>
+                      scope="row"
+                      className="flex items-center gap-2 whitespace-nowrap bg-bgPrimary px-6 py-4 font-medium text-textPrimary transition-colors duration-300 hover:bg-bgSecondary"
+                    >
+                      <div className="w-[50px]">
+                        {driver.picture == null ? (
+                          <img
+                            src="/images/userr.png"
+                            className="mr-2 h-[40px] w-[40px] rounded-full"
+                            alt="#"
+                          />
+                        ) : (
+                          <img
+                            src={driver.picture}
+                            className="mr-2 h-[40px] w-[40px] rounded-full"
+                            alt="#"
+                          />
+                        )}
+                      </div>
+                      <p className="text-textSecondary hover:text-primary">
+                        {driver.name}
+                      </p>
+                    </th>
 
                     <td className="whitespace-nowrap px-6 py-4">{driver.id}</td>
                     <td className="whitespace-nowrap px-6 py-4">

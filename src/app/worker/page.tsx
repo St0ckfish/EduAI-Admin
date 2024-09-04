@@ -269,7 +269,7 @@ const Worker = () => {
                           />
                         )}
                       </div>
-                      <p className="text-textSecondart" > {worker.name} </p>
+                      <p className="text-textSecondart"> {worker.name} </p>
                     </th>
                     <td className="whitespace-nowrap px-6 py-4">{worker.id}</td>
                     <td className="whitespace-nowrap px-6 py-4">

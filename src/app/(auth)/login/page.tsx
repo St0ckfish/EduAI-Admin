@@ -51,14 +51,14 @@ const Login = () => {
             <form className="grid gap-10" onSubmit={handleSubmit(onSubmit)}>
               <label
                 htmlFor="email"
-                className="grid text-primary text-start font-sans text-[18px] font-semibold text-[#041631]"
+                className="grid text-start font-sans text-[18px] font-semibold text-[#041631] text-primary"
               >
                 Your Email
                 <input
                   id="email"
                   {...register("username", { required: true })}
                   placeholder="Enter Your Email"
-                  className={`w-[450px] text-textPrimary rounded-xl border px-4 py-3 ${errors.username ? "border-warning]" : "border-borderPrimary"} outline-none max-[471px]:w-[350px]`}
+                  className={`w-[450px] rounded-xl border px-4 py-3 text-textPrimary ${errors.username ? "border-warning]" : "border-borderPrimary"} outline-none max-[471px]:w-[350px]`}
                 />
                 {errors.username && (
                   <span className="text-[13px] text-error">
@@ -68,14 +68,14 @@ const Login = () => {
               </label>
               <label
                 htmlFor="password"
-                className="grid text-primary text-start font-sans text-[18px] font-semibold text-[#041631]"
+                className="grid text-start font-sans text-[18px] font-semibold text-[#041631] text-primary"
               >
                 Your Password
                 <input
                   id="password"
                   {...register("password", { required: true })}
                   placeholder="Enter Your Password"
-                  className={`w-[450px] text-textPrimary rounded-xl border px-4 py-3 ${errors.password ? "border-warning" : "border-secondary/70"} outline-none max-[471px]:w-[350px]`}
+                  className={`w-[450px] rounded-xl border px-4 py-3 text-textPrimary ${errors.password ? "border-warning" : "border-secondary/70"} outline-none max-[471px]:w-[350px]`}
                   type="password"
                 />
                 {errors.password && (

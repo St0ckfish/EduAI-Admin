@@ -132,17 +132,23 @@ const Dashboard: React.FC = () => {
       <div className="grid overflow-x-auto">
         <div className="mb-6 flex w-full justify-evenly gap-4 whitespace-nowrap max-[812px]:justify-center max-[576px]:h-[120px]">
           <div className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]">
-            <p className="text-[12px] text-textSecondary">{students?.message} </p>
+            <p className="text-[12px] text-textSecondary">
+              {students?.message}{" "}
+            </p>
             <h1 className="text-[17px] font-semibold">{students?.data} 🧑‍🎓</h1>
             {/* <h1 className="text-gray-400 text-[12px]"> <span className="text-green-500 font-semibold">4.63%</span> vs. last Year</h1> */}
           </div>
           <div className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]">
-            <p className="text-[12px] text-textSecondary">{employees?.message}</p>
+            <p className="text-[12px] text-textSecondary">
+              {employees?.message}
+            </p>
             <h1 className="text-[17px] font-semibold">{employees?.data} 👨‍💼</h1>
             {/* <h1 className="text-gray-400 text-[12px]"> <span className="text-green-500 font-semibold">4.63%</span> vs. last Year</h1> */}
           </div>
           <div className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]">
-            <p className="text-[12px] text-textSecondary">{teachers?.message}</p>
+            <p className="text-[12px] text-textSecondary">
+              {teachers?.message}
+            </p>
             <h1 className="text-[17px] font-semibold">{teachers?.data} 👨‍🏫</h1>
             {/* <h1 className="text-gray-400 text-[12px]"> <span className="text-green-500 font-semibold">4.63%</span> vs. last Year</h1> */}
           </div>
@@ -198,9 +204,7 @@ const Dashboard: React.FC = () => {
             <div className="grid w-[550px] items-center justify-center overflow-x-auto rounded-2xl bg-bgPrimary p-2 shadow-xl max-[1536px]:h-[450px] max-[1536px]:w-[850px]">
               <div className="flex items-center justify-evenly">
                 <div className="mr-3 h-[75px] w-[66px] items-center justify-center rounded-xl bg-[#F9DCA4] p-2 text-center">
-                  <h1 className="text-[18px] font-semibold text-warning">
-                    6
-                  </h1>
+                  <h1 className="text-[18px] font-semibold text-warning">6</h1>
                   <h1 className="text-[18px] font-semibold text-warning">
                     Sun
                   </h1>
@@ -248,12 +252,8 @@ const Dashboard: React.FC = () => {
               </div>
               <div className="flex items-center justify-evenly">
                 <div className="mr-3 h-[75px] w-[66px] items-center justify-center rounded-xl bg-[#2970ff91] p-2 text-center">
-                  <h1 className="text-[18px] font-semibold te-warning">
-                    6
-                  </h1>
-                  <h1 className="text-[18px] font-semibold te-warning">
-                    Sun
-                  </h1>
+                  <h1 className="te-warning text-[18px] font-semibold">6</h1>
+                  <h1 className="te-warning text-[18px] font-semibold">Sun</h1>
                 </div>
                 <div className="grid w-[150px] gap-2">
                   <p className="text-[13px] text-primary">06 - May -2024</p>
@@ -317,7 +317,7 @@ const Dashboard: React.FC = () => {
                 In a laoreet purus. Integer turpis quam, laoreet id orci nec,
                 ultrices lacinia nunc. Aliquam erat vo
               </p>
-              <h1 className="text-[18px] font-semibold text-seccess">
+              <h1 className="text-seccess text-[18px] font-semibold">
                 Leslie Alexander
               </h1>
               <p className="text-textSecondary">
@@ -357,7 +357,10 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-        <h2 className="mb-4 text-textPrimary text-xl font-semibold"> Event Name</h2>
+        <h2 className="mb-4 text-xl font-semibold text-textPrimary">
+          {" "}
+          Event Name
+        </h2>
         <div className="mb-4 rounded-sm">
           <input
             type="text"

@@ -9,8 +9,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { usePathname } from "next/navigation";
 import ThemeProvider from "./providers/themeProvider";
 
-
-
 interface RootLayoutProps {
   children: ReactNode;
 }
@@ -32,9 +30,9 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
         <meta name="description" content="Edu AI-Admin" />
         <link rel="icon" type="image/x-icon" href="/images/Login.png" />
       </head>
-      <body className="bg-bgSecondary" >
+      <body className="bg-bgSecondary">
         <Providers>
-          <ThemeProvider attribute="class" defaultTheme='system' enableSystem >
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {!isLoginPage && <NavBar />}
             <Notification />
             {children}

@@ -133,7 +133,11 @@ const Pagination: React.FC<PaginationProps> = ({
         style={{ display: "flex", alignItems: "center", gap: "1rem" }}
         className="font-semibold"
       >
-        <label htmlFor="elementsPerPage" className="text-textPrimary" style={{ fontSize: "14px" }}>
+        <label
+          htmlFor="elementsPerPage"
+          className="text-textPrimary"
+          style={{ fontSize: "14px" }}
+        >
           {currentLanguage === "en"
             ? "Show"
             : currentLanguage === "ar"
@@ -158,7 +162,11 @@ const Pagination: React.FC<PaginationProps> = ({
             </option>
           ))}
         </select>
-        <label htmlFor="elementsPerPage" className="text-textPrimary" style={{ fontSize: "14px" }}>
+        <label
+          htmlFor="elementsPerPage"
+          className="text-textPrimary"
+          style={{ fontSize: "14px" }}
+        >
           {currentLanguage === "en"
             ? "Rows"
             : currentLanguage === "ar"

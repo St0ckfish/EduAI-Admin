@@ -54,7 +54,7 @@ const Search = () => {
       >
         <div className="flex h-full w-full justify-center overflow-auto p-2">
           <div className="grid h-full w-full overflow-auto rounded-xl bg-bgPrimary">
-            <div className="bg-bgPrimary flex h-[70px] items-center gap-7 overflow-auto rounded-t-xl pl-3 font-semibold">
+            <div className="flex h-[70px] items-center gap-7 overflow-auto rounded-t-xl bg-bgPrimary pl-3 font-semibold">
               <Link
                 className="text-primary underline underline-offset-4"
                 href="/search"
