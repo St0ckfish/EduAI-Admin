@@ -16,7 +16,6 @@ const FinancialManagement = () => {
     {
       href: "/fees-management",
       icon: <FaDollarSign size={40} />,
-      imgSrc: "/images/dollar.png",
       title:
         currentLanguage === "en"
           ? "Fees"
@@ -37,7 +36,6 @@ const FinancialManagement = () => {
     {
       href: "/financial-management/budget",
       icon: <FaWallet size={40} />,
-      imgSrc: "/images/wallet.png",
       title:
         currentLanguage === "en"
           ? "Budget"
@@ -58,7 +56,6 @@ const FinancialManagement = () => {
     {
       href: "/financial-management/bank",
       icon: <FaBuilding  size={40} />,
-      imgSrc: "/images/bank.png",
       title:
         currentLanguage === "en"
           ? "Bank"
