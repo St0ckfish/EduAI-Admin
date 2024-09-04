@@ -126,7 +126,6 @@ const FinancialManagement = () => {
             <Card
               key={index}
               href={item.href}
-              imgSrc={item.imgSrc}
               icon={item.icon}
               title={item.title}
               description={item.description}
