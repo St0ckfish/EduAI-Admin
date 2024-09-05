@@ -75,7 +75,7 @@ const Login = () => {
                   id="password"
                   {...register("password", { required: true })}
                   placeholder="Enter Your Password"
-                  className={`w-[450px] rounded-xl border px-4 py-3 text-textPrimary ${errors.password ? "border-warning" : "border-secondary/70"} outline-none max-[471px]:w-[350px]`}
+                  className={`w-[450px] rounded-xl border px-4 py-3 text-textPrimary ${errors.password ? "border-warning" : "border-borderPrimary"} outline-none max-[471px]:w-[350px]`}
                   type="password"
                 />
                 {errors.password && (
@@ -122,12 +122,14 @@ const Login = () => {
             </form>
           </div>
         </div>
-        <div className="flex justify-end max-[1040px]:hidden">
-          <img
-            className="h-[928px] w-[800px]"
-            src="images/signin.png"
-            alt="#"
-          />
+        <div className="flex w-full justify-end h-full">
+          <div className="flex justify-end max-[1040px]:hidden bg-[#2a3469] h-full items-center w-[600px]">
+            <img
+              className="h-[530px] w-[500px] -translate-x-[260px]"
+              src="images/labtop.png"
+              alt="#"
+            />
+          </div>
         </div>
       </div>
     </>

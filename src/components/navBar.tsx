@@ -213,7 +213,7 @@ const NavBar = () => {
                     <>
                       {theme == "dark" ? (
                         <button
-                          className="text-textPrimary"
+                          className="text-textPrimary "
                           onClick={() => setTheme("light")}
                         >
                           <FiMoon />
