@@ -14,12 +14,20 @@ spec:
     spec:
       containers:
       - name: admin
-        image: medanyyy/admin:v1
+        image: expotechx/admin:v1.2.1
         ports:
         - containerPort: 3000
-        env:
-        - name: NEXT_PUBLIC_API_URL
-          value: "http://57.152.16.89:8092" 
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+        # Uncomment and configure environment variables if needed
+        # env:
+        # - name: NEXT_PUBLIC_API_URL
+        #   value: "http://57.152.16.89:8092"
 ---
 
 apiVersion: v1
@@ -27,7 +35,7 @@ kind: Service
 metadata:
   name: admin-svc
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
   - port: 80
     targetPort: 3000
