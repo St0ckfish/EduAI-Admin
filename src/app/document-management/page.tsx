@@ -4,6 +4,11 @@ import Card from "@/components/card";
 import { RootState } from "@/GlobalRedux/store";
 import Link from "next/link";
 import { useSelector } from "react-redux";
+import { HiAcademicCap } from "react-icons/hi"; // Certificate
+import { FaFileAlt } from "react-icons/fa"; // Transcripts
+import { BsPersonLinesFill } from "react-icons/bs"; // Enrollment
+import { FaRegCalendarCheck } from "react-icons/fa"; // Attendance
+import { MdDescription } from "react-icons/md"; // Other official documents
 
 const DocumentManagement = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
@@ -14,105 +19,106 @@ const DocumentManagement = () => {
   const documents = [
     {
       href: "/document-management/certificate",
-      imgSrc: "/images/certificate.png",
+      icon: <HiAcademicCap size={40} />,
       title:
         currentLanguage === "en"
           ? "Certificate"
           : currentLanguage === "ar"
-            ? "شهادة"
-            : currentLanguage === "fr"
-              ? "Certificat"
-              : "Certificate", // Default to English
+          ? "شهادة"
+          : currentLanguage === "fr"
+          ? "Certificat"
+          : "Certificate", // Default to English
       description:
         currentLanguage === "en"
           ? "All certificates: Completion, Achievement, Participation, and Professional Development Certificates"
           : currentLanguage === "ar"
-            ? "جميع الشهادات: إتمام، إنجاز، مشاركة، وشهادات التطوير المهني"
-            : currentLanguage === "fr"
-              ? "Tous les certificats : d'achèvement, d'accomplissement, de participation et de développement professionnel"
-              : "All certificates: Completion, Achievement, Participation, and Professional Development Certificates", // Default to English
+          ? "جميع الشهادات: إتمام، إنجاز، مشاركة، وشهادات التطوير المهني"
+          : currentLanguage === "fr"
+          ? "Tous les certificats : d'achèvement, d'accomplissement, de participation et de développement professionnel"
+          : "All certificates: Completion, Achievement, Participation, and Professional Development Certificates", // Default to English
     },
     {
       href: "/document-management/transcript",
-      imgSrc: "/images/file.png",
+      icon: <FaFileAlt size={40} />,
       title:
         currentLanguage === "en"
           ? "Transcripts"
           : currentLanguage === "ar"
-            ? "السجلات الأكاديمية"
-            : currentLanguage === "fr"
-              ? "Relevés de notes"
-              : "Transcripts", // Default to English
+          ? "السجلات الأكاديمية"
+          : currentLanguage === "fr"
+          ? "Relevés de notes"
+          : "Transcripts", // Default to English
       description:
         currentLanguage === "en"
           ? "Some information about Course List, List of points and GPA"
           : currentLanguage === "ar"
-            ? "بعض المعلومات حول قائمة الدورات، قائمة النقاط والمعدل التراكمي"
-            : currentLanguage === "fr"
-              ? "Quelques informations sur la liste des cours, la liste des points et le GPA"
-              : "Some information about Course List, List of points and GPA", // Default to English
+          ? "بعض المعلومات حول قائمة الدورات، قائمة النقاط والمعدل التراكمي"
+          : currentLanguage === "fr"
+          ? "Quelques informations sur la liste des cours, la liste des points et le GPA"
+          : "Some information about Course List, List of points and GPA", // Default to English
     },
     {
       href: "/document-management/enrollment",
-      imgSrc: "/images/management.png",
+      icon: <BsPersonLinesFill size={40} />,
       title:
         currentLanguage === "en"
           ? "Enrollment"
           : currentLanguage === "ar"
-            ? "التسجيل"
-            : currentLanguage === "fr"
-              ? "Inscription"
-              : "Enrollment", // Default to English
+          ? "التسجيل"
+          : currentLanguage === "fr"
+          ? "Inscription"
+          : "Enrollment", // Default to English
       description:
         currentLanguage === "en"
           ? "Some information about Admission Forms, Enrollment Status, and Enrollment Dates"
           : currentLanguage === "ar"
-            ? "بعض المعلومات حول استمارات القبول، حالة التسجيل، وتواريخ التسجيل"
-            : currentLanguage === "fr"
-              ? "Quelques informations sur les formulaires d'admission, le statut d'inscription, et les dates d'inscription"
-              : "Some information about Admission Forms, Enrollment Status, and Enrollment Dates", // Default to English
+          ? "بعض المعلومات حول استمارات القبول، حالة التسجيل، وتواريخ التسجيل"
+          : currentLanguage === "fr"
+          ? "Quelques informations sur les formulaires d'admission, le statut d'inscription, et les dates d'inscription"
+          : "Some information about Admission Forms, Enrollment Status, and Enrollment Dates", // Default to English
     },
     {
       href: "/document-management/attendance",
-      imgSrc: "/images/user.png",
+      icon: <FaRegCalendarCheck size={40} />,
       title:
         currentLanguage === "en"
           ? "Attendance"
           : currentLanguage === "ar"
-            ? "الحضور"
-            : currentLanguage === "fr"
-              ? "Présence"
-              : "Attendance", // Default to English
+          ? "الحضور"
+          : currentLanguage === "fr"
+          ? "Présence"
+          : "Attendance", // Default to English
       description:
         currentLanguage === "en"
           ? "Some Information about Absence Reports and Early Departure Records"
           : currentLanguage === "ar"
-            ? "بعض المعلومات حول تقارير الغياب وسجلات المغادرة المبكرة"
-            : currentLanguage === "fr"
-              ? "Quelques informations sur les rapports d'absence et les enregistrements de départ anticipé"
-              : "Some Information about Absence Reports and Early Departure Records", // Default to English
+          ? "بعض المعلومات حول تقارير الغياب وسجلات المغادرة المبكرة"
+          : currentLanguage === "fr"
+          ? "Quelques informations sur les rapports d'absence et les enregistrements de départ anticipé"
+          : "Some Information about Absence Reports and Early Departure Records", // Default to English
     },
     {
       href: "/document-management/other",
-      imgSrc: "/images/other.png",
+      icon: <MdDescription size={40} />,
       title:
         currentLanguage === "en"
           ? "Other Official Documents"
           : currentLanguage === "ar"
-            ? "وثائق رسمية أخرى"
-            : currentLanguage === "fr"
-              ? "Autres documents officiels"
-              : "Other Official Documents", // Default to English
+          ? "وثائق رسمية أخرى"
+          : currentLanguage === "fr"
+          ? "Autres documents officiels"
+          : "Other Official Documents", // Default to English
       description:
         currentLanguage === "en"
           ? "Some information about ID Cards, Medical Records, Disciplinary Records, Financial Aid Documents, Legal Documents"
           : currentLanguage === "ar"
-            ? "بعض المعلومات حول بطاقات الهوية، السجلات الطبية، السجلات التأديبية، وثائق المساعدة المالية، الوثائق القانونية"
-            : currentLanguage === "fr"
-              ? "Quelques informations sur les cartes d'identité, les dossiers médicaux, les dossiers disciplinaires, les documents d'aide financière"
-              : "Some information about ID Cards, Medical Records, Disciplinary Records, Financial Aid Documents, Legal Documents", // Default to English
+          ? "بعض المعلومات حول بطاقات الهوية، السجلات الطبية، السجلات التأديبية، وثائق المساعدة المالية، الوثائق القانونية"
+          : currentLanguage === "fr"
+          ? "Quelques informations sur les cartes d'identité, les dossiers médicaux, les dossiers disciplinaires, les documents d'aide financière"
+          : "Some information about ID Cards, Medical Records, Disciplinary Records, Financial Aid Documents, Legal Documents", // Default to English
     },
   ];
+
   return (
     <>
       <div
@@ -125,10 +131,10 @@ const DocumentManagement = () => {
           {currentLanguage === "en"
             ? "Administration"
             : currentLanguage === "ar"
-              ? "الإدارة"
-              : currentLanguage === "fr"
-                ? "Administration"
-                : "Administration"}{" "}
+            ? "الإدارة"
+            : currentLanguage === "fr"
+            ? "Administration"
+            : "Administration"}{" "}
           {/* Default to English */}
         </Link>
         <svg
@@ -147,10 +153,10 @@ const DocumentManagement = () => {
           {currentLanguage === "en"
             ? "Document Management"
             : currentLanguage === "ar"
-              ? "إدارة الوثائق"
-              : currentLanguage === "fr"
-                ? "Gestion des documents"
-                : "Document Management"}{" "}
+            ? "إدارة الوثائق"
+            : currentLanguage === "fr"
+            ? "Gestion des documents"
+            : "Document Management"}{" "}
           {/* Default to English */}
         </Link>
       </div>
@@ -162,7 +168,7 @@ const DocumentManagement = () => {
             <Card
               key={index}
               href={item.href}
-              imgSrc={item.imgSrc}
+              icon={item.icon}
               title={item.title}
               description={item.description}
             />

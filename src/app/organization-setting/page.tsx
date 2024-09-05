@@ -4,6 +4,11 @@ import Card from "@/components/card";
 import { RootState } from "@/GlobalRedux/store";
 import Link from "next/link";
 import { useSelector } from "react-redux";
+import { RiFileList2Line } from "react-icons/ri"; // Report
+import { AiOutlineSafetyCertificate } from "react-icons/ai"; // Permission
+import { FaCalendarAlt, FaUmbrellaBeach } from "react-icons/fa"; // Semester, Annual Leave
+import { MdBusiness, MdWorkOutline } from "react-icons/md"; // Department, Position
+
 
 const OrganizationSettings = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
@@ -14,7 +19,7 @@ const OrganizationSettings = () => {
   const settings = [
     {
       href: "/organization-setting/reports",
-      imgSrc: "/images/reports.png",
+      icon: <RiFileList2Line size={40} />,
       title:
         currentLanguage === "en"
           ? "Reports"
@@ -34,7 +39,7 @@ const OrganizationSettings = () => {
     },
     {
       href: "/organization-setting/permissions/department-permission",
-      imgSrc: "/images/permetions.png",
+      icon: <AiOutlineSafetyCertificate size={40} />,
       title:
         currentLanguage === "en"
           ? "Permission"
@@ -54,9 +59,9 @@ const OrganizationSettings = () => {
     },
     {
       href: "/organization-setting/semester",
-      imgSrc: "/images/Semester.png",
+      icon: <FaCalendarAlt size={40} />,
       title:
-        currentLanguage === "en"
+      currentLanguage === "en"
           ? "Semester"
           : currentLanguage === "ar"
             ? "الفصل الدراسي"
@@ -74,9 +79,9 @@ const OrganizationSettings = () => {
     },
     {
       href: "/organization-setting/department",
-      imgSrc: "/images/exams.png",
+      icon: <MdBusiness size={40} />,
       title:
-        currentLanguage === "en"
+      currentLanguage === "en"
           ? "Department"
           : currentLanguage === "ar"
             ? "القسم"
@@ -89,19 +94,19 @@ const OrganizationSettings = () => {
           : currentLanguage === "ar"
             ? "أدخل معلومات الأقسام"
             : currentLanguage === "fr"
-              ? "Entrer les informations des départements"
+            ? "Entrer les informations des départements"
               : "Enter Departments information", // Default to English
-    },
-    {
+            },
+            {
       href: "/organization-setting/position",
-      imgSrc: "/images/user.png",
+      icon: <MdWorkOutline size={40} />,
       title:
-        currentLanguage === "en"
+      currentLanguage === "en"
           ? "Position"
           : currentLanguage === "ar"
             ? "المنصب"
             : currentLanguage === "fr"
-              ? "Position"
+            ? "Position"
               : "Position", // Default to English
       description:
         currentLanguage === "en"
@@ -111,10 +116,10 @@ const OrganizationSettings = () => {
             : currentLanguage === "fr"
               ? "Entrer les informations de poste"
               : "Enter Position information", // Default to English
-    },
-    {
+            },
+            {
       href: "/organization-setting/annual",
-      imgSrc: "/images/events.png",
+      icon: <FaUmbrellaBeach size={40} />,
       title:
         currentLanguage === "en"
           ? "Annual Leave"
@@ -182,7 +187,7 @@ const OrganizationSettings = () => {
             <Card
               key={index}
               href={item.href}
-              imgSrc={item.imgSrc}
+              icon={item.icon}
               title={item.title}
               description={item.description}
             />

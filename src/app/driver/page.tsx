@@ -240,7 +240,7 @@ const Driver = () => {
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
           <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
-            <thead className="bg-bgPrimary text-xs uppercase text-textPrimary">
+            <thead className="bg-thead text-xs uppercase text-textPrimary">
               <tr>
                 <th scope="col" className="p-4">
                   <div className="flex items-center">
@@ -345,7 +345,7 @@ const Driver = () => {
                 .map((driver: Driver) => (
                   <tr
                     key={driver.id}
-                    className="border-b bg-bgPrimary hover:bg-bgSecondary"
+                    className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary"
                   >
                     {/* onClick={handleOpen} */}
                     <td className="w-4 p-4">
@@ -359,7 +359,7 @@ const Driver = () => {
                     </td>
                     <th
                       scope="row"
-                      className="flex items-center gap-2 whitespace-nowrap bg-bgPrimary px-6 py-4 font-medium text-textPrimary transition-colors duration-300 hover:bg-bgSecondary"
+                      className="flex items-center gap-2 whitespace-nowrap px-6 py-4 font-medium text-textPrimary transition-colors duration-300 hover:bg-bgSecondary"
                     >
                       <div className="w-[50px]">
                         {driver.picture == null ? (

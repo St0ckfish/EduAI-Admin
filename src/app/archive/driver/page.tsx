@@ -197,7 +197,7 @@ const ArchiveDriver = () => {
                 type="text"
                 id="icon"
                 name="icon"
-                className="block w-full rounded-lg border-2 border-gray-200 px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
+                className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
                 placeholder="Search"
               />
             </div>
@@ -205,7 +205,7 @@ const ArchiveDriver = () => {
           <div className="flex justify-center">
             <Link
               href="/add-new-driver"
-              className="mb-5 mr-3 whitespace-nowrap rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+              className="mb-5 mr-3 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               {currentLanguage === "en"
                 ? "+ New Driver"
@@ -220,7 +220,7 @@ const ArchiveDriver = () => {
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
           <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
-            <thead className="bg-[#daeafb] text-xs uppercase text-gray-700">
+            <thead className="bg-thead text-xs uppercase text-textPrimary">
               <tr>
                 <th scope="col" className="p-4">
                   <div className="flex items-center">
@@ -317,7 +317,7 @@ const ArchiveDriver = () => {
                 .map((driver: Driver) => (
                   <tr
                     key={driver.id}
-                    className="border-b bg-white hover:bg-gray-50"
+                    className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary"
                   >
                     <td className="w-4 p-4">
                       <div className="flex items-center">
@@ -336,7 +336,7 @@ const ArchiveDriver = () => {
                         {driver.picture == null ? (
                           <img
                             src="/images/userr.png"
-                            className="mr-2 h-[40px] w-[40px] rounded-full"
+                          className="h-4 w-4 rounded border-borderPrimary bg-bgPrimary text-primary focus:ring-2 focus:ring-hover"
                             alt="#"
                           />
                         ) : (
@@ -347,7 +347,7 @@ const ArchiveDriver = () => {
                           />
                         )}
                       </div>
-                      <p> {driver.name} </p>
+                      <p className="text-textSecondary"> {driver.name} </p>
                     </th>
                     <td className="whitespace-nowrap px-6 py-4">{driver.id}</td>
                     <td className="whitespace-nowrap px-6 py-4">
@@ -373,7 +373,7 @@ const ArchiveDriver = () => {
                     <td className="whitespace-nowrap px-6 py-4">
                       <button
                         onClick={() => handleDelete(driver.id)}
-                        className="rounded-lg bg-red-500 px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+                        className="rounded-lg bg-error px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
                       >
                         UnLock
                       </button>

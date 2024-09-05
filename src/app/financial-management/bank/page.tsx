@@ -191,7 +191,7 @@ const Bank = () => {
                 type="text"
                 id="icon"
                 name="icon"
-                className="block w-full rounded-lg border-2 border-gray-200 px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
+                        className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-primary focus:ring-primary disabled:pointer-events-none disabled:opacity-50"
                 placeholder="Search"
               />
             </div>
@@ -199,13 +199,13 @@ const Bank = () => {
           <div className="flex justify-center">
             <button
               onClick={handleOpenModal}
-              className="mb-5 mr-3 whitespace-nowrap rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+              className="mb-5 mr-3 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               + New Bank Information
             </button>
           </div>
         </div>
-        <div className="grid h-full w-full items-center gap-4 rounded-xl bg-white p-9 max-[505px]:p-2">
+        <div className="grid h-full w-full items-center gap-4 rounded-xl bg-bgPrimary p-9 max-[505px]:p-2">
           {data?.data.content
             .filter((bank: Bank) => {
               return search.toLocaleLowerCase() === ""
@@ -216,7 +216,7 @@ const Bank = () => {
               <>
                 <div className="flex items-start justify-end gap-2">
                   {open === index ? (
-                    <div className="flex h-[35px] items-center gap-2 rounded-full bg-white px-1.5 py-1">
+                    <div className="flex h-[35px] items-center gap-2 rounded-full bg-bgPrimary px-1.5 py-1">
                       <button onClick={() => handleDelete(bank.id)}>
                         <svg
                           className="h-6 w-6 text-red-500"
@@ -476,7 +476,7 @@ const Bank = () => {
               ) : (
                 <button
                   type="submit"
-                  className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                  className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                 >
                   Add
                 </button>
@@ -560,7 +560,7 @@ const Bank = () => {
               ) : (
                 <button
                   type="submit"
-                  className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                  className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                 >
                   Edit
                 </button>

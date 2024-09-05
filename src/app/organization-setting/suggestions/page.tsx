@@ -63,7 +63,7 @@ const Suggestion = () => {
               {data?.data.content.map((report: Notifi) => (
                 <tr
                   key={report.id}
-                  className="text-nowrap border-b bg-white hover:bg-gray-50"
+                  className="text-nowrap border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary"
                 >
                   <th
                     scope="row"
@@ -84,9 +84,9 @@ const Suggestion = () => {
                         />
                       )}
                       <span className="grid">
-                        <p>{report.userFullName}</p>
-                        <p>
-                          ID: <span className="text-gray-400">{report.id}</span>
+                        <p className="text-textPrimary" >{report.userFullName}</p>
+                        <p className="text-textSecondary">
+                          ID: <span className="text-textPrimary">{report.id}</span>
                         </p>
                       </span>
                     </div>
@@ -105,7 +105,7 @@ const Suggestion = () => {
                     <div className="grid grid-cols-2 gap-3">
                       <button onClick={() => handleDelete(report.id)}>
                         <svg
-                          className="h-6 w-6 text-red-500"
+                          className="h-6 w-6 text-error"
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"

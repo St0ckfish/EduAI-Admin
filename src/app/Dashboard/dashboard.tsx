@@ -22,6 +22,7 @@ import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useTheme } from "next-themes"; 
 
 const ReactApexChart = dynamic(() => import("react-apexcharts"), {
   ssr: false,
@@ -160,12 +161,15 @@ const Dashboard: React.FC = () => {
       console.error("Failed to create event:", error);
     }
   };
+  
+  const { theme } = useTheme(); 
 
   const [options, setOptions] = useState({
     chart: {
       height: 350,
       width: 800,
       type: "area" as const,
+      background: 'transparent'
     },
     colors: ["#f19b78", "#008FFB"],
     dataLabels: {
@@ -187,12 +191,12 @@ const Dashboard: React.FC = () => {
       ],
     },
     tooltip: {
+      theme: theme,
       x: {
         format: "dd/MM/yy HH:mm",
       },
     },
   });
-
   type Meeting = Record<string, any>;
 
   if (

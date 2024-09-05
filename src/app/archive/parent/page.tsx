@@ -159,7 +159,7 @@ const Parent = () => {
             <div className="relative min-w-72 md:min-w-80">
               <div className="pointer-events-none absolute inset-y-0 start-0 z-20 flex items-center ps-4">
                 <svg
-                  className="size-4 flex-shrink-0 text-gray-400"
+                  className="size-4 flex-shrink-0 text-textSecondary"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
@@ -179,7 +179,7 @@ const Parent = () => {
                 type="text"
                 id="icon"
                 name="icon"
-                className="block w-full rounded-lg border-2 border-gray-200 px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
+                className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
                 placeholder="Search"
               />
             </div>
@@ -195,7 +195,7 @@ const Parent = () => {
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
           <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
-            <thead className="bg-[#daeafb] text-xs uppercase text-gray-700">
+            <thead className="bg-thead text-xs uppercase text-textPrimary">
               <tr>
                 <th scope="col" className="p-4">
                   <div className="flex items-center">
@@ -292,14 +292,14 @@ const Parent = () => {
                 .map((parent: Parent) => (
                   <tr
                     key={parent.id}
-                    className="border-b bg-white hover:bg-gray-50"
+                    className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary"
                   >
                     <td className="w-4 p-4">
                       <div className="flex items-center">
                         <input
                           id="checkbox-table-search-1"
                           type="checkbox"
-                          className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500"
+                          className="h-4 w-4 rounded border-borderPrimary bg-bgPrimary text-primary focus:ring-2 focus:ring-hover"
                         />
                       </div>
                     </td>
@@ -322,7 +322,7 @@ const Parent = () => {
                           />
                         )}
                       </div>
-                      <p> {parent.name} </p>
+                      <p className="text-textSecondary"> {parent.name} </p>
                     </th>
                     <td className="whitespace-nowrap px-6 py-4">{parent.id}</td>
                     <td className="whitespace-nowrap px-6 py-4">
