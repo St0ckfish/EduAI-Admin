@@ -32,7 +32,7 @@ body {
   --success: #1ac877;
   --info: #34e4b5;
   --border-primary: #2a2d32;
-  --thead: #071F3A;
+  --thead: #071f3a;
 }
 
 /* Chart */
@@ -40,16 +40,15 @@ body {
 div.apexcharts-menu.apexcharts-menu-open {
   background-color: var(--bg-primary);
   border: var(--border-primary) 1px solid;
-  
 }
 
 div.apexcharts-menu.apexcharts-menu-open > div:hover {
-  background-color: var(--bg-secondary); 
+  background-color: var(--bg-secondary);
 }
 
-div.apexcharts-tooltip.apexcharts-active ,
-div.apexcharts-tooltip.apexcharts-active.apexcharts-tooltip-title  {
-  background-color: var(--bg-primary) !important; 
+div.apexcharts-tooltip.apexcharts-active,
+div.apexcharts-tooltip.apexcharts-active.apexcharts-tooltip-title {
+  background-color: var(--bg-primary) !important;
   border: var(--border-primary) 1px solid;
 }
 
@@ -58,7 +57,7 @@ div.apexcharts-tooltip-title {
   border: var(--border-primary) 1px solid;
 }
 
-.apexcharts-tooltip.apexcharts-theme-light .apexcharts-tooltip-title {  
+.apexcharts-tooltip.apexcharts-theme-light .apexcharts-tooltip-title {
   border-bottom: var(--border-primary) 1px solid !important;
 }
 

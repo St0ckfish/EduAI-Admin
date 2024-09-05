@@ -9,7 +9,6 @@ import { AiOutlineSafetyCertificate } from "react-icons/ai"; // Permission
 import { FaCalendarAlt, FaUmbrellaBeach } from "react-icons/fa"; // Semester, Annual Leave
 import { MdBusiness, MdWorkOutline } from "react-icons/md"; // Department, Position
 
-
 const OrganizationSettings = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const currentLanguage = useSelector(
@@ -61,7 +60,7 @@ const OrganizationSettings = () => {
       href: "/organization-setting/semester",
       icon: <FaCalendarAlt size={40} />,
       title:
-      currentLanguage === "en"
+        currentLanguage === "en"
           ? "Semester"
           : currentLanguage === "ar"
             ? "الفصل الدراسي"
@@ -81,7 +80,7 @@ const OrganizationSettings = () => {
       href: "/organization-setting/department",
       icon: <MdBusiness size={40} />,
       title:
-      currentLanguage === "en"
+        currentLanguage === "en"
           ? "Department"
           : currentLanguage === "ar"
             ? "القسم"
@@ -94,19 +93,19 @@ const OrganizationSettings = () => {
           : currentLanguage === "ar"
             ? "أدخل معلومات الأقسام"
             : currentLanguage === "fr"
-            ? "Entrer les informations des départements"
+              ? "Entrer les informations des départements"
               : "Enter Departments information", // Default to English
-            },
-            {
+    },
+    {
       href: "/organization-setting/position",
       icon: <MdWorkOutline size={40} />,
       title:
-      currentLanguage === "en"
+        currentLanguage === "en"
           ? "Position"
           : currentLanguage === "ar"
             ? "المنصب"
             : currentLanguage === "fr"
-            ? "Position"
+              ? "Position"
               : "Position", // Default to English
       description:
         currentLanguage === "en"
@@ -116,8 +115,8 @@ const OrganizationSettings = () => {
             : currentLanguage === "fr"
               ? "Entrer les informations de poste"
               : "Enter Position information", // Default to English
-            },
-            {
+    },
+    {
       href: "/organization-setting/annual",
       icon: <FaUmbrellaBeach size={40} />,
       title:

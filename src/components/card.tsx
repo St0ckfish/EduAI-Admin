@@ -11,7 +11,13 @@ interface CardProps {
   description: string;
 }
 
-const Card: React.FC<CardProps> = ({ href, icon, title, imgSrc, description }) => (
+const Card: React.FC<CardProps> = ({
+  href,
+  icon,
+  title,
+  imgSrc,
+  description,
+}) => (
   <div className="grid h-[250px] w-[250px] items-end justify-center rounded-xl bg-bgPrimary shadow-lg">
     <Link href={href} className="grid items-center justify-center text-center">
       <div className="flex justify-center">

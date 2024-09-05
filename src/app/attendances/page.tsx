@@ -11,7 +11,10 @@ import {
   useGetWorkerAttendenceQuery,
 } from "@/features/dashboard/dashboardApi";
 import Spinner from "@/components/spinner";
-import { useGetDriversAttendQuery, useGetDriversCountQuery } from "@/features/attendance/attendanceApi";
+import {
+  useGetDriversAttendQuery,
+  useGetDriversCountQuery,
+} from "@/features/attendance/attendanceApi";
 
 const Attendance = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
@@ -22,17 +25,17 @@ const Attendance = () => {
   const { data: employeedata, isLoading: isLoadingE } =
     useGetEmployeeAttendenceQuery(null);
   const { data: driverCount, isLoading: isCount } =
-  useGetDriversCountQuery(null);
+    useGetDriversCountQuery(null);
   const { data: driverAttend, isLoading: isAttend } =
-  useGetDriversAttendQuery(null);
+    useGetDriversAttendQuery(null);
   const { data: teacherdata, isLoading: isLoadingT } =
-  useGetTeacherAttendenceQuery(null);
+    useGetTeacherAttendenceQuery(null);
   const { data: workerdata, isLoading: isLoadingW } =
-  useGetWorkerAttendenceQuery(null);
+    useGetWorkerAttendenceQuery(null);
   const { data: employeeCount, isLoading: isECount } =
-  useGetAllEmployeesQuery(null);
+    useGetAllEmployeesQuery(null);
   const { data: studentCount, isLoading: isSCount } =
-  useGetAllStudentsQuery(null);
+    useGetAllStudentsQuery(null);
 
   const UserManagments = [
     {
@@ -142,7 +145,15 @@ const Attendance = () => {
     },
   ];
 
-  if (isLoadingE || isLoadingT || isLoadingW || isCount || isAttend || isECount || isSCount)
+  if (
+    isLoadingE ||
+    isLoadingT ||
+    isLoadingW ||
+    isCount ||
+    isAttend ||
+    isECount ||
+    isSCount
+  )
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />

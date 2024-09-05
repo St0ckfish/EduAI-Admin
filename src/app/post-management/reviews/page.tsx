@@ -10,7 +10,7 @@ const Reviews = () => {
 
   return (
     <>
-         <Soon/>
+      <Soon />
 
       <div
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}

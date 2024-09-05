@@ -4,10 +4,10 @@ const AddNewRoom = () => {
     <>
       <div className="mr-[5px] grid h-[850px] items-center justify-center lg:ml-[270px]">
         <form>
-          <div className="grid h-[900px] items-center justify-center gap-5 rounded-xl bg-white p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:h-[800px] xl:w-[1000px]">
+          <div className="grid h-[900px] items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:h-[800px] xl:w-[1000px]">
             <div className="flex items-center justify-start gap-2">
               <svg
-                className="h-6 w-6 font-bold text-[#526484] group-hover:text-[#3e5af0]"
+                className="h-6 w-6 font-bold text-secondary group-hover:text-hover"
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
@@ -41,7 +41,7 @@ const AddNewRoom = () => {
                 <input
                   id="name"
                   type="number"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
               </label>
               <label
@@ -52,7 +52,7 @@ const AddNewRoom = () => {
                 <input
                   id="code"
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
               </label>
               <label
@@ -63,7 +63,7 @@ const AddNewRoom = () => {
                 <input
                   id="about"
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
               </label>
 
@@ -75,7 +75,7 @@ const AddNewRoom = () => {
                 <input
                   id="Version"
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
               </label>
               <label
@@ -86,7 +86,7 @@ const AddNewRoom = () => {
                 <input
                   id="Version"
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
               </label>
               <label
@@ -97,7 +97,7 @@ const AddNewRoom = () => {
                 <input
                   id="Initial"
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
               </label>
             </div>

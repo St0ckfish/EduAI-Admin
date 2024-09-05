@@ -246,7 +246,7 @@ const Semester = () => {
                           />
                         )}
                       </div>
-                      <p className="text-textSecondary" > {Semester.name} </p>
+                      <p className="text-textSecondary"> {Semester.name} </p>
                     </th>
                     <td className="whitespace-nowrap px-6 py-4">
                       {Semester.id}

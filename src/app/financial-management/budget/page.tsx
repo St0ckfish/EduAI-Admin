@@ -11,9 +11,8 @@ const ReactApexChart = dynamic(() => import("react-apexcharts"), {
   ssr: false,
 });
 
-
 const ApexChart = () => {
-  const { theme } = useTheme(); 
+  const { theme } = useTheme();
   const [series, setSeries] = useState([
     {
       name: "Expense",
@@ -54,11 +53,11 @@ const ApexChart = () => {
       },
       xaxis: {
         tooltip: {
-        theme: "dark",
-        x: {
-          format: "dd/MM/yy HH:mm",
+          theme: "dark",
+          x: {
+            format: "dd/MM/yy HH:mm",
+          },
         },
-      },
         categories: [
           "Jan",
           "Feb",

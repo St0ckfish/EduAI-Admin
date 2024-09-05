@@ -83,9 +83,12 @@ const Report = () => {
                         />
                       )}
                       <span className="grid">
-                        <p className="text-textPrimary" >{report.userFullName}</p>
+                        <p className="text-textPrimary">
+                          {report.userFullName}
+                        </p>
                         <p className="text-textSecondary">
-                          ID: <span className="text-textPrimary">{report.id}</span>
+                          ID:{" "}
+                          <span className="text-textPrimary">{report.id}</span>
                         </p>
                       </span>
                     </div>

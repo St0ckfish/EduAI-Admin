@@ -13,7 +13,11 @@ import { toast } from "react-toastify";
 import Pagination from "@/components/pagination";
 import Sheet from "@/components/sheet";
 import DriverInfo from "@/components/driverInfo";
-import { useCreateAttendanceMutation, useGetAllEmpolyeesAttendQuery, useUpdateAttendanceMutation } from "@/features/attendance/attendanceApi";
+import {
+  useCreateAttendanceMutation,
+  useGetAllEmpolyeesAttendQuery,
+  useUpdateAttendanceMutation,
+} from "@/features/attendance/attendanceApi";
 
 const DriverAttendance = () => {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
@@ -28,13 +32,21 @@ const DriverAttendance = () => {
   const [createAttendance] = useCreateAttendanceMutation();
   const [updateAttendance] = useUpdateAttendanceMutation();
 
-  const handleSelect = (label: string, index: number, userId: undefined, driverStatus: string | null, attendenceId: number, checkin: Date, checkout: Date) => {
+  const handleSelect = (
+    label: string,
+    index: number,
+    userId: undefined,
+    driverStatus: string | null,
+    attendenceId: number,
+    checkin: Date,
+    checkout: Date,
+  ) => {
     setSelectedStates(prevStates => {
       const newStates = [...prevStates];
       newStates[index] = newStates[index] === label ? label : label; // Toggle selection
       return newStates;
     });
-  
+
     const attendanceData = {
       userId: userId,
       attendenceId: attendenceId,
@@ -43,7 +55,7 @@ const DriverAttendance = () => {
       checkInTime: checkin,
       checkOutTime: checkout,
     };
-  
+
     if (driverStatus === null) {
       // Use createAttendance if status is null
       createAttendance(attendanceData)
@@ -59,7 +71,10 @@ const DriverAttendance = () => {
         });
     } else {
       // Use updateAttendance if status is not null
-      updateAttendance({ formData: attendanceData, id: attendanceData.attendenceId })
+      updateAttendance({
+        formData: attendanceData,
+        id: attendanceData.attendenceId,
+      })
         .unwrap()
         .then(response => {
           console.log("Attendance updated:", response);
@@ -284,31 +299,41 @@ const DriverAttendance = () => {
                   </div>
                 </div>
                 <div className="flex items-center justify-center gap-4 text-center">
-                {["P", "A", "L"].map(label => (
-                  <label
-                    key={label}
-                    className={`flex h-[55px] w-[55px] cursor-pointer items-center justify-center rounded-full border p-5 text-center text-[24px] font-semibold ${
-                      selectedStates[index] === label || 
-                      (label === "P" && driver.status === "PRESENT") || 
-                      (label === "L" && driver.status === "LEAVE") || 
-                      (label === "A" && driver.status === "ABSENT")
-                        ? label === "P"
-                          ? "bg-green-300 text-white"
-                          : label === "A"
-                            ? "bg-red-500 text-white"
-                            : "bg-yellow-300 text-white"
-                        : "bg-white"
-                    } `}
-                  >
-                    <input
-                      type="checkbox"
-                      className="hidden"
-                      checked={selectedStates[index] === label}
-                      onChange={() => handleSelect(label, index, driver.userId, driver.status, driver.attendanceId, driver.checkInTime, driver.checkOutTime)}
-                    />
-                    {label}
-                  </label>
-                ))}
+                  {["P", "A", "L"].map(label => (
+                    <label
+                      key={label}
+                      className={`flex h-[55px] w-[55px] cursor-pointer items-center justify-center rounded-full border p-5 text-center text-[24px] font-semibold ${
+                        selectedStates[index] === label ||
+                        (label === "P" && driver.status === "PRESENT") ||
+                        (label === "L" && driver.status === "LEAVE") ||
+                        (label === "A" && driver.status === "ABSENT")
+                          ? label === "P"
+                            ? "bg-green-300 text-white"
+                            : label === "A"
+                              ? "bg-red-500 text-white"
+                              : "bg-yellow-300 text-white"
+                          : "bg-white"
+                      } `}
+                    >
+                      <input
+                        type="checkbox"
+                        className="hidden"
+                        checked={selectedStates[index] === label}
+                        onChange={() =>
+                          handleSelect(
+                            label,
+                            index,
+                            driver.userId,
+                            driver.status,
+                            driver.attendanceId,
+                            driver.checkInTime,
+                            driver.checkOutTime,
+                          )
+                        }
+                      />
+                      {label}
+                    </label>
+                  ))}
                 </div>
               </div>
             ))}

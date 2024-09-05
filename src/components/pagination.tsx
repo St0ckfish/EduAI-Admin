@@ -152,7 +152,7 @@ const Pagination: React.FC<PaginationProps> = ({
             padding: "0.75rem",
             outline: "none",
           }}
-          className="rounded-xl text-textPrimary border-borderPrimary"
+          className="rounded-xl border-borderPrimary text-textPrimary"
           value={elementsPerPage}
           onChange={e => onChangeElementsPerPage(Number(e.target.value))}
         >

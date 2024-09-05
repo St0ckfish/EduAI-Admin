@@ -336,7 +336,7 @@ const ArchiveDriver = () => {
                         {driver.picture == null ? (
                           <img
                             src="/images/userr.png"
-                          className="h-4 w-4 rounded border-borderPrimary bg-bgPrimary text-primary focus:ring-2 focus:ring-hover"
+                            className="h-4 w-4 rounded border-borderPrimary bg-bgPrimary text-primary focus:ring-2 focus:ring-hover"
                             alt="#"
                           />
                         ) : (

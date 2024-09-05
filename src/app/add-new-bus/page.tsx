@@ -29,10 +29,10 @@ const AddNewBus = () => {
     <>
       <div className="mr-[5px] grid h-[850px] items-center justify-center lg:ml-[270px]">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="grid h-[900px] items-center justify-center gap-5 rounded-xl bg-white p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:h-[800px] xl:w-[1000px]">
+          <div className="grid h-[900px] items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:h-[800px] xl:w-[1000px]">
             <div className="flex items-center justify-start gap-2">
               <svg
-                className="h-6 w-6 font-bold text-[#526484] group-hover:text-[#3e5af0]"
+                className="h-6 w-6 font-bold text-secondary group-hover:text-hover"
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
@@ -67,7 +67,7 @@ const AddNewBus = () => {
                   id="name"
                   {...register("busNumber", { required: true })}
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.busNumber && (
                   <span className="text-red-600">This field is required</span>
@@ -82,7 +82,7 @@ const AddNewBus = () => {
                   id="code"
                   {...register("busCapacity", { required: true })}
                   type="number"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.busCapacity && (
                   <span className="text-red-600">This field is required</span>
@@ -96,7 +96,7 @@ const AddNewBus = () => {
               ) : (
                 <button
                   type="submit"
-                  className="w-[140px] rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                  className="w-[140px] rounded-xl bg-hover px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
                 >
                   Add Bus
                 </button>

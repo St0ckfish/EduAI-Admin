@@ -16,7 +16,6 @@ import { FaClipboardList } from "react-icons/fa"; // Grades
 import { FaBoxOpen } from "react-icons/fa"; // Resource
 import { FaMoneyBillAlt } from "react-icons/fa"; // Fees
 
-
 const Archive = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const currentLanguage = useSelector(
@@ -24,18 +23,46 @@ const Archive = () => {
   );
 
   const items = [
-    { href: "/archive/driver", icon: <FaCar size={40}/>, key: "Driver" },
-    { href: "/archive/employee", icon: <FaUserTie size={40}/>, key: "Employee", },
-    { href: "/archive/parent", icon: <FaUserFriends size={40}/>, key: "Parent" },
-    { href: "/archive/student", icon: <FaUserGraduate size={40}/>, key: "Student" },
-    { href: "/archive/teacher", icon: <FaChalkboardTeacher size={40}/>, key: "Teacher" },
-    { href: "/archive/worker", icon: <FaTools size={40}/>, key: "Worker" },
-    { href: "/bus", icon: <FaBus size={40}/>, key: "Bus"},
-    { href: "/book", icon: <FaBook size={40}/>, key: "Library"},
-    { href: "/rooms", icon: <FaDoorClosed size={40}/>, key: "Room" },
-    { href: "/educational-affairs/grads", icon: <FaClipboardList size={40}/>, key: "Grades"},
-    { href: "/course/resource", icon: <FaBoxOpen size={40}/>, key: "Resource"},
-    { href: "/financial-management", icon: <FaMoneyBillAlt size={40}/>, key: "Fees"},
+    { href: "/archive/driver", icon: <FaCar size={40} />, key: "Driver" },
+    {
+      href: "/archive/employee",
+      icon: <FaUserTie size={40} />,
+      key: "Employee",
+    },
+    {
+      href: "/archive/parent",
+      icon: <FaUserFriends size={40} />,
+      key: "Parent",
+    },
+    {
+      href: "/archive/student",
+      icon: <FaUserGraduate size={40} />,
+      key: "Student",
+    },
+    {
+      href: "/archive/teacher",
+      icon: <FaChalkboardTeacher size={40} />,
+      key: "Teacher",
+    },
+    { href: "/archive/worker", icon: <FaTools size={40} />, key: "Worker" },
+    { href: "/bus", icon: <FaBus size={40} />, key: "Bus" },
+    { href: "/book", icon: <FaBook size={40} />, key: "Library" },
+    { href: "/rooms", icon: <FaDoorClosed size={40} />, key: "Room" },
+    {
+      href: "/educational-affairs/grads",
+      icon: <FaClipboardList size={40} />,
+      key: "Grades",
+    },
+    {
+      href: "/course/resource",
+      icon: <FaBoxOpen size={40} />,
+      key: "Resource",
+    },
+    {
+      href: "/financial-management",
+      icon: <FaMoneyBillAlt size={40} />,
+      key: "Fees",
+    },
   ];
 
   const getTranslatedText = (key: string) => {

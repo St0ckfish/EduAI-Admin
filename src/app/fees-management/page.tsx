@@ -346,7 +346,7 @@ const FeesManagement = () => {
                     </td>
                     <th
                       scope="row"
-                      className="flex items-center whitespace-nowrap px-6 py-4 font-medium text-text-textSeceondary"
+                      className="text-text-textSeceondary flex items-center whitespace-nowrap px-6 py-4 font-medium"
                     >
                       {invoice.billedToName}
                     </th>
