@@ -65,7 +65,7 @@ const EditWorker: React.FC<ViewWorkerProps> = ({ params }) => {
     <>
       <div className="mr-[5px] grid h-[850px] items-center justify-center lg:ml-[270px]">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="my-10 grid items-center justify-center gap-5 rounded-xl bg-white p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:w-[1000px]">
+          <div className="my-10 grid items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:w-[1000px]">
             <div className="flex items-center justify-start gap-2">
               <svg
                 className="h-6 w-6 font-bold text-[#526484] group-hover:text-[#3e5af0]"
@@ -101,7 +101,7 @@ const EditWorker: React.FC<ViewWorkerProps> = ({ params }) => {
                 <input
                   id="email"
                   type="email"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("email", { required: true })}
                 />
                 {errors.email && (
@@ -116,7 +116,7 @@ const EditWorker: React.FC<ViewWorkerProps> = ({ params }) => {
                 <input
                   id="nid"
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("nid", { required: true })}
                 />
                 {errors.nid && (
@@ -130,7 +130,7 @@ const EditWorker: React.FC<ViewWorkerProps> = ({ params }) => {
                 Gender
                 <select
                   id="gender"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("gender", { required: true })}
                 >
                   <option selected value="">
@@ -150,7 +150,7 @@ const EditWorker: React.FC<ViewWorkerProps> = ({ params }) => {
                 Religion
                 <select
                   id="religion"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("religion", { required: true })}
                 >
                   <option selected value="">
@@ -174,7 +174,7 @@ const EditWorker: React.FC<ViewWorkerProps> = ({ params }) => {
                 <input
                   id="name_en"
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("name_en", { required: true })}
                 />
                 {errors.name_en && (
@@ -189,7 +189,7 @@ const EditWorker: React.FC<ViewWorkerProps> = ({ params }) => {
                 <input
                   id="name_ar"
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("name_ar", { required: true })}
                 />
                 {errors.name_ar && (
@@ -204,7 +204,7 @@ const EditWorker: React.FC<ViewWorkerProps> = ({ params }) => {
                 <input
                   id="name_fr"
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("name_fr", { required: true })}
                 />
                 {errors.name_fr && (
@@ -220,7 +220,7 @@ const EditWorker: React.FC<ViewWorkerProps> = ({ params }) => {
                   defaultValue=""
                   id="regionId"
                   {...register("regionId", { required: true })}
-                  className={`border ${errors.regionId ? "border-[#d74f41]" : "border-zinc-300"} h-full w-[400px] rounded-xl px-4 py-3 text-[18px] text-[#000000] outline-none max-[458px]:w-[350px]`}
+                  className={`border ${errors.regionId ? "border-[#d74f41]" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-[18px] text-[#000000] outline-none max-[458px]:w-[350px]`}
                 >
                   <option selected value="">
                     Select Region Id{" "}
@@ -264,7 +264,7 @@ const EditWorker: React.FC<ViewWorkerProps> = ({ params }) => {
                 Your Nationality
                 <select
                   id="nationality"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("nationality", { required: true })}
                 >
                   <option value="">Select Nationality</option>
@@ -287,7 +287,7 @@ const EditWorker: React.FC<ViewWorkerProps> = ({ params }) => {
                 <input
                   id="about"
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("about", { required: true })}
                 />
                 {errors.about && (
@@ -302,7 +302,7 @@ const EditWorker: React.FC<ViewWorkerProps> = ({ params }) => {
                 <input
                   id="birthDate"
                   type="date"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("birthDate", { required: true })}
                 />
                 {errors.birthDate && (
@@ -318,7 +318,7 @@ const EditWorker: React.FC<ViewWorkerProps> = ({ params }) => {
                   defaultValue=""
                   id="qualification"
                   {...register("qualification", { required: true })}
-                  className="h-[55px] w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="h-[55px] w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 >
                   <option selected value="">
                     Select qualification
@@ -346,7 +346,7 @@ const EditWorker: React.FC<ViewWorkerProps> = ({ params }) => {
                 <input
                   id="hireDate"
                   type="date"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("hireDate", { required: true })}
                 />
                 {errors.hireDate && (
@@ -361,7 +361,7 @@ const EditWorker: React.FC<ViewWorkerProps> = ({ params }) => {
                 <input
                   id="number"
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("number", { required: true })}
                 />
                 {errors.number && (
@@ -376,7 +376,7 @@ const EditWorker: React.FC<ViewWorkerProps> = ({ params }) => {
                 <input
                   id="positionId"
                   type="number"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("positionId", { required: true })}
                 />
                 {errors.positionId && (
@@ -390,7 +390,7 @@ const EditWorker: React.FC<ViewWorkerProps> = ({ params }) => {
                 Employee Status
                 <select
                   id="employeeStatus"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("employeeStatus", { required: true })}
                 >
                   <option selected value="">
@@ -411,7 +411,7 @@ const EditWorker: React.FC<ViewWorkerProps> = ({ params }) => {
                 Employee Type
                 <select
                   id="employeeType"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("employeeType", { required: true })}
                 >
                   <option selected value="">
@@ -433,7 +433,7 @@ const EditWorker: React.FC<ViewWorkerProps> = ({ params }) => {
                 <input
                   id="salary"
                   type="number"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("salary", { required: true })}
                 />
                 {errors.salary && (
