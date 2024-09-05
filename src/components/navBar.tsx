@@ -213,7 +213,7 @@ const NavBar = () => {
                     <>
                       {theme == "dark" ? (
                         <button
-                          className="text-textPrimary"
+                          className="text-textPrimary "
                           onClick={() => setTheme("light")}
                         >
                           <FiMoon />
@@ -678,7 +678,7 @@ const NavBar = () => {
                     </button>
                     {isOpen2 && (
                       <ul
-                        className={`${small ? "hidden w-[180px] translate-x-5 whitespace-nowrap rounded-xl bg-white p-2 group-hover:grid" : ""} ml-9 mt-2 grid gap-2 text-[14px] font-semibold`}
+                      className={`${small ? "hidden w-[180px] translate-x-5 whitespace-nowrap rounded-xl bg-white p-2 group-hover:grid" : ""} ml-9 mt-2 grid gap-2 text-[14px] font-semibold`}
                       >
                         <Link
                           className="hover:text-[#3e5af0]"
@@ -749,6 +749,27 @@ const NavBar = () => {
                       </ul>
                     )}
                   </li>
+                      <li>
+                        <Link
+                          className={`flex ${small ? "w-[40px]" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-[#526484] hover:bg-bgSecondary hover:text-[#3e5af0]`}
+                          href="/"
+                        >
+                          <svg className="h-6 w-6 font-sans font-bold text-[#526484] group-hover:text-[#3e5af0]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                          </svg>
+                          {!small && (
+                            <p>
+                              {currentLanguage === "en"
+                                ? "Insight"
+                                : currentLanguage === "ar"
+                                  ? " بصيرة"
+                                  : currentLanguage === "fr"
+                                    ? "Aperçu"
+                                    : "Insight"}
+                            </p>
+                          )}
+                        </Link>
+                      </li>
                   <li className="group relative">
                     <button
                       onClick={toggleNavbar3}

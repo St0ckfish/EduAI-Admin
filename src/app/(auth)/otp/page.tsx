@@ -124,12 +124,14 @@ const OTP = () => {
             </form>
           </div>
         </div>
-        <div className="flex justify-end max-[1040px]:hidden">
-          <img
-            className="h-[929px] w-[800px]"
-            src="images/otp.png"
-            alt="OTP Illustration"
-          />
+        <div className="flex w-full justify-end h-full">
+          <div className="flex justify-end max-[1040px]:hidden bg-[#2a3469] h-full items-center w-[600px]">
+            <img
+              className="h-[300px] w-[500px] -translate-x-[260px]"
+              src="images/forget.png"
+              alt="#"
+            />
+          </div>
         </div>
       </div>
     </>

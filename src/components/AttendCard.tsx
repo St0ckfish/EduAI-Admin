@@ -39,11 +39,11 @@ const AttendCard: React.FC<CardProps> = ({
             <p className="font-semibold">
               <span className="font-semibold text-red-700">{number}</span>
               {currentLanguage === "en"
-                ? " Présent today"
+                ? " Present"
                 : currentLanguage === "ar"
-                  ? " حضور اليوم"
-                  : currentLanguage === "fr"
-                    ? " Present"
+                ? " حضور اليوم"
+                : currentLanguage === "fr"
+                ? " Présent today"
                     : " Present today"}{" "}
               {/* Default to English */}
             </p>

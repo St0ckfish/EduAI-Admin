@@ -94,7 +94,7 @@ const Signup = () => {
 
   return (
     <>
-      <div className="grid h-screen grid-cols-2 items-center justify-center bg-bgSecondary px-4 duration-300 ease-in max-[1040px]:grid-cols-1">
+      <div className="grid h-screen grid-cols-2 items-center justify-center bg-bgSecondary pl-4 duration-300 ease-in max-[1040px]:grid-cols-1">
         <div className="gird items-center justify-center text-center">
           <div>
             <img
@@ -661,12 +661,14 @@ const Signup = () => {
             </form>
           </div>
         </div>
-        <div className="flex justify-end max-[1040px]:hidden">
+        <div className="flex w-full justify-end h-full">
+          <div className="flex justify-end max-[1040px]:hidden bg-[#2a3469] h-full items-center w-[600px]">
           <img
-            className="h-[928px] w-[600px]"
-            src="images/signup.png"
-            alt="#"
-          />
+              className="h-[530px] w-[500px] -translate-x-[260px]"
+              src="images/labtop.png"
+              alt="#"
+            />
+          </div>
         </div>
       </div>
     </>
