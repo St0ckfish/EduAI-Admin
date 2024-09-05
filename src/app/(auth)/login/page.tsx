@@ -58,7 +58,7 @@ const Login = () => {
                   id="email"
                   {...register("username", { required: true })}
                   placeholder="Enter Your Email"
-                  className={`w-[450px] rounded-xl border px-4 py-3 text-textPrimary ${errors.username ? "border-warning]" : "border-borderPrimary"} outline-none max-[471px]:w-[350px]`}
+                  className={`w-[450px] rounded-xl border px-4 py-3 text-textPrimary ${errors.username ? "border-warning" : "border-borderPrimary"} outline-none max-[471px]:w-[350px]`}
                 />
                 {errors.username && (
                   <span className="text-[13px] text-error">
@@ -75,7 +75,7 @@ const Login = () => {
                   id="password"
                   {...register("password", { required: true })}
                   placeholder="Enter Your Password"
-                  className={`w-[450px] rounded-xl border px-4 py-3 text-textPrimary ${errors.password ? "border-warning" : "border-secondary/70"} outline-none max-[471px]:w-[350px]`}
+                  className={`w-[450px] rounded-xl border px-4 py-3 text-textPrimary ${errors.password ? "border-warning" : "border-borderPrimary"} outline-none max-[471px]:w-[350px]`}
                   type="password"
                 />
                 {errors.password && (

@@ -89,7 +89,7 @@ const OTP = () => {
                     key={index}
                     ref={inputRefs[index]}
                     type="text"
-                    className="h-14 w-14 appearance-none rounded-lg border-2 bg-bgSecondary p-4 text-center text-2xl font-extrabold text-textPrimary outline-none hover:border-borderPrimary focus:border-indigo-400 focus:bg-bgPrimary focus:ring-2 focus:ring-indigo-100"
+                    className="h-14 w-14 appearance-none rounded-lg border-2 p-4 text-center text-2xl font-extrabold text-textPrimary outline-none focus:border-indigo-400 focus:bg-bgPrimary focus:ring-2 focus:ring-indigo-100"
                     pattern="\d*"
                     maxLength={1}
                     value={value}
