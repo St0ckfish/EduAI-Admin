@@ -6,17 +6,12 @@ import { useSelector } from "react-redux";
 import {
   useGetAllEmployeesQuery,
   useGetAllStudentsQuery,
-  useGetAllTeachersQuery,
-  useGetAllWorkersQuery,
   useGetEmployeeAttendenceQuery,
   useGetTeacherAttendenceQuery,
   useGetWorkerAttendenceQuery,
 } from "@/features/dashboard/dashboardApi";
 import Spinner from "@/components/spinner";
-import {
-  useGetDriversAttendQuery,
-  useGetDriversCountQuery,
-} from "@/features/attendance/attendanceApi";
+import { useGetDriversAttendQuery, useGetDriversCountQuery } from "@/features/attendance/attendanceApi";
 
 const Attendance = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
@@ -27,34 +22,17 @@ const Attendance = () => {
   const { data: employeedata, isLoading: isLoadingE } =
     useGetEmployeeAttendenceQuery(null);
   const { data: driverCount, isLoading: isCount } =
-    useGetDriversCountQuery(null);
+  useGetDriversCountQuery(null);
   const { data: driverAttend, isLoading: isAttend } =
-    useGetDriversAttendQuery(null);
+  useGetDriversAttendQuery(null);
   const { data: teacherdata, isLoading: isLoadingT } =
-    useGetTeacherAttendenceQuery(null);
+  useGetTeacherAttendenceQuery(null);
   const { data: workerdata, isLoading: isLoadingW } =
-    useGetWorkerAttendenceQuery(null);
+  useGetWorkerAttendenceQuery(null);
   const { data: employeeCount, isLoading: isECount } =
-    useGetAllEmployeesQuery(null);
+  useGetAllEmployeesQuery(null);
   const { data: studentCount, isLoading: isSCount } =
-<<<<<<< HEAD
-    useGetAllStudentsQuery(null);
-=======
   useGetAllStudentsQuery(null);
-  const {
-    data: students,
-    isLoading: isStudents,
-  } = useGetAllStudentsQuery(null);
-
-  const {
-    data: teachers,
-    isLoading: isTeacher,
-  } = useGetAllTeachersQuery(null);
-  const {
-    data: workers,
-    isLoading: isWorker,
-  } = useGetAllWorkersQuery(null);
->>>>>>> af1ce03cedc28b4cc0178e6db16ff7eda0a30e4a
 
   const UserManagments = [
     {
@@ -103,7 +81,7 @@ const Attendance = () => {
             : currentLanguage === "fr"
               ? "Employé"
               : "Employee", // Default to English
-      description: employeeCount?.data, // Default to English 
+      description: employeeCount?.data, // Default to English
       number: employeedata?.data,
     },
     {
@@ -118,7 +96,7 @@ const Attendance = () => {
               ? "Étudiant"
               : "Student", // Default to English
       description: studentCount?.data, // Default to English
-      number: students?.data,
+      number: 20,
     },
     {
       href: "/teacher-attendance",
@@ -131,7 +109,14 @@ const Attendance = () => {
             : currentLanguage === "fr"
               ? "Enseignant"
               : "Teacher", // Default to English
-      description: teachers?.data, // Default to English
+      description:
+        currentLanguage === "en"
+          ? "520"
+          : currentLanguage === "ar"
+            ? "٥٢٠"
+            : currentLanguage === "fr"
+              ? "520"
+              : "520", // Default to English
       number: teacherdata?.data,
     },
     {
@@ -145,24 +130,19 @@ const Attendance = () => {
             : currentLanguage === "fr"
               ? "Travailleur"
               : "Worker", // Default to English
-      description: workers?.data, // Default to English
+      description:
+        currentLanguage === "en"
+          ? "602"
+          : currentLanguage === "ar"
+            ? "٦٠٢"
+            : currentLanguage === "fr"
+              ? "602"
+              : "602", // Default to English
       number: workerdata?.data,
     },
   ];
 
-<<<<<<< HEAD
-  if (
-    isLoadingE ||
-    isLoadingT ||
-    isLoadingW ||
-    isCount ||
-    isAttend ||
-    isECount ||
-    isSCount
-  )
-=======
-  if (isLoadingE || isLoadingT || isLoadingW || isCount || isAttend || isECount || isSCount || isStudents || isTeacher || isWorker)
->>>>>>> af1ce03cedc28b4cc0178e6db16ff7eda0a30e4a
+  if (isLoadingE || isLoadingT || isLoadingW || isCount || isAttend || isECount || isSCount)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
