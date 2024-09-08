@@ -1,108 +1,76 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import Pagination from "@/components/pagination";
-import Spinner from "@/components/spinner";
-import { useCreateAttendanceMutation } from "@/features/attendance/attendanceApi";
-import {
-  useDeleteWorkersMutation,
-  useGetAllWorkersQuery,
-} from "@/features/User-Management/workerApi";
-import { RootState } from "@/GlobalRedux/store";
 import Link from "next/link";
 import { useState, useEffect, SetStateAction } from "react";
+import { useCreateAttendanceMutation, useGetAllEmpolyeesAttendQuery, useUpdateAttendanceMutation } from "@/features/attendance/attendanceApi";
+import Spinner from "@/components/spinner";
 import { useSelector } from "react-redux";
+import { RootState } from "@/GlobalRedux/store";
 import { toast } from "react-toastify";
+import Pagination from "@/components/pagination";
 
 const WorkerAttendance = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
-  type Worker = Record<string, any>;
+  type Employee = Record<string, any>;
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const { data, error, isLoading, refetch } = useGetAllEmpolyeesAttendQuery({
+    employeeType: "WORKER",
+    role: "EMPLOYEE",
+    page: currentPage,
+    size: rowsPerPage,
+  });
   const [selectedStates, setSelectedStates] = useState<string[]>([]);
   const [createAttendance] = useCreateAttendanceMutation();
+  const [updateAttendance] = useUpdateAttendanceMutation();
 
-  const handleSelect = (label: string, index: number, userId: undefined) => {
+
+  const handleSelect = (label: string, index: number, userId: undefined, driverStatus: string | null, attendenceId: number, checkin: Date, checkout: Date) => {
     setSelectedStates(prevStates => {
       const newStates = [...prevStates];
       newStates[index] = newStates[index] === label ? label : label; // Toggle selection
       return newStates;
     });
-
-    // Check if the "P" button is clicked
-    if (label === "P") {
-      // Prepare attendance data
-      const attendanceData = {
-        userId: userId,
-        status: "PRESENT",
-        absenceReason: null,
-        checkInTime: null,
-        checkOutTime: null,
-      };
-
-      // Send the data using the mutation hook
+  
+    const attendanceData = {
+      userId: userId,
+      attendenceId: attendenceId,
+      status: label === "P" ? "PRESENT" : label === "A" ? "ABSENT" : "LEAVE",
+      absenceReason: null,
+      checkInTime: checkin,
+      checkOutTime: checkout,
+    };
+  
+    if (driverStatus === null) {
+      // Use createAttendance if status is null
       createAttendance(attendanceData)
         .unwrap()
         .then(response => {
           console.log("Attendance recorded:", response);
+          refetch();
+          toast.success("Attendance recorded successfully");
         })
         .catch(error => {
           console.error("Failed to record attendance:", error);
+          toast.error("Failed to record attendance");
         });
-    }
-    if (label === "A") {
-      // Prepare attendance data
-      const attendanceData = {
-        userId: userId,
-        status: "ABSENT",
-        absenceReason: null,
-        checkInTime: null,
-        checkOutTime: null,
-      };
-
-      // Send the data using the mutation hook
-      createAttendance(attendanceData)
+    } else {
+      // Use updateAttendance if status is not null
+      updateAttendance({ formData: attendanceData, id: attendanceData.attendenceId })
         .unwrap()
         .then(response => {
-          console.log("Attendance recorded:", response);
+          console.log("Attendance updated:", response);
+          refetch();
+          toast.info("Attendance updated successfully");
         })
         .catch(error => {
-          console.error("Failed to record attendance:", error);
-        });
-    }
-    if (label === "L") {
-      // Prepare attendance data
-      const attendanceData = {
-        userId: userId,
-        status: "LEAVE",
-        absenceReason: null,
-        checkInTime: null,
-        checkOutTime: null,
-      };
-
-      // Send the data using the mutation hook
-      createAttendance(attendanceData)
-        .unwrap()
-        .then(response => {
-          console.log("Attendance recorded:", response);
-        })
-        .catch(error => {
-          console.error("Failed to record attendance:", error);
+          console.error("Failed to update attendance:", error);
+          toast.error("Failed to update attendance");
         });
     }
   };
-  const { data, error, isLoading, refetch } = useGetAllWorkersQuery({
-    archived: "false",
-    page: currentPage,
-    size: rowsPerPage,
-  });
-  const [selectAll, setSelectAll] = useState(false);
-
-  useEffect(() => {
-    if (data) console.log("Response Data:", data);
-    if (error) console.log("Error:", error);
-  }, [data, error]);
 
   const onPageChange = (page: SetStateAction<number>) => {
     setCurrentPage(page);
@@ -111,61 +79,11 @@ const WorkerAttendance = () => {
     setRowsPerPage(ele);
     setCurrentPage(0);
   };
-  const [deleteWorker] = useDeleteWorkersMutation();
-
-  const handleDelete = async (id: string) => {
-    try {
-      await deleteWorker({
-        id: id,
-        lock: "true",
-      }).unwrap();
-      toast.success(`Worker with ID ${id} Locked successfully`);
-      void refetch();
-    } catch (err) {
-      toast.error("Failed to lock the Worker");
-    }
-  };
-
-  const handleSelectAll = () => {
-    setSelectAll(!selectAll);
-    const checkboxes = document.querySelectorAll<HTMLInputElement>(
-      'input[type="checkbox"]:not(#checkbox-all-search)',
-    );
-    checkboxes.forEach(checkbox => {
-      checkbox.checked = !selectAll;
-    });
-  };
 
   useEffect(() => {
-    const handleOtherCheckboxes = () => {
-      const allCheckboxes = document.querySelectorAll<HTMLInputElement>(
-        'input[type="checkbox"]:not(#checkbox-all-search)',
-      );
-      const allChecked = Array.from(allCheckboxes).every(
-        checkbox => checkbox.checked,
-      );
-      const selectAllCheckbox = document.getElementById(
-        "checkbox-all-search",
-      ) as HTMLInputElement | null;
-      if (selectAllCheckbox) {
-        selectAllCheckbox.checked = allChecked;
-        setSelectAll(allChecked);
-      }
-    };
-
-    const otherCheckboxes = document.querySelectorAll<HTMLInputElement>(
-      'input[type="checkbox"]:not(#checkbox-all-search)',
-    );
-    otherCheckboxes.forEach(checkbox => {
-      checkbox.addEventListener("change", handleOtherCheckboxes);
-    });
-
-    return () => {
-      otherCheckboxes.forEach(checkbox => {
-        checkbox.removeEventListener("change", handleOtherCheckboxes);
-      });
-    };
-  }, []);
+    if (data) console.log("Response Data:", data);
+    if (error) console.log("Error:", error);
+  }, [data, error]);
 
   if (isLoading)
     return (
@@ -174,8 +92,9 @@ const WorkerAttendance = () => {
       </div>
     );
 
+
   return (
-    <>
+<>
       <div
         className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} ml-7 mt-12 flex-wrap text-[18px] max-[550px]:text-[15px]`}
       >
@@ -217,7 +136,7 @@ const WorkerAttendance = () => {
         </Link>
       </div>
       <div
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} bg-transstudent relative mr-[5px] mt-10 h-screen overflow-x-auto sm:rounded-lg`}
+        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">
@@ -255,12 +174,12 @@ const WorkerAttendance = () => {
         </div>
         <div className="flex flex-wrap justify-center gap-4">
           {data?.data.content
-            .filter((worker: Worker) => {
+            .filter((employee: Employee) => {
               return search.toLocaleLowerCase() === ""
-                ? worker
-                : worker.name.toLocaleLowerCase().includes(search);
+                ? employee
+                : employee.userFullName.toLocaleLowerCase().includes(search);
             })
-            .map((worker: Worker, index: number) => (
+            .map((employee: Employee, index: number) => (
               <div
                 key={index}
                 className="grid h-[320px] w-[300px] items-center justify-center rounded-xl bg-bgPrimary shadow-lg"
@@ -268,7 +187,7 @@ const WorkerAttendance = () => {
                 <div className="grid items-center justify-center gap-2 whitespace-nowrap px-6 py-4 font-medium text-gray-900">
                   <div className="grid w-[120px] items-center justify-center text-center">
                     <div className="flex justify-center">
-                      {worker.picture == null ? (
+                      {employee.picture == null ? (
                         <img
                           src="/images/userr.png"
                           className="h-[100px] w-[100px] rounded-full"
@@ -276,15 +195,15 @@ const WorkerAttendance = () => {
                         />
                       ) : (
                         <img
-                          src={worker.picture}
+                          src={employee.picture}
                           className="h-[100px] w-[100px] rounded-full"
                           alt="#"
                         />
                       )}
                     </div>
-                    <p className="mt-4 text-[22px] text-textPrimary"> {worker.name} </p>
+                    <p className="mt-4 text-[22px]"> {employee.userFullName} </p>
                     <p className="whitespace-nowrap font-semibold text-secondary">
-                      Worker: {worker.id}
+                      Worker: {employee.userId}
                     </p>
                   </div>
                 </div>
@@ -292,8 +211,8 @@ const WorkerAttendance = () => {
                   {["P", "A", "L"].map(label => (
                     <label
                       key={label}
-                      className={`flex h-[55px] w-[55px] cursor-pointer items-center justify-center rounded-full border border-borderPrimary p-5 text-center text-[24px] font-semibold ${
-                        selectedStates[index] === label
+                      className={`flex h-[55px] w-[55px] cursor-pointer items-center justify-center rounded-full border p-5 text-center text-[24px] font-semibold ${
+                        selectedStates[index] === label || (label === "P" && employee.status === "PRESENT") || (label === "L" && employee.status === "LEAVE") || (label === "A" && employee.status === "ABSENT")
                           ? label === "P"
                             ? "bg-green-300 text-white"
                             : label === "A"
@@ -306,7 +225,7 @@ const WorkerAttendance = () => {
                         type="checkbox"
                         className="hidden"
                         checked={selectedStates[index] === label}
-                        onChange={() => handleSelect(label, index, worker.id)}
+                        onChange={() => handleSelect(label, index, employee.userId, employee.status, employee.attendanceId, employee.checkInTime, employee.checkOutTime)}
                       />
                       {label}
                     </label>
@@ -322,7 +241,7 @@ const WorkerAttendance = () => {
         </div>
         <div className="relative overflow-auto">
           <Pagination
-            totalPages={data?.data.totalPages}
+            totalPages={data?.data.totalPagesCount}
             elementsPerPage={rowsPerPage}
             onChangeElementsPerPage={onElementChange}
             currentPage={currentPage}
