@@ -180,7 +180,7 @@ const WorkerAttendance = () => {
         className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} ml-7 mt-12 flex-wrap text-[18px] max-[550px]:text-[15px]`}
       >
         <Link
-          className="text-[18px] font-semibold text-[#526484] hover:text-blue-400 hover:underline"
+          className="text-[18px] font-semibold text-secondary hover:text-blue-400 hover:underline"
           href="/"
         >
           Operations
@@ -195,7 +195,7 @@ const WorkerAttendance = () => {
           <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
         </svg>
         <Link
-          className="text-[18px] font-semibold text-[#526484] hover:text-blue-400 hover:underline"
+          className="text-[18px] font-semibold text-secondary hover:text-blue-400 hover:underline"
           href="/attendances"
         >
           Attendances
@@ -210,7 +210,7 @@ const WorkerAttendance = () => {
           <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
         </svg>
         <Link
-          className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
+          className="font-semibold text-secondary hover:text-blue-400 hover:underline"
           href="/worker-attendance"
         >
           Worker
@@ -247,7 +247,7 @@ const WorkerAttendance = () => {
                 type="text"
                 id="icon"
                 name="icon"
-                className="block w-full rounded-lg border-2 border-gray-200 px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
+                className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
                 placeholder="Search"
               />
             </div>
@@ -263,7 +263,7 @@ const WorkerAttendance = () => {
             .map((worker: Worker, index: number) => (
               <div
                 key={index}
-                className="grid h-[320px] w-[300px] items-center justify-center rounded-xl bg-white shadow-lg"
+                className="grid h-[320px] w-[300px] items-center justify-center rounded-xl bg-bgPrimary shadow-lg"
               >
                 <div className="grid items-center justify-center gap-2 whitespace-nowrap px-6 py-4 font-medium text-gray-900">
                   <div className="grid w-[120px] items-center justify-center text-center">
@@ -282,8 +282,8 @@ const WorkerAttendance = () => {
                         />
                       )}
                     </div>
-                    <p className="mt-4 text-[22px]"> {worker.name} </p>
-                    <p className="whitespace-nowrap font-semibold text-[#526484]">
+                    <p className="mt-4 text-[22px] text-textPrimary"> {worker.name} </p>
+                    <p className="whitespace-nowrap font-semibold text-secondary">
                       Worker: {worker.id}
                     </p>
                   </div>
@@ -292,14 +292,14 @@ const WorkerAttendance = () => {
                   {["P", "A", "L"].map(label => (
                     <label
                       key={label}
-                      className={`flex h-[55px] w-[55px] cursor-pointer items-center justify-center rounded-full border p-5 text-center text-[24px] font-semibold ${
+                      className={`flex h-[55px] w-[55px] cursor-pointer items-center justify-center rounded-full border border-borderPrimary p-5 text-center text-[24px] font-semibold ${
                         selectedStates[index] === label
                           ? label === "P"
                             ? "bg-green-300 text-white"
                             : label === "A"
                               ? "bg-red-500 text-white"
                               : "bg-yellow-300 text-white"
-                          : "bg-white"
+                          : "bg-bgPrimary"
                       } `}
                     >
                       <input

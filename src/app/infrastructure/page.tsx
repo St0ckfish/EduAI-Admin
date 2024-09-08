@@ -4,6 +4,14 @@ import Card from "@/components/card";
 import { RootState } from "@/GlobalRedux/store";
 import Link from "next/link";
 import { useSelector } from "react-redux";
+import { FaBus } from 'react-icons/fa';            // Bus Icon
+import { FaChalkboardTeacher } from 'react-icons/fa'; // Class Icon
+import { FaBookOpen } from 'react-icons/fa';       // Library Icon
+import { FaDoorOpen } from 'react-icons/fa';       // Room Icon
+import { FaVideo } from 'react-icons/fa';          // Cameras Icon
+import { FaStore } from 'react-icons/fa';          // Store Icon
+import { FaBuilding } from 'react-icons/fa';       // Office Icon
+import { GiChemicalDrop } from 'react-icons/gi';   // Lab Icon
 
 const Infrastructure = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
@@ -14,28 +22,7 @@ const Infrastructure = () => {
   const infrastructureItems = [
     {
       href: "/bus",
-      icon: (
-        <svg
-          className="h-12 w-12 text-[#000000] group-hover:text-[#3e5af0]"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          strokeWidth="2"
-          stroke="currentColor"
-          fill="none"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path stroke="none" d="M0 0h24v24H0z" />
-          <circle cx="6" cy="17" r="2" />
-          <circle cx="18" cy="17" r="2" />
-          <path d="M4 17h-2v-11a1 1 0 0 1 1 -1h14a5 7 0 0 1 5 7v5h-2m-4 0h-8" />
-          <polyline points="16 5 17.5 12 22 12" />
-          <line x1="2" y1="10" x2="17" y2="10" />
-          <line x1="7" y1="5" x2="7" y2="10" />
-          <line x1="12" y1="5" x2="12" y2="10" />
-        </svg>
-      ),
+      icon: <FaBus size={40} />,
       title:
         currentLanguage === "en"
           ? "Bus"
@@ -55,31 +42,8 @@ const Infrastructure = () => {
     },
     {
       href: "/classes",
-      icon: (
-        <svg
-          className="h-11 w-11 text-black"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          strokeWidth="2"
-          stroke="currentColor"
-          fill="none"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path stroke="none" d="M0 0h24v24H0z" />
-          <circle cx="5" cy="5" r="1" />
-          <circle cx="12" cy="5" r="1" />
-          <circle cx="19" cy="5" r="1" />
-          <circle cx="5" cy="12" r="1" />
-          <circle cx="12" cy="12" r="1" />
-          <circle cx="19" cy="12" r="1" />
-          <circle cx="5" cy="19" r="1" />
-          <circle cx="12" cy="19" r="1" />
-          <circle cx="19" cy="19" r="1" />
-        </svg>
-      ),
-      title:
+        icon: <FaChalkboardTeacher size={40} />,
+        title:
         currentLanguage === "en"
           ? "Class"
           : currentLanguage === "ar"
@@ -98,21 +62,7 @@ const Infrastructure = () => {
     },
     {
       href: "/book",
-      icon: (
-        <svg
-          className="h-11 w-11 text-black"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-          />
-        </svg>
-      ),
+      icon: <FaBookOpen size={40} />,
       title:
         currentLanguage === "en"
           ? "Library"
@@ -132,7 +82,7 @@ const Infrastructure = () => {
     },
     {
       href: "/rooms",
-      imgSrc: "/images/Door.png",
+      icon: <FaDoorOpen size={40} />,
       title:
         currentLanguage === "en"
           ? "Room"
@@ -152,7 +102,7 @@ const Infrastructure = () => {
     },
     {
       href: "/camera",
-      imgSrc: "/images/camera.png",
+      icon: <FaVideo size={40} />,
       title:
         currentLanguage === "en"
           ? "Cameras"
@@ -172,26 +122,7 @@ const Infrastructure = () => {
     },
     {
       href: "/infrastructure/store",
-      icon: (
-        <svg
-          className="h-10 w-10"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          strokeWidth="2"
-          stroke="currentColor"
-          fill="none"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path stroke="none" d="M0 0h24v24H0z" />
-          <line x1="3" y1="21" x2="21" y2="21" />
-          <path d="M3 7v1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1h-18l2 -4h14l2 4" />
-          <path d="M5 21v-10.15" />
-          <path d="M19 21v-10.15" />
-          <path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4" />
-        </svg>
-      ),
+      icon: <FaStore size={40} />,
       title:
         currentLanguage === "en"
           ? "Store"
@@ -211,21 +142,7 @@ const Infrastructure = () => {
     },
     {
       href: "/infrastructure/office",
-      icon: (
-        <svg
-          className="h-10 w-10"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-          />
-        </svg>
-      ),
+      icon: <FaBuilding size={40} />,
       title:
         currentLanguage === "en"
           ? "Office"
@@ -245,25 +162,7 @@ const Infrastructure = () => {
     },
     {
       href: "/infrastructure/lab",
-      icon: (
-        <svg
-          className="h-10 w-10"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          strokeWidth="2"
-          stroke="currentColor"
-          fill="none"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path stroke="none" d="M0 0h24v24H0z" />
-          <path
-            d="M16.3 5h.7a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h5l-2.82 -2.82m0 5.64l2.82 -2.82"
-            transform="rotate(-45 12 12)"
-          />
-        </svg>
-      ),
+      icon: <GiChemicalDrop size={40} />,
       title:
         currentLanguage === "en"
           ? "Lab"
@@ -289,7 +188,7 @@ const Infrastructure = () => {
         className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} ml-7 mt-12`}
       >
         <Link
-          className="text-[18px] font-semibold text-[#526484] hover:text-blue-400 hover:underline"
+          className="text-[18px] font-semibold text-secondary hover:text-blue-400 hover:underline"
           href="/"
         >
           {currentLanguage === "en"

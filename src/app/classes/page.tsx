@@ -55,7 +55,7 @@ const Infrastructure = () => {
               type="text"
               id="icon"
               name="icon"
-              className="block w-full rounded-lg border-2 border-gray-200 px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
+              className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
               placeholder="Search"
             />
           </div>
@@ -63,7 +63,7 @@ const Infrastructure = () => {
         <div className="flex justify-center">
           <Link
             href="/classes/add-class"
-            className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+            className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
           >
             + Add Class
           </Link>
@@ -82,14 +82,14 @@ const Infrastructure = () => {
             .map((classItem: Class) => (
               <div key={classItem.roomId}>
                 <Link href={`/class-detials/${classItem.roomId}`}>
-                  <div className="flex h-[130px] w-[200px] items-center justify-center gap-2 rounded-xl bg-white p-2 shadow-xl max-[640px]:w-[300px]">
+                  <div className="flex h-[130px] w-[200px] items-center justify-center gap-2 rounded-xl bg-bgPrimary p-2 shadow-xl max-[640px]:w-[300px]">
                     <div className="flex h-[70px] w-[70px] items-center justify-center rounded-full bg-[#09C2DE] text-center text-[18px] font-bold text-white">
                       {classItem.classroomName}
                     </div>
                     <div className="grid text-[13px] font-semibold">
-                      <p className="text-[#526484]">N.Student</p>
+                      <p className="text-secondary">N.Student</p>
                       <p>30</p>
-                      <p className="text-[#526484]">N.Student</p>
+                      <p className="text-secondary">N.Student</p>
                       <p>4</p>
                     </div>
                   </div>
