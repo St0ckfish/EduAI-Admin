@@ -35,9 +35,9 @@ const ViewParent: React.FC<ViewParentProps> = ({ params }) => {
       <div className="grid py-4 lg:ml-[290px]">
         <div className="grid grid-cols-2 gap-7 max-[1342px]:grid-cols-1 max-[1342px]:px-5">
           <ParentInfo data={data} />
-          <div className="grid h-[400px] items-center justify-center gap-10 rounded-xl bg-white p-5">
+          <div className="grid h-[400px] items-center justify-center gap-10 rounded-xl bg-bgPrimary p-5">
             <div className="flex justify-start">
-              <h1 className="font-sans font-semibold text-gray-800">Feed</h1>
+              <h1 className="font-sans font-semibold text-textPrimary">Feed</h1>
             </div>
             <CircleProgress percentage={75} />
           </div>

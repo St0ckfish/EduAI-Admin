@@ -5,7 +5,7 @@ import Link from "next/link";
 const ParentInfo = ({ data }: { data: any }) => {
   return (
     <>
-      <div className="grid h-[700px] rounded-xl bg-white p-5">
+      <div className="grid h-[700px] rounded-xl bg-bgPrimary p-5">
         <div className="flex justify-between">
           <h1 className="font-sans font-semibold text-textPrimary">
             Parent Information

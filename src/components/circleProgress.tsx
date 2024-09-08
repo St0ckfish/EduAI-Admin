@@ -49,7 +49,7 @@ const CircleProgress: React.FC<CircleProgressProps> = ({ percentage }) => {
             y="46%"
             dominantBaseline="middle"
             textAnchor="middle"
-            className="items-center text-center text-xs font-semibold text-gray-800"
+            className="items-center text-center text-xs font-semibold text-textSecondary"
           >
             {progress}
           </text>
@@ -58,7 +58,7 @@ const CircleProgress: React.FC<CircleProgressProps> = ({ percentage }) => {
             y="70%"
             dominantBaseline="middle"
             textAnchor="middle"
-            className="items-center text-[5px] font-semibold text-gray-300"
+            className="items-center text-[5px] font-semibold text-textSecondary"
           >
             {100 - progress}
           </text>

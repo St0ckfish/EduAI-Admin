@@ -241,7 +241,7 @@ const Parent = () => {
                 .map((parent: Parent) => (
                   <tr
                     key={parent.id}
-                    className="border-b bg-bgPrimary hover:bg-bgSecondary"
+                    className="border-b border-borderPrimary  bg-bgPrimary hover:bg-bgSecondary"
                   >
                     <td className="w-4 p-4">
                       <div className="flex items-center">

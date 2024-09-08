@@ -3,13 +3,13 @@ const Exams = () => {
     <>
       <div className="grid w-[500px] rounded-xl bg-bgPrimary p-5 max-[1342px]:w-full">
         <div className="mb-5 flex justify-between">
-          <h1 className="font-sans font-semibold text-gray-800">
+          <h1 className="font-sans font-semibold text-textPrimary">
             All Exam Result
           </h1>
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
           <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
-            <thead className="bg-thead text-xs uppercase text-gray-700">
+            <thead className="bg-thead text-xs uppercase text-textPrimary">
               <tr>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   Name School
