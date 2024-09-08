@@ -65,7 +65,7 @@ const OrganizationSettings = () => {
           : currentLanguage === "ar"
             ? "الفصل الدراسي"
             : currentLanguage === "fr"
-              ? "Semestre"
+              ? "Sessions"
               : "Semester", // Default to English
       description:
         currentLanguage === "en"
@@ -85,7 +85,7 @@ const OrganizationSettings = () => {
           : currentLanguage === "ar"
             ? "القسم"
             : currentLanguage === "fr"
-              ? "Département"
+              ? "Classes"
               : "Department", // Default to English
       description:
         currentLanguage === "en"
@@ -105,7 +105,7 @@ const OrganizationSettings = () => {
           : currentLanguage === "ar"
             ? "المنصب"
             : currentLanguage === "fr"
-              ? "Position"
+              ? "Postes"
               : "Position", // Default to English
       description:
         currentLanguage === "en"
@@ -125,7 +125,7 @@ const OrganizationSettings = () => {
           : currentLanguage === "ar"
             ? "الإجازة السنوية"
             : currentLanguage === "fr"
-              ? "Congé Annuel"
+              ? "Congés Annuels"
               : "Annual Leave", // Default to English
       description:
         currentLanguage === "en"

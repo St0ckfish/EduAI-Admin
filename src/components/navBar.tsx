@@ -671,8 +671,8 @@ const NavBar = () => {
                             : currentLanguage === "ar"
                               ? "إدارة"
                               : currentLanguage === "fr"
-                                ? "Gestion"
-                                : "Gestion"}
+                                ? "Administration"
+                                : "Administration"}
                         </p>
                       )}
                     </button>
@@ -713,7 +713,7 @@ const NavBar = () => {
                           href="/organization-setting"
                         >
                           {currentLanguage === "en"
-                            ? "Organization Setting"
+                            ? "Organization Settings"
                             : currentLanguage === "ar"
                               ? "إعدادات المنظمة"
                               : currentLanguage === "fr"
@@ -833,7 +833,7 @@ const NavBar = () => {
                             : currentLanguage === "ar"
                               ? "الشؤون التعليمية"
                               : currentLanguage === "fr"
-                                ? "Affaires Éducatives"
+                                ? "Gestion pédagogique"
                                 : "Educational Affairs"}{" "}
                           {/* Default to English */}
                         </Link>

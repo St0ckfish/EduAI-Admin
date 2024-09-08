@@ -26,7 +26,7 @@ const DocumentManagement = () => {
           : currentLanguage === "ar"
             ? "شهادة"
             : currentLanguage === "fr"
-              ? "Certificat"
+              ? "Certificats"
               : "Certificate", // Default to English
       description:
         currentLanguage === "en"
@@ -44,7 +44,7 @@ const DocumentManagement = () => {
         currentLanguage === "en"
           ? "Transcripts"
           : currentLanguage === "ar"
-            ? "السجلات الأكاديمية"
+            ? " كشف النقاط"
             : currentLanguage === "fr"
               ? "Relevés de notes"
               : "Transcripts", // Default to English
