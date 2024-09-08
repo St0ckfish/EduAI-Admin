@@ -3,6 +3,8 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import Card from "@/components/card";
+import { FiBook } from 'react-icons/fi';
+import { AiOutlineFileText } from 'react-icons/ai';
 
 const Course = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
@@ -13,7 +15,7 @@ const Course = () => {
   const Courses = [
     {
       href: "/course/course-management",
-      imgSrc: "/images/Semester.png",
+      icon: <FiBook size={40} />,
       title:
         currentLanguage === "en"
           ? "Course"
@@ -33,7 +35,7 @@ const Course = () => {
     },
     {
       href: "/course/resource",
-      imgSrc: "/images/mapping.png",
+      icon: <AiOutlineFileText size={40} />,
       title:
         currentLanguage === "en"
           ? "Resource"
@@ -58,7 +60,7 @@ const Course = () => {
         className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} ml-7 mt-12 flex-wrap`}
       >
         <Link
-          className="text-[18px] font-semibold text-[#526484] hover:text-blue-400 hover:underline"
+          className="text-[18px] font-semibold text-secondary hover:text-blue-400 hover:underline"
           href="/"
         >
           {currentLanguage === "en"
@@ -80,7 +82,7 @@ const Course = () => {
           <path d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
         </svg>
         <Link
-          className="text-[18px] font-semibold text-[#526484] hover:text-blue-400 hover:underline"
+          className="text-[18px] font-semibold text-secondary hover:text-blue-400 hover:underline"
           href="/course"
         >
           {currentLanguage === "en"
@@ -101,7 +103,7 @@ const Course = () => {
             <Card
               key={index}
               href={item.href}
-              imgSrc={item.imgSrc}
+              icon={item.icon}
               title={item.title}
               description={item.description}
             />

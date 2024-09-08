@@ -4,13 +4,13 @@ const Exams = () => {
       <div className="mt-12 lg:ml-[290px] lg:mr-10">
         <div className="flex justify-end">
           <div className="flex justify-end">
-            <button className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl">
+            <button className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl">
               6-Jun-2024
             </button>
           </div>
         </div>
         <div className="grid gap-3">
-          <div className="grid h-full w-full gap-5 rounded-xl bg-white p-7">
+          <div className="grid h-full w-full gap-5 rounded-xl bg-bgPrimary p-7">
             <div className="flex items-center justify-between font-semibold">
               <div className="flex items-center">
                 <h1 className="text-[18px]">Exam : </h1>
@@ -22,7 +22,7 @@ const Exams = () => {
             </div>
             <div className="flex w-full justify-center">
               <div className="grid justify-center gap-3 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
-                <div className="flex h-[80px] w-[201px] items-center justify-between rounded-xl bg-white p-2 shadow-xl max-[576px]:h-[100px]">
+                <div className="flex h-[80px] w-[201px] items-center justify-between rounded-xl bg-bgSecondary p-2 shadow-xl max-[576px]:h-[100px]">
                   <div className="rounded-full bg-gray-500 p-2">
                     <svg
                       className="h-6 w-6 text-gray-300"
@@ -39,11 +39,11 @@ const Exams = () => {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-[12px] text-gray-400">Total student</p>
-                    <p className="text-[12px] text-gray-400">50</p>
+                    <p className="text-[12px] text-textSecondary">Total student</p>
+                    <p className="text-[12px] text-textSecondary">50</p>
                   </div>
                 </div>
-                <div className="flex h-[80px] w-[201px] items-center justify-between rounded-xl bg-white p-2 shadow-xl max-[576px]:h-[100px]">
+                <div className="flex h-[80px] w-[201px] items-center justify-between rounded-xl bg-bgSecondary p-2 shadow-xl max-[576px]:h-[100px]">
                   <div className="rounded-full bg-gray-500 p-2">
                     <svg
                       className="h-6 w-6 text-gray-300"
@@ -60,11 +60,11 @@ const Exams = () => {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-[12px] text-gray-400">Total student</p>
-                    <p className="text-[12px] text-gray-400">50</p>
+                    <p className="text-[12px] text-textSecondary">Total student</p>
+                    <p className="text-[12px] text-textSecondary">50</p>
                   </div>
                 </div>
-                <div className="flex h-[80px] w-[201px] items-center justify-between rounded-xl bg-white p-2 shadow-xl max-[576px]:h-[100px]">
+                <div className="flex h-[80px] w-[201px] items-center justify-between rounded-xl bg-bgSecondary p-2 shadow-xl max-[576px]:h-[100px]">
                   <div className="rounded-full bg-gray-500 p-2">
                     <svg
                       className="h-6 w-6 text-gray-300"
@@ -81,11 +81,11 @@ const Exams = () => {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-[12px] text-gray-400">Total student</p>
-                    <p className="text-[12px] text-gray-400">50</p>
+                    <p className="text-[12px] text-textSecondary">Total student</p>
+                    <p className="text-[12px] text-textSecondary">50</p>
                   </div>
                 </div>
-                <div className="flex h-[80px] w-[201px] items-center justify-between rounded-xl bg-white p-2 shadow-xl max-[576px]:h-[100px]">
+                <div className="flex h-[80px] w-[201px] items-center justify-between rounded-xl bg-bgSecondary p-2 shadow-xl max-[576px]:h-[100px]">
                   <div className="rounded-full bg-gray-500 p-2">
                     <svg
                       className="h-6 w-6 text-gray-300"
@@ -102,11 +102,11 @@ const Exams = () => {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-[12px] text-gray-400">Total student</p>
-                    <p className="text-[12px] text-gray-400">50</p>
+                    <p className="text-[12px] text-textSecondary">Total student</p>
+                    <p className="text-[12px] text-textSecondary">50</p>
                   </div>
                 </div>
-                <div className="flex h-[80px] w-[201px] items-center justify-between rounded-xl bg-white p-2 shadow-xl max-[576px]:h-[100px]">
+                <div className="flex h-[80px] w-[201px] items-center justify-between rounded-xl bg-bgSecondary p-2 shadow-xl max-[576px]:h-[100px]">
                   <div className="rounded-full bg-gray-500 p-2">
                     <svg
                       className="h-6 w-6 text-gray-300"
@@ -123,11 +123,11 @@ const Exams = () => {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-[12px] text-gray-400">Total student</p>
-                    <p className="text-[12px] text-gray-400">50</p>
+                    <p className="text-[12px] text-textSecondary">Total student</p>
+                    <p className="text-[12px] text-textSecondary">50</p>
                   </div>
                 </div>
-                <div className="flex h-[80px] w-[201px] items-center justify-between rounded-xl bg-white p-2 shadow-xl max-[576px]:h-[100px]">
+                <div className="flex h-[80px] w-[201px] items-center justify-between rounded-xl bg-bgSecondary p-2 shadow-xl max-[576px]:h-[100px]">
                   <div className="rounded-full bg-gray-500 p-2">
                     <svg
                       className="h-6 w-6 text-gray-300"
@@ -144,8 +144,8 @@ const Exams = () => {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-[12px] text-gray-400">Total student</p>
-                    <p className="text-[12px] text-gray-400">50</p>
+                    <p className="text-[12px] text-textSecondary">Total student</p>
+                    <p className="text-[12px] text-textSecondary">50</p>
                   </div>
                 </div>
               </div>

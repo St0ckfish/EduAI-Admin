@@ -50,8 +50,8 @@ const Timeline: React.FC<TimelineProps> = ({ meetings }) => {
   return (
     <div className="grid overflow-auto">
       <div className="mx-auto w-full overflow-auto">
-        <div className="wrapper w-full overflow-auto rounded bg-white shadow">
-          <div className="header flex w-full justify-between border-b p-2 max-[1500px]:w-[1185px]">
+        <div className="wrapper w-full overflow-auto rounded bg-bgPrimary shadow">
+          <div className="header flex w-full justify-between border-b border-borderPrimary p-2 max-[1500px]:w-[1185px]">
             <button onClick={handlePrevMonth} className="p-2">
               <svg
                 className="h-6 w-6"
@@ -101,7 +101,7 @@ const Timeline: React.FC<TimelineProps> = ({ meetings }) => {
                 ].map(day => (
                   <th
                     key={day}
-                    className="h-10 w-40 border-r p-2 text-xs xl:text-sm"
+                    className="h-10 w-40 border-r border-borderPrimary p-2 text-xs xl:text-sm"
                   >
                     <span className="hidden sm:block md:block lg:block xl:block">
                       {day}
@@ -122,8 +122,8 @@ const Timeline: React.FC<TimelineProps> = ({ meetings }) => {
                       return (
                         <td
                           key={dayIndex}
-                          className={`ease h-40 w-40 cursor-pointer overflow-auto border p-1 transition duration-500 hover:bg-gray-300 ${
-                            !isSameMonth(day, currentMonth) ? "bg-gray-100" : ""
+                          className={`ease h-40 w-40 cursor-pointer overflow-auto border p-1 border-borderPrimary transition duration-500 hover:bg-bgSecondary ${
+                            !isSameMonth(day, currentMonth) ? "bg-bgSecondary" : ""
                           } ${
                             isToday(day)
                               ? "scale-90 bg-blue-300 shadow-2xl"
@@ -149,7 +149,7 @@ const Timeline: React.FC<TimelineProps> = ({ meetings }) => {
                                   .map(meeting => (
                                     <div
                                       key={meeting.id}
-                                      className="event mb-1 flex flex-col justify-center gap-1 rounded bg-blue-500 px-3 py-1.5 text-center text-sm text-white"
+                                      className="event mb-1 flex flex-col justify-center gap-1 rounded bg-primary px-3 py-1.5 text-center text-sm text-white"
                                     >
                                       <span className="event-name text-[18px] font-semibold">
                                         {meeting.title}
