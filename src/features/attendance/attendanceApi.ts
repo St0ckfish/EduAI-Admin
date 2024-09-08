@@ -28,11 +28,13 @@ export const attendanceApi = createApi({
   }),
   endpoints: builder => ({
     getAllEmpolyeesAttend: builder.query({
-      query: ({role, size, page, employeeType}) => `/api/v1/employee-attendance/by-role?date=&role=${role}&size=${size}&page=${page}&employeeType=${employeeType}`,
+      query: ({ role, size, page, employeeType }) =>
+        `/api/v1/employee-attendance/by-role?date=&role=${role}&size=${size}&page=${page}&employeeType=${employeeType}`,
     }),
     //
     getAllStudentsAttend: builder.query({
-      query: ({size, page}) => `/api/v1/student-attendance/all?date=&size=${size}&page=${page}`,
+      query: ({ size, page }) =>
+        `/api/v1/student-attendance/all?date=&size=${size}&page=${page}`,
     }),
     //
     getDriversCount: builder.query({

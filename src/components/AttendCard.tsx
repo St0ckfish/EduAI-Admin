@@ -41,9 +41,9 @@ const AttendCard: React.FC<CardProps> = ({
               {currentLanguage === "en"
                 ? " Present"
                 : currentLanguage === "ar"
-                ? " حضور اليوم"
-                : currentLanguage === "fr"
-                ? " Présent today"
+                  ? " حضور اليوم"
+                  : currentLanguage === "fr"
+                    ? " Présent today"
                     : " Present today"}{" "}
               {/* Default to English */}
             </p>

@@ -10,13 +10,17 @@ import {
   useGetAllTeachersQuery,
   useGetAllWorkersQuery,
   useGetEventsInMonthQuery,
+  useGetNoticesQuery,
 } from "@/features/dashboard/dashboardApi";
 import { format, parseISO } from "date-fns";
 import Spinner from "@/components/spinner";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
-import { useCreateEventsMutation, useGetAllEventsDashboardQuery } from "@/features/events/eventsApi";
+import {
+  useCreateEventsMutation,
+  useGetAllEventsDashboardQuery,
+} from "@/features/events/eventsApi";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
@@ -37,7 +41,7 @@ const eventSchema = z.object({
   description_en: z.string().optional(),
   description_ar: z.string().optional(),
   description_fr: z.string().optional(),
-  file: z.any().optional() // Include file in schema to handle it
+  file: z.any().optional(), // Include file in schema to handle it
 });
 
 const Dashboard: React.FC = () => {
@@ -47,10 +51,7 @@ const Dashboard: React.FC = () => {
 
   const router = useRouter();
 
-  const {
-    data: events,
-    isLoading: isEvents,
-  } = useGetEventsInMonthQuery(null);
+  const { data: events, isLoading: isEvents } = useGetEventsInMonthQuery(null);
   const {
     data: students,
     error: err1,
@@ -71,11 +72,9 @@ const Dashboard: React.FC = () => {
     error: err4,
     isLoading: isWorker,
   } = useGetAllWorkersQuery(null);
-  const {
-    data: mettings,
-    isLoading: isMeeting,
-  } = useGetAllEventsDashboardQuery(null);
-  // const { data: notices, isLoading: isNotices } = useGetAllNoticesQuery(null);
+  const { data: mettings, isLoading: isMeeting } =
+    useGetAllEventsDashboardQuery(null);
+  const { data: notices, isLoading: isNotices } = useGetNoticesQuery(null);
   const [createEvent] = useCreateEventsMutation();
   useEffect(() => {
     if (students || employees || teachers || workers || mettings) {
@@ -101,7 +100,7 @@ const Dashboard: React.FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
     resolver: zodResolver(eventSchema),
   });
@@ -142,21 +141,21 @@ const Dashboard: React.FC = () => {
         description_ar: formData.description_ar,
         description_fr: formData.description_fr,
       };
-      toast.success("Event created success")
+      toast.success("Event created success");
       // Append the JSON data as a string to FormData
       formDataToSend.append("request", JSON.stringify(requestData));
-      
+
       // Append the file if it exists
       const file = formData.file?.[0];
       if (file) {
         formDataToSend.append("file", file); // Append the file correctly
       }
-      
+
       const result = await createEvent(formDataToSend).unwrap();
       console.log("Event created:", result);
       handleCloseModal();
     } catch (error) {
-      toast.error("Fiald Create Event")
+      toast.error("Fiald Create Event");
       console.error("Failed to create event:", error);
     }
   };
@@ -201,7 +200,8 @@ const Dashboard: React.FC = () => {
     isWorker ||
     isTeacher ||
     isEvents ||
-    isMeeting
+    isMeeting ||
+    isNotices
   )
     return (
       <div className="flex h-screen w-full items-center justify-center">
@@ -286,15 +286,15 @@ const Dashboard: React.FC = () => {
                 >
                   <div className="mr-3 h-[75px] w-[66px] items-center justify-center rounded-xl bg-[#F9DCA4] p-2 text-center">
                     <h1 className="text-[18px] font-semibold text-warning">
-                      {format(parseISO(meeting.startDate), 'd')}
+                      {format(parseISO(meeting.startDate), "d")}
                     </h1>
                     <h1 className="text-[18px] font-semibold text-warning">
-                    {format(parseISO(meeting.startDate), 'EEE')}
-
+                      {format(parseISO(meeting.startDate), "EEE")}
                     </h1>
                   </div>
                   <div className="grid w-[150px] gap-2">
-                    <p className="text-[13px] text-warning">{format(parseISO(meeting.startDate), 'dd - MMMM - yyyy')}
+                    <p className="text-[13px] text-warning">
+                      {format(parseISO(meeting.startDate), "dd - MMMM - yyyy")}
                     </p>
                     <p className="text-[16px] text-gray-400">{meeting.title}</p>
                     <div className="h-2.5 w-full rounded-full bg-gray-200">
@@ -318,13 +318,18 @@ const Dashboard: React.FC = () => {
               <div className="grid justify-center">
                 <button
                   onClick={handleOpenModal}
-                  className=" mr-3 w-[120px] whitespace-nowrap rounded-xl bg-primary px-1 py-1.5 text-[14px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                  className="mr-3 w-[120px] whitespace-nowrap rounded-xl bg-primary px-1 py-1.5 text-[14px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
                 >
                   + New Event
                 </button>
               </div>
               <div className="flex justify-end text-end">
-                <Link href="/educational-affairs/events" className="text-blue-500 underline font-semibold">More Events</Link>
+                <Link
+                  href="/educational-affairs/events"
+                  className="font-semibold text-blue-500 underline"
+                >
+                  More Events
+                </Link>
               </div>
             </div>
           </div>
@@ -338,7 +343,7 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
         <div className="grid overflow-x-auto rounded-xl">
-          <div className="grid w-[550px] overflow-x-auto rounded-xl bg-bgPrimary p-2 shadow-xl max-[1536px]:w-full">
+          <div className="grid h-[600px] w-[550px] overflow-x-auto overflow-y-auto rounded-xl bg-bgPrimary p-2 shadow-xl max-[1536px]:w-full">
             <p className="text-[20px] font-bold">
               {currentLanguage === "en"
                 ? "Notice Board"
@@ -349,181 +354,215 @@ const Dashboard: React.FC = () => {
                     : "Notice Board"}
             </p>
             <div className="">
-              <h1 className="text-[18px] font-semibold text-warning">
-                Leslie Alexander
-              </h1>
-              <p className="text-textSecondary">
-                In a laoreet purus. Integer turpis quam, laoreet id orci nec,
-                ultrices lacinia nunc. Aliquam erat vo
-              </p>
-              <h1 className="text-[18px] font-semibold text-primary">
-                Leslie Alexander
-              </h1>
-              <p className="text-textSecondary">
-                In a laoreet purus. Integer turpis quam, laoreet id orci nec,
-                ultrices lacinia nunc. Aliquam erat vo
-              </p>
-              <h1 className="text-seccess text-[18px] font-semibold">
-                Leslie Alexander
-              </h1>
-              <p className="text-textSecondary">
-                In a laoreet purus. Integer turpis quam, laoreet id orci nec,
-                ultrices lacinia nunc. Aliquam erat vo
-              </p>
-              <h1 className="text-[18px] font-semibold text-error">
-                Leslie Alexander
-              </h1>
-              <p className="text-textSecondary">
-                In a laoreet purus. Integer turpis quam, laoreet id orci nec,
-                ultrices lacinia nunc. Aliquam erat vo
-              </p>
-              <h1 className="text-[18px] font-semibold text-warning">
-                Leslie Alexander
-              </h1>
-              <p className="text-textSecondary">
-                In a laoreet purus. Integer turpis quam, laoreet id orci nec,
-                ultrices lacinia nunc. Aliquam erat vo
-              </p>
-              <h1 className="text-[18px] font-semibold text-primary">
-                Leslie Alexander
-              </h1>
-              <p className="text-textSecondary">
-                In a laoreet purus. Integer turpis quam, laoreet id orci nec,
-                ultrices lacinia nunc. Aliquam erat vo
-              </p>
-              <h1 className="text-[18px] font-semibold text-success">
-                Leslie Alexander
-              </h1>
-              <p className="text-textSecondary">
-                In a laoreet purus. Integer turpis quam, laoreet id orci nec,
-                ultrices lacinia nunc. Aliquam erat vo
-              </p>
+              {notices?.data?.content.map(
+                (note: {
+                  id: React.Key | null | undefined;
+                  title:
+                    | string
+                    | number
+                    | bigint
+                    | boolean
+                    | React.ReactElement<
+                        any,
+                        string | React.JSXElementConstructor<any>
+                      >
+                    | Iterable<React.ReactNode>
+                    | React.ReactPortal
+                    | Promise<React.AwaitedReactNode>
+                    | null
+                    | undefined;
+                  description:
+                    | string
+                    | number
+                    | bigint
+                    | boolean
+                    | React.ReactElement<
+                        any,
+                        string | React.JSXElementConstructor<any>
+                      >
+                    | Iterable<React.ReactNode>
+                    | React.ReactPortal
+                    | Promise<React.AwaitedReactNode>
+                    | null
+                    | undefined;
+                }) => (
+                  <div key={note.id}>
+                    <h1 className="text-[18px] font-semibold text-primary">
+                      {note.title}
+                    </h1>
+                    <p className="text-textSecondary">{note.description}</p>
+                  </div>
+                ),
+              )}
             </div>
           </div>
         </div>
       </div>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-          <h2 className="mb-4 text-xl font-light">Create Event</h2>
-          <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2 gap-5" encType="multipart/form-data">
-            {/* Creator ID */}
-            <div className="mb-4">
-              <input
-                type="number"
-                {...register("creatorId")}
-                placeholder="Creator ID"
-                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              {errors.creatorId && <p className="text-red-500">{errors.creatorId.message as string}</p>}
-            </div>
+        <h2 className="mb-4 text-xl font-light">Create Event</h2>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="grid grid-cols-2 gap-5"
+          encType="multipart/form-data"
+        >
+          {/* Creator ID */}
+          <div className="mb-4">
+            <input
+              type="number"
+              {...register("creatorId")}
+              placeholder="Creator ID"
+              className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.creatorId && (
+              <p className="text-red-500">
+                {errors.creatorId.message as string}
+              </p>
+            )}
+          </div>
 
-            {/* Start Time */}
-            <div className="mb-4">
-              <input
-                type="datetime-local"
-                {...register("startTime")}
-                placeholder="Start Time"
-                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              {errors.startTime && <p className="text-red-500">{errors.startTime.message as string}</p>}
-            </div>
+          {/* Start Time */}
+          <div className="mb-4">
+            <input
+              type="datetime-local"
+              {...register("startTime")}
+              placeholder="Start Time"
+              className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.startTime && (
+              <p className="text-red-500">
+                {errors.startTime.message as string}
+              </p>
+            )}
+          </div>
 
-            {/* End Time */}
-            <div className="mb-4">
-              <input
-                type="datetime-local"
-                {...register("endTime")}
-                placeholder="End Time"
-                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              {errors.endTime && <p className="text-red-500">{errors.endTime.message as string}</p>}
-            </div>
+          {/* End Time */}
+          <div className="mb-4">
+            <input
+              type="datetime-local"
+              {...register("endTime")}
+              placeholder="End Time"
+              className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.endTime && (
+              <p className="text-red-500">{errors.endTime.message as string}</p>
+            )}
+          </div>
 
-            {/* Title in English */}
-            <div className="mb-4">
-              <input
-                type="text"
-                {...register("title_en")}
-                placeholder="Title (English)"
-                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              {errors.title_en && <p className="text-red-500">{errors.title_en.message as string}</p>}
-            </div>
+          {/* Title in English */}
+          <div className="mb-4">
+            <input
+              type="text"
+              {...register("title_en")}
+              placeholder="Title (English)"
+              className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.title_en && (
+              <p className="text-red-500">
+                {errors.title_en.message as string}
+              </p>
+            )}
+          </div>
 
-            {/* Title in Arabic */}
-            <div className="mb-4">
-              <input
-                type="text"
-                {...register("title_ar")}
-                placeholder="Title (Arabic)"
-                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              {errors.title_ar && <p className="text-red-500">{errors.title_ar.message as string}</p>}
-            </div>
+          {/* Title in Arabic */}
+          <div className="mb-4">
+            <input
+              type="text"
+              {...register("title_ar")}
+              placeholder="Title (Arabic)"
+              className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.title_ar && (
+              <p className="text-red-500">
+                {errors.title_ar.message as string}
+              </p>
+            )}
+          </div>
 
-            {/* Title in French */}
-            <div className="mb-4">
-              <input
-                type="text"
-                {...register("title_fr")}
-                placeholder="Title (French)"
-                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              {errors.title_fr && <p className="text-red-500">{errors.title_fr.message as string}</p>}
-            </div>
+          {/* Title in French */}
+          <div className="mb-4">
+            <input
+              type="text"
+              {...register("title_fr")}
+              placeholder="Title (French)"
+              className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.title_fr && (
+              <p className="text-red-500">
+                {errors.title_fr.message as string}
+              </p>
+            )}
+          </div>
 
-            {/* Description in English */}
-            <div className="mb-4">
-              <input
-                {...register("description_en")}
-                placeholder="Description (English)"
-                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              {errors.description_en && <p className="text-red-500">{errors.description_en.message as string}</p>}
-            </div>
+          {/* Description in English */}
+          <div className="mb-4">
+            <input
+              {...register("description_en")}
+              placeholder="Description (English)"
+              className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.description_en && (
+              <p className="text-red-500">
+                {errors.description_en.message as string}
+              </p>
+            )}
+          </div>
 
-            {/* Description in Arabic */}
-            <div className="mb-4">
-              <input
-                {...register("description_ar")}
-                placeholder="Description (Arabic)"
-                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              {errors.description_ar && <p className="text-red-500">{errors.description_ar.message as string}</p>}
-            </div>
+          {/* Description in Arabic */}
+          <div className="mb-4">
+            <input
+              {...register("description_ar")}
+              placeholder="Description (Arabic)"
+              className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.description_ar && (
+              <p className="text-red-500">
+                {errors.description_ar.message as string}
+              </p>
+            )}
+          </div>
 
-            {/* Description in French */}
-            <div className="mb-4">
-              <input
-                {...register("description_fr")}
-                placeholder="Description (French)"
-                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              {errors.description_fr && <p className="text-red-500">{errors.description_fr.message as string}</p>}
-            </div>
+          {/* Description in French */}
+          <div className="mb-4">
+            <input
+              {...register("description_fr")}
+              placeholder="Description (French)"
+              className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.description_fr && (
+              <p className="text-red-500">
+                {errors.description_fr.message as string}
+              </p>
+            )}
+          </div>
 
-            {/* File Input */}
-            <div className="mb-4">
-              <input
-                type="file"
-                {...register("file")}
-                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              {errors.file && <p className="text-red-500">{errors.file.message as string}</p>}
-            </div>
+          {/* File Input */}
+          <div className="mb-4">
+            <input
+              type="file"
+              {...register("file")}
+              className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.file && (
+              <p className="text-red-500">{errors.file.message as string}</p>
+            )}
+          </div>
 
-            <div className="flex justify-between">
-              <button type="submit" className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl">
-                Add
-              </button>
-              <button
-                onClick={handleCloseModal}
-                className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-[#e44949] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#af4747] hover:shadow-xl"
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
-        </Modal>
+          <div className="flex justify-between">
+            <button
+              type="submit"
+              className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+            >
+              Add
+            </button>
+            <button
+              onClick={handleCloseModal}
+              className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-[#e44949] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#af4747] hover:shadow-xl"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </Modal>
     </div>
   );
 };

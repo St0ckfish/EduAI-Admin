@@ -50,7 +50,7 @@ const Other = () => {
 
   return (
     <>
-        <Soon/>
+      <Soon />
 
       <div className="ml-7 mt-12 flex flex-wrap items-center gap-1 text-[18px] max-[550px]:text-[15px] lg:ml-[290px]">
         <Link

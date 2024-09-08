@@ -4,9 +4,7 @@ import Card from "@/components/card";
 import { RootState } from "@/GlobalRedux/store";
 import Link from "next/link";
 import { useSelector } from "react-redux";
-import { FaDollarSign, FaWallet, FaBuilding } from 'react-icons/fa';
-
-
+import { FaDollarSign, FaWallet, FaBuilding } from "react-icons/fa";
 
 const FinancialManagement = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);

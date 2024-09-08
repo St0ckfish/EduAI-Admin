@@ -3,7 +3,10 @@
 import Modal from "@/components/model";
 import Spinner from "@/components/spinner";
 import Timeline from "@/components/timeLine";
-import { useGetAllEventsQuery, useCreateEventsMutation } from "@/features/events/eventsApi";
+import {
+  useGetAllEventsQuery,
+  useCreateEventsMutation,
+} from "@/features/events/eventsApi";
 import { RootState } from "@/GlobalRedux/store";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -22,7 +25,7 @@ const eventSchema = z.object({
   description_en: z.string().optional(),
   description_ar: z.string().optional(),
   description_fr: z.string().optional(),
-  file: z.any().optional() // Include file in schema to handle it
+  file: z.any().optional(), // Include file in schema to handle it
 });
 
 const Events = () => {
@@ -34,7 +37,7 @@ const Events = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
     resolver: zodResolver(eventSchema),
   });
@@ -62,22 +65,22 @@ const Events = () => {
         description_ar: formData.description_ar,
         description_fr: formData.description_fr,
       };
-      toast.success("Event created success")
+      toast.success("Event created success");
       // Append the JSON data as a string to FormData
       formDataToSend.append("request", JSON.stringify(requestData));
-      
+
       // Append the file if it exists
       const file = formData.file?.[0];
       if (file) {
         formDataToSend.append("file", file); // Append the file correctly
       }
-      
+
       const result = await createEvent(formDataToSend).unwrap();
       console.log("Event created:", result);
       handleCloseModal();
       refetch(); // Optionally refetch events
     } catch (error) {
-      toast.error("Fiald Create Event")
+      toast.error("Fiald Create Event");
       console.error("Failed to create event:", error);
     }
   };
@@ -96,7 +99,9 @@ const Events = () => {
 
   return (
     <>
-      <div className={` ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-7`}>
+      <div
+        className={` ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-7`}
+      >
         <div className="flex justify-end">
           <button
             onClick={handleOpenModal}
@@ -108,7 +113,11 @@ const Events = () => {
         <Timeline meetings={data?.data.content} />
         <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
           <h2 className="mb-4 text-xl font-light">Create Event</h2>
-          <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2 gap-5" encType="multipart/form-data">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="grid grid-cols-2 gap-5"
+            encType="multipart/form-data"
+          >
             {/* Creator ID */}
             <div className="mb-4">
               <input
@@ -117,7 +126,11 @@ const Events = () => {
                 placeholder="Creator ID"
                 className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
-              {errors.creatorId && <p className="text-red-500">{errors.creatorId.message as string}</p>}
+              {errors.creatorId && (
+                <p className="text-red-500">
+                  {errors.creatorId.message as string}
+                </p>
+              )}
             </div>
 
             {/* Start Time */}
@@ -128,7 +141,11 @@ const Events = () => {
                 placeholder="Start Time"
                 className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
-              {errors.startTime && <p className="text-red-500">{errors.startTime.message as string}</p>}
+              {errors.startTime && (
+                <p className="text-red-500">
+                  {errors.startTime.message as string}
+                </p>
+              )}
             </div>
 
             {/* End Time */}
@@ -139,7 +156,11 @@ const Events = () => {
                 placeholder="End Time"
                 className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
-              {errors.endTime && <p className="text-red-500">{errors.endTime.message as string}</p>}
+              {errors.endTime && (
+                <p className="text-red-500">
+                  {errors.endTime.message as string}
+                </p>
+              )}
             </div>
 
             {/* Title in English */}
@@ -150,7 +171,11 @@ const Events = () => {
                 placeholder="Title (English)"
                 className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
-              {errors.title_en && <p className="text-red-500">{errors.title_en.message as string}</p>}
+              {errors.title_en && (
+                <p className="text-red-500">
+                  {errors.title_en.message as string}
+                </p>
+              )}
             </div>
 
             {/* Title in Arabic */}
@@ -161,7 +186,11 @@ const Events = () => {
                 placeholder="Title (Arabic)"
                 className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
-              {errors.title_ar && <p className="text-red-500">{errors.title_ar.message as string}</p>}
+              {errors.title_ar && (
+                <p className="text-red-500">
+                  {errors.title_ar.message as string}
+                </p>
+              )}
             </div>
 
             {/* Title in French */}
@@ -172,7 +201,11 @@ const Events = () => {
                 placeholder="Title (French)"
                 className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
-              {errors.title_fr && <p className="text-red-500">{errors.title_fr.message as string}</p>}
+              {errors.title_fr && (
+                <p className="text-red-500">
+                  {errors.title_fr.message as string}
+                </p>
+              )}
             </div>
 
             {/* Description in English */}
@@ -182,7 +215,11 @@ const Events = () => {
                 placeholder="Description (English)"
                 className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
-              {errors.description_en && <p className="text-red-500">{errors.description_en.message as string}</p>}
+              {errors.description_en && (
+                <p className="text-red-500">
+                  {errors.description_en.message as string}
+                </p>
+              )}
             </div>
 
             {/* Description in Arabic */}
@@ -192,7 +229,11 @@ const Events = () => {
                 placeholder="Description (Arabic)"
                 className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
-              {errors.description_ar && <p className="text-red-500">{errors.description_ar.message as string}</p>}
+              {errors.description_ar && (
+                <p className="text-red-500">
+                  {errors.description_ar.message as string}
+                </p>
+              )}
             </div>
 
             {/* Description in French */}
@@ -202,7 +243,11 @@ const Events = () => {
                 placeholder="Description (French)"
                 className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
-              {errors.description_fr && <p className="text-red-500">{errors.description_fr.message as string}</p>}
+              {errors.description_fr && (
+                <p className="text-red-500">
+                  {errors.description_fr.message as string}
+                </p>
+              )}
             </div>
 
             {/* File Input */}
@@ -212,11 +257,16 @@ const Events = () => {
                 {...register("file")}
                 className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
-              {errors.file && <p className="text-red-500">{errors.file.message as string}</p>}
+              {errors.file && (
+                <p className="text-red-500">{errors.file.message as string}</p>
+              )}
             </div>
 
             <div className="flex justify-between">
-              <button type="submit" className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl">
+              <button
+                type="submit"
+                className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+              >
                 Add
               </button>
               <button

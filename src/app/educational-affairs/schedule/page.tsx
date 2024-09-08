@@ -21,7 +21,7 @@ const Schedule = () => {
   };
   return (
     <>
-    <Soon/>
+      <Soon />
       <div
         className={` ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-7`}
       >

@@ -1,10 +1,11 @@
 import Soon from "@/components/soon";
 
 const Annual = () => {
-  return <>
-    <Soon/>
-
-  </>;
+  return (
+    <>
+      <Soon />
+    </>
+  );
 };
 
 export default Annual;

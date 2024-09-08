@@ -7,7 +7,11 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import { toast } from "react-toastify";
 import Pagination from "@/components/pagination";
-import { useCreateAttendanceMutation, useGetAllStudentsAttendQuery, useUpdateStudentAttendanceMutation } from "@/features/attendance/attendanceApi";
+import {
+  useCreateAttendanceMutation,
+  useGetAllStudentsAttendQuery,
+  useUpdateStudentAttendanceMutation,
+} from "@/features/attendance/attendanceApi";
 
 const StudentAttendance = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
@@ -41,16 +45,19 @@ const StudentAttendance = () => {
       };
 
       // Send the data using the mutation hook
-      createAttendance({formData: attendanceData, id: attendanceData.studentId})
+      createAttendance({
+        formData: attendanceData,
+        id: attendanceData.studentId,
+      })
         .unwrap()
         .then(response => {
           refetch();
           console.log("Attendance recorded:", response);
-          toast.info("Update Attendance")
+          toast.info("Update Attendance");
         })
         .catch(error => {
           console.error("Failed to record attendance:", error);
-          toast.error("Failed to Update Attendance")
+          toast.error("Failed to Update Attendance");
         });
     }
     if (label === "A") {
@@ -76,7 +83,7 @@ const StudentAttendance = () => {
       const attendanceData = {
         studentId: studentId,
         status: "LEAVE",
-        absenceReason: null
+        absenceReason: null,
       };
 
       // Send the data using the mutation hook
@@ -230,7 +237,10 @@ const StudentAttendance = () => {
                     <label
                       key={label}
                       className={`flex h-[55px] w-[55px] cursor-pointer items-center justify-center rounded-full border p-5 text-center text-[24px] font-semibold ${
-                        selectedStates[index] === label || (label === "P" && student.status === "PRESENT") || (label === "L" && student.status === "LEAVE") || (label === "A" && student.status === "ABSENT")
+                        selectedStates[index] === label ||
+                        (label === "P" && student.status === "PRESENT") ||
+                        (label === "L" && student.status === "LEAVE") ||
+                        (label === "A" && student.status === "ABSENT")
                           ? label === "P"
                             ? "bg-green-300 text-white"
                             : label === "A"
@@ -243,7 +253,9 @@ const StudentAttendance = () => {
                         type="checkbox"
                         className="hidden"
                         checked={selectedStates[index] === label}
-                        onChange={() => handleSelect(label, index, student.attendanceId)}
+                        onChange={() =>
+                          handleSelect(label, index, student.attendanceId)
+                        }
                       />
                       {label}
                     </label>
