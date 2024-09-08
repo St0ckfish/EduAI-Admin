@@ -25,7 +25,7 @@ const CircleProgress: React.FC<CircleProgressProps> = ({ percentage }) => {
       <div className="grid h-[300px] w-[300px] items-center justify-center">
         <svg className="h-[250px] w-[250px]" viewBox="0 0 50 50">
           <circle
-            className="stroke-current text-[#526484]"
+            className="stroke-current text-secondary"
             stroke="#ddd"
             strokeWidth="7"
             fill="transparent"

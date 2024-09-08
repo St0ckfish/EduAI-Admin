@@ -19,6 +19,7 @@ body {
   --info: #09c2de;
   --border-primary: #d9d9d9;
   --thead: #daeafb;
+  --black-or-white: black;
 }
 
 .dark {
@@ -33,6 +34,7 @@ body {
   --info: #34e4b5;
   --border-primary: #2a2d32;
   --thead: #071f3a;
+  --black-or-white: white;
 }
 
 /* Chart */

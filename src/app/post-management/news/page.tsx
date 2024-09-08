@@ -124,11 +124,11 @@ const News = () => {
 
   return (
     <div className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} `}>
-      <div className="grid h-full w-full items-center justify-center gap-4 rounded-xl bg-white p-9 max-[505px]:p-2">
+      <div className="grid h-full w-full items-center justify-center gap-4 rounded-xl bg-bgPrimary p-9 max-[505px]:p-2">
         {data?.data.content.map((post: Post, index: number) => (
           <div
             key={post.id}
-            className="grid w-[800px] rounded-xl border border-[#ebebeb] p-4 max-[1190px]:w-[600px] max-[710px]:w-[400px] max-[450px]:w-[350px]"
+            className="grid w-[800px] rounded-xl border border-borderPrimary p-4 max-[1190px]:w-[600px] max-[710px]:w-[400px] max-[450px]:w-[350px]"
           >
             <div className="flex w-full justify-between gap-8">
               <div className="flex items-center gap-1">
@@ -146,7 +146,7 @@ const News = () => {
                   />
                 )}
                 <div className="grid text-nowrap text-[14px] font-semibold">
-                  <p className="text-black">{post.publisherName}</p>
+                  <p className="text-blackOrWhite">{post.publisherName}</p>
                   <p className="text-[#65676b]">
                     {formatTransactionDate(post.creationDate)}
                   </p>
@@ -154,7 +154,7 @@ const News = () => {
               </div>
               <div className="flex items-start gap-2">
                 {open === index ? (
-                  <div className="flex h-[35px] items-center gap-2 rounded-full bg-white px-1.5 py-1">
+                  <div className="flex h-[35px] items-center gap-2 rounded-full bg-bgPrimary px-1.5 py-1">
                     <button onClick={() => handleDelete(post.id)}>
                       <svg
                         className="h-6 w-6 text-red-500"
@@ -189,7 +189,7 @@ const News = () => {
                     </Link>
                   </div>
                 ) : (
-                  <div className="invisible flex h-[35px] w-[100px] gap-2 rounded-full bg-white px-3 py-0.5">
+                  <div className="invisible flex h-[35px] w-[100px] gap-2 rounded-full bg-bgPrimary px-3 py-0.5">
                     <button>
                       <svg
                         className="h-6 w-6 text-red-500"
@@ -275,7 +275,7 @@ const News = () => {
                     handleClick(post.id);
                     toggleNavbar3(index);
                   }}
-                  className="border-spacing-2 text-[#65676b] hover:border-b"
+                  className="border-spacing-2 text-[#65676b] primary:border-b"
                 >
                   Comments
                 </button>
@@ -340,7 +340,7 @@ const News = () => {
                   <input
                     placeholder="Write Comment"
                     type="text"
-                    className={`w-full rounded-md border px-3 py-2 font-semibold outline-none ${errors.comment ? "border-red-500" : "border-slate-200"} `}
+                    className={`w-full rounded-md border px-3 py-2 font-semibold outline-none ${errors.comment ? "border-error" : "border-borderPrimary"} `}
                     {...register("comment", { required: true })}
                   />
                   {isCreating ? (
@@ -348,7 +348,7 @@ const News = () => {
                   ) : (
                     <button
                       type="submit"
-                      className="rounded-lg bg-[#3E5AF0] px-3 py-1.5 duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                      className="rounded-lg bg-primary px-3 py-1.5 duration-300 ease-in primary:bg-primary primary:shadow-xl"
                     >
                       <svg
                         className="h-7 w-7 text-white"

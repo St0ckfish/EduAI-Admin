@@ -4,6 +4,8 @@ import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { AiOutlineSave } from 'react-icons/ai'; // Save Icon
+
 
 const AddNewPost = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
@@ -48,25 +50,12 @@ const AddNewPost = () => {
       className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-20`}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="grid gap-3 rounded-xl bg-white p-10">
-          <div className="rounded-xl border border-[#d7dbe0] p-10">
+        <div className="grid gap-3 rounded-xl bg-bgPrimary p-10">
+          <div className="rounded-xl border border-borderPrimary p-10">
             <div className="mb-10 flex w-full items-center justify-between text-[18px] font-semibold">
               <h1 className="text-[20px]">Title</h1>
               <button className="flex gap-2" type="submit">
-                <svg
-                  className="h-6 w-6 text-[#09244b]"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  {" "}
-                  <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />{" "}
-                  <polyline points="17 21 17 13 7 13 7 21" />{" "}
-                  <polyline points="7 3 7 8 15 8" />
-                </svg>
+                <AiOutlineSave size={25} />
                 {isLoading ? "Saving..." : "Save"}
               </button>
             </div>
@@ -79,7 +68,7 @@ const AddNewPost = () => {
                   {...register("title_en", {
                     required: "Title in English is required",
                   })}
-                  className="h-[60px] rounded-lg border border-[#d7dbe0] px-3 py-2 outline-none"
+                  className="h-[60px] rounded-lg border border-borderPrimary px-3 py-2 outline-none"
                 />
                 {errors.title_en && (
                   <span className="text-red-500">
@@ -95,7 +84,7 @@ const AddNewPost = () => {
                   {...register("title_fr", {
                     required: "Title in French is required",
                   })}
-                  className="h-[60px] rounded-lg border border-[#d7dbe0] px-3 py-2 outline-none"
+                  className="h-[60px] rounded-lg border border-borderPrimary px-3 py-2 outline-none"
                 />
                 {errors.title_fr && (
                   <span className="text-red-500">
@@ -111,7 +100,7 @@ const AddNewPost = () => {
                   {...register("title_ar", {
                     required: "Title in Arabic is required",
                   })}
-                  className="h-[60px] rounded-lg border border-[#d7dbe0] px-3 py-2 outline-none"
+                  className="h-[60px] rounded-lg border border-borderPrimary px-3 py-2 outline-none"
                 />
                 {errors.title_ar && (
                   <span className="text-red-500">
@@ -127,7 +116,7 @@ const AddNewPost = () => {
                   {...register("content_en", {
                     required: "Content in English is required",
                   })}
-                  className="h-[60px] rounded-lg border border-[#d7dbe0] px-3 py-2 outline-none"
+                  className="h-[60px] rounded-lg border border-borderPrimary px-3 py-2 outline-none"
                 />
                 {errors.content_en && (
                   <span className="text-red-500">
@@ -143,7 +132,7 @@ const AddNewPost = () => {
                   {...register("content_fr", {
                     required: "Content in French is required",
                   })}
-                  className="h-[60px] rounded-lg border border-[#d7dbe0] px-3 py-2 outline-none"
+                  className="h-[60px] rounded-lg border border-borderPrimary px-3 py-2 outline-none"
                 />
                 {errors.content_fr && (
                   <span className="text-red-500">
@@ -159,7 +148,7 @@ const AddNewPost = () => {
                   {...register("content_ar", {
                     required: "Content in Arabic is required",
                   })}
-                  className="h-[60px] rounded-lg border border-[#d7dbe0] px-3 py-2 outline-none"
+                  className="h-[60px] rounded-lg border border-borderPrimary px-3 py-2 outline-none"
                 />
                 {errors.content_ar && (
                   <span className="text-red-500">
@@ -169,7 +158,7 @@ const AddNewPost = () => {
               </label>
             </div>
           </div>
-          <div className="rounded-xl border border-[#d7dbe0] p-10">
+          <div className="rounded-xl border border-borderPrimary p-10">
             <div className="mb-10 flex w-full items-center justify-between text-[18px] font-semibold">
               <h1 className="text-[20px]">Images or Videos</h1>
             </div>
@@ -177,7 +166,7 @@ const AddNewPost = () => {
               <div className="flex w-full items-center justify-center">
                 <label
                   htmlFor="dropzone-file"
-                  className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100"
+                  className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-bgPrimary hover:bg-bgSecondary"
                 >
                   <div className="flex flex-col items-center justify-center pb-6 pt-5">
                     <svg
