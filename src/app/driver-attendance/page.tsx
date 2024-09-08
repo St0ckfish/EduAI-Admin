@@ -302,7 +302,7 @@ const DriverAttendance = () => {
                   {["P", "A", "L"].map(label => (
                     <label
                       key={label}
-                      className={`flex h-[55px] w-[55px] cursor-pointer items-center justify-center rounded-full border border-borderPrimary p-5 text-center text-[24px] font-semibold ${
+                      className={`flex h-[55px] w-[55px] cursor-pointer items-center justify-center rounded-full border p-5 text-center text-[24px] font-semibold ${
                         selectedStates[index] === label ||
                         (label === "P" && driver.status === "PRESENT") ||
                         (label === "L" && driver.status === "LEAVE") ||
@@ -312,7 +312,7 @@ const DriverAttendance = () => {
                             : label === "A"
                               ? "bg-red-500 text-white"
                               : "bg-yellow-300 text-white"
-                          : "bg-bgPrimary"
+                          : "bg-white"
                       } `}
                     >
                       <input

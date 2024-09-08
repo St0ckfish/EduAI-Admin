@@ -3,21 +3,25 @@ import AttendCard from "@/components/AttendCard";
 import { RootState } from "@/GlobalRedux/store";
 import Link from "next/link";
 import { useSelector } from "react-redux";
+import { FaUserTie } from 'react-icons/fa';        // Driver Icon
+import { FaBriefcase } from 'react-icons/fa';      // Employee Icon
+import { FaUserGraduate } from 'react-icons/fa';   // Student Icon
+import { FaChalkboardTeacher } from 'react-icons/fa'; // Teacher Icon
+import { FaHardHat } from 'react-icons/fa';
 import {
   useGetAllEmployeesQuery,
   useGetAllStudentsQuery,
+  useGetAllTeachersQuery,
+  useGetAllWorkersQuery,
   useGetEmployeeAttendenceQuery,
   useGetTeacherAttendenceQuery,
   useGetWorkerAttendenceQuery,
 } from "@/features/dashboard/dashboardApi";
 import Spinner from "@/components/spinner";
-import { useGetDriversAttendQuery, useGetDriversCountQuery } from "@/features/attendance/attendanceApi";
-import { FaUserTie } from 'react-icons/fa';        // Driver Icon
-import { FaBriefcase } from 'react-icons/fa';      // Employee Icon
-import { FaUserGraduate } from 'react-icons/fa';   // Student Icon
-import { FaChalkboardTeacher } from 'react-icons/fa'; // Teacher Icon
-import { FaHardHat } from 'react-icons/fa';        // Worker Icon
-
+import {
+  useGetDriversAttendQuery,
+  useGetDriversCountQuery,
+} from "@/features/attendance/attendanceApi";
 
 const Attendance = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
@@ -28,17 +32,22 @@ const Attendance = () => {
   const { data: employeedata, isLoading: isLoadingE } =
     useGetEmployeeAttendenceQuery(null);
   const { data: driverCount, isLoading: isCount } =
-  useGetDriversCountQuery(null);
+    useGetDriversCountQuery(null);
   const { data: driverAttend, isLoading: isAttend } =
-  useGetDriversAttendQuery(null);
+    useGetDriversAttendQuery(null);
   const { data: teacherdata, isLoading: isLoadingT } =
-  useGetTeacherAttendenceQuery(null);
+    useGetTeacherAttendenceQuery(null);
   const { data: workerdata, isLoading: isLoadingW } =
-  useGetWorkerAttendenceQuery(null);
+    useGetWorkerAttendenceQuery(null);
   const { data: employeeCount, isLoading: isECount } =
-  useGetAllEmployeesQuery(null);
+    useGetAllEmployeesQuery(null);
   const { data: studentCount, isLoading: isSCount } =
-  useGetAllStudentsQuery(null);
+    useGetAllStudentsQuery(null);
+  const { data: students, isLoading: isStudents } =
+    useGetAllStudentsQuery(null);
+
+  const { data: teachers, isLoading: isTeacher } = useGetAllTeachersQuery(null);
+  const { data: workers, isLoading: isWorker } = useGetAllWorkersQuery(null);
 
   const UserManagments = [
     {
@@ -127,7 +136,18 @@ const Attendance = () => {
     },
   ];
 
-  if (isLoadingE || isLoadingT || isLoadingW || isCount || isAttend || isECount || isSCount)
+  if (
+    isLoadingE ||
+    isLoadingT ||
+    isLoadingW ||
+    isCount ||
+    isAttend ||
+    isECount ||
+    isSCount ||
+    isStudents ||
+    isTeacher ||
+    isWorker
+  )
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />

@@ -2,7 +2,11 @@
 "use client";
 import Link from "next/link";
 import { useState, useEffect, SetStateAction } from "react";
-import { useCreateAttendanceMutation, useGetAllEmpolyeesAttendQuery, useUpdateAttendanceMutation } from "@/features/attendance/attendanceApi";
+import {
+  useCreateAttendanceMutation,
+  useGetAllEmpolyeesAttendQuery,
+  useUpdateAttendanceMutation,
+} from "@/features/attendance/attendanceApi";
 import Spinner from "@/components/spinner";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
@@ -26,14 +30,21 @@ const TeacherAttendance = () => {
   const [createAttendance] = useCreateAttendanceMutation();
   const [updateAttendance] = useUpdateAttendanceMutation();
 
-
-  const handleSelect = (label: string, index: number, userId: undefined, driverStatus: string | null, attendenceId: number, checkin: Date, checkout: Date) => {
+  const handleSelect = (
+    label: string,
+    index: number,
+    userId: undefined,
+    driverStatus: string | null,
+    attendenceId: number,
+    checkin: Date,
+    checkout: Date,
+  ) => {
     setSelectedStates(prevStates => {
       const newStates = [...prevStates];
       newStates[index] = newStates[index] === label ? label : label; // Toggle selection
       return newStates;
     });
-  
+
     const attendanceData = {
       userId: userId,
       attendenceId: attendenceId,
@@ -42,7 +53,7 @@ const TeacherAttendance = () => {
       checkInTime: checkin,
       checkOutTime: checkout,
     };
-  
+
     if (driverStatus === null) {
       // Use createAttendance if status is null
       createAttendance(attendanceData)
@@ -58,7 +69,10 @@ const TeacherAttendance = () => {
         });
     } else {
       // Use updateAttendance if status is not null
-      updateAttendance({ formData: attendanceData, id: attendanceData.attendenceId })
+      updateAttendance({
+        formData: attendanceData,
+        id: attendanceData.attendenceId,
+      })
         .unwrap()
         .then(response => {
           console.log("Attendance updated:", response);
@@ -91,8 +105,6 @@ const TeacherAttendance = () => {
         <Spinner />
       </div>
     );
-
-
 
   return (
     <>
@@ -202,8 +214,11 @@ const TeacherAttendance = () => {
                         />
                       )}
                     </div>
-                    <p className="mt-4 text-[22px]"> {employee.userFullName} </p>
-                    <p className="whitespace-nowrap font-semibold text-secondary">
+                    <p className="mt-4 text-[22px]">
+                      {" "}
+                      {employee.userFullName}{" "}
+                    </p>
+                    <p className="whitespace-nowrap font-semibold text-[#526484]">
                       Teacher: {employee.userId}
                     </p>
                   </div>
@@ -213,7 +228,10 @@ const TeacherAttendance = () => {
                     <label
                       key={label}
                       className={`flex h-[55px] w-[55px] cursor-pointer items-center justify-center rounded-full border p-5 text-center text-[24px] font-semibold ${
-                        selectedStates[index] === label || (label === "P" && employee.status === "PRESENT") || (label === "L" && employee.status === "LEAVE") || (label === "A" && employee.status === "ABSENT")
+                        selectedStates[index] === label ||
+                        (label === "P" && employee.status === "PRESENT") ||
+                        (label === "L" && employee.status === "LEAVE") ||
+                        (label === "A" && employee.status === "ABSENT")
                           ? label === "P"
                             ? "bg-green-300 text-white"
                             : label === "A"
@@ -226,7 +244,17 @@ const TeacherAttendance = () => {
                         type="checkbox"
                         className="hidden"
                         checked={selectedStates[index] === label}
-                        onChange={() => handleSelect(label, index, employee.userId, employee.status, employee.attendanceId, employee.checkInTime, employee.checkOutTime)}
+                        onChange={() =>
+                          handleSelect(
+                            label,
+                            index,
+                            employee.userId,
+                            employee.status,
+                            employee.attendanceId,
+                            employee.checkInTime,
+                            employee.checkOutTime,
+                          )
+                        }
                       />
                       {label}
                     </label>

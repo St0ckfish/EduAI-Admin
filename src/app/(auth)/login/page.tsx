@@ -122,8 +122,8 @@ const Login = () => {
             </form>
           </div>
         </div>
-        <div className="flex w-full justify-end h-full">
-          <div className="flex justify-end max-[1040px]:hidden bg-[#2a3469] h-full items-center w-[600px]">
+        <div className="flex h-full w-full justify-end">
+          <div className="flex h-full w-[600px] items-center justify-end bg-[#2a3469] max-[1040px]:hidden">
             <img
               className="h-[530px] w-[500px] -translate-x-[260px]"
               src="images/labtop.png"

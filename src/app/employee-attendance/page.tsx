@@ -292,11 +292,11 @@ const EmployeeAttendance = () => {
                         />
                       )}
                     </div>
-                    <p className="mt-4 text-[22px] text-textPrimary">
+                    <p className="mt-4 text-[22px]">
                       {" "}
                       {employee.userFullName}{" "}
                     </p>
-                    <p className="whitespace-nowrap font-semibold text-secondary">
+                    <p className="whitespace-nowrap font-semibold text-[#526484]">
                       Employee: {employee.userId}
                     </p>
                   </div>
@@ -305,7 +305,7 @@ const EmployeeAttendance = () => {
                   {["P", "A", "L"].map(label => (
                     <label
                       key={label}
-                      className={`flex h-[55px] w-[55px] cursor-pointer items-center justify-center rounded-full border border-borderPrimary p-5 text-center text-[24px] font-semibold ${
+                      className={`flex h-[55px] w-[55px] cursor-pointer items-center justify-center rounded-full border p-5 text-center text-[24px] font-semibold ${
                         selectedStates[index] === label ||
                         (label === "P" && employee.status === "PRESENT") ||
                         (label === "L" && employee.status === "LEAVE") ||

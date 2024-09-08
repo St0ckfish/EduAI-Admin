@@ -359,7 +359,7 @@ const Driver = () => {
                     </td>
                     <th
                       scope="row"
-                      className="flex items-center gap-2 whitespace-nowrap  px-6 py-4 font-medium text-textPrimary transition-colors duration-300 "
+                      className="flex items-center gap-2 whitespace-nowrap px-6 py-4 font-medium text-textPrimary transition-colors duration-300"
                     >
                       <div className="w-[50px]">
                         {driver.picture == null ? (

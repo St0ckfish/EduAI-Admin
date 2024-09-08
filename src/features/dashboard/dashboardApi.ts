@@ -70,6 +70,10 @@ export const dashboardApi = createApi({
     getWorkerAttendence: builder.query({
       query: () => "/api/v1/dashboard/workers-attendance?status=PRESENT",
     }),
+    //
+    getNotices: builder.query({
+      query: () => "/api/management/note/all?page=0&size=10",
+    }),
   }),
 });
 
@@ -85,4 +89,5 @@ export const {
   useGetTeacherAttendenceQuery,
   useGetEmployeeAttendenceQuery,
   useGetWorkerAttendenceQuery,
+  useGetNoticesQuery,
 } = dashboardApi;

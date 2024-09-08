@@ -1,11 +1,11 @@
 import Soon from "@/components/soon";
 
 const Insight = () => {
-  return ( 
+  return (
     <>
-    <Soon/>
+      <Soon />
     </>
-   );
-}
- 
+  );
+};
+
 export default Insight;

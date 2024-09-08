@@ -33,7 +33,8 @@ export const attendanceApi = createApi({
     }),
     //
     getAllStudentsAttend: builder.query({
-      query: ({size, page}) => `/api/v1/student-attendance/all?date=&size=${size}&page=${page}`,
+      query: ({ size, page }) =>
+        `/api/v1/student-attendance/all?date=&size=${size}&page=${page}`,
     }),
     //
     getDriversCount: builder.query({
