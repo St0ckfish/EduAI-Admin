@@ -29,7 +29,7 @@ const UserManagment = () => {
           : currentLanguage === "ar"
             ? "سائق"
             : currentLanguage === "fr"
-              ? "Conducteur"
+              ? "Conducteurs"
               : "Driver",
       description:
         currentLanguage === "en"
@@ -49,7 +49,7 @@ const UserManagment = () => {
           : currentLanguage === "ar"
             ? "موظف"
             : currentLanguage === "fr"
-              ? "Employé"
+              ? "Employés"
               : "Employee",
       description:
         currentLanguage === "en"
@@ -70,7 +70,7 @@ const UserManagment = () => {
           : currentLanguage === "ar"
             ? "ولي الأمر"
             : currentLanguage === "fr"
-              ? "Parent"
+              ? "Parents"
               : "Parent",
       description:
         currentLanguage === "en"
@@ -90,7 +90,7 @@ const UserManagment = () => {
           : currentLanguage === "ar"
             ? "طالب"
             : currentLanguage === "fr"
-              ? "Étudiant"
+              ? "Étudiants"
               : "Student",
       description:
         currentLanguage === "en"
@@ -110,7 +110,7 @@ const UserManagment = () => {
           : currentLanguage === "ar"
             ? "معلم"
             : currentLanguage === "fr"
-              ? "Enseignant"
+              ? "Enseignants"
               : "Teacher",
       description:
         currentLanguage === "en"
@@ -130,7 +130,7 @@ const UserManagment = () => {
           : currentLanguage === "ar"
             ? "عامل"
             : currentLanguage === "fr"
-              ? "Travailleur"
+              ? "Travailleurs"
               : "Worker",
       description:
         currentLanguage === "en"
