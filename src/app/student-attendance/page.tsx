@@ -2,35 +2,29 @@
 "use client";
 import Link from "next/link";
 import { useState, useEffect, SetStateAction } from "react";
-import {
-  useDeleteStudentsMutation,
-  useGetAllStudentsQuery,
-} from "@/features/User-Management/studentApi";
 import Spinner from "@/components/spinner";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import { toast } from "react-toastify";
 import Pagination from "@/components/pagination";
-import { useCreateAttendanceMutation } from "@/features/attendance/attendanceApi";
+import { useCreateAttendanceMutation, useGetAllStudentsAttendQuery, useUpdateStudentAttendanceMutation } from "@/features/attendance/attendanceApi";
 
 const StudentAttendance = () => {
-  const [selectAll, setSelectAll] = useState(false);
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   type Student = Record<string, any>;
   const [currentPage, setCurrentPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [search, setSearch] = useState("");
-  const { data, error, isLoading, refetch } = useGetAllStudentsQuery({
-    archived: "false",
+  const { data, error, isLoading, refetch } = useGetAllStudentsAttendQuery({
     page: currentPage,
     size: rowsPerPage,
   });
 
   const [selectedStates, setSelectedStates] = useState<string[]>([]);
-  const [createAttendance] = useCreateAttendanceMutation();
+  const [createAttendance] = useUpdateStudentAttendanceMutation();
 
-  const handleSelect = (label: string, index: number, userId: undefined) => {
+  const handleSelect = (label: string, index: number, studentId: number) => {
     setSelectedStates(prevStates => {
       const newStates = [...prevStates];
       newStates[index] = newStates[index] === label ? label : label; // Toggle selection
@@ -41,31 +35,30 @@ const StudentAttendance = () => {
     if (label === "P") {
       // Prepare attendance data
       const attendanceData = {
-        userId: userId,
+        studentId: studentId,
         status: "PRESENT",
         absenceReason: null,
-        checkInTime: null,
-        checkOutTime: null,
       };
 
       // Send the data using the mutation hook
-      createAttendance(attendanceData)
+      createAttendance({formData: attendanceData, id: attendanceData.studentId})
         .unwrap()
         .then(response => {
+          refetch();
           console.log("Attendance recorded:", response);
+          toast.info("Update Attendance")
         })
         .catch(error => {
           console.error("Failed to record attendance:", error);
+          toast.error("Failed to Update Attendance")
         });
     }
     if (label === "A") {
       // Prepare attendance data
       const attendanceData = {
-        userId: userId,
+        studentId: studentId,
         status: "ABSENT",
         absenceReason: null,
-        checkInTime: null,
-        checkOutTime: null,
       };
 
       // Send the data using the mutation hook
@@ -81,11 +74,9 @@ const StudentAttendance = () => {
     if (label === "L") {
       // Prepare attendance data
       const attendanceData = {
-        userId: userId,
+        studentId: studentId,
         status: "LEAVE",
-        absenceReason: null,
-        checkInTime: null,
-        checkOutTime: null,
+        absenceReason: null
       };
 
       // Send the data using the mutation hook
@@ -112,61 +103,6 @@ const StudentAttendance = () => {
     setRowsPerPage(ele);
     setCurrentPage(0);
   };
-  const [deleteStudents] = useDeleteStudentsMutation();
-
-  const handleDelete = async (id: string) => {
-    try {
-      await deleteStudents({
-        id: id,
-        lock: "true",
-      }).unwrap();
-      toast.success(`Student with ID ${id} Locked successfully`);
-      void refetch();
-    } catch (err) {
-      toast.error("Failed to lock the Student");
-    }
-  };
-
-  const handleSelectAll = () => {
-    setSelectAll(!selectAll);
-    const checkboxes = document.querySelectorAll<HTMLInputElement>(
-      'input[type="checkbox"]:not(#checkbox-all-search)',
-    );
-    checkboxes.forEach(checkbox => {
-      checkbox.checked = !selectAll;
-    });
-  };
-
-  useEffect(() => {
-    const handleOtherCheckboxes = () => {
-      const allCheckboxes = document.querySelectorAll<HTMLInputElement>(
-        'input[type="checkbox"]:not(#checkbox-all-search)',
-      );
-      const allChecked = Array.from(allCheckboxes).every(
-        checkbox => checkbox.checked,
-      );
-      const selectAllCheckbox = document.getElementById(
-        "checkbox-all-search",
-      ) as HTMLInputElement | null;
-      if (selectAllCheckbox) {
-        selectAllCheckbox.checked = allChecked;
-        setSelectAll(allChecked);
-      }
-    };
-
-    const otherCheckboxes = document.querySelectorAll<HTMLInputElement>(
-      'input[type="checkbox"]:not(#checkbox-all-search)',
-    );
-    otherCheckboxes.forEach(checkbox => {
-      checkbox.addEventListener("change", handleOtherCheckboxes);
-    });
-
-    return () => {
-      otherCheckboxes.forEach(checkbox => {
-        checkbox.removeEventListener("change", handleOtherCheckboxes);
-      });
-    };
-  }, []);
 
   if (isLoading)
     return (
@@ -259,7 +195,7 @@ const StudentAttendance = () => {
             .filter((student: Student) => {
               return search.toLocaleLowerCase() === ""
                 ? student
-                : student.name.toLocaleLowerCase().includes(search);
+                : student.studentName.toLocaleLowerCase().includes(search);
             })
             .map((student: Student, index: number) => (
               <div
@@ -283,9 +219,9 @@ const StudentAttendance = () => {
                         />
                       )}
                     </div>
-                    <p className="mt-4 text-[22px]"> {student.name} </p>
+                    <p className="mt-4 text-[22px]"> {student.studentName} </p>
                     <p className="whitespace-nowrap font-semibold text-[#526484]">
-                      Student: {student.id}
+                      Student: {student.studentId}
                     </p>
                   </div>
                 </div>
@@ -294,7 +230,7 @@ const StudentAttendance = () => {
                     <label
                       key={label}
                       className={`flex h-[55px] w-[55px] cursor-pointer items-center justify-center rounded-full border p-5 text-center text-[24px] font-semibold ${
-                        selectedStates[index] === label
+                        selectedStates[index] === label || (label === "P" && student.status === "PRESENT") || (label === "L" && student.status === "LEAVE") || (label === "A" && student.status === "ABSENT")
                           ? label === "P"
                             ? "bg-green-300 text-white"
                             : label === "A"
@@ -307,7 +243,7 @@ const StudentAttendance = () => {
                         type="checkbox"
                         className="hidden"
                         checked={selectedStates[index] === label}
-                        onChange={() => handleSelect(label, index, student.id)}
+                        onChange={() => handleSelect(label, index, student.attendanceId)}
                       />
                       {label}
                     </label>

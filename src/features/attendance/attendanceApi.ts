@@ -31,6 +31,10 @@ export const attendanceApi = createApi({
       query: ({role, size, page, employeeType}) => `/api/v1/employee-attendance/by-role?date=&role=${role}&size=${size}&page=${page}&employeeType=${employeeType}`,
     }),
     //
+    getAllStudentsAttend: builder.query({
+      query: ({size, page}) => `/api/v1/student-attendance/all?date=&size=${size}&page=${page}`,
+    }),
+    //
     getDriversCount: builder.query({
       query: () => `/api/v1/dashboard/drivers-count`,
     }),
@@ -65,15 +69,25 @@ export const attendanceApi = createApi({
         body: formData,
       }),
     }),
+    //
+    updateStudentAttendance: builder.mutation({
+      query: ({ formData, id }) => ({
+        url: `/api/v1/student-attendance/${id}`,
+        method: "PUT",
+        body: formData,
+      }),
+    }),
   }),
 });
 
 export const {
   useGetAllEmpolyeesAttendQuery,
+  useGetAllStudentsAttendQuery,
   useGetDriversCountQuery,
   useGetDriversAttendQuery,
   useDeleteBussMutation,
   useCreateAttendanceMutation,
   useGetBusByIdQuery,
   useUpdateAttendanceMutation,
+  useUpdateStudentAttendanceMutation,
 } = attendanceApi;

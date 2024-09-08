@@ -47,6 +47,14 @@ export const employeeApi = createApi({
       }),
     }),
     //
+    UpdateCurrentUser: builder.mutation({
+      query: formData => ({
+        url: `/api/v1/my-account/profile/employee/update`,
+        method: "PUT",
+        body: formData,
+      }),
+    }),
+    //
     getEmployeeById: builder.query({
       query: id => `/api/v1/management/employee/${id}`,
     }),
@@ -64,6 +72,7 @@ export const employeeApi = createApi({
 export const {
   useGetAllEmployeesQuery,
   useDeleteEmployeesMutation,
+  useUpdateCurrentUserMutation,
   useCreateEmployeesMutation,
   useGetEmployeeByIdQuery,
   useUpdateEmployeesMutation,
