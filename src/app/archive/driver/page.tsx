@@ -109,7 +109,7 @@ const ArchiveDriver = () => {
         className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} ml-7 mt-12 flex-wrap text-[18px] max-[550px]:text-[15px]`}
       >
         <Link
-          className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
+          className="font-semibold text-secondary hover:text-primary hover:underline"
           href="/"
         >
           {currentLanguage === "en"
@@ -131,7 +131,7 @@ const ArchiveDriver = () => {
           <path d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
         </svg>
         <Link
-          className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
+          className="font-semibold text-secondary hover:text-primary hover:underline"
           href="/archive"
         >
           {currentLanguage === "en"
@@ -153,7 +153,7 @@ const ArchiveDriver = () => {
           <path d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
         </svg>
         <Link
-          className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
+          className="font-semibold text-secondary hover:text-primary hover:underline"
           href="/archive/driver"
         >
           {currentLanguage === "en"

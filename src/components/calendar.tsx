@@ -62,7 +62,7 @@ const Calendar = () => {
         <div className="mb-7 flex items-center justify-between">
           <button
             aria-label="Previous month"
-            className="rounded-lg border border-bgSecondary p-2 font-sans text-[23px] font-semibold text-primary"
+            className="rounded-lg border border-borderPrimary p-2 font-sans text-[23px] font-semibold text-primary"
             onClick={goToPreviousMonth}
           >
             <svg
@@ -89,7 +89,7 @@ const Calendar = () => {
           </h2>
           <button
             aria-label="Next month"
-            className="rounded-lg border border-bgSecondary p-2 font-sans text-[23px] font-semibold text-primary"
+            className="rounded-lg border border-borderPrimary p-2 font-sans text-[23px] font-semibold text-primary"
             onClick={goToNextMonth}
           >
             <svg

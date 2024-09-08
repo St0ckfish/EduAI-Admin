@@ -101,7 +101,7 @@ const CourseManagement = () => {
                   <div className="flex justify-end text-end">
                     <div className="flex items-start gap-2">
                       {open === index ? (
-                        <div className="flex h-[35px] gap-2 rounded-full bg-white px-1.5 py-1">
+                        <div className="flex h-[35px] gap-2 rounded-full bg-bgPrimary px-1.5 py-1">
                           <button
                             disabled={isDeleting}
                             onClick={() => handleDelete(course.id)}
@@ -139,7 +139,7 @@ const CourseManagement = () => {
                           </Link>
                         </div>
                       ) : (
-                        <div className="invisible flex h-[35px] w-[100px] gap-2 rounded-full bg-white px-3 py-0.5">
+                        <div className="invisible flex h-[35px] w-[100px] gap-2 rounded-full bg-bgPrimary px-3 py-0.5">
                           <button>
                             <svg
                               className="h-6 w-6 text-red-500"

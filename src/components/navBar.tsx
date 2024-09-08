@@ -137,7 +137,7 @@ const NavBar = () => {
     <>
       <header>
         <div>
-          <header className="sticky inset-x-0 top-0 z-[48] flex w-full flex-wrap border-b bg-bgPrimary py-2.5 text-sm dark:border-bgSecondary sm:flex-nowrap sm:justify-start sm:py-4 lg:ps-64">
+          <header className="sticky inset-x-0 top-0 z-[48] flex w-full flex-wrap border-b border-borderPrimary bg-bgPrimary py-2.5 text-sm dark:border-borderPrimary sm:flex-nowrap sm:justify-start sm:py-4 lg:ps-64">
             <nav
               className="mx-auto flex w-full basis-full items-center px-4 sm:px-6"
               aria-label="Global"
@@ -202,7 +202,7 @@ const NavBar = () => {
                       type="text"
                       id="icon"
                       name="icon"
-                      className="block w-full rounded-lg border-2 border-bgSecondary px-4 py-2 ps-11 text-sm outline-none focus:border-primary focus:ring-primary disabled:pointer-events-none disabled:opacity-50"
+                      className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-primary focus:ring-primary disabled:pointer-events-none disabled:opacity-50"
                       placeholder="Search"
                     />
                   </div>
@@ -446,7 +446,7 @@ const NavBar = () => {
               </div>
             </nav>
           </header>
-          <div className="sticky inset-x-0 top-0 z-20 border-y border-bgSecondary bg-bgPrimary px-4 sm:px-6 md:px-8 lg:hidden">
+          <div className="sticky inset-x-0 top-0 z-20 border-y border-borderPrimary bg-bgPrimary px-4 sm:px-6 md:px-8 lg:hidden">
             <div className="flex items-center justify-between py-2">
               <ol className="ms-3 flex items-center whitespace-nowrap">
                 <li className="flex items-center text-sm text-textPrimary">
@@ -474,7 +474,7 @@ const NavBar = () => {
                   OpenSideBar();
                 }}
                 type="button"
-                className="flex items-center justify-center gap-x-1.5 rounded-lg border border-bgSecondary px-3 py-2 text-xs text-gray-500 hover:text-gray-600"
+                className="flex items-center justify-center gap-x-1.5 rounded-lg border border-borderPrimary px-3 py-2 text-xs text-gray-500 hover:text-gray-600"
                 data-hs-overlay="#application-sidebar"
                 aria-controls="application-sidebar"
                 aria-label="Sidebar"
@@ -500,7 +500,7 @@ const NavBar = () => {
           {isOpen && (
             <div
               id="application-sidebar"
-              className={`hs-overlay hs-overlay-open:translate-x-0 transform transition-all duration-300 [--auto-close:lg] ${small ? "w-[90px]" : "w-[260px]"} drop-shadow-2xl lg:drop-shadow-none ${!isOpen ? "w-0" : ""} fixed inset-y-0 start-0 z-[60] border-e border-bgSecondary bg-bgPrimary duration-300 ease-in lg:bottom-0 lg:end-auto lg:block lg:translate-x-0`}
+              className={`hs-overlay hs-overlay-open:translate-x-0 transform transition-all duration-300 [--auto-close:lg] ${small ? "w-[90px]" : "w-[260px]"} drop-shadow-2xl lg:drop-shadow-none ${!isOpen ? "w-0" : ""} fixed inset-y-0 start-0 z-[60] border-e border-borderPrimary bg-bgPrimary duration-300 ease-in lg:bottom-0 lg:end-auto lg:block lg:translate-x-0`}
             >
               <div className="px-8 pt-4">
                 <Link href="/">
@@ -528,7 +528,7 @@ const NavBar = () => {
                     }}
                   >
                     <svg
-                      className="h-8 w-8 text-[#556786]"
+                      className="h-8 w-8 text-secondary"
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
@@ -564,7 +564,7 @@ const NavBar = () => {
                         }}
                       >
                         <svg
-                          className="h-6 w-6 text-[#556786]"
+                          className="h-6 w-6 text-secondary"
                           width="24"
                           height="24"
                           viewBox="0 0 24 24"
@@ -583,11 +583,11 @@ const NavBar = () => {
                   </div>
                   <li>
                     <Link
-                      className={`flex ${small ? "w-[40px]" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-[#526484] hover:bg-bgSecondary hover:text-[#3e5af0]`}
+                      className={`flex ${small ? "w-[40px]" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-secondary hover:bg-bgSecondary hover:text-primary`}
                       href="/"
                     >
                       <svg
-                        className="h-6 w-6 font-sans font-bold text-[#526484] group-hover:text-[#3e5af0]"
+                        className="h-6 w-6 font-sans font-bold text-secondary group-hover:text-primary"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -614,11 +614,11 @@ const NavBar = () => {
                   </li>
                   <li>
                     <Link
-                      className={`flex ${small ? "w-[40px]" : ""} text-md group mt-4 flex items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-[#526484] hover:bg-bgSecondary hover:text-[#3e5af0]`}
+                      className={`flex ${small ? "w-[40px]" : ""} text-md group mt-4 flex items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-secondary hover:bg-bgSecondary hover:text-primary`}
                       href="/search"
                     >
                       <svg
-                        className="h-6 w-6 font-sans font-bold text-[#526484] group-hover:text-[#3e5af0]"
+                        className="h-6 w-6 font-sans font-bold text-secondary group-hover:text-primary"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -646,10 +646,10 @@ const NavBar = () => {
                   <li className="group relative">
                     <button
                       onClick={toggleNavbar2}
-                      className={`flex ${!small ? "w-full" : ""} open text-md mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-[#526484] hover:bg-bgSecondary group-hover:text-[#3e5af0]`}
+                      className={`flex ${!small ? "w-full" : ""} open text-md mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-secondary hover:bg-bgSecondary group-hover:text-primary`}
                     >
                       <svg
-                        className="h-6 w-6 font-sans font-bold text-[#526484] group-hover:text-[#3e5af0]"
+                        className="h-6 w-6 font-sans font-bold text-secondary group-hover:text-primary"
                         width="24"
                         height="24"
                         viewBox="0 0 24 24"
@@ -681,7 +681,7 @@ const NavBar = () => {
                       className={`${small ? "hidden w-[180px] translate-x-5 whitespace-nowrap rounded-xl bg-white p-2 group-hover:grid" : ""} ml-9 mt-2 grid gap-2 text-[14px] font-semibold`}
                       >
                         <Link
-                          className="hover:text-[#3e5af0]"
+                          className="hover:text-primary"
                           href="/user-management"
                         >
                           {currentLanguage === "en"
@@ -695,7 +695,7 @@ const NavBar = () => {
                         </Link>
 
                         <Link
-                          className="hover:text-[#3e5af0]"
+                          className="hover:text-primary"
                           href="/financial-management"
                         >
                           {currentLanguage === "en"
@@ -709,7 +709,7 @@ const NavBar = () => {
                         </Link>
 
                         <Link
-                          className="hover:text-[#3e5af0]"
+                          className="hover:text-primary"
                           href="/organization-setting"
                         >
                           {currentLanguage === "en"
@@ -723,7 +723,7 @@ const NavBar = () => {
                         </Link>
 
                         <Link
-                          className="hover:text-[#3e5af0]"
+                          className="hover:text-primary"
                           href="/document-management"
                         >
                           {currentLanguage === "en"
@@ -736,7 +736,7 @@ const NavBar = () => {
                           {/* Default to English */}
                         </Link>
 
-                        <Link className="hover:text-[#3e5af0]" href="/archive">
+                        <Link className="hover:text-primary" href="/archive">
                           {currentLanguage === "en"
                             ? "Archive"
                             : currentLanguage === "ar"
@@ -751,10 +751,10 @@ const NavBar = () => {
                   </li>
                       <li>
                         <Link
-                          className={`flex ${small ? "w-[40px]" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-[#526484] hover:bg-bgSecondary hover:text-[#3e5af0]`}
+                          className={`flex ${small ? "w-[40px]" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-secondary hover:bg-bgSecondary hover:text-primary`}
                           href="/"
                         >
-                          <svg className="h-6 w-6 font-sans font-bold text-[#526484] group-hover:text-[#3e5af0]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <svg className="h-6 w-6 font-sans font-bold text-secondary group-hover:text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                           </svg>
                           {!small && (
@@ -773,10 +773,10 @@ const NavBar = () => {
                   <li className="group relative">
                     <button
                       onClick={toggleNavbar3}
-                      className={`flex ${!small ? "w-full" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-[#526484] hover:bg-bgSecondary hover:text-[#3e5af0]`}
+                      className={`flex ${!small ? "w-full" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-secondary hover:bg-bgSecondary hover:text-primary`}
                     >
                       <svg
-                        className="h-6 w-6 font-sans font-bold text-[#526484] group-hover:text-[#3e5af0]"
+                        className="h-6 w-6 font-sans font-bold text-secondary group-hover:text-primary"
                         width="24"
                         height="24"
                         viewBox="0 0 24 24"
@@ -813,7 +813,7 @@ const NavBar = () => {
                       <ul
                         className={`${small ? "hidden w-[180px] translate-x-5 whitespace-nowrap rounded-xl bg-white p-2 group-hover:grid" : ""} ml-9 mt-2 grid gap-2 text-[14px] font-semibold`}
                       >
-                        <Link className="hover:text-[#3e5af0]" href="/course">
+                        <Link className="hover:text-primary" href="/course">
                           {currentLanguage === "en"
                             ? "Course and Resource"
                             : currentLanguage === "ar"
@@ -825,7 +825,7 @@ const NavBar = () => {
                         </Link>
 
                         <Link
-                          className="hover:text-[#3e5af0]"
+                          className="hover:text-primary"
                           href="/educational-affairs"
                         >
                           {currentLanguage === "en"
@@ -844,10 +844,10 @@ const NavBar = () => {
                   <li className="group relative">
                     <button
                       onClick={toggleNavbar4}
-                      className={`flex ${!small ? "w-full" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-[#526484] hover:bg-bgSecondary hover:text-[#3e5af0]`}
+                      className={`flex ${!small ? "w-full" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-secondary hover:bg-bgSecondary hover:text-primary`}
                     >
                       <svg
-                        className="h-6 w-6 font-sans font-bold text-[#526484] group-hover:text-[#3e5af0]"
+                        className="h-6 w-6 font-sans font-bold text-secondary group-hover:text-primary"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -877,7 +877,7 @@ const NavBar = () => {
                         className={`${small ? "hidden w-[180px] translate-x-5 whitespace-nowrap rounded-xl bg-white p-2 group-hover:grid" : ""} ml-9 mt-2 grid gap-2 text-[14px] font-semibold`}
                       >
                         <Link
-                          className="hover:text-[#3e5af0]"
+                          className="hover:text-primary"
                           href="/infrastructure"
                         >
                           {currentLanguage === "en"
@@ -891,7 +891,7 @@ const NavBar = () => {
                         </Link>
 
                         <Link
-                          className="hover:text-[#3e5af0]"
+                          className="hover:text-primary"
                           href="/attendances"
                         >
                           {currentLanguage === "en"
@@ -909,10 +909,10 @@ const NavBar = () => {
                   <li className="group relative">
                     <button
                       onClick={toggleNavbar5}
-                      className={`flex ${!small ? "w-full" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-[#526484] hover:bg-bgSecondary hover:text-[#3e5af0]`}
+                      className={`flex ${!small ? "w-full" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-secondary hover:bg-bgSecondary hover:text-primary`}
                     >
                       <svg
-                        className="h-6 w-6 font-sans font-bold text-[#526484] group-hover:text-[#3e5af0]"
+                        className="h-6 w-6 font-sans font-bold text-secondary group-hover:text-primary"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -941,7 +941,7 @@ const NavBar = () => {
                         className={`${small ? "hidden w-[180px] translate-x-5 whitespace-nowrap rounded-xl bg-white p-2 group-hover:grid" : ""} ml-9 mt-2 grid gap-2 text-[14px] font-semibold`}
                       >
                         <Link
-                          className="hover:text-[#3e5af0]"
+                          className="hover:text-primary"
                           href="/post-management/news"
                         >
                           {currentLanguage === "en"
@@ -955,7 +955,7 @@ const NavBar = () => {
                         </Link>
 
                         <Link
-                          className="hover:text-[#3e5af0]"
+                          className="hover:text-primary"
                           href="/post-management"
                         >
                           {currentLanguage === "en"
@@ -968,7 +968,7 @@ const NavBar = () => {
                           {/* Default to English */}
                         </Link>
 
-                        <Link className="hover:text-[#3e5af0]" href="/notifies">
+                        <Link className="hover:text-primary" href="/notifies">
                           {currentLanguage === "en"
                             ? "Notifies"
                             : currentLanguage === "ar"

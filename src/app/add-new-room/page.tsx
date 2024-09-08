@@ -105,7 +105,7 @@ const AddNewRoom = () => {
             <div className="flex justify-center text-center">
               <button
                 type="submit"
-                className="w-[140px] rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
               >
                 Add Room
               </button>

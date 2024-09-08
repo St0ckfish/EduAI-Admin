@@ -320,7 +320,7 @@ const Dashboard: React.FC = () => {
               <div className="grid justify-center">
                 <button
                   onClick={handleOpenModal}
-                  className="mr-3 w-[120px] whitespace-nowrap rounded-xl bg-primary px-1 py-1.5 text-[14px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                  className="mr-3 w-[120px] whitespace-nowrap rounded-xl bg-primary px-1 py-1.5 text-[14px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                 >
                   + New Event
                 </button>
@@ -422,7 +422,7 @@ const Dashboard: React.FC = () => {
               type="number"
               {...register("creatorId")}
               placeholder="Creator ID"
-              className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {errors.creatorId && (
               <p className="text-red-500">
@@ -437,7 +437,7 @@ const Dashboard: React.FC = () => {
               type="datetime-local"
               {...register("startTime")}
               placeholder="Start Time"
-              className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {errors.startTime && (
               <p className="text-red-500">
@@ -452,7 +452,7 @@ const Dashboard: React.FC = () => {
               type="datetime-local"
               {...register("endTime")}
               placeholder="End Time"
-              className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {errors.endTime && (
               <p className="text-red-500">{errors.endTime.message as string}</p>
@@ -465,7 +465,7 @@ const Dashboard: React.FC = () => {
               type="text"
               {...register("title_en")}
               placeholder="Title (English)"
-              className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {errors.title_en && (
               <p className="text-red-500">
@@ -480,7 +480,7 @@ const Dashboard: React.FC = () => {
               type="text"
               {...register("title_ar")}
               placeholder="Title (Arabic)"
-              className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {errors.title_ar && (
               <p className="text-red-500">
@@ -495,7 +495,7 @@ const Dashboard: React.FC = () => {
               type="text"
               {...register("title_fr")}
               placeholder="Title (French)"
-              className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {errors.title_fr && (
               <p className="text-red-500">
@@ -509,7 +509,7 @@ const Dashboard: React.FC = () => {
             <input
               {...register("description_en")}
               placeholder="Description (English)"
-              className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {errors.description_en && (
               <p className="text-red-500">
@@ -523,7 +523,7 @@ const Dashboard: React.FC = () => {
             <input
               {...register("description_ar")}
               placeholder="Description (Arabic)"
-              className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {errors.description_ar && (
               <p className="text-red-500">
@@ -537,7 +537,7 @@ const Dashboard: React.FC = () => {
             <input
               {...register("description_fr")}
               placeholder="Description (French)"
-              className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {errors.description_fr && (
               <p className="text-red-500">
@@ -551,7 +551,7 @@ const Dashboard: React.FC = () => {
             <input
               type="file"
               {...register("file")}
-              className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {errors.file && (
               <p className="text-red-500">{errors.file.message as string}</p>
@@ -561,13 +561,13 @@ const Dashboard: React.FC = () => {
           <div className="flex justify-between">
             <button
               type="submit"
-              className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+              className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               Add
             </button>
             <button
               onClick={handleCloseModal}
-              className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-[#e44949] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#af4747] hover:shadow-xl"
+              className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-error px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-warning hover:shadow-xl"
             >
               Cancel
             </button>

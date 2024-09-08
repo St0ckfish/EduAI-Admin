@@ -112,7 +112,7 @@ const Parent = () => {
         className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} ml-7 mt-12 flex-wrap text-[18px] max-[550px]:text-[15px]`}
       >
         <Link
-          className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
+          className="font-semibold text-secondary hover:text-primary hover:underline"
           href="/"
         >
           Administration
@@ -127,7 +127,7 @@ const Parent = () => {
           <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
         </svg>
         <Link
-          className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
+          className="font-semibold text-secondary hover:text-primary hover:underline"
           href="/archive"
         >
           Archive
@@ -142,7 +142,7 @@ const Parent = () => {
           <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
         </svg>
         <Link
-          className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
+          className="font-semibold text-secondary hover:text-primary hover:underline"
           href="/archive/parent"
         >
           Parent
@@ -187,7 +187,7 @@ const Parent = () => {
           <div className="flex justify-center">
             <Link
               href="/add-new-parent"
-              className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+              className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               + Add new Parent
             </Link>
@@ -203,7 +203,7 @@ const Parent = () => {
                     <input
                       id="checkbox-all-search"
                       type="checkbox"
-                      className="-gray-800 h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500"
+                      className="-gray-800 h-4 w-4 rounded border-borderPrimary bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500"
                       onChange={handleSelectAll}
                     />
                   </div>

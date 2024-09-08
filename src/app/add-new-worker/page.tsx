@@ -81,7 +81,7 @@ const AddNewWorker = () => {
                 {...register("username", { required: true })}
               />
               {errors.username && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -96,7 +96,7 @@ const AddNewWorker = () => {
                 {...register("email", { required: true })}
               />
               {errors.email && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -111,7 +111,7 @@ const AddNewWorker = () => {
                 {...register("password", { required: true })}
               />
               {errors.password && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -126,7 +126,7 @@ const AddNewWorker = () => {
                 {...register("nid", { required: true })}
               />
               {errors.nid && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -146,7 +146,7 @@ const AddNewWorker = () => {
                 <option value="FEMALE">Female </option>
               </select>
               {errors.gender && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -167,7 +167,7 @@ const AddNewWorker = () => {
                 <option value="OTHERS">Others </option>
               </select>
               {errors.religion && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
           </div>
@@ -191,7 +191,7 @@ const AddNewWorker = () => {
                   ))}
               </select>
               {errors.nationality && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -203,7 +203,7 @@ const AddNewWorker = () => {
                 defaultValue=""
                 id="regionId"
                 {...register("regionId", { required: true })}
-                className={`border ${errors.regionId ? "border-[#d74f41]" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-[18px] text-[#000000] outline-none max-[458px]:w-[350px]`}
+                className={`border ${errors.regionId ? "border-warning" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-[18px] text-[#000000] outline-none max-[458px]:w-[350px]`}
               >
                 <option selected value="">
                   Select Region Id{" "}
@@ -237,7 +237,7 @@ const AddNewWorker = () => {
                   )}
               </select>
               {errors.regionId && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -252,7 +252,7 @@ const AddNewWorker = () => {
                 {...register("name_en", { required: true })}
               />
               {errors.name_en && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -267,7 +267,7 @@ const AddNewWorker = () => {
                 {...register("name_ar", { required: true })}
               />
               {errors.name_ar && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -282,7 +282,7 @@ const AddNewWorker = () => {
                 {...register("name_fr", { required: true })}
               />
               {errors.name_fr && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -297,7 +297,7 @@ const AddNewWorker = () => {
                 {...register("about", { required: true })}
               />
               {errors.about && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -312,7 +312,7 @@ const AddNewWorker = () => {
                 {...register("birthDate", { required: true })}
               />
               {errors.birthDate && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -336,7 +336,7 @@ const AddNewWorker = () => {
                 <option value="DOCTORATE_DEGREE">Doctorate Degree </option>
               </select>
               {errors.qualification && (
-                <span className="text-[18px] text-[#e81123]">
+                <span className="text-[18px] text-error">
                   Qualification is Required
                 </span>
               )}
@@ -355,7 +355,7 @@ const AddNewWorker = () => {
                 {...register("hireDate", { required: true })}
               />
               {errors.hireDate && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -370,7 +370,7 @@ const AddNewWorker = () => {
                 {...register("number", { required: true })}
               />
               {errors.number && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -385,7 +385,7 @@ const AddNewWorker = () => {
                 {...register("positionId", { required: true })}
               />
               {errors.positionId && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -400,7 +400,7 @@ const AddNewWorker = () => {
                 {...register("salary", { required: true })}
               />
               {errors.salary && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
           </div>
@@ -408,7 +408,7 @@ const AddNewWorker = () => {
             <button
               disabled={isLoading}
               type="submit"
-              className="w-[180px] rounded-xl bg-hover px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+              className="w-[180px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               {isLoading ? " Adding..." : "Add Worker"}
             </button>

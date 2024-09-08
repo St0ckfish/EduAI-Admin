@@ -15,13 +15,13 @@ const DynamicPartition: React.FC<DynamicPartitionProps> = ({ percentage }) => {
     <>
       <div className="relative h-[250px] w-[250px]">
         {/* Full circle background */}
-        <div className="absolute h-full w-full rounded-full bg-[#526484]"></div>
+        <div className="absolute h-full w-full rounded-full bg-secondary"></div>
 
         {/* Dynamic partition */}
         <div
           className="clip-circle absolute h-full w-full rounded-full"
           style={{
-            backgroundImage: `conic-gradient(#3E5AF0 ${angle}deg, transparent 0deg)`,
+            backgroundImage: `conic-gradient(primary ${angle}deg, transparent 0deg)`,
           }}
         ></div>
       </div>

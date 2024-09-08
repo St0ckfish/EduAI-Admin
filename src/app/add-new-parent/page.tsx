@@ -138,7 +138,7 @@ const AddNewParent = () => {
                 {...register("username", { required: true })}
               />
               {errors.username && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -153,7 +153,7 @@ const AddNewParent = () => {
                 {...register("email", { required: true })}
               />
               {errors.email && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -168,7 +168,7 @@ const AddNewParent = () => {
                 {...register("password", { required: true })}
               />
               {errors.password && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -183,7 +183,7 @@ const AddNewParent = () => {
                 {...register("nid", { required: true })}
               />
               {errors.nid && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -201,7 +201,7 @@ const AddNewParent = () => {
                 <option value="FEMALE">Female</option>
               </select>
               {errors.gender && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -220,7 +220,7 @@ const AddNewParent = () => {
                 <option value="OTHERS">Others</option>
               </select>
               {errors.religion && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -242,7 +242,7 @@ const AddNewParent = () => {
                   ))}
               </select>
               {errors.nationality && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -254,7 +254,7 @@ const AddNewParent = () => {
                 defaultValue=""
                 id="regionId"
                 {...register("regionId", { required: true })}
-                className={`border ${errors.regionId ? "border-[#d74f41]" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-[18px] text-[#000000] outline-none max-[458px]:w-[350px]`}
+                className={`border ${errors.regionId ? "border-warning" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-[18px] text-[#000000] outline-none max-[458px]:w-[350px]`}
               >
                 <option value="">Select Region Id</option>
                 {rigiond &&
@@ -265,7 +265,7 @@ const AddNewParent = () => {
                   ))}
               </select>
               {errors.regionId && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -280,7 +280,7 @@ const AddNewParent = () => {
                 {...register("name_en", { required: true })}
               />
               {errors.name_en && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -295,7 +295,7 @@ const AddNewParent = () => {
                 {...register("name_ar", { required: true })}
               />
               {errors.name_ar && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -310,7 +310,7 @@ const AddNewParent = () => {
                 {...register("name_fr", { required: true })}
               />
               {errors.name_fr && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -325,7 +325,7 @@ const AddNewParent = () => {
                 {...register("about", { required: true })}
               />
               {errors.about && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -340,7 +340,7 @@ const AddNewParent = () => {
                 {...register("occupation_en", { required: true })}
               />
               {errors.occupation_en && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -355,7 +355,7 @@ const AddNewParent = () => {
                 {...register("occupation_ar", { required: true })}
               />
               {errors.occupation_ar && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -370,7 +370,7 @@ const AddNewParent = () => {
                 {...register("occupation_fr", { required: true })}
               />
               {errors.occupation_fr && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -385,7 +385,7 @@ const AddNewParent = () => {
                 {...register("birthDate", { required: true })}
               />
               {errors.birthDate && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
 
@@ -401,7 +401,7 @@ const AddNewParent = () => {
                 {...register("number", { required: true })}
               />
               {errors.number && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -416,7 +416,7 @@ const AddNewParent = () => {
                 {...register("schoolId", { required: true })}
               />
               {errors.schoolId && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
           </div>
@@ -434,7 +434,7 @@ const AddNewParent = () => {
                 {...register("student_username", { required: true })}
               />
               {errors.student_username && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -449,7 +449,7 @@ const AddNewParent = () => {
                 {...register("student_email", { required: true })}
               />
               {errors.student_email && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -464,7 +464,7 @@ const AddNewParent = () => {
                 {...register("student_password", { required: true })}
               />
               {errors.student_password && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -479,7 +479,7 @@ const AddNewParent = () => {
                 {...register("student_nid", { required: true })}
               />
               {errors.student_nid && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -497,7 +497,7 @@ const AddNewParent = () => {
                 <option value="FEMALE">Female</option>
               </select>
               {errors.student_gender && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -512,7 +512,7 @@ const AddNewParent = () => {
                 {...register("student_birthDate", { required: true })}
               />
               {errors.student_birthDate && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -527,7 +527,7 @@ const AddNewParent = () => {
                 {...register("student_name_en", { required: true })}
               />
               {errors.student_name_en && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -542,7 +542,7 @@ const AddNewParent = () => {
                 {...register("student_name_ar", { required: true })}
               />
               {errors.student_name_ar && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -557,7 +557,7 @@ const AddNewParent = () => {
                 {...register("student_name_fr", { required: true })}
               />
               {errors.student_name_fr && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -572,7 +572,7 @@ const AddNewParent = () => {
                 {...register("student_about", { required: true })}
               />
               {errors.student_about && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -587,7 +587,7 @@ const AddNewParent = () => {
                 {...register("relationshipToStudent", { required: true })}
               />
               {errors.relationshipToStudent && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -602,7 +602,7 @@ const AddNewParent = () => {
                 {...register("studyLevel", { required: true })}
               />
               {errors.studyLevel && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -617,7 +617,7 @@ const AddNewParent = () => {
                 {...register("eduSystemId", { required: true })}
               />
               {errors.eduSystemId && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">This field is required</span>
               )}
             </label>
             <label
@@ -676,7 +676,7 @@ const AddNewParent = () => {
             <button
               disabled={isLoading}
               type="submit"
-              className="w-[180px] rounded-xl bg-hover px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+              className="w-[180px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               {isLoading ? " Adding..." : "Add Parent"}
             </button>
