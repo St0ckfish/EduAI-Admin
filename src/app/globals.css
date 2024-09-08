@@ -18,6 +18,8 @@ body {
   --success: #2e7d31;
   --info: #09c2de;
   --border-primary: #d9d9d9;
+  --thead: #daeafb;
+  --black-or-white: black;
 }
 
 .dark {
@@ -31,4 +33,38 @@ body {
   --success: #1ac877;
   --info: #34e4b5;
   --border-primary: #2a2d32;
+  --thead: #071f3a;
+  --black-or-white: white;
+}
+
+/* Chart */
+
+div.apexcharts-menu.apexcharts-menu-open {
+  background-color: var(--bg-primary);
+  border: var(--border-primary) 1px solid;
+}
+
+div.apexcharts-menu.apexcharts-menu-open > div:hover {
+  background-color: var(--bg-secondary);
+}
+
+div.apexcharts-tooltip.apexcharts-active,
+div.apexcharts-tooltip.apexcharts-active.apexcharts-tooltip-title {
+  background-color: var(--bg-primary) !important;
+  border: var(--border-primary) 1px solid;
+}
+
+div.apexcharts-tooltip-title {
+  background-color: transparent !important;
+  border: var(--border-primary) 1px solid;
+}
+
+.apexcharts-tooltip.apexcharts-theme-light .apexcharts-tooltip-title {
+  border-bottom: var(--border-primary) 1px solid !important;
+}
+
+div.apexcharts-xaxistooltip.apexcharts-xaxistooltip-bottom.apexcharts-theme-light {
+  background-color: var(--bg-primary) !important;
+  border: var(--border-primary) 1px solid !important;
+  color: var(--secondary) !important;
 }

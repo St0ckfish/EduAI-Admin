@@ -25,6 +25,8 @@ const config: Config = {
         info: "var(--info)",
         borderPrimary: "var(--border-primary)",
         hover: "#4a5cc5",
+        thead: "var(--thead)",
+        blackOrWhite: "var(--black-or-white)",
       },
     },
   },

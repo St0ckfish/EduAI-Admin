@@ -6,6 +6,7 @@ import Spinner from "@/components/spinner";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import TextEditor from "@/components/textEditor";
+
 //
 
 const SendNotifications = () => {
@@ -52,7 +53,7 @@ const SendNotifications = () => {
     <>
       <div className="ml-7 mt-12 flex flex-wrap items-center gap-1 lg:ml-[290px]">
         <Link
-          className="text-[18px] font-semibold text-[#526484] hover:text-blue-400 hover:underline"
+          className="text-[18px] font-semibold text-secondary hover:text-blue-400 hover:underline"
           href="/"
         >
           Communications
@@ -67,7 +68,7 @@ const SendNotifications = () => {
           <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
         </svg>
         <Link
-          className="text-[18px] font-semibold text-[#526484] hover:text-blue-400 hover:underline"
+          className="text-[18px] font-semibold text-secondary hover:text-blue-400 hover:underline"
           href="/notifies"
         >
           Notifies
@@ -82,14 +83,14 @@ const SendNotifications = () => {
           <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
         </svg>
         <Link
-          className="text-[18px] font-semibold text-[#526484] hover:text-blue-400 hover:underline"
+          className="text-[18px] font-semibold text-secondary hover:text-blue-400 hover:underline"
           href="/send-notifications"
         >
           Send Notifications
         </Link>
       </div>
       <div className="mt-12 flex gap-10 max-[1500px]:grid lg:ml-[290px]">
-        <div className="grid h-full w-full items-center gap-3 rounded-xl bg-white p-5">
+        <div className="grid h-full w-full items-center gap-3 rounded-xl bg-bgPrimary p-5">
           {roleOptions.map(role => (
             <label
               key={role}
@@ -123,7 +124,7 @@ const SendNotifications = () => {
             </label>
           ))}
         </div>
-        <div className="grid h-full w-full items-center gap-3 rounded-xl bg-white p-5">
+        <div className="grid h-full w-full items-center gap-3 rounded-xl bg-bgPrimary p-5">
           <div className="mb-5 flex w-full justify-start">
             <h1 className="text-[22px] font-semibold">Send Notifications</h1>
           </div>
@@ -135,7 +136,7 @@ const SendNotifications = () => {
               >
                 Title
                 <input
-                  className="rounded-xl border border-gray-200 px-4 py-2 outline-none"
+                  className="rounded-xl border border-borderPrimary px-4 py-2 outline-none"
                   placeholder="Write title...."
                   name="title"
                   id="title"
@@ -148,7 +149,7 @@ const SendNotifications = () => {
                 htmlFor="description"
               >
                 Description
-                <div className="mb-5 bg-[#ffffff]">
+                <div className="mb-5 bg-bgPrimary">
                   <TextEditor
                     value={description}
                     onChange={setDescription}
@@ -162,7 +163,7 @@ const SendNotifications = () => {
                 ) : (
                   <button
                     type="submit"
-                    className="mb-5 mr-3 flex items-center gap-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                    className="mb-5 mr-3 flex items-center gap-2 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                   >
                     <svg
                       className="h-7 w-7 text-white"

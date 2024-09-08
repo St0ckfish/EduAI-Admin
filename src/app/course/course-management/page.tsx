@@ -71,7 +71,7 @@ const CourseManagement = () => {
                 type="text"
                 id="icon"
                 name="icon"
-                className="block w-full rounded-lg border-2 border-gray-200 px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
+                className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
                 placeholder="Search"
               />
             </div>
@@ -79,7 +79,7 @@ const CourseManagement = () => {
           <div className="flex justify-center">
             <Link
               href="/course/course-management/add-course"
-              className="mb-5 mr-3 whitespace-nowrap rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+              className="mb-5 mr-3 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               + Add New Course
             </Link>
@@ -95,13 +95,13 @@ const CourseManagement = () => {
             .map((course: Course, index: number) => (
               <div
                 key={course.id}
-                className="grid gap-2 rounded-lg bg-white p-2"
+                className="grid gap-2 rounded-lg bg-bgPrimary p-2"
               >
-                <div className="grid h-[220px] rounded-xl bg-[#f4bd0e] p-2 text-[25px] font-bold text-white">
+                <div className="grid h-[220px] rounded-xl bg-[#f4bd0e] p-2 text-[25px] font-bold text-textPrimary">
                   <div className="flex justify-end text-end">
                     <div className="flex items-start gap-2">
                       {open === index ? (
-                        <div className="flex h-[35px] gap-2 rounded-full bg-white px-1.5 py-1">
+                        <div className="flex h-[35px] gap-2 rounded-full bg-bgPrimary px-1.5 py-1">
                           <button
                             disabled={isDeleting}
                             onClick={() => handleDelete(course.id)}
@@ -139,7 +139,7 @@ const CourseManagement = () => {
                           </Link>
                         </div>
                       ) : (
-                        <div className="invisible flex h-[35px] w-[100px] gap-2 rounded-full bg-white px-3 py-0.5">
+                        <div className="invisible flex h-[35px] w-[100px] gap-2 rounded-full bg-bgPrimary px-3 py-0.5">
                           <button>
                             <svg
                               className="h-6 w-6 text-red-500"
@@ -201,7 +201,7 @@ const CourseManagement = () => {
                 </div>
                 <div className="grid gap-2 font-semibold">
                   <h1>{course.level}</h1>
-                  <p className="text-[12px] text-[#526484]">
+                  <p className="text-[12px] text-secondary">
                     {course.description}{" "}
                   </p>
                 </div>
@@ -213,10 +213,10 @@ const CourseManagement = () => {
                   />
                   {course.eduSystemName}
                 </div>
-                <div className="flex justify-evenly border-t border-gray-300 p-1">
+                <div className="flex justify-evenly border-t border-borderPrimary p-1">
                   <div className="flex items-center gap-2">
                     <svg
-                      className="h-6 w-6 text-gray-500"
+                      className="h-6 w-6 text-textSecondary"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -230,11 +230,11 @@ const CourseManagement = () => {
                       <path d="M23 21v-2a4 4 0 0 0-3-3.87" />{" "}
                       <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                     </svg>
-                    <p className="font-semibold text-gray-500">30</p>
+                    <p className="font-semibold text-textSecondary">30</p>
                   </div>
                   <div className="flex items-center gap-2">
                     <svg
-                      className="h-6 w-6 text-gray-500"
+                      className="h-6 w-6 text-textSecondary"
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
@@ -252,11 +252,11 @@ const CourseManagement = () => {
                       <line x1="4" y1="11" x2="20" y2="11" />{" "}
                       <line x1="10" y1="16" x2="14" y2="16" />
                     </svg>
-                    <p className="font-semibold text-gray-500">2024</p>
+                    <p className="font-semibold text-textSecondary">2024</p>
                   </div>
                   <div className="flex items-center gap-2">
                     <svg
-                      className="h-6 w-6 text-gray-500"
+                      className="h-6 w-6 text-textSecondary"
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
@@ -271,7 +271,7 @@ const CourseManagement = () => {
                       <circle cx="12" cy="11" r="3" />{" "}
                       <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 0 1 -2.827 0l-4.244-4.243a8 8 0 1 1 11.314 0z" />
                     </svg>
-                    <p className="font-semibold text-gray-500">30</p>
+                    <p className="font-semibold text-textSecondary">30</p>
                   </div>
                 </div>
               </div>

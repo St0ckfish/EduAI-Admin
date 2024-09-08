@@ -3,6 +3,11 @@ import Card from "@/components/card";
 import { RootState } from "@/GlobalRedux/store";
 import Link from "next/link";
 import { useSelector } from "react-redux";
+import { AiOutlineCalendar } from 'react-icons/ai'; // Events Icon
+import { FaClipboardList } from 'react-icons/fa';   // Exams Icon
+import { FaRegChartBar } from 'react-icons/fa';     // Grades Icon
+import { BsCalendar } from 'react-icons/bs';        // Schedule Icon
+
 
 const EducationalAffairs = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
@@ -13,7 +18,7 @@ const EducationalAffairs = () => {
   const Educations = [
     {
       href: "/educational-affairs/events",
-      imgSrc: "/images/events.png",
+      icon: <AiOutlineCalendar size={40} />,
       title:
         currentLanguage === "en"
           ? "Events"
@@ -33,7 +38,7 @@ const EducationalAffairs = () => {
     },
     {
       href: "/educational-affairs/exams",
-      imgSrc: "/images/exams.png",
+      icon: <FaClipboardList size={40} />,
       title:
         currentLanguage === "en"
           ? "Exams"
@@ -53,7 +58,7 @@ const EducationalAffairs = () => {
     },
     {
       href: "/educational-affairs/grads",
-      imgSrc: "/images/grads.png",
+      icon: <FaRegChartBar size={40} />,
       title:
         currentLanguage === "en"
           ? "Grades"
@@ -73,7 +78,7 @@ const EducationalAffairs = () => {
     },
     {
       href: "/educational-affairs/schedule",
-      imgSrc: "/images/schedual.png",
+      icon: <BsCalendar size={40} />,
       title:
         currentLanguage === "en"
           ? "Schedule"
@@ -98,7 +103,7 @@ const EducationalAffairs = () => {
         className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} ml-7 mt-12 flex-wrap`}
       >
         <Link
-          className="text-[18px] font-semibold text-[#526484] hover:text-blue-400 hover:underline"
+          className="text-[18px] font-semibold text-secondary hover:text-blue-400 hover:underline"
           href="/"
         >
           {currentLanguage === "en"
@@ -120,7 +125,7 @@ const EducationalAffairs = () => {
           <path d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
         </svg>
         <Link
-          className="text-[18px] font-semibold text-[#526484] hover:text-blue-400 hover:underline"
+          className="text-[18px] font-semibold text-secondary hover:text-blue-400 hover:underline"
           href="/educational-affairs"
         >
           {currentLanguage === "en"
@@ -141,7 +146,7 @@ const EducationalAffairs = () => {
             <Card
               key={index}
               href={item.href}
-              imgSrc={item.imgSrc}
+              icon={item.icon}
               title={item.title}
               description={item.description}
             />

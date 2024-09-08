@@ -159,7 +159,7 @@ const Office = () => {
                 type="text"
                 id="icon"
                 name="icon"
-                className="block w-full rounded-lg border-2 border-gray-200 px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
+                className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-b border-borderPrimarylue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
                 placeholder="Search"
               />
             </div>
@@ -167,22 +167,22 @@ const Office = () => {
           <div className="flex justify-center">
             <Link
               href="/infrastructure/office/add-office"
-              className="mb-5 mr-3 w-[210px] whitespace-nowrap rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+              className="mb-5 mr-3 w-[210px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-secondary hover:shadow-xl"
             >
               + New Office
             </Link>
           </div>
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
-          <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
-            <thead className="bg-[#daeafb] text-xs uppercase text-gray-700">
+          <table className="w-full overflow-x-auto text-left text-sm text-bgSecondary0 rtl:text-right">
+            <thead className="bg-thead text-xs uppercase text-textPrimary">
               <tr>
                 <th scope="col" className="p-4">
                   <div className="flex items-center">
                     <input
                       id="checkbox-all-search"
                       type="checkbox"
-                      className="-gray-800 h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500"
+                      className="-gray-800 h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary focus:ring-2 focus:ring-blue-500"
                       onChange={handleSelectAll}
                     />
                   </div>
@@ -229,7 +229,7 @@ const Office = () => {
                 .map((bus: Bus, index: number) => (
                   <tr
                     key={index}
-                    className="border-b bg-white hover:bg-gray-50"
+                    className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary"
                   >
                     <td className="w-4 p-4">
                       <div className="flex items-center">
@@ -268,7 +268,7 @@ const Office = () => {
                     <td className="whitespace-nowrap px-6 py-4">
                       <button
                         onClick={() => handleDelete(bus.roomId)}
-                        className="rounded-lg bg-red-500 px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+                        className="rounded-lg bg-error px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
                       >
                         Delete
                       </button>

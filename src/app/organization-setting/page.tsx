@@ -4,6 +4,10 @@ import Card from "@/components/card";
 import { RootState } from "@/GlobalRedux/store";
 import Link from "next/link";
 import { useSelector } from "react-redux";
+import { RiFileList2Line } from "react-icons/ri"; // Report
+import { AiOutlineSafetyCertificate } from "react-icons/ai"; // Permission
+import { FaCalendarAlt, FaUmbrellaBeach } from "react-icons/fa"; // Semester, Annual Leave
+import { MdBusiness, MdWorkOutline } from "react-icons/md"; // Department, Position
 
 const OrganizationSettings = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
@@ -14,7 +18,7 @@ const OrganizationSettings = () => {
   const settings = [
     {
       href: "/organization-setting/reports",
-      imgSrc: "/images/reports.png",
+      icon: <RiFileList2Line size={40} />,
       title:
         currentLanguage === "en"
           ? "Reports"
@@ -34,7 +38,7 @@ const OrganizationSettings = () => {
     },
     {
       href: "/organization-setting/permissions/department-permission",
-      imgSrc: "/images/permetions.png",
+      icon: <AiOutlineSafetyCertificate size={40} />,
       title:
         currentLanguage === "en"
           ? "Permission"
@@ -54,7 +58,7 @@ const OrganizationSettings = () => {
     },
     {
       href: "/organization-setting/semester",
-      imgSrc: "/images/Semester.png",
+      icon: <FaCalendarAlt size={40} />,
       title:
         currentLanguage === "en"
           ? "Semester"
@@ -74,7 +78,7 @@ const OrganizationSettings = () => {
     },
     {
       href: "/organization-setting/department",
-      imgSrc: "/images/exams.png",
+      icon: <MdBusiness size={40} />,
       title:
         currentLanguage === "en"
           ? "Department"
@@ -94,7 +98,7 @@ const OrganizationSettings = () => {
     },
     {
       href: "/organization-setting/position",
-      imgSrc: "/images/user.png",
+      icon: <MdWorkOutline size={40} />,
       title:
         currentLanguage === "en"
           ? "Position"
@@ -114,7 +118,7 @@ const OrganizationSettings = () => {
     },
     {
       href: "/organization-setting/annual",
-      imgSrc: "/images/events.png",
+      icon: <FaUmbrellaBeach size={40} />,
       title:
         currentLanguage === "en"
           ? "Annual Leave"
@@ -182,7 +186,7 @@ const OrganizationSettings = () => {
             <Card
               key={index}
               href={item.href}
-              imgSrc={item.imgSrc}
+              icon={item.icon}
               title={item.title}
               description={item.description}
             />

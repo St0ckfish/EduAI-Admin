@@ -127,7 +127,7 @@ const Pagination: React.FC<PaginationProps> = ({
         padding: "0.5rem 1.5rem",
         color: "#1A202C",
       }}
-      className="mt-4 rounded-lg bg-bgPrimary"
+      className="mt-4 rounded-lg bg-thead"
     >
       <div
         style={{ display: "flex", alignItems: "center", gap: "1rem" }}
@@ -152,7 +152,7 @@ const Pagination: React.FC<PaginationProps> = ({
             padding: "0.75rem",
             outline: "none",
           }}
-          className="rounded-xl text-textPrimary"
+          className="rounded-xl border-borderPrimary text-textPrimary"
           value={elementsPerPage}
           onChange={e => onChangeElementsPerPage(Number(e.target.value))}
         >

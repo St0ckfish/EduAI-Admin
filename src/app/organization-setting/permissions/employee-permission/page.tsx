@@ -72,7 +72,7 @@ const EmployeePermission = () => {
         className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} ml-7 mt-12 flex-wrap text-[18px] max-[550px]:text-[15px]`}
       >
         <Link
-          className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
+          className="font-semibold text-secondary hover:text-primary hover:underline"
           href="/"
         >
           Administration
@@ -87,7 +87,7 @@ const EmployeePermission = () => {
           <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
         </svg>
         <Link
-          className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
+          className="font-semibold text-secondary hover:text-primary hover:underline"
           href="/document-management"
         >
           Organization Settings
@@ -102,7 +102,7 @@ const EmployeePermission = () => {
           </Link>
           <Link
             href="/organization-setting/permissions/employee-permission"
-            className="text-blue-500 underline"
+            className="text-primary underline"
           >
             Employee
           </Link>
@@ -135,7 +135,7 @@ const EmployeePermission = () => {
                 type="text"
                 id="icon"
                 name="icon"
-                className="block w-full rounded-lg border-2 border-gray-200 px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
+                className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-primary focus:ring-primary disabled:pointer-events-none disabled:opacity-50"
                 placeholder="Search"
               />
             </div>
@@ -143,7 +143,7 @@ const EmployeePermission = () => {
           <div className="flex justify-center">
             <Link
               href="/organization-setting/permissions/add/employee"
-              className="mb-5 mr-3 whitespace-nowrap rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+              className="mb-5 mr-3 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               + Add Employee Permissions
             </Link>
@@ -151,7 +151,7 @@ const EmployeePermission = () => {
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
           <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
-            <thead className="bg-[#daeafb] text-xs uppercase text-gray-700">
+            <thead className="bg-thead text-xs uppercase text-textPrimary">
               <tr>
                 <th scope="col" className="p-4">
                   <div className="flex items-center">
@@ -159,7 +159,7 @@ const EmployeePermission = () => {
                     <input
                       id="checkbox-all-search"
                       type="checkbox"
-                      className="-gray-800 h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500"
+                      className="-gray-800 h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-primary"
                       onChange={handleSelectAll}
                     />
                   </div>
@@ -202,14 +202,14 @@ const EmployeePermission = () => {
                 .map((employeePermission: EmployeePermission) => (
                   <tr
                     key={employeePermission.id}
-                    className="border-b bg-white hover:bg-gray-50"
+                    className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary"
                   >
                     <td className="w-4 p-4">
                       <div className="flex items-center">
                         <input
                           id="checkbox-table-search-1"
                           type="checkbox"
-                          className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500"
+                          className="h-4 w-4 rounded border-borderPrimary bg-bgPrimary text-primary focus:ring-2 focus:ring-hover"
                         />
                       </div>
                     </td>
@@ -240,7 +240,7 @@ const EmployeePermission = () => {
                       </Link>
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
-                      <button className="rounded-lg bg-red-500 px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110">
+                      <button className="rounded-lg bg-error px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110">
                         Delete
                       </button>
                     </td>

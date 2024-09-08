@@ -13,15 +13,15 @@ const classDetails: React.FC<ViewDriverProps> = ({ params }) => {
         {params.classId}
         <div className="grid justify-center md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3">
           <div className="grid justify-center gap-2">
-            <div className="flex h-[130px] w-[200px] items-center justify-center gap-2 rounded-xl bg-white p-2 shadow-xl"></div>
-            <div className="flex h-[330px] w-[300px] items-center justify-center gap-2 rounded-xl bg-white p-2 shadow-xl">
+            <div className="flex h-[130px] w-[200px] items-center justify-center gap-2 rounded-xl bg-bgPrimary p-2 shadow-xl"></div>
+            <div className="flex h-[330px] w-[300px] items-center justify-center gap-2 rounded-xl bg-bgPrimary p-2 shadow-xl">
               <CircleProgress percentage={75} />
             </div>
-            <div className="flex h-[250px] w-[200px] items-center justify-center gap-2 rounded-xl bg-white p-2 shadow-xl"></div>
+            <div className="flex h-[250px] w-[200px] items-center justify-center gap-2 rounded-xl bg-bgPrimary p-2 shadow-xl"></div>
           </div>
           <div className="grid justify-center gap-2">
-            <div className="flex h-[130px] w-[200px] items-center justify-center gap-2 rounded-xl bg-white p-2 shadow-xl"></div>
-            <div className="flex h-[250px] w-[200px] items-center justify-center gap-2 rounded-xl bg-white p-2 shadow-xl"></div>
+            <div className="flex h-[130px] w-[200px] items-center justify-center gap-2 rounded-xl bg-bgPrimary p-2 shadow-xl"></div>
+            <div className="flex h-[250px] w-[200px] items-center justify-center gap-2 rounded-xl bg-bgPrimary p-2 shadow-xl"></div>
           </div>
           <div className="grid justify-center">
             <Calendar />

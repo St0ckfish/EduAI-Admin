@@ -297,7 +297,7 @@ const AddNewDriver = () => {
                   defaultValue=""
                   id="regionId"
                   {...register("regionId", { required: true })}
-                  className={`border ${errors.regionId ? "border-[#d74f41]" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-[18px] text-[#000000] outline-none max-[458px]:w-[350px]`}
+                  className={`border ${errors.regionId ? "border-warning" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-[18px] text-[#000000] outline-none max-[458px]:w-[350px]`}
                 >
                   <option selected value="">
                     Select Region Id{" "}
@@ -430,7 +430,7 @@ const AddNewDriver = () => {
                   <option value="DOCTORATE_DEGREE">Doctorate Degree </option>
                 </select>
                 {errors.qualification && (
-                  <span className="text-[18px] text-[#e81123]">
+                  <span className="text-[18px] text-error">
                     Qualification is Required
                   </span>
                 )}
@@ -502,7 +502,7 @@ const AddNewDriver = () => {
               <button
                 disabled={isLoading}
                 type="submit"
-                className="w-[180px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                className="w-[180px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
               >
                 {isLoading ? " Adding..." : "Add Driver"}
               </button>

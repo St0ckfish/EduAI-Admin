@@ -40,17 +40,17 @@ const ViewDriver: React.FC<ViewDriverProps> = ({ params }) => {
       >
         <div className="grid grid-cols-2 gap-7 max-[1342px]:grid-cols-1 max-[1342px]:px-5">
           <DriverInfo data={data} />
-          <div className="grid h-[400px] items-center justify-center gap-10 rounded-xl bg-white p-5">
+          <div className="grid h-[400px] items-center justify-center gap-10 rounded-xl bg-bgPrimary p-5">
             <div className="flex justify-between">
-              <h1 className="font-sans font-semibold text-gray-800">
+              <h1 className="font-sans font-semibold text-textPrimary">
                 Number of student in Bus
               </h1>
               <img src="/images/bus 1.png" alt="#" />
             </div>
-            <div className="grid w-[500px] rounded-xl bg-white p-5 max-[1342px]:w-full">
+            <div className="grid w-[500px] rounded-xl bg-bgPrimary p-5 max-[1342px]:w-full">
               <div className="relative overflow-auto shadow-md sm:rounded-lg">
-                <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
-                  <thead className="bg-[#daeafb] text-xs uppercase text-gray-700">
+                <table className="w-full overflow-x-auto text-left text-sm text-textSecondary rtl:text-right">
+                  <thead className="bg-thead text-textPrimary text-xs uppercase">
                     <tr>
                       <th scope="col" className="whitespace-nowrap px-6 py-3">
                         Full Name
@@ -67,10 +67,10 @@ const ViewDriver: React.FC<ViewDriverProps> = ({ params }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className="border-b bg-white hover:bg-gray-50">
+                    <tr className="border-b border-borderPrimary  bg-bgPrimary hover:bg-bgSecondary">
                       <th
                         scope="row"
-                        className="whitespace-nowrap px-6 py-4 font-medium text-gray-900"
+                        className="whitespace-nowrap px-6 py-4 font-medium text-textSecondary"
                       >
                         Nahda
                       </th>
@@ -80,10 +80,10 @@ const ViewDriver: React.FC<ViewDriverProps> = ({ params }) => {
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">kdsk</td>
                     </tr>
-                    <tr className="border-b bg-white hover:bg-gray-50">
+                    <tr className="border-b border-borderPrimary  bg-bgPrimary hover:bg-bgSecondary">
                       <th
                         scope="row"
-                        className="whitespace-nowrap px-6 py-4 font-medium text-gray-900"
+                        className="whitespace-nowrap px-6 py-4 font-medium text-textSecondary"
                       >
                         Nahda
                       </th>

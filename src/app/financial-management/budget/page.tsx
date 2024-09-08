@@ -5,12 +5,14 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
+import { useTheme } from "next-themes";
 
 const ReactApexChart = dynamic(() => import("react-apexcharts"), {
   ssr: false,
 });
 
 const ApexChart = () => {
+  const { theme } = useTheme();
   const [series, setSeries] = useState([
     {
       name: "Expense",
@@ -50,6 +52,12 @@ const ApexChart = () => {
         },
       },
       xaxis: {
+        tooltip: {
+          theme: "dark",
+          x: {
+            format: "dd/MM/yy HH:mm",
+          },
+        },
         categories: [
           "Jan",
           "Feb",
@@ -130,7 +138,7 @@ const Budget = () => {
       >
         <div className="mb-5 flex justify-center gap-2 max-[840px]:grid">
           <div className="grid gap-16 max-[840px]:flex max-[840px]:gap-2">
-            <div className="flex h-[80px] w-[201px] items-center justify-between gap-2 rounded-xl bg-white p-2 shadow-xl max-[840px]:w-[170px] max-[576px]:h-[100px]">
+            <div className="flex h-[80px] w-[201px] items-center justify-between gap-2 rounded-xl bg-bgPrimary p-2 shadow-xl max-[840px]:w-[170px] max-[576px]:h-[100px]">
               <div>
                 <img src="/images/earnning.png" alt="#" />
               </div>
@@ -146,7 +154,7 @@ const Budget = () => {
                 </h1>
               </div>
             </div>
-            <div className="flex h-[80px] w-[201px] items-center justify-between gap-2 rounded-xl bg-white p-2 shadow-xl max-[840px]:w-[170px] max-[576px]:h-[100px]">
+            <div className="flex h-[80px] w-[201px] items-center justify-between gap-2 rounded-xl bg-bgPrimary p-2 shadow-xl max-[840px]:w-[170px] max-[576px]:h-[100px]">
               <div>
                 <img src="/images/spending.png" alt="#" />
               </div>
@@ -214,7 +222,7 @@ const Budget = () => {
             </div>
           </div>
           <div className="grid gap-16 max-[840px]:flex max-[840px]:gap-2">
-            <div className="flex h-[80px] w-[201px] items-center justify-between gap-2 rounded-xl bg-white p-2 shadow-xl max-[840px]:w-[170px] max-[576px]:h-[100px]">
+            <div className="flex h-[80px] w-[201px] items-center justify-between gap-2 rounded-xl bg-bgPrimary p-2 shadow-xl max-[840px]:w-[170px] max-[576px]:h-[100px]">
               <div>
                 <img src="/images/earnning.png" alt="#" />
               </div>
@@ -230,7 +238,7 @@ const Budget = () => {
                 </h1>
               </div>
             </div>
-            <div className="flex h-[80px] w-[201px] items-center justify-between gap-2 rounded-xl bg-white p-2 shadow-xl max-[840px]:w-[170px] max-[576px]:h-[100px]">
+            <div className="flex h-[80px] w-[201px] items-center justify-between gap-2 rounded-xl bg-bgPrimary p-2 shadow-xl max-[840px]:w-[170px] max-[576px]:h-[100px]">
               <div>
                 <img src="/images/spending.png" alt="#" />
               </div>
@@ -250,14 +258,14 @@ const Budget = () => {
           <div className="flex overflow-x-auto">
             <div
               id="chart"
-              className="w-[850px] overflow-x-auto rounded-xl bg-white p-2 shadow-xl"
+              className="w-[850px] overflow-x-auto rounded-xl bg-bgPrimary p-2 shadow-xl"
             >
               <p className="text-[18px] font-semibold">School Finace</p>
               <ApexChart />
             </div>
           </div>
         </div>
-        <div className="grid w-full rounded-xl bg-white p-5">
+        <div className="grid w-full rounded-xl bg-bgPrimary p-5">
           <div className="relative overflow-auto shadow-md sm:rounded-lg">
             <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
               <thead className="bg-[#daeafb] text-xs uppercase text-gray-700">
@@ -277,10 +285,10 @@ const Budget = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-b bg-white hover:bg-gray-50">
+                <tr className="border-b bg-bgPrimary hover:bg-bgSecondary">
                   <th
                     scope="row"
-                    className="whitespace-nowrap px-6 py-4 font-medium text-gray-900"
+                    className="whitespace-nowrap px-6 py-4 font-medium text-textSecondary"
                   >
                     Nahda
                   </th>
@@ -288,10 +296,10 @@ const Budget = () => {
                   <td className="whitespace-nowrap px-6 py-4">This is text</td>
                   <td className="whitespace-nowrap px-6 py-4">kdsk</td>
                 </tr>
-                <tr className="border-b bg-white hover:bg-gray-50">
+                <tr className="border-b bg-bgPrimary hover:bg-bgSecondary">
                   <th
                     scope="row"
-                    className="whitespace-nowrap px-6 py-4 font-medium text-gray-900"
+                    className="whitespace-nowrap px-6 py-4 font-medium text-textSecondary"
                   >
                     Nahda
                   </th>

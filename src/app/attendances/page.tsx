@@ -3,6 +3,11 @@ import AttendCard from "@/components/AttendCard";
 import { RootState } from "@/GlobalRedux/store";
 import Link from "next/link";
 import { useSelector } from "react-redux";
+import { FaUserTie } from 'react-icons/fa';        // Driver Icon
+import { FaBriefcase } from 'react-icons/fa';      // Employee Icon
+import { FaUserGraduate } from 'react-icons/fa';   // Student Icon
+import { FaChalkboardTeacher } from 'react-icons/fa'; // Teacher Icon
+import { FaHardHat } from 'react-icons/fa';
 import {
   useGetAllEmployeesQuery,
   useGetAllStudentsQuery,
@@ -47,28 +52,7 @@ const Attendance = () => {
   const UserManagments = [
     {
       href: "/driver-attendance",
-      icon: (
-        <svg
-          className="h-12 w-12 font-sans text-[#000000] group-hover:text-[#3e5af0]"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          strokeWidth="2"
-          stroke="currentColor"
-          fill="none"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path stroke="none" d="M0 0h24v24H0z" />
-          <circle cx="6" cy="17" r="2" />
-          <circle cx="18" cy="17" r="2" />
-          <path d="M4 17h-2v-11a1 1 0 0 1 1 -1h14a5 7 0 0 1 5 7v5h-2m-4 0h-8" />
-          <polyline points="16 5 17.5 12 22 12" />
-          <line x1="2" y1="10" x2="17" y2="10" />
-          <line x1="7" y1="5" x2="7" y2="10" />
-          <line x1="12" y1="5" x2="12" y2="10" />
-        </svg>
-      ),
+      icon: <FaUserTie size={30} />,
       title:
         currentLanguage === "en"
           ? "Driver"
@@ -82,7 +66,7 @@ const Attendance = () => {
     },
     {
       href: "/employee-attendance",
-      imgSrc: "/images/employee.png",
+      icon: <FaBriefcase size={30} />,
       title:
         currentLanguage === "en"
           ? "Employee"
@@ -96,7 +80,7 @@ const Attendance = () => {
     },
     {
       href: "/student-attendance",
-      imgSrc: "/images/student.png",
+      icon: <FaUserGraduate size={30} />,
       title:
         currentLanguage === "en"
           ? "Student"
@@ -106,11 +90,11 @@ const Attendance = () => {
               ? "Étudiant"
               : "Student", // Default to English
       description: studentCount?.data, // Default to English
-      number: students?.data,
+      number: 20,
     },
     {
       href: "/teacher-attendance",
-      imgSrc: "/images/Teacher.png",
+      icon: <FaChalkboardTeacher size={30} />,
       title:
         currentLanguage === "en"
           ? "Teacher"
@@ -119,12 +103,19 @@ const Attendance = () => {
             : currentLanguage === "fr"
               ? "Enseignant"
               : "Teacher", // Default to English
-      description: teachers?.data, // Default to English
+      description:
+        currentLanguage === "en"
+          ? "520"
+          : currentLanguage === "ar"
+            ? "٥٢٠"
+            : currentLanguage === "fr"
+              ? "520"
+              : "520", // Default to English
       number: teacherdata?.data,
     },
     {
       href: "/worker-attendance",
-      imgSrc: "/images/Worker.png",
+      icon: <FaHardHat size={30} />,
       title:
         currentLanguage === "en"
           ? "Worker"
@@ -133,7 +124,14 @@ const Attendance = () => {
             : currentLanguage === "fr"
               ? "Travailleur"
               : "Worker", // Default to English
-      description: workers?.data, // Default to English
+      description:
+        currentLanguage === "en"
+          ? "602"
+          : currentLanguage === "ar"
+            ? "٦٠٢"
+            : currentLanguage === "fr"
+              ? "602"
+              : "602", // Default to English
       number: workerdata?.data,
     },
   ];
@@ -161,7 +159,7 @@ const Attendance = () => {
         className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} ml-7 mt-12 flex-wrap`}
       >
         <Link
-          className="text-[18px] font-semibold text-[#526484] hover:text-blue-400 hover:underline"
+          className="text-[18px] font-semibold text-secondary hover:text-primary hover:underline"
           href="/"
         >
           {currentLanguage === "en"
@@ -183,7 +181,7 @@ const Attendance = () => {
           <path d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
         </svg>
         <Link
-          className="text-[18px] font-semibold text-[#526484] hover:text-blue-400 hover:underline"
+          className="text-[18px] font-semibold text-secondary hover:text-primary hover:underline"
           href="/attendances"
         >
           {currentLanguage === "en"
@@ -204,7 +202,6 @@ const Attendance = () => {
             <AttendCard
               key={index}
               href={item.href}
-              imgSrc={item.imgSrc}
               icon={item.icon}
               title={item.title}
               description={item.description}

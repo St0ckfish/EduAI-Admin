@@ -64,7 +64,7 @@ const Notifies = () => {
     <>
       <div className="ml-7 mt-12 flex items-center gap-1 lg:ml-[290px]">
         <Link
-          className="text-[18px] font-semibold text-[#526484] hover:text-blue-400 hover:underline"
+          className="text-[18px] font-semibold text-secondary hover:text-blue-400 hover:underline"
           href="/"
         >
           Communications
@@ -79,7 +79,7 @@ const Notifies = () => {
           <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
         </svg>
         <Link
-          className="text-[18px] font-semibold text-[#526484] hover:text-blue-400 hover:underline"
+          className="text-[18px] font-semibold text-secondary hover:text-blue-400 hover:underline"
           href="/notifies"
         >
           Notifies
@@ -89,7 +89,7 @@ const Notifies = () => {
         <div className="flex justify-end">
           <Link
             href="/notifies/send-notifications"
-            className="mb-5 mr-3 flex items-center gap-2 whitespace-nowrap rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+            className="mb-5 mr-3 flex items-center gap-2 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
           >
             {" "}
             <svg
@@ -107,7 +107,7 @@ const Notifies = () => {
             Send Notifications
           </Link>
         </div>
-        <div className="grid h-full w-full items-center justify-center gap-3 rounded-xl bg-white p-5">
+        <div className="grid h-full w-full items-center justify-center gap-3 rounded-xl bg-bgPrimary p-5">
           <div className="mb-5 flex w-full justify-start">
             <h1 className="text-[22px] font-semibold">Notifications</h1>
           </div>
@@ -115,7 +115,7 @@ const Notifies = () => {
           {data?.data.content.map((notifi: Notifi, index: number) => (
             <div
               key={index}
-              className={`flex gap-2 ${notifi.read ? "bg-white" : "bg-[#edf9ff]"} h-full w-[1000px] rounded-lg p-3 shadow-xl max-[1340px]:w-[700px] max-[1040px]:w-[500px] max-[550px]:w-[300px]`}
+              className={`flex gap-2 ${notifi.read ? "bg-bgPrimary" : "bg-bgSecondary"} h-full w-[1000px] rounded-lg p-3 shadow-xl max-[1340px]:w-[700px] max-[1040px]:w-[500px] max-[550px]:w-[300px]`}
             >
               <div>
                 {notifi.picture == null ? (
@@ -142,7 +142,7 @@ const Notifies = () => {
                     {notifi.read ? (
                       ""
                     ) : (
-                      <div className="ml-1 flex h-2.5 w-2.5 rounded-full bg-[#3e5af0]"></div>
+                      <div className="ml-1 flex h-2.5 w-2.5 rounded-full bg-primary"></div>
                     )}{" "}
                   </h1>
                   <div

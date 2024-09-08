@@ -33,12 +33,12 @@ const ViewWorker: React.FC<ViewWorkerProps> = ({ params }) => {
       <div className="grid py-4 lg:ml-[290px]">
         <div className="grid grid-cols-2 gap-7 max-[1342px]:grid-cols-1 max-[1342px]:px-5">
           <WorkerInfo data={data} />
-          <div className="grid h-[400px] items-center justify-center gap-10 rounded-xl bg-white p-5">
+          <div className="grid h-[400px] items-center justify-center gap-10 rounded-xl bg-bgPrimary p-5">
             <div className="grid justify-start">
-              <h1 className="font-sans font-semibold text-gray-800">
+              <h1 className="font-sans font-semibold text-textPrimary">
                 Available days of absence
               </h1>
-              <h1 className="font-sans text-[14px] font-semibold text-gray-400">
+              <h1 className="font-sans text-[14px] font-semibold text-textSecondary">
                 14 day in year
               </h1>
             </div>

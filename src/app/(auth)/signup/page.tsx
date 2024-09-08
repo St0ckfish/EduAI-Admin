@@ -140,7 +140,7 @@ const Signup = () => {
                       id="email"
                       {...register("email", { required: true })}
                       placeholder=" email"
-                      className={`rounded-xl border px-4 py-3 ${errors.email ? "border-warning" : "border-zinc-300"} w-[400px] outline-none max-[458px]:w-[350px]`}
+                      className={`rounded-xl border px-4 py-3 ${errors.email ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                       type="email"
                     />
                     {errors.email && (
@@ -157,7 +157,7 @@ const Signup = () => {
                       id="password"
                       {...register("password", { required: true })}
                       placeholder=" password"
-                      className={`rounded-xl border px-4 py-3 ${errors.password ? "border-warning" : "border-zinc-300"} w-[400px] outline-none max-[458px]:w-[350px]`}
+                      className={`rounded-xl border px-4 py-3 ${errors.password ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                       type="password"
                     />
                     {errors.password && (
@@ -175,7 +175,7 @@ const Signup = () => {
                       id="nid"
                       {...register("nid", { required: true })}
                       placeholder=" NID"
-                      className={`rounded-xl border px-4 py-3 ${errors.nid ? "border-warning" : "border-zinc-300"} w-[400px] outline-none max-[458px]:w-[350px]`}
+                      className={`rounded-xl border px-4 py-3 ${errors.nid ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                       type="number"
                     />
                     {errors.nid && (
@@ -234,7 +234,7 @@ const Signup = () => {
                       defaultValue=""
                       id="regionId"
                       {...register("regionId", { required: true })}
-                      className={`border ${errors.regionId ? "border-warning" : "border-zinc-300"} h-full w-[400px] rounded-xl px-4 py-3 text-sm text-[#9a9a9a] outline-none max-[458px]:w-[350px]`}
+                      className={`rounded-xl border px-4 py-3 ${errors.regionId ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                     >
                       <option selected value="">
                         Select Region Id{" "}
@@ -285,7 +285,7 @@ const Signup = () => {
                       defaultValue=""
                       id="gender"
                       {...register("gender", { required: true })}
-                      className={`border ${errors.gender ? "border-warning" : "border-zinc-300"} h-full w-[400px] rounded-xl px-4 py-3 text-sm text-[#9a9a9a] outline-none max-[458px]:w-[350px]`}
+                      className={`rounded-xl border px-4 py-3 ${errors.gender ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                     >
                       <option selected value="">
                         Select gender{" "}
@@ -307,7 +307,7 @@ const Signup = () => {
                       defaultValue=""
                       id="religion"
                       {...register("religion", { required: true })}
-                      className={`border ${errors.religion ? "border-warning" : "border-zinc-300"} h-full w-[400px] rounded-xl px-4 py-3 text-sm text-[#9a9a9a] outline-none max-[458px]:w-[350px]`}
+                      className={`rounded-xl border px-4 py-3 ${errors.religion ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                     >
                       <option selected value="">
                         Select religion{" "}
@@ -330,7 +330,7 @@ const Signup = () => {
                       id="number"
                       {...register("number", { required: true })}
                       placeholder=" number"
-                      className={`rounded-xl border px-4 py-3 ${errors.number ? "border-warning" : "border-zinc-300"} w-[400px] outline-none max-[458px]:w-[350px]`}
+                      className={`rounded-xl border px-4 py-3 ${errors.number ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                       type="number"
                     />
                     {errors.number && (
@@ -392,7 +392,7 @@ const Signup = () => {
                       defaultValue=""
                       id="nationality"
                       {...register("nationality", { required: true })}
-                      className={`border ${errors.nationality ? "border-warning" : "border-zinc-300"} h-full w-[400px] rounded-xl px-4 py-3 text-sm text-[#9a9a9a] outline-none max-[458px]:w-[350px]`}
+                      className={`rounded-xl border px-4 py-3 ${errors.nationality ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                     >
                       <option selected value="">
                         Select Nationality{" "}
@@ -420,7 +420,7 @@ const Signup = () => {
                       defaultValue=""
                       id="religion"
                       {...register("employeeType", { required: true })}
-                      className={`border ${errors.employeeType ? "border-warning" : "border-zinc-300"} h-full w-[400px] rounded-xl px-4 py-3 text-sm text-[#9a9a9a] outline-none max-[458px]:w-[350px]`}
+                      className={`rounded-xl border px-4 py-3 ${errors.employeeType ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                     >
                       <option selected value="">
                         Select religion{" "}
@@ -443,7 +443,7 @@ const Signup = () => {
                       defaultValue=""
                       id="qualification"
                       {...register("qualification", { required: true })}
-                      className={`border ${errors.qualification ? "border-warning" : "border-zinc-300"} h-full w-[400px] rounded-xl px-4 py-3 text-sm text-[#9a9a9a] outline-none max-[458px]:w-[350px]`}
+                      className={`rounded-xl border px-4 py-3 ${errors.qualification ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                     >
                       <option selected value="">
                         Select religion{" "}
@@ -472,7 +472,7 @@ const Signup = () => {
                       id="birthDate"
                       {...register("birthDate", { required: true })}
                       placeholder=" NID"
-                      className={`w-[400px] rounded-xl border px-4 py-3 max-[458px]:w-[350px] ${errors.birthDate ? "border-warning" : "border-zinc-300"} outline-none`}
+                      className={`rounded-xl border px-4 py-3 ${errors.birthDate ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                       type="date"
                     />
                     {errors.birthDate && (
@@ -534,7 +534,7 @@ const Signup = () => {
                       id="name_en"
                       {...register("name_en", { required: true })}
                       placeholder=" English Name"
-                      className={`w-[400px] rounded-xl border px-4 py-3 ${errors.name_en ? "border-warning" : "border-zinc-300"} outline-none max-[458px]:w-[350px]`}
+                      className={`rounded-xl border px-4 py-3 ${errors.name_en ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                       type="text"
                     />
                     {errors.name_en && (
@@ -551,7 +551,7 @@ const Signup = () => {
                       id="name_ar"
                       {...register("name_ar", { required: true })}
                       placeholder=" Arabic Name"
-                      className={`w-[400px] rounded-xl border px-4 py-3 ${errors.name_ar ? "border-warning" : "border-zinc-300"} outline-none max-[458px]:w-[350px]`}
+                      className={`rounded-xl border px-4 py-3 ${errors.name_ar ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                       type="text"
                     />
                     {errors.name_ar && (
@@ -568,7 +568,7 @@ const Signup = () => {
                       id="name_fr"
                       {...register("name_fr", { required: true })}
                       placeholder=" French Name"
-                      className={`w-[400px] rounded-xl border px-4 py-3 ${errors.name_fr ? "border-warning" : "border-zinc-300"} outline-none max-[458px]:w-[350px]`}
+                      className={`rounded-xl border px-4 py-3 ${errors.name_fr ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                       type="text"
                     />
                     {errors.name_fr && (
@@ -585,7 +585,7 @@ const Signup = () => {
                       id="schoolId"
                       {...register("schoolId", { required: true })}
                       placeholder=" schoolId"
-                      className={`w-[400px] rounded-xl border px-4 py-3 ${errors.schoolId ? "border-warning" : "border-zinc-300"} outline-none max-[458px]:w-[350px]`}
+                      className={`rounded-xl border px-4 py-3 ${errors.schoolId ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                       type="number"
                     />
                     {errors.schoolId && (
@@ -602,7 +602,7 @@ const Signup = () => {
                       id="about"
                       {...register("about", { required: true })}
                       placeholder=" about"
-                      className={`w-[400px] rounded-xl border px-4 py-3 max-[458px]:w-[350px] ${errors.about ? "border-warning" : "border-zinc-300"} outline-none`}
+                      className={`rounded-xl border px-4 py-3 ${errors.about ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                     />
                     {errors.about && (
                       <span className="text-[13px] text-error">
@@ -648,7 +648,7 @@ const Signup = () => {
                 </p>
               )}
               <div className="mt-4 flex items-center justify-center gap-2 text-center">
-                <p className="font-sans font-medium text-[#526484]">
+                <p className="font-sans font-medium text-secondary">
                   Already have an account?
                 </p>
                 <a

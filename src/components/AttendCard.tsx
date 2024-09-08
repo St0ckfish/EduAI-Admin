@@ -25,14 +25,14 @@ const AttendCard: React.FC<CardProps> = ({
     (state: RootState) => state.language.language,
   );
   return (
-    <div className="grid h-[180px] w-[250px] items-center justify-center rounded-xl bg-white px-3 py-2 shadow-lg">
+    <div className="grid h-[180px] w-[250px] items-center justify-center rounded-xl bg-bgPrimary px-3 py-2 shadow-lg">
       <Link
         href={href}
         className="flex items-center justify-center text-center"
       >
         <div className="flex items-center justify-between gap-5">
           <div className="grid items-center justify-center gap-2 text-start">
-            <p className="mt-2 text-[17px] font-semibold text-[#526484]">
+            <p className="mt-2 text-[17px] font-semibold text-secondary">
               {title}
             </p>
             <p className="font-semibold">{description}</p>
@@ -48,7 +48,7 @@ const AttendCard: React.FC<CardProps> = ({
               {/* Default to English */}
             </p>
           </div>
-          <div className="grid h-[50px] w-[50px] items-center justify-center rounded-full bg-[#FAEFEF]">
+          <div className="grid h-[50px] w-[50px] items-center justify-center rounded-full bg-bgSecondary">
             {imgSrc ? <img src={imgSrc} alt={title} /> : icon}
           </div>
         </div>

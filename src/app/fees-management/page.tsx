@@ -199,7 +199,7 @@ const FeesManagement = () => {
           <div className="flex justify-center">
             <Link
               href="/fees-management/new-invoice"
-              className="mb-5 mr-3 whitespace-nowrap rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+              className="mb-5 mr-3 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               {currentLanguage === "en"
                 ? "+ Add Invoices"
@@ -239,7 +239,7 @@ const FeesManagement = () => {
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
           <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
-            <thead className="bg-[#daeafb] text-xs uppercase text-gray-700">
+            <thead className="bg-thead text-xs uppercase text-textPrimary">
               <tr>
                 <th scope="col" className="p-4">
                   <div className="flex items-center">
@@ -332,7 +332,7 @@ const FeesManagement = () => {
                 })
                 .map((invoice: Invoice, index: number) => (
                   <tr
-                    className="border-b bg-white hover:bg-gray-50"
+                    className="border-b bg-bgPrimary hover:bg-bgSecondary"
                     key={index}
                   >
                     <td className="w-4 p-4">
@@ -340,13 +340,13 @@ const FeesManagement = () => {
                         <input
                           id="checkbox-table-search-1"
                           type="checkbox"
-                          className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500"
+                          className="h-4 w-4 rounded border-borderPrimary bg-bgPrimary text-primary focus:ring-2 focus:ring-hover"
                         />
                       </div>
                     </td>
                     <th
                       scope="row"
-                      className="flex items-center whitespace-nowrap px-6 py-4 font-medium text-gray-900"
+                      className="text-text-textSeceondary flex items-center whitespace-nowrap px-6 py-4 font-medium"
                     >
                       {invoice.billedToName}
                     </th>

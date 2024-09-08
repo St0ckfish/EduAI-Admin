@@ -54,8 +54,8 @@ const TeahcerSearch = () => {
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} mt-12`}
       >
         <div className="flex h-full w-full justify-center overflow-auto p-2">
-          <div className="grid h-full w-full overflow-auto rounded-xl bg-white">
-            <div className="flex h-[70px] items-center gap-7 overflow-auto rounded-t-xl bg-gray-200 pl-3 font-semibold">
+          <div className="grid h-full w-full overflow-auto rounded-xl bg-bgPrimary">
+            <div className="flex h-[70px] items-center gap-7 overflow-auto rounded-t-xl bg-bgPrimary pl-3 font-semibold">
               <Link
                 className="underline-offset-4 hover:text-blue-500 hover:underline"
                 href="/search"
@@ -145,7 +145,7 @@ const TeahcerSearch = () => {
                     <div className="relative min-w-48 md:min-w-80">
                       <div className="pointer-events-none absolute inset-y-0 start-0 z-20 flex items-center ps-4">
                         <svg
-                          className="size-4 flex-shrink-0 text-gray-400"
+                          className="size-4 flex-shrink-0 text-textPrimary"
                           xmlns="http://www.w3.org/2000/svg"
                           width="24"
                           height="24"
@@ -166,7 +166,7 @@ const TeahcerSearch = () => {
                         type="text"
                         id="icon"
                         name="icon"
-                        className="block w-full rounded-lg border-2 border-gray-200 px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
+                        className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
                         placeholder="Search"
                       />
                     </div>
@@ -174,7 +174,7 @@ const TeahcerSearch = () => {
                   <div>
                     <select
                       id="countries"
-                      className="block h-full w-full rounded-lg border border-gray-300 bg-gray-50 p-1.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+                      className="block h-full w-full rounded-lg border border-borderPrimary bg-bgSecondary p-1.5 text-sm text-textPrimary focus:border-borderPrimary outline-none"
                     >
                       <option selected>Search by Name </option>
                     </select>
@@ -204,7 +204,7 @@ const TeahcerSearch = () => {
                             <div
                               onClick={() => handleClick(student.id)}
                               key={student.id}
-                              className="flex w-full cursor-pointer items-center rounded-lg border border-[#f5f6f7] px-2 py-1 hover:bg-gray-200"
+                              className="flex w-full cursor-pointer items-center rounded-lg border border-borderPrimary px-2 py-1 hover:bg-bgPrimary"
                             >
                               <div>
                                 {student.picture == null ? (
@@ -239,7 +239,7 @@ const TeahcerSearch = () => {
                   )}
                 </div>
               </div>
-              <div className="grid h-full w-full items-center overflow-hidden text-ellipsis rounded-xl border">
+              <div className="grid h-full w-full items-center overflow-hidden text-ellipsis rounded-xl border border-borderPrimary">
                 {isEmployee ? (
                   <Spinner />
                 ) : (
@@ -271,71 +271,71 @@ const TeahcerSearch = () => {
                             )}
                           </div>
                           <div className="flex justify-center text-center">
-                            <h1 className="font-sans font-semibold text-gray-800">
+                            <h1 className="font-sans font-semibold text-textSecondary">
                               {EmployeeQ?.data.name}
                             </h1>
                           </div>
                         </div>
 
                         <div className="grid justify-start">
-                          <h1 className="font-sans text-[22px] font-semibold text-gray-800">
+                          <h1 className="font-sans text-[22px] font-semibold text-textSecondary">
                             Basic Details
                           </h1>
                           <div className="grid w-[400px] grid-cols-2 max-[485px]:w-[240px]">
-                            <h3 className="font-sans font-semibold text-gray-400">
+                            <h3 className="font-sans font-semibold text-textPrimary">
                               Email:
                             </h3>
-                            <p className="font-sans font-semibold text-gray-800">
+                            <p className="font-sans font-semibold text-textSecondary">
                               {EmployeeQ?.data.email}
                             </p>
-                            <h3 className="font-sans font-semibold text-gray-400">
+                            <h3 className="font-sans font-semibold text-textPrimary">
                               Salary:
                             </h3>
-                            <p className="font-sans font-semibold text-gray-800">
+                            <p className="font-sans font-semibold text-textSecondary">
                               {EmployeeQ?.data.salary == null
                                 ? `Not specified`
                                 : EmployeeQ?.data.salary}
                             </p>
-                            <h3 className="font-sans font-semibold text-gray-400">
+                            <h3 className="font-sans font-semibold text-textPrimary">
                               Age:
                             </h3>
-                            <p className="font-sans font-semibold text-gray-800">
+                            <p className="font-sans font-semibold text-textSecondary">
                               {EmployeeQ?.data.birthDate}
                             </p>
-                            <h3 className="font-sans font-semibold text-gray-400">
+                            <h3 className="font-sans font-semibold text-textPrimary">
                               Gender:
                             </h3>
-                            <p className="font-sans font-semibold text-gray-800">
+                            <p className="font-sans font-semibold text-textSecondary">
                               {EmployeeQ?.data.gender}
                             </p>
-                            <h3 className="font-sans font-semibold text-gray-400">
+                            <h3 className="font-sans font-semibold text-textPrimary">
                               Position:
                             </h3>
-                            <p className="font-sans font-semibold text-gray-800">
+                            <p className="font-sans font-semibold text-textSecondary">
                               {EmployeeQ?.data.role}
                             </p>
-                            <h3 className="font-sans font-semibold text-gray-400">
+                            <h3 className="font-sans font-semibold text-textPrimary">
                               Religion:
                             </h3>
-                            <p className="font-sans font-semibold text-gray-800">
+                            <p className="font-sans font-semibold text-textSecondary">
                               {EmployeeQ?.data.religion}
                             </p>
-                            <h3 className="font-sans font-semibold text-gray-400">
+                            <h3 className="font-sans font-semibold text-textPrimary">
                               Address:
                             </h3>
-                            <p className="font-sans font-semibold text-gray-800">
+                            <p className="font-sans font-semibold text-textSecondary">
                               {EmployeeQ?.data.nationality}
                             </p>
-                            <h3 className="font-sans font-semibold text-gray-400">
+                            <h3 className="font-sans font-semibold text-textPrimary">
                               Mobile:
                             </h3>
-                            <p className="font-sans font-semibold text-gray-800">
+                            <p className="font-sans font-semibold text-textSecondary">
                               {EmployeeQ?.data.phoneNumber}
                             </p>
-                            <h3 className="font-sans font-semibold text-gray-400">
+                            <h3 className="font-sans font-semibold text-textPrimary">
                               About:
                             </h3>
-                            <p className="font-sans font-semibold text-gray-800">
+                            <p className="font-sans font-semibold text-textSecondary">
                               {EmployeeQ?.data.about}
                             </p>
                           </div>
