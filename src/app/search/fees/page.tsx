@@ -16,8 +16,8 @@ const FeesSearch = () => {
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} mt-12`}
       >
         <div className="flex h-full w-full justify-center overflow-auto p-2">
-          <div className="grid h-full w-full overflow-auto rounded-xl bg-white">
-            <div className="flex h-[70px] items-center gap-7 overflow-auto rounded-t-xl bg-gray-200 pl-3 font-semibold">
+          <div className="grid h-full w-full overflow-auto rounded-xl bg-bgPrimary">
+            <div className="flex h-[70px] items-center gap-7 overflow-auto rounded-t-xl bg-bgPrimary pl-3 font-semibold">
               <Link
                 className="underline-offset-4 hover:text-blue-500 hover:underline"
                 href="/search"
@@ -126,7 +126,7 @@ const FeesSearch = () => {
                         type="text"
                         id="icon"
                         name="icon"
-                        className="block w-full rounded-lg border-2 border-gray-200 px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
+                        className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
                         placeholder="Search"
                       />
                     </div>
@@ -134,7 +134,7 @@ const FeesSearch = () => {
                   <div>
                     <select
                       id="countries"
-                      className="block h-full w-full rounded-lg border border-gray-300 bg-gray-50 p-1.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+                      className="block h-full w-full rounded-lg border border-borderPrimary bg-bgSecondary p-1.5 text-sm text-textPrimary focus:border-borderPrimary outline-none"
                     >
                       <option selected>Search by Name </option>
                     </select>
@@ -147,7 +147,7 @@ const FeesSearch = () => {
                   <img src="/images/nothing.png" alt="" />
                 </div>
               </div>
-              <div className="h-full w-full rounded-xl border"></div>
+              <div className="h-full w-full rounded-xl border border-borderPrimary"></div>
             </div>
           </div>
         </div>

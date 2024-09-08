@@ -93,7 +93,7 @@ const EditBus: React.FC<ViewBusProps> = ({ params }) => {
                   id="name"
                   {...register("busNumber", { required: true })}
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.busNumber && (
                   <span className="text-red-600">This field is required</span>
@@ -108,7 +108,7 @@ const EditBus: React.FC<ViewBusProps> = ({ params }) => {
                   id="code"
                   {...register("busCapacity", { required: true })}
                   type="number"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.busCapacity && (
                   <span className="text-red-600">This field is required</span>

@@ -5,14 +5,14 @@ import Link from "next/link";
 const TeacherInfo = ({ data }: { data: any }) => {
   return (
     <>
-      <div className="grid rounded-xl bg-white p-5">
+      <div className="grid rounded-xl bg-bgPrimary p-5">
         <div className="flex justify-between">
-          <h1 className="font-sans font-semibold text-gray-800">
+          <h1 className="font-sans font-semibold text-textPrimary">
             Teacher Information
           </h1>
           <Link href={`/edit-teacher/${data.data.id}`}>
             <svg
-              className="h-6 w-6 text-gray-800"
+              className="h-6 w-6 text-textPrimary"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -41,12 +41,12 @@ const TeacherInfo = ({ data }: { data: any }) => {
               alt="#"
             />
           )}
-          <h1 className="font-sans font-semibold text-gray-800">
+          <h1 className="font-sans font-semibold text-textPrimary">
             {data.data.name}
           </h1>
-          <p className="font-sans font-semibold text-gray-800">
+          <p className="font-sans font-semibold text-textPrimary">
             {" "}
-            <span className="font-sans font-semibold text-gray-400">
+            <span className="font-sans font-semibold text-textSecondary">
               Teacher ID :
             </span>
             {data.data.id}
@@ -54,64 +54,64 @@ const TeacherInfo = ({ data }: { data: any }) => {
         </div>
 
         <div className="grid justify-start">
-          <h1 className="font-sans text-[22px] font-semibold text-gray-800">
+          <h1 className="font-sans text-[22px] font-semibold text-textPrimary">
             Basic Details
           </h1>
           <div className="grid w-[400px] grid-cols-2 max-[485px]:w-[240px]">
-            <h3 className="font-sans font-semibold text-gray-400">Email:</h3>
-            <p className="font-sans font-semibold text-gray-800">
+            <h3 className="font-sans font-semibold text-textSecondary">Email:</h3>
+            <p className="font-sans font-semibold text-textPrimary">
               {data.data.email}
             </p>
-            <h3 className="font-sans font-semibold text-gray-400">Salary:</h3>
-            <p className="font-sans font-semibold text-gray-800">
+            <h3 className="font-sans font-semibold text-textSecondary">Salary:</h3>
+            <p className="font-sans font-semibold text-textPrimary">
               {data.data.salary == null ? `Not specified` : data.data.salary}
             </p>
-            <h3 className="font-sans font-semibold text-gray-400">
+            <h3 className="font-sans font-semibold text-textSecondary">
               Date Of Birth:
             </h3>
-            <p className="font-sans font-semibold text-gray-800">
+            <p className="font-sans font-semibold text-textPrimary">
               {data.data.birthDate}
             </p>
-            <h3 className="font-sans font-semibold text-gray-400">Gender:</h3>
-            <p className="font-sans font-semibold text-gray-800">
+            <h3 className="font-sans font-semibold text-textSecondary">Gender:</h3>
+            <p className="font-sans font-semibold text-textPrimary">
               {data.data.gender}
             </p>
-            <h3 className="font-sans font-semibold text-gray-400">
+            <h3 className="font-sans font-semibold text-textSecondary">
               nationality:
             </h3>
-            <p className="font-sans font-semibold text-gray-800">
+            <p className="font-sans font-semibold text-textPrimary">
               {data.data.nationality}
             </p>
-            <h3 className="font-sans font-semibold text-gray-400">Gender:</h3>
-            <p className="font-sans font-semibold text-gray-800">
+            <h3 className="font-sans font-semibold text-textSecondary">Gender:</h3>
+            <p className="font-sans font-semibold text-textPrimary">
               {data.data.gender}
             </p>
-            <h3 className="font-sans font-semibold text-gray-400">
+            <h3 className="font-sans font-semibold text-textSecondary">
               Qualification:
             </h3>
-            <p className="font-sans font-semibold text-gray-800">
+            <p className="font-sans font-semibold text-textPrimary">
               {data.data.qualification}
             </p>
-            <h3 className="font-sans font-semibold text-gray-400">Religion:</h3>
-            <p className="font-sans font-semibold text-gray-800">
+            <h3 className="font-sans font-semibold text-textSecondary">Religion:</h3>
+            <p className="font-sans font-semibold text-textPrimary">
               {data.data.religion}
             </p>
-            <h3 className="font-sans font-semibold text-gray-400">Address:</h3>
-            <p className="font-sans font-semibold text-gray-800">
+            <h3 className="font-sans font-semibold text-textSecondary">Address:</h3>
+            <p className="font-sans font-semibold text-textPrimary">
               13,street, Zamalk,Cairo
             </p>
-            <h3 className="font-sans font-semibold text-gray-400">Mobile:</h3>
-            <p className="font-sans font-semibold text-gray-800">
+            <h3 className="font-sans font-semibold text-textSecondary">Mobile:</h3>
+            <p className="font-sans font-semibold text-textPrimary">
               {data.data.number}
             </p>
           </div>
         </div>
 
         <div className="mt-4 grid grid-cols-1">
-          <p className="font-sans text-[20px] font-semibold text-gray-800">
+          <p className="font-sans text-[20px] font-semibold text-textPrimary">
             About the Teacher:
           </p>
-          <p className="mb-5 font-sans text-[16px] font-semibold text-gray-400">
+          <p className="mb-5 font-sans text-[16px] font-semibold text-textSecondary">
             {data.data.about}
           </p>
         </div>

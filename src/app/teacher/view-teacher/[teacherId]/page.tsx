@@ -34,18 +34,18 @@ const ViewTeacher: React.FC<ViewTeacherProps> = ({ params }) => {
       <div className="grid py-4 lg:ml-[290px]">
         <div className="grid grid-cols-2 gap-7 max-[1342px]:grid-cols-1 max-[1342px]:px-5">
           <TeacherInfo data={data} />
-          <div className="grid h-[700px] items-center justify-center gap-10 rounded-xl bg-white p-5">
+          <div className="grid h-[700px] items-center justify-center gap-10 rounded-xl bg-bgPrimary p-5">
             <div className="flex justify-start">
-              <h1 className="font-sans font-semibold text-gray-800">
+              <h1 className="font-sans font-semibold text-textPrimary">
                 Today Schedule
               </h1>
             </div>
             <Calendar />
           </div>
-          <div className="grid w-[500px] rounded-xl bg-white p-5 max-[1342px]:w-full">
+          <div className="grid w-[500px] rounded-xl bg-bgPrimary p-5 max-[1342px]:w-full">
             <div className="relative overflow-auto shadow-md sm:rounded-lg">
               <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
-                <thead className="bg-[#daeafb] text-xs uppercase text-gray-700">
+                <thead className="bg-thead text-xs uppercase text-textPrimary">
                   <tr>
                     <th scope="col" className="whitespace-nowrap px-6 py-3">
                       Full Name
@@ -62,10 +62,10 @@ const ViewTeacher: React.FC<ViewTeacherProps> = ({ params }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="border-b bg-white hover:bg-gray-50">
+                  <tr className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary">
                     <th
                       scope="row"
-                      className="whitespace-nowrap px-6 py-4 font-medium text-gray-900"
+                      className="whitespace-nowrap px-6 py-4 font-medium text-textSecondary"
                     >
                       Nahda
                     </th>
@@ -75,10 +75,10 @@ const ViewTeacher: React.FC<ViewTeacherProps> = ({ params }) => {
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">kdsk</td>
                   </tr>
-                  <tr className="border-b bg-white hover:bg-gray-50">
+                  <tr className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary">
                     <th
                       scope="row"
-                      className="whitespace-nowrap px-6 py-4 font-medium text-gray-900"
+                      className="whitespace-nowrap px-6 py-4 font-medium text-textSecondary"
                     >
                       Nahda
                     </th>
