@@ -115,7 +115,7 @@ const Notifies = () => {
           {data?.data.content.map((notifi: Notifi, index: number) => (
             <div
               key={index}
-              className={`flex gap-2 ${notifi.read ? "bg-bgPrimary" : "bg-bgSecondary"} h-full w-[1000px] rounded-lg p-3 shadow-xl max-[1340px]:w-[700px] max-[1040px]:w-[500px] max-[550px]:w-[300px]`}
+              className={`flex gap-2 ${notifi.read ? "bg-bgPrimary" : "bg-thead"} h-full w-[1000px] rounded-lg border border-borderPrimary p-3 shadow-xl max-[1340px]:w-[700px] max-[1040px]:w-[500px] max-[550px]:w-[300px]`}
             >
               <div>
                 {notifi.picture == null ? (
@@ -142,7 +142,7 @@ const Notifies = () => {
                     {notifi.read ? (
                       ""
                     ) : (
-                      <div className="bg-b ml-1 flex h-2.5 w-2.5 rounded-full"></div>
+                      <div className="ml-1 flex h-2.5 w-2.5 rounded-full bg-primary"></div>
                     )}{" "}
                   </h1>
                   <div

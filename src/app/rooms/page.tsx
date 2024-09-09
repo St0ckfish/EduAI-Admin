@@ -26,7 +26,7 @@ const Rooms = () => {
       href: "/room",
     },
   ];
-  
+
   const [selectAll, setSelectAll] = useState(false); // State to track whether select all checkbox is checked
 
   // Function to handle click on select all checkbox

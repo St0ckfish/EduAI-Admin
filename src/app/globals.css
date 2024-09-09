@@ -35,8 +35,8 @@ body {
   --border-primary: #2a2d32;
   --thead: #071f3a;
   --black-or-white: white;
+  --notification: #0f0f0f;
 }
-
 /* Chart */
 
 div.apexcharts-menu.apexcharts-menu-open {

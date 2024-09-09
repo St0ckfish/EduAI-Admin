@@ -8,8 +8,23 @@ import { RiFileList2Line } from "react-icons/ri"; // Report
 import { AiOutlineSafetyCertificate } from "react-icons/ai"; // Permission
 import { FaCalendarAlt, FaUmbrellaBeach } from "react-icons/fa"; // Semester, Annual Leave
 import { MdBusiness, MdWorkOutline } from "react-icons/md"; // Department, Position
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 const OrganizationSettings = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Administration",
+      nameAr: "الإدارة",
+      nameFr: "Administration",
+      href: "/",
+    },
+    {
+      nameEn: "Organization Settings",
+      nameAr: "إعدادات المنظمة",
+      nameFr: "Paramètres org",
+      href: "/organization-setting",
+    },
+  ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
@@ -139,45 +154,7 @@ const OrganizationSettings = () => {
   ];
   return (
     <>
-      <div
-        className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} ml-7 mt-12 flex-wrap text-[18px] max-[550px]:text-[15px]`}
-      >
-        <Link
-          className="text-[18px] font-semibold text-[#526484] hover:text-blue-400 hover:underline"
-          href="/"
-        >
-          {currentLanguage === "en"
-            ? "Administration"
-            : currentLanguage === "ar"
-              ? "الإدارة"
-              : currentLanguage === "fr"
-                ? "Administration"
-                : "Administration"}{" "}
-          {/* Default to English */}
-        </Link>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)" }}
-        >
-          <path d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
-        </svg>
-        <Link
-          className="text-[18px] font-semibold text-[#526484] hover:text-blue-400 hover:underline"
-          href="/organization-setting"
-        >
-          {currentLanguage === "en"
-            ? "Organization Setting"
-            : currentLanguage === "ar"
-              ? "إعدادات المنظمة"
-              : currentLanguage === "fr"
-                ? "Paramètres de l'organisation"
-                : "Organization Setting"}{" "}
-          {/* Default to English */}
-        </Link>
-      </div>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} mt-12 grid justify-center`}
       >

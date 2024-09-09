@@ -6,13 +6,13 @@ import dynamic from "next/dynamic";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import { useTheme } from "next-themes";
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 const ReactApexChart = dynamic(() => import("react-apexcharts"), {
   ssr: false,
 });
 
 const ApexChart = () => {
-  const { theme } = useTheme();
   const [series, setSeries] = useState([
     {
       name: "Expense",
@@ -90,49 +90,31 @@ const ApexChart = () => {
 };
 
 const Budget = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Administration",
+      nameAr: "الإدارة",
+      nameFr: "Administration",
+      href: "/",
+    },
+    {
+      nameEn: "Financial Management",
+      nameAr: "الإدارة المالية",
+      nameFr: "Gestion financière",
+      href: "/financial-management",
+    },
+    {
+      nameEn: "Budget",
+      nameAr: "الميزانية",
+      nameFr: "Budget",
+      href: "/financial-management/budget",
+    },
+  ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   return (
     <>
-      <div
-        className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} ml-7 mt-12 flex-wrap text-[18px] max-[550px]:text-[15px]`}
-      >
-        <Link
-          className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
-          href="/"
-        >
-          Administration
-        </Link>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)", transform: "", msFilter: "" }}
-        >
-          <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
-        </svg>
-        <Link
-          className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
-          href="/financial-management"
-        >
-          Financial Management
-        </Link>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)", transform: "", msFilter: "" }}
-        >
-          <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
-        </svg>
-        <Link
-          className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
-          href="/financial-management/budget"
-        >
-          Budget
-        </Link>
-      </div>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
+
       <div
         className={`${booleanValue ? "lg:ml-[120px]" : "lg:ml-[290px]"} mt-12 grid justify-center`}
       >
@@ -268,7 +250,7 @@ const Budget = () => {
         <div className="grid w-full rounded-xl bg-bgPrimary p-5">
           <div className="relative overflow-auto shadow-md sm:rounded-lg">
             <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
-              <thead className="bg-[#daeafb] text-xs uppercase text-gray-700">
+              <thead className="bg-thead text-xs uppercase text-textPrimary">
                 <tr>
                   <th scope="col" className="whitespace-nowrap px-6 py-3">
                     Full Name
@@ -285,7 +267,7 @@ const Budget = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-b bg-bgPrimary hover:bg-bgSecondary">
+                <tr className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary">
                   <th
                     scope="row"
                     className="whitespace-nowrap px-6 py-4 font-medium text-textSecondary"
@@ -296,7 +278,7 @@ const Budget = () => {
                   <td className="whitespace-nowrap px-6 py-4">This is text</td>
                   <td className="whitespace-nowrap px-6 py-4">kdsk</td>
                 </tr>
-                <tr className="border-b bg-bgPrimary hover:bg-bgSecondary">
+                <tr className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary">
                   <th
                     scope="row"
                     className="whitespace-nowrap px-6 py-4 font-medium text-textSecondary"

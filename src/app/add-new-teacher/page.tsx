@@ -10,7 +10,6 @@ import {
 import { toast } from "react-toastify";
 import BreadCrumbs from "@/components/BreadCrumbs";
 
-
 const AddNewTeacher = () => {
   const breadcrumbs = [
     {

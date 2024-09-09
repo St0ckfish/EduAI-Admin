@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import { MdNavigateNext } from "react-icons/md";
+import { usePathname } from "next/navigation";
 
-// Define the type for the breadcrumb items
 interface BreadcrumbItem {
   nameEn: string;
   nameAr: string;
@@ -13,7 +13,6 @@ interface BreadcrumbItem {
   href: string;
 }
 
-// Define the props type for the BreadCrumbs component
 interface BreadCrumbsProps {
   breadcrumbs: BreadcrumbItem[];
 }
@@ -23,18 +22,24 @@ const BreadCrumbs: React.FC<BreadCrumbsProps> = ({ breadcrumbs }) => {
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
   );
+  const pathname = usePathname();
 
   return (
     <div
-      className={`flex items-center gap-1 ${
+      className={`flex items-center gap-2 ${
         booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"
-      } ml-7 mt-12 flex-wrap text-[18px] max-[550px]:text-[15px]`}
+      } ml-5 mt-10 flex-wrap text-[18px] max-[550px]:text-[15px]`}
     >
       {breadcrumbs.map((crumb, index) => (
         <React.Fragment key={index}>
           <Link
-            className="font-semibold text-secondary hover:text-primary hover:underline"
+            className={`font-semibold transition-all duration-300 ease-in-out ${
+              pathname === crumb.href
+                ? "border-b-2 border-primary text-primary"
+                : "text-gray-500 hover:text-primary hover:shadow-md"
+            } rounded-lg px-2 py-1`}
             href={crumb.href}
+            style={{ margin: "0 8px", borderRadius: "8px" }} // Padding for better spacing
           >
             {currentLanguage === "en"
               ? crumb.nameEn
@@ -43,7 +48,7 @@ const BreadCrumbs: React.FC<BreadCrumbsProps> = ({ breadcrumbs }) => {
                 : crumb.nameFr}
           </Link>
           {index < breadcrumbs.length - 1 && (
-            <MdNavigateNext size={25} className="text-secondary" />
+            <MdNavigateNext size={25} className="text-gray-400" />
           )}
         </React.Fragment>
       ))}

@@ -10,8 +10,29 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import { toast } from "react-toastify";
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 const Suggestion = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Administration",
+      nameAr: "الإدارة",
+      nameFr: "Administration",
+      href: "/",
+    },
+    {
+      nameEn: "Organization Settings",
+      nameAr: "إعدادات المنظمة",
+      nameFr: "Paramètres org",
+      href: "/organization-setting",
+    },
+    {
+      nameEn: "Suggestions",
+      nameAr: "الإقتراحات",
+      nameFr: "Suggestions",
+      href: "/organization-setting/suggestions",
+    },
+  ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   const { data, error, isLoading, refetch } =
@@ -43,8 +64,9 @@ const Suggestion = () => {
     );
   return (
     <>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} justify-left mb-4 ml-4 mt-2 flex gap-5 text-[23px] font-semibold`}
+        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} justify-left mb-4 ml-4 mt-2 mt-[20px] flex gap-5 text-[23px] font-semibold`}
       >
         <Link href="/organization-setting/reports">Reports</Link>
         <Link
