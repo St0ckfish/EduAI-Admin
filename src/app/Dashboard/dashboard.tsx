@@ -11,6 +11,7 @@ import {
   useGetAllWorkersQuery,
   useGetEventsInMonthQuery,
   useGetNoticesQuery,
+  useGetExpensesQuery,
 } from "@/features/dashboard/dashboardApi";
 import { format, parseISO } from "date-fns";
 import Spinner from "@/components/spinner";
@@ -28,6 +29,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useTheme } from "next-themes";
+import ExpirePage from "@/components/ExpirePage";
 
 const ReactApexChart = dynamic(() => import("react-apexcharts"), {
   ssr: false,
@@ -54,6 +56,14 @@ const Dashboard: React.FC = () => {
   const router = useRouter();
 
   const { data: events, isLoading: isEvents } = useGetEventsInMonthQuery(null);
+  const currentYear = new Date().getFullYear();
+  const start = format(new Date(currentYear, 0, 1), "yyyy-MM-dd");
+  const end = format(new Date(currentYear, 11, 30), "yyyy-MM-dd");
+
+  const { data: expenses, isLoading: isExpenses } = useGetExpensesQuery({
+    start: start,
+    end: end,
+  });
   const {
     data: students,
     error: err1,
@@ -118,15 +128,25 @@ const Dashboard: React.FC = () => {
   };
 
   const [series, setSeries] = useState([
-    {
-      name: "Expense",
-      data: [31, 40, 28, 51, 42, 109, 100],
-    },
-    {
-      name: "Income",
-      data: [11, 32, 45, 32, 34, 52, 41],
-    },
+    { name: "Income", data: [] },
+    { name: "Expense", data: [] },
   ]);
+  const [categories, setCategories] = useState<string[]>([]);
+  useEffect(() => {
+    if (expenses && expenses.data) {
+      // Extract income and expense values from the API response
+      const incomeData = expenses.data.map((item: any) => item.income);
+      const expenseData = expenses.data.map((item: any) => item.expense);
+      const semesterNames = expenses.data.map((item: any) => item.semesterName);
+
+      // Update the series with the new data
+      setSeries([
+        { name: "Income", data: incomeData },
+        { name: "Expense", data: expenseData },
+      ]);
+      setCategories(semesterNames);
+    }
+  }, [expenses]);
 
   const onSubmit = async (formData: any) => {
     try {
@@ -179,16 +199,7 @@ const Dashboard: React.FC = () => {
       curve: "smooth" as const,
     },
     xaxis: {
-      type: "datetime" as const,
-      categories: [
-        "2024-06-19T00:00:00.000Z",
-        "2024-06-19T01:30:00.000Z",
-        "2024-06-19T02:30:00.000Z",
-        "2024-06-19T03:30:00.000Z",
-        "2024-06-19T04:30:00.000Z",
-        "2024-06-19T05:30:00.000Z",
-        "2024-06-19T06:30:00.000Z",
-      ],
+      categories: categories,
     },
     tooltip: {
       theme: theme,
@@ -206,7 +217,8 @@ const Dashboard: React.FC = () => {
     isTeacher ||
     isEvents ||
     isMeeting ||
-    isNotices
+    isNotices ||
+    isExpenses
   )
     return (
       <div className="flex h-screen w-full items-center justify-center">
@@ -349,15 +361,30 @@ const Dashboard: React.FC = () => {
         </div>
         <div className="grid overflow-x-auto rounded-xl">
           <div className="grid h-[600px] w-[550px] overflow-x-auto overflow-y-auto rounded-xl bg-bgPrimary p-2 shadow-xl max-[1536px]:w-full">
-            <p className="text-[20px] font-bold">
-              {currentLanguage === "en"
-                ? "Notice Board"
-                : currentLanguage === "ar"
-                  ? "لوحة الإعلانات"
-                  : currentLanguage === "fr"
-                    ? "Tableau d'affichage"
-                    : "Notice Board"}
-            </p>
+            <div className="flex w-full justify-between">
+              <p className="text-[20px] font-bold">
+                {currentLanguage === "en"
+                  ? "Notice Board"
+                  : currentLanguage === "ar"
+                    ? "لوحة الإعلانات"
+                    : currentLanguage === "fr"
+                      ? "Tableau d'affichage"
+                      : "Notice Board"}
+              </p>
+              <Link
+                href="/add-note"
+                className="mb-5 mr-3 whitespace-nowrap rounded-xl bg-primary px-2 py-1 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+              >
+                {currentLanguage === "en"
+                  ? "+ Add Note"
+                  : currentLanguage === "ar"
+                    ? "+  أضف ملاحظة"
+                    : currentLanguage === "fr"
+                      ? "+ Ajouter une remarque"
+                      : "+ New Driver"}{" "}
+                {/* Default to English */}
+              </Link>
+            </div>
             <div className="">
               {notices?.data?.content.map(
                 (note: {

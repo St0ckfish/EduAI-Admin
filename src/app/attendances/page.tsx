@@ -45,7 +45,7 @@ const Attendance = () => {
   const { data: studentCount, isLoading: isSCount } =
     useGetAllStudentsQuery(null);
   const { data: students, isLoading: isStudents } =
-  useGetStudentAttendenceQuery(null);
+    useGetStudentAttendenceQuery(null);
 
   const { data: teachers, isLoading: isTeacher } = useGetAllTeachersQuery(null);
   const { data: workers, isLoading: isWorker } = useGetAllWorkersQuery(null);

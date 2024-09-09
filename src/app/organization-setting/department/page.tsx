@@ -12,7 +12,6 @@ import { toast } from "react-toastify";
 import { RootState } from "@/GlobalRedux/store";
 import BreadCrumbs from "@/components/BreadCrumbs";
 
-
 const Department = () => {
   const breadcrumbs = [
     {
@@ -229,7 +228,7 @@ const Department = () => {
                           />
                         )}
                       </div>
-                      <p className="text-textSecondary" > {Department.name} </p>
+                      <p className="text-textSecondary"> {Department.name} </p>
                     </th>
                     <td className="whitespace-nowrap px-6 py-4">
                       {Department.id}
