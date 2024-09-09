@@ -2,6 +2,7 @@
 
 import Spinner from "@/components/spinner";
 import { useGetAllExpensesQuery } from "@/features/Acadimic/examsApi";
+import { Key } from "react";
 
 const Exams = () => {
   const { data: exams, isLoading: isExams } = useGetAllExpensesQuery(null);
@@ -23,7 +24,7 @@ const Exams = () => {
         </div>
         <div className="grid gap-3">
           {
-            exams?.map((exam)=>(
+            exams?.map((exam: { id: Key | null | undefined; })=>(
           <div key={exam.id} className="grid h-full w-full gap-5 rounded-xl bg-bgPrimary p-7">
             <div className="flex items-center justify-between font-semibold">
               <div className="flex items-center">
