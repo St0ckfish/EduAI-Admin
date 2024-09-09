@@ -1,6 +1,7 @@
 import React from "react";
 
 // Helper function to get the next 7 days starting from today
+const today = new Date();
 const getNext7Days = () => {
   const today = new Date();
   const days = [];
@@ -46,7 +47,7 @@ const calculateHeight = (startTime: string, endTime: string) => {
   const endInMinutes = endHour * 60 + endMinute;
 
   // Calculate the duration in minutes and convert to percentage
-  return ((endInMinutes - startInMinutes) / (9 * 60)) * 150; // Height in percentage
+  return ((endInMinutes - startInMinutes) / (9 * 60)) * 130; // Height in percentage
 };
 
 const timetable = [
@@ -56,7 +57,7 @@ const timetable = [
     day: 1, // Monday
     color: "bg-red-100 text-red-600",
     startTime: "07:00AM",
-    endTime: "08:00AM",
+    endTime: "09:00AM",
   },
   {
     name: "Class B2",
@@ -105,7 +106,7 @@ const Timetable = () => {
         {days.map((day) => (
           <div
           key={day.id}
-          className="text-center py-2 px-4 rounded-lg w-20 -translate-x-[80px] shadow-lg"
+          className={`text-center py-2 px-4 rounded-lg w-20 -translate-x-[80px] shadow-lg ${day.date === today.getDate() ? "border border-blue-400" : ""}`}
           >
             <div>{day.date}</div>
             <div className="font-semibold">{day.name}</div>
