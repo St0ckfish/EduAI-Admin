@@ -63,11 +63,15 @@ const StudentInfo = ({ data }: { data: any }) => {
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.birthDate}
             </p>
-            <h3 className="font-sans font-semibold text-textSecondary">Email:</h3>
+            <h3 className="font-sans font-semibold text-textSecondary">
+              Email:
+            </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.email}
             </p>
-            <h3 className="font-sans font-semibold text-textSecondary">Gender:</h3>
+            <h3 className="font-sans font-semibold text-textSecondary">
+              Gender:
+            </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.gender}
             </p>
@@ -77,26 +81,40 @@ const StudentInfo = ({ data }: { data: any }) => {
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.nationality}
             </p>
-            <h3 className="font-sans font-semibold text-textSecondary">role:</h3>
+            <h3 className="font-sans font-semibold text-textSecondary">
+              role:
+            </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.role}
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
               Date Of Birth:
             </h3>
-            <p className="font-sans font-semibold text-textPrimary">02/05/2012</p>
-            <h3 className="font-sans font-semibold text-textSecondary">Religion:</h3>
+            <p className="font-sans font-semibold text-textPrimary">
+              02/05/2012
+            </p>
+            <h3 className="font-sans font-semibold text-textSecondary">
+              Religion:
+            </h3>
             <p className="font-sans font-semibold text-textPrimary">Islam</p>
-            <h3 className="font-sans font-semibold text-textSecondary">Address:</h3>
+            <h3 className="font-sans font-semibold text-textSecondary">
+              Address:
+            </h3>
             <p className="font-sans font-semibold text-textPrimary">
               13,street, Zamalk,Cairo
             </p>
-            <h3 className="font-sans font-semibold text-textSecondary">Email:</h3>
+            <h3 className="font-sans font-semibold text-textSecondary">
+              Email:
+            </h3>
             <p className="font-sans font-semibold text-textPrimary">
               Ahmed.M.Sayed@gmail.com
             </p>
-            <h3 className="font-sans font-semibold text-textSecondary">Mobile:</h3>
-            <p className="font-sans font-semibold text-textPrimary">01220145607</p>
+            <h3 className="font-sans font-semibold text-textSecondary">
+              Mobile:
+            </h3>
+            <p className="font-sans font-semibold text-textPrimary">
+              01220145607
+            </p>
           </div>
         </div>
 

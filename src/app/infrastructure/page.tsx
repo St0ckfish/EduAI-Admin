@@ -4,14 +4,14 @@ import Card from "@/components/card";
 import { RootState } from "@/GlobalRedux/store";
 import Link from "next/link";
 import { useSelector } from "react-redux";
-import { FaBus } from 'react-icons/fa';            // Bus Icon
-import { FaChalkboardTeacher } from 'react-icons/fa'; // Class Icon
-import { FaBookOpen } from 'react-icons/fa';       // Library Icon
-import { FaDoorOpen } from 'react-icons/fa';       // Room Icon
-import { FaVideo } from 'react-icons/fa';          // Cameras Icon
-import { FaStore } from 'react-icons/fa';          // Store Icon
-import { FaBuilding } from 'react-icons/fa';       // Office Icon
-import { GiChemicalDrop } from 'react-icons/gi';   // Lab Icon
+import { FaBus } from "react-icons/fa"; // Bus Icon
+import { FaChalkboardTeacher } from "react-icons/fa"; // Class Icon
+import { FaBookOpen } from "react-icons/fa"; // Library Icon
+import { FaDoorOpen } from "react-icons/fa"; // Room Icon
+import { FaVideo } from "react-icons/fa"; // Cameras Icon
+import { FaStore } from "react-icons/fa"; // Store Icon
+import { FaBuilding } from "react-icons/fa"; // Office Icon
+import { GiChemicalDrop } from "react-icons/gi"; // Lab Icon
 
 const Infrastructure = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
@@ -42,8 +42,8 @@ const Infrastructure = () => {
     },
     {
       href: "/classes",
-        icon: <FaChalkboardTeacher size={40} />,
-        title:
+      icon: <FaChalkboardTeacher size={40} />,
+      title:
         currentLanguage === "en"
           ? "Class"
           : currentLanguage === "ar"

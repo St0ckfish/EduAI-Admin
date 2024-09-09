@@ -147,13 +147,11 @@ const Dashboard: React.FC = () => {
       // Append the JSON data as a string to FormData
       formDataToSend.append("request", JSON.stringify(requestData));
 
-
       // Append the file if it exists
       const file = formData.file?.[0];
       if (file) {
         formDataToSend.append("file", file); // Append the file correctly
       }
-
 
       const result = await createEvent(formDataToSend).unwrap();
       console.log("Event created:", result);
@@ -325,7 +323,7 @@ const Dashboard: React.FC = () => {
               <div className="grid justify-center">
                 <button
                   onClick={handleOpenModal}
-                  className=" mr-3 w-[120px] whitespace-nowrap rounded-xl bg-primary px-1 py-1.5 text-[14px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                  className="mr-3 w-[120px] whitespace-nowrap rounded-xl bg-primary px-1 py-1.5 text-[14px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
                 >
                   + New Event
                 </button>
@@ -421,120 +419,145 @@ const Dashboard: React.FC = () => {
               className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-primary"
             />
             {errors.creatorId && (
+              <p className="text-error">{errors.creatorId.message as string}</p>
+            )}
+          </div>
+
+          {/* Start Time */}
+          <div className="mb-4">
+            <input
+              type="datetime-local"
+              {...register("startTime")}
+              placeholder="Start Time"
+              className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.startTime && (
+              <p className="text-error">{errors.startTime.message as string}</p>
+            )}
+          </div>
+
+          {/* End Time */}
+          <div className="mb-4">
+            <input
+              type="datetime-local"
+              {...register("endTime")}
+              placeholder="End Time"
+              className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.endTime && (
+              <p className="text-error">{errors.endTime.message as string}</p>
+            )}
+          </div>
+
+          {/* Title in English */}
+          <div className="mb-4">
+            <input
+              type="text"
+              {...register("title_en")}
+              placeholder="Title (English)"
+              className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.title_en && (
+              <p className="text-error">{errors.title_en.message as string}</p>
+            )}
+          </div>
+
+          {/* Title in Arabic */}
+          <div className="mb-4">
+            <input
+              type="text"
+              {...register("title_ar")}
+              placeholder="Title (Arabic)"
+              className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.title_ar && (
+              <p className="text-error">{errors.title_ar.message as string}</p>
+            )}
+          </div>
+
+          {/* Title in French */}
+          <div className="mb-4">
+            <input
+              type="text"
+              {...register("title_fr")}
+              placeholder="Title (French)"
+              className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.title_fr && (
+              <p className="text-error">{errors.title_fr.message as string}</p>
+            )}
+          </div>
+
+          {/* Description in English */}
+          <div className="mb-4">
+            <input
+              {...register("description_en")}
+              placeholder="Description (English)"
+              className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.description_en && (
               <p className="text-error">
-                {errors.creatorId.message as string}
+                {errors.description_en.message as string}
               </p>
             )}
           </div>
 
-            {/* Start Time */}
-            <div className="mb-4">
-              <input
-                type="datetime-local"
-                {...register("startTime")}
-                placeholder="Start Time"
-                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              {errors.startTime && <p className="text-error">{errors.startTime.message as string}</p>}
-            </div>
+          {/* Description in Arabic */}
+          <div className="mb-4">
+            <input
+              {...register("description_ar")}
+              placeholder="Description (Arabic)"
+              className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.description_ar && (
+              <p className="text-error">
+                {errors.description_ar.message as string}
+              </p>
+            )}
+          </div>
 
-            {/* End Time */}
-            <div className="mb-4">
-              <input
-                type="datetime-local"
-                {...register("endTime")}
-                placeholder="End Time"
-                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              {errors.endTime && <p className="text-error">{errors.endTime.message as string}</p>}
-            </div>
+          {/* Description in French */}
+          <div className="mb-4">
+            <input
+              {...register("description_fr")}
+              placeholder="Description (French)"
+              className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.description_fr && (
+              <p className="text-error">
+                {errors.description_fr.message as string}
+              </p>
+            )}
+          </div>
 
-            {/* Title in English */}
-            <div className="mb-4">
-              <input
-                type="text"
-                {...register("title_en")}
-                placeholder="Title (English)"
-                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              {errors.title_en && <p className="text-error">{errors.title_en.message as string}</p>}
-            </div>
+          {/* File Input */}
+          <div className="mb-4">
+            <input
+              type="file"
+              {...register("file")}
+              className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.file && (
+              <p className="text-error">{errors.file.message as string}</p>
+            )}
+          </div>
 
-            {/* Title in Arabic */}
-            <div className="mb-4">
-              <input
-                type="text"
-                {...register("title_ar")}
-                placeholder="Title (Arabic)"
-                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              {errors.title_ar && <p className="text-error">{errors.title_ar.message as string}</p>}
-            </div>
-
-            {/* Title in French */}
-            <div className="mb-4">
-              <input
-                type="text"
-                {...register("title_fr")}
-                placeholder="Title (French)"
-                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              {errors.title_fr && <p className="text-error">{errors.title_fr.message as string}</p>}
-            </div>
-
-            {/* Description in English */}
-            <div className="mb-4">
-              <input
-                {...register("description_en")}
-                placeholder="Description (English)"
-                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              {errors.description_en && <p className="text-error">{errors.description_en.message as string}</p>}
-            </div>
-
-            {/* Description in Arabic */}
-            <div className="mb-4">
-              <input
-                {...register("description_ar")}
-                placeholder="Description (Arabic)"
-                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              {errors.description_ar && <p className="text-error">{errors.description_ar.message as string}</p>}
-            </div>
-
-            {/* Description in French */}
-            <div className="mb-4">
-              <input
-                {...register("description_fr")}
-                placeholder="Description (French)"
-                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              {errors.description_fr && <p className="text-error">{errors.description_fr.message as string}</p>}
-            </div>
-
-            {/* File Input */}
-            <div className="mb-4">
-              <input
-                type="file"
-                {...register("file")}
-                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              {errors.file && <p className="text-error">{errors.file.message as string}</p>}
-            </div>
-
-            <div className="flex justify-between">
-              <button type="submit" className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl">
-                Add
-              </button>
-              <button
-                onClick={handleCloseModal}
-                className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-error px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-warning hover:shadow-xl"
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
-        </Modal>
+          <div className="flex justify-between">
+            <button
+              type="submit"
+              className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+            >
+              Add
+            </button>
+            <button
+              onClick={handleCloseModal}
+              className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-error px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-warning hover:shadow-xl"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </Modal>
     </div>
   );
 };

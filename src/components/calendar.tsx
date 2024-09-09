@@ -165,7 +165,7 @@ const Calendar = () => {
               }
               aria-label={date ? format(date, "MMMM d, yyyy") : ""}
               className={`flex h-8 w-8 cursor-pointer items-center justify-center rounded-full font-semibold text-textSecondary ${
-                date ? "hover:bg-bgSecondary focus:bg-primary" : ""
+                date ? "hover:bg-blue-100 focus:bg-primary" : ""
               } ${date && date.getDate() === selectedDate.getDate() ? "bg-primary text-white" : ""}`}
               onClick={() => date && handleDateClick(date)}
             >

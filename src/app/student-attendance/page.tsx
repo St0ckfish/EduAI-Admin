@@ -225,7 +225,7 @@ const StudentAttendance = () => {
                           alt="#"
                         />
                       )}
-                    </div>                    
+                    </div>
                     <p className="mt-4 text-[22px]"> {student.studentName} </p>
                     <p className="whitespace-nowrap font-semibold text-secondary">
                       Student: {student.studentId}

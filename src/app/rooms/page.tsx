@@ -3,8 +3,30 @@
 import Soon from "@/components/soon";
 import Link from "next/link";
 import { useState, useEffect } from "react"; // Import useState and useEffect hooks
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 const Rooms = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Administration",
+      nameAr: "الإدارة",
+      nameFr: "Administration",
+      href: "/",
+    },
+    {
+      nameEn: "Infrastructure",
+      nameAr: "الدورات والموارد",
+      nameFr: "Cours et Ressources",
+      href: "/infrastructure",
+    },
+    {
+      nameEn: "room",
+      nameAr: "الغرفة",
+      nameFr: "Chambre",
+      href: "/room",
+    },
+  ];
+  
   const [selectAll, setSelectAll] = useState(false); // State to track whether select all checkbox is checked
 
   // Function to handle click on select all checkbox
@@ -55,7 +77,7 @@ const Rooms = () => {
   return (
     <>
       <Soon />
-
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div className="relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg lg:ml-[270px]">
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">

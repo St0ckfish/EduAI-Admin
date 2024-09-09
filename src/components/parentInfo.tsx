@@ -51,11 +51,15 @@ const ParentInfo = ({ data }: { data: any }) => {
             Basic Details
           </h1>
           <div className="grid w-[400px] grid-cols-2 max-[485px]:w-[240px]">
-            <h3 className="font-sans font-semibold text-textSecondary">Email:</h3>
+            <h3 className="font-sans font-semibold text-textSecondary">
+              Email:
+            </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.email}
             </p>
-            <h3 className="font-sans font-semibold text-textSecondary">Gender:</h3>
+            <h3 className="font-sans font-semibold text-textSecondary">
+              Gender:
+            </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.gender}
             </p>
@@ -65,7 +69,9 @@ const ParentInfo = ({ data }: { data: any }) => {
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.occupation}
             </p>
-            <h3 className="font-sans font-semibold text-textSecondary">Religion:</h3>
+            <h3 className="font-sans font-semibold text-textSecondary">
+              Religion:
+            </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.religion}
             </p>
@@ -75,11 +81,15 @@ const ParentInfo = ({ data }: { data: any }) => {
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.nationality}
             </p>
-            <h3 className="font-sans font-semibold text-textSecondary">Mobile:</h3>
+            <h3 className="font-sans font-semibold text-textSecondary">
+              Mobile:
+            </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.number}
             </p>
-            <h3 className="font-sans font-semibold text-textSecondary">About:</h3>
+            <h3 className="font-sans font-semibold text-textSecondary">
+              About:
+            </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.about}
             </p>

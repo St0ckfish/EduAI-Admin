@@ -6,8 +6,36 @@ import { useCreateBussMutation } from "@/features/Infrastructure/busApi";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 const AddNewBus = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Administration",
+      nameAr: "الإدارة",
+      nameFr: "Administration",
+      href: "/",
+    },
+    {
+      nameEn: "Infrastructure",
+      nameAr: "الدورات والموارد",
+      nameFr: "Cours et Ressources",
+      href: "/infrastructure",
+    },
+    {
+      nameEn: "Bus",
+      nameAr: "المكتبة",
+      nameFr: "Autobus",
+      href: "/book",
+    },
+    {
+      nameEn: "Add New Bus",
+      nameAr: "إضافة حافلة جديدة",
+      nameFr: "Ajouter un nouveau bus",
+      href: "/add-new-bus",
+    },
+  ];
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   const {
@@ -27,6 +55,7 @@ const AddNewBus = () => {
   };
   return (
     <>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div className="mr-[5px] grid h-[850px] items-center justify-center lg:ml-[270px]">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid h-[900px] items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:h-[800px] xl:w-[1000px]">

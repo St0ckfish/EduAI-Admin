@@ -1,9 +1,9 @@
 import { useRef, useEffect } from "react";
-import { FaBold, FaItalic, FaUnderline, FaStrikethrough } from 'react-icons/fa'; // Formatting icons
-import { FaAlignLeft, FaAlignCenter, FaAlignRight } from 'react-icons/fa'; // Alignment icons
-import { FaListOl, FaListUl } from 'react-icons/fa'; // List icons
-import { AiOutlineLink, AiOutlinePicture } from 'react-icons/ai'; // Link and Image icons
-import { useTheme } from 'next-themes';
+import { FaBold, FaItalic, FaUnderline, FaStrikethrough } from "react-icons/fa"; // Formatting icons
+import { FaAlignLeft, FaAlignCenter, FaAlignRight } from "react-icons/fa"; // Alignment icons
+import { FaListOl, FaListUl } from "react-icons/fa"; // List icons
+import { AiOutlineLink, AiOutlinePicture } from "react-icons/ai"; // Link and Image icons
+import { useTheme } from "next-themes";
 
 const TextEditor = ({
   value,
@@ -30,7 +30,7 @@ const TextEditor = ({
   const { theme } = useTheme(); // Get the current theme
 
   const getButtonClassName = () => {
-    return `rounded px-3 py-2 bg-bgSecondary ${theme === 'dark' ? 'hover:bg-hover' : 'hover:bg-gray-300'}`;
+    return `rounded px-3 py-2 bg-bgSecondary ${theme === "dark" ? "hover:bg-hover" : "hover:bg-gray-300"}`;
   };
 
   useEffect(() => {

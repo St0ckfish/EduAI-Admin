@@ -275,7 +275,7 @@ const News = () => {
                     handleClick(post.id);
                     toggleNavbar3(index);
                   }}
-                  className="border-spacing-2 text-[#65676b] primary:border-b"
+                  className="primary:border-b border-spacing-2 text-[#65676b]"
                 >
                   Comments
                 </button>
@@ -348,7 +348,7 @@ const News = () => {
                   ) : (
                     <button
                       type="submit"
-                      className="rounded-lg bg-primary px-3 py-1.5 duration-300 ease-in primary:bg-primary primary:shadow-xl"
+                      className="primary:bg-primary primary:shadow-xl rounded-lg bg-primary px-3 py-1.5 duration-300 ease-in"
                     >
                       <svg
                         className="h-7 w-7 text-white"

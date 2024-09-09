@@ -50,7 +50,7 @@ const ViewDriver: React.FC<ViewDriverProps> = ({ params }) => {
             <div className="grid w-[500px] rounded-xl bg-bgPrimary p-5 max-[1342px]:w-full">
               <div className="relative overflow-auto shadow-md sm:rounded-lg">
                 <table className="w-full overflow-x-auto text-left text-sm text-textSecondary rtl:text-right">
-                  <thead className="bg-thead text-textPrimary text-xs uppercase">
+                  <thead className="bg-thead text-xs uppercase text-textPrimary">
                     <tr>
                       <th scope="col" className="whitespace-nowrap px-6 py-3">
                         Full Name
@@ -67,7 +67,7 @@ const ViewDriver: React.FC<ViewDriverProps> = ({ params }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className="border-b border-borderPrimary  bg-bgPrimary hover:bg-bgSecondary">
+                    <tr className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary">
                       <th
                         scope="row"
                         className="whitespace-nowrap px-6 py-4 font-medium text-textSecondary"
@@ -80,7 +80,7 @@ const ViewDriver: React.FC<ViewDriverProps> = ({ params }) => {
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">kdsk</td>
                     </tr>
-                    <tr className="border-b border-borderPrimary  bg-bgPrimary hover:bg-bgSecondary">
+                    <tr className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary">
                       <th
                         scope="row"
                         className="whitespace-nowrap px-6 py-4 font-medium text-textSecondary"

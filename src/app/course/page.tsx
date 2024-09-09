@@ -3,8 +3,8 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import Card from "@/components/card";
-import { FiBook } from 'react-icons/fi';
-import { AiOutlineFileText } from 'react-icons/ai';
+import { FiBook } from "react-icons/fi";
+import { AiOutlineFileText } from "react-icons/ai";
 
 const Course = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);

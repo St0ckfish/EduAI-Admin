@@ -292,7 +292,10 @@ const DriverAttendance = () => {
                         />
                       )}
                     </div>
-                    <p className="mt-4 text-[22px] text-textPrimary"> {driver.userFullName} </p>
+                    <p className="mt-4 text-[22px] text-textPrimary">
+                      {" "}
+                      {driver.userFullName}{" "}
+                    </p>
                     <p className="whitespace-nowrap font-semibold text-secondary">
                       Driver: {driver.userId}
                     </p>

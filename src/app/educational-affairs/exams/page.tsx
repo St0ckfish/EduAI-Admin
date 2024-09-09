@@ -39,7 +39,9 @@ const Exams = () => {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-[12px] text-textSecondary">Total student</p>
+                    <p className="text-[12px] text-textSecondary">
+                      Total student
+                    </p>
                     <p className="text-[12px] text-textSecondary">50</p>
                   </div>
                 </div>
@@ -60,7 +62,9 @@ const Exams = () => {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-[12px] text-textSecondary">Total student</p>
+                    <p className="text-[12px] text-textSecondary">
+                      Total student
+                    </p>
                     <p className="text-[12px] text-textSecondary">50</p>
                   </div>
                 </div>
@@ -81,7 +85,9 @@ const Exams = () => {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-[12px] text-textSecondary">Total student</p>
+                    <p className="text-[12px] text-textSecondary">
+                      Total student
+                    </p>
                     <p className="text-[12px] text-textSecondary">50</p>
                   </div>
                 </div>
@@ -102,7 +108,9 @@ const Exams = () => {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-[12px] text-textSecondary">Total student</p>
+                    <p className="text-[12px] text-textSecondary">
+                      Total student
+                    </p>
                     <p className="text-[12px] text-textSecondary">50</p>
                   </div>
                 </div>
@@ -123,7 +131,9 @@ const Exams = () => {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-[12px] text-textSecondary">Total student</p>
+                    <p className="text-[12px] text-textSecondary">
+                      Total student
+                    </p>
                     <p className="text-[12px] text-textSecondary">50</p>
                   </div>
                 </div>
@@ -144,7 +154,9 @@ const Exams = () => {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-[12px] text-textSecondary">Total student</p>
+                    <p className="text-[12px] text-textSecondary">
+                      Total student
+                    </p>
                     <p className="text-[12px] text-textSecondary">50</p>
                   </div>
                 </div>

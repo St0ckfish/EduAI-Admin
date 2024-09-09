@@ -51,11 +51,15 @@ const EmployeeInfo = ({ data }: { data: any }) => {
             Basic Details
           </h1>
           <div className="grid w-[400px] grid-cols-2 max-[485px]:w-[240px]">
-            <h3 className="font-sans font-semibold text-textSecondary">Email:</h3>
+            <h3 className="font-sans font-semibold text-textSecondary">
+              Email:
+            </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.email}
             </p>
-            <h3 className="font-sans font-semibold text-textSecondary">Salary:</h3>
+            <h3 className="font-sans font-semibold text-textSecondary">
+              Salary:
+            </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.salary == null ? `Not specified` : data.data.salary}
             </p>
@@ -63,27 +67,39 @@ const EmployeeInfo = ({ data }: { data: any }) => {
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.birthDate}
             </p>
-            <h3 className="font-sans font-semibold text-textSecondary">Gender:</h3>
+            <h3 className="font-sans font-semibold text-textSecondary">
+              Gender:
+            </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.gender}
             </p>
-            <h3 className="font-sans font-semibold text-textSecondary">Position:</h3>
+            <h3 className="font-sans font-semibold text-textSecondary">
+              Position:
+            </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.role}
             </p>
-            <h3 className="font-sans font-semibold text-textSecondary">Religion:</h3>
+            <h3 className="font-sans font-semibold text-textSecondary">
+              Religion:
+            </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.religion}
             </p>
-            <h3 className="font-sans font-semibold text-textSecondary">Address:</h3>
+            <h3 className="font-sans font-semibold text-textSecondary">
+              Address:
+            </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.nationality}
             </p>
-            <h3 className="font-sans font-semibold text-textSecondary">Mobile:</h3>
+            <h3 className="font-sans font-semibold text-textSecondary">
+              Mobile:
+            </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.phoneNumber}
             </p>
-            <h3 className="font-sans font-semibold text-textSecondary">About:</h3>
+            <h3 className="font-sans font-semibold text-textSecondary">
+              About:
+            </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.about}
             </p>

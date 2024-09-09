@@ -3,11 +3,11 @@ import AttendCard from "@/components/AttendCard";
 import { RootState } from "@/GlobalRedux/store";
 import Link from "next/link";
 import { useSelector } from "react-redux";
-import { FaUserTie } from 'react-icons/fa';        // Driver Icon
-import { FaBriefcase } from 'react-icons/fa';      // Employee Icon
-import { FaUserGraduate } from 'react-icons/fa';   // Student Icon
-import { FaChalkboardTeacher } from 'react-icons/fa'; // Teacher Icon
-import { FaHardHat } from 'react-icons/fa';
+import { FaUserTie } from "react-icons/fa"; // Driver Icon
+import { FaBriefcase } from "react-icons/fa"; // Employee Icon
+import { FaUserGraduate } from "react-icons/fa"; // Student Icon
+import { FaChalkboardTeacher } from "react-icons/fa"; // Teacher Icon
+import { FaHardHat } from "react-icons/fa";
 import {
   useGetAllEmployeesQuery,
   useGetAllStudentsQuery,

@@ -4,8 +4,7 @@ import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { AiOutlineSave } from 'react-icons/ai'; // Save Icon
-
+import { AiOutlineSave } from "react-icons/ai"; // Save Icon
 
 const AddNewPost = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);

@@ -3,11 +3,10 @@ import Card from "@/components/card";
 import { RootState } from "@/GlobalRedux/store";
 import Link from "next/link";
 import { useSelector } from "react-redux";
-import { AiOutlineCalendar } from 'react-icons/ai'; // Events Icon
-import { FaClipboardList } from 'react-icons/fa';   // Exams Icon
-import { FaRegChartBar } from 'react-icons/fa';     // Grades Icon
-import { BsCalendar } from 'react-icons/bs';        // Schedule Icon
-
+import { AiOutlineCalendar } from "react-icons/ai"; // Events Icon
+import { FaClipboardList } from "react-icons/fa"; // Exams Icon
+import { FaRegChartBar } from "react-icons/fa"; // Grades Icon
+import { BsCalendar } from "react-icons/bs"; // Schedule Icon
 
 const EducationalAffairs = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);

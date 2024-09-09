@@ -173,7 +173,7 @@ const Search = () => {
                   <div>
                     <select
                       id="countries"
-                      className="block h-full w-full rounded-lg border border-borderPrimary bg-bgSecondary p-1.5 text-sm text-textPrimary focus:border-borderPrimary outline-none"
+                      className="block h-full w-full rounded-lg border border-borderPrimary bg-bgSecondary p-1.5 text-sm text-textPrimary outline-none focus:border-borderPrimary"
                     >
                       <option selected>Search by Name </option>
                     </select>

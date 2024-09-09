@@ -142,7 +142,7 @@ const Notifies = () => {
                     {notifi.read ? (
                       ""
                     ) : (
-                      <div className="ml-1 flex h-2.5 w-2.5 rounded-full bg-primary"></div>
+                      <div className="bg-b ml-1 flex h-2.5 w-2.5 rounded-full"></div>
                     )}{" "}
                   </h1>
                   <div
