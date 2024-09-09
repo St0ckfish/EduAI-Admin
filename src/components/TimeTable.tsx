@@ -17,8 +17,10 @@ const getNext7Days = () => {
 const days = getNext7Days();
 
 // Function to convert time string "07:00AM" to the top position (in percentage)
-const timeToPosition = (time) => {
-  const [hourStr, minuteStr] = time.match(/\d+/g);
+const timeToPosition = (time: string) => {
+  const match = time.match(/\d+/g);
+  const hourStr = match ? match[0] : "";
+  const minuteStr = match ? match[1] : "";
   const isPM = time.includes("PM");
   let hour = parseInt(hourStr);
   const minute = parseInt(minuteStr);
@@ -36,9 +38,9 @@ const timeToPosition = (time) => {
 };
 
 // Function to calculate the height of the event block (based on the duration)
-const calculateHeight = (startTime, endTime) => {
-  const [startHour, startMinute] = startTime.match(/\d+/g).map(Number);
-  const [endHour, endMinute] = endTime.match(/\d+/g).map(Number);
+const calculateHeight = (startTime: string, endTime: string) => {
+  const [startHour, startMinute] = startTime?.match(/\d+/g)?.map(Number) || [0, 0];
+  const [endHour, endMinute] = endTime?.match(/\d+/g)?.map(Number) || [0, 0];
 
   const startInMinutes = startHour * 60 + startMinute;
   const endInMinutes = endHour * 60 + endMinute;
