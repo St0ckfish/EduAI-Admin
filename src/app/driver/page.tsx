@@ -46,7 +46,7 @@ const Driver = () => {
     {
       nameEn: "Driver",
       nameAr: "السائق",
-      nameFr: "Chauffeur",
+      nameFr: "Conducteurs",
       href: "/driver",
     },
   ];
