@@ -14,6 +14,7 @@ import {
   useGetAllTeachersQuery,
   useGetAllWorkersQuery,
   useGetEmployeeAttendenceQuery,
+  useGetStudentAttendenceQuery,
   useGetTeacherAttendenceQuery,
   useGetWorkerAttendenceQuery,
 } from "@/features/dashboard/dashboardApi";
@@ -44,7 +45,7 @@ const Attendance = () => {
   const { data: studentCount, isLoading: isSCount } =
     useGetAllStudentsQuery(null);
   const { data: students, isLoading: isStudents } =
-    useGetAllStudentsQuery(null);
+  useGetStudentAttendenceQuery(null);
 
   const { data: teachers, isLoading: isTeacher } = useGetAllTeachersQuery(null);
   const { data: workers, isLoading: isWorker } = useGetAllWorkersQuery(null);
@@ -90,7 +91,7 @@ const Attendance = () => {
               ? "Étudiant"
               : "Student", // Default to English
       description: studentCount?.data, // Default to English
-      number: 20,
+      number: students?.data,
     },
     {
       href: "/teacher-attendance",
@@ -103,14 +104,7 @@ const Attendance = () => {
             : currentLanguage === "fr"
               ? "Enseignant"
               : "Teacher", // Default to English
-      description:
-        currentLanguage === "en"
-          ? "520"
-          : currentLanguage === "ar"
-            ? "٥٢٠"
-            : currentLanguage === "fr"
-              ? "520"
-              : "520", // Default to English
+      description: teachers?.data, // Default to English
       number: teacherdata?.data,
     },
     {
@@ -124,14 +118,7 @@ const Attendance = () => {
             : currentLanguage === "fr"
               ? "Travailleur"
               : "Worker", // Default to English
-      description:
-        currentLanguage === "en"
-          ? "602"
-          : currentLanguage === "ar"
-            ? "٦٠٢"
-            : currentLanguage === "fr"
-              ? "602"
-              : "602", // Default to English
+      description: workers?.data, // Default to English
       number: workerdata?.data,
     },
   ];
