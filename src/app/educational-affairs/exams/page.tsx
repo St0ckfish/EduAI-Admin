@@ -1,4 +1,16 @@
+"use client"
+
+import Spinner from "@/components/spinner";
+import { useGetAllExpensesQuery } from "@/features/Acadimic/examsApi";
+
 const Exams = () => {
+  const { data: exams, isLoading: isExams } = useGetAllExpensesQuery(null);
+  if ( isExams )
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
   return (
     <>
       <div className="mt-12 lg:ml-[290px] lg:mr-10">
@@ -10,7 +22,9 @@ const Exams = () => {
           </div>
         </div>
         <div className="grid gap-3">
-          <div className="grid h-full w-full gap-5 rounded-xl bg-bgPrimary p-7">
+          {
+            exams?.map((exam)=>(
+          <div key={exam.id} className="grid h-full w-full gap-5 rounded-xl bg-bgPrimary p-7">
             <div className="flex items-center justify-between font-semibold">
               <div className="flex items-center">
                 <h1 className="text-[18px]">Exam : </h1>
@@ -151,6 +165,8 @@ const Exams = () => {
               </div>
             </div>
           </div>
+            ))
+          }
         </div>
       </div>
     </>

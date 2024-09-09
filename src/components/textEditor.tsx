@@ -58,7 +58,7 @@ const TextEditor = ({
           className={getButtonClassName()}
           aria-label="Bold"
         >
-          <FaBold size={25} />
+          <FaBold size={20} />
         </button>
         <button
           type="button"
@@ -66,7 +66,7 @@ const TextEditor = ({
           className={getButtonClassName()}
           aria-label="Italic"
         >
-          <FaItalic size={25} />
+          <FaItalic size={20} />
         </button>
         <button
           type="button"
@@ -74,7 +74,7 @@ const TextEditor = ({
           className={getButtonClassName()}
           aria-label="Underline"
         >
-          <FaUnderline size={25} />
+          <FaUnderline size={20} />
         </button>
         <button
           type="button"
@@ -82,7 +82,7 @@ const TextEditor = ({
           className={getButtonClassName()}
           aria-label="Strikethrough"
         >
-          <FaStrikethrough size={25} />
+          <FaStrikethrough size={20} />
         </button>
         <button
           type="button"
@@ -90,7 +90,7 @@ const TextEditor = ({
           className={getButtonClassName()}
           aria-label="Align left"
         >
-          <FaAlignLeft size={25} />
+          <FaAlignLeft size={20} />
         </button>
         <button
           type="button"
@@ -98,7 +98,7 @@ const TextEditor = ({
           className={getButtonClassName()}
           aria-label="Align center"
         >
-          <FaAlignCenter size={25} />
+          <FaAlignCenter size={20} />
         </button>
         <button
           type="button"
@@ -106,7 +106,7 @@ const TextEditor = ({
           className={getButtonClassName()}
           aria-label="Align right"
         >
-          <FaAlignRight size={25} />
+          <FaAlignRight size={20} />
         </button>
         <button
           type="button"
@@ -114,7 +114,7 @@ const TextEditor = ({
           className={getButtonClassName()}
           aria-label="Ordered list"
         >
-          <FaListOl size={25} />
+          <FaListOl size={20} />
         </button>
         <button
           type="button"
@@ -122,7 +122,7 @@ const TextEditor = ({
           className={getButtonClassName()}
           aria-label="Unordered list"
         >
-          <FaListUl size={25} />
+          <FaListUl size={20} />
         </button>
         <button
           type="button"
@@ -130,7 +130,7 @@ const TextEditor = ({
           className={getButtonClassName()}
           aria-label="Insert link"
         >
-          <AiOutlineLink size={25} />
+          <AiOutlineLink size={20} />
         </button>
         <button
           type="button"
@@ -140,7 +140,7 @@ const TextEditor = ({
           className={getButtonClassName()}
           aria-label="Insert image"
         >
-          <AiOutlinePicture size={25} />
+          <AiOutlinePicture size={20} />
         </button>
       </div>
       <div

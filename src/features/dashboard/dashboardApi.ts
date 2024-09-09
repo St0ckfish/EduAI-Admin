@@ -78,12 +78,17 @@ export const dashboardApi = createApi({
     getNotices: builder.query({
       query: () => "/api/management/note/all?page=0&size=10",
     }),
+    //
+    getExpenses: builder.query({
+      query: ({start, end}) => `/api/v1/dashboard/school-finance?start-date=${start}&end-date=${end}`,
+    }),
   }),
 });
 
 export const {
   useGetAllCurrentUserQuery,
   useGetAllEmployeesQuery,
+  useGetExpensesQuery,
   useGetAllNoticesQuery,
   useGetAllWorkersQuery,
   useGetAllStudentsQuery,
