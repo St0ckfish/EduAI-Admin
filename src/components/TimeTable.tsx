@@ -17,7 +17,6 @@ const getNext7Days = () => {
 
 const days = getNext7Days();
 
-// Function to convert time string "07:00AM" to the top position (in percentage)
 const timeToPosition = (time: string) => {
   const match = time.match(/\d+/g);
   const hourStr = match ? match[0] : "";
@@ -26,19 +25,16 @@ const timeToPosition = (time: string) => {
   let hour = parseInt(hourStr);
   const minute = parseInt(minuteStr);
 
-  if (isPM && hour !== 12) hour += 12; // Convert PM hours to 24-hour format
-  if (!isPM && hour === 12) hour = 0; // Adjust for 12 AM
+  if (isPM && hour !== 12) hour += 12;
+  if (!isPM && hour === 12) hour = 0;
 
-  // Calculate the total minutes from 7:00 AM
-  const startOfDay = 7 * 60; // 7:00 AM in minutes
+  const startOfDay = 7 * 60;
   const totalMinutes = hour * 60 + minute;
   const minutesSinceStartOfDay = totalMinutes - startOfDay;
 
-  // Calculate the top position in percentage based on total minutes
-  return (minutesSinceStartOfDay / (9 * 60)) * 90; // Convert to percentage for 9 hours
+  return (minutesSinceStartOfDay / (9 * 60)) * 90;
 };
 
-// Function to calculate the height of the event block (based on the duration)
 const calculateHeight = (startTime: string, endTime: string) => {
   const [startHour, startMinute] = startTime?.match(/\d+/g)?.map(Number) || [0, 0];
   const [endHour, endMinute] = endTime?.match(/\d+/g)?.map(Number) || [0, 0];
@@ -46,8 +42,7 @@ const calculateHeight = (startTime: string, endTime: string) => {
   const startInMinutes = startHour * 60 + startMinute;
   const endInMinutes = endHour * 60 + endMinute;
 
-  // Calculate the duration in minutes and convert to percentage
-  return ((endInMinutes - startInMinutes) / (9 * 60)) * 130; // Height in percentage
+  return ((endInMinutes - startInMinutes) / (9 * 60)) * 130;
 };
 
 const timetable = [
