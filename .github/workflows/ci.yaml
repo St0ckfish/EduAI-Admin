@@ -44,12 +44,27 @@ jobs:
       - name: Update Kubernetes deployment with new image tag
         run: |
           sed -i "s|image: expotechx/admin:.*|image: expotechx/admin:${COMMIT_HASH}|" k8s/admin-app.yaml
-      - name: Commit and push changes
+
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'v1.21.0'          
+
+      - name: Update Kubernetes deployment with new image tag
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}
         run: |
-          git config --global user.name "Mahmoud-Medany"
-          git config --global user.email "mt7033706@gmail.com"
-          git add k8s/admin-app.yaml
-          git commit -m "Update deployment file with new image tag"
-          git push -f https://${{ secrets.TOKEN_GITHUB }}@github.com/M0staphaTaha/EduAI-Admin.git HEAD:main      
+          kubectl apply -f k8s/admin-app.yaml
+          kubectl rollout status deployment admin-deploy
+
+
+
+      # - name: Commit and push changes
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+      #   run: |
+      #     git config --global user.name "Mahmoud-Medany"
+      #     git config --global user.email "mt7033706@gmail.com"
+      #     git add k8s/admin-app.yaml
+      #     git commit -m "Update deployment file with new image tag"
+      #     git push -f https://${{ secrets.TOKEN_GITHUB }}@github.com/M0staphaTaha/EduAI-Admin.git HEAD:main      
