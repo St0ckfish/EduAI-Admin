@@ -28,7 +28,7 @@ jobs:
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
         run: |
-          echo "${{ secrets.KUBECONFIG_SECRET }}" > $HOME/.kube/config
+          echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
           sed -i "s|image: expotechx/admin:.*|image: expotechx/admin:${COMMIT_HASH}|" k8s/admin-app.yaml
           kubectl apply -f k8s/admin-app.yaml
           kubectl rollout status deployment admin-deploy
