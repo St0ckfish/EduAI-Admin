@@ -31,8 +31,10 @@ jobs:
           # Create .kube directory
           mkdir -p $HOME/.kube
           
-          # Write the kubeconfig content to a file
-          echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+          # Write the kubeconfig content to the config file using a heredoc
+          cat <<EOF > $HOME/.kube/config
+          ${KUBECONFIG}
+          EOF
           
           # Verify the kubeconfig file exists and has correct content
           ls -la $HOME/.kube
