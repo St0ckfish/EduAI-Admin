@@ -30,7 +30,7 @@ const Bus = () => {
       nameEn: "Bus",
       nameAr: "المكتبة",
       nameFr: "Autobus",
-      href: "/book",
+      href: "/bus",
     },
   ];
   const { data, error, isLoading, refetch } = useGetAllBussQuery(null);

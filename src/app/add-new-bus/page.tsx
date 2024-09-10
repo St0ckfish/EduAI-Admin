@@ -56,7 +56,7 @@ const AddNewBus = () => {
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
-      <div className="mr-[5px] grid h-[850px] items-center justify-center lg:ml-[270px]">
+      <div className="mt-[40px] mr-[5px] grid h-[850px] items-center justify-center lg:ml-[270px]">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid h-[900px] items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:h-[800px] xl:w-[1000px]">
             <div className="flex items-center justify-start gap-2">
