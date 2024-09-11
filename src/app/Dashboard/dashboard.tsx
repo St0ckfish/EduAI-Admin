@@ -357,10 +357,25 @@ const Dashboard: React.FC = () => {
         <div className="grid overflow-x-auto rounded-2xl">
           <div className="flex w-[850px] justify-center overflow-x-auto rounded-2xl bg-bgPrimary shadow-xl max-[1536px]:w-full">
             <Calendar />
+            {/* 
+            <div className="mt-4 grid grid-cols-2">
+          <p className="font-sans font-semibold text-textPrimary">Tuesday:</p>
+          <p className="font-sans font-semibold text-textSecondary">
+            On Tuesday he comes to school and reads carefully. His activity is
+            so good.
+          </p>
+          <p className="font-sans font-semibold text-textPrimary">Homework:</p>
+          <p className="font-sans font-semibold text-textSecondary">
+            He completed his homework. <br /> He is the most active student of
+            the class.
+          </p>
+        </div>
+             */}
           </div>
+          
         </div>
         <div className="grid overflow-x-auto rounded-xl">
-          <div className="grid h-[600px] w-[550px] overflow-x-auto overflow-y-auto rounded-xl bg-bgPrimary p-2 shadow-xl max-[1536px]:w-full">
+          <div className="grid h-[500px] w-[550px] overflow-x-auto overflow-y-auto rounded-xl bg-bgPrimary p-2 shadow-xl max-[1536px]:w-full">
             <div className="flex w-full justify-between">
               <p className="text-[20px] font-bold">
                 {currentLanguage === "en"

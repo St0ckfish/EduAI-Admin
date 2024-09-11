@@ -57,7 +57,7 @@ const Calendar = () => {
 
   return (
     <div className="calendar-component">
-      <div className="grid h-[550px] w-[500px] rounded-xl bg-bgPrimary p-5 max-[1342px]:w-full">
+      <div className="grid h-[450px] w-[500px] rounded-xl bg-bgPrimary p-5 max-[1342px]:w-full">
         {/* Display month and year */}
         <div className="mb-7 flex items-center justify-between">
           <button
@@ -108,7 +108,7 @@ const Calendar = () => {
         </div>
         {/* Display calendar */}
         {/* Day names */}
-        <div className="grid grid-cols-7" role="row">
+        <div className="grid grid-cols-7 ml-2" role="row">
           <div
             role="columnheader"
             className="font-sans font-medium text-textSecondary"
@@ -152,7 +152,7 @@ const Calendar = () => {
             SAT
           </div>
         </div>
-        <div className="grid grid-cols-7" role="grid">
+        <div className="grid grid-cols-7 ml-2" role="grid">
           {monthDates.map((date, index) => (
             <div
               key={index}
@@ -172,18 +172,6 @@ const Calendar = () => {
               {date ? date.getDate() : ""}
             </div>
           ))}
-        </div>
-        <div className="mt-4 grid grid-cols-2">
-          <p className="font-sans font-semibold text-textPrimary">Tuesday:</p>
-          <p className="font-sans font-semibold text-textSecondary">
-            On Tuesday he comes to school and reads carefully. His activity is
-            so good.
-          </p>
-          <p className="font-sans font-semibold text-textPrimary">Homework:</p>
-          <p className="font-sans font-semibold text-textSecondary">
-            He completed his homework. <br /> He is the most active student of
-            the class.
-          </p>
         </div>
       </div>
     </div>

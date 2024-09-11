@@ -76,7 +76,15 @@ export const dashboardApi = createApi({
     }),
     //
     getNotices: builder.query({
-      query: () => "/api/management/note/all?page=0&size=10",
+      query: () => "/api/management/note/all?page=0&size=100000",
+    }),
+    //
+    createNote: builder.mutation({
+      query: ({ formData }) => ({
+        url: `/api/management/note`,
+        method: "POST",
+        body: formData,
+      }),
     }),
     //
     getExpenses: builder.query({
@@ -88,6 +96,7 @@ export const dashboardApi = createApi({
 
 export const {
   useGetAllCurrentUserQuery,
+  useCreateNoteMutation,
   useGetAllEmployeesQuery,
   useGetExpensesQuery,
   useGetAllNoticesQuery,
