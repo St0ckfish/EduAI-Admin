@@ -80,10 +80,10 @@ export const dashboardApi = createApi({
     }),
     //
     createNote: builder.mutation({
-      query: ({ formData }) => ({
+      query: ({ title, description }) => ({
         url: `/api/management/note`,
         method: "POST",
-        body: formData,
+        body: { title, description },
       }),
     }),
     //

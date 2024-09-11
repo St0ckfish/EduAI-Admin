@@ -437,7 +437,7 @@ const Dashboard: React.FC = () => {
                     <h1 className="text-[18px] font-semibold text-primary">
                       {note.title}
                     </h1>
-                    <p className="text-textSecondary">{note.description}</p>
+                    <p className="text-textSecondary" dangerouslySetInnerHTML={{ __html: note.description || "" }}/>
                   </div>
                 ),
               )}
