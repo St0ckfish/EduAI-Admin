@@ -25,7 +25,7 @@ const Schedule = () => {
   });
 
   return (
-    <>
+    <> 
       <div className={` ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-7`}>
         <div className="flex justify-between my-12 mr-5 max-[540px]:grid max-[540px]:justify-center max-[540px]:mr-0 max-[540px]:my-1">
           <div className="flex gap-3 items-center justify-start ml-2 font-semibold text-xl max-[540px]:justify-center max-[540px]:ml-0 max-[540px]:mb-2">
