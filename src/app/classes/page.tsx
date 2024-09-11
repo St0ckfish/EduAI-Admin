@@ -5,8 +5,23 @@ import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import Spinner from "@/components/spinner";
 import { useEffect, useState } from "react";
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 const Infrastructure = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Dashboard",
+      nameAr: "لوحة القيادة",
+      nameFr: "Tableau de bord",
+      href: "/",
+    },
+    {
+      nameEn: "Classes",
+      nameAr: "الفصل",
+      nameFr: "Classe",
+      href: "/classes",
+    },
+  ];
   type Class = Record<string, any>;
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const { data, error, isLoading } = useGetAllClasssQuery(null);
@@ -25,6 +40,7 @@ const Infrastructure = () => {
     );
   return (
     <>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         className={`flex justify-between ${booleanValue ? "lg:ml-[150px]" : "lg:ml-[320px]"} mt-16 text-center max-[502px]:grid max-[502px]:justify-center lg:mr-[40px]`}
       >

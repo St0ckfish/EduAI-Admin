@@ -1,11 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
+
 interface CircleProgressProps {
   percentage: number;
 }
 const CircleProgress: React.FC<CircleProgressProps> = ({ percentage }) => {
   const [progress, setProgress] = useState(0);
+  const { theme } = useTheme(); // Get the current theme (light or dark)
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -16,10 +19,15 @@ const CircleProgress: React.FC<CircleProgressProps> = ({ percentage }) => {
 
     return () => clearInterval(interval);
   }, [percentage]);
+
   const radius = 20;
   const circumference = 2 * Math.PI * radius;
   const strokeDasharray = `${circumference} ${circumference}`;
   const strokeDashoffset = circumference - (progress / 100) * circumference;
+
+  // Determine the text color based on the current theme
+  const textColor = theme === "dark" ? "white" : "black";
+
   return (
     <>
       <div className="grid h-[300px] w-[300px] items-center justify-center">
@@ -49,7 +57,8 @@ const CircleProgress: React.FC<CircleProgressProps> = ({ percentage }) => {
             y="46%"
             dominantBaseline="middle"
             textAnchor="middle"
-            className="items-center text-center text-xs font-semibold text-textPrimary"
+            className="items-center text-center text-xs font-semibold"
+            fill={textColor} // Change the fill property based on the theme
           >
             {progress}
           </text>
@@ -58,7 +67,8 @@ const CircleProgress: React.FC<CircleProgressProps> = ({ percentage }) => {
             y="70%"
             dominantBaseline="middle"
             textAnchor="middle"
-            className="items-center text-[5px] font-semibold text-textPrimary"
+            className="items-center text-[5px] font-semibold"
+            fill={textColor} // Change the fill property based on the theme
           >
             {100 - progress}
           </text>

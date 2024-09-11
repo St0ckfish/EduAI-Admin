@@ -1,5 +1,7 @@
 import Calendar from "@/components/calendar";
 import CircleProgress from "@/components/circleProgress";
+import BreadCrumbs from "@/components/BreadCrumbs";
+
 
 interface ViewDriverProps {
   params: {
@@ -7,10 +9,30 @@ interface ViewDriverProps {
   };
 }
 const classDetails: React.FC<ViewDriverProps> = ({ params }) => {
+  const breadcrumbs = [
+    {
+      nameEn: "Dashboard",
+      nameAr: "لوحة القيادة",
+      nameFr: "Tableau de bord",
+      href: "/",
+    },
+    {
+      nameEn: "Classes",
+      nameAr: "الفصل",
+      nameFr: "Classe",
+      href: "/classes",
+    },
+    {
+      nameEn: `Class details`,
+      nameAr: `إضافة فصل`,
+      nameFr: `Ajouter une classe`,
+      href: `/class-detials/${params.classId}`,
+    },
+  ];
   return (
     <>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div className="mt-16 grid justify-center lg:ml-[290px] lg:mr-32">
-        {params.classId}
         <div className="grid justify-center md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3">
           <div className="grid justify-center gap-2">
             <div className="flex h-[130px] w-[200px] items-center justify-center gap-2 rounded-xl bg-bgPrimary p-2 shadow-xl"></div>

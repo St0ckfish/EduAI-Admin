@@ -12,8 +12,29 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import { toast } from "react-toastify";
 import Pagination from "@/components/pagination";
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 const WorkerAttendance = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Dhashboard",
+      nameAr: "لوحة القيادة",
+      nameFr: "Tableau de bord",
+      href: "/",
+    },
+    {
+      nameEn: "Attendances",
+      nameAr: "الحضور",
+      nameFr: "Présences",
+      href: "/attendances",
+    },
+    {
+      nameEn: "Worker Attendances",
+      nameAr: "حضور العمال",
+      nameFr: "Présences des Ouvrier",
+      href: "/worker-attendance",
+    },
+  ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   type Employee = Record<string, any>;
@@ -108,46 +129,7 @@ const WorkerAttendance = () => {
 
   return (
     <>
-      <div
-        className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} ml-7 mt-12 flex-wrap text-[18px] max-[550px]:text-[15px]`}
-      >
-        <Link
-          className="text-[18px] font-semibold text-secondary hover:text-blue-400 hover:underline"
-          href="/"
-        >
-          Operations
-        </Link>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)", transform: "", msFilter: "" }}
-        >
-          <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
-        </svg>
-        <Link
-          className="text-[18px] font-semibold text-secondary hover:text-blue-400 hover:underline"
-          href="/attendances"
-        >
-          Attendances
-        </Link>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)", transform: "", msFilter: "" }}
-        >
-          <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
-        </svg>
-        <Link
-          className="font-semibold text-secondary hover:text-blue-400 hover:underline"
-          href="/worker-attendance"
-        >
-          Worker
-        </Link>
-      </div>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
@@ -214,11 +196,11 @@ const WorkerAttendance = () => {
                         />
                       )}
                     </div>
-                    <p className="mt-4 text-[22px]">
+                    <p className="mt-4 text-[22px] text-textPrimary">
                       {" "}
                       {employee.userFullName}{" "}
                     </p>
-                    <p className="whitespace-nowrap font-semibold text-[#526484]">
+                    <p className="whitespace-nowrap font-semibold text-secondary">
                       Worker: {employee.userId}
                     </p>
                   </div>
@@ -227,18 +209,17 @@ const WorkerAttendance = () => {
                   {["P", "A", "L"].map(label => (
                     <label
                       key={label}
-                      className={`flex h-[55px] w-[55px] cursor-pointer items-center justify-center rounded-full border p-5 text-center text-[24px] font-semibold ${
-                        selectedStates[index] === label ||
-                        (label === "P" && employee.status === "PRESENT") ||
-                        (label === "L" && employee.status === "LEAVE") ||
-                        (label === "A" && employee.status === "ABSENT")
+                      className={`flex h-[55px] w-[55px] cursor-pointer items-center justify-center rounded-full border border-borderPrimary p-5 text-center text-[24px] font-semibold ${selectedStates[index] === label ||
+                          (label === "P" && employee.status === "PRESENT") ||
+                          (label === "L" && employee.status === "LEAVE") ||
+                          (label === "A" && employee.status === "ABSENT")
                           ? label === "P"
-                            ? "bg-green-300 text-white"
+                            ? "bg-success text-blackOrWhite"
                             : label === "A"
-                              ? "bg-red-500 text-white"
-                              : "bg-yellow-300 text-white"
-                          : "bg-bgPrimary"
-                      } `}
+                              ? "bg-error text-blackOrWhite"
+                              : "bg-warning text-blackOrWhite"
+                          : "bg-bgSecondary"
+                        } `}
                     >
                       <input
                         type="checkbox"

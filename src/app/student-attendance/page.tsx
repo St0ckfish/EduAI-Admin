@@ -12,8 +12,29 @@ import {
   useGetAllStudentsAttendQuery,
   useUpdateStudentAttendanceMutation,
 } from "@/features/attendance/attendanceApi";
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 const StudentAttendance = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Dhashboard",
+      nameAr: "لوحة القيادة",
+      nameFr: "Tableau de bord",
+      href: "/",
+    },
+    {
+      nameEn: "Attendances",
+      nameAr: "الحضور",
+      nameFr: "Présences",
+      href: "/attendances",
+    },
+    {
+      nameEn: "Student Attendances",
+      nameAr: "حضور الطلاب",
+      nameFr: "Présences des Étudiants",
+      href: "/student-attendance",
+    },
+  ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   type Student = Record<string, any>;
@@ -120,46 +141,7 @@ const StudentAttendance = () => {
 
   return (
     <>
-      <div
-        className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} ml-7 mt-12 flex-wrap text-[18px] max-[550px]:text-[15px]`}
-      >
-        <Link
-          className="text-[18px] font-semibold text-secondary hover:text-blue-400 hover:underline"
-          href="/"
-        >
-          Operations
-        </Link>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)", transform: "", msFilter: "" }}
-        >
-          <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
-        </svg>
-        <Link
-          className="text-[18px] font-semibold text-secondary hover:text-blue-400 hover:underline"
-          href="/attendances"
-        >
-          Attendances
-        </Link>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)", transform: "", msFilter: "" }}
-        >
-          <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
-        </svg>
-        <Link
-          className="font-semibold text-secondary hover:text-blue-400 hover:underline"
-          href="/student-attendance"
-        >
-          Student
-        </Link>
-      </div>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} bg-transstudent relative mr-[5px] mt-10 h-screen overflow-x-auto sm:rounded-lg`}
       >
@@ -226,7 +208,7 @@ const StudentAttendance = () => {
                         />
                       )}
                     </div>
-                    <p className="mt-4 text-[22px]"> {student.studentName} </p>
+                    <p className="mt-4 text-[22px] text-textPrimary"> {student.studentName} </p>
                     <p className="whitespace-nowrap font-semibold text-secondary">
                       Student: {student.studentId}
                     </p>
@@ -236,18 +218,17 @@ const StudentAttendance = () => {
                   {["P", "A", "L"].map(label => (
                     <label
                       key={label}
-                      className={`flex h-[55px] w-[55px] cursor-pointer items-center justify-center rounded-full border p-5 text-center text-[24px] font-semibold ${
-                        selectedStates[index] === label ||
-                        (label === "P" && student.status === "PRESENT") ||
-                        (label === "L" && student.status === "LEAVE") ||
-                        (label === "A" && student.status === "ABSENT")
+                      className={`flex h-[55px] w-[55px] cursor-pointer items-center justify-center rounded-full border border-borderPrimary p-5 text-center text-[24px] font-semibold ${selectedStates[index] === label ||
+                          (label === "P" && student.status === "PRESENT") ||
+                          (label === "L" && student.status === "LEAVE") ||
+                          (label === "A" && student.status === "ABSENT")
                           ? label === "P"
-                            ? "bg-green-300 text-white"
+                            ? "bg-success text-blackOrWhite"
                             : label === "A"
-                              ? "bg-red-500 text-white"
-                              : "bg-yellow-300 text-white"
-                          : "bg-bgPrimary"
-                      } `}
+                              ? "bg-error text-blackOrWhite"
+                              : "bg-warning text-blackOrWhite"
+                          : "bg-bgSecondary"
+                        } `}
                     >
                       <input
                         type="checkbox"

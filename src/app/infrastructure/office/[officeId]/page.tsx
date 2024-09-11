@@ -9,6 +9,8 @@ import {
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
+import BreadCrumbs from "@/components/BreadCrumbs";
+
 interface ViewEmployeeProps {
   params: {
     officeId: string;
@@ -16,6 +18,32 @@ interface ViewEmployeeProps {
 }
 
 const EditOfficd: React.FC<ViewEmployeeProps> = ({ params }) => {
+  const breadcrumbs = [
+    {
+      nameEn: "Operations",
+      nameAr: "العمليات",
+      nameFr: "Opérations",
+      href: "/",
+    },
+    {
+      nameEn: "Infrastructure",
+      nameAr: "البنية التحتية",
+      nameFr: "Infrastructure",
+      href: "/infrastructure",
+    },
+    {
+      nameEn: "Office",
+      nameAr: "المكتب",
+      nameFr: "Bureau",
+      href: "/infrastructure/office",
+    },
+    {
+      nameEn: "Edit Office",
+      nameAr: "تعديل مكتب",
+      nameFr: "Modifier le Bureau",
+      href: `/infrastructure/office/${params.officeId}`,
+    },
+  ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   const [createDriver, { isLoading: isUpdating }] = useUpdateOfficesMutation();
@@ -57,12 +85,13 @@ const EditOfficd: React.FC<ViewEmployeeProps> = ({ params }) => {
     );
   return (
     <>
-      <div className="mr-[5px] grid h-[850px] items-center justify-center lg:ml-[270px]">
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
+      <div className="mt-[40px] mr-[5px] grid h-[850px] items-center justify-center lg:ml-[270px]">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="grid items-center justify-center gap-5 rounded-xl bg-white p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:w-[1000px]">
+          <div className="grid items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:w-[1000px]">
             <div className="flex items-center justify-start gap-2">
               <svg
-                className="h-6 w-6 font-bold text-[#526484] group-hover:text-[#3e5af0]"
+                className="h-6 w-6 font-bold text-secondary group-hover:text-primary"
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
@@ -97,10 +126,10 @@ const EditOfficd: React.FC<ViewEmployeeProps> = ({ params }) => {
                   id="buildingNumber"
                   {...register("buildingNumber", { required: true })}
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.buildingNumber && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">This field is required</span>
                 )}
               </label>
               <label
@@ -112,10 +141,10 @@ const EditOfficd: React.FC<ViewEmployeeProps> = ({ params }) => {
                   id="roomNumber"
                   {...register("roomNumber", { required: true })}
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.roomNumber && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">This field is required</span>
                 )}
               </label>
               <label
@@ -127,10 +156,10 @@ const EditOfficd: React.FC<ViewEmployeeProps> = ({ params }) => {
                   id="floorNumber"
                   {...register("floorNumber", { required: true })}
                   type="number"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.floorNumber && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">This field is required</span>
                 )}
               </label>
               <label
@@ -142,10 +171,10 @@ const EditOfficd: React.FC<ViewEmployeeProps> = ({ params }) => {
                   id="type"
                   {...register("type", { required: true })}
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.type && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">This field is required</span>
                 )}
               </label>
               <label
@@ -157,10 +186,10 @@ const EditOfficd: React.FC<ViewEmployeeProps> = ({ params }) => {
                   id="maxCapacity"
                   {...register("maxCapacity", { required: true })}
                   type="number"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.maxCapacity && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">This field is required</span>
                 )}
               </label>
               <label
@@ -172,10 +201,10 @@ const EditOfficd: React.FC<ViewEmployeeProps> = ({ params }) => {
                   id="schoolId"
                   {...register("schoolId", { required: true })}
                   type="number"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.schoolId && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">This field is required</span>
                 )}
               </label>
               <label
@@ -187,10 +216,10 @@ const EditOfficd: React.FC<ViewEmployeeProps> = ({ params }) => {
                   id="officeName"
                   {...register("officeName", { required: true })}
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.officeName && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">This field is required</span>
                 )}
               </label>
               <label
@@ -202,10 +231,10 @@ const EditOfficd: React.FC<ViewEmployeeProps> = ({ params }) => {
                   id="officeType"
                   {...register("officeType", { required: true })}
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.officeType && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">This field is required</span>
                 )}
               </label>
             </div>
@@ -216,7 +245,7 @@ const EditOfficd: React.FC<ViewEmployeeProps> = ({ params }) => {
               ) : (
                 <button
                   type="submit"
-                  className="w-[140px] rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                  className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
                 >
                   Edit Lab
                 </button>
