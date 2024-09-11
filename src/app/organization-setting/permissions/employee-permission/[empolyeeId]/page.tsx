@@ -54,7 +54,7 @@ const Permissions = () => {
                       Sections
                       <select
                         id="countries"
-                        className="block w-full rounded-lg border border-borderPrimary bg-bgSecondary p-1.5 text-sm text-textSecondary focus:border-b border-borderPrimarylue-500 focus:ring-blue-500"
+                        className="border-borderPrimarylue-500 block w-full rounded-lg border border-borderPrimary bg-bgSecondary p-1.5 text-sm text-textSecondary focus:border-b focus:ring-blue-500"
                       >
                         <option selected>Choose </option>
                         <option value="US">Teacher</option>
@@ -91,7 +91,7 @@ const Permissions = () => {
                       Sections
                       <select
                         id="countries"
-                        className="block w-full rounded-lg border border-borderPrimary bg-bgSecondary p-1.5 text-sm text-textSecondary focus:border-b border-borderPrimarylue-500 focus:ring-blue-500"
+                        className="border-borderPrimarylue-500 block w-full rounded-lg border border-borderPrimary bg-bgSecondary p-1.5 text-sm text-textSecondary focus:border-b focus:ring-blue-500"
                       >
                         <option selected>Choose </option>
                         <option value="DE">Teacher</option>
@@ -124,7 +124,7 @@ const Permissions = () => {
                       Sections
                       <select
                         id="countries"
-                        className="block w-full rounded-lg border border-borderPrimary bg-bgSecondary p-1.5 text-sm text-textSecondary focus:border-b border-borderPrimarylue-500 focus:ring-blue-500"
+                        className="border-borderPrimarylue-500 block w-full rounded-lg border border-borderPrimary bg-bgSecondary p-1.5 text-sm text-textSecondary focus:border-b focus:ring-blue-500"
                       >
                         <option selected>Choose</option>
                         <option value="DE">Teacher</option>
@@ -160,7 +160,7 @@ const Permissions = () => {
                       Sections
                       <select
                         id="countries"
-                        className="block w-full rounded-lg border border-borderPrimary bg-bgSecondary p-1.5 text-sm text-textSecondary focus:border-b border-borderPrimarylue-500 focus:ring-blue-500"
+                        className="border-borderPrimarylue-500 block w-full rounded-lg border border-borderPrimary bg-bgSecondary p-1.5 text-sm text-textSecondary focus:border-b focus:ring-blue-500"
                       >
                         <option selected>Choose </option>
                         <option value="DE">Teacher</option>

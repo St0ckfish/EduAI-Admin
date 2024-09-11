@@ -13,7 +13,6 @@ import { toast } from "react-toastify";
 import Pagination from "@/components/pagination";
 import BreadCrumbs from "@/components/BreadCrumbs";
 
-
 const ArchiveEmployee = () => {
   const breadcrumbs = [
     {

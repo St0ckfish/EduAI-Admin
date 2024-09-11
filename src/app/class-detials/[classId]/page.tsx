@@ -2,7 +2,6 @@ import Calendar from "@/components/calendar";
 import CircleProgress from "@/components/circleProgress";
 import BreadCrumbs from "@/components/BreadCrumbs";
 
-
 interface ViewDriverProps {
   params: {
     classId: string;

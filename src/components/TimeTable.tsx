@@ -1,126 +1,59 @@
+"use client"
+import { RootState } from "@/GlobalRedux/store";
 import React from "react";
+import { useSelector } from "react-redux";
 
-// Helper function to get the next 7 days starting from today
-const today = new Date();
-const getNext7Days = () => {
-  const today = new Date();
-  const days = [];
-  for (let i = 0; i < 7; i++) {
-    const nextDay = new Date(today);
-    nextDay.setDate(today.getDate() + i);
-    const dayName = nextDay.toLocaleString("en-US", { weekday: "short" });
-    const date = nextDay.getDate();
-    days.push({ id: i + 1, name: dayName, date });
-  }
-  return days;
-};
+const staticDays = [
+  { id: 1, name: "Sat" },
+  { id: 2, name: "Sun" },
+  { id: 3, name: "Mon" },
+  { id: 4, name: "Tue" },
+  { id: 5, name: "Wed" },
+  { id: 6, name: "Thu" },
+  { id: 7, name: "Fri" },
+];
 
-const days = getNext7Days();
 
-// Function to convert time string "07:00AM" to the top position (in percentage)
-const timeToPosition = (time: string) => {
-  const match = time.match(/\d+/g);
-  const hourStr = match ? match[0] : "";
-  const minuteStr = match ? match[1] : "";
-  const isPM = time.includes("PM");
-  let hour = parseInt(hourStr);
-  const minute = parseInt(minuteStr);
+const timeToPosition = (time: { split: (arg0: string) => { (): any; new(): any; map: { (arg0: NumberConstructor): [any, any]; new(): any; }; }; }) => {
+  const [hour, minute] = time.split(":").map(Number);
 
-  if (isPM && hour !== 12) hour += 12; // Convert PM hours to 24-hour format
-  if (!isPM && hour === 12) hour = 0; // Adjust for 12 AM
-
-  // Calculate the total minutes from 7:00 AM
-  const startOfDay = 7 * 60; // 7:00 AM in minutes
   const totalMinutes = hour * 60 + minute;
+  const startOfDay = 7 * 60;
   const minutesSinceStartOfDay = totalMinutes - startOfDay;
 
-  // Calculate the top position in percentage based on total minutes
-  return (minutesSinceStartOfDay / (9 * 60)) * 90; // Convert to percentage for 9 hours
+  return (minutesSinceStartOfDay / 540) * 100;
 };
 
-// Function to calculate the height of the event block (based on the duration)
-const calculateHeight = (startTime: string, endTime: string) => {
-  const [startHour, startMinute] = startTime?.match(/\d+/g)?.map(Number) || [
-    0, 0,
-  ];
-  const [endHour, endMinute] = endTime?.match(/\d+/g)?.map(Number) || [0, 0];
+const calculateHeight = (startTime: { split: (arg0: string) => { (): any; new(): any; map: { (arg0: NumberConstructor): [any, any]; new(): any; }; }; }, endTime: { split: (arg0: string) => { (): any; new(): any; map: { (arg0: NumberConstructor): [any, any]; new(): any; }; }; }) => {
+  const [startHour, startMinute] = startTime.split(":").map(Number);
+  const [endHour, endMinute] = endTime.split(":").map(Number);
 
   const startInMinutes = startHour * 60 + startMinute;
   const endInMinutes = endHour * 60 + endMinute;
 
-  // Calculate the duration in minutes and convert to percentage
-  return ((endInMinutes - startInMinutes) / (9 * 60)) * 130; // Height in percentage
+  const durationInMinutes = endInMinutes - startInMinutes;
+
+  return (durationInMinutes / 540) * 100;
 };
 
-const timetable = [
-  {
-    name: "Class A2",
-    time: "07:00AM - 08:00AM",
-    day: 1, // Monday
-    color: "bg-red-100 text-error",
-    startTime: "07:00AM",
-    endTime: "09:00AM",
-  },
-  {
-    name: "Class B2",
-    time: "08:00AM - 10:00AM",
-    day: 7, // Sunday
-    color: "bg-bgSecondary text-textPrimary",
-    startTime: "08:00AM",
-    endTime: "10:00AM",
-  },
-  {
-    name: "Class B4",
-    time: "10:00AM - 11:00AM",
-    day: 3, // Wednesday
-    color: "bg-blue-100 text-primary",
-    startTime: "10:00AM",
-    endTime: "11:00AM",
-  },
-  {
-    name: "Class C3",
-    time: "11:00AM - 01:00PM",
-    day: 4, // Thursday
-    color: "bg-orange-100 text-warning",
-    startTime: "11:00AM",
-    endTime: "01:00PM",
-  },
-  {
-    name: "Class C4",
-    time: "01:00PM - 03:00PM",
-    day: 5, // Friday
-    color: "bg-green-100 text-success",
-    startTime: "01:00PM",
-    endTime: "03:00PM",
-  },
-];
-
-const Timetable = () => {
+const TimeTable = ({ scheduleData }: { scheduleData: any[] }) => {
+  const booleanValue = useSelector((state: RootState) => state.boolean.value);
   return (
     <div className="grid w-full overflow-x-auto">
-    <div className=" w-full grid overflow-x-auto">
-
-    <div className="p-6 bg-bgPrimary rounded-xl mr-3 w-[1570px]">
-      {/* Day headers */}
-      <div className="flex justify-between">
-        {/* Empty space for time slots */}
-        <div className="w-1/12"></div>
-        {days.map((day) => (
-          <div
-          key={day.id}
-            className={`text-center py-2 px-4 rounded-lg w-20 -translate-x-[80px] shadow-lg border ${day.date === today.getDate() ? "border-primary" : "border-borderPrimary"}`}
-          >
-            <div>{day.date}</div>
-            <div className="font-semibold">{day.name}</div>
+      <div className=" w-full grid overflow-x-auto">
+        <div className={`p-6 bg-bgPrimary rounded-xl mr-3 ${booleanValue ? "w-[1750px]" : "w-[1570px]"}`}>
+          {/* Day headers */}
+          <div className="flex justify-between">
+            <div className="w-1/12"></div>
+            {staticDays.map((day) => (
+              <div key={day.id} className="text-center py-2 px-4 rounded-lg w-20 shadow-lg border border-borderPrimary -translate-x-[85px]">
+                <div className="font-semibold">{day.name}</div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
 
           {/* Time slots and events */}
-          <div className="relative mt-4 flex h-[540px]">
-            {" "}
-            {/* 540px represents 9 hours from 7AM to 4PM */}
-            {/* Time slots */}
+          <div className="flex mt-4 relative h-[540px]">
             <div className="flex flex-col">
               {[
                 "07:00 AM",
@@ -134,36 +67,29 @@ const Timetable = () => {
                 "03:00 PM",
                 "04:00 PM",
               ].map((time, idx) => (
-                <div
-                  key={idx}
-                  className="h-[60px] border-b border-borderPrimary py-2 pr-4 text-right"
-                >
+                <div key={idx} className="text-right pr-4 py-2 h-[60px] border-b-2 border-borderPrimary border-dashed mt-1">
                   {time}
                 </div>
               ))}
             </div>
+
             {/* Events for each day */}
-            {days.map(day => (
-              <div key={day.id} className="relative flex-1 border-l border-borderPrimary">
-                {timetable
-                  .filter(event => event.day === day.id)
+            {staticDays.map((day) => (
+              <div key={day.id} className="flex-1 relative border-l border-borderPrimary">
+                {scheduleData
+                  .filter((event) => event.day.toUpperCase().startsWith(day.name.toUpperCase()))
                   .map((event, idx) => {
                     const top = timeToPosition(event.startTime);
-                    const height = calculateHeight(
-                      event.startTime,
-                      event.endTime,
-                    );
+                    const height = calculateHeight(event.startTime, event.endTime);
                     return (
                       <div
                         key={idx}
-                        className={`absolute left-0 right-0 mx-2 rounded-lg p-4 ${event.color}`}
-                        style={{
-                          top: `${top}%`,
-                          height: `${height}%`,
-                        }}
+                        className="absolute left-0 right-0 mx-2 p-4 rounded-lg bg-thead text-primary border-l border-borderPrimary-4 border-primary"
+                        style={{ top: `${top}%`, height: `${height}%` }}
                       >
-                        <div className="font-bold">{event.name}</div>
-                        <div className="text-sm">{event.time}</div>
+                        <div className="font-bold">{event.courseName}</div>
+                        <div className="text-sm">{`${event.startTime} - ${event.endTime}`}</div>
+                        <div className="text-xs">{event.classroomName}</div>
                       </div>
                     );
                   })}
@@ -176,4 +102,4 @@ const Timetable = () => {
   );
 };
 
-export default Timetable;
+export default TimeTable;

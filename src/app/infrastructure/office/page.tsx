@@ -12,7 +12,6 @@ import { RootState } from "@/GlobalRedux/store";
 import { toast } from "react-toastify";
 import BreadCrumbs from "@/components/BreadCrumbs";
 
-
 const Office = () => {
   const breadcrumbs = [
     {
@@ -157,7 +156,7 @@ const Office = () => {
           </div>
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
-          <table className="text-textSecondary w-full overflow-x-auto text-left text-sm rtl:text-right">
+          <table className="w-full overflow-x-auto text-left text-sm text-textSecondary rtl:text-right">
             <thead className="bg-thead text-xs uppercase text-textPrimary">
               <tr>
                 <th scope="col" className="p-4">
@@ -225,7 +224,7 @@ const Office = () => {
                     </td>
                     <th
                       scope="row"
-                      className="flex items-center whitespace-nowrap px-6 py-4 font-medium text-text-textSecondary"
+                      className="text-text-textSecondary flex items-center whitespace-nowrap px-6 py-4 font-medium"
                     >
                       {bus.buildingNumber}
                     </th>

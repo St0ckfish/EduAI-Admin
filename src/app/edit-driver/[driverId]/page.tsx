@@ -91,7 +91,7 @@ const EditDriver: React.FC<ViewDriverProps> = ({ params }) => {
       </div>
     );
   return (
-    <>  
+    <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div className="mr-[5px] grid h-[850px] items-center justify-center lg:ml-[270px]">
         <form onSubmit={handleSubmit(onSubmit)}>

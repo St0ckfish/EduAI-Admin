@@ -180,7 +180,7 @@ const AddNewPost = () => {
                 </label>
               </div>
             </div>
-            <div className="bg-bgPrimary rounded-xl border border-borderPrimary p-10">
+            <div className="rounded-xl border border-borderPrimary bg-bgPrimary p-10">
               <div className="mb-10 flex w-full items-center justify-between text-[18px] font-semibold">
                 <h1 className="text-[20px]">Images or Videos</h1>
               </div>
@@ -207,8 +207,8 @@ const AddNewPost = () => {
                         />
                       </svg>
                       <p className="mb-2 text-sm text-gray-500">
-                        <span className="font-semibold">Click to upload</span> or
-                        drag and drop
+                        <span className="font-semibold">Click to upload</span>{" "}
+                        or drag and drop
                       </p>
                       <p className="text-xs text-gray-500">
                         SVG, PNG, JPG or GIF (MAX. 800x400px)

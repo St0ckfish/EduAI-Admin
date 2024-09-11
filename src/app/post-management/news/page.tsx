@@ -147,7 +147,9 @@ const News = () => {
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
-      <div className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-[40px]`}>
+      <div
+        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-[40px]`}
+      >
         <div className="grid h-full w-full items-center justify-center gap-4 rounded-xl bg-bgSecondary p-9 max-[505px]:p-2">
           {data?.data.content.map((post: Post, index: number) => (
             <div
@@ -310,7 +312,10 @@ const News = () => {
                     className="flex gap-2"
                   >
                     {post.isLiked ? (
-                      <FaThumbsUp size={20} className="mr-[10px] text-primary" />
+                      <FaThumbsUp
+                        size={20}
+                        className="mr-[10px] text-primary"
+                      />
                     ) : (
                       <FaThumbsUp size={20} className="mr-[10px]" />
                     )}

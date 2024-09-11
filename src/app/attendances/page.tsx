@@ -25,7 +25,6 @@ import {
 } from "@/features/attendance/attendanceApi";
 import BreadCrumbs from "@/components/BreadCrumbs";
 
-
 const Attendance = () => {
   const breadcrumbs = [
     {
@@ -158,7 +157,7 @@ const Attendance = () => {
     );
   return (
     <>
-    <BreadCrumbs breadcrumbs={breadcrumbs} />
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} mt-12 grid justify-center`}
       >

@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import BreadCrumbs from "@/components/BreadCrumbs";
 
-
 const Medical = () => {
   const breadcrumbs = [
     {

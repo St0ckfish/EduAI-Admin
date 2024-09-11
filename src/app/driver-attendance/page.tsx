@@ -293,11 +293,11 @@ const DriverAttendance = () => {
                         (label === "L" && driver.status === "LEAVE") ||
                         (label === "A" && driver.status === "ABSENT")
                           ? label === "P"
-                          ? "bg-success text-blackOrWhite"
+                            ? "bg-success text-blackOrWhite"
                             : label === "A"
                               ? "bg-error text-blackOrWhite"
-                            : "bg-warning text-blackOrWhite"
-                        : "bg-bgSecondary"
+                              : "bg-warning text-blackOrWhite"
+                          : "bg-bgSecondary"
                       } `}
                     >
                       <input

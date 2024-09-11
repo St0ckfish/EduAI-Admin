@@ -27,7 +27,6 @@ const Transcript = () => {
       <Soon />
 
       <BreadCrumbs breadcrumbs={breadcrumbs} />
-
     </>
   );
 };

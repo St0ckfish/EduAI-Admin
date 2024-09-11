@@ -134,7 +134,9 @@ const Events = () => {
         </div>
         <Timeline meetings={data?.data.content} />
         <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-          <h2 className="mb-4 text-xl font-light text-textPrimary">Create Event</h2>
+          <h2 className="mb-4 text-xl font-light text-textPrimary">
+            Create Event
+          </h2>
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="grid grid-cols-2 gap-5"
@@ -146,7 +148,7 @@ const Events = () => {
                 type="number"
                 {...register("creatorId")}
                 placeholder="Creator ID"
-                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md text-textSecondary focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 text-textSecondary shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.creatorId && (
                 <p className="text-error">
@@ -161,7 +163,7 @@ const Events = () => {
                 type="datetime-local"
                 {...register("startTime")}
                 placeholder="Start Time"
-                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md text-textSecondary focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 text-textSecondary shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.startTime && (
                 <p className="text-error">
@@ -176,12 +178,10 @@ const Events = () => {
                 type="datetime-local"
                 {...register("endTime")}
                 placeholder="End Time"
-                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md text-textSecondary focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 text-textSecondary shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.endTime && (
-                <p className="text-error">
-                  {errors.endTime.message as string}
-                </p>
+                <p className="text-error">{errors.endTime.message as string}</p>
               )}
             </div>
 
@@ -191,7 +191,7 @@ const Events = () => {
                 type="text"
                 {...register("title_en")}
                 placeholder="Title (English)"
-                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md text-textSecondary focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 text-textSecondary shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.title_en && (
                 <p className="text-error">
@@ -206,7 +206,7 @@ const Events = () => {
                 type="text"
                 {...register("title_ar")}
                 placeholder="Title (Arabic)"
-                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md text-textSecondary focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 text-textSecondary shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.title_ar && (
                 <p className="text-error">
@@ -221,7 +221,7 @@ const Events = () => {
                 type="text"
                 {...register("title_fr")}
                 placeholder="Title (French)"
-                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md text-textSecondary focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 text-textSecondary shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.title_fr && (
                 <p className="text-error">
@@ -235,7 +235,7 @@ const Events = () => {
               <input
                 {...register("description_en")}
                 placeholder="Description (English)"
-                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md text-textSecondary focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 text-textSecondary shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.description_en && (
                 <p className="text-error">
@@ -249,7 +249,7 @@ const Events = () => {
               <input
                 {...register("description_ar")}
                 placeholder="Description (Arabic)"
-                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md text-textSecondary focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 text-textSecondary shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.description_ar && (
                 <p className="text-error">
@@ -263,7 +263,7 @@ const Events = () => {
               <input
                 {...register("description_fr")}
                 placeholder="Description (French)"
-                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md text-textSecondary focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 text-textSecondary shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.description_fr && (
                 <p className="text-error">
@@ -277,7 +277,7 @@ const Events = () => {
               <input
                 type="file"
                 {...register("file")}
-                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md text-textSecondary focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 text-textSecondary shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.file && (
                 <p className="text-error">{errors.file.message as string}</p>

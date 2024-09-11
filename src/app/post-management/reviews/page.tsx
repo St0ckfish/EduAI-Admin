@@ -6,7 +6,6 @@ import { RootState } from "@/GlobalRedux/store";
 import Soon from "@/components/soon";
 import BreadCrumbs from "@/components/BreadCrumbs";
 
-
 const Reviews = () => {
   const breadcrumbs = [
     {
@@ -54,10 +53,8 @@ const Reviews = () => {
                 <h1 className="text-[18px] font-bold">2K</h1>
                 <h1 className="text-[12px] text-textPrimary">
                   {" "}
-                  <span className="font-semibold text-success">
-                    4.63%
-                  </span>{" "}
-                  vs. last Year
+                  <span className="font-semibold text-success">4.63%</span> vs.
+                  last Year
                 </h1>
               </div>
               <div className="grid rounded-xl bg-bgPrimary p-2">
@@ -65,10 +62,8 @@ const Reviews = () => {
                 <h1 className="text-[18px] font-bold">2K</h1>
                 <h1 className="text-[12px] text-textPrimary">
                   {" "}
-                  <span className="font-semibold text-success">
-                    4.63%
-                  </span>{" "}
-                  vs. last Year
+                  <span className="font-semibold text-success">4.63%</span> vs.
+                  last Year
                 </h1>
               </div>
               <div className="grid rounded-xl bg-bgPrimary p-2">
@@ -76,10 +71,8 @@ const Reviews = () => {
                 <h1 className="text-[18px] font-bold">2K</h1>
                 <h1 className="text-[12px] text-textPrimary">
                   {" "}
-                  <span className="font-semibold text-success">
-                    4.63%
-                  </span>{" "}
-                  vs. last Year
+                  <span className="font-semibold text-success">4.63%</span> vs.
+                  last Year
                 </h1>
               </div>
             </div>

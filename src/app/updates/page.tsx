@@ -96,7 +96,7 @@ const Updates = () => {
                 type="text"
                 id="icon"
                 name="icon"
-                className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-b border-borderPrimarylue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
+                className="border-borderPrimarylue-500 block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-b focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
                 placeholder="Search"
               />
             </div>

@@ -208,7 +208,10 @@ const StudentAttendance = () => {
                         />
                       )}
                     </div>
-                    <p className="mt-4 text-[22px] text-textPrimary"> {student.studentName} </p>
+                    <p className="mt-4 text-[22px] text-textPrimary">
+                      {" "}
+                      {student.studentName}{" "}
+                    </p>
                     <p className="whitespace-nowrap font-semibold text-secondary">
                       Student: {student.studentId}
                     </p>
@@ -218,17 +221,18 @@ const StudentAttendance = () => {
                   {["P", "A", "L"].map(label => (
                     <label
                       key={label}
-                      className={`flex h-[55px] w-[55px] cursor-pointer items-center justify-center rounded-full border border-borderPrimary p-5 text-center text-[24px] font-semibold ${selectedStates[index] === label ||
-                          (label === "P" && student.status === "PRESENT") ||
-                          (label === "L" && student.status === "LEAVE") ||
-                          (label === "A" && student.status === "ABSENT")
+                      className={`flex h-[55px] w-[55px] cursor-pointer items-center justify-center rounded-full border border-borderPrimary p-5 text-center text-[24px] font-semibold ${
+                        selectedStates[index] === label ||
+                        (label === "P" && student.status === "PRESENT") ||
+                        (label === "L" && student.status === "LEAVE") ||
+                        (label === "A" && student.status === "ABSENT")
                           ? label === "P"
                             ? "bg-success text-blackOrWhite"
                             : label === "A"
                               ? "bg-error text-blackOrWhite"
                               : "bg-warning text-blackOrWhite"
                           : "bg-bgSecondary"
-                        } `}
+                      } `}
                     >
                       <input
                         type="checkbox"

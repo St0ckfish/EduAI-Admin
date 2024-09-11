@@ -32,12 +32,14 @@ import { officeApi } from "@/features/Infrastructure/officeApi";
 import { eventsApi } from "@/features/events/eventsApi";
 import { attendanceApi } from "@/features/attendance/attendanceApi";
 import { examsApi } from "@/features/Acadimic/examsApi";
+import { scheduleApi } from "@/features/Acadimic/scheduleApi";
 
 export const store = configureStore({
   reducer: {
     boolean: booleanReducer,
     language: languageSlice,
     [loginApi.reducerPath]: loginApi.reducer,
+    [scheduleApi.reducerPath]: scheduleApi.reducer,
     [signupApi.reducerPath]: signupApi.reducer,
     [notificationsApi.reducerPath]: notificationsApi.reducer,
     [employeeApi.reducerPath]: employeeApi.reducer,
@@ -75,6 +77,7 @@ export const store = configureStore({
       .concat(achievementApi.middleware)
       .concat(labApi.middleware)
       .concat(employeePermissionApi.middleware)
+      .concat(scheduleApi.middleware)
       .concat(busApi.middleware)
       .concat(departmentPermissionApi.middleware)
       .concat(notificationsApi.middleware)

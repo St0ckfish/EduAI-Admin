@@ -131,7 +131,7 @@ const Other = () => {
           <Link href="/document-management/other/legal">Legal Documents</Link>
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
-          <table className="w-full overflow-x-auto text-left text-sm text-bgSecondary0 rtl:text-right">
+          <table className="text-bgSecondary0 w-full overflow-x-auto text-left text-sm rtl:text-right">
             <thead className="bg-thead text-xs uppercase text-textPrimary">
               <tr>
                 <th scope="col" className="p-4">
@@ -171,7 +171,7 @@ const Other = () => {
               </tr>
             </thead>
             <tbody>
-              <tr className="border-b border-borderPrimary text-textSecondary bg-bgPrimary hover:bg-bgSecondary">
+              <tr className="border-b border-borderPrimary bg-bgPrimary text-textSecondary hover:bg-bgSecondary">
                 <td className="w-4 p-4">
                   <div className="flex items-center">
                     <input
@@ -207,7 +207,7 @@ const Other = () => {
                   </Link>
                 </td>
               </tr>
-              <tr className="border-b border-borderPrimary text-textSecondary bg-bgPrimary hover:bg-bgSecondary">
+              <tr className="border-b border-borderPrimary bg-bgPrimary text-textSecondary hover:bg-bgSecondary">
                 <td className="w-4 p-4">
                   <div className="flex items-center">
                     <input

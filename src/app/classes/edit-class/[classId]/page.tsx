@@ -9,7 +9,6 @@ import { toast } from "react-toastify";
 import Spinner from "@/components/spinner";
 import BreadCrumbs from "@/components/BreadCrumbs";
 
-
 interface ViewDriverProps {
   params: {
     classId: string;

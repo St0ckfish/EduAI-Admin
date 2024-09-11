@@ -228,7 +228,7 @@ const EditPost = ({ params }: EditPostProps) => {
           </div>
         </form>
         <form onSubmit={handleSubmitFile(onSubmitFile)}>
-          <div className="bg-bgPrimary mt-[20px] rounded-xl border border-borderPrimary p-10">
+          <div className="mt-[20px] rounded-xl border border-borderPrimary bg-bgPrimary p-10">
             <div className="mb-10 flex w-full items-center justify-between text-[18px] font-semibold">
               <h1 className="text-[20px]">Images or Videos</h1>
               <button className="flex gap-2" type="submit">
@@ -286,7 +286,9 @@ const EditPost = ({ params }: EditPostProps) => {
                   />
                 </label>
                 {fileErrors.file && (
-                  <span className="text-red-500">{fileErrors.file.message}</span>
+                  <span className="text-red-500">
+                    {fileErrors.file.message}
+                  </span>
                 )}
               </div>
             </div>

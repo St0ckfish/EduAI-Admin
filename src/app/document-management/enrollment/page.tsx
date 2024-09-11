@@ -27,7 +27,6 @@ const Enrollment = () => {
       <Soon />
 
       <BreadCrumbs breadcrumbs={breadcrumbs} />
-
     </>
   );
 };
