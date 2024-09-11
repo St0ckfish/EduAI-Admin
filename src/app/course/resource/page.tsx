@@ -129,7 +129,7 @@ const Resource = () => {
           <Link href="/course/resource">Textbooks</Link>
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
-          <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
+          <table className="w-full overflow-x-auto text-left text-sm text-textSecondary rtl:text-right">
             <thead className="bg-thead text-xs uppercase text-textPrimary">
               <tr>
                 <th scope="col" className="p-4">

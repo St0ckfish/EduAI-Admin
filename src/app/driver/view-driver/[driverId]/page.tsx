@@ -6,6 +6,7 @@ import { useGetDriverByIdQuery } from "@/features/User-Management/driverApi";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 interface ViewDriverProps {
   params: {
@@ -14,6 +15,32 @@ interface ViewDriverProps {
 }
 
 const ViewDriver: React.FC<ViewDriverProps> = ({ params }) => {
+  const breadcrumbs = [
+    {
+      nameEn: "Administration",
+      nameAr: "الإدارة",
+      nameFr: "Administration",
+      href: "/",
+    },
+    {
+      nameEn: "User Management",
+      nameAr: "إدارة المستخدمين",
+      nameFr: "Gestion des utilisateurs",
+      href: "/user-management",
+    },
+    {
+      nameEn: "Driver",
+      nameAr: "السائق",
+      nameFr: "Conducteurs",
+      href: "/driver",
+    },
+    {
+      nameEn: "View Driver",
+      nameAr: "عرض السائق",
+      nameFr: "Voir le conducteur",
+      href: `/driver/view-driver/${params.driverId}`,
+    },
+  ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   const { data, error, isLoading } = useGetDriverByIdQuery(params.driverId);
@@ -35,8 +62,9 @@ const ViewDriver: React.FC<ViewDriverProps> = ({ params }) => {
 
   return (
     <>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} grid py-4`}
+        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} mt-[40px] grid py-4`}
       >
         <div className="grid grid-cols-2 gap-7 max-[1342px]:grid-cols-1 max-[1342px]:px-5">
           <DriverInfo data={data} />
