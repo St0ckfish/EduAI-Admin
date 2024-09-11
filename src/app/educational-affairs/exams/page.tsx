@@ -3,8 +3,29 @@
 import Spinner from "@/components/spinner";
 import { useGetAllExpensesQuery } from "@/features/Acadimic/examsApi";
 import { Key } from "react";
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 const Exams = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Academic",
+      nameAr: "أكاديمي",
+      nameFr: "Académique",
+      href: "/",
+    },
+    {
+      nameEn: "Educational Affairs",
+      nameAr: "الشئون التعليمية",
+      nameFr: "Affaires éducatives",
+      href: "/educational-affairs",
+    },
+    {
+      nameEn: "Exams",
+      nameAr: "الإمتحانات",
+      nameFr: "Examens",
+      href: "/educational-affairs/exams",
+    },
+  ];
   const { data: exams, isLoading: isExams } = useGetAllExpensesQuery(null);
   if (isExams)
     return (
@@ -14,6 +35,7 @@ const Exams = () => {
     );
   return (
     <>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div className="mt-12 lg:ml-[290px] lg:mr-10">
         <div className="flex justify-end">
           <div className="flex justify-end">

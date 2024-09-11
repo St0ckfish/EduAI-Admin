@@ -57,7 +57,7 @@ const timetable = [
     name: "Class A2",
     time: "07:00AM - 08:00AM",
     day: 1, // Monday
-    color: "bg-red-100 text-red-600",
+    color: "bg-red-100 text-error",
     startTime: "07:00AM",
     endTime: "09:00AM",
   },
@@ -65,7 +65,7 @@ const timetable = [
     name: "Class B2",
     time: "08:00AM - 10:00AM",
     day: 7, // Sunday
-    color: "bg-gray-200 text-gray-600",
+    color: "bg-bgSecondary text-textPrimary",
     startTime: "08:00AM",
     endTime: "10:00AM",
   },
@@ -73,7 +73,7 @@ const timetable = [
     name: "Class B4",
     time: "10:00AM - 11:00AM",
     day: 3, // Wednesday
-    color: "bg-blue-100 text-blue-600",
+    color: "bg-blue-100 text-primary",
     startTime: "10:00AM",
     endTime: "11:00AM",
   },
@@ -81,7 +81,7 @@ const timetable = [
     name: "Class C3",
     time: "11:00AM - 01:00PM",
     day: 4, // Thursday
-    color: "bg-orange-100 text-orange-600",
+    color: "bg-orange-100 text-warning",
     startTime: "11:00AM",
     endTime: "01:00PM",
   },
@@ -89,7 +89,7 @@ const timetable = [
     name: "Class C4",
     time: "01:00PM - 03:00PM",
     day: 5, // Friday
-    color: "bg-green-100 text-green-600",
+    color: "bg-green-100 text-success",
     startTime: "01:00PM",
     endTime: "03:00PM",
   },
@@ -100,7 +100,7 @@ const Timetable = () => {
     <div className="grid w-full overflow-x-auto">
     <div className=" w-full grid overflow-x-auto">
 
-    <div className="p-6 bg-white rounded-xl mr-3 w-[1570px]">
+    <div className="p-6 bg-bgPrimary rounded-xl mr-3 w-[1570px]">
       {/* Day headers */}
       <div className="flex justify-between">
         {/* Empty space for time slots */}
@@ -108,7 +108,7 @@ const Timetable = () => {
         {days.map((day) => (
           <div
           key={day.id}
-          className={`text-center py-2 px-4 rounded-lg w-20 -translate-x-[80px] shadow-lg ${day.date === today.getDate() ? "border border-blue-400" : ""}`}
+            className={`text-center py-2 px-4 rounded-lg w-20 -translate-x-[80px] shadow-lg border ${day.date === today.getDate() ? "border-primary" : "border-borderPrimary"}`}
           >
             <div>{day.date}</div>
             <div className="font-semibold">{day.name}</div>
@@ -136,7 +136,7 @@ const Timetable = () => {
               ].map((time, idx) => (
                 <div
                   key={idx}
-                  className="h-[60px] border-b py-2 pr-4 text-right"
+                  className="h-[60px] border-b border-borderPrimary py-2 pr-4 text-right"
                 >
                   {time}
                 </div>
@@ -144,7 +144,7 @@ const Timetable = () => {
             </div>
             {/* Events for each day */}
             {days.map(day => (
-              <div key={day.id} className="relative flex-1 border-l">
+              <div key={day.id} className="relative flex-1 border-l border-borderPrimary">
                 {timetable
                   .filter(event => event.day === day.id)
                   .map((event, idx) => {

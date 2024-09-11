@@ -10,8 +10,29 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 const CourseManagement = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Academic",
+      nameAr: "أكاديمي",
+      nameFr: "Académique",
+      href: "/",
+    },
+    {
+      nameEn: "Course",
+      nameAr: "الدورة",
+      nameFr: "Cours",
+      href: "/course",
+    },
+    {
+      nameEn: "Course Management",
+      nameAr: "إدارة الدورات",
+      nameFr: "Gestion des cours",
+      href: "/course/course-management",
+    },
+  ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState<number | boolean | null>(false);
@@ -40,6 +61,7 @@ const CourseManagement = () => {
 
   return (
     <>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         className={`lg:ml-[290px] ${booleanValue ? "lg:ml-[120px]" : "lg:ml-[290px]"} mt-12`}
       >
