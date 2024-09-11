@@ -6,10 +6,32 @@ import Spinner from "@/components/spinner";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import TextEditor from "@/components/textEditor";
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 //
 
 const SendNotifications = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Dashboard",
+      nameAr: "لوحة القيادة",
+      nameFr: "Tableau de bord",
+      href: "/",
+    },
+    {
+      nameEn: "Notifications",
+      nameAr: "الإشعارات",
+      nameFr: "Notifications",
+      href: "/notifies",
+    },
+    {
+      nameEn: "Send Notifications",
+      nameAr: "إرسال الإشعارات",
+      nameFr: "Envoyer des notifications",
+      href: "/notifies/send-notifications",
+    },
+  ];
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [roles, setRoles] = useState<string[]>([]);
@@ -51,44 +73,7 @@ const SendNotifications = () => {
 
   return (
     <>
-      <div className="ml-7 mt-12 flex flex-wrap items-center gap-1 lg:ml-[290px]">
-        <Link
-          className="text-[18px] font-semibold text-secondary hover:text-blue-400 hover:underline"
-          href="/"
-        >
-          Communications
-        </Link>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)", transform: "", msFilter: "" }}
-        >
-          <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
-        </svg>
-        <Link
-          className="text-[18px] font-semibold text-secondary hover:text-blue-400 hover:underline"
-          href="/notifies"
-        >
-          Notifies
-        </Link>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)", transform: "", msFilter: "" }}
-        >
-          <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
-        </svg>
-        <Link
-          className="text-[18px] font-semibold text-secondary hover:text-blue-400 hover:underline"
-          href="/send-notifications"
-        >
-          Send Notifications
-        </Link>
-      </div>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div className="mt-12 flex gap-10 max-[1500px]:grid lg:ml-[290px]">
         <div className="grid h-full w-full items-center gap-3 rounded-xl bg-bgPrimary p-5">
           {roleOptions.map(role => (

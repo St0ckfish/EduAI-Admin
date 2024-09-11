@@ -9,8 +9,35 @@ import TimeTable from "@/components/TimeTable";
 import { SubmitHandler } from "react-hook-form";
 import Spinner from "@/components/spinner";
 import Link from "next/link";
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 const ClassSchedule = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Academic",
+      nameAr: "أكاديمي",
+      nameFr: "Académique",
+      href: "/",
+    },
+    {
+      nameEn: "Educational Affairs",
+      nameAr: "الشئون التعليمية",
+      nameFr: "Affaires éducatives",
+      href: "/educational-affairs",
+    },
+    {
+      nameEn: "Schedule",
+      nameAr: "الجدول",
+      nameFr: "Emploi du temps",
+      href: "/educational-affairs/schedule",
+    },
+    {
+      nameEn: "Class",
+      nameAr: "فصل",
+      nameFr: "Classe",
+      href: "/educational-affairs/schedule/class",
+    },
+  ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const [teacherId, setTeacherId] = useState(null);
 
@@ -26,7 +53,7 @@ const ClassSchedule = () => {
 
   return (
     <>
-      <div className={` ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-7`}>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />      <div className={` ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-7`}>
         <div className="flex justify-between my-12 mr-5 max-[540px]:grid max-[540px]:justify-center max-[540px]:mr-0 max-[540px]:my-1">
           <div className="flex gap-3 items-center justify-start ml-2 font-semibold text-xl max-[540px]:justify-center max-[540px]:ml-0 max-[540px]:mb-2">
             <Link href="/educational-affairs/schedule">Teacher</Link>
