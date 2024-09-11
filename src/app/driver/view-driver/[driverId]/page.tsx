@@ -6,6 +6,7 @@ import { useGetDriverByIdQuery } from "@/features/User-Management/driverApi";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 interface ViewDriverProps {
   params: {
@@ -14,6 +15,32 @@ interface ViewDriverProps {
 }
 
 const ViewDriver: React.FC<ViewDriverProps> = ({ params }) => {
+  const breadcrumbs = [
+    {
+      nameEn: "Administration",
+      nameAr: "الإدارة",
+      nameFr: "Administration",
+      href: "/",
+    },
+    {
+      nameEn: "User Management",
+      nameAr: "إدارة المستخدمين",
+      nameFr: "Gestion des utilisateurs",
+      href: "/user-management",
+    },
+    {
+      nameEn: "Driver",
+      nameAr: "السائق",
+      nameFr: "Conducteurs",
+      href: "/driver",
+    },
+    {
+      nameEn: "View Driver",
+      nameAr: "عرض السائق",
+      nameFr: "Voir le conducteur",
+      href: `/driver/view-driver/${params.driverId}`,
+    },
+  ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   const { data, error, isLoading } = useGetDriverByIdQuery(params.driverId);
@@ -35,8 +62,9 @@ const ViewDriver: React.FC<ViewDriverProps> = ({ params }) => {
 
   return (
     <>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} grid py-4`}
+        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} mt-[40px] grid py-4`}
       >
         <div className="grid grid-cols-2 gap-7 max-[1342px]:grid-cols-1 max-[1342px]:px-5">
           <DriverInfo data={data} />
@@ -50,7 +78,7 @@ const ViewDriver: React.FC<ViewDriverProps> = ({ params }) => {
             <div className="grid w-[500px] rounded-xl bg-bgPrimary p-5 max-[1342px]:w-full">
               <div className="relative overflow-auto shadow-md sm:rounded-lg">
                 <table className="w-full overflow-x-auto text-left text-sm text-textSecondary rtl:text-right">
-                  <thead className="bg-thead text-textPrimary text-xs uppercase">
+                  <thead className="bg-thead text-xs uppercase text-textPrimary">
                     <tr>
                       <th scope="col" className="whitespace-nowrap px-6 py-3">
                         Full Name
@@ -67,7 +95,7 @@ const ViewDriver: React.FC<ViewDriverProps> = ({ params }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className="border-b border-borderPrimary  bg-bgPrimary hover:bg-bgSecondary">
+                    <tr className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary">
                       <th
                         scope="row"
                         className="whitespace-nowrap px-6 py-4 font-medium text-textSecondary"
@@ -80,7 +108,7 @@ const ViewDriver: React.FC<ViewDriverProps> = ({ params }) => {
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">kdsk</td>
                     </tr>
-                    <tr className="border-b border-borderPrimary  bg-bgPrimary hover:bg-bgSecondary">
+                    <tr className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary">
                       <th
                         scope="row"
                         className="whitespace-nowrap px-6 py-4 font-medium text-textSecondary"

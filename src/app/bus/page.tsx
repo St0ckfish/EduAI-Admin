@@ -10,8 +10,29 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import { toast } from "react-toastify";
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 const Bus = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Administration",
+      nameAr: "الإدارة",
+      nameFr: "Administration",
+      href: "/",
+    },
+    {
+      nameEn: "Infrastructure",
+      nameAr: "الدورات والموارد",
+      nameFr: "Cours et Ressources",
+      href: "/infrastructure",
+    },
+    {
+      nameEn: "Bus",
+      nameAr: "المكتبة",
+      nameFr: "Autobus",
+      href: "/bus",
+    },
+  ];
   const { data, error, isLoading, refetch } = useGetAllBussQuery(null);
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const [search, setSearch] = useState("");
@@ -100,46 +121,7 @@ const Bus = () => {
 
   return (
     <>
-      <div
-        className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} ml-7 mt-12 flex-wrap text-[18px] max-[550px]:text-[15px]`}
-      >
-        <Link
-          className="font-semibold text-secondary hover:text-primary hover:underline"
-          href="/"
-        >
-          Administration
-        </Link>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)", transform: "", msFilter: "" }}
-        >
-          <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
-        </svg>
-        <Link
-          className="font-semibold text-secondary hover:text-primary hover:underline"
-          href="/infrastructure"
-        >
-          Infrastructure
-        </Link>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)", transform: "", msFilter: "" }}
-        >
-          <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
-        </svg>
-        <Link
-          className="font-semibold text-secondary hover:text-primary hover:underline"
-          href="/bus"
-        >
-          Bus
-        </Link>
-      </div>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >

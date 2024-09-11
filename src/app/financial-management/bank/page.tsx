@@ -14,8 +14,29 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 const Bank = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Administration",
+      nameAr: "الإدارة",
+      nameFr: "Administration",
+      href: "/",
+    },
+    {
+      nameEn: "Financial Management",
+      nameAr: "الإدارة المالية",
+      nameFr: "Gestion financière",
+      href: "/financial-management",
+    },
+    {
+      nameEn: "Bank",
+      nameAr: "البنك",
+      nameFr: "Banque",
+      href: "/financial-management/bank",
+    },
+  ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const [search, setSearch] = useState("");
   const [isModalOpen, setModalOpen] = useState(false);
@@ -120,46 +141,7 @@ const Bank = () => {
 
   return (
     <>
-      <div
-        className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} ml-7 mt-12 flex-wrap text-[18px] max-[550px]:text-[15px]`}
-      >
-        <Link
-          className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
-          href="/"
-        >
-          Administration
-        </Link>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)", transform: "", msFilter: "" }}
-        >
-          <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
-        </svg>
-        <Link
-          className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
-          href="/financial-management"
-        >
-          Financial Management
-        </Link>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)", transform: "", msFilter: "" }}
-        >
-          <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
-        </svg>
-        <Link
-          className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
-          href="/financial-management/bank"
-        >
-          Bank
-        </Link>
-      </div>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-10`}
       >

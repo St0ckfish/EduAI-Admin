@@ -3,11 +3,11 @@ import AttendCard from "@/components/AttendCard";
 import { RootState } from "@/GlobalRedux/store";
 import Link from "next/link";
 import { useSelector } from "react-redux";
-import { FaUserTie } from 'react-icons/fa';        // Driver Icon
-import { FaBriefcase } from 'react-icons/fa';      // Employee Icon
-import { FaUserGraduate } from 'react-icons/fa';   // Student Icon
-import { FaChalkboardTeacher } from 'react-icons/fa'; // Teacher Icon
-import { FaHardHat } from 'react-icons/fa';
+import { FaUserTie } from "react-icons/fa"; // Driver Icon
+import { FaBriefcase } from "react-icons/fa"; // Employee Icon
+import { FaUserGraduate } from "react-icons/fa"; // Student Icon
+import { FaChalkboardTeacher } from "react-icons/fa"; // Teacher Icon
+import { FaHardHat } from "react-icons/fa";
 import {
   useGetAllEmployeesQuery,
   useGetAllStudentsQuery,
@@ -23,8 +23,23 @@ import {
   useGetDriversAttendQuery,
   useGetDriversCountQuery,
 } from "@/features/attendance/attendanceApi";
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 const Attendance = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Dashboard",
+      nameAr: "لوحة القيادة",
+      nameFr: "Tableau de bord",
+      href: "/",
+    },
+    {
+      nameEn: "Attendances",
+      nameAr: "الحضور",
+      nameFr: "Présences",
+      href: "/attendances",
+    },
+  ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
@@ -45,7 +60,7 @@ const Attendance = () => {
   const { data: studentCount, isLoading: isSCount } =
     useGetAllStudentsQuery(null);
   const { data: students, isLoading: isStudents } =
-  useGetStudentAttendenceQuery(null);
+    useGetStudentAttendenceQuery(null);
 
   const { data: teachers, isLoading: isTeacher } = useGetAllTeachersQuery(null);
   const { data: workers, isLoading: isWorker } = useGetAllWorkersQuery(null);
@@ -142,45 +157,7 @@ const Attendance = () => {
     );
   return (
     <>
-      <div
-        className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} ml-7 mt-12 flex-wrap`}
-      >
-        <Link
-          className="text-[18px] font-semibold text-secondary hover:text-primary hover:underline"
-          href="/"
-        >
-          {currentLanguage === "en"
-            ? "Operations"
-            : currentLanguage === "ar"
-              ? "العمليات"
-              : currentLanguage === "fr"
-                ? "Opérations"
-                : "Operations"}{" "}
-          {/* Default to English */}
-        </Link>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)" }}
-        >
-          <path d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
-        </svg>
-        <Link
-          className="text-[18px] font-semibold text-secondary hover:text-primary hover:underline"
-          href="/attendances"
-        >
-          {currentLanguage === "en"
-            ? "Attendances"
-            : currentLanguage === "ar"
-              ? "الحضور"
-              : currentLanguage === "fr"
-                ? "Présences"
-                : "Attendances"}{" "}
-          {/* Default to English */}
-        </Link>
-      </div>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} mt-12 grid justify-center`}
       >

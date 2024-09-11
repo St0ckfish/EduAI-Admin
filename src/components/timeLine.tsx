@@ -122,8 +122,10 @@ const Timeline: React.FC<TimelineProps> = ({ meetings }) => {
                       return (
                         <td
                           key={dayIndex}
-                          className={`ease h-40 w-40 cursor-pointer overflow-auto border p-1 border-borderPrimary transition duration-500 hover:bg-bgSecondary ${
-                            !isSameMonth(day, currentMonth) ? "bg-bgSecondary" : ""
+                          className={`ease h-40 w-40 cursor-pointer overflow-auto border border-borderPrimary p-1 transition duration-500 hover:bg-bgSecondary ${
+                            !isSameMonth(day, currentMonth)
+                              ? "bg-bgSecondary"
+                              : ""
                           } ${
                             isToday(day)
                               ? "scale-90 bg-blue-300 shadow-2xl"

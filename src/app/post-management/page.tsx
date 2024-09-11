@@ -6,8 +6,23 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 const PostManagment = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Communication",
+      nameAr: "التواصل",
+      nameFr: "Communication",
+      href: "/",
+    },
+    {
+      nameEn: "Post Management",
+      nameAr: "إدارة المنشورات",
+      nameFr: "Gestion des publications",
+      href: "/post-management",
+    },
+  ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const [search, setSearch] = useState("");
   type Post = Record<string, any>;
@@ -68,6 +83,7 @@ const PostManagment = () => {
     );
   return (
     <>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
@@ -120,7 +136,7 @@ const PostManagment = () => {
           </div>
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
-          <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
+          <table className="w-full overflow-x-auto text-left text-sm text-textSecondary rtl:text-right">
             <thead className="bg-thead text-xs uppercase text-textPrimary">
               <tr>
                 <th scope="col" className="p-4">

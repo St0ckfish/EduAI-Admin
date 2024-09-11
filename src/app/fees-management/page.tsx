@@ -10,8 +10,29 @@ import Spinner from "@/components/spinner";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 const FeesManagement = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Administration",
+      nameAr: "الإدارة",
+      nameFr: "Administration",
+      href: "/",
+    },
+    {
+      nameEn: "Financial Management",
+      nameAr: "الإدارة المالية",
+      nameFr: "Gestion financière",
+      href: "/financial-management",
+    },
+    {
+      nameEn: "Fees Management",
+      nameAr: "إدارة المستندات",
+      nameFr: "Gestion des documents",
+      href: "/fees-management",
+    },
+  ];
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
   );
@@ -99,67 +120,7 @@ const FeesManagement = () => {
 
   return (
     <>
-      <div
-        className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} ml-7 mt-12 flex-wrap text-[18px] max-[550px]:text-[15px]`}
-      >
-        <Link
-          className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
-          href="/"
-        >
-          {currentLanguage === "en"
-            ? "Administration"
-            : currentLanguage === "ar"
-              ? "الإدارة"
-              : currentLanguage === "fr"
-                ? "Administration"
-                : "Administration"}{" "}
-          {/* Default to English */}
-        </Link>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)" }}
-        >
-          <path d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
-        </svg>
-        <Link
-          className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
-          href="/financial-management"
-        >
-          {currentLanguage === "en"
-            ? "Financial Management"
-            : currentLanguage === "ar"
-              ? "الإدارة المالية"
-              : currentLanguage === "fr"
-                ? "Gestion Financière"
-                : "Financial Management"}{" "}
-          {/* Default to English */}
-        </Link>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)" }}
-        >
-          <path d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
-        </svg>
-        <Link
-          className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
-          href="/fees-management"
-        >
-          {currentLanguage === "en"
-            ? "Fees Management"
-            : currentLanguage === "ar"
-              ? "إدارة الرسوم"
-              : currentLanguage === "fr"
-                ? "Gestion des Frais"
-                : "Fees Management"}{" "}
-          {/* Default to English */}
-        </Link>
-      </div>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
@@ -191,7 +152,7 @@ const FeesManagement = () => {
                 type="text"
                 id="icon"
                 name="icon"
-                className="block w-full rounded-lg border-2 border-gray-200 px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
+                className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
                 placeholder="Search"
               />
             </div>
@@ -238,7 +199,7 @@ const FeesManagement = () => {
           </Link>
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
-          <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
+          <table className="w-full overflow-x-auto text-left text-sm text-textSecondary rtl:text-right">
             <thead className="bg-thead text-xs uppercase text-textPrimary">
               <tr>
                 <th scope="col" className="p-4">
@@ -246,7 +207,7 @@ const FeesManagement = () => {
                     <input
                       id="checkbox-all-search"
                       type="checkbox"
-                      className="-gray-800 h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500"
+                      className="-gray-800 h-4 w-4 rounded border-borderPrimary bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500"
                       onChange={handleSelectAll}
                     />
                   </div>
@@ -332,7 +293,7 @@ const FeesManagement = () => {
                 })
                 .map((invoice: Invoice, index: number) => (
                   <tr
-                    className="border-b bg-bgPrimary hover:bg-bgSecondary"
+                    className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary"
                     key={index}
                   >
                     <td className="w-4 p-4">
@@ -361,15 +322,15 @@ const FeesManagement = () => {
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
                       {invoice.paymentStatus == "NOT_FULLY_PAID" ? (
-                        <div className="flex items-center gap-2 font-semibold text-[#e85347]">
+                        <div className="flex items-center gap-2 font-semibold text-error">
                           {" "}
-                          <div className="h-2.5 w-2.5 rounded-full bg-[#e85347]"></div>{" "}
+                          <div className="h-2.5 w-2.5 rounded-full bg-error"></div>{" "}
                           Unpaid{" "}
                         </div>
                       ) : (
-                        <div className="flex items-center gap-2 font-semibold text-[#3e5af0]">
+                        <div className="flex items-center gap-2 font-semibold text-primary">
                           {" "}
-                          <div className="h-2.5 w-2.5 rounded-full bg-[#3e5af0]"></div>{" "}
+                          <div className="h-2.5 w-2.5 rounded-full bg-primary"></div>{" "}
                           Unpaid{" "}
                         </div>
                       )}

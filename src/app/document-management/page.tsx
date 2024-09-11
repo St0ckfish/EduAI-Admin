@@ -2,15 +2,29 @@
 import Card from "@/components/card";
 /* eslint-disable @next/next/no-img-element */
 import { RootState } from "@/GlobalRedux/store";
-import Link from "next/link";
 import { useSelector } from "react-redux";
 import { HiAcademicCap } from "react-icons/hi"; // Certificate
 import { FaFileAlt } from "react-icons/fa"; // Transcripts
 import { BsPersonLinesFill } from "react-icons/bs"; // Enrollment
 import { FaRegCalendarCheck } from "react-icons/fa"; // Attendance
 import { MdDescription } from "react-icons/md"; // Other official documents
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 const DocumentManagement = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Administration",
+      nameAr: "الإدارة",
+      nameFr: "Administration",
+      href: "/",
+    },
+    {
+      nameEn: "Document Management",
+      nameAr: "إدارة المستندات",
+      nameFr: "Gestion des documents",
+      href: "/document-management",
+    },
+  ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
@@ -121,45 +135,7 @@ const DocumentManagement = () => {
 
   return (
     <>
-      <div
-        className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} ml-7 mt-12 flex-wrap`}
-      >
-        <Link
-          className="font-semibold text-secondary hover:text-primary hover:underline"
-          href="/"
-        >
-          {currentLanguage === "en"
-            ? "Administration"
-            : currentLanguage === "ar"
-              ? "الإدارة"
-              : currentLanguage === "fr"
-                ? "Administration"
-                : "Administration"}{" "}
-          {/* Default to English */}
-        </Link>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)" }}
-        >
-          <path d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
-        </svg>
-        <Link
-          className="font-semibold text-secondary hover:text-primary hover:underline"
-          href="/document-management"
-        >
-          {currentLanguage === "en"
-            ? "Document Management"
-            : currentLanguage === "ar"
-              ? "إدارة الوثائق"
-              : currentLanguage === "fr"
-                ? "Gestion des documents"
-                : "Document Management"}{" "}
-          {/* Default to English */}
-        </Link>
-      </div>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} mt-12 grid justify-center`}
       >

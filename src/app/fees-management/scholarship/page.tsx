@@ -5,8 +5,36 @@ import { RootState } from "@/GlobalRedux/store";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 const Scholarship = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Administration",
+      nameAr: "الإدارة",
+      nameFr: "Administration",
+      href: "/",
+    },
+    {
+      nameEn: "Financial Management",
+      nameAr: "الإدارة المالية",
+      nameFr: "Gestion financière",
+      href: "/financial-management",
+    },
+    {
+      nameEn: "Fees Management",
+      nameAr: "إدارة المستندات",
+      nameFr: "Gestion des documents",
+      href: "/fees-management",
+    },
+    {
+      nameEn: "Scholarship",
+      nameAr: "منحة دراسية",
+      nameFr: "Bourse d'étude",
+      href: "/fees-management/scholarship",
+    },
+  ];
+
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
   );
@@ -53,89 +81,9 @@ const Scholarship = () => {
 
   return (
     <>
-      <Soon />
+      {/* <Soon /> */}
 
-      <div className="ml-7 mt-12 flex flex-wrap items-center gap-1 text-[18px] max-[550px]:text-[15px] lg:ml-[290px]">
-        <Link
-          className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
-          href="/"
-        >
-          {currentLanguage === "en"
-            ? "Administration"
-            : currentLanguage === "ar"
-              ? "الإدارة"
-              : currentLanguage === "fr"
-                ? "Administration"
-                : "Administration"}{" "}
-          {/* Default to English */}
-        </Link>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)" }}
-        >
-          <path d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
-        </svg>
-        <Link
-          className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
-          href="/financial-management"
-        >
-          {currentLanguage === "en"
-            ? "Financial Management"
-            : currentLanguage === "ar"
-              ? "الإدارة المالية"
-              : currentLanguage === "fr"
-                ? "Gestion Financière"
-                : "Financial Management"}{" "}
-          {/* Default to English */}
-        </Link>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)" }}
-        >
-          <path d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
-        </svg>
-        <Link
-          className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
-          href="/fees-management"
-        >
-          {currentLanguage === "en"
-            ? "Fees Management"
-            : currentLanguage === "ar"
-              ? "إدارة الرسوم"
-              : currentLanguage === "fr"
-                ? "Gestion des Frais"
-                : "Fees Management"}{" "}
-          {/* Default to English */}
-        </Link>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)" }}
-        >
-          <path d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
-        </svg>
-        <Link
-          className="font-semibold text-[#526484] hover:text-blue-400 hover:underline"
-          href="/scholarship"
-        >
-          {currentLanguage === "en"
-            ? "Scholarship"
-            : currentLanguage === "ar"
-              ? "منحة دراسية"
-              : currentLanguage === "fr"
-                ? "Bourse d'études"
-                : "Scholarship"}{" "}
-          {/* Default to English */}
-        </Link>
-      </div>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div className="relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg lg:ml-[270px]">
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">
@@ -164,7 +112,7 @@ const Scholarship = () => {
                 type="text"
                 id="icon"
                 name="icon"
-                className="block w-full rounded-lg border-2 border-gray-200 px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
+                className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
                 placeholder="Search"
               />
             </div>
@@ -172,7 +120,7 @@ const Scholarship = () => {
           <div className="flex justify-center">
             <Link
               href="/"
-              className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+              className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               + Add Scholarship
             </Link>
@@ -188,8 +136,8 @@ const Scholarship = () => {
           </Link>
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
-          <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
-            <thead className="bg-[#daeafb] text-xs uppercase text-gray-700">
+          <table className="text-bgSecondary0 w-full overflow-x-auto text-left text-sm rtl:text-right">
+            <thead className="bg-thead text-xs uppercase text-textPrimary">
               <tr>
                 <th scope="col" className="p-4">
                   <div className="flex items-center">
@@ -229,7 +177,7 @@ const Scholarship = () => {
               </tr>
             </thead>
             <tbody>
-              <tr className="border-b bg-white hover:bg-gray-50">
+              <tr className="border-b border-borderPrimary bg-bgPrimary text-textSecondary hover:bg-bgSecondary">
                 <td className="w-4 p-4">
                   <div className="flex items-center">
                     <input
@@ -241,7 +189,7 @@ const Scholarship = () => {
                 </td>
                 <th
                   scope="row"
-                  className="flex items-center whitespace-nowrap px-6 py-4 font-medium text-gray-900"
+                  className="flex items-center whitespace-nowrap px-6 py-4 font-medium text-gray-900 text-textSecondary"
                 >
                   <img
                     src="/images/me.jpg"
@@ -265,7 +213,7 @@ const Scholarship = () => {
                   </Link>
                 </td>
               </tr>
-              <tr className="border-b bg-white hover:bg-gray-50">
+              <tr className="border-b border-borderPrimary bg-bgPrimary text-textSecondary hover:bg-bgSecondary">
                 <td className="w-4 p-4">
                   <div className="flex items-center">
                     <input
@@ -277,7 +225,7 @@ const Scholarship = () => {
                 </td>
                 <th
                   scope="row"
-                  className="flex items-center whitespace-nowrap px-6 py-4 font-medium text-gray-900"
+                  className="flex items-center whitespace-nowrap px-6 py-4 font-medium text-gray-900 text-textSecondary"
                 >
                   <img
                     src="/images/me.jpg"

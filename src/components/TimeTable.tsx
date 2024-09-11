@@ -41,12 +41,12 @@ const TimeTable = ({ scheduleData }: { scheduleData: any[] }) => {
   return (
     <div className="grid w-full overflow-x-auto">
     <div className=" w-full grid overflow-x-auto">
-      <div className={`p-6 bg-white rounded-xl mr-3 ${booleanValue ? "w-[1750px]" : "w-[1570px]"}`}>
+      <div className={`p-6 bg-bgPrimary rounded-xl mr-3 ${booleanValue ? "w-[1750px]" : "w-[1570px]"}`}>
         {/* Day headers */}
         <div className="flex justify-between">
           <div className="w-1/12"></div>
           {staticDays.map((day) => (
-            <div key={day.id} className="text-center py-2 px-4 rounded-lg w-20 shadow-lg -translate-x-[85px]">
+            <div key={day.id} className="text-center py-2 px-4 rounded-lg w-20 shadow-lg border border-borderPrimary -translate-x-[85px]">
               <div className="font-semibold">{day.name}</div>
             </div>
           ))}
@@ -72,32 +72,31 @@ const TimeTable = ({ scheduleData }: { scheduleData: any[] }) => {
               </div>
             ))}
           </div>
-
-          {/* Events for each day */}
-          {staticDays.map((day) => (
-            <div key={day.id} className="flex-1 relative border-l">
-              {scheduleData
-                .filter((event) => event.day.toUpperCase().startsWith(day.name.toUpperCase()))
-                .map((event, idx) => {
-                  const top = timeToPosition(event.startTime);
-                  const height = calculateHeight(event.startTime, event.endTime);
-                  return (
-                    <div
-                      key={idx}
-                      className="absolute left-0 right-0 mx-2 p-4 rounded-lg bg-[#d9e3f8] text-[#004eeb]  border-l-4 border-[#004eeb]"
-                      style={{ top: `${top}%`, height: `${height}%` }}
-                    >
-                      <div className="font-bold">{event.courseName}</div>
-                      <div className="text-sm">{`${event.startTime} - ${event.endTime}`}</div>
-                      <div className="text-xs">{event.classroomName}</div>
-                    </div>
-                  );
-                })}
-            </div>
-          ))}
+            {/* Events for each day */}
+            {staticDays.map((day) => (
+              <div key={day.id} className="flex-1 relative border-l border-borderPrimary">
+                {scheduleData
+                  .filter((event) => event.day.toUpperCase().startsWith(day.name.toUpperCase()))
+                  .map((event, idx) => {
+                    const top = timeToPosition(event.startTime);
+                    const height = calculateHeight(event.startTime, event.endTime);
+                    return (
+                      <div
+                        key={idx}
+                        className="absolute left-0 right-0 mx-2 p-4 rounded-lg bg-thead text-primary border-l border-borderPrimary-4 border-primary"
+                        style={{ top: `${top}%`, height: `${height}%` }}
+                      >
+                        <div className="font-bold">{event.courseName}</div>
+                        <div className="text-sm">{`${event.startTime} - ${event.endTime}`}</div>
+                        <div className="text-xs">{event.classroomName}</div>
+                      </div>
+                    );
+                  })}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
     </div>
   );
 };

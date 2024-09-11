@@ -15,8 +15,23 @@ import { FaDoorClosed } from "react-icons/fa"; // Room
 import { FaClipboardList } from "react-icons/fa"; // Grades
 import { FaBoxOpen } from "react-icons/fa"; // Resource
 import { FaMoneyBillAlt } from "react-icons/fa"; // Fees
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 const Archive = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Administration",
+      nameAr: "الإدارة",
+      nameFr: "Administration",
+      href: "/",
+    },
+    {
+      nameEn: "Archive",
+      nameAr: "الأرشيف",
+      nameFr: "Archives",
+      href: "/archive",
+    },
+  ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
@@ -170,45 +185,8 @@ const Archive = () => {
 
   return (
     <>
-      <div
-        className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} ml-7 mt-12 flex-wrap text-[18px] max-[550px]:text-[15px]`}
-      >
-        <Link
-          className="text-[18px] font-semibold text-secondary hover:text-primary hover:underline"
-          href="/"
-        >
-          {currentLanguage === "en"
-            ? "Administration"
-            : currentLanguage === "ar"
-              ? "الإدارة"
-              : currentLanguage === "fr"
-                ? "Administration"
-                : "Administration"}{" "}
-          {/* Default to English */}
-        </Link>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)" }}
-        >
-          <path d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
-        </svg>
-        <Link
-          className="text-[18px] font-semibold text-secondary hover:text-primary hover:underline"
-          href="/archive"
-        >
-          {currentLanguage === "en"
-            ? "Archive"
-            : currentLanguage === "ar"
-              ? "الأرشيف"
-              : currentLanguage === "fr"
-                ? "Archives"
-                : "Archive"}{" "}
-          {/* Default to English */}
-        </Link>
-      </div>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
+
       <div
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} mt-12 grid justify-center`}
       >

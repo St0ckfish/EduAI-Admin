@@ -11,8 +11,29 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import { toast } from "react-toastify";
 import Pagination from "@/components/pagination";
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 const Student = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Administration",
+      nameAr: "الإدارة",
+      nameFr: "Administration",
+      href: "/",
+    },
+    {
+      nameEn: "Archive",
+      nameAr: "الأرشيف",
+      nameFr: "Archives",
+      href: "/archive",
+    },
+    {
+      nameEn: "Student",
+      nameAr: "طالب",
+      nameFr: "Étudiant",
+      href: "/archive/student",
+    },
+  ];
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
   );
@@ -107,46 +128,7 @@ const Student = () => {
 
   return (
     <>
-      <div
-        className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} ml-7 mt-12 flex-wrap text-[18px] max-[550px]:text-[15px]`}
-      >
-        <Link
-          className="font-semibold text-secondary hover:text-blue-400 hover:underline"
-          href="/"
-        >
-          Administration
-        </Link>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)", transform: "", msFilter: "" }}
-        >
-          <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
-        </svg>
-        <Link
-          className="font-semibold text-secondary hover:text-blue-400 hover:underline"
-          href="/archive"
-        >
-          Archive
-        </Link>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)", transform: "", msFilter: "" }}
-        >
-          <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
-        </svg>
-        <Link
-          className="font-semibold text-secondary hover:text-blue-400 hover:underline"
-          href="/archive//student"
-        >
-          Student
-        </Link>
-      </div>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} bg-transstudent relative mr-[5px] mt-10 h-screen overflow-x-auto sm:rounded-lg`}
       >
@@ -193,7 +175,7 @@ const Student = () => {
           </div>
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
-          <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
+          <table className="w-full overflow-x-auto text-left text-sm text-textSecondary rtl:text-right">
             <thead className="bg-thead text-xs uppercase text-textPrimary">
               <tr>
                 <th scope="col" className="p-4">

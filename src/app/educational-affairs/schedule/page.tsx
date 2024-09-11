@@ -36,7 +36,7 @@ const Schedule = () => {
             <input
               {...register("teacherId", { required: true })}
               placeholder="Enter Teacher ID"
-              className="mr-3 px-4 py-2 border rounded outline-none"
+              className="mr-3 px-4 py-2 border border-borderPrimary rounded outline-none"
             />
             <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded">
               Load Schedule

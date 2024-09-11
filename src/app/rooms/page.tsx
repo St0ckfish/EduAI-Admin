@@ -3,8 +3,30 @@
 import Soon from "@/components/soon";
 import Link from "next/link";
 import { useState, useEffect } from "react"; // Import useState and useEffect hooks
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 const Rooms = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Administration",
+      nameAr: "الإدارة",
+      nameFr: "Administration",
+      href: "/",
+    },
+    {
+      nameEn: "Infrastructure",
+      nameAr: "الدورات والموارد",
+      nameFr: "Cours et Ressources",
+      href: "/infrastructure",
+    },
+    {
+      nameEn: "room",
+      nameAr: "الغرفة",
+      nameFr: "Chambre",
+      href: "/rooms",
+    },
+  ];
+
   const [selectAll, setSelectAll] = useState(false); // State to track whether select all checkbox is checked
 
   // Function to handle click on select all checkbox
@@ -54,8 +76,8 @@ const Rooms = () => {
 
   return (
     <>
-      <Soon />
-
+      {/* <Soon /> */}
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div className="relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg lg:ml-[270px]">
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">
@@ -84,7 +106,7 @@ const Rooms = () => {
                 type="text"
                 id="icon"
                 name="icon"
-                className="block w-full rounded-lg border-2 border-gray-200 px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
+                className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
                 placeholder="Search"
               />
             </div>
@@ -92,15 +114,15 @@ const Rooms = () => {
           <div className="flex justify-center">
             <Link
               href="/add-new-room"
-              className="mb-5 mr-3 w-[210px] whitespace-nowrap rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+              className="mb-5 mr-3 w-[210px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               + Add New Room
             </Link>
           </div>
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
-          <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
-            <thead className="bg-[#daeafb] text-xs uppercase text-gray-700">
+          <table className="text-bgSecondary0 w-full overflow-x-auto text-left text-sm rtl:text-right">
+            <thead className="bg-thead text-xs uppercase text-textPrimary">
               <tr>
                 <th scope="col" className="p-4">
                   <div className="flex items-center">
@@ -140,7 +162,7 @@ const Rooms = () => {
               </tr>
             </thead>
             <tbody>
-              <tr className="border-b bg-white hover:bg-gray-50">
+              <tr className="border-b border-borderPrimary bg-bgPrimary text-textSecondary hover:bg-bgSecondary">
                 <td className="w-4 p-4">
                   <div className="flex items-center">
                     <input
@@ -152,7 +174,7 @@ const Rooms = () => {
                 </td>
                 <th
                   scope="row"
-                  className="flex items-center whitespace-nowrap px-6 py-4 font-medium text-gray-900"
+                  className="flex items-center whitespace-nowrap px-6 py-4 font-medium text-textSecondary"
                 >
                   Nahda
                 </th>
@@ -171,7 +193,7 @@ const Rooms = () => {
                   </Link>
                 </td>
               </tr>
-              <tr className="border-b bg-white hover:bg-gray-50">
+              <tr className="border-b border-borderPrimary bg-bgPrimary text-textSecondary hover:bg-bgSecondary">
                 <td className="w-4 p-4">
                   <div className="flex items-center">
                     <input
@@ -183,7 +205,7 @@ const Rooms = () => {
                 </td>
                 <th
                   scope="row"
-                  className="flex items-center whitespace-nowrap px-6 py-4 font-medium text-gray-900"
+                  className="flex items-center whitespace-nowrap px-6 py-4 font-medium text-textSecondary"
                 >
                   Nahda
                 </th>

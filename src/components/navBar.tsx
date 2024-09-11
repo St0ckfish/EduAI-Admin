@@ -273,7 +273,7 @@ const NavBar = () => {
                   <DropdownMenu.Root>
                     <DropdownMenu.Trigger asChild>
                       <button
-                        className="text-violet11 hover:bg-violet3 inline-flex h-[35px] w-[35px] items-center justify-center rounded-full bg-white outline-none"
+                        className="text-violet11 hover:bg-violet3 inline-flex h-[35px] w-[35px] items-center justify-center rounded-full bg-bgPrimary outline-none"
                         aria-label="Customise options"
                       >
                         {currentLanguage === "en" ? (
@@ -678,7 +678,7 @@ const NavBar = () => {
                     </button>
                     {isOpen2 && (
                       <ul
-                        className={`${small ? "hidden w-[180px] translate-x-5 whitespace-nowrap rounded-xl bg-white p-2 group-hover:grid" : ""} ml-9 mt-2 grid gap-2 text-[14px] font-semibold`}
+                        className={`${small ? "hidden w-[180px] translate-x-5 whitespace-nowrap rounded-xl bg-bgPrimary p-2 group-hover:grid" : ""} ml-9 mt-2 grid gap-2 text-[14px] font-semibold`}
                       >
                         <Link
                           className="hover:text-primary"
@@ -821,7 +821,7 @@ const NavBar = () => {
                     </button>
                     {isOpen3 && (
                       <ul
-                        className={`${small ? "hidden w-[180px] translate-x-5 whitespace-nowrap rounded-xl bg-white p-2 group-hover:grid" : ""} ml-9 mt-2 grid gap-2 text-[14px] font-semibold`}
+                        className={`${small ? "hidden w-[180px] translate-x-5 whitespace-nowrap rounded-xl bg-bgPrimary p-2 group-hover:grid" : ""} ml-9 mt-2 grid gap-2 text-[14px] font-semibold`}
                       >
                         <Link className="hover:text-primary" href="/course">
                           {currentLanguage === "en"
@@ -884,7 +884,7 @@ const NavBar = () => {
                     </button>
                     {isOpen4 && (
                       <ul
-                        className={`${small ? "hidden w-[180px] translate-x-5 whitespace-nowrap rounded-xl bg-white p-2 group-hover:grid" : ""} ml-9 mt-2 grid gap-2 text-[14px] font-semibold`}
+                        className={`${small ? "hidden w-[180px] translate-x-5 whitespace-nowrap rounded-xl bg-bgPrimary p-2 group-hover:grid" : ""} ml-9 mt-2 grid gap-2 text-[14px] font-semibold`}
                       >
                         <Link
                           className="hover:text-primary"

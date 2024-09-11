@@ -14,6 +14,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "react-toastify";
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 const eventSchema = z.object({
   creatorId: z.string().optional(),
@@ -29,6 +30,26 @@ const eventSchema = z.object({
 });
 
 const Events = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Academic",
+      nameAr: "أكاديمي",
+      nameFr: "Académique",
+      href: "/",
+    },
+    {
+      nameEn: "Educational Affairs",
+      nameAr: "الشئون التعليمية",
+      nameFr: "Affaires éducatives",
+      href: "/educational-affairs",
+    },
+    {
+      nameEn: "Events",
+      nameAr: "الشئون التعليمية",
+      nameFr: "Événements",
+      href: "/educational-affairs/events",
+    },
+  ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const { data, error, isLoading, refetch } = useGetAllEventsQuery(null);
   const [createEvent] = useCreateEventsMutation();
@@ -99,6 +120,7 @@ const Events = () => {
 
   return (
     <>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         className={` ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-7`}
       >
@@ -112,7 +134,9 @@ const Events = () => {
         </div>
         <Timeline meetings={data?.data.content} />
         <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-          <h2 className="mb-4 text-xl font-light">Create Event</h2>
+          <h2 className="mb-4 text-xl font-light text-textPrimary">
+            Create Event
+          </h2>
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="grid grid-cols-2 gap-5"
@@ -124,10 +148,10 @@ const Events = () => {
                 type="number"
                 {...register("creatorId")}
                 placeholder="Creator ID"
-                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 text-textSecondary shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.creatorId && (
-                <p className="text-red-500">
+                <p className="text-error">
                   {errors.creatorId.message as string}
                 </p>
               )}
@@ -139,10 +163,10 @@ const Events = () => {
                 type="datetime-local"
                 {...register("startTime")}
                 placeholder="Start Time"
-                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 text-textSecondary shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.startTime && (
-                <p className="text-red-500">
+                <p className="text-error">
                   {errors.startTime.message as string}
                 </p>
               )}
@@ -154,12 +178,10 @@ const Events = () => {
                 type="datetime-local"
                 {...register("endTime")}
                 placeholder="End Time"
-                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 text-textSecondary shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.endTime && (
-                <p className="text-red-500">
-                  {errors.endTime.message as string}
-                </p>
+                <p className="text-error">{errors.endTime.message as string}</p>
               )}
             </div>
 
@@ -169,10 +191,10 @@ const Events = () => {
                 type="text"
                 {...register("title_en")}
                 placeholder="Title (English)"
-                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 text-textSecondary shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.title_en && (
-                <p className="text-red-500">
+                <p className="text-error">
                   {errors.title_en.message as string}
                 </p>
               )}
@@ -184,10 +206,10 @@ const Events = () => {
                 type="text"
                 {...register("title_ar")}
                 placeholder="Title (Arabic)"
-                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 text-textSecondary shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.title_ar && (
-                <p className="text-red-500">
+                <p className="text-error">
                   {errors.title_ar.message as string}
                 </p>
               )}
@@ -199,10 +221,10 @@ const Events = () => {
                 type="text"
                 {...register("title_fr")}
                 placeholder="Title (French)"
-                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 text-textSecondary shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.title_fr && (
-                <p className="text-red-500">
+                <p className="text-error">
                   {errors.title_fr.message as string}
                 </p>
               )}
@@ -213,10 +235,10 @@ const Events = () => {
               <input
                 {...register("description_en")}
                 placeholder="Description (English)"
-                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 text-textSecondary shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.description_en && (
-                <p className="text-red-500">
+                <p className="text-error">
                   {errors.description_en.message as string}
                 </p>
               )}
@@ -227,10 +249,10 @@ const Events = () => {
               <input
                 {...register("description_ar")}
                 placeholder="Description (Arabic)"
-                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 text-textSecondary shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.description_ar && (
-                <p className="text-red-500">
+                <p className="text-error">
                   {errors.description_ar.message as string}
                 </p>
               )}
@@ -241,10 +263,10 @@ const Events = () => {
               <input
                 {...register("description_fr")}
                 placeholder="Description (French)"
-                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 text-textSecondary shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.description_fr && (
-                <p className="text-red-500">
+                <p className="text-error">
                   {errors.description_fr.message as string}
                 </p>
               )}
@@ -255,23 +277,23 @@ const Events = () => {
               <input
                 type="file"
                 {...register("file")}
-                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 text-textSecondary shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.file && (
-                <p className="text-red-500">{errors.file.message as string}</p>
+                <p className="text-error">{errors.file.message as string}</p>
               )}
             </div>
 
             <div className="flex justify-between">
               <button
                 type="submit"
-                className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
               >
                 Add
               </button>
               <button
                 onClick={handleCloseModal}
-                className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-[#e44949] px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#af4747] hover:shadow-xl"
+                className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-error px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#af4747] hover:shadow-xl"
               >
                 Cancel
               </button>

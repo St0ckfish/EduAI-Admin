@@ -11,6 +11,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import { toast } from "react-toastify";
 import Pagination from "@/components/pagination";
+import BreadCrumbs from "@/components/BreadCrumbs";
+
 // import Sheet from "@/components/sheet";
 // import DriverInfo from "@/components/driverInfo";
 
@@ -28,6 +30,27 @@ const Driver = () => {
   //     </button>
   //
   //   </div>
+  const breadcrumbs = [
+    {
+      nameEn: "Administration",
+      nameAr: "الإدارة",
+      nameFr: "Administration",
+      href: "/",
+    },
+    {
+      nameEn: "User Management",
+      nameAr: "إدارة المستخدمين",
+      nameFr: "Gestion des utilisateurs",
+      href: "/user-management",
+    },
+    {
+      nameEn: "Driver",
+      nameAr: "السائق",
+      nameFr: "Conducteurs",
+      href: "/driver",
+    },
+  ];
+
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
   );
@@ -121,69 +144,7 @@ const Driver = () => {
 
   return (
     <>
-      <div
-        className={`flex items-center gap-1 ${
-          booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"
-        } ml-7 mt-12 flex-wrap text-[18px] max-[550px]:text-[15px]`}
-      >
-        <Link
-          className="font-semibold text-secondary hover:text-hover hover:underline"
-          href="/"
-        >
-          {currentLanguage === "en"
-            ? "Administration"
-            : currentLanguage === "ar"
-              ? "الإدارة"
-              : currentLanguage === "fr"
-                ? "Administration"
-                : "Administration"}{" "}
-          {/* Default to English */}
-        </Link>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)" }}
-        >
-          <path d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
-        </svg>
-        <Link
-          className="font-semibold text-secondary hover:text-hover hover:underline"
-          href="/user-management"
-        >
-          {currentLanguage === "en"
-            ? "User Management"
-            : currentLanguage === "ar"
-              ? "إدارة المستخدمين"
-              : currentLanguage === "fr"
-                ? "Gestion des utilisateurs"
-                : "User Management"}{" "}
-          {/* Default to English */}
-        </Link>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)" }}
-        >
-          <path d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
-        </svg>
-        <Link
-          className="font-semibold text-secondary hover:text-hover hover:underline"
-          href="/driver"
-        >
-          {currentLanguage === "en"
-            ? "Driver"
-            : currentLanguage === "ar"
-              ? "السائق"
-              : currentLanguage === "fr"
-                ? "Chauffeur"
-                : "Driver"}{" "}
-          {/* Default to English */}
-        </Link>
-      </div>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         className={`${
           booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"
@@ -239,7 +200,7 @@ const Driver = () => {
           </div>
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
-          <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
+          <table className="w-full overflow-x-auto text-left text-sm text-textSecondary rtl:text-right">
             <thead className="bg-thead text-xs uppercase text-textPrimary">
               <tr>
                 <th scope="col" className="p-4">

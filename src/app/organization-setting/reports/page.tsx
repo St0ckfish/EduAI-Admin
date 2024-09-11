@@ -10,8 +10,29 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import { toast } from "react-toastify";
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 const Report = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Administration",
+      nameAr: "الإدارة",
+      nameFr: "Administration",
+      href: "/",
+    },
+    {
+      nameEn: "Organization Settings",
+      nameAr: "إعدادات المنظمة",
+      nameFr: "Paramètres org",
+      href: "/organization-setting",
+    },
+    {
+      nameEn: "Reports",
+      nameAr: "التقارير",
+      nameFr: "Rapports",
+      href: "/organization-setting/reports",
+    },
+  ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   const { data, error, isLoading, refetch } = useGetAllReportsQuery("REPORT");
@@ -42,8 +63,9 @@ const Report = () => {
     );
   return (
     <>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} justify-left mb-4 ml-4 mt-2 flex gap-5 text-[23px] font-semibold`}
+        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} justify-left mb-4 ml-4 mt-2 mt-[20px] flex gap-5 text-[23px] font-semibold`}
       >
         <Link
           href="/organization-setting/reports"
@@ -57,7 +79,7 @@ const Report = () => {
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
-          <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
+          <table className="w-full overflow-x-auto text-left text-sm text-textSecondary rtl:text-right">
             <tbody>
               {data?.data.content.map((report: Notifi) => (
                 <tr

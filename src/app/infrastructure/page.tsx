@@ -4,16 +4,31 @@ import Card from "@/components/card";
 import { RootState } from "@/GlobalRedux/store";
 import Link from "next/link";
 import { useSelector } from "react-redux";
-import { FaBus } from 'react-icons/fa';            // Bus Icon
-import { FaChalkboardTeacher } from 'react-icons/fa'; // Class Icon
-import { FaBookOpen } from 'react-icons/fa';       // Library Icon
-import { FaDoorOpen } from 'react-icons/fa';       // Room Icon
-import { FaVideo } from 'react-icons/fa';          // Cameras Icon
-import { FaStore } from 'react-icons/fa';          // Store Icon
-import { FaBuilding } from 'react-icons/fa';       // Office Icon
-import { GiChemicalDrop } from 'react-icons/gi';   // Lab Icon
+import { FaBus } from "react-icons/fa"; // Bus Icon
+import { FaChalkboardTeacher } from "react-icons/fa"; // Class Icon
+import { FaBookOpen } from "react-icons/fa"; // Library Icon
+import { FaDoorOpen } from "react-icons/fa"; // Room Icon
+import { FaVideo } from "react-icons/fa"; // Cameras Icon
+import { FaStore } from "react-icons/fa"; // Store Icon
+import { FaBuilding } from "react-icons/fa"; // Office Icon
+import { GiChemicalDrop } from "react-icons/gi"; // Lab Icon
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 const Infrastructure = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Operations",
+      nameAr: "العمليات",
+      nameFr: "Opérations",
+      href: "/",
+    },
+    {
+      nameEn: "Infrastructure",
+      nameAr: "البنية التحتية",
+      nameFr: "Infrastructure",
+      href: "/infrastructure",
+    },
+  ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
@@ -42,8 +57,8 @@ const Infrastructure = () => {
     },
     {
       href: "/classes",
-        icon: <FaChalkboardTeacher size={40} />,
-        title:
+      icon: <FaChalkboardTeacher size={40} />,
+      title:
         currentLanguage === "en"
           ? "Class"
           : currentLanguage === "ar"
@@ -184,45 +199,7 @@ const Infrastructure = () => {
 
   return (
     <>
-      <div
-        className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} ml-7 mt-12`}
-      >
-        <Link
-          className="text-[18px] font-semibold text-secondary hover:text-blue-400 hover:underline"
-          href="/"
-        >
-          {currentLanguage === "en"
-            ? "Operations"
-            : currentLanguage === "ar"
-              ? "العمليات"
-              : currentLanguage === "fr"
-                ? "Opérations"
-                : "Operations"}{" "}
-          {/* Default to English */}
-        </Link>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)" }}
-        >
-          <path d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
-        </svg>
-        <Link
-          className="text-[18px] font-semibold text-[#526484] hover:text-blue-400 hover:underline"
-          href="/infrastructure"
-        >
-          {currentLanguage === "en"
-            ? "Infrastructure"
-            : currentLanguage === "ar"
-              ? "البنية التحتية"
-              : currentLanguage === "fr"
-                ? "Infrastructure"
-                : "Infrastructure"}{" "}
-          {/* Default to English */}
-        </Link>
-      </div>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         className={` ${booleanValue ? "lg:ml-[10px]" : "lg:ml-[290px]"} mt-12 grid justify-center`}
       >

@@ -12,6 +12,8 @@ import { useEffect } from "react";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import BreadCrumbs from "@/components/BreadCrumbs";
+
 interface ViewDriverProps {
   params: {
     driverId: string;
@@ -19,6 +21,33 @@ interface ViewDriverProps {
 }
 
 const EditDriver: React.FC<ViewDriverProps> = ({ params }) => {
+  const breadcrumbs = [
+    {
+      nameEn: "Administration",
+      nameAr: "الإدارة",
+      nameFr: "Administration",
+      href: "/",
+    },
+    {
+      nameEn: "User Management",
+      nameAr: "إدارة المستخدمين",
+      nameFr: "Gestion des utilisateurs",
+      href: "/user-management",
+    },
+    {
+      nameEn: "Driver",
+      nameAr: "السائق",
+      nameFr: "Conducteurs",
+      href: "/driver",
+    },
+    {
+      nameEn: "Edit Driver",
+      nameAr: "تعديل السائق",
+      nameFr: "Modifier le conducteur",
+      href: `/edit-driver/${params.driverId}`,
+    },
+  ];
+
   const { data, error, isLoading } = useGetDriversQuery(params.driverId);
   const [createDriver, { isLoading: isUpdating }] = useUpdateDriversMutation();
   const { data: rigiond } = useGetAllReginionIDQuery(null);
@@ -63,6 +92,7 @@ const EditDriver: React.FC<ViewDriverProps> = ({ params }) => {
     );
   return (
     <>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div className="mr-[5px] grid h-[850px] items-center justify-center lg:ml-[270px]">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="my-10 grid items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:w-[1000px]">

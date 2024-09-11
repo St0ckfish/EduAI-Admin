@@ -7,8 +7,36 @@ import { useCreatePositionsMutation } from "@/features/Organization-Setteings/po
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 const AddPosition = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Administration",
+      nameAr: "الإدارة",
+      nameFr: "Administration",
+      href: "/",
+    },
+    {
+      nameEn: "Organization Settings",
+      nameAr: "إعدادات المنظمة",
+      nameFr: "Paramètres org",
+      href: "/organization-setting",
+    },
+    {
+      nameEn: "Position",
+      nameAr: "المنصب",
+      nameFr: "Postes",
+      href: "/organization-setting/position",
+    },
+    {
+      nameEn: "Add Position",
+      nameAr: "إضافة منصب",
+      nameFr: "Ajouter un poste",
+      href: "/organization-setting/position/add-position",
+    },
+  ];
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const {
     register,
@@ -27,14 +55,15 @@ const AddPosition = () => {
   };
   return (
     <>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
-        className={` ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mr-[5px] grid h-[850px] items-center justify-center`}
+        className={` ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mr-[5px] mt-[40px] grid h-[850px] items-center justify-center`}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="grid h-[900px] items-center justify-center gap-5 rounded-xl bg-white p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:h-[800px] xl:w-[1000px]">
+          <div className="grid h-[900px] items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:h-[800px] xl:w-[1000px]">
             <div className="flex items-center justify-start gap-2">
               <svg
-                className="h-6 w-6 font-bold text-[#526484] group-hover:text-[#3e5af0]"
+                className="h-6 w-6 font-bold text-[#526484] group-hover:text-primary"
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
@@ -68,7 +97,7 @@ const AddPosition = () => {
                 <input
                   id="departmentId"
                   type="number"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("departmentId", { required: true })}
                 />
                 {errors.departmentId && (
@@ -83,7 +112,7 @@ const AddPosition = () => {
                 <input
                   id="title_en"
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("title_en", { required: true })}
                 />
                 {errors.title_en && (
@@ -98,7 +127,7 @@ const AddPosition = () => {
                 <input
                   id="title_fr"
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("title_fr", { required: true })}
                 />
                 {errors.title_en && (
@@ -113,7 +142,7 @@ const AddPosition = () => {
                 <input
                   id="title_ar"
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("title_ar", { required: true })}
                 />
                 {errors.title_ar && (
@@ -128,7 +157,7 @@ const AddPosition = () => {
               ) : (
                 <button
                   type="submit"
-                  className="w-[140px] rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                  className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                 >
                   Save
                 </button>

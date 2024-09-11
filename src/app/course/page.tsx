@@ -1,12 +1,26 @@
 "use client";
-import Link from "next/link";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import Card from "@/components/card";
-import { FiBook } from 'react-icons/fi';
-import { AiOutlineFileText } from 'react-icons/ai';
+import { FiBook } from "react-icons/fi";
+import { AiOutlineFileText } from "react-icons/ai";
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 const Course = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Academic",
+      nameAr: "أكاديمي",
+      nameFr: "Académique",
+      href: "/",
+    },
+    {
+      nameEn: "Course",
+      nameAr: "الدورة",
+      nameFr: "Cours",
+      href: "/course",
+    },
+  ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
@@ -56,45 +70,8 @@ const Course = () => {
   ];
   return (
     <>
-      <div
-        className={`flex items-center gap-1 ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} ml-7 mt-12 flex-wrap`}
-      >
-        <Link
-          className="text-[18px] font-semibold text-secondary hover:text-hover hover:underline"
-          href="/"
-        >
-          {currentLanguage === "en"
-            ? "Academic"
-            : currentLanguage === "ar"
-              ? "أكاديمي"
-              : currentLanguage === "fr"
-                ? "Académique"
-                : "Academic"}{" "}
-          {/* Default to English */}
-        </Link>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)" }}
-        >
-          <path d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
-        </svg>
-        <Link
-          className="text-[18px] font-semibold text-secondary hover:text-hover hover:underline"
-          href="/course"
-        >
-          {currentLanguage === "en"
-            ? "Course"
-            : currentLanguage === "ar"
-              ? "الدورة"
-              : currentLanguage === "fr"
-                ? "Cours"
-                : "Course"}{" "}
-          {/* Default to English */}
-        </Link>
-      </div>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
+
       <div
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} mt-12 grid justify-center`}
       >

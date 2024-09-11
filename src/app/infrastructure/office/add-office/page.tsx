@@ -6,8 +6,35 @@ import { useCreateOfficesMutation } from "@/features/Infrastructure/officeApi";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 const AddOffice = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Operations",
+      nameAr: "العمليات",
+      nameFr: "Opérations",
+      href: "/",
+    },
+    {
+      nameEn: "Infrastructure",
+      nameAr: "البنية التحتية",
+      nameFr: "Infrastructure",
+      href: "/infrastructure",
+    },
+    {
+      nameEn: "Office",
+      nameAr: "المكتب",
+      nameFr: "Bureau",
+      href: "/infrastructure/office",
+    },
+    {
+      nameEn: "Add Office",
+      nameAr: "إضافة مكتب",
+      nameFr: "Ajouter un Bureau",
+      href: "/infrastructure/office/add-office",
+    },
+  ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   const {
@@ -27,12 +54,13 @@ const AddOffice = () => {
   };
   return (
     <>
-      <div className="mr-[5px] grid h-[850px] items-center justify-center lg:ml-[270px]">
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
+      <div className="mr-[5px] mt-[40px] grid h-[850px] items-center justify-center lg:ml-[270px]">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="grid items-center justify-center gap-5 rounded-xl bg-white p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:w-[1000px]">
+          <div className="grid items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:w-[1000px]">
             <div className="flex items-center justify-start gap-2">
               <svg
-                className="h-6 w-6 font-bold text-[#526484] group-hover:text-[#3e5af0]"
+                className="h-6 w-6 font-bold text-secondary group-hover:text-primary"
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
@@ -67,10 +95,10 @@ const AddOffice = () => {
                   id="buildingNumber"
                   {...register("buildingNumber", { required: true })}
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.buildingNumber && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">This field is required</span>
                 )}
               </label>
               <label
@@ -82,10 +110,10 @@ const AddOffice = () => {
                   id="roomNumber"
                   {...register("roomNumber", { required: true })}
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.roomNumber && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">This field is required</span>
                 )}
               </label>
               <label
@@ -97,10 +125,10 @@ const AddOffice = () => {
                   id="floorNumber"
                   {...register("floorNumber", { required: true })}
                   type="number"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.floorNumber && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">This field is required</span>
                 )}
               </label>
               <label
@@ -112,10 +140,10 @@ const AddOffice = () => {
                   id="type"
                   {...register("type", { required: true })}
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.type && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">This field is required</span>
                 )}
               </label>
               <label
@@ -127,10 +155,10 @@ const AddOffice = () => {
                   id="maxCapacity"
                   {...register("maxCapacity", { required: true })}
                   type="number"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.maxCapacity && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">This field is required</span>
                 )}
               </label>
               <label
@@ -142,10 +170,10 @@ const AddOffice = () => {
                   id="schoolId"
                   {...register("schoolId", { required: true })}
                   type="number"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.schoolId && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">This field is required</span>
                 )}
               </label>
               <label
@@ -157,10 +185,10 @@ const AddOffice = () => {
                   id="labName"
                   {...register("officeName", { required: true })}
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.officeName && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">This field is required</span>
                 )}
               </label>
               <label
@@ -172,10 +200,10 @@ const AddOffice = () => {
                   id="labType"
                   {...register("officeType", { required: true })}
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.officeType && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">This field is required</span>
                 )}
               </label>
             </div>
@@ -186,7 +214,7 @@ const AddOffice = () => {
               ) : (
                 <button
                   type="submit"
-                  className="w-[140px] rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                  className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                 >
                   Add Lab
                 </button>

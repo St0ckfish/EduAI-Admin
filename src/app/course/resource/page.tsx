@@ -3,8 +3,29 @@
 import Soon from "@/components/soon";
 import Link from "next/link";
 import { useState, useEffect } from "react"; // Import useState and useEffect hooks
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 const Resource = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Academic",
+      nameAr: "أكاديمي",
+      nameFr: "Académique",
+      href: "/",
+    },
+    {
+      nameEn: "Course",
+      nameAr: "الدورة",
+      nameFr: "Cours",
+      href: "/course",
+    },
+    {
+      nameEn: "Resource",
+      nameAr: "المصدر",
+      nameFr: "Ressource",
+      href: "/course/resource",
+    },
+  ];
   const [selectAll, setSelectAll] = useState(false); // State to track whether select all checkbox is checked
 
   // Function to handle click on select all checkbox
@@ -54,8 +75,8 @@ const Resource = () => {
 
   return (
     <>
-      {" "}
       <Soon />
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div className="relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg lg:ml-[270px]">
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">
@@ -108,8 +129,8 @@ const Resource = () => {
           <Link href="/course/resource">Textbooks</Link>
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
-          <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
-            <thead className="bg-thead text-xs uppercase text-gray-700">
+          <table className="w-full overflow-x-auto text-left text-sm text-textSecondary rtl:text-right">
+            <thead className="bg-thead text-xs uppercase text-textPrimary">
               <tr>
                 <th scope="col" className="p-4">
                   <div className="flex items-center">
@@ -161,7 +182,7 @@ const Resource = () => {
                 </td>
                 <th
                   scope="row"
-                  className="flex items-center whitespace-nowrap px-6 py-4 font-medium text-textPrimary"
+                  className="flex items-center whitespace-nowrap px-6 py-4 font-medium text-textSecondary"
                 >
                   <img
                     src="/images/me.jpg"
@@ -197,7 +218,7 @@ const Resource = () => {
                 </td>
                 <th
                   scope="row"
-                  className="flex items-center whitespace-nowrap px-6 py-4 font-medium text-textPrimary"
+                  className="flex items-center whitespace-nowrap px-6 py-4 font-medium text-textSecondary"
                 >
                   <img
                     src="/images/me.jpg"

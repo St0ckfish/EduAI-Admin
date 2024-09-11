@@ -4,14 +4,35 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import Soon from "@/components/soon";
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 const Reviews = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Communication",
+      nameAr: "التواصل",
+      nameFr: "Communication",
+      href: "/",
+    },
+    {
+      nameEn: "Post Management",
+      nameAr: "إدارة المشاركات",
+      nameFr: "Gestion des publications",
+      href: "/post-management",
+    },
+    {
+      nameEn: "Reviews",
+      nameAr: "تقييمات",
+      nameFr: "Avis",
+      href: "/post-management/reviews",
+    },
+  ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   return (
     <>
-      <Soon />
-
+      {/* <Soon /> */}
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
@@ -27,37 +48,31 @@ const Reviews = () => {
         <div className="grid w-full justify-center overflow-x-auto">
           <div className="grid h-full w-full justify-center overflow-x-auto">
             <div className="mb-5 grid w-full grid-cols-3 justify-center gap-4 overflow-x-auto">
-              <div className="grid rounded-xl bg-white p-2">
+              <div className="grid rounded-xl bg-bgPrimary p-2">
                 <p className="font-semibold">Total Reviews</p>
                 <h1 className="text-[18px] font-bold">2K</h1>
-                <h1 className="text-[12px] text-gray-400">
+                <h1 className="text-[12px] text-textPrimary">
                   {" "}
-                  <span className="font-semibold text-green-500">
-                    4.63%
-                  </span>{" "}
-                  vs. last Year
+                  <span className="font-semibold text-success">4.63%</span> vs.
+                  last Year
                 </h1>
               </div>
-              <div className="grid rounded-xl bg-white p-2">
+              <div className="grid rounded-xl bg-bgPrimary p-2">
                 <p className="font-semibold">Total Reviews</p>
                 <h1 className="text-[18px] font-bold">2K</h1>
-                <h1 className="text-[12px] text-gray-400">
+                <h1 className="text-[12px] text-textPrimary">
                   {" "}
-                  <span className="font-semibold text-green-500">
-                    4.63%
-                  </span>{" "}
-                  vs. last Year
+                  <span className="font-semibold text-success">4.63%</span> vs.
+                  last Year
                 </h1>
               </div>
-              <div className="grid rounded-xl bg-white p-2">
+              <div className="grid rounded-xl bg-bgPrimary p-2">
                 <p className="font-semibold">Total Reviews</p>
                 <h1 className="text-[18px] font-bold">2K</h1>
-                <h1 className="text-[12px] text-gray-400">
+                <h1 className="text-[12px] text-textPrimary">
                   {" "}
-                  <span className="font-semibold text-green-500">
-                    4.63%
-                  </span>{" "}
-                  vs. last Year
+                  <span className="font-semibold text-success">4.63%</span> vs.
+                  last Year
                 </h1>
               </div>
             </div>
@@ -65,7 +80,7 @@ const Reviews = () => {
           <div className="flex w-full justify-center overflow-x-auto">
             <table className="h-[600px] w-[1000px] overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
               <tbody>
-                <tr className="border-b bg-white hover:bg-gray-50">
+                <tr className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary">
                   <th
                     scope="row"
                     className="flex h-full items-center whitespace-nowrap px-6 py-4 text-[25px] font-medium text-gray-900"
@@ -77,9 +92,9 @@ const Reviews = () => {
                         alt="#"
                       />
                       <span className="grid">
-                        <p>Mostapha Taha</p>
-                        <p>
-                          ID: <span className="text-gray-400">1385</span>
+                        <p className="text-textPrimary">Mostapha Taha</p>
+                        <p className="text-textPrimary">
+                          ID: <span className="text-textSecondary">1385</span>
                         </p>
                       </span>
                     </div>
@@ -111,7 +126,7 @@ const Reviews = () => {
                     </div>
                   </td>
                 </tr>
-                <tr className="border-b bg-white hover:bg-gray-50">
+                <tr className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary">
                   <th
                     scope="row"
                     className="flex h-full items-center whitespace-nowrap px-6 py-4 text-[25px] font-medium text-gray-900"
@@ -123,9 +138,9 @@ const Reviews = () => {
                         alt="#"
                       />
                       <span className="grid">
-                        <p>Mostapha Taha</p>
-                        <p>
-                          ID: <span className="text-gray-400">1385</span>
+                        <p className="text-textPrimary">Mostapha Taha</p>
+                        <p className="text-textPrimary">
+                          ID: <span className="text-textSecondary">1385</span>
                         </p>
                       </span>
                     </div>
@@ -157,7 +172,7 @@ const Reviews = () => {
                     </div>
                   </td>
                 </tr>
-                <tr className="border-b bg-white hover:bg-gray-50">
+                <tr className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary">
                   <th
                     scope="row"
                     className="flex h-full items-center whitespace-nowrap px-6 py-4 text-[25px] font-medium text-gray-900"
@@ -169,9 +184,9 @@ const Reviews = () => {
                         alt="#"
                       />
                       <span className="grid">
-                        <p>Mostapha Taha</p>
-                        <p>
-                          ID: <span className="text-gray-400">1385</span>
+                        <p className="text-textPrimary">Mostapha Taha</p>
+                        <p className="text-textPrimary">
+                          ID: <span className="text-textSecondary">1385</span>
                         </p>
                       </span>
                     </div>

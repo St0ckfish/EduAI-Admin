@@ -1,8 +1,5 @@
 const AddNote = () => {
-  return ( 
-    <>
-    </>
-   );
-}
- 
+  return <></>;
+};
+
 export default AddNote;

@@ -80,7 +80,8 @@ export const dashboardApi = createApi({
     }),
     //
     getExpenses: builder.query({
-      query: ({start, end}) => `/api/v1/dashboard/school-finance?start-date=${start}&end-date=${end}`,
+      query: ({ start, end }) =>
+        `/api/v1/dashboard/school-finance?start-date=${start}&end-date=${end}`,
     }),
   }),
 });

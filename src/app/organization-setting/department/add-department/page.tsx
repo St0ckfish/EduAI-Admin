@@ -8,7 +8,35 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import { useGetAllRolesQuery } from "@/features/signupApi";
+import BreadCrumbs from "@/components/BreadCrumbs";
+
 const AddDepartment = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Administration",
+      nameAr: "الإدارة",
+      nameFr: "Administration",
+      href: "/",
+    },
+    {
+      nameEn: "Organization Settings",
+      nameAr: "إعدادات المنظمة",
+      nameFr: "Paramètres org",
+      href: "/organization-setting",
+    },
+    {
+      nameEn: "Department",
+      nameAr: "قسم",
+      nameFr: "Département",
+      href: "/organization-setting/department",
+    },
+    {
+      nameEn: "Add Department",
+      nameAr: "إضافة قسم",
+      nameFr: "Ajouter un département",
+      href: "/organization-setting/department/add-department",
+    },
+  ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const { data, isLoading: isRoles } = useGetAllRolesQuery(null);
   const {
@@ -42,14 +70,15 @@ const AddDepartment = () => {
 
   return (
     <>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         className={` ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mr-[5px] mt-10 grid items-center justify-center`}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="grid items-center justify-center gap-5 rounded-xl bg-white p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:w-[1000px]">
+          <div className="grid items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:w-[1000px]">
             <div className="flex items-center justify-start gap-2">
               <svg
-                className="h-6 w-6 font-bold text-[#526484] group-hover:text-[#3e5af0]"
+                className="h-6 w-6 font-bold text-secondary group-hover:text-primary"
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
@@ -83,7 +112,7 @@ const AddDepartment = () => {
                 <input
                   id="name_en"
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("name_en", { required: true })}
                 />
                 {errors.name_en && (
@@ -98,7 +127,7 @@ const AddDepartment = () => {
                 <input
                   id="name_fr"
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("name_fr", { required: true })}
                 />
                 {errors.name_fr && (
@@ -113,7 +142,7 @@ const AddDepartment = () => {
                 <input
                   id="name_ar"
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("name_ar", { required: true })}
                 />
                 {errors.name_ar && (
@@ -128,7 +157,7 @@ const AddDepartment = () => {
                 <input
                   id="description_en"
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("description_en", { required: true })}
                 />
                 {errors.description_en && (
@@ -143,7 +172,7 @@ const AddDepartment = () => {
                 <input
                   id="description_fr"
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("description_fr", { required: true })}
                 />
                 {errors.description_fr && (
@@ -158,7 +187,7 @@ const AddDepartment = () => {
                 <input
                   id="description_en"
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("description_ar", { required: true })}
                 />
                 {errors.description_ar && (
@@ -173,7 +202,7 @@ const AddDepartment = () => {
                 <input
                   id="abbreviation_en"
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("abbreviation_en", { required: true })}
                 />
                 {errors.abbreviation_en && (
@@ -188,7 +217,7 @@ const AddDepartment = () => {
                 <input
                   id="abbreviation_fr"
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("abbreviation_fr", { required: true })}
                 />
                 {errors.abbreviation_fr && (
@@ -203,7 +232,7 @@ const AddDepartment = () => {
                 <input
                   id="abbreviation_ar"
                   type="text"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("abbreviation_ar", { required: true })}
                 />
                 {errors.abbreviation_ar && (
@@ -218,7 +247,7 @@ const AddDepartment = () => {
                 <input
                   id="headId"
                   type="number"
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("headId", { required: true })}
                 />
                 {errors.headId && (
@@ -234,7 +263,7 @@ const AddDepartment = () => {
                   defaultValue=""
                   id="roles"
                   {...register("roles", { required: true })}
-                  className="w-[400px] rounded-xl border border-zinc-300 px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 >
                   <option selected value="">
                     Select Nationality{" "}
@@ -257,7 +286,7 @@ const AddDepartment = () => {
               ) : (
                 <button
                   type="submit"
-                  className="w-[140px] rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                  className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                 >
                   Save
                 </button>
