@@ -15,8 +15,6 @@ const ClassSchedule = () => {
   const [teacherId, setTeacherId] = useState(null);
 
   const { register, handleSubmit } = useForm();
-
-
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setTeacherId(data.teacherId);
   };
@@ -43,7 +41,7 @@ const ClassSchedule = () => {
             </button>
           </form>
         </div>
-        {isLoading && <Spinner />}
+        {isLoading && <Spinner/>}
         <TimeTable scheduleData={data?.data?.content ? data?.data?.content : []} />
       </div>
     </>

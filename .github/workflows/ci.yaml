@@ -47,12 +47,12 @@ jobs:
 
 
 
-      # - name: Commit and push changes
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
-      #   run: |
-      #     git config --global user.name "Mahmoud-Medany"
-      #     git config --global user.email "mt7033706@gmail.com"
-      #     git add k8s/admin-app.yaml
-      #     git commit -m "Update deployment file with new image tag"
-      #     git push -f https://${{ secrets.TOKEN_GITHUB }}@github.com/M0staphaTaha/EduAI-Admin.git HEAD:main      
+      - name: Commit and push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+        run: |
+          git config --global user.name "Mahmoud-Medany"
+          git config --global user.email "mt7033706@gmail.com"
+          git add k8s/admin-app.yaml
+          git commit -m "Update deployment file with new image tag"
+          git push -f https://${{ secrets.TOKEN_GITHUB }}@github.com/M0staphaTaha/EduAI-Admin.git HEAD:main      
