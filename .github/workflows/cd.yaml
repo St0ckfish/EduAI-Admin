@@ -28,7 +28,26 @@ jobs:
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
         run: |
+          # Create .kube directory
+          mkdir -p $HOME/.kube
+          
+          # Write the kubeconfig content to the config file using a heredoc
+          cat <<EOF > $HOME/.kube/config
+          ${KUBECONFIG}
+          EOF
+          
+          # Verify the kubeconfig file exists and has correct content
+          ls -la $HOME/.kube
+          
+          # Set the appropriate file permissions
+          chmod 600 $HOME/.kube/config
+          
+          # Update the Kubernetes deployment file with the new image tag
           sed -i "s|image: expotechx/admin:.*|image: expotechx/admin:${COMMIT_HASH}|" k8s/admin-app.yaml
-          kubectl apply -f k8s/
+          
+          # Apply the updated Kubernetes deployment
+          kubectl apply -f k8s/admin-app.yaml
+          
+          # Wait for the rollout to complete
           kubectl rollout status deployment admin-deploy
-  
+        shell: bash
