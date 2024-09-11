@@ -9,8 +9,29 @@ import TimeTable from "@/components/TimeTable";
 import { SubmitHandler } from "react-hook-form";
 import Spinner from "@/components/spinner";
 import Link from "next/link";
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 const Schedule = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Academic",
+      nameAr: "أكاديمي",
+      nameFr: "Académique",
+      href: "/",
+    },
+    {
+      nameEn: "Educational Affairs",
+      nameAr: "الشئون التعليمية",
+      nameFr: "Affaires éducatives",
+      href: "/educational-affairs",
+    },
+    {
+      nameEn: "Schedule",
+      nameAr: "الجدول",
+      nameFr: "Emploi du temps",
+      href: "/educational-affairs/schedule",
+    },
+  ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const [teacherId, setTeacherId] = useState(null);
 
@@ -26,6 +47,7 @@ const Schedule = () => {
 
   return (
     <> 
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div className={` ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-7`}>
         <div className="flex justify-between my-12 mr-5 max-[540px]:grid max-[540px]:justify-center max-[540px]:mr-0 max-[540px]:my-1">
           <div className="flex gap-3 items-center justify-start ml-2 font-semibold text-xl max-[540px]:justify-center max-[540px]:ml-0 max-[540px]:mb-2">
