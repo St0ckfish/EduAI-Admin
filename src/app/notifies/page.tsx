@@ -9,8 +9,24 @@ import {
 import Spinner from "@/components/spinner";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
+import BreadCrumbs from "@/components/BreadCrumbs";
+
 
 const Notifies = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Dashboard",
+      nameAr: "لوحة القيادة",
+      nameFr: "Tableau de bord",
+      href: "/",
+    },
+    {
+      nameEn: "Notifications",
+      nameAr: "الإشعارات",
+      nameFr: "Notifications",
+      href: "/notifies",
+    },
+  ];
   const formatTransactionDate = (dateString: string | number | Date) => {
     if (!dateString) return "No transaction date";
     const formatter = new Intl.DateTimeFormat("en-EG", {
@@ -62,29 +78,7 @@ const Notifies = () => {
 
   return (
     <>
-      <div className="ml-7 mt-12 flex items-center gap-1 lg:ml-[290px]">
-        <Link
-          className="text-[18px] font-semibold text-secondary hover:text-blue-400 hover:underline"
-          href="/"
-        >
-          Communications
-        </Link>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          style={{ fill: "rgba(82, 100, 132, 1)", transform: "", msFilter: "" }}
-        >
-          <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
-        </svg>
-        <Link
-          className="text-[18px] font-semibold text-secondary hover:text-blue-400 hover:underline"
-          href="/notifies"
-        >
-          Notifies
-        </Link>
-      </div>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div className="mt-12 lg:ml-[290px]">
         <div className="flex justify-end">
           <Link
