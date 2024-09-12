@@ -35,16 +35,16 @@ export const scheduleApi = createApi({
       query: (classroomId) => `/api/v1/schedule/classroom?size=10&page=0&classroomId=${classroomId}&getActive=1`,
     }),
     //
-    deleteCourses: builder.mutation({
+    deleteSchedual: builder.mutation({
       query: id => ({
-        url: `/api/v1/management/course/${id}`,
+        url: `/api/v1/schedule${id}`,
         method: "DELETE",
       }),
     }),
     //
-    createCourses: builder.mutation({
+    createSchedual: builder.mutation({
       query: formData => ({
-        url: `/api/v1/management/course`,
+        url: `/api/v1/schedule`,
         method: "POST",
         body: formData,
       }),
@@ -54,10 +54,10 @@ export const scheduleApi = createApi({
       query: id => `/api/v1/management/course/${id}`,
     }),
     //
-    updateCourses: builder.mutation({
+    updateSchedual: builder.mutation({
       query: ({ formData, id }) => ({
-        url: `/api/v1/management/course/${id}`,
-        method: "PATCH",
+        url: `/api/v1/schedule/${id}`,
+        method: "PUT",
         body: formData,
       }),
     }),
@@ -67,8 +67,7 @@ export const scheduleApi = createApi({
 export const {
   useGetAllTeacherScheduleQuery,
   useGetAllClassScheduleQuery,
-  useDeleteCoursesMutation,
-  useCreateCoursesMutation,
-  useGetCourseByIdQuery,
-  useUpdateCoursesMutation,
+  useDeleteSchedualMutation,
+  useCreateSchedualMutation,
+  useUpdateSchedualMutation,
 } = scheduleApi;

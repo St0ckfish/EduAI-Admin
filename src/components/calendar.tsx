@@ -108,7 +108,7 @@ const Calendar = () => {
         </div>
         {/* Display calendar */}
         {/* Day names */}
-        <div className="grid grid-cols-7 ml-2" role="row">
+        <div className="grid grid-cols-7 ml-2 gap-8" role="row">
           <div
             role="columnheader"
             className="font-sans font-medium text-textSecondary"
