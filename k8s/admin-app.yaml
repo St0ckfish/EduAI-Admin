@@ -14,11 +14,7 @@ spec:
     spec:
       containers:
       - name: admin
-<<<<<<< HEAD
-        image: expotechx/admin:580a1
-=======
-        image: expotechx/admin:580a1
->>>>>>> d0908c43786419836c5118ca512bd3f3b8593323
+        image: expotechx/admin:ed7b9
         ports:
         - containerPort: 3000
         resources:
@@ -28,6 +24,7 @@ spec:
           requests:
             memory: "256Mi"
             cpu: "250m"
+
         # Uncomment and configure environment variables if needed
         # env:
         # - name: NEXT_PUBLIC_API_URL
