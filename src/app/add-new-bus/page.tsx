@@ -53,6 +53,11 @@ const AddNewBus = () => {
       toast.error("Failed to create Bus");
     }
   };
+
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
+
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
@@ -71,19 +76,21 @@ const AddNewBus = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
-                {" "}
-                <path stroke="none" d="M0 0h24v24H0z" />{" "}
-                <line x1="3" y1="21" x2="21" y2="21" />{" "}
-                <line x1="3" y1="10" x2="21" y2="10" />{" "}
-                <polyline points="5 6 12 3 19 6" />{" "}
-                <line x1="4" y1="10" x2="4" y2="21" />{" "}
-                <line x1="20" y1="10" x2="20" y2="21" />{" "}
-                <line x1="8" y1="14" x2="8" y2="17" />{" "}
-                <line x1="12" y1="14" x2="12" y2="17" />{" "}
+                <path stroke="none" d="M0 0h24v24H0z" />
+                <line x1="3" y1="21" x2="21" y2="21" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+                <polyline points="5 6 12 3 19 6" />
+                <line x1="4" y1="10" x2="4" y2="21" />
+                <line x1="20" y1="10" x2="20" y2="21" />
+                <line x1="8" y1="14" x2="8" y2="17" />
+                <line x1="12" y1="14" x2="12" y2="17" />
                 <line x1="16" y1="14" x2="16" y2="17" />
               </svg>
               <h1 className="font-sans text-[22px] font-semibold">
-                Bus Information
+                {currentLanguage === "en" ? "Bus Information" :
+                  currentLanguage === "ar" ? "معلومات الحافلة" :
+                    currentLanguage === "fr" ? "Informations sur le bus" :
+                      "Bus Information"} {/* default */}
               </h1>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
@@ -91,7 +98,10 @@ const AddNewBus = () => {
                 htmlFor="name"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Bus Number
+                {currentLanguage === "en" ? "Bus Number" :
+                  currentLanguage === "ar" ? "رقم الحافلة" :
+                    currentLanguage === "fr" ? "Numéro du bus" :
+                      "Bus Number"} {/* default */}
                 <input
                   id="name"
                   {...register("busNumber", { required: true })}
@@ -99,14 +109,22 @@ const AddNewBus = () => {
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.busNumber && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"} {/* default */}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="code"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Bus Capacity
+                {currentLanguage === "en" ? "Bus Capacity" :
+                  currentLanguage === "ar" ? "سعة الحافلة" :
+                    currentLanguage === "fr" ? "Capacité du bus" :
+                      "Bus Capacity"} {/* default */}
                 <input
                   id="code"
                   {...register("busCapacity", { required: true })}
@@ -114,7 +132,12 @@ const AddNewBus = () => {
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.busCapacity && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"} {/* default */}
+                  </span>
                 )}
               </label>
             </div>
@@ -127,7 +150,10 @@ const AddNewBus = () => {
                   type="submit"
                   className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                 >
-                  Add Bus
+                  {currentLanguage === "en" ? "Add Bus" :
+                    currentLanguage === "ar" ? "إضافة حافلة" :
+                      currentLanguage === "fr" ? "Ajouter un bus" :
+                        "Add Bus"} {/* default */}
                 </button>
               )}
             </div>

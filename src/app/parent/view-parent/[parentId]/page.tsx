@@ -4,7 +4,8 @@ import CircleProgress from "@/components/circleProgress";
 import ParentInfo from "@/components/parentInfo";
 import Spinner from "@/components/spinner";
 import { useEffect } from "react";
-
+import { useSelector } from "react-redux";
+import { RootState } from "@/GlobalRedux/store";
 interface ViewParentProps {
   params: {
     parentId: string;
@@ -13,7 +14,9 @@ interface ViewParentProps {
 
 const ViewParent: React.FC<ViewParentProps> = ({ params }) => {
   const { data, error, isLoading } = useGetParentByIdQuery(params.parentId);
-
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   useEffect(() => {
     if (data) {
       console.log(data);
@@ -37,7 +40,11 @@ const ViewParent: React.FC<ViewParentProps> = ({ params }) => {
           <ParentInfo data={data} />
           <div className="grid h-[400px] items-center justify-center gap-10 rounded-xl bg-bgPrimary p-5">
             <div className="flex justify-start">
-              <h1 className="font-sans font-semibold text-textPrimary">Feed</h1>
+              <h1 className="font-sans font-semibold text-textPrimary">
+                {currentLanguage === "en" ? "Feed" :
+                  currentLanguage === "ar" ? "تغذية" :
+                    "Fil d'actualités"}
+              </h1>
             </div>
             <CircleProgress percentage={75} />
           </div>

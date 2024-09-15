@@ -167,7 +167,11 @@ const TeahcerSearch = () => {
                         id="icon"
                         name="icon"
                         className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
-                        placeholder="Search"
+                        placeholder={
+                          currentLanguage === 'en' ? "Search" :
+                            currentLanguage === 'ar' ? "بحث" :
+                              "Recherche"
+                        }
                       />
                     </div>
                   </div>
@@ -176,7 +180,12 @@ const TeahcerSearch = () => {
                       id="countries"
                       className="block h-full w-full rounded-lg border border-borderPrimary bg-bgSecondary p-1.5 text-sm text-textPrimary outline-none focus:border-borderPrimary"
                     >
-                      <option selected>Search by Name </option>
+                      <option selected>
+                        {currentLanguage === 'en' ? "Search by Name" :
+                          currentLanguage === 'ar' ? "البحث بالاسم" :
+                            "Rechercher par nom"}
+                      </option>
+
                     </select>
                   </div>
                 </div>
@@ -223,7 +232,7 @@ const TeahcerSearch = () => {
                               </div>
                               <div className="grid gap-2">
                                 <p className="font-semibold">{student.name}</p>
-                                <p className="font-semibold text-[#536471]">
+                                <p className="font-semibold text-secondary">
                                   ID: {student.id}
                                 </p>
                               </div>
@@ -248,10 +257,14 @@ const TeahcerSearch = () => {
                       <div>
                         <div className="flex justify-end">
                           <Link
-                            className="rounded-lg bg-[#3E5AF0] px-2 py-1 font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                            className="rounded-lg bg-primary px-2 py-1 font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                             href={`/teacher/view-teacher/${EmployeeQ.data.id}`}
                           >
-                            View
+                              {currentLanguage === "ar"
+                                ? "عرض"
+                                : currentLanguage === "fr"
+                                  ? "Voir"
+                                  : "View"}
                           </Link>
                         </div>
                         <div className="mb-4 grid items-center justify-center text-center">
@@ -277,69 +290,114 @@ const TeahcerSearch = () => {
                           </div>
                         </div>
 
-                        <div className="grid justify-start">
-                          <h1 className="font-sans text-[22px] font-semibold text-textSecondary">
-                            Basic Details
-                          </h1>
-                          <div className="grid w-[400px] grid-cols-2 max-[485px]:w-[240px]">
-                            <h3 className="font-sans font-semibold text-textPrimary">
-                              Email:
-                            </h3>
-                            <p className="font-sans font-semibold text-textSecondary">
-                              {EmployeeQ?.data.email}
-                            </p>
-                            <h3 className="font-sans font-semibold text-textPrimary">
-                              Salary:
-                            </h3>
-                            <p className="font-sans font-semibold text-textSecondary">
-                              {EmployeeQ?.data.salary == null
-                                ? `Not specified`
-                                : EmployeeQ?.data.salary}
-                            </p>
-                            <h3 className="font-sans font-semibold text-textPrimary">
-                              Age:
-                            </h3>
-                            <p className="font-sans font-semibold text-textSecondary">
-                              {EmployeeQ?.data.birthDate}
-                            </p>
-                            <h3 className="font-sans font-semibold text-textPrimary">
-                              Gender:
-                            </h3>
-                            <p className="font-sans font-semibold text-textSecondary">
-                              {EmployeeQ?.data.gender}
-                            </p>
-                            <h3 className="font-sans font-semibold text-textPrimary">
-                              Position:
-                            </h3>
-                            <p className="font-sans font-semibold text-textSecondary">
-                              {EmployeeQ?.data.role}
-                            </p>
-                            <h3 className="font-sans font-semibold text-textPrimary">
-                              Religion:
-                            </h3>
-                            <p className="font-sans font-semibold text-textSecondary">
-                              {EmployeeQ?.data.religion}
-                            </p>
-                            <h3 className="font-sans font-semibold text-textPrimary">
-                              Address:
-                            </h3>
-                            <p className="font-sans font-semibold text-textSecondary">
-                              {EmployeeQ?.data.nationality}
-                            </p>
-                            <h3 className="font-sans font-semibold text-textPrimary">
-                              Mobile:
-                            </h3>
-                            <p className="font-sans font-semibold text-textSecondary">
-                              {EmployeeQ?.data.phoneNumber}
-                            </p>
-                            <h3 className="font-sans font-semibold text-textPrimary">
-                              About:
-                            </h3>
-                            <p className="font-sans font-semibold text-textSecondary">
-                              {EmployeeQ?.data.about}
-                            </p>
+                          <div className="grid justify-start">
+                            <h1 className="font-sans text-[22px] font-semibold text-textSecondary">
+                              {currentLanguage === "ar"
+                                ? "تفاصيل أساسية"
+                                : currentLanguage === "fr"
+                                  ? "Détails de base"
+                                  : "Basic Details"}
+                            </h1>
+                            <div className="grid w-[400px] grid-cols-2 max-[485px]:w-[240px]">
+                              <h3 className="font-sans font-semibold text-textPrimary">
+                                {currentLanguage === "ar"
+                                  ? "البريد الإلكتروني:"
+                                  : currentLanguage === "fr"
+                                    ? "Email:"
+                                    : "Email:"}
+                              </h3>
+                              <p className="font-sans font-semibold text-textSecondary">
+                                {EmployeeQ?.data.email}
+                              </p>
+                              <h3 className="font-sans font-semibold text-textPrimary">
+                                {currentLanguage === "ar"
+                                  ? "الراتب:"
+                                  : currentLanguage === "fr"
+                                    ? "Salaire:"
+                                    : "Salary:"}
+                              </h3>
+                              <p className="font-sans font-semibold text-textSecondary">
+                                {EmployeeQ?.data.salary == null
+                                  ? currentLanguage === "ar"
+                                    ? "غير محدد"
+                                    : currentLanguage === "fr"
+                                      ? "Non spécifié"
+                                      : "Not specified"
+                                  : EmployeeQ?.data.salary}
+                              </p>
+                              <h3 className="font-sans font-semibold text-textPrimary">
+                                {currentLanguage === "ar"
+                                  ? "العمر:"
+                                  : currentLanguage === "fr"
+                                    ? "Âge:"
+                                    : "Age:"}
+                              </h3>
+                              <p className="font-sans font-semibold text-textSecondary">
+                                {EmployeeQ?.data.birthDate}
+                              </p>
+                              <h3 className="font-sans font-semibold text-textPrimary">
+                                {currentLanguage === "ar"
+                                  ? "الجنس:"
+                                  : currentLanguage === "fr"
+                                    ? "Genre:"
+                                    : "Gender:"}
+                              </h3>
+                              <p className="font-sans font-semibold text-textSecondary">
+                                {EmployeeQ?.data.gender}
+                              </p>
+                              <h3 className="font-sans font-semibold text-textPrimary">
+                                {currentLanguage === "ar"
+                                  ? "الوظيفة:"
+                                  : currentLanguage === "fr"
+                                    ? "Poste:"
+                                    : "Position:"}
+                              </h3>
+                              <p className="font-sans font-semibold text-textSecondary">
+                                {EmployeeQ?.data.role}
+                              </p>
+                              <h3 className="font-sans font-semibold text-textPrimary">
+                                {currentLanguage === "ar"
+                                  ? "الديانة:"
+                                  : currentLanguage === "fr"
+                                    ? "Religion:"
+                                    : "Religion:"}
+                              </h3>
+                              <p className="font-sans font-semibold text-textSecondary">
+                                {EmployeeQ?.data.religion}
+                              </p>
+                              <h3 className="font-sans font-semibold text-textPrimary">
+                                {currentLanguage === "ar"
+                                  ? "العنوان:"
+                                  : currentLanguage === "fr"
+                                    ? "Adresse:"
+                                    : "Address:"}
+                              </h3>
+                              <p className="font-sans font-semibold text-textSecondary">
+                                {EmployeeQ?.data.nationality}
+                              </p>
+                              <h3 className="font-sans font-semibold text-textPrimary">
+                                {currentLanguage === "ar"
+                                  ? "رقم الهاتف:"
+                                  : currentLanguage === "fr"
+                                    ? "Mobile:"
+                                    : "Mobile:"}
+                              </h3>
+                              <p className="font-sans font-semibold text-textSecondary">
+                                {EmployeeQ?.data.phoneNumber}
+                              </p>
+                              <h3 className="font-sans font-semibold text-textPrimary">
+                                {currentLanguage === "ar"
+                                  ? "عن:"
+                                  : currentLanguage === "fr"
+                                    ? "À propos:"
+                                    : "About:"}
+                              </h3>
+                              <p className="font-sans font-semibold text-textSecondary">
+                                {EmployeeQ?.data.about}
+                              </p>
+                            </div>
                           </div>
-                        </div>
+
                       </div>
                     ) : (
                       <div></div>

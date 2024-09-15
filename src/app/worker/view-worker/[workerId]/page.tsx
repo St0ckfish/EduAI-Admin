@@ -5,6 +5,8 @@ import Spinner from "@/components/spinner";
 import WorkerInfo from "@/components/workerInfo";
 import { useGetWorkerByIdQuery } from "@/features/User-Management/workerApi";
 import { useEffect } from "react";
+import { RootState } from "@/GlobalRedux/store";
+import { useSelector } from "react-redux";
 interface ViewWorkerProps {
   params: {
     workerId: string;
@@ -12,6 +14,9 @@ interface ViewWorkerProps {
 }
 const ViewWorker: React.FC<ViewWorkerProps> = ({ params }) => {
   const { data, error, isLoading } = useGetWorkerByIdQuery(params.workerId);
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   useEffect(() => {
     if (data) {
       console.log(data);
@@ -36,16 +41,21 @@ const ViewWorker: React.FC<ViewWorkerProps> = ({ params }) => {
           <div className="grid h-[400px] items-center justify-center gap-10 rounded-xl bg-bgPrimary p-5">
             <div className="grid justify-start">
               <h1 className="font-sans font-semibold text-textPrimary">
-                Available days of absence
+                {currentLanguage === "en" ? "Available days of absence" :
+                  currentLanguage === "ar" ? "أيام الغياب المتاحة" :
+                    "Jours d'absence disponibles"}
               </h1>
               <h1 className="font-sans text-[14px] font-semibold text-textSecondary">
-                14 day in year
+                {currentLanguage === "en" ? "14 days in a year" :
+                  currentLanguage === "ar" ? "14 يوم في السنة" :
+                    "14 jours par an"}
               </h1>
             </div>
             <DynamicPartition percentage={5} />
           </div>
         </div>
       </div>
+
     </>
   );
 };

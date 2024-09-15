@@ -34,7 +34,9 @@ const Suggestion = () => {
     },
   ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const { data, error, isLoading, refetch } =
     useGetAllReportsQuery("SUGGESTION");
   type Notifi = Record<string, any>;
@@ -68,13 +70,16 @@ const Suggestion = () => {
       <div
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} justify-left mb-4 ml-4 mt-2 mt-[20px] flex gap-5 text-[23px] font-semibold`}
       >
-        <Link href="/organization-setting/reports">Reports</Link>
+        <Link href="/organization-setting/reports">
+          {currentLanguage === "ar" ? "التقارير" : currentLanguage === "fr" ? "Rapports" : "Reports"}
+        </Link>
         <Link
           href="/organization-setting/suggestions"
           className="text-blue-500 underline"
         >
-          Suggestions
+          {currentLanguage === "ar" ? "الاقتراحات" : currentLanguage === "fr" ? "Suggestions" : "Suggestions"}
         </Link>
+
       </div>
       <div
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
@@ -151,7 +156,7 @@ const Suggestion = () => {
           </table>
           {(data?.data.content.length == 0 || data == null) && (
             <div className="flex w-full justify-center py-3 text-center text-[18px] font-semibold">
-              There is No Data
+              {currentLanguage === "ar" ? "لا توجد بيانات" : currentLanguage === "fr" ? "Il n'y a pas de données" : "There is No Data"}
             </div>
           )}
         </div>

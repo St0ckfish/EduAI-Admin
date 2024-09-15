@@ -4,6 +4,8 @@ import Spinner from "@/components/spinner";
 import TextEditor from "@/components/textEditor";
 import { useCreateNoteMutation } from "@/features/dashboard/dashboardApi";
 import { toast } from "react-toastify";
+import { RootState } from "@/GlobalRedux/store";
+import { useSelector } from "react-redux";
 
 const AddNote = () => {
   const [title, setTitle] = useState("");
@@ -19,10 +21,10 @@ const AddNote = () => {
     try {
       // Send the title and description as an object
       await createNotification({
-        title, 
+        title,
         description
       }).unwrap();
-      
+
       toast.success("Notification sent successfully!");
       setTitle("");
       setDescription("");
@@ -31,19 +33,31 @@ const AddNote = () => {
     }
   };
 
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
+
   return (
     <div className="flex lg:ml-[270px] mt-5 mr-3">
       <div className="grid h-full w-full items-center gap-3 rounded-xl bg-bgPrimary p-5">
         <div className="mb-5 flex w-full justify-start">
-          <h1 className="text-[22px] font-semibold">Create Note</h1>
+          <h1 className="text-[22px] font-semibold">
+            {currentLanguage === 'en' ? "Create Note" :
+              currentLanguage === 'ar' ? "إنشاء ملاحظة" :
+                "Créer une note"}
+          </h1>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="grid h-full w-full gap-6">
             <label className="grid gap-2 text-[18px] font-semibold" htmlFor="title">
-              Title
+              {currentLanguage === 'en' ? "Title" :
+                currentLanguage === 'ar' ? "العنوان" :
+                  "Titre"}
               <input
                 className="rounded-xl border border-borderPrimary px-4 py-2 outline-none"
-                placeholder="Write title...."
+                placeholder={currentLanguage === 'en' ? "Write title...." :
+                  currentLanguage === 'ar' ? "اكتب العنوان...." :
+                    "Écrire le titre...."}
                 name="title"
                 id="title"
                 value={title}
@@ -51,12 +65,16 @@ const AddNote = () => {
               />
             </label>
             <label className="grid gap-2 text-[18px] font-semibold" htmlFor="description">
-              Description
+              {currentLanguage === 'en' ? "Description" :
+                currentLanguage === 'ar' ? "الوصف" :
+                  "Description"}
               <div className="mb-5 bg-bgPrimary">
                 <TextEditor
                   value={description}
                   onChange={setDescription}
-                  placeholder="Enter your content here..."
+                  placeholder={currentLanguage === 'en' ? "Enter your content here..." :
+                    currentLanguage === 'ar' ? "أدخل محتواك هنا..." :
+                      "Entrez votre contenu ici..."}
                 />
               </div>
             </label>
@@ -79,7 +97,9 @@ const AddNote = () => {
                   >
                     <polygon points="3 11 22 2 13 21 11 13 3 11" />
                   </svg>
-                  Send
+                  {currentLanguage === 'en' ? "Send" :
+                    currentLanguage === 'ar' ? "إرسال" :
+                      "Envoyer"}
                 </button>
               )}
             </div>
@@ -88,6 +108,7 @@ const AddNote = () => {
       </div>
     </div>
   );
+
 };
 
 export default AddNote;

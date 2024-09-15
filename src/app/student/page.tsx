@@ -75,6 +75,10 @@ const Student = () => {
     }
   };
 
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
+
   const handleSelectAll = () => {
     setSelectAll(!selectAll);
     const checkboxes = document.querySelectorAll<HTMLInputElement>(
@@ -158,7 +162,11 @@ const Student = () => {
                 id="icon"
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
-                placeholder="Search"
+                placeholder={
+                  currentLanguage === 'en' ? "Search" :
+                    currentLanguage === 'ar' ? "بحث" :
+                      "Recherche"
+                }
               />
             </div>
           </div>
@@ -167,8 +175,11 @@ const Student = () => {
               href="/add-new-parent"
               className="mb-5 mr-3 w-[190px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
-              + New Student
+              {currentLanguage === "en" ? "+ New Student" :
+                currentLanguage === "ar" ? "+ طالب جديد" :
+                  "+ Nouvel Élève"}
             </Link>
+
           </div>
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
@@ -187,31 +198,48 @@ const Student = () => {
                   </div>
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Name
+                  {currentLanguage === "en" ? "Name" :
+                    currentLanguage === "ar" ? "الاسم" :
+                      "Nom"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  id
+                  {currentLanguage === "en" ? "ID" :
+                    currentLanguage === "ar" ? "الرقم التعريفي" :
+                      "ID"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Gender
+                  {currentLanguage === "en" ? "Gender" :
+                    currentLanguage === "ar" ? "الجنس" :
+                      "Genre"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Nationality
+                  {currentLanguage === "en" ? "Nationality" :
+                    currentLanguage === "ar" ? "الجنسية" :
+                      "Nationalité"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Email
+                  {currentLanguage === "en" ? "Email" :
+                    currentLanguage === "ar" ? "البريد الإلكتروني" :
+                      "E-mail"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Mobile
+                  {currentLanguage === "en" ? "Mobile" :
+                    currentLanguage === "ar" ? "الهاتف المحمول" :
+                      "Mobile"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  view
+                  {currentLanguage === "en" ? "View" :
+                    currentLanguage === "ar" ? "عرض" :
+                      "Voir"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Action
+                  {currentLanguage === "en" ? "Action" :
+                    currentLanguage === "ar" ? "الإجراء" :
+                      "Action"}
                 </th>
               </tr>
             </thead>
+
             <tbody>
               {data?.data.content
                 .filter((student: Student) => {
@@ -235,7 +263,7 @@ const Student = () => {
                     </td>
                     <th
                       scope="row"
-                      className="flex items-center gap-2 whitespace-nowrap px-6 py-4 font-medium text-gray-900"
+                      className="flex items-center gap-2 whitespace-nowrap px-6 py-4 font-medium text-textSecondary"
                     >
                       <div className="w-[50px]">
                         {student.picture == null ? (
@@ -272,9 +300,11 @@ const Student = () => {
                     <td className="whitespace-nowrap px-6 py-4">
                       <Link
                         href={`/student/view-student/${student.id}`}
-                        className="font-medium text-blue-600 hover:underline"
+                        className="font-medium text-primary hover:underline"
                       >
-                        View
+                        {currentLanguage === "en" ? "View" :
+                          currentLanguage === "ar" ? "عرض" :
+                            "Voir"}
                       </Link>
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
@@ -282,17 +312,23 @@ const Student = () => {
                         onClick={() => handleDelete(student.id)}
                         className="rounded-lg bg-error px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
                       >
-                        Lock
+                        {currentLanguage === "en" ? "Lock" :
+                          currentLanguage === "ar" ? "قفل" :
+                            "Verrouiller"}
                       </button>
                     </td>
+
                   </tr>
                 ))}
             </tbody>
           </table>
           {(data?.data.content.length == 0 || data == null) && (
             <div className="flex w-full justify-center py-3 text-center text-[18px] font-semibold">
-              There is No Data
+              {currentLanguage === "en" ? "There is No Data" :
+                currentLanguage === "ar" ? "لا توجد بيانات" :
+                  "Aucune donnée"}
             </div>
+
           )}
         </div>
         <div className="relative overflow-auto">

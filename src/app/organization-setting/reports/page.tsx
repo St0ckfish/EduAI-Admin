@@ -34,7 +34,9 @@ const Report = () => {
     },
   ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const { data, error, isLoading, refetch } = useGetAllReportsQuery("REPORT");
   type Notifi = Record<string, any>;
 
@@ -71,9 +73,11 @@ const Report = () => {
           href="/organization-setting/reports"
           className="text-blue-500 underline"
         >
-          Reports
+          {currentLanguage === "ar" ? "التقارير" : currentLanguage === "fr" ? "Rapports" : "Reports"}
         </Link>
-        <Link href="/organization-setting/suggestions">Suggestions</Link>
+        <Link href="/organization-setting/suggestions">
+          {currentLanguage === "ar" ? "الاقتراحات" : currentLanguage === "fr" ? "Suggestions" : "Suggestions"}
+        </Link>
       </div>
       <div
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
@@ -150,7 +154,7 @@ const Report = () => {
           </table>
           {(data?.data.content.length == 0 || data == null) && (
             <div className="flex w-full justify-center py-3 text-center text-[18px] font-semibold">
-              There is No Data
+              {currentLanguage === "ar" ? "لا توجد بيانات" : currentLanguage === "fr" ? "Il n'y a pas de données" : "There is No Data"}
             </div>
           )}
         </div>

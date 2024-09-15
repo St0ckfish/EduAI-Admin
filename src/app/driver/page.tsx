@@ -58,10 +58,11 @@ const Driver = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
+
   const onPageChange = (page: SetStateAction<number>) => {
     setCurrentPage(page);
   };
-  const booleanValue = useSelector((state: RootState) => state.boolean.value);
+  const booleanValue = useSelector((state: RootState) => state.boolean.value); // sidebar
   type Driver = Record<string, any>;
   const [search, setSearch] = useState("");
   const { data, error, isLoading, refetch } = useGetAllDriversQuery({
@@ -146,9 +147,8 @@ const Driver = () => {
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
-        className={`${
-          booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"
-        } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
+        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"
+          } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">
@@ -179,7 +179,11 @@ const Driver = () => {
                 id="icon"
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
-                placeholder="Search"
+                placeholder={
+                  currentLanguage === 'en' ? "Search" :
+                    currentLanguage === 'ar' ? "بحث" :
+                      "Recherche"
+                }
               />
             </div>
           </div>

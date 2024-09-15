@@ -1,5 +1,7 @@
 "use client";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import { RootState } from "@/GlobalRedux/store";
+import { useSelector } from "react-redux";
 
 const AddNewBook = () => {
   const breadcrumbs = [
@@ -28,6 +30,9 @@ const AddNewBook = () => {
       href: "/add-new-book",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
 
   return (
     <>
@@ -47,19 +52,21 @@ const AddNewBook = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
-                {" "}
-                <path stroke="none" d="M0 0h24v24H0z" />{" "}
-                <line x1="3" y1="21" x2="21" y2="21" />{" "}
-                <line x1="3" y1="10" x2="21" y2="10" />{" "}
-                <polyline points="5 6 12 3 19 6" />{" "}
-                <line x1="4" y1="10" x2="4" y2="21" />{" "}
-                <line x1="20" y1="10" x2="20" y2="21" />{" "}
-                <line x1="8" y1="14" x2="8" y2="17" />{" "}
-                <line x1="12" y1="14" x2="12" y2="17" />{" "}
+                <path stroke="none" d="M0 0h24v24H0z" />
+                <line x1="3" y1="21" x2="21" y2="21" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+                <polyline points="5 6 12 3 19 6" />
+                <line x1="4" y1="10" x2="4" y2="21" />
+                <line x1="20" y1="10" x2="20" y2="21" />
+                <line x1="8" y1="14" x2="8" y2="17" />
+                <line x1="12" y1="14" x2="12" y2="17" />
                 <line x1="16" y1="14" x2="16" y2="17" />
               </svg>
               <h1 className="font-sans text-[22px] font-semibold">
-                Book Information
+                {currentLanguage === "en" ? "Book Information" :
+                  currentLanguage === "ar" ? "معلومات الكتاب" :
+                    currentLanguage === "fr" ? "Informations sur le livre" :
+                      "Book Information"}  {/* default */}
               </h1>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
@@ -67,7 +74,10 @@ const AddNewBook = () => {
                 htmlFor="name"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Book Number
+                {currentLanguage === "en" ? "Book Number" :
+                  currentLanguage === "ar" ? "رقم الكتاب" :
+                    currentLanguage === "fr" ? "Numéro du livre" :
+                      "Book Number"}  {/* default */}
                 <input
                   id="name"
                   type="number"
@@ -78,7 +88,10 @@ const AddNewBook = () => {
                 htmlFor="code"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Book Name
+                {currentLanguage === "en" ? "Book Name" :
+                  currentLanguage === "ar" ? "اسم الكتاب" :
+                    currentLanguage === "fr" ? "Nom du livre" :
+                      "Book Name"}  {/* default */}
                 <input
                   id="code"
                   type="text"
@@ -89,32 +102,40 @@ const AddNewBook = () => {
                 htmlFor="about"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Writer
+                {currentLanguage === "en" ? "Writer" :
+                  currentLanguage === "ar" ? "الكاتب" :
+                    currentLanguage === "fr" ? "Auteur" :
+                      "Writer"}  {/* default */}
                 <input
                   id="about"
                   type="text"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
               </label>
-
               <label
-                htmlFor="Version"
+                htmlFor="subject"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Subject
+                {currentLanguage === "en" ? "Subject" :
+                  currentLanguage === "ar" ? "الموضوع" :
+                    currentLanguage === "fr" ? "Sujet" :
+                      "Subject"}  {/* default */}
                 <input
-                  id="Version"
+                  id="subject"
                   type="text"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
               </label>
               <label
-                htmlFor="Version"
+                htmlFor="creationDate"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Creating Dat
+                {currentLanguage === "en" ? "Creation Date" :
+                  currentLanguage === "ar" ? "تاريخ الإنشاء" :
+                    currentLanguage === "fr" ? "Date de création" :
+                      "Creation Date"}  {/* default */}
                 <input
-                  id="Version"
+                  id="creationDate"
                   type="text"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
@@ -126,11 +147,15 @@ const AddNewBook = () => {
                 type="submit"
                 className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
               >
-                Add Book
+                {currentLanguage === "en" ? "Add Book" :
+                  currentLanguage === "ar" ? "إضافة كتاب" :
+                    currentLanguage === "fr" ? "Ajouter un livre" :
+                      "Add Book"}  {/* default */}
               </button>
             </div>
           </div>
         </form>
+
       </div>
     </>
   );

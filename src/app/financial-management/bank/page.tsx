@@ -10,7 +10,6 @@ import {
 } from "@/features/Financial/bankApi";
 import { RootState } from "@/GlobalRedux/store";
 import { useForm } from "react-hook-form";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -37,6 +36,9 @@ const Bank = () => {
       href: "/financial-management/bank",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const [search, setSearch] = useState("");
   const [isModalOpen, setModalOpen] = useState(false);
@@ -174,7 +176,11 @@ const Bank = () => {
                 id="icon"
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-primary focus:ring-primary disabled:pointer-events-none disabled:opacity-50"
-                placeholder="Search"
+                placeholder={
+                  currentLanguage === 'en' ? "Search" :
+                    currentLanguage === 'ar' ? "بحث" :
+                      "Recherche"
+                }
               />
             </div>
           </div>
@@ -183,7 +189,9 @@ const Bank = () => {
               onClick={handleOpenModal}
               className="mb-5 mr-3 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
-              + New Bank Information
+              {currentLanguage === "en" ? "+ New Bank Information" :
+                currentLanguage === "ar" ? "+ معلومات مصرفية جديدة" :
+                  "+ Informations Bancaires Nouvelles"}
             </button>
           </div>
         </div>
@@ -302,7 +310,11 @@ const Bank = () => {
                       <div className="absolute top-8 w-full px-8">
                         <div className="flex justify-between">
                           <div className="">
-                            <h1 className="font-light">Name</h1>
+                            <h1 className="font-light">
+                              {currentLanguage === "en" ? "Name" :
+                                currentLanguage === "ar" ? "الاسم" :
+                                  "Nom"}
+                            </h1>
                             <p className="font-medium tracking-widest">
                               Mostapha Taha
                             </p>
@@ -314,7 +326,11 @@ const Bank = () => {
                           />
                         </div>
                         <div className="pt-1">
-                          <h1 className="font-light">Card Number</h1>
+                          <h1 className="font-light">
+                            {currentLanguage === "en" ? "Card Number" :
+                              currentLanguage === "ar" ? "رقم البطاقة" :
+                                "Numéro de Carte"}
+                          </h1>
                           <p className="tracking-more-wider font-medium">
                             4642 3489 9867 7632
                           </p>
@@ -322,20 +338,31 @@ const Bank = () => {
                         <div className="pr-6 pt-6">
                           <div className="flex justify-between">
                             <div className="">
-                              <h1 className="text-xs font-light">Valid</h1>
+                              <h1 className="text-xs font-light">
+                                {currentLanguage === "en" ? "Valid" :
+                                  currentLanguage === "ar" ? "صالح" :
+                                    "Valide"}
+                              </h1>
                               <p className="text-sm font-medium tracking-wider">
                                 11/15
                               </p>
                             </div>
                             <div className="">
-                              <h1 className="text-xs font-light">Expiry</h1>
+                              <h1 className="text-xs font-light">
+                                {currentLanguage === "en" ? "Expiry" :
+                                  currentLanguage === "ar" ? "انتهاء الصلاحية" :
+                                    "Expiration"}
+                              </h1>
                               <p className="text-sm font-medium tracking-wider">
                                 03/25
                               </p>
                             </div>
-
                             <div className="">
-                              <h1 className="text-xs font-light">CVV</h1>
+                              <h1 className="text-xs font-light">
+                                {currentLanguage === "en" ? "CVV" :
+                                  currentLanguage === "ar" ? "رمز التحقق" :
+                                    "CVV"}
+                              </h1>
                               <p className="tracking-more-wider text-sm font-bold">
                                 ···
                               </p>
@@ -349,7 +376,9 @@ const Bank = () => {
                     <div className="grid gap-5 max-[1150px]:justify-center max-[1150px]:text-center">
                       <div>
                         <h1 className="text-[18px] font-semibold text-[#526484]">
-                          Bank Name
+                          {currentLanguage === "en" ? "Bank Name" :
+                            currentLanguage === "ar" ? "اسم البنك" :
+                              "Nom de la Banque"}
                         </h1>
                         <p className="ml-3 font-semibold">
                           {bank.bankShortName}
@@ -357,18 +386,21 @@ const Bank = () => {
                       </div>
                       <div>
                         <h1 className="text-[18px] font-semibold text-[#526484]">
-                          Beneficiary Name{" "}
+                          {currentLanguage === "en" ? "Beneficiary Name" :
+                            currentLanguage === "ar" ? "اسم المستفيد" :
+                              "Nom du Bénéficiaire"}
                         </h1>
                         <p className="ml-3 font-semibold">
                           {bank.beneficiaryName}
                         </p>
                       </div>
                     </div>
-
                     <div className="grid gap-5 max-[1150px]:justify-center max-[1150px]:text-center">
                       <div>
                         <h1 className="text-[18px] font-semibold text-[#526484]">
-                          Beneficiary Address{" "}
+                          {currentLanguage === "en" ? "Beneficiary Address" :
+                            currentLanguage === "ar" ? "عنوان المستفيد" :
+                              "Adresse du Bénéficiaire"}
                         </h1>
                         <p className="ml-3 font-semibold">
                           {bank.beneficiaryAddress}
@@ -376,7 +408,9 @@ const Bank = () => {
                       </div>
                       <div>
                         <h1 className="text-[18px] font-semibold text-[#526484]">
-                          Beneficiary Account Number{" "}
+                          {currentLanguage === "en" ? "Beneficiary Account Number" :
+                            currentLanguage === "ar" ? "رقم حساب المستفيد" :
+                              "Numéro de Compte du Bénéficiaire"}
                         </h1>
                         <p className="ml-3 font-semibold">
                           {bank.beneficiaryAccountNumber}
@@ -385,71 +419,160 @@ const Bank = () => {
                     </div>
                   </div>
                 </div>
+
               </>
             ))}
         </div>
         <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <h2 className="mb-4 text-xl font-semibold"> Bank Name</h2>
+            <h2 className="mb-4 text-xl font-semibold">
+              {currentLanguage === "en"
+                ? "Bank Name"
+                : currentLanguage === "ar"
+                  ? "اسم البنك"
+                  : "Nom de la banque"}
+            </h2>
             <div className="mb-4 rounded-sm">
               <input
                 type="text"
-                placeholder="Bank Name "
+                placeholder={
+                  currentLanguage === "en"
+                    ? "Bank Name"
+                    : currentLanguage === "ar"
+                      ? "اسم البنك"
+                      : "Nom de la banque"
+                }
                 {...register("bankName", { required: true })}
-                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-xl border border-borderPrimary bg-bgSecondary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.bankName && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">
+                  {currentLanguage === "en"
+                    ? "This field is required"
+                    : currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : "Ce champ est requis"}
+                </span>
               )}
             </div>
-            <h2 className="mb-4 text-xl font-semibold">Beneficiary Address</h2>
+            <h2 className="mb-4 text-xl font-semibold">
+              {currentLanguage === "en"
+                ? "Beneficiary Address"
+                : currentLanguage === "ar"
+                  ? "عنوان المستفيد"
+                  : "Adresse du bénéficiaire"}
+            </h2>
             <div className="mb-4 rounded-sm">
               <input
-                placeholder="Beneficiary Address"
+                placeholder={
+                  currentLanguage === "en"
+                    ? "Beneficiary Address"
+                    : currentLanguage === "ar"
+                      ? "عنوان المستفيد"
+                      : "Adresse du bénéficiaire"
+                }
                 {...register("beneficiaryAddress", { required: true })}
                 type="text"
-                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-xl border border-borderPrimary bg-bgSecondary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.beneficiaryAddress && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">
+                  {currentLanguage === "en"
+                    ? "This field is required"
+                    : currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : "Ce champ est requis"}
+                </span>
               )}
             </div>
-            <h2 className="mb-4 text-xl font-semibold">Beneficiary Name</h2>
+            <h2 className="mb-4 text-xl font-semibold">
+              {currentLanguage === "en"
+                ? "Beneficiary Name"
+                : currentLanguage === "ar"
+                  ? "اسم المستفيد"
+                  : "Nom du bénéficiaire"}
+            </h2>
             <div className="mb-4 rounded-sm">
               <input
                 {...register("beneficiaryName", { required: true })}
                 type="text"
-                placeholder="Beneficiary Name"
-                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder={
+                  currentLanguage === "en"
+                    ? "Beneficiary Name"
+                    : currentLanguage === "ar"
+                      ? "اسم المستفيد"
+                      : "Nom du bénéficiaire"
+                }
+                className="w-full rounded-xl border border-borderPrimary bg-bgSecondary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.beneficiaryName && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">
+                  {currentLanguage === "en"
+                    ? "This field is required"
+                    : currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : "Ce champ est requis"}
+                </span>
               )}
             </div>
             <h2 className="mb-4 text-xl font-semibold">
-              Beneficiary Account Number
+              {currentLanguage === "en"
+                ? "Beneficiary Account Number"
+                : currentLanguage === "ar"
+                  ? "رقم حساب المستفيد"
+                  : "Numéro de compte du bénéficiaire"}
             </h2>
             <div className="mb-4 rounded-sm">
               <input
                 {...register("beneficiaryAccountNumber", { required: true })}
-                placeholder="Beneficiary Account"
+                placeholder={
+                  currentLanguage === "en"
+                    ? "Beneficiary Account"
+                    : currentLanguage === "ar"
+                      ? "حساب المستفيد"
+                      : "Compte du bénéficiaire"
+                }
                 type="text"
-                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-xl border border-borderPrimary bg-bgSecondary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.beneficiaryAccountNumber && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">
+                  {currentLanguage === "en"
+                    ? "This field is required"
+                    : currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : "Ce champ est requis"}
+                </span>
               )}
             </div>
-            <h2 className="mb-4 text-xl font-semibold">Bank Short Name</h2>
+            <h2 className="mb-4 text-xl font-semibold">
+              {currentLanguage === "en"
+                ? "Bank Short Name"
+                : currentLanguage === "ar"
+                  ? "الاسم المختصر للبنك"
+                  : "Nom court de la banque"}
+            </h2>
             <div className="mb-4 rounded-sm">
               <input
                 {...register("bankShortName", { required: true })}
-                placeholder="Bank Short Name"
+                placeholder={
+                  currentLanguage === "en"
+                    ? "Bank Short Name"
+                    : currentLanguage === "ar"
+                      ? "الاسم المختصر للبنك"
+                      : "Nom court de la banque"
+                }
                 type="text"
-                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-xl border border-borderPrimary bg-bgSecondary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.bankShortName && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">
+                  {currentLanguage === "en"
+                    ? "This field is required"
+                    : currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : "Ce champ est requis"}
+                </span>
               )}
             </div>
             <div className="flex justify-between">
@@ -460,80 +583,115 @@ const Bank = () => {
                   type="submit"
                   className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                 >
-                  Add
+                  {currentLanguage === "en"
+                    ? "Add"
+                    : currentLanguage === "ar"
+                      ? "إضافة"
+                      : "Ajouter"}
                 </button>
               )}
               <button
                 onClick={handleCloseModal}
-                className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl border bg-[#ffffff] px-4 py-2 text-[18px] font-semibold text-black duration-300 ease-in hover:shadow-xl"
+                className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl border border-borderPrimary bg-error px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:shadow-xl"
               >
-                Cancel
+                {currentLanguage === "en"
+                  ? "Cancel"
+                  : currentLanguage === "ar"
+                    ? "إلغاء"
+                    : "Annuler"}
               </button>
             </div>
           </form>
         </Modal>
+
         <Modal isOpen={isModalOpen2} onClose={handleCloseModal2}>
           <form onSubmit={handleSubmit(onSubmitUpdate)}>
-            <h2 className="mb-4 text-xl font-semibold"> Bank Name</h2>
+            <h2 className="mb-4 text-xl font-semibold">
+              {currentLanguage === "ar" ? "اسم البنك" : currentLanguage === "fr" ? "Nom de la banque" : "Bank Name"}
+            </h2>
             <div className="mb-4 rounded-sm">
               <input
                 type="text"
-                placeholder="Bank Name "
+                placeholder={currentLanguage === "ar" ? "اسم البنك" : currentLanguage === "fr" ? "Nom de la banque" : "Bank Name"}
                 {...register("bankName", { required: true })}
-                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-xl border border-borderPrimary bg-bgSecondary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.bankName && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">
+                  {currentLanguage === "ar" ? "هذه الخانة مطلوبه" : currentLanguage === "fr" ? "Ce champ est requis" : "This field is required"}
+                </span>
               )}
             </div>
-            <h2 className="mb-4 text-xl font-semibold">Beneficiary Address</h2>
+            <h2 className="mb-4 text-xl font-semibold">
+              {currentLanguage === "ar" ? "عنوان المستفيد" : currentLanguage === "fr" ? "Adresse du bénéficiaire" : "Beneficiary Address"}
+            </h2>
             <div className="mb-4 rounded-sm">
               <input
-                placeholder="Beneficiary Address"
+                placeholder={
+                  currentLanguage === "ar" ? "عنوان المستفيد" : currentLanguage === "fr" ? "Adresse du bénéficiaire" : "Beneficiary Address"
+                }
                 {...register("beneficiaryAddress", { required: true })}
                 type="text"
-                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-xl border border-borderPrimary bg-bgSecondary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.beneficiaryAddress && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">
+                  {currentLanguage === "ar" ? "هذه الخانة مطلوبه" : currentLanguage === "fr" ? "Ce champ est requis" : "This field is required"}
+                </span>
               )}
             </div>
-            <h2 className="mb-4 text-xl font-semibold">Beneficiary Name</h2>
+            <h2 className="mb-4 text-xl font-semibold">
+              {currentLanguage === "ar" ? "اسم المستفيد" : currentLanguage === "fr" ? "Nom du bénéficiaire" : "Beneficiary Name"}
+            </h2>
             <div className="mb-4 rounded-sm">
               <input
                 {...register("beneficiaryName", { required: true })}
                 type="text"
-                placeholder="Beneficiary Name"
-                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder={
+                  currentLanguage === "ar" ? "اسم المستفيد" : currentLanguage === "fr" ? "Nom du bénéficiaire" : "Beneficiary Name"
+                }
+                className="w-full rounded-xl border border-borderPrimary bg-bgSecondary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.beneficiaryName && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">
+                  {currentLanguage === "ar" ? "هذه الخانة مطلوبه" : currentLanguage === "fr" ? "Ce champ est requis" : "This field is required"}
+                </span>
               )}
             </div>
             <h2 className="mb-4 text-xl font-semibold">
-              Beneficiary Account Number
+              {currentLanguage === "ar" ? "رقم حساب المستفيد" : currentLanguage === "fr" ? "Numéro de compte du bénéficiaire" : "Beneficiary Account Number"}
             </h2>
             <div className="mb-4 rounded-sm">
               <input
                 {...register("beneficiaryAccountNumber", { required: true })}
-                placeholder="Beneficiary Account"
+                placeholder={
+                  currentLanguage === "ar" ? "رقم حساب المستفيد" : currentLanguage === "fr" ? "Numéro de compte du bénéficiaire" : "Beneficiary Account"
+                }
                 type="text"
-                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-xl border border-borderPrimary bg-bgSecondary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.beneficiaryAccountNumber && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">
+                  {currentLanguage === "ar" ? "هذه الخانة مطلوبه" : currentLanguage === "fr" ? "Ce champ est requis" : "This field is required"}
+                </span>
               )}
             </div>
-            <h2 className="mb-4 text-xl font-semibold">Bank Short Name</h2>
+            <h2 className="mb-4 text-xl font-semibold">
+              {currentLanguage === "ar" ? "الاسم المختصر للبنك" : currentLanguage === "fr" ? "Nom abrégé de la banque" : "Bank Short Name"}
+            </h2>
             <div className="mb-4 rounded-sm">
               <input
                 {...register("bankShortName", { required: true })}
-                placeholder="Bank Short Name"
+                placeholder={
+                  currentLanguage === "ar" ? "الاسم المختصر للبنك" : currentLanguage === "fr" ? "Nom abrégé de la banque" : "Bank Short Name"
+                }
                 type="text"
-                className="w-full rounded-xl border border-[#436789] bg-[#ffffff] px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-xl border border-borderPrimary bg-bgSecondary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.bankShortName && (
-                <span className="text-red-600">This field is required</span>
+                <span className="text-error">
+                  {currentLanguage === "ar" ? "هذه الخانة مطلوبه" : currentLanguage === "fr" ? "Ce champ est requis" : "This field is required"}
+                </span>
               )}
             </div>
             <div className="flex justify-between">
@@ -544,14 +702,14 @@ const Bank = () => {
                   type="submit"
                   className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                 >
-                  Edit
+                  {currentLanguage === "ar" ? "تعديل" : currentLanguage === "fr" ? "Modifier" : "Edit"}
                 </button>
               )}
               <button
                 onClick={handleCloseModal2}
-                className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl border bg-[#ffffff] px-4 py-2 text-[18px] font-semibold text-black duration-300 ease-in hover:shadow-xl"
+                className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl border bg-bgSecondary px-4 py-2 text-[18px] font-semibold text-black duration-300 ease-in hover:shadow-xl"
               >
-                Cancel
+                {currentLanguage === "ar" ? "إلغاء" : currentLanguage === "fr" ? "Annuler" : "Cancel"}
               </button>
             </div>
           </form>

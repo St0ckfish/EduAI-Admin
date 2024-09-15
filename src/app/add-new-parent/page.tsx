@@ -50,6 +50,9 @@ const AddNewParent = () => {
   const [createEmployee, { isLoading }] = useCreateParentsMutation();
   const { data: rigiond } = useGetAllReginionIDQuery(null);
 
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const onSubmit = async (data: any) => {
     const formData = new FormData();
     formData.append(
@@ -151,7 +154,10 @@ const AddNewParent = () => {
                 <line x1="16" y1="14" x2="16" y2="17" />
               </svg>
               <h1 className="font-sans text-[22px] font-semibold">
-                Parent Information
+                {currentLanguage === "en" ? "Parent Information" :
+                  currentLanguage === "ar" ? "معلومات الوالدين" :
+                    currentLanguage === "fr" ? "Informations sur les parents" :
+                      "Parent Information"}
               </h1>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
@@ -160,7 +166,10 @@ const AddNewParent = () => {
                 htmlFor="username"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Username
+                {currentLanguage === "en" ? "Username" :
+                  currentLanguage === "ar" ? "اسم المستخدم" :
+                    currentLanguage === "fr" ? "Nom d'utilisateur" :
+                      "Username"}
                 <input
                   id="username"
                   type="text"
@@ -168,14 +177,22 @@ const AddNewParent = () => {
                   {...register("username", { required: true })}
                 />
                 {errors.username && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="email"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Email
+                {currentLanguage === "en" ? "Email" :
+                  currentLanguage === "ar" ? "البريد الإلكتروني" :
+                    currentLanguage === "fr" ? "E-mail" :
+                      "Email"}
                 <input
                   id="email"
                   type="email"
@@ -183,14 +200,22 @@ const AddNewParent = () => {
                   {...register("email", { required: true })}
                 />
                 {errors.email && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="password"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Password
+                {currentLanguage === "en" ? "Password" :
+                  currentLanguage === "ar" ? "كلمة المرور" :
+                    currentLanguage === "fr" ? "Mot de passe" :
+                      "Password"}
                 <input
                   id="password"
                   type="password"
@@ -198,14 +223,22 @@ const AddNewParent = () => {
                   {...register("password", { required: true })}
                 />
                 {errors.password && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="nid"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                NID
+                {currentLanguage === "en" ? "NID" :
+                  currentLanguage === "ar" ? "رقم الهوية" :
+                    currentLanguage === "fr" ? "NID" :
+                      "NID"}
                 <input
                   id="nid"
                   type="number"
@@ -213,57 +246,108 @@ const AddNewParent = () => {
                   {...register("nid", { required: true })}
                 />
                 {errors.nid && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="gender"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Gender
+                {currentLanguage === "en" ? "Gender" :
+                  currentLanguage === "ar" ? "الجنس" :
+                    currentLanguage === "fr" ? "Genre" :
+                      "Gender"}
                 <select
                   id="gender"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("gender", { required: true })}
                 >
-                  <option value="">Select gender</option>
-                  <option value="MALE">Male</option>
-                  <option value="FEMALE">Female</option>
+                  <option value="">{currentLanguage === "en" ? "Select gender" :
+                    currentLanguage === "ar" ? "اختر الجنس" :
+                      currentLanguage === "fr" ? "Sélectionner le genre" :
+                        "Select gender"}</option>
+                  <option value="MALE">{currentLanguage === "en" ? "Male" :
+                    currentLanguage === "ar" ? "ذكر" :
+                      currentLanguage === "fr" ? "Homme" :
+                        "Male"}</option>
+                  <option value="FEMALE">{currentLanguage === "en" ? "Female" :
+                    currentLanguage === "ar" ? "أنثى" :
+                      currentLanguage === "fr" ? "Femme" :
+                        "Female"}</option>
                 </select>
                 {errors.gender && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="religion"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Religion
+                {currentLanguage === "en" ? "Religion" :
+                  currentLanguage === "ar" ? "الدين" :
+                    currentLanguage === "fr" ? "Religion" :
+                      "Religion"}
                 <select
                   id="religion"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("religion", { required: true })}
                 >
-                  <option value="">Select religion</option>
-                  <option value="MUSLIM">Muslim</option>
-                  <option value="CHRISTIAN">Christian</option>
-                  <option value="OTHERS">Others</option>
+                  <option value="">{currentLanguage === "en" ? "Select religion" :
+                    currentLanguage === "ar" ? "اختر الدين" :
+                      currentLanguage === "fr" ? "Sélectionner la religion" :
+                        "Select religion"}</option>
+                  <option value="MUSLIM">{currentLanguage === "en" ? "Muslim" :
+                    currentLanguage === "ar" ? "مسلم" :
+                      currentLanguage === "fr" ? "Musulman" :
+                        "Muslim"}</option>
+                  <option value="CHRISTIAN">{currentLanguage === "en" ? "Christian" :
+                    currentLanguage === "ar" ? "مسيحي" :
+                      currentLanguage === "fr" ? "Chrétien" :
+                        "Christian"}</option>
+                  <option value="OTHERS">{currentLanguage === "en" ? "Others" :
+                    currentLanguage === "ar" ? "أخرى" :
+                      currentLanguage === "fr" ? "Autres" :
+                        "Others"}</option>
                 </select>
                 {errors.religion && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"}
+                  </span>
                 )}
               </label>
+
               <label
                 htmlFor="nationality"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Your Nationality
+                {currentLanguage === "en" ? "Your Nationality" :
+                  currentLanguage === "ar" ? "جنسيتك" :
+                    currentLanguage === "fr" ? "Votre Nationalité" :
+                      "Your Nationality"}
                 <select
                   id="nationality"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("nationality", { required: true })}
                 >
-                  <option value="">Select Nationality</option>
+                  <option value="">
+                    {currentLanguage === "en" ? "Select Nationality" :
+                      currentLanguage === "ar" ? "اختر الجنسية" :
+                        currentLanguage === "fr" ? "Sélectionner la nationalité" :
+                          "Select Nationality"}
+                  </option>
                   {nationalityData &&
                     Object.entries(nationalityData.data).map(([key, value]) => (
                       <option key={key} value={key}>
@@ -272,21 +356,34 @@ const AddNewParent = () => {
                     ))}
                 </select>
                 {errors.nationality && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="regionId"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                RegionId
+                {currentLanguage === "en" ? "RegionId" :
+                  currentLanguage === "ar" ? "رقم المنطقة" :
+                    currentLanguage === "fr" ? "ID de la région" :
+                      "RegionId"}
                 <select
                   defaultValue=""
                   id="regionId"
                   {...register("regionId", { required: true })}
                   className={`border ${errors.regionId ? "border-warning" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-[18px] text-[#000000] outline-none max-[458px]:w-[350px]`}
                 >
-                  <option value="">Select Region Id</option>
+                  <option value="">
+                    {currentLanguage === "en" ? "Select Region Id" :
+                      currentLanguage === "ar" ? "اختر رقم المنطقة" :
+                        currentLanguage === "fr" ? "Sélectionner l'ID de la région" :
+                          "Select Region Id"}
+                  </option>
                   {rigiond &&
                     rigiond.data.map((region: any, index: number) => (
                       <option key={index} value={region.id}>
@@ -295,14 +392,22 @@ const AddNewParent = () => {
                     ))}
                 </select>
                 {errors.regionId && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="name_en"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Name EN
+                {currentLanguage === "en" ? "Name EN" :
+                  currentLanguage === "ar" ? "الاسم بالإنجليزية" :
+                    currentLanguage === "fr" ? "Nom EN" :
+                      "Name EN"}
                 <input
                   id="name_en"
                   type="text"
@@ -310,14 +415,22 @@ const AddNewParent = () => {
                   {...register("name_en", { required: true })}
                 />
                 {errors.name_en && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="name_ar"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Name AR
+                {currentLanguage === "en" ? "Name AR" :
+                  currentLanguage === "ar" ? "الاسم بالعربية" :
+                    currentLanguage === "fr" ? "Nom AR" :
+                      "Name AR"}
                 <input
                   id="name_ar"
                   type="text"
@@ -325,14 +438,22 @@ const AddNewParent = () => {
                   {...register("name_ar", { required: true })}
                 />
                 {errors.name_ar && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="name_fr"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Name FR
+                {currentLanguage === "en" ? "Name FR" :
+                  currentLanguage === "ar" ? "الاسم بالفرنسية" :
+                    currentLanguage === "fr" ? "Nom FR" :
+                      "Name FR"}
                 <input
                   id="name_fr"
                   type="text"
@@ -340,14 +461,22 @@ const AddNewParent = () => {
                   {...register("name_fr", { required: true })}
                 />
                 {errors.name_fr && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="about"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                About
+                {currentLanguage === "en" ? "About" :
+                  currentLanguage === "ar" ? "عن" :
+                    currentLanguage === "fr" ? "À propos" :
+                      "About"}
                 <input
                   id="about"
                   type="text"
@@ -355,14 +484,22 @@ const AddNewParent = () => {
                   {...register("about", { required: true })}
                 />
                 {errors.about && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="occupation_en"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Occupation EN
+                {currentLanguage === "en" ? "Occupation EN" :
+                  currentLanguage === "ar" ? "الوظيفة بالإنجليزية" :
+                    currentLanguage === "fr" ? "Occupation EN" :
+                      "Occupation EN"}
                 <input
                   id="occupation_en"
                   type="text"
@@ -370,14 +507,24 @@ const AddNewParent = () => {
                   {...register("occupation_en", { required: true })}
                 />
                 {errors.occupation_en && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"}
+                  </span>
                 )}
               </label>
+
+
               <label
                 htmlFor="occupation_ar"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Occupation AR
+                {currentLanguage === "en" ? "Occupation AR" :
+                  currentLanguage === "ar" ? "الوظيفة بالعربية" :
+                    currentLanguage === "fr" ? "Occupation AR" :
+                      "Occupation AR"}
                 <input
                   id="occupation_ar"
                   type="text"
@@ -385,14 +532,22 @@ const AddNewParent = () => {
                   {...register("occupation_ar", { required: true })}
                 />
                 {errors.occupation_ar && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="occupation_fr"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Occupation FR
+                {currentLanguage === "en" ? "Occupation FR" :
+                  currentLanguage === "ar" ? "الوظيفة بالفرنسية" :
+                    currentLanguage === "fr" ? "Occupation FR" :
+                      "Occupation FR"}
                 <input
                   id="occupation_fr"
                   type="text"
@@ -400,14 +555,22 @@ const AddNewParent = () => {
                   {...register("occupation_fr", { required: true })}
                 />
                 {errors.occupation_fr && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="birthDate"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Date Of Birth
+                {currentLanguage === "en" ? "Date Of Birth" :
+                  currentLanguage === "ar" ? "تاريخ الميلاد" :
+                    currentLanguage === "fr" ? "Date de naissance" :
+                      "Date Of Birth"}
                 <input
                   id="birthDate"
                   type="date"
@@ -415,15 +578,22 @@ const AddNewParent = () => {
                   {...register("birthDate", { required: true })}
                 />
                 {errors.birthDate && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"}
+                  </span>
                 )}
               </label>
-
               <label
                 htmlFor="number"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Mobile
+                {currentLanguage === "en" ? "Mobile" :
+                  currentLanguage === "ar" ? "رقم الهاتف" :
+                    currentLanguage === "fr" ? "Mobile" :
+                      "Mobile"}
                 <input
                   id="number"
                   type="number"
@@ -431,24 +601,38 @@ const AddNewParent = () => {
                   {...register("number", { required: true })}
                 />
                 {errors.number && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="schoolId"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                school Id
+                {currentLanguage === "en" ? "School Id" :
+                  currentLanguage === "ar" ? "رقم المدرسة" :
+                    currentLanguage === "fr" ? "ID de l'école" :
+                      "School Id"}
                 <input
                   id="schoolId"
-                  type="schoolId"
+                  type="text"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("schoolId", { required: true })}
                 />
                 {errors.schoolId && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"}
+                  </span>
                 )}
               </label>
+
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
               {/* Input fields for student information */}
@@ -456,7 +640,10 @@ const AddNewParent = () => {
                 htmlFor="student_username"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Student Username
+                {currentLanguage === "en" ? "Student Username" :
+                  currentLanguage === "ar" ? "اسم المستخدم للطالب" :
+                    currentLanguage === "fr" ? "Nom d'utilisateur étudiant" :
+                      "Student Username"}
                 <input
                   id="student_username"
                   type="text"
@@ -464,14 +651,22 @@ const AddNewParent = () => {
                   {...register("student_username", { required: true })}
                 />
                 {errors.student_username && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="student_email"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Student Email
+                {currentLanguage === "en" ? "Student Email" :
+                  currentLanguage === "ar" ? "بريد الطالب الإلكتروني" :
+                    currentLanguage === "fr" ? "Email étudiant" :
+                      "Student Email"}
                 <input
                   id="student_email"
                   type="email"
@@ -479,14 +674,22 @@ const AddNewParent = () => {
                   {...register("student_email", { required: true })}
                 />
                 {errors.student_email && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="student_password"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Student Password
+                {currentLanguage === "en" ? "Student Password" :
+                  currentLanguage === "ar" ? "كلمة مرور الطالب" :
+                    currentLanguage === "fr" ? "Mot de passe étudiant" :
+                      "Student Password"}
                 <input
                   id="student_password"
                   type="password"
@@ -494,14 +697,22 @@ const AddNewParent = () => {
                   {...register("student_password", { required: true })}
                 />
                 {errors.student_password && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="student_nid"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Student NID
+                {currentLanguage === "en" ? "Student NID" :
+                  currentLanguage === "ar" ? "رقم الهوية الطالب" :
+                    currentLanguage === "fr" ? "NID étudiant" :
+                      "Student NID"}
                 <input
                   id="student_nid"
                   type="number"
@@ -509,32 +720,63 @@ const AddNewParent = () => {
                   {...register("student_nid", { required: true })}
                 />
                 {errors.student_nid && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="student_gender"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Student Gender
+                {currentLanguage === "en" ? "Student Gender" :
+                  currentLanguage === "ar" ? "جنس الطالب" :
+                    currentLanguage === "fr" ? "Genre étudiant" :
+                      "Student Gender"}
                 <select
                   id="student_gender"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("student_gender", { required: true })}
                 >
-                  <option value="">Select gender</option>
-                  <option value="MALE">Male</option>
-                  <option value="FEMALE">Female</option>
+                  <option value="">
+                    {currentLanguage === "en" ? "Select gender" :
+                      currentLanguage === "ar" ? "اختر الجنس" :
+                        currentLanguage === "fr" ? "Sélectionner le sexe" :
+                          "Select gender"}
+                  </option>
+                  <option value="MALE">
+                    {currentLanguage === "en" ? "Male" :
+                      currentLanguage === "ar" ? "ذكر" :
+                        currentLanguage === "fr" ? "Homme" :
+                          "Male"}
+                  </option>
+                  <option value="FEMALE">
+                    {currentLanguage === "en" ? "Female" :
+                      currentLanguage === "ar" ? "أنثى" :
+                        currentLanguage === "fr" ? "Femme" :
+                          "Female"}
+                  </option>
                 </select>
                 {errors.student_gender && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="student_birthDate"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Student Date Of Birth
+                {currentLanguage === "en" ? "Student Date Of Birth" :
+                  currentLanguage === "ar" ? "تاريخ ميلاد الطالب" :
+                    currentLanguage === "fr" ? "Date de naissance étudiant" :
+                      "Student Date Of Birth"}
                 <input
                   id="student_birthDate"
                   type="date"
@@ -542,14 +784,22 @@ const AddNewParent = () => {
                   {...register("student_birthDate", { required: true })}
                 />
                 {errors.student_birthDate && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="student_name_en"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Student Name EN
+                {currentLanguage === "en" ? "Student Name EN" :
+                  currentLanguage === "ar" ? "اسم الطالب بالإنجليزية" :
+                    currentLanguage === "fr" ? "Nom de l'étudiant EN" :
+                      "Student Name EN"}
                 <input
                   id="student_name_en"
                   type="text"
@@ -557,14 +807,24 @@ const AddNewParent = () => {
                   {...register("student_name_en", { required: true })}
                 />
                 {errors.student_name_en && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"}
+                  </span>
                 )}
               </label>
+
+
               <label
                 htmlFor="student_name_ar"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Student Name AR
+                {currentLanguage === "en" ? "Student Name AR" :
+                  currentLanguage === "ar" ? "اسم الطالب بالعربية" :
+                    currentLanguage === "fr" ? "Nom de l'étudiant AR" :
+                      "Student Name AR"}
                 <input
                   id="student_name_ar"
                   type="text"
@@ -572,14 +832,22 @@ const AddNewParent = () => {
                   {...register("student_name_ar", { required: true })}
                 />
                 {errors.student_name_ar && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="student_name_fr"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Student Name FR
+                {currentLanguage === "en" ? "Student Name FR" :
+                  currentLanguage === "ar" ? "اسم الطالب بالفرنسية" :
+                    currentLanguage === "fr" ? "Nom de l'étudiant FR" :
+                      "Student Name FR"}
                 <input
                   id="student_name_fr"
                   type="text"
@@ -587,14 +855,22 @@ const AddNewParent = () => {
                   {...register("student_name_fr", { required: true })}
                 />
                 {errors.student_name_fr && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="student_about"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Student About
+                {currentLanguage === "en" ? "Student About" :
+                  currentLanguage === "ar" ? "معلومات عن الطالب" :
+                    currentLanguage === "fr" ? "À propos de l'étudiant" :
+                      "Student About"}
                 <input
                   id="student_about"
                   type="text"
@@ -602,14 +878,22 @@ const AddNewParent = () => {
                   {...register("student_about", { required: true })}
                 />
                 {errors.student_about && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="relationshipToStudent"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Relationship To Student
+                {currentLanguage === "en" ? "Relationship To Student" :
+                  currentLanguage === "ar" ? "العلاقة بالطالب" :
+                    currentLanguage === "fr" ? "Relation avec l'étudiant" :
+                      "Relationship To Student"}
                 <input
                   id="relationshipToStudent"
                   type="text"
@@ -617,14 +901,22 @@ const AddNewParent = () => {
                   {...register("relationshipToStudent", { required: true })}
                 />
                 {errors.relationshipToStudent && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="studyLevel"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Study Level
+                {currentLanguage === "en" ? "Study Level" :
+                  currentLanguage === "ar" ? "مستوى الدراسة" :
+                    currentLanguage === "fr" ? "Niveau d'étude" :
+                      "Study Level"}
                 <input
                   id="studyLevel"
                   type="text"
@@ -632,29 +924,45 @@ const AddNewParent = () => {
                   {...register("studyLevel", { required: true })}
                 />
                 {errors.studyLevel && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="eduSystemId"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                edu System Id
+                {currentLanguage === "en" ? "Edu System Id" :
+                  currentLanguage === "ar" ? "رقم نظام التعليم" :
+                    currentLanguage === "fr" ? "ID du système éducatif" :
+                      "Edu System Id"}
                 <input
                   id="eduSystemId"
-                  type="eduSystemId"
+                  type="text"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("eduSystemId", { required: true })}
                 />
                 {errors.eduSystemId && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "en" ? "This field is required" :
+                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
+                        currentLanguage === "fr" ? "Ce champ est requis" :
+                          "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="parentIdPhoto"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Parent ID Photo
+                {currentLanguage === "en" ? "Parent ID Photo" :
+                  currentLanguage === "ar" ? "صورة هوية الوالد" :
+                    currentLanguage === "fr" ? "Photo d'identité des parents" :
+                      "Parent ID Photo"}
                 <input
                   id="parentIdPhoto"
                   type="file"
@@ -662,6 +970,7 @@ const AddNewParent = () => {
                   {...register("parentIdPhoto")}
                 />
               </label>
+
             </div>
             {/* File input fields */}
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
@@ -669,7 +978,10 @@ const AddNewParent = () => {
                 htmlFor="studentIdPhoto"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Student ID Photo
+                {currentLanguage === "en" ? "Student ID Photo" :
+                  currentLanguage === "ar" ? "صورة هوية الطالب" :
+                    currentLanguage === "fr" ? "Photo d'identité de l'étudiant" :
+                      "Student ID Photo"}
                 <input
                   id="studentIdPhoto"
                   type="file"
@@ -681,7 +993,10 @@ const AddNewParent = () => {
                 htmlFor="studentProfilePhoto"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Student Profile Photo
+                {currentLanguage === "en" ? "Student Profile Photo" :
+                  currentLanguage === "ar" ? "صورة الملف الشخصي للطالب" :
+                    currentLanguage === "fr" ? "Photo de profil de l'étudiant" :
+                      "Student Profile Photo"}
                 <input
                   id="studentProfilePhoto"
                   type="file"
@@ -693,7 +1008,10 @@ const AddNewParent = () => {
                 htmlFor="studentCertificatesOfAchievement"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Student Certificates Of Achievement
+                {currentLanguage === "en" ? "Student Certificates Of Achievement" :
+                  currentLanguage === "ar" ? "شهادات إنجاز الطالب" :
+                    currentLanguage === "fr" ? "Certificats de réussite de l'étudiant" :
+                      "Student Certificates Of Achievement"}
                 <input
                   id="studentCertificatesOfAchievement"
                   type="file"
@@ -701,6 +1019,7 @@ const AddNewParent = () => {
                   {...register("studentCertificatesOfAchievement")}
                 />
               </label>
+
             </div>
             <div className="flex justify-center text-center">
               <button
@@ -708,8 +1027,15 @@ const AddNewParent = () => {
                 type="submit"
                 className="w-[180px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
               >
-                {isLoading ? " Adding..." : "Add Parent"}
-              </button>
+                {isLoading
+                  ? (currentLanguage === "en" ? "Adding..." :
+                    currentLanguage === "ar" ? "جارٍ الإضافة..." :
+                      currentLanguage === "fr" ? "Ajout en cours..." :
+                        "Adding...")
+                  : (currentLanguage === "en" ? "Add Parent" :
+                    currentLanguage === "ar" ? "إضافة ولي الأمر" :
+                      currentLanguage === "fr" ? "Ajouter un parent" :
+                        "Add Parent")}              </button>
             </div>
           </div>
         </form>
