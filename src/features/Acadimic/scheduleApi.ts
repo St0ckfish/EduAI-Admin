@@ -28,11 +28,13 @@ export const scheduleApi = createApi({
   }),
   endpoints: builder => ({
     getAllTeacherSchedule: builder.query({
-      query: (teacherId) => `/api/v1/schedule/teacher?size=&page=&teacherId=${teacherId}&getActive=1`,
+      query: teacherId =>
+        `/api/v1/schedule/teacher?size=&page=&teacherId=${teacherId}&getActive=1`,
     }),
     //
     getAllClassSchedule: builder.query({
-      query: (classroomId) => `/api/v1/schedule/classroom?size=10&page=0&classroomId=${classroomId}&getActive=1`,
+      query: classroomId =>
+        `/api/v1/schedule/classroom?size=10&page=0&classroomId=${classroomId}&getActive=1`,
     }),
     //
     deleteSchedual: builder.mutation({

@@ -11,7 +11,6 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 import BreadCrumbs from "@/components/BreadCrumbs";
 
-
 const Notifies = () => {
   const breadcrumbs = [
     {

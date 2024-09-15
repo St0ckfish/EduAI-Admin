@@ -39,7 +39,7 @@ const BreadCrumbs: React.FC<BreadCrumbsProps> = ({ breadcrumbs }) => {
                 : "text-gray-500 hover:text-primary hover:shadow-md"
             } px-2 py-1`}
             href={crumb.href}
-            style={{ margin: "0 5px"}} // Padding for better spacing
+            style={{ margin: "0 5px" }} // Padding for better spacing
           >
             {currentLanguage === "en"
               ? crumb.nameEn

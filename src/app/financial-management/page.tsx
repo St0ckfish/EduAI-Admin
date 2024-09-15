@@ -2,9 +2,13 @@
 /* eslint-disable @next/next/no-img-element */
 import Card from "@/components/card";
 import { RootState } from "@/GlobalRedux/store";
-import Link from "next/link";
 import { useSelector } from "react-redux";
-import { FaDollarSign, FaWallet, FaBuilding } from "react-icons/fa";
+import {
+  FaDollarSign,
+  FaWallet,
+  FaBuilding,
+  FaMoneyBill,
+} from "react-icons/fa";
 import BreadCrumbs from "@/components/BreadCrumbs";
 
 const FinancialManagement = () => {
@@ -89,6 +93,26 @@ const FinancialManagement = () => {
               ? "Toutes les informations sur le compte bancaire"
               : "All information about Bank Account", // Default to English
     },
+    {
+      href: "/financial-management/payment",
+      icon: <FaMoneyBill size={40} />,
+      title:
+        currentLanguage === "en"
+          ? "Payment"
+          : currentLanguage === "ar"
+            ? "الدفع"
+            : currentLanguage === "fr"
+              ? "Paiement"
+              : "Paiement", // Default to English
+      description:
+        currentLanguage === "en"
+          ? "Payment Request and Setting"
+          : currentLanguage === "ar"
+            ? "طلب الدفع والاعدادات"
+            : currentLanguage === "fr"
+              ? "Demande de paiement, Paramètre"
+              : "Demande de paiement, Paramètre", // Default to English
+    },
   ];
   return (
     <>
@@ -97,7 +121,7 @@ const FinancialManagement = () => {
       <div
         className={` ${booleanValue ? "lg:ml-[10px]" : "lg:ml-[290px]"} mt-12 grid justify-center`}
       >
-        <div className="grid grid-cols-2 gap-5 max-[577px]:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
+        <div className="grid grid-cols-2 gap-5 max-[577px]:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4">
           {financials.map((item, index) => (
             <Card
               key={index}

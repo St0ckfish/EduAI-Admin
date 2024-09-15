@@ -19,10 +19,10 @@ const AddNote = () => {
     try {
       // Send the title and description as an object
       await createNotification({
-        title, 
-        description
+        title,
+        description,
       }).unwrap();
-      
+
       toast.success("Notification sent successfully!");
       setTitle("");
       setDescription("");
@@ -32,14 +32,17 @@ const AddNote = () => {
   };
 
   return (
-    <div className="flex lg:ml-[270px] mt-5 mr-3">
+    <div className="mr-3 mt-5 flex lg:ml-[270px]">
       <div className="grid h-full w-full items-center gap-3 rounded-xl bg-bgPrimary p-5">
         <div className="mb-5 flex w-full justify-start">
           <h1 className="text-[22px] font-semibold">Create Note</h1>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="grid h-full w-full gap-6">
-            <label className="grid gap-2 text-[18px] font-semibold" htmlFor="title">
+            <label
+              className="grid gap-2 text-[18px] font-semibold"
+              htmlFor="title"
+            >
               Title
               <input
                 className="rounded-xl border border-borderPrimary px-4 py-2 outline-none"
@@ -47,10 +50,13 @@ const AddNote = () => {
                 name="title"
                 id="title"
                 value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                onChange={e => setTitle(e.target.value)}
               />
             </label>
-            <label className="grid gap-2 text-[18px] font-semibold" htmlFor="description">
+            <label
+              className="grid gap-2 text-[18px] font-semibold"
+              htmlFor="description"
+            >
               Description
               <div className="mb-5 bg-bgPrimary">
                 <TextEditor

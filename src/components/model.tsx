@@ -8,25 +8,23 @@ interface ModalProps {
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   const modalRef = useRef<HTMLDivElement>(null);
+  const backdropRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        modalRef.current &&
-        !modalRef.current.contains(event.target as Node)
-      ) {
+      if (backdropRef.current === event.target && modalRef.current) {
         onClose();
       }
     };
 
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
+    if (isOpen && backdropRef.current) {
+      backdropRef.current.addEventListener("click", handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      if (backdropRef.current) {
+        backdropRef.current.removeEventListener("click", handleClickOutside);
+      }
     };
   }, [isOpen, onClose]);
 
@@ -35,7 +33,10 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   }
 
   return (
-    <div className="bg-black/70 fixed inset-0 z-[100] flex items-center justify-center">
+    <div
+      ref={backdropRef}
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70"
+    >
       <div
         ref={modalRef}
         className="w-full max-w-xl rounded-xl border-2 border-borderPrimary bg-bgPrimary p-8 text-textPrimary shadow-lg"

@@ -96,7 +96,7 @@ const Signup = () => {
     <>
       <div className="grid h-screen grid-cols-2 items-center justify-center bg-bgSecondary pl-4 duration-300 ease-in max-[1040px]:grid-cols-1">
         <div className="gird items-center justify-center text-center">
-        <div className="mb-20">
+          <div className="mb-20">
             <img
               className="absolute left-5 top-5 w-[300px]"
               src="images/logo.png"
