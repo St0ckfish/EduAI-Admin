@@ -8,19 +8,23 @@ const ChatPage = () => {
   const [input, setInput] = useState("");
 
   useEffect(() => {
-    // Log in the user when the component mounts
-    loginUser("USER_ID"); // Replace with actual user ID
-
-    // Add a message listener
-    addMessageListener("chat_listener", (message: any) => {
-      setMessages((prevMessages) => [...prevMessages, message]);
-    });
-
+    if (typeof window !== 'undefined') {
+      loginUser("USER_ID"); // Replace with actual user ID
+  
+      // Add a message listener
+      addMessageListener("chat_listener", (message: any) => {
+        setMessages((prevMessages) => [...prevMessages, message]);
+      });
+    }
+  
     return () => {
-      // Clean up the listener
-      CometChat.removeMessageListener("chat_listener");
+      if (typeof window !== 'undefined') {
+        // Clean up the listener
+        CometChat.removeMessageListener("chat_listener");
+      }
     };
   }, []);
+  
 
   const handleSendMessage = () => {
     sendMessage("cometchat-uid-1", input); // Replace with actual receiver ID
