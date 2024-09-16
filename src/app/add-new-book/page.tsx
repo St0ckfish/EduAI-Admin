@@ -63,10 +63,14 @@ const AddNewBook = () => {
                 <line x1="16" y1="14" x2="16" y2="17" />
               </svg>
               <h1 className="font-sans text-[22px] font-semibold">
-                {currentLanguage === "en" ? "Book Information" :
-                  currentLanguage === "ar" ? "معلومات الكتاب" :
-                    currentLanguage === "fr" ? "Informations sur le livre" :
-                      "Book Information"}  {/* default */}
+                {currentLanguage === "en"
+                  ? "Book Information"
+                  : currentLanguage === "ar"
+                    ? "معلومات الكتاب"
+                    : currentLanguage === "fr"
+                      ? "Informations sur le livre"
+                      : "Book Information"}{" "}
+                {/* default */}
               </h1>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
@@ -74,10 +78,14 @@ const AddNewBook = () => {
                 htmlFor="name"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Book Number" :
-                  currentLanguage === "ar" ? "رقم الكتاب" :
-                    currentLanguage === "fr" ? "Numéro du livre" :
-                      "Book Number"}  {/* default */}
+                {currentLanguage === "en"
+                  ? "Book Number"
+                  : currentLanguage === "ar"
+                    ? "رقم الكتاب"
+                    : currentLanguage === "fr"
+                      ? "Numéro du livre"
+                      : "Book Number"}{" "}
+                {/* default */}
                 <input
                   id="name"
                   type="number"
@@ -88,10 +96,14 @@ const AddNewBook = () => {
                 htmlFor="code"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Book Name" :
-                  currentLanguage === "ar" ? "اسم الكتاب" :
-                    currentLanguage === "fr" ? "Nom du livre" :
-                      "Book Name"}  {/* default */}
+                {currentLanguage === "en"
+                  ? "Book Name"
+                  : currentLanguage === "ar"
+                    ? "اسم الكتاب"
+                    : currentLanguage === "fr"
+                      ? "Nom du livre"
+                      : "Book Name"}{" "}
+                {/* default */}
                 <input
                   id="code"
                   type="text"
@@ -102,10 +114,14 @@ const AddNewBook = () => {
                 htmlFor="about"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Writer" :
-                  currentLanguage === "ar" ? "الكاتب" :
-                    currentLanguage === "fr" ? "Auteur" :
-                      "Writer"}  {/* default */}
+                {currentLanguage === "en"
+                  ? "Writer"
+                  : currentLanguage === "ar"
+                    ? "الكاتب"
+                    : currentLanguage === "fr"
+                      ? "Auteur"
+                      : "Writer"}{" "}
+                {/* default */}
                 <input
                   id="about"
                   type="text"
@@ -116,10 +132,14 @@ const AddNewBook = () => {
                 htmlFor="subject"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Subject" :
-                  currentLanguage === "ar" ? "الموضوع" :
-                    currentLanguage === "fr" ? "Sujet" :
-                      "Subject"}  {/* default */}
+                {currentLanguage === "en"
+                  ? "Subject"
+                  : currentLanguage === "ar"
+                    ? "الموضوع"
+                    : currentLanguage === "fr"
+                      ? "Sujet"
+                      : "Subject"}{" "}
+                {/* default */}
                 <input
                   id="subject"
                   type="text"
@@ -130,10 +150,14 @@ const AddNewBook = () => {
                 htmlFor="creationDate"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Creation Date" :
-                  currentLanguage === "ar" ? "تاريخ الإنشاء" :
-                    currentLanguage === "fr" ? "Date de création" :
-                      "Creation Date"}  {/* default */}
+                {currentLanguage === "en"
+                  ? "Creation Date"
+                  : currentLanguage === "ar"
+                    ? "تاريخ الإنشاء"
+                    : currentLanguage === "fr"
+                      ? "Date de création"
+                      : "Creation Date"}{" "}
+                {/* default */}
                 <input
                   id="creationDate"
                   type="text"
@@ -147,15 +171,18 @@ const AddNewBook = () => {
                 type="submit"
                 className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
               >
-                {currentLanguage === "en" ? "Add Book" :
-                  currentLanguage === "ar" ? "إضافة كتاب" :
-                    currentLanguage === "fr" ? "Ajouter un livre" :
-                      "Add Book"}  {/* default */}
+                {currentLanguage === "en"
+                  ? "Add Book"
+                  : currentLanguage === "ar"
+                    ? "إضافة كتاب"
+                    : currentLanguage === "fr"
+                      ? "Ajouter un livre"
+                      : "Add Book"}{" "}
+                {/* default */}
               </button>
             </div>
           </div>
         </form>
-
       </div>
     </>
   );

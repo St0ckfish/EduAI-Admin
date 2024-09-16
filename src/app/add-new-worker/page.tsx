@@ -100,20 +100,23 @@ const AddNewWorker = () => {
                 <line x1="16" y1="14" x2="16" y2="17" />
               </svg>
               <h1 className="font-sans text-[22px] font-semibold">
-                {currentLanguage === 'en' ? 'Worker Information' :
-                  currentLanguage === 'ar' ? 'معلومات العامل' :
-                    'Informations sur le travailleur'}
+                {currentLanguage === "en"
+                  ? "Worker Information"
+                  : currentLanguage === "ar"
+                    ? "معلومات العامل"
+                    : "Informations sur le travailleur"}
               </h1>
-
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
               <label
                 htmlFor="username"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === 'en' ? 'Username' :
-                  currentLanguage === 'ar' ? 'اسم المستخدم' :
-                    'Nom d’utilisateur'}
+                {currentLanguage === "en"
+                  ? "Username"
+                  : currentLanguage === "ar"
+                    ? "اسم المستخدم"
+                    : "Nom d’utilisateur"}
                 <input
                   id="username"
                   type="text"
@@ -122,9 +125,11 @@ const AddNewWorker = () => {
                 />
                 {errors.username && (
                   <span className="text-error">
-                    {currentLanguage === 'en' ? 'This field is required' :
-                      currentLanguage === 'ar' ? 'هذه الحقول مطلوبة' :
-                        'Ce champ est requis'}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذه الحقول مطلوبة"
+                        : "Ce champ est requis"}
                   </span>
                 )}
               </label>
@@ -132,9 +137,11 @@ const AddNewWorker = () => {
                 htmlFor="email"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === 'en' ? 'Email' :
-                  currentLanguage === 'ar' ? 'البريد الإلكتروني' :
-                    'E-mail'}
+                {currentLanguage === "en"
+                  ? "Email"
+                  : currentLanguage === "ar"
+                    ? "البريد الإلكتروني"
+                    : "E-mail"}
                 <input
                   id="email"
                   type="email"
@@ -143,9 +150,11 @@ const AddNewWorker = () => {
                 />
                 {errors.email && (
                   <span className="text-error">
-                    {currentLanguage === 'en' ? 'This field is required' :
-                      currentLanguage === 'ar' ? 'هذه الحقول مطلوبة' :
-                        'Ce champ est requis'}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذه الحقول مطلوبة"
+                        : "Ce champ est requis"}
                   </span>
                 )}
               </label>
@@ -153,9 +162,11 @@ const AddNewWorker = () => {
                 htmlFor="password"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === 'en' ? 'Password' :
-                  currentLanguage === 'ar' ? 'كلمة المرور' :
-                    'Mot de passe'}
+                {currentLanguage === "en"
+                  ? "Password"
+                  : currentLanguage === "ar"
+                    ? "كلمة المرور"
+                    : "Mot de passe"}
                 <input
                   id="password"
                   type="password"
@@ -164,9 +175,11 @@ const AddNewWorker = () => {
                 />
                 {errors.password && (
                   <span className="text-error">
-                    {currentLanguage === 'en' ? 'This field is required' :
-                      currentLanguage === 'ar' ? 'هذه الحقول مطلوبة' :
-                        'Ce champ est requis'}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذه الحقول مطلوبة"
+                        : "Ce champ est requis"}
                   </span>
                 )}
               </label>
@@ -174,9 +187,11 @@ const AddNewWorker = () => {
                 htmlFor="nid"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === 'en' ? 'NID' :
-                  currentLanguage === 'ar' ? 'رقم الهوية الوطنية' :
-                    'NID'}
+                {currentLanguage === "en"
+                  ? "NID"
+                  : currentLanguage === "ar"
+                    ? "رقم الهوية الوطنية"
+                    : "NID"}
                 <input
                   id="nid"
                   type="number"
@@ -185,9 +200,11 @@ const AddNewWorker = () => {
                 />
                 {errors.nid && (
                   <span className="text-error">
-                    {currentLanguage === 'en' ? 'This field is required' :
-                      currentLanguage === 'ar' ? 'هذه الحقول مطلوبة' :
-                        'Ce champ est requis'}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذه الحقول مطلوبة"
+                        : "Ce champ est requis"}
                   </span>
                 )}
               </label>
@@ -195,35 +212,45 @@ const AddNewWorker = () => {
                 htmlFor="gender"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === 'en' ? 'Gender' :
-                  currentLanguage === 'ar' ? 'الجنس' :
-                    'Genre'}
+                {currentLanguage === "en"
+                  ? "Gender"
+                  : currentLanguage === "ar"
+                    ? "الجنس"
+                    : "Genre"}
                 <select
                   id="gender"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("gender", { required: true })}
                 >
                   <option value="">
-                    {currentLanguage === 'en' ? 'Select gender' :
-                      currentLanguage === 'ar' ? 'حدد الجنس' :
-                        'Sélectionner le genre'}
+                    {currentLanguage === "en"
+                      ? "Select gender"
+                      : currentLanguage === "ar"
+                        ? "حدد الجنس"
+                        : "Sélectionner le genre"}
                   </option>
                   <option value="MALE">
-                    {currentLanguage === 'en' ? 'Male' :
-                      currentLanguage === 'ar' ? 'ذكر' :
-                        'Homme'}
+                    {currentLanguage === "en"
+                      ? "Male"
+                      : currentLanguage === "ar"
+                        ? "ذكر"
+                        : "Homme"}
                   </option>
                   <option value="FEMALE">
-                    {currentLanguage === 'en' ? 'Female' :
-                      currentLanguage === 'ar' ? 'أنثى' :
-                        'Femme'}
+                    {currentLanguage === "en"
+                      ? "Female"
+                      : currentLanguage === "ar"
+                        ? "أنثى"
+                        : "Femme"}
                   </option>
                 </select>
                 {errors.gender && (
                   <span className="text-error">
-                    {currentLanguage === 'en' ? 'This field is required' :
-                      currentLanguage === 'ar' ? 'هذه الحقول مطلوبة' :
-                        'Ce champ est requis'}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذه الحقول مطلوبة"
+                        : "Ce champ est requis"}
                   </span>
                 )}
               </label>
@@ -231,62 +258,77 @@ const AddNewWorker = () => {
                 htmlFor="religion"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === 'en' ? 'Religion' :
-                  currentLanguage === 'ar' ? 'الديانة' :
-                    'Religion'}
+                {currentLanguage === "en"
+                  ? "Religion"
+                  : currentLanguage === "ar"
+                    ? "الديانة"
+                    : "Religion"}
                 <select
                   id="religion"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("religion", { required: true })}
                 >
                   <option value="">
-                    {currentLanguage === 'en' ? 'Select religion' :
-                      currentLanguage === 'ar' ? 'حدد الديانة' :
-                        'Sélectionner la religion'}
+                    {currentLanguage === "en"
+                      ? "Select religion"
+                      : currentLanguage === "ar"
+                        ? "حدد الديانة"
+                        : "Sélectionner la religion"}
                   </option>
                   <option value="MUSLIM">
-                    {currentLanguage === 'en' ? 'Muslim' :
-                      currentLanguage === 'ar' ? 'مسلم' :
-                        'Musulman'}
+                    {currentLanguage === "en"
+                      ? "Muslim"
+                      : currentLanguage === "ar"
+                        ? "مسلم"
+                        : "Musulman"}
                   </option>
                   <option value="CHRISTIAN">
-                    {currentLanguage === 'en' ? 'Christian' :
-                      currentLanguage === 'ar' ? 'مسيحي' :
-                        'Chrétien'}
+                    {currentLanguage === "en"
+                      ? "Christian"
+                      : currentLanguage === "ar"
+                        ? "مسيحي"
+                        : "Chrétien"}
                   </option>
                   <option value="OTHERS">
-                    {currentLanguage === 'en' ? 'Others' :
-                      currentLanguage === 'ar' ? 'أخرى' :
-                        'Autres'}
+                    {currentLanguage === "en"
+                      ? "Others"
+                      : currentLanguage === "ar"
+                        ? "أخرى"
+                        : "Autres"}
                   </option>
                 </select>
                 {errors.religion && (
                   <span className="text-error">
-                    {currentLanguage === 'en' ? 'This field is required' :
-                      currentLanguage === 'ar' ? 'هذه الحقول مطلوبة' :
-                        'Ce champ est requis'}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذه الحقول مطلوبة"
+                        : "Ce champ est requis"}
                   </span>
                 )}
               </label>
-
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
               <label
                 htmlFor="nationality"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === 'en' ? 'Your Nationality' :
-                  currentLanguage === 'ar' ? 'جنسيتك' :
-                    'Votre nationalité'}
+                {currentLanguage === "en"
+                  ? "Your Nationality"
+                  : currentLanguage === "ar"
+                    ? "جنسيتك"
+                    : "Votre nationalité"}
                 <select
                   id="nationality"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("nationality", { required: true })}
                 >
                   <option value="">
-                    {currentLanguage === 'en' ? 'Select Nationality' :
-                      currentLanguage === 'ar' ? 'اختر الجنسية' :
-                        'Sélectionner la nationalité'}
+                    {currentLanguage === "en"
+                      ? "Select Nationality"
+                      : currentLanguage === "ar"
+                        ? "اختر الجنسية"
+                        : "Sélectionner la nationalité"}
                   </option>
                   {nationalityData &&
                     Object.entries(nationalityData.data).map(([key, value]) => (
@@ -297,9 +339,11 @@ const AddNewWorker = () => {
                 </select>
                 {errors.nationality && (
                   <span className="text-error">
-                    {currentLanguage === 'en' ? 'This field is required' :
-                      currentLanguage === 'ar' ? 'هذه الحقول مطلوبة' :
-                        'Ce champ est requis'}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذه الحقول مطلوبة"
+                        : "Ce champ est requis"}
                   </span>
                 )}
               </label>
@@ -307,9 +351,11 @@ const AddNewWorker = () => {
                 htmlFor="regionId"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === 'en' ? 'RegionId' :
-                  currentLanguage === 'ar' ? 'رقم المنطقة' :
-                    'Identifiant de région'}
+                {currentLanguage === "en"
+                  ? "RegionId"
+                  : currentLanguage === "ar"
+                    ? "رقم المنطقة"
+                    : "Identifiant de région"}
                 <select
                   defaultValue=""
                   id="regionId"
@@ -317,9 +363,11 @@ const AddNewWorker = () => {
                   className={`border ${errors.regionId ? "border-warning" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-[18px] text-[#000000] outline-none max-[458px]:w-[350px]`}
                 >
                   <option value="">
-                    {currentLanguage === 'en' ? 'Select Region Id' :
-                      currentLanguage === 'ar' ? 'اختر رقم المنطقة' :
-                        'Sélectionner l’identifiant de région'}
+                    {currentLanguage === "en"
+                      ? "Select Region Id"
+                      : currentLanguage === "ar"
+                        ? "اختر رقم المنطقة"
+                        : "Sélectionner l’identifiant de région"}
                   </option>
                   {rigiond &&
                     rigiond.data.map(
@@ -327,19 +375,19 @@ const AddNewWorker = () => {
                         rigion: {
                           id: string | number | readonly string[] | undefined;
                           name:
-                          | string
-                          | number
-                          | bigint
-                          | boolean
-                          | React.ReactElement<
-                            any,
-                            string | React.JSXElementConstructor<any>
-                          >
-                          | Iterable<React.ReactNode>
-                          | React.ReactPortal
-                          | Promise<React.AwaitedReactNode>
-                          | null
-                          | undefined;
+                            | string
+                            | number
+                            | bigint
+                            | boolean
+                            | React.ReactElement<
+                                any,
+                                string | React.JSXElementConstructor<any>
+                              >
+                            | Iterable<React.ReactNode>
+                            | React.ReactPortal
+                            | Promise<React.AwaitedReactNode>
+                            | null
+                            | undefined;
                         },
                         index: React.Key | null | undefined,
                       ) => (
@@ -351,9 +399,11 @@ const AddNewWorker = () => {
                 </select>
                 {errors.regionId && (
                   <span className="text-error">
-                    {currentLanguage === 'en' ? 'This field is required' :
-                      currentLanguage === 'ar' ? 'هذه الحقول مطلوبة' :
-                        'Ce champ est requis'}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذه الحقول مطلوبة"
+                        : "Ce champ est requis"}
                   </span>
                 )}
               </label>
@@ -361,9 +411,11 @@ const AddNewWorker = () => {
                 htmlFor="name_en"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === 'en' ? 'Name (EN)' :
-                  currentLanguage === 'ar' ? 'الاسم (بالإنجليزية)' :
-                    'Nom (EN)'}
+                {currentLanguage === "en"
+                  ? "Name (EN)"
+                  : currentLanguage === "ar"
+                    ? "الاسم (بالإنجليزية)"
+                    : "Nom (EN)"}
                 <input
                   id="name_en"
                   type="text"
@@ -372,9 +424,11 @@ const AddNewWorker = () => {
                 />
                 {errors.name_en && (
                   <span className="text-error">
-                    {currentLanguage === 'en' ? 'This field is required' :
-                      currentLanguage === 'ar' ? 'هذه الحقول مطلوبة' :
-                        'Ce champ est requis'}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذه الحقول مطلوبة"
+                        : "Ce champ est requis"}
                   </span>
                 )}
               </label>
@@ -382,9 +436,11 @@ const AddNewWorker = () => {
                 htmlFor="name_ar"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === 'en' ? 'Name (AR)' :
-                  currentLanguage === 'ar' ? 'الاسم (بالعربية)' :
-                    'Nom (AR)'}
+                {currentLanguage === "en"
+                  ? "Name (AR)"
+                  : currentLanguage === "ar"
+                    ? "الاسم (بالعربية)"
+                    : "Nom (AR)"}
                 <input
                   id="name_ar"
                   type="text"
@@ -393,9 +449,11 @@ const AddNewWorker = () => {
                 />
                 {errors.name_ar && (
                   <span className="text-error">
-                    {currentLanguage === 'en' ? 'This field is required' :
-                      currentLanguage === 'ar' ? 'هذه الحقول مطلوبة' :
-                        'Ce champ est requis'}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذه الحقول مطلوبة"
+                        : "Ce champ est requis"}
                   </span>
                 )}
               </label>
@@ -403,9 +461,11 @@ const AddNewWorker = () => {
                 htmlFor="name_fr"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === 'en' ? 'Name (FR)' :
-                  currentLanguage === 'ar' ? 'الاسم (بالفرنسية)' :
-                    'Nom (FR)'}
+                {currentLanguage === "en"
+                  ? "Name (FR)"
+                  : currentLanguage === "ar"
+                    ? "الاسم (بالفرنسية)"
+                    : "Nom (FR)"}
                 <input
                   id="name_fr"
                   type="text"
@@ -414,9 +474,11 @@ const AddNewWorker = () => {
                 />
                 {errors.name_fr && (
                   <span className="text-error">
-                    {currentLanguage === 'en' ? 'This field is required' :
-                      currentLanguage === 'ar' ? 'هذه الحقول مطلوبة' :
-                        'Ce champ est requis'}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذه الحقول مطلوبة"
+                        : "Ce champ est requis"}
                   </span>
                 )}
               </label>
@@ -424,9 +486,11 @@ const AddNewWorker = () => {
                 htmlFor="about"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === 'en' ? 'About' :
-                  currentLanguage === 'ar' ? 'حول' :
-                    'À propos'}
+                {currentLanguage === "en"
+                  ? "About"
+                  : currentLanguage === "ar"
+                    ? "حول"
+                    : "À propos"}
                 <input
                   id="about"
                   type="text"
@@ -435,9 +499,11 @@ const AddNewWorker = () => {
                 />
                 {errors.about && (
                   <span className="text-error">
-                    {currentLanguage === 'en' ? 'This field is required' :
-                      currentLanguage === 'ar' ? 'هذه الحقول مطلوبة' :
-                        'Ce champ est requis'}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذه الحقول مطلوبة"
+                        : "Ce champ est requis"}
                   </span>
                 )}
               </label>
@@ -445,9 +511,11 @@ const AddNewWorker = () => {
                 htmlFor="birthDate"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === 'en' ? 'Date Of Birth' :
-                  currentLanguage === 'ar' ? 'تاريخ الميلاد' :
-                    'Date de naissance'}
+                {currentLanguage === "en"
+                  ? "Date Of Birth"
+                  : currentLanguage === "ar"
+                    ? "تاريخ الميلاد"
+                    : "Date de naissance"}
                 <input
                   id="birthDate"
                   type="date"
@@ -456,9 +524,11 @@ const AddNewWorker = () => {
                 />
                 {errors.birthDate && (
                   <span className="text-error">
-                    {currentLanguage === 'en' ? 'This field is required' :
-                      currentLanguage === 'ar' ? 'هذه الحقول مطلوبة' :
-                        'Ce champ est requis'}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذه الحقول مطلوبة"
+                        : "Ce champ est requis"}
                   </span>
                 )}
               </label>
@@ -466,9 +536,11 @@ const AddNewWorker = () => {
                 htmlFor="qualification"
                 className="mt-4 grid items-center font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === 'en' ? 'Qualification' :
-                  currentLanguage === 'ar' ? 'المؤهل' :
-                    'Qualification'}
+                {currentLanguage === "en"
+                  ? "Qualification"
+                  : currentLanguage === "ar"
+                    ? "المؤهل"
+                    : "Qualification"}
                 <select
                   defaultValue=""
                   id="qualification"
@@ -476,49 +548,62 @@ const AddNewWorker = () => {
                   className="h-[55px] w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 >
                   <option value="">
-                    {currentLanguage === 'en' ? 'Select Qualification' :
-                      currentLanguage === 'ar' ? 'اختر المؤهل' :
-                        'Sélectionner la qualification'}
+                    {currentLanguage === "en"
+                      ? "Select Qualification"
+                      : currentLanguage === "ar"
+                        ? "اختر المؤهل"
+                        : "Sélectionner la qualification"}
                   </option>
                   <option value="HIGH_SCHOOL_DIPLOMA">
-                    {currentLanguage === 'en' ? 'High School Diploma' :
-                      currentLanguage === 'ar' ? 'دبلوم المدرسة الثانوية' :
-                        'Diplôme de lycée'}
+                    {currentLanguage === "en"
+                      ? "High School Diploma"
+                      : currentLanguage === "ar"
+                        ? "دبلوم المدرسة الثانوية"
+                        : "Diplôme de lycée"}
                   </option>
                   <option value="MASTER_DEGREE">
-                    {currentLanguage === 'en' ? 'Master Degree' :
-                      currentLanguage === 'ar' ? 'درجة الماجستير' :
-                        'Master'}
+                    {currentLanguage === "en"
+                      ? "Master Degree"
+                      : currentLanguage === "ar"
+                        ? "درجة الماجستير"
+                        : "Master"}
                   </option>
                   <option value="BACHELOR_DEGREE">
-                    {currentLanguage === 'en' ? 'Bachelor Degree' :
-                      currentLanguage === 'ar' ? 'درجة البكالوريوس' :
-                        'Licence'}
+                    {currentLanguage === "en"
+                      ? "Bachelor Degree"
+                      : currentLanguage === "ar"
+                        ? "درجة البكالوريوس"
+                        : "Licence"}
                   </option>
                   <option value="DOCTORATE_DEGREE">
-                    {currentLanguage === 'en' ? 'Doctorate Degree' :
-                      currentLanguage === 'ar' ? 'درجة الدكتوراه' :
-                        'Doctorat'}
+                    {currentLanguage === "en"
+                      ? "Doctorate Degree"
+                      : currentLanguage === "ar"
+                        ? "درجة الدكتوراه"
+                        : "Doctorat"}
                   </option>
                 </select>
                 {errors.qualification && (
                   <span className="text-[18px] text-error">
-                    {currentLanguage === 'en' ? 'Qualification is Required' :
-                      currentLanguage === 'ar' ? 'المؤهل مطلوب' :
-                        'La qualification est requise'}
+                    {currentLanguage === "en"
+                      ? "Qualification is Required"
+                      : currentLanguage === "ar"
+                        ? "المؤهل مطلوب"
+                        : "La qualification est requise"}
                   </span>
                 )}
               </label>
-
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
               <label
                 htmlFor="hireDate"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === 'en' ? 'Hire Date' :
-                  currentLanguage === 'ar' ? 'تاريخ التوظيف' :
-                    'Date d\'embauche'}
+                {currentLanguage === "en"
+                  ? "Hire Date"
+                  : currentLanguage === "ar"
+                    ? "تاريخ التوظيف"
+                    : "Date d'embauche"}
                 <input
                   id="hireDate"
                   type="date"
@@ -527,9 +612,11 @@ const AddNewWorker = () => {
                 />
                 {errors.hireDate && (
                   <span className="text-error">
-                    {currentLanguage === 'en' ? 'This field is required' :
-                      currentLanguage === 'ar' ? 'هذه الحقول مطلوبة' :
-                        'Ce champ est requis'}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذه الحقول مطلوبة"
+                        : "Ce champ est requis"}
                   </span>
                 )}
               </label>
@@ -537,9 +624,11 @@ const AddNewWorker = () => {
                 htmlFor="number"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === 'en' ? 'Mobile' :
-                  currentLanguage === 'ar' ? 'رقم الهاتف' :
-                    'Mobile'}
+                {currentLanguage === "en"
+                  ? "Mobile"
+                  : currentLanguage === "ar"
+                    ? "رقم الهاتف"
+                    : "Mobile"}
                 <input
                   id="number"
                   type="number"
@@ -548,9 +637,11 @@ const AddNewWorker = () => {
                 />
                 {errors.number && (
                   <span className="text-error">
-                    {currentLanguage === 'en' ? 'This field is required' :
-                      currentLanguage === 'ar' ? 'هذه الحقول مطلوبة' :
-                        'Ce champ est requis'}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذه الحقول مطلوبة"
+                        : "Ce champ est requis"}
                   </span>
                 )}
               </label>
@@ -558,9 +649,11 @@ const AddNewWorker = () => {
                 htmlFor="positionId"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === 'en' ? 'Position Id' :
-                  currentLanguage === 'ar' ? 'رقم الوظيفة' :
-                    'Identifiant du poste'}
+                {currentLanguage === "en"
+                  ? "Position Id"
+                  : currentLanguage === "ar"
+                    ? "رقم الوظيفة"
+                    : "Identifiant du poste"}
                 <input
                   id="positionId"
                   type="number"
@@ -569,9 +662,11 @@ const AddNewWorker = () => {
                 />
                 {errors.positionId && (
                   <span className="text-error">
-                    {currentLanguage === 'en' ? 'This field is required' :
-                      currentLanguage === 'ar' ? 'هذه الحقول مطلوبة' :
-                        'Ce champ est requis'}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذه الحقول مطلوبة"
+                        : "Ce champ est requis"}
                   </span>
                 )}
               </label>
@@ -579,9 +674,11 @@ const AddNewWorker = () => {
                 htmlFor="salary"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === 'en' ? 'Salary' :
-                  currentLanguage === 'ar' ? 'الراتب' :
-                    'Salaire'}
+                {currentLanguage === "en"
+                  ? "Salary"
+                  : currentLanguage === "ar"
+                    ? "الراتب"
+                    : "Salaire"}
                 <input
                   id="salary"
                   type="number"
@@ -590,13 +687,14 @@ const AddNewWorker = () => {
                 />
                 {errors.salary && (
                   <span className="text-error">
-                    {currentLanguage === 'en' ? 'This field is required' :
-                      currentLanguage === 'ar' ? 'هذه الحقول مطلوبة' :
-                        'Ce champ est requis'}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذه الحقول مطلوبة"
+                        : "Ce champ est requis"}
                   </span>
                 )}
               </label>
-
             </div>
             <div className="flex justify-center text-center">
               <button
@@ -605,12 +703,16 @@ const AddNewWorker = () => {
                 className="w-[180px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
               >
                 {isLoading
-                  ? (currentLanguage === 'en' ? "Adding..." :
-                    currentLanguage === 'ar' ? "يتم الإضافة..." :
-                      "Ajout en cours...")
-                  : (currentLanguage === 'en' ? "Add Worker" :
-                    currentLanguage === 'ar' ? "إضافة عامل" :
-                      "Ajouter un travailleur")}
+                  ? currentLanguage === "en"
+                    ? "Adding..."
+                    : currentLanguage === "ar"
+                      ? "يتم الإضافة..."
+                      : "Ajout en cours..."
+                  : currentLanguage === "en"
+                    ? "Add Worker"
+                    : currentLanguage === "ar"
+                      ? "إضافة عامل"
+                      : "Ajouter un travailleur"}
               </button>
             </div>
           </div>

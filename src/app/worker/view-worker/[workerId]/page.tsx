@@ -41,21 +41,24 @@ const ViewWorker: React.FC<ViewWorkerProps> = ({ params }) => {
           <div className="grid h-[400px] items-center justify-center gap-10 rounded-xl bg-bgPrimary p-5">
             <div className="grid justify-start">
               <h1 className="font-sans font-semibold text-textPrimary">
-                {currentLanguage === "en" ? "Available days of absence" :
-                  currentLanguage === "ar" ? "أيام الغياب المتاحة" :
-                    "Jours d'absence disponibles"}
+                {currentLanguage === "en"
+                  ? "Available days of absence"
+                  : currentLanguage === "ar"
+                    ? "أيام الغياب المتاحة"
+                    : "Jours d'absence disponibles"}
               </h1>
               <h1 className="font-sans text-[14px] font-semibold text-textSecondary">
-                {currentLanguage === "en" ? "14 days in a year" :
-                  currentLanguage === "ar" ? "14 يوم في السنة" :
-                    "14 jours par an"}
+                {currentLanguage === "en"
+                  ? "14 days in a year"
+                  : currentLanguage === "ar"
+                    ? "14 يوم في السنة"
+                    : "14 jours par an"}
               </h1>
             </div>
             <DynamicPartition percentage={5} />
           </div>
         </div>
       </div>
-
     </>
   );
 };

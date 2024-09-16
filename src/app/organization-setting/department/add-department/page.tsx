@@ -108,18 +108,17 @@ const AddDepartment = () => {
                     ? "Informations sur le département"
                     : "Department Information"}
               </h1>
-
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
               <label
                 htmlFor="name_en"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                  {currentLanguage === "ar"
-                    ? "الاسم الكامل (بالإنجليزية)"
-                    : currentLanguage === "fr"
-                      ? "Nom complet (anglais)"
-                      : "Full Name (English)"}
+                {currentLanguage === "ar"
+                  ? "الاسم الكامل (بالإنجليزية)"
+                  : currentLanguage === "fr"
+                    ? "Nom complet (anglais)"
+                    : "Full Name (English)"}
                 <input
                   id="name_en"
                   type="text"
@@ -134,18 +133,17 @@ const AddDepartment = () => {
                         ? "Ce champ est requis"
                         : "This field is required"}
                   </span>
-
                 )}
               </label>
               <label
                 htmlFor="name_fr"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                  {currentLanguage === "ar"
-                    ? "الاسم الكامل (بالفرنسية)"
-                    : currentLanguage === "fr"
-                      ? "Nom Complet (français)"
-                      : "Full Name (French)"}
+                {currentLanguage === "ar"
+                  ? "الاسم الكامل (بالفرنسية)"
+                  : currentLanguage === "fr"
+                    ? "Nom Complet (français)"
+                    : "Full Name (French)"}
                 <input
                   id="name_fr"
                   type="text"
@@ -160,7 +158,6 @@ const AddDepartment = () => {
                         ? "Ce champ est requis"
                         : "This field is required"}
                   </span>
-
                 )}
               </label>
               <label
@@ -186,7 +183,6 @@ const AddDepartment = () => {
                         ? "Ce champ est requis"
                         : "This field is required"}
                   </span>
-
                 )}
               </label>
               <label
@@ -212,7 +208,6 @@ const AddDepartment = () => {
                         ? "Ce champ est requis"
                         : "This field is required"}
                   </span>
-
                 )}
               </label>
               <label
@@ -239,7 +234,6 @@ const AddDepartment = () => {
                         ? "Ce champ est requis"
                         : "This field is required"}
                   </span>
-
                 )}
               </label>
               <label
@@ -265,7 +259,6 @@ const AddDepartment = () => {
                         ? "Ce champ est requis"
                         : "This field is required"}
                   </span>
-
                 )}
               </label>
               <label
@@ -317,7 +310,6 @@ const AddDepartment = () => {
                         ? "Ce champ est requis"
                         : "This field is required"}
                   </span>
-
                 )}
               </label>
               <label
@@ -343,7 +335,6 @@ const AddDepartment = () => {
                         ? "Ce champ est requis"
                         : "This field is required"}
                   </span>
-
                 )}
               </label>
               <label
@@ -370,7 +361,6 @@ const AddDepartment = () => {
                         ? "Ce champ est requis"
                         : "This field is required"}
                   </span>
-
                 )}
               </label>
               <label
@@ -410,7 +400,6 @@ const AddDepartment = () => {
                         ? "Ce champ est requis"
                         : "This field is required"}
                   </span>
-
                 )}
               </label>
             </div>
@@ -422,11 +411,11 @@ const AddDepartment = () => {
                   type="submit"
                   className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                 >
-                    {currentLanguage === "ar"
-                      ? "حفظ"
-                      : currentLanguage === "fr"
-                        ? "Enregistrer"
-                        : "Save"}
+                  {currentLanguage === "ar"
+                    ? "حفظ"
+                    : currentLanguage === "fr"
+                      ? "Enregistrer"
+                      : "Save"}
                 </button>
               )}
             </div>

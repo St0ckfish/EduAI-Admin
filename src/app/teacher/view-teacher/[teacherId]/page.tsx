@@ -40,10 +40,13 @@ const ViewTeacher: React.FC<ViewTeacherProps> = ({ params }) => {
           <div className="grid h-[700px] items-center justify-center gap-10 rounded-xl bg-bgPrimary p-5">
             <div className="flex justify-start">
               <h1 className="font-sans font-semibold text-textPrimary">
-                {currentLanguage === "en" ? "Today Schedule" :
-                  currentLanguage === "ar" ? "جدول اليوم" :
-                    currentLanguage === "fr" ? "Programme du jour" :
-                      "Today Schedule"}
+                {currentLanguage === "en"
+                  ? "Today Schedule"
+                  : currentLanguage === "ar"
+                    ? "جدول اليوم"
+                    : currentLanguage === "fr"
+                      ? "Programme du jour"
+                      : "Today Schedule"}
               </h1>
             </div>
             <Calendar />
@@ -54,28 +57,40 @@ const ViewTeacher: React.FC<ViewTeacherProps> = ({ params }) => {
                 <thead className="bg-thead text-xs uppercase text-textPrimary">
                   <tr>
                     <th scope="col" className="whitespace-nowrap px-6 py-3">
-                      {currentLanguage === "en" ? "Full Name" :
-                        currentLanguage === "ar" ? "الاسم الكامل" :
-                          currentLanguage === "fr" ? "Nom complet" :
-                            "Full Name"}
+                      {currentLanguage === "en"
+                        ? "Full Name"
+                        : currentLanguage === "ar"
+                          ? "الاسم الكامل"
+                          : currentLanguage === "fr"
+                            ? "Nom complet"
+                            : "Full Name"}
                     </th>
                     <th scope="col" className="whitespace-nowrap px-6 py-3">
-                      {currentLanguage === "en" ? "ID" :
-                        currentLanguage === "ar" ? "الرقم التعريفي" :
-                          currentLanguage === "fr" ? "ID" :
-                            "ID"}
+                      {currentLanguage === "en"
+                        ? "ID"
+                        : currentLanguage === "ar"
+                          ? "الرقم التعريفي"
+                          : currentLanguage === "fr"
+                            ? "ID"
+                            : "ID"}
                     </th>
                     <th scope="col" className="whitespace-nowrap px-6 py-3">
-                      {currentLanguage === "en" ? "Address" :
-                        currentLanguage === "ar" ? "العنوان" :
-                          currentLanguage === "fr" ? "Adresse" :
-                            "Address"}
+                      {currentLanguage === "en"
+                        ? "Address"
+                        : currentLanguage === "ar"
+                          ? "العنوان"
+                          : currentLanguage === "fr"
+                            ? "Adresse"
+                            : "Address"}
                     </th>
                     <th scope="col" className="whitespace-nowrap px-6 py-3">
-                      {currentLanguage === "en" ? "Status" :
-                        currentLanguage === "ar" ? "الحالة" :
-                          currentLanguage === "fr" ? "Statut" :
-                            "Status"}
+                      {currentLanguage === "en"
+                        ? "Status"
+                        : currentLanguage === "ar"
+                          ? "الحالة"
+                          : currentLanguage === "fr"
+                            ? "Statut"
+                            : "Status"}
                     </th>
                   </tr>
                 </thead>
@@ -112,7 +127,6 @@ const ViewTeacher: React.FC<ViewTeacherProps> = ({ params }) => {
           </div>
         </div>
       </div>
-
     </>
   );
 };

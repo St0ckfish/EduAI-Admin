@@ -37,7 +37,7 @@ const AddNewDriver = () => {
         "Failed to create Driver: you may enter the password incorrectly ",
       );
     }
-  }
+  };
 
   const breadcrumbs = [
     {
@@ -104,10 +104,14 @@ const AddNewDriver = () => {
                 <line x1="16" y1="14" x2="16" y2="17" />
               </svg>
               <h1 className="font-sans text-[22px] font-semibold">
-                {currentLanguage === "en" ? "Driver Information" :
-                  currentLanguage === "ar" ? "معلومات السائق" :
-                    currentLanguage === "fr" ? "Informations sur le conducteur" :
-                      "Driver Information"} {/* default */}
+                {currentLanguage === "en"
+                  ? "Driver Information"
+                  : currentLanguage === "ar"
+                    ? "معلومات السائق"
+                    : currentLanguage === "fr"
+                      ? "Informations sur le conducteur"
+                      : "Driver Information"}{" "}
+                {/* default */}
               </h1>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
@@ -115,10 +119,14 @@ const AddNewDriver = () => {
                 htmlFor="username"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Username" :
-                  currentLanguage === "ar" ? "اسم المستخدم" :
-                    currentLanguage === "fr" ? "Nom d'utilisateur" :
-                      "Username"} {/* default */}
+                {currentLanguage === "en"
+                  ? "Username"
+                  : currentLanguage === "ar"
+                    ? "اسم المستخدم"
+                    : currentLanguage === "fr"
+                      ? "Nom d'utilisateur"
+                      : "Username"}{" "}
+                {/* default */}
                 <input
                   id="username"
                   type="text"
@@ -127,10 +135,14 @@ const AddNewDriver = () => {
                 />
                 {errors.username && (
                   <span className="text-error">
-                    {currentLanguage === "en" ? "This field is required" :
-                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
-                        currentLanguage === "fr" ? "Ce champ est requis" :
-                          "This field is required"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
@@ -138,10 +150,14 @@ const AddNewDriver = () => {
                 htmlFor="email"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Email" :
-                  currentLanguage === "ar" ? "البريد الإلكتروني" :
-                    currentLanguage === "fr" ? "E-mail" :
-                      "Email"} {/* default */}
+                {currentLanguage === "en"
+                  ? "Email"
+                  : currentLanguage === "ar"
+                    ? "البريد الإلكتروني"
+                    : currentLanguage === "fr"
+                      ? "E-mail"
+                      : "Email"}{" "}
+                {/* default */}
                 <input
                   id="email"
                   type="email"
@@ -150,10 +166,14 @@ const AddNewDriver = () => {
                 />
                 {errors.email && (
                   <span className="text-error">
-                    {currentLanguage === "en" ? "This field is required" :
-                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
-                        currentLanguage === "fr" ? "Ce champ est requis" :
-                          "This field is required"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
@@ -161,10 +181,14 @@ const AddNewDriver = () => {
                 htmlFor="password"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Password" :
-                  currentLanguage === "ar" ? "كلمة المرور" :
-                    currentLanguage === "fr" ? "Mot de passe" :
-                      "Password"} {/* default */}
+                {currentLanguage === "en"
+                  ? "Password"
+                  : currentLanguage === "ar"
+                    ? "كلمة المرور"
+                    : currentLanguage === "fr"
+                      ? "Mot de passe"
+                      : "Password"}{" "}
+                {/* default */}
                 <input
                   id="password"
                   type="password"
@@ -173,10 +197,14 @@ const AddNewDriver = () => {
                 />
                 {errors.password && (
                   <span className="text-error">
-                    {currentLanguage === "en" ? "This field is required" :
-                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
-                        currentLanguage === "fr" ? "Ce champ est requis" :
-                          "This field is required"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
@@ -184,10 +212,14 @@ const AddNewDriver = () => {
                 htmlFor="nid"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "NID" :
-                  currentLanguage === "ar" ? "الرقم الوطني" :
-                    currentLanguage === "fr" ? "NID" :
-                      "NID"} {/* default */}
+                {currentLanguage === "en"
+                  ? "NID"
+                  : currentLanguage === "ar"
+                    ? "الرقم الوطني"
+                    : currentLanguage === "fr"
+                      ? "NID"
+                      : "NID"}{" "}
+                {/* default */}
                 <input
                   id="nid"
                   type="number"
@@ -196,10 +228,14 @@ const AddNewDriver = () => {
                 />
                 {errors.nid && (
                   <span className="text-error">
-                    {currentLanguage === "en" ? "This field is required" :
-                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
-                        currentLanguage === "fr" ? "Ce champ est requis" :
-                          "This field is required"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
@@ -207,40 +243,60 @@ const AddNewDriver = () => {
                 htmlFor="gender"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Gender" :
-                  currentLanguage === "ar" ? "النوع" :
-                    currentLanguage === "fr" ? "Genre" :
-                      "Gender"} {/* default */}
+                {currentLanguage === "en"
+                  ? "Gender"
+                  : currentLanguage === "ar"
+                    ? "النوع"
+                    : currentLanguage === "fr"
+                      ? "Genre"
+                      : "Gender"}{" "}
+                {/* default */}
                 <select
                   id="gender"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("gender", { required: true })}
                 >
                   <option selected value="">
-                    {currentLanguage === "en" ? "Select gender" :
-                      currentLanguage === "ar" ? "اختر النوع" :
-                        currentLanguage === "fr" ? "Sélectionner le genre" :
-                          "Select gender"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "Select gender"
+                      : currentLanguage === "ar"
+                        ? "اختر النوع"
+                        : currentLanguage === "fr"
+                          ? "Sélectionner le genre"
+                          : "Select gender"}{" "}
+                    {/* default */}
                   </option>
                   <option value="MALE">
-                    {currentLanguage === "en" ? "Male" :
-                      currentLanguage === "ar" ? "ذكر" :
-                        currentLanguage === "fr" ? "Homme" :
-                          "Male"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "Male"
+                      : currentLanguage === "ar"
+                        ? "ذكر"
+                        : currentLanguage === "fr"
+                          ? "Homme"
+                          : "Male"}{" "}
+                    {/* default */}
                   </option>
                   <option value="FEMALE">
-                    {currentLanguage === "en" ? "Female" :
-                      currentLanguage === "ar" ? "أنثى" :
-                        currentLanguage === "fr" ? "Femme" :
-                          "Female"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "Female"
+                      : currentLanguage === "ar"
+                        ? "أنثى"
+                        : currentLanguage === "fr"
+                          ? "Femme"
+                          : "Female"}{" "}
+                    {/* default */}
                   </option>
                 </select>
                 {errors.gender && (
                   <span className="text-error">
-                    {currentLanguage === "en" ? "This field is required" :
-                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
-                        currentLanguage === "fr" ? "Ce champ est requis" :
-                          "This field is required"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
@@ -249,87 +305,126 @@ const AddNewDriver = () => {
                 htmlFor="religion"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Religion" :
-                  currentLanguage === "ar" ? "الدين" :
-                    currentLanguage === "fr" ? "Religion" :
-                      "Religion"} {/* default */}
+                {currentLanguage === "en"
+                  ? "Religion"
+                  : currentLanguage === "ar"
+                    ? "الدين"
+                    : currentLanguage === "fr"
+                      ? "Religion"
+                      : "Religion"}{" "}
+                {/* default */}
                 <select
                   id="religion"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("religion", { required: true })}
                 >
                   <option value="">
-                    {currentLanguage === "en" ? "Select religion" :
-                      currentLanguage === "ar" ? "اختر الدين" :
-                        currentLanguage === "fr" ? "Sélectionner la religion" :
-                          "Select religion"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "Select religion"
+                      : currentLanguage === "ar"
+                        ? "اختر الدين"
+                        : currentLanguage === "fr"
+                          ? "Sélectionner la religion"
+                          : "Select religion"}{" "}
+                    {/* default */}
                   </option>
                   <option value="MUSLIM">
-                    {currentLanguage === "en" ? "Muslim" :
-                      currentLanguage === "ar" ? "مسلم" :
-                        currentLanguage === "fr" ? "Musulman" :
-                          "Muslim"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "Muslim"
+                      : currentLanguage === "ar"
+                        ? "مسلم"
+                        : currentLanguage === "fr"
+                          ? "Musulman"
+                          : "Muslim"}{" "}
+                    {/* default */}
                   </option>
                   <option value="CHRISTIAN">
-                    {currentLanguage === "en" ? "Christian" :
-                      currentLanguage === "ar" ? "مسيحي" :
-                        currentLanguage === "fr" ? "Chrétien" :
-                          "Christian"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "Christian"
+                      : currentLanguage === "ar"
+                        ? "مسيحي"
+                        : currentLanguage === "fr"
+                          ? "Chrétien"
+                          : "Christian"}{" "}
+                    {/* default */}
                   </option>
                   <option value="OTHERS">
-                    {currentLanguage === "en" ? "Others" :
-                      currentLanguage === "ar" ? "أخرى" :
-                        currentLanguage === "fr" ? "Autres" :
-                          "Others"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "Others"
+                      : currentLanguage === "ar"
+                        ? "أخرى"
+                        : currentLanguage === "fr"
+                          ? "Autres"
+                          : "Others"}{" "}
+                    {/* default */}
                   </option>
                 </select>
                 {errors.religion && (
                   <span className="text-error">
-                    {currentLanguage === "en" ? "This field is required" :
-                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
-                        currentLanguage === "fr" ? "Ce champ est requis" :
-                          "This field is required"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
-
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
               <label
                 htmlFor="nationality"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Your Nationality" :
-                  currentLanguage === "ar" ? "جنسيتك" :
-                    currentLanguage === "fr" ? "Votre nationalité" :
-                      "Your Nationality"} {/* default */}
+                {currentLanguage === "en"
+                  ? "Your Nationality"
+                  : currentLanguage === "ar"
+                    ? "جنسيتك"
+                    : currentLanguage === "fr"
+                      ? "Votre nationalité"
+                      : "Your Nationality"}{" "}
+                {/* default */}
                 <select
                   id="nationality"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("nationality", { required: true })}
                 >
                   <option value="">
-                    {currentLanguage === "en" ? "Select Nationality" :
-                      currentLanguage === "ar" ? "اختر الجنسية" :
-                        currentLanguage === "fr" ? "Sélectionner la nationalité" :
-                          "Select Nationality"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "Select Nationality"
+                      : currentLanguage === "ar"
+                        ? "اختر الجنسية"
+                        : currentLanguage === "fr"
+                          ? "Sélectionner la nationalité"
+                          : "Select Nationality"}{" "}
+                    {/* default */}
                   </option>
                   {nationalityData &&
                     Object.entries(nationalityData.data).map(([key, value]) => (
                       <option key={key} value={key}>
-                        {currentLanguage === "en" ? String(value) :
-                          currentLanguage === "ar" ? String(value) :
-                            currentLanguage === "fr" ? String(value) :
-                              String(value)} {/* default */}
+                        {currentLanguage === "en"
+                          ? String(value)
+                          : currentLanguage === "ar"
+                            ? String(value)
+                            : currentLanguage === "fr"
+                              ? String(value)
+                              : String(value)}{" "}
+                        {/* default */}
                       </option>
                     ))}
                 </select>
                 {errors.nationality && (
                   <span className="text-error">
-                    {currentLanguage === "en" ? "This field is required" :
-                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
-                        currentLanguage === "fr" ? "Ce champ est requis" :
-                          "This field is required"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
@@ -338,10 +433,14 @@ const AddNewDriver = () => {
                 htmlFor="regionId"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Region Id" :
-                  currentLanguage === "ar" ? "معرف المنطقة" :
-                    currentLanguage === "fr" ? "ID de la région" :
-                      "Region Id"} {/* default */}
+                {currentLanguage === "en"
+                  ? "Region Id"
+                  : currentLanguage === "ar"
+                    ? "معرف المنطقة"
+                    : currentLanguage === "fr"
+                      ? "ID de la région"
+                      : "Region Id"}{" "}
+                {/* default */}
                 <select
                   defaultValue=""
                   id="regionId"
@@ -349,10 +448,14 @@ const AddNewDriver = () => {
                   className={`border ${errors.regionId ? "border-borderPrimary" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-[18px] text-blackOrWhite outline-none max-[458px]:w-[350px]`}
                 >
                   <option value="">
-                    {currentLanguage === "en" ? "Select Region Id" :
-                      currentLanguage === "ar" ? "اختر معرف المنطقة" :
-                        currentLanguage === "fr" ? "Sélectionner l'ID de la région" :
-                          "Select Region Id"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "Select Region Id"
+                      : currentLanguage === "ar"
+                        ? "اختر معرف المنطقة"
+                        : currentLanguage === "fr"
+                          ? "Sélectionner l'ID de la région"
+                          : "Select Region Id"}{" "}
+                    {/* default */}
                   </option>
                   {rigiond &&
                     rigiond.data.map(
@@ -360,19 +463,19 @@ const AddNewDriver = () => {
                         rigion: {
                           id: string | number | readonly string[] | undefined;
                           name:
-                          | string
-                          | number
-                          | bigint
-                          | boolean
-                          | React.ReactElement<
-                            any,
-                            string | React.JSXElementConstructor<any>
-                          >
-                          | Iterable<React.ReactNode>
-                          | React.ReactPortal
-                          | Promise<React.AwaitedReactNode>
-                          | null
-                          | undefined;
+                            | string
+                            | number
+                            | bigint
+                            | boolean
+                            | React.ReactElement<
+                                any,
+                                string | React.JSXElementConstructor<any>
+                              >
+                            | Iterable<React.ReactNode>
+                            | React.ReactPortal
+                            | Promise<React.AwaitedReactNode>
+                            | null
+                            | undefined;
                         },
                         index: React.Key | null | undefined,
                       ) => (
@@ -384,23 +487,30 @@ const AddNewDriver = () => {
                 </select>
                 {errors.regionId && (
                   <span className="text-error">
-                    {currentLanguage === "en" ? "This field is required" :
-                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
-                        currentLanguage === "fr" ? "Ce champ est requis" :
-                          "This field is required"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
-
 
               <label
                 htmlFor="name_en"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Name (EN)" :
-                  currentLanguage === "ar" ? "الاسم (بالإنجليزية)" :
-                    currentLanguage === "fr" ? "Nom (EN)" :
-                      "Name (EN)"} {/* default */}
+                {currentLanguage === "en"
+                  ? "Name (EN)"
+                  : currentLanguage === "ar"
+                    ? "الاسم (بالإنجليزية)"
+                    : currentLanguage === "fr"
+                      ? "Nom (EN)"
+                      : "Name (EN)"}{" "}
+                {/* default */}
                 <input
                   id="name_en"
                   type="text"
@@ -409,10 +519,14 @@ const AddNewDriver = () => {
                 />
                 {errors.name_en && (
                   <span className="text-error">
-                    {currentLanguage === "en" ? "This field is required" :
-                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
-                        currentLanguage === "fr" ? "Ce champ est requis" :
-                          "This field is required"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
@@ -420,10 +534,14 @@ const AddNewDriver = () => {
                 htmlFor="name_ar"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Name (AR)" :
-                  currentLanguage === "ar" ? "الاسم (بالعربية)" :
-                    currentLanguage === "fr" ? "Nom (AR)" :
-                      "Name (AR)"} {/* default */}
+                {currentLanguage === "en"
+                  ? "Name (AR)"
+                  : currentLanguage === "ar"
+                    ? "الاسم (بالعربية)"
+                    : currentLanguage === "fr"
+                      ? "Nom (AR)"
+                      : "Name (AR)"}{" "}
+                {/* default */}
                 <input
                   id="name_ar"
                   type="text"
@@ -432,10 +550,14 @@ const AddNewDriver = () => {
                 />
                 {errors.name_ar && (
                   <span className="text-error">
-                    {currentLanguage === "en" ? "This field is required" :
-                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
-                        currentLanguage === "fr" ? "Ce champ est requis" :
-                          "This field is required"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
@@ -443,10 +565,14 @@ const AddNewDriver = () => {
                 htmlFor="name_fr"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Name (FR)" :
-                  currentLanguage === "ar" ? "الاسم (بالفرنسية)" :
-                    currentLanguage === "fr" ? "Nom (FR)" :
-                      "Name (FR)"} {/* default */}
+                {currentLanguage === "en"
+                  ? "Name (FR)"
+                  : currentLanguage === "ar"
+                    ? "الاسم (بالفرنسية)"
+                    : currentLanguage === "fr"
+                      ? "Nom (FR)"
+                      : "Name (FR)"}{" "}
+                {/* default */}
                 <input
                   id="name_fr"
                   type="text"
@@ -455,10 +581,14 @@ const AddNewDriver = () => {
                 />
                 {errors.name_fr && (
                   <span className="text-error">
-                    {currentLanguage === "en" ? "This field is required" :
-                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
-                        currentLanguage === "fr" ? "Ce champ est requis" :
-                          "This field is required"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
@@ -467,10 +597,14 @@ const AddNewDriver = () => {
                 htmlFor="about"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "About" :
-                  currentLanguage === "ar" ? "عن" :
-                    currentLanguage === "fr" ? "À propos" :
-                      "About"} {/* default */}
+                {currentLanguage === "en"
+                  ? "About"
+                  : currentLanguage === "ar"
+                    ? "عن"
+                    : currentLanguage === "fr"
+                      ? "À propos"
+                      : "About"}{" "}
+                {/* default */}
                 <input
                   id="about"
                   type="text"
@@ -479,10 +613,14 @@ const AddNewDriver = () => {
                 />
                 {errors.about && (
                   <span className="text-error">
-                    {currentLanguage === "en" ? "This field is required" :
-                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
-                        currentLanguage === "fr" ? "Ce champ est requis" :
-                          "This field is required"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
@@ -490,10 +628,14 @@ const AddNewDriver = () => {
                 htmlFor="birthDate"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Date Of Birth" :
-                  currentLanguage === "ar" ? "تاريخ الميلاد" :
-                    currentLanguage === "fr" ? "Date de naissance" :
-                      "Date Of Birth"} {/* default */}
+                {currentLanguage === "en"
+                  ? "Date Of Birth"
+                  : currentLanguage === "ar"
+                    ? "تاريخ الميلاد"
+                    : currentLanguage === "fr"
+                      ? "Date de naissance"
+                      : "Date Of Birth"}{" "}
+                {/* default */}
                 <input
                   id="birthDate"
                   type="date"
@@ -502,10 +644,14 @@ const AddNewDriver = () => {
                 />
                 {errors.birthDate && (
                   <span className="text-error">
-                    {currentLanguage === "en" ? "This field is required" :
-                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
-                        currentLanguage === "fr" ? "Ce champ est requis" :
-                          "This field is required"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
@@ -513,10 +659,14 @@ const AddNewDriver = () => {
                 htmlFor="qualification"
                 className="mt-4 grid items-center font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Qualification" :
-                  currentLanguage === "ar" ? "المؤهل" :
-                    currentLanguage === "fr" ? "Qualification" :
-                      "Qualification"} {/* default */}
+                {currentLanguage === "en"
+                  ? "Qualification"
+                  : currentLanguage === "ar"
+                    ? "المؤهل"
+                    : currentLanguage === "fr"
+                      ? "Qualification"
+                      : "Qualification"}{" "}
+                {/* default */}
                 <select
                   defaultValue=""
                   id="qualification"
@@ -524,56 +674,83 @@ const AddNewDriver = () => {
                   className="h-[55px] w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 >
                   <option value="">
-                    {currentLanguage === "en" ? "Select Qualification" :
-                      currentLanguage === "ar" ? "اختر المؤهل" :
-                        currentLanguage === "fr" ? "Sélectionner la qualification" :
-                          "Select Qualification"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "Select Qualification"
+                      : currentLanguage === "ar"
+                        ? "اختر المؤهل"
+                        : currentLanguage === "fr"
+                          ? "Sélectionner la qualification"
+                          : "Select Qualification"}{" "}
+                    {/* default */}
                   </option>
                   <option value="HIGH_SCHOOL_DIPLOMA">
-                    {currentLanguage === "en" ? "High School Diploma" :
-                      currentLanguage === "ar" ? "دبلوم المدرسة الثانوية" :
-                        currentLanguage === "fr" ? "Diplôme de secondaire" :
-                          "High School Diploma"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "High School Diploma"
+                      : currentLanguage === "ar"
+                        ? "دبلوم المدرسة الثانوية"
+                        : currentLanguage === "fr"
+                          ? "Diplôme de secondaire"
+                          : "High School Diploma"}{" "}
+                    {/* default */}
                   </option>
                   <option value="MASTER_DEGREE">
-                    {currentLanguage === "en" ? "Master Degree" :
-                      currentLanguage === "ar" ? "درجة الماجستير" :
-                        currentLanguage === "fr" ? "Master" :
-                          "Master Degree"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "Master Degree"
+                      : currentLanguage === "ar"
+                        ? "درجة الماجستير"
+                        : currentLanguage === "fr"
+                          ? "Master"
+                          : "Master Degree"}{" "}
+                    {/* default */}
                   </option>
                   <option value="BACHELOR_DEGREE">
-                    {currentLanguage === "en" ? "Bachelor Degree" :
-                      currentLanguage === "ar" ? "درجة البكالوريوس" :
-                        currentLanguage === "fr" ? "Licence" :
-                          "Bachelor Degree"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "Bachelor Degree"
+                      : currentLanguage === "ar"
+                        ? "درجة البكالوريوس"
+                        : currentLanguage === "fr"
+                          ? "Licence"
+                          : "Bachelor Degree"}{" "}
+                    {/* default */}
                   </option>
                   <option value="DOCTORATE_DEGREE">
-                    {currentLanguage === "en" ? "Doctorate Degree" :
-                      currentLanguage === "ar" ? "درجة الدكتوراه" :
-                        currentLanguage === "fr" ? "Doctorat" :
-                          "Doctorate Degree"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "Doctorate Degree"
+                      : currentLanguage === "ar"
+                        ? "درجة الدكتوراه"
+                        : currentLanguage === "fr"
+                          ? "Doctorat"
+                          : "Doctorate Degree"}{" "}
+                    {/* default */}
                   </option>
                 </select>
                 {errors.qualification && (
                   <span className="text-[18px] text-error">
-                    {currentLanguage === "en" ? "Qualification is required" :
-                      currentLanguage === "ar" ? "المؤهل مطلوب" :
-                        currentLanguage === "fr" ? "La qualification est requise" :
-                          "Qualification is required"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "Qualification is required"
+                      : currentLanguage === "ar"
+                        ? "المؤهل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "La qualification est requise"
+                          : "Qualification is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
-
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
               <label
                 htmlFor="hireDate"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Hire Date" :
-                  currentLanguage === "ar" ? "تاريخ التوظيف" :
-                    currentLanguage === "fr" ? "Date d'embauche" :
-                      "Hire Date"} {/* default */}
+                {currentLanguage === "en"
+                  ? "Hire Date"
+                  : currentLanguage === "ar"
+                    ? "تاريخ التوظيف"
+                    : currentLanguage === "fr"
+                      ? "Date d'embauche"
+                      : "Hire Date"}{" "}
+                {/* default */}
                 <input
                   id="hireDate"
                   type="date"
@@ -582,10 +759,14 @@ const AddNewDriver = () => {
                 />
                 {errors.hireDate && (
                   <span className="text-error">
-                    {currentLanguage === "en" ? "This field is required" :
-                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
-                        currentLanguage === "fr" ? "Ce champ est requis" :
-                          "This field is required"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
@@ -593,10 +774,14 @@ const AddNewDriver = () => {
                 htmlFor="number"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Mobile" :
-                  currentLanguage === "ar" ? "الهاتف المحمول" :
-                    currentLanguage === "fr" ? "Mobile" :
-                      "Mobile"} {/* default */}
+                {currentLanguage === "en"
+                  ? "Mobile"
+                  : currentLanguage === "ar"
+                    ? "الهاتف المحمول"
+                    : currentLanguage === "fr"
+                      ? "Mobile"
+                      : "Mobile"}{" "}
+                {/* default */}
                 <input
                   id="number"
                   type="number"
@@ -605,10 +790,14 @@ const AddNewDriver = () => {
                 />
                 {errors.number && (
                   <span className="text-error">
-                    {currentLanguage === "en" ? "This field is required" :
-                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
-                        currentLanguage === "fr" ? "Ce champ est requis" :
-                          "This field is required"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
@@ -616,10 +805,14 @@ const AddNewDriver = () => {
                 htmlFor="positionId"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Position Id" :
-                  currentLanguage === "ar" ? "رقم الوظيفة" :
-                    currentLanguage === "fr" ? "ID de position" :
-                      "Position Id"} {/* default */}
+                {currentLanguage === "en"
+                  ? "Position Id"
+                  : currentLanguage === "ar"
+                    ? "رقم الوظيفة"
+                    : currentLanguage === "fr"
+                      ? "ID de position"
+                      : "Position Id"}{" "}
+                {/* default */}
                 <input
                   id="positionId"
                   type="number"
@@ -628,10 +821,14 @@ const AddNewDriver = () => {
                 />
                 {errors.positionId && (
                   <span className="text-error">
-                    {currentLanguage === "en" ? "This field is required" :
-                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
-                        currentLanguage === "fr" ? "Ce champ est requis" :
-                          "This field is required"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
@@ -639,10 +836,14 @@ const AddNewDriver = () => {
                 htmlFor="salary"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Salary" :
-                  currentLanguage === "ar" ? "الراتب" :
-                    currentLanguage === "fr" ? "Salaire" :
-                      "Salary"} {/* default */}
+                {currentLanguage === "en"
+                  ? "Salary"
+                  : currentLanguage === "ar"
+                    ? "الراتب"
+                    : currentLanguage === "fr"
+                      ? "Salaire"
+                      : "Salary"}{" "}
+                {/* default */}
                 <input
                   id="salary"
                   type="number"
@@ -651,14 +852,17 @@ const AddNewDriver = () => {
                 />
                 {errors.salary && (
                   <span className="text-error">
-                    {currentLanguage === "en" ? "This field is required" :
-                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
-                        currentLanguage === "fr" ? "Ce champ est requis" :
-                          "This field is required"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
-
             </div>
             <div className="flex justify-center text-center">
               <button
@@ -667,14 +871,20 @@ const AddNewDriver = () => {
                 className="w-[180px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
               >
                 {isLoading
-                  ? (currentLanguage === "en" ? "Adding..." :
-                    currentLanguage === "ar" ? "يتم الإضافة..." :
-                      currentLanguage === "fr" ? "Ajout en cours..." :
-                        "Adding...")  // default
-                  : (currentLanguage === "en" ? "Add Driver" :
-                    currentLanguage === "ar" ? "إضافة سائق" :
-                      currentLanguage === "fr" ? "Ajouter un conducteur" :
-                        "Add Driver")}
+                  ? currentLanguage === "en"
+                    ? "Adding..."
+                    : currentLanguage === "ar"
+                      ? "يتم الإضافة..."
+                      : currentLanguage === "fr"
+                        ? "Ajout en cours..."
+                        : "Adding..." // default
+                  : currentLanguage === "en"
+                    ? "Add Driver"
+                    : currentLanguage === "ar"
+                      ? "إضافة سائق"
+                      : currentLanguage === "fr"
+                        ? "Ajouter un conducteur"
+                        : "Add Driver"}
               </button>
             </div>
           </div>

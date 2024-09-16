@@ -8,8 +8,8 @@ import {
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
 import { RootState } from "@/GlobalRedux/store";
+import { toast } from "react-toastify";
 import BreadCrumbs from "@/components/BreadCrumbs";
 
 const Department = () => {
@@ -144,9 +144,11 @@ const Department = () => {
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-primary focus:ring-primary disabled:pointer-events-none disabled:opacity-50"
                 placeholder={
-                  currentLanguage === 'en' ? "Search" :
-                    currentLanguage === 'ar' ? "بحث" :
-                      "Recherche"
+                  currentLanguage === "en"
+                    ? "Search"
+                    : currentLanguage === "ar"
+                      ? "بحث"
+                      : "Recherche"
                 }
               />
             </div>
@@ -154,7 +156,7 @@ const Department = () => {
           <div className="flex justify-center">
             <Link
               href="/organization-setting/department/add-department"
-              className="mb-5 mr-3 w-fit px-3 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+              className="mb-5 mr-3 w-fit whitespace-nowrap rounded-xl bg-primary px-3 px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               {currentLanguage === "ar"
                 ? "+ إضافة قسم"

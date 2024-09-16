@@ -41,9 +41,11 @@ const ViewParent: React.FC<ViewParentProps> = ({ params }) => {
           <div className="grid h-[400px] items-center justify-center gap-10 rounded-xl bg-bgPrimary p-5">
             <div className="flex justify-start">
               <h1 className="font-sans font-semibold text-textPrimary">
-                {currentLanguage === "en" ? "Feed" :
-                  currentLanguage === "ar" ? "تغذية" :
-                    "Fil d'actualités"}
+                {currentLanguage === "en"
+                  ? "Feed"
+                  : currentLanguage === "ar"
+                    ? "تغذية"
+                    : "Fil d'actualités"}
               </h1>
             </div>
             <CircleProgress percentage={75} />

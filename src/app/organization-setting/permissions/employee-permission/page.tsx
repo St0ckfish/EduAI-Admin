@@ -29,6 +29,9 @@ const EmployeePermission = () => {
       href: "/organization-setting/permissions/employee-permission",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   type EmployeePermission = Record<string, any>;
   const [search, setSearch] = useState("");
@@ -95,13 +98,21 @@ const EmployeePermission = () => {
       >
         <div className="justify-left mb-[80px] ml-4 mt-[50px] flex flex-wrap gap-5 text-[20px] font-semibold max-[725px]:text-[15px]">
           <Link href="/organization-setting/permissions/department-permission">
-            Department
+            {currentLanguage === "ar"
+              ? "قسم"
+              : currentLanguage === "fr"
+                ? "Département"
+                : "Department"}
           </Link>
           <Link
             href="/organization-setting/permissions/employee-permission"
             className="text-primary underline"
           >
-            Employee
+            {currentLanguage === "ar"
+              ? "موظف"
+              : currentLanguage === "fr"
+                ? "Employé"
+                : "Employee"}
           </Link>
         </div>
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
@@ -133,7 +144,13 @@ const EmployeePermission = () => {
                 id="icon"
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-primary focus:ring-primary disabled:pointer-events-none disabled:opacity-50"
-                placeholder="Search"
+                placeholder={
+                  currentLanguage === "en"
+                    ? "Search"
+                    : currentLanguage === "ar"
+                      ? "بحث"
+                      : "Recherche"
+                }
               />
             </div>
           </div>
@@ -142,7 +159,11 @@ const EmployeePermission = () => {
               href="/organization-setting/permissions/add/employee"
               className="mb-5 mr-3 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
-              + Add Employee Permissions
+              {currentLanguage === "ar"
+                ? "+ إضافة صلاحيات الموظفين"
+                : currentLanguage === "fr"
+                  ? "+ Ajouter des autorisations d'employé"
+                  : "+ Add Employee Permissions"}
             </Link>
           </div>
         </div>
@@ -162,28 +183,60 @@ const EmployeePermission = () => {
                   </div>
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Name
+                  {currentLanguage === "ar"
+                    ? "الاسم"
+                    : currentLanguage === "fr"
+                      ? "Nom"
+                      : "Name"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  id
+                  {currentLanguage === "ar"
+                    ? "معرف"
+                    : currentLanguage === "fr"
+                      ? "id"
+                      : "id"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  is Full Academic
+                  {currentLanguage === "ar"
+                    ? "إدارة أكاديمية كاملة"
+                    : currentLanguage === "fr"
+                      ? "Académique complet"
+                      : "is Full Academic"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  is Full Administration
+                  {currentLanguage === "ar"
+                    ? "إدارة إدارية كاملة"
+                    : currentLanguage === "fr"
+                      ? "Administration complète"
+                      : "is Full Administration"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  is Full Communication
+                  {currentLanguage === "ar"
+                    ? "اتصالات كاملة"
+                    : currentLanguage === "fr"
+                      ? "Communication complète"
+                      : "is Full Communication"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  is Full Operations
+                  {currentLanguage === "ar"
+                    ? "عمليات كاملة"
+                    : currentLanguage === "fr"
+                      ? "Opérations complètes"
+                      : "is Full Operations"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  view
+                  {currentLanguage === "ar"
+                    ? "عرض"
+                    : currentLanguage === "fr"
+                      ? "voir"
+                      : "view"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Action
+                  {currentLanguage === "ar"
+                    ? "الإجراء"
+                    : currentLanguage === "fr"
+                      ? "Action"
+                      : "Action"}
                 </th>
               </tr>
             </thead>
@@ -233,12 +286,20 @@ const EmployeePermission = () => {
                         href={`/organization-setting/permissions/employee-permission/${employeePermission.id}`}
                         className="font-medium text-blue-600 hover:underline"
                       >
-                        edit
+                        {currentLanguage === "ar"
+                          ? "تعديل"
+                          : currentLanguage === "fr"
+                            ? "modifier"
+                            : "edit"}
                       </Link>
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
                       <button className="rounded-lg bg-error px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110">
-                        Delete
+                        {currentLanguage === "ar"
+                          ? "حذف"
+                          : currentLanguage === "fr"
+                            ? "supprimer"
+                            : "Delete"}
                       </button>
                     </td>
                   </tr>

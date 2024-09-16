@@ -87,10 +87,14 @@ const AddNewBus = () => {
                 <line x1="16" y1="14" x2="16" y2="17" />
               </svg>
               <h1 className="font-sans text-[22px] font-semibold">
-                {currentLanguage === "en" ? "Bus Information" :
-                  currentLanguage === "ar" ? "معلومات الحافلة" :
-                    currentLanguage === "fr" ? "Informations sur le bus" :
-                      "Bus Information"} {/* default */}
+                {currentLanguage === "en"
+                  ? "Bus Information"
+                  : currentLanguage === "ar"
+                    ? "معلومات الحافلة"
+                    : currentLanguage === "fr"
+                      ? "Informations sur le bus"
+                      : "Bus Information"}{" "}
+                {/* default */}
               </h1>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
@@ -98,10 +102,14 @@ const AddNewBus = () => {
                 htmlFor="name"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Bus Number" :
-                  currentLanguage === "ar" ? "رقم الحافلة" :
-                    currentLanguage === "fr" ? "Numéro du bus" :
-                      "Bus Number"} {/* default */}
+                {currentLanguage === "en"
+                  ? "Bus Number"
+                  : currentLanguage === "ar"
+                    ? "رقم الحافلة"
+                    : currentLanguage === "fr"
+                      ? "Numéro du bus"
+                      : "Bus Number"}{" "}
+                {/* default */}
                 <input
                   id="name"
                   {...register("busNumber", { required: true })}
@@ -110,10 +118,14 @@ const AddNewBus = () => {
                 />
                 {errors.busNumber && (
                   <span className="text-error">
-                    {currentLanguage === "en" ? "This field is required" :
-                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
-                        currentLanguage === "fr" ? "Ce champ est requis" :
-                          "This field is required"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
@@ -121,10 +133,14 @@ const AddNewBus = () => {
                 htmlFor="code"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Bus Capacity" :
-                  currentLanguage === "ar" ? "سعة الحافلة" :
-                    currentLanguage === "fr" ? "Capacité du bus" :
-                      "Bus Capacity"} {/* default */}
+                {currentLanguage === "en"
+                  ? "Bus Capacity"
+                  : currentLanguage === "ar"
+                    ? "سعة الحافلة"
+                    : currentLanguage === "fr"
+                      ? "Capacité du bus"
+                      : "Bus Capacity"}{" "}
+                {/* default */}
                 <input
                   id="code"
                   {...register("busCapacity", { required: true })}
@@ -133,10 +149,14 @@ const AddNewBus = () => {
                 />
                 {errors.busCapacity && (
                   <span className="text-error">
-                    {currentLanguage === "en" ? "This field is required" :
-                      currentLanguage === "ar" ? "هذا الحقل مطلوب" :
-                        currentLanguage === "fr" ? "Ce champ est requis" :
-                          "This field is required"} {/* default */}
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
@@ -150,10 +170,14 @@ const AddNewBus = () => {
                   type="submit"
                   className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                 >
-                  {currentLanguage === "en" ? "Add Bus" :
-                    currentLanguage === "ar" ? "إضافة حافلة" :
-                      currentLanguage === "fr" ? "Ajouter un bus" :
-                        "Add Bus"} {/* default */}
+                  {currentLanguage === "en"
+                    ? "Add Bus"
+                    : currentLanguage === "ar"
+                      ? "إضافة حافلة"
+                      : currentLanguage === "fr"
+                        ? "Ajouter un bus"
+                        : "Add Bus"}{" "}
+                  {/* default */}
                 </button>
               )}
             </div>

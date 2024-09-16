@@ -114,9 +114,11 @@ const Scholarship = () => {
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
                 placeholder={
-                  currentLanguage === 'en' ? "Search" :
-                    currentLanguage === 'ar' ? "بحث" :
-                      "Recherche"
+                  currentLanguage === "en"
+                    ? "Search"
+                    : currentLanguage === "ar"
+                      ? "بحث"
+                      : "Recherche"
                 }
               />
             </div>
@@ -124,28 +126,33 @@ const Scholarship = () => {
           <div className="flex justify-center">
             <Link
               href="/"
-              className="mb-5 mr-3 w-fit px-[10px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+              className="mb-5 mr-3 w-fit whitespace-nowrap rounded-xl bg-primary px-4 px-[10px] py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
-              {currentLanguage === "en" ? "+ Add Scholarship" :
-                currentLanguage === "ar" ? "+ إضافة منحة" :
-                  "+ Ajouter une bourse"}
+              {currentLanguage === "en"
+                ? "+ Add Scholarship"
+                : currentLanguage === "ar"
+                  ? "+ إضافة منحة"
+                  : "+ Ajouter une bourse"}
             </Link>
-
           </div>
         </div>
         <div className="justify-left mb-5 ml-4 flex gap-5 text-[23px] font-semibold">
           <Link href="/fees-management">
-            {currentLanguage === "en" ? "Invoices" :
-              currentLanguage === "ar" ? "الفواتير" :
-                "Factures"}
+            {currentLanguage === "en"
+              ? "Invoices"
+              : currentLanguage === "ar"
+                ? "الفواتير"
+                : "Factures"}
           </Link>
           <Link
             href="/financial-management/scholarship"
             className="text-blue-500 underline"
           >
-            {currentLanguage === "en" ? "Scholarship" :
-              currentLanguage === "ar" ? "منحة" :
-                "Bourse"}
+            {currentLanguage === "en"
+              ? "Scholarship"
+              : currentLanguage === "ar"
+                ? "منحة"
+                : "Bourse"}
           </Link>
         </div>
 
@@ -165,44 +172,60 @@ const Scholarship = () => {
                   </div>
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "Name" :
-                    currentLanguage === "ar" ? "الاسم" :
-                      "Nom"}
+                  {currentLanguage === "en"
+                    ? "Name"
+                    : currentLanguage === "ar"
+                      ? "الاسم"
+                      : "Nom"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "ID" :
-                    currentLanguage === "ar" ? "الرقم" :
-                      "ID"}
+                  {currentLanguage === "en"
+                    ? "ID"
+                    : currentLanguage === "ar"
+                      ? "الرقم"
+                      : "ID"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "Gender" :
-                    currentLanguage === "ar" ? "الجنس" :
-                      "Genre"}
+                  {currentLanguage === "en"
+                    ? "Gender"
+                    : currentLanguage === "ar"
+                      ? "الجنس"
+                      : "Genre"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "Taxi Number" :
-                    currentLanguage === "ar" ? "رقم التاكسي" :
-                      "Numéro de taxi"}
+                  {currentLanguage === "en"
+                    ? "Taxi Number"
+                    : currentLanguage === "ar"
+                      ? "رقم التاكسي"
+                      : "Numéro de taxi"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "Address" :
-                    currentLanguage === "ar" ? "العنوان" :
-                      "Adresse"}
+                  {currentLanguage === "en"
+                    ? "Address"
+                    : currentLanguage === "ar"
+                      ? "العنوان"
+                      : "Adresse"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "Mobile" :
-                    currentLanguage === "ar" ? "الموبايل" :
-                      "Mobile"}
+                  {currentLanguage === "en"
+                    ? "Mobile"
+                    : currentLanguage === "ar"
+                      ? "الموبايل"
+                      : "Mobile"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "About" :
-                    currentLanguage === "ar" ? "حول" :
-                      "À propos"}
+                  {currentLanguage === "en"
+                    ? "About"
+                    : currentLanguage === "ar"
+                      ? "حول"
+                      : "À propos"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "View" :
-                    currentLanguage === "ar" ? "عرض" :
-                      "Voir"}
+                  {currentLanguage === "en"
+                    ? "View"
+                    : currentLanguage === "ar"
+                      ? "عرض"
+                      : "Voir"}
                 </th>
               </tr>
             </thead>
@@ -220,7 +243,7 @@ const Scholarship = () => {
                 </td>
                 <th
                   scope="row"
-                  className="flex items-center whitespace-nowrap px-6 py-4 font-medium text-textSecondary text-textSecondary"
+                  className="flex items-center whitespace-nowrap px-6 py-4 font-medium text-textSecondary"
                 >
                   <img
                     src="/images/me.jpg"
@@ -240,11 +263,12 @@ const Scholarship = () => {
                     href="/driver/view-driver"
                     className="font-medium text-blue-600 hover:underline"
                   >
-                    {currentLanguage === "en" ? "View" :
-                      currentLanguage === "ar" ? "عرض" :
-                        "Voir"}
+                    {currentLanguage === "en"
+                      ? "View"
+                      : currentLanguage === "ar"
+                        ? "عرض"
+                        : "Voir"}
                   </Link>
-
                 </td>
               </tr>
               <tr className="border-b border-borderPrimary bg-bgPrimary text-textSecondary hover:bg-bgSecondary">
@@ -259,7 +283,7 @@ const Scholarship = () => {
                 </td>
                 <th
                   scope="row"
-                  className="flex items-center whitespace-nowrap px-6 py-4 font-medium text-textSecondary text-textSecondary"
+                  className="flex items-center whitespace-nowrap px-6 py-4 font-medium text-textSecondary"
                 >
                   <img
                     src="/images/me.jpg"
@@ -279,9 +303,11 @@ const Scholarship = () => {
                     href="/driver/view-driver"
                     className="font-medium text-blue-600 hover:underline"
                   >
-                    {currentLanguage === "en" ? "View" :
-                      currentLanguage === "ar" ? "عرض" :
-                        "Voir"}
+                    {currentLanguage === "en"
+                      ? "View"
+                      : currentLanguage === "ar"
+                        ? "عرض"
+                        : "Voir"}
                   </Link>
                 </td>
               </tr>

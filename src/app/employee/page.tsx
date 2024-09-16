@@ -162,9 +162,11 @@ const Employee = () => {
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
                 placeholder={
-                  currentLanguage === 'en' ? "Search" :
-                    currentLanguage === 'ar' ? "بحث" :
-                      "Recherche"
+                  currentLanguage === "en"
+                    ? "Search"
+                    : currentLanguage === "ar"
+                      ? "بحث"
+                      : "Recherche"
                 }
               />
             </div>
@@ -180,7 +182,6 @@ const Employee = () => {
                   ? "+ موظف جديد"
                   : "+ Nouvel Employé"}
             </Link>
-
           </div>
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
@@ -198,28 +199,60 @@ const Employee = () => {
                   </div>
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "Name" : currentLanguage === "ar" ? "الاسم" : "Nom"}
+                  {currentLanguage === "en"
+                    ? "Name"
+                    : currentLanguage === "ar"
+                      ? "الاسم"
+                      : "Nom"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "ID" : currentLanguage === "ar" ? "الرقم" : "ID"}
+                  {currentLanguage === "en"
+                    ? "ID"
+                    : currentLanguage === "ar"
+                      ? "الرقم"
+                      : "ID"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "Gender" : currentLanguage === "ar" ? "الجنس" : "Genre"}
+                  {currentLanguage === "en"
+                    ? "Gender"
+                    : currentLanguage === "ar"
+                      ? "الجنس"
+                      : "Genre"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "Nationality" : currentLanguage === "ar" ? "الجنسية" : "Nationalité"}
+                  {currentLanguage === "en"
+                    ? "Nationality"
+                    : currentLanguage === "ar"
+                      ? "الجنسية"
+                      : "Nationalité"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "Email" : currentLanguage === "ar" ? "البريد الإلكتروني" : "Email"}
+                  {currentLanguage === "en"
+                    ? "Email"
+                    : currentLanguage === "ar"
+                      ? "البريد الإلكتروني"
+                      : "Email"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "Mobile" : currentLanguage === "ar" ? "الهاتف المحمول" : "Téléphone"}
+                  {currentLanguage === "en"
+                    ? "Mobile"
+                    : currentLanguage === "ar"
+                      ? "الهاتف المحمول"
+                      : "Téléphone"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "View" : currentLanguage === "ar" ? "عرض" : "Voir"}
+                  {currentLanguage === "en"
+                    ? "View"
+                    : currentLanguage === "ar"
+                      ? "عرض"
+                      : "Voir"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "Action" : currentLanguage === "ar" ? "الإجراء" : "Action"}
+                  {currentLanguage === "en"
+                    ? "Action"
+                    : currentLanguage === "ar"
+                      ? "الإجراء"
+                      : "Action"}
                 </th>
               </tr>
             </thead>
@@ -286,9 +319,11 @@ const Employee = () => {
                         href={`/employee/view-employee/${employee.id}`}
                         className="font-medium text-blue-600 hover:underline"
                       >
-                        {currentLanguage === "en" ? "View" :
-                          currentLanguage === "ar" ? "عرض" :
-                            "Voir"}
+                        {currentLanguage === "en"
+                          ? "View"
+                          : currentLanguage === "ar"
+                            ? "عرض"
+                            : "Voir"}
                       </Link>
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
@@ -296,23 +331,25 @@ const Employee = () => {
                         onClick={() => handleDelete(employee.id)}
                         className="rounded-lg bg-error px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
                       >
-                        {currentLanguage === "en" ? "Lock" :
-                          currentLanguage === "ar" ? "قفل" :
-                            "Verrouiller"}
+                        {currentLanguage === "en"
+                          ? "Lock"
+                          : currentLanguage === "ar"
+                            ? "قفل"
+                            : "Verrouiller"}
                       </button>
                     </td>
-
                   </tr>
                 ))}
             </tbody>
           </table>
           {(data?.data.content.length == 0 || data == null) && (
             <div className="flex w-full justify-center py-3 text-center text-[18px] font-semibold">
-              {currentLanguage === "en" ? "There is No Data" :
-                currentLanguage === "ar" ? "لا توجد بيانات" :
-                  "Aucune donnée"}
+              {currentLanguage === "en"
+                ? "There is No Data"
+                : currentLanguage === "ar"
+                  ? "لا توجد بيانات"
+                  : "Aucune donnée"}
             </div>
-
           )}
         </div>
         <div className="relative overflow-auto">

@@ -164,9 +164,11 @@ const Parent = () => {
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-hover focus:ring-hover disabled:pointer-events-none disabled:opacity-50"
                 placeholder={
-                  currentLanguage === 'en' ? "Search" :
-                    currentLanguage === 'ar' ? "بحث" :
-                      "Recherche"
+                  currentLanguage === "en"
+                    ? "Search"
+                    : currentLanguage === "ar"
+                      ? "بحث"
+                      : "Recherche"
                 }
               />
             </div>
@@ -176,9 +178,11 @@ const Parent = () => {
               href="/add-new-parent"
               className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
-              {currentLanguage === "en" ? "+ New Parent" :
-                currentLanguage === "ar" ? "+ ولي أمر جديد" :
-                  "+ Nouveau Parent"}
+              {currentLanguage === "en"
+                ? "+ New Parent"
+                : currentLanguage === "ar"
+                  ? "+ ولي أمر جديد"
+                  : "+ Nouveau Parent"}
             </Link>
           </div>
         </div>
@@ -198,44 +202,60 @@ const Parent = () => {
                   </div>
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "Name" :
-                    currentLanguage === "ar" ? "الاسم" :
-                      "Nom"}
+                  {currentLanguage === "en"
+                    ? "Name"
+                    : currentLanguage === "ar"
+                      ? "الاسم"
+                      : "Nom"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "id" :
-                    currentLanguage === "ar" ? "معرف" :
-                      "ID"}
+                  {currentLanguage === "en"
+                    ? "id"
+                    : currentLanguage === "ar"
+                      ? "معرف"
+                      : "ID"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "Gender" :
-                    currentLanguage === "ar" ? "الجنس" :
-                      "Genre"}
+                  {currentLanguage === "en"
+                    ? "Gender"
+                    : currentLanguage === "ar"
+                      ? "الجنس"
+                      : "Genre"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "Nationality" :
-                    currentLanguage === "ar" ? "الجنسية" :
-                      "Nationalité"}
+                  {currentLanguage === "en"
+                    ? "Nationality"
+                    : currentLanguage === "ar"
+                      ? "الجنسية"
+                      : "Nationalité"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "Email" :
-                    currentLanguage === "ar" ? "البريد الإلكتروني" :
-                      "Email"}
+                  {currentLanguage === "en"
+                    ? "Email"
+                    : currentLanguage === "ar"
+                      ? "البريد الإلكتروني"
+                      : "Email"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "Mobile" :
-                    currentLanguage === "ar" ? "الهاتف المحمول" :
-                      "Mobile"}
+                  {currentLanguage === "en"
+                    ? "Mobile"
+                    : currentLanguage === "ar"
+                      ? "الهاتف المحمول"
+                      : "Mobile"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "View" :
-                    currentLanguage === "ar" ? "عرض" :
-                      "Voir"}
+                  {currentLanguage === "en"
+                    ? "View"
+                    : currentLanguage === "ar"
+                      ? "عرض"
+                      : "Voir"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "Action" :
-                    currentLanguage === "ar" ? "إجراء" :
-                      "Action"}
+                  {currentLanguage === "en"
+                    ? "Action"
+                    : currentLanguage === "ar"
+                      ? "إجراء"
+                      : "Action"}
                 </th>
               </tr>
             </thead>
@@ -300,9 +320,11 @@ const Parent = () => {
                         href={`/parent/view-parent/${parent.id}`}
                         className="font-medium text-primary hover:underline"
                       >
-                        {currentLanguage === "en" ? "View" :
-                          currentLanguage === "ar" ? "عرض" :
-                            "Voir"}
+                        {currentLanguage === "en"
+                          ? "View"
+                          : currentLanguage === "ar"
+                            ? "عرض"
+                            : "Voir"}
                       </Link>
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
@@ -310,23 +332,25 @@ const Parent = () => {
                         onClick={() => handleDelete(parent.id)}
                         className="rounded-lg bg-error px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
                       >
-                        {currentLanguage === "en" ? "Lock" :
-                          currentLanguage === "ar" ? "قفل" :
-                            "Verrouiller"}
+                        {currentLanguage === "en"
+                          ? "Lock"
+                          : currentLanguage === "ar"
+                            ? "قفل"
+                            : "Verrouiller"}
                       </button>
                     </td>
-
                   </tr>
                 ))}
             </tbody>
           </table>
           {(data?.data.content.length == 0 || data == null) && (
             <div className="flex w-full justify-center py-3 text-center text-[18px] font-semibold">
-              {currentLanguage === "en" ? "There is No Data" :
-                currentLanguage === "ar" ? "لا توجد بيانات" :
-                  "Aucune donnée"}
+              {currentLanguage === "en"
+                ? "There is No Data"
+                : currentLanguage === "ar"
+                  ? "لا توجد بيانات"
+                  : "Aucune donnée"}
             </div>
-
           )}
         </div>
         <div className="relative overflow-auto">

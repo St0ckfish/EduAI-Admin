@@ -159,11 +159,12 @@ const NewInvoice = () => {
                 <line x1="16" y1="14" x2="16" y2="17" />
               </svg>
               <h1 className="font-sans text-[22px] font-semibold">
-                {currentLanguage === "en" ? "Invoice Information" :
-                  currentLanguage === "ar" ? "معلومات الفاتورة" :
-                    "Informations sur la facture"}
+                {currentLanguage === "en"
+                  ? "Invoice Information"
+                  : currentLanguage === "ar"
+                    ? "معلومات الفاتورة"
+                    : "Informations sur la facture"}
               </h1>
-
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
               {/* Due Date Field */}
@@ -172,9 +173,11 @@ const NewInvoice = () => {
                 htmlFor="dueDate"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Due Date" :
-                  currentLanguage === "ar" ? "تاريخ الاستحقاق" :
-                    "Date d'échéance"}
+                {currentLanguage === "en"
+                  ? "Due Date"
+                  : currentLanguage === "ar"
+                    ? "تاريخ الاستحقاق"
+                    : "Date d'échéance"}
                 <input
                   id="dueDate"
                   {...register("dueDate")}
@@ -191,9 +194,11 @@ const NewInvoice = () => {
                 htmlFor="paidAmount"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Paid Amount" :
-                  currentLanguage === "ar" ? "المبلغ المدفوع" :
-                    "Montant payé"}
+                {currentLanguage === "en"
+                  ? "Paid Amount"
+                  : currentLanguage === "ar"
+                    ? "المبلغ المدفوع"
+                    : "Montant payé"}
                 <input
                   id="paidAmount"
                   {...register("paidAmount")}
@@ -212,9 +217,11 @@ const NewInvoice = () => {
                 htmlFor="discountAmount"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Discount Amount" :
-                  currentLanguage === "ar" ? "مقدار الخصم" :
-                    "Montant de la réduction"}
+                {currentLanguage === "en"
+                  ? "Discount Amount"
+                  : currentLanguage === "ar"
+                    ? "مقدار الخصم"
+                    : "Montant de la réduction"}
                 <input
                   id="discountAmount"
                   {...register("discountAmount")}
@@ -233,9 +240,11 @@ const NewInvoice = () => {
                 htmlFor="taxAmount"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Tax Amount" :
-                  currentLanguage === "ar" ? "مقدار الضريبة" :
-                    "Montant de la taxe"}
+                {currentLanguage === "en"
+                  ? "Tax Amount"
+                  : currentLanguage === "ar"
+                    ? "مقدار الضريبة"
+                    : "Montant de la taxe"}
                 <input
                   id="taxAmount"
                   {...register("taxAmount")}
@@ -252,9 +261,11 @@ const NewInvoice = () => {
                 htmlFor="billedToId"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Billed To ID" :
-                  currentLanguage === "ar" ? "رقم الفاتورة إلى" :
-                    "ID facturé à"}
+                {currentLanguage === "en"
+                  ? "Billed To ID"
+                  : currentLanguage === "ar"
+                    ? "رقم الفاتورة إلى"
+                    : "ID facturé à"}
                 <input
                   id="billedToId"
                   {...register("billedToId", { valueAsNumber: true })}
@@ -273,9 +284,11 @@ const NewInvoice = () => {
                 htmlFor="discountDescription_en"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Discount Description (EN)" :
-                  currentLanguage === "ar" ? "وصف الخصم (EN)" :
-                    "Description de la réduction (EN)"}
+                {currentLanguage === "en"
+                  ? "Discount Description (EN)"
+                  : currentLanguage === "ar"
+                    ? "وصف الخصم (EN)"
+                    : "Description de la réduction (EN)"}
                 <input
                   id="discountDescription_en"
                   {...register("discountDescription_en")}
@@ -289,16 +302,17 @@ const NewInvoice = () => {
                 )}
               </label>
 
-
               {/* Tax Description (EN) Field */}
               {/* Tax Description (EN) Field */}
               <label
                 htmlFor="taxDescription_en"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Tax Description (EN)" :
-                  currentLanguage === "ar" ? "وصف الضريبة (EN)" :
-                    "Description de la taxe (EN)"}
+                {currentLanguage === "en"
+                  ? "Tax Description (EN)"
+                  : currentLanguage === "ar"
+                    ? "وصف الضريبة (EN)"
+                    : "Description de la taxe (EN)"}
                 <input
                   id="taxDescription_en"
                   {...register("taxDescription_en")}
@@ -317,9 +331,11 @@ const NewInvoice = () => {
                 htmlFor="discountDescription_ar"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Discount Description (AR)" :
-                  currentLanguage === "ar" ? "وصف الخصم (AR)" :
-                    "Description de la réduction (AR)"}
+                {currentLanguage === "en"
+                  ? "Discount Description (AR)"
+                  : currentLanguage === "ar"
+                    ? "وصف الخصم (AR)"
+                    : "Description de la réduction (AR)"}
                 <input
                   id="discountDescription_ar"
                   {...register("discountDescription_ar")}
@@ -338,9 +354,11 @@ const NewInvoice = () => {
                 htmlFor="taxDescription_ar"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Tax Description (AR)" :
-                  currentLanguage === "ar" ? "وصف الضريبة (AR)" :
-                    "Description de la taxe (AR)"}
+                {currentLanguage === "en"
+                  ? "Tax Description (AR)"
+                  : currentLanguage === "ar"
+                    ? "وصف الضريبة (AR)"
+                    : "Description de la taxe (AR)"}
                 <input
                   id="taxDescription_ar"
                   {...register("taxDescription_ar")}
@@ -359,9 +377,11 @@ const NewInvoice = () => {
                 htmlFor="discountDescription_fr"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Discount Description (FR)" :
-                  currentLanguage === "ar" ? "وصف الخصم (FR)" :
-                    "Description de la réduction (FR)"}
+                {currentLanguage === "en"
+                  ? "Discount Description (FR)"
+                  : currentLanguage === "ar"
+                    ? "وصف الخصم (FR)"
+                    : "Description de la réduction (FR)"}
                 <input
                   id="discountDescription_fr"
                   {...register("discountDescription_fr")}
@@ -380,9 +400,11 @@ const NewInvoice = () => {
                 htmlFor="taxDescription_fr"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Tax Description (FR)" :
-                  currentLanguage === "ar" ? "وصف الضريبة (FR)" :
-                    "Description de la taxe (FR)"}
+                {currentLanguage === "en"
+                  ? "Tax Description (FR)"
+                  : currentLanguage === "ar"
+                    ? "وصف الضريبة (FR)"
+                    : "Description de la taxe (FR)"}
                 <input
                   id="taxDescription_fr"
                   {...register("taxDescription_fr")}
@@ -401,9 +423,11 @@ const NewInvoice = () => {
                 htmlFor="rate"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Item Rate" :
-                  currentLanguage === "ar" ? "سعر العنصر" :
-                    "Tarif de l'article"}
+                {currentLanguage === "en"
+                  ? "Item Rate"
+                  : currentLanguage === "ar"
+                    ? "سعر العنصر"
+                    : "Tarif de l'article"}
                 <input
                   id="rate"
                   {...register("invoiceItems.0.rate", { valueAsNumber: true })}
@@ -422,9 +446,11 @@ const NewInvoice = () => {
                 htmlFor="qty"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Item Quantity" :
-                  currentLanguage === "ar" ? "كمية العنصر" :
-                    "Quantité de l'article"}
+                {currentLanguage === "en"
+                  ? "Item Quantity"
+                  : currentLanguage === "ar"
+                    ? "كمية العنصر"
+                    : "Quantité de l'article"}
                 <input
                   id="qty"
                   {...register("invoiceItems.0.qty", { valueAsNumber: true })}
@@ -438,15 +464,16 @@ const NewInvoice = () => {
                 )}
               </label>
 
-
               {/* Item Type Field */}
               <label
                 htmlFor="type"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Item Type" :
-                  currentLanguage === "ar" ? "نوع العنصر" :
-                    "Type d'article"}
+                {currentLanguage === "en"
+                  ? "Item Type"
+                  : currentLanguage === "ar"
+                    ? "نوع العنصر"
+                    : "Type d'article"}
                 <input
                   id="type"
                   {...register("invoiceItems.0.type")}
@@ -466,9 +493,11 @@ const NewInvoice = () => {
                 htmlFor="title_en"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Item Title (EN)" :
-                  currentLanguage === "ar" ? "عنوان العنصر (EN)" :
-                    "Titre de l'article (EN)"}
+                {currentLanguage === "en"
+                  ? "Item Title (EN)"
+                  : currentLanguage === "ar"
+                    ? "عنوان العنصر (EN)"
+                    : "Titre de l'article (EN)"}
                 <input
                   id="title_en"
                   {...register("invoiceItems.0.title_en")}
@@ -487,9 +516,11 @@ const NewInvoice = () => {
                 htmlFor="title_ar"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Item Title (AR)" :
-                  currentLanguage === "ar" ? "عنوان العنصر (AR)" :
-                    "Titre de l'article (AR)"}
+                {currentLanguage === "en"
+                  ? "Item Title (AR)"
+                  : currentLanguage === "ar"
+                    ? "عنوان العنصر (AR)"
+                    : "Titre de l'article (AR)"}
                 <input
                   id="title_ar"
                   {...register("invoiceItems.0.title_ar")}
@@ -508,9 +539,11 @@ const NewInvoice = () => {
                 htmlFor="title_fr"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Item Title (FR)" :
-                  currentLanguage === "ar" ? "عنوان العنصر (FR)" :
-                    "Titre de l'article (FR)"}
+                {currentLanguage === "en"
+                  ? "Item Title (FR)"
+                  : currentLanguage === "ar"
+                    ? "عنوان العنصر (FR)"
+                    : "Titre de l'article (FR)"}
                 <input
                   id="title_fr"
                   {...register("invoiceItems.0.title_fr")}
@@ -529,9 +562,11 @@ const NewInvoice = () => {
                 htmlFor="description_en"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Item Description (EN)" :
-                  currentLanguage === "ar" ? "وصف العنصر (EN)" :
-                    "Description de l'article (EN)"}
+                {currentLanguage === "en"
+                  ? "Item Description (EN)"
+                  : currentLanguage === "ar"
+                    ? "وصف العنصر (EN)"
+                    : "Description de l'article (EN)"}
                 <input
                   id="description_en"
                   {...register("invoiceItems.0.description_en")}
@@ -550,9 +585,11 @@ const NewInvoice = () => {
                 htmlFor="description_ar"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Item Description (AR)" :
-                  currentLanguage === "ar" ? "وصف العنصر (AR)" :
-                    "Description de l'article (AR)"}
+                {currentLanguage === "en"
+                  ? "Item Description (AR)"
+                  : currentLanguage === "ar"
+                    ? "وصف العنصر (AR)"
+                    : "Description de l'article (AR)"}
                 <input
                   id="description_ar"
                   {...register("invoiceItems.0.description_ar")}
@@ -571,9 +608,11 @@ const NewInvoice = () => {
                 htmlFor="description_fr"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Item Description (FR)" :
-                  currentLanguage === "ar" ? "وصف العنصر (FR)" :
-                    "Description de l'article (FR)"}
+                {currentLanguage === "en"
+                  ? "Item Description (FR)"
+                  : currentLanguage === "ar"
+                    ? "وصف العنصر (FR)"
+                    : "Description de l'article (FR)"}
                 <input
                   id="description_fr"
                   {...register("invoiceItems.0.description_fr")}
@@ -586,7 +625,6 @@ const NewInvoice = () => {
                   </span>
                 )}
               </label>
-
             </div>
             <div className="flex justify-center text-center">
               {isLoading ? (
@@ -594,11 +632,13 @@ const NewInvoice = () => {
               ) : (
                 <button
                   type="submit"
-                  className="w-fit px-[10px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+                  className="w-fit rounded-xl bg-primary px-4 px-[10px] py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                 >
-                  {currentLanguage === "en" ? "Add Invoice" :
-                    currentLanguage === "ar" ? "إضافة فاتورة" :
-                      "Ajouter une facture"}
+                  {currentLanguage === "en"
+                    ? "Add Invoice"
+                    : currentLanguage === "ar"
+                      ? "إضافة فاتورة"
+                      : "Ajouter une facture"}
                 </button>
               )}
             </div>

@@ -38,7 +38,7 @@ const TextEditor = ({
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
   );
-  
+
   useEffect(() => {
     if (editorRef.current && value !== editorRef.current.innerHTML) {
       editorRef.current.innerHTML = value;
@@ -54,26 +54,33 @@ const TextEditor = ({
           aria-label="Text format"
         >
           <option value="p">
-            {currentLanguage === 'en' ? "Paragraph" :
-              currentLanguage === 'ar' ? "فقرة" :
-                "Paragraphe"}
+            {currentLanguage === "en"
+              ? "Paragraph"
+              : currentLanguage === "ar"
+                ? "فقرة"
+                : "Paragraphe"}
           </option>
           <option value="h1">
-            {currentLanguage === 'en' ? "Heading 1" :
-              currentLanguage === 'ar' ? "العنوان 1" :
-                "Titre 1"}
+            {currentLanguage === "en"
+              ? "Heading 1"
+              : currentLanguage === "ar"
+                ? "العنوان 1"
+                : "Titre 1"}
           </option>
           <option value="h2">
-            {currentLanguage === 'en' ? "Heading 2" :
-              currentLanguage === 'ar' ? "العنوان 2" :
-                "Titre 2"}
+            {currentLanguage === "en"
+              ? "Heading 2"
+              : currentLanguage === "ar"
+                ? "العنوان 2"
+                : "Titre 2"}
           </option>
           <option value="h3">
-            {currentLanguage === 'en' ? "Heading 3" :
-              currentLanguage === 'ar' ? "العنوان 3" :
-                "Titre 3"}
+            {currentLanguage === "en"
+              ? "Heading 3"
+              : currentLanguage === "ar"
+                ? "العنوان 3"
+                : "Titre 3"}
           </option>
-
         </select>
         <button
           type="button"

@@ -164,9 +164,11 @@ const Teacher = () => {
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
                 placeholder={
-                  currentLanguage === 'en' ? "Search" :
-                    currentLanguage === 'ar' ? "بحث" :
-                      "Recherche"
+                  currentLanguage === "en"
+                    ? "Search"
+                    : currentLanguage === "ar"
+                      ? "بحث"
+                      : "Recherche"
                 }
               />
             </div>
@@ -174,14 +176,16 @@ const Teacher = () => {
           <div className="flex justify-center">
             <Link
               href="/add-new-teacher"
-              className="mb-5 mr-3 w-fit px-[10px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+              className="mb-5 mr-3 w-fit whitespace-nowrap rounded-xl bg-primary px-4 px-[10px] py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
-              {currentLanguage === "en" ? "+ Add new Teacher" :
-                currentLanguage === "ar" ? "+ إضافة معلم جديد" :
-                  currentLanguage === "fr" ? "+ Ajouter un nouvel enseignant" :
-                    "+ Add new Teacher"}
+              {currentLanguage === "en"
+                ? "+ Add new Teacher"
+                : currentLanguage === "ar"
+                  ? "+ إضافة معلم جديد"
+                  : currentLanguage === "fr"
+                    ? "+ Ajouter un nouvel enseignant"
+                    : "+ Add new Teacher"}
             </Link>
-
           </div>
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
@@ -200,44 +204,60 @@ const Teacher = () => {
                   </div>
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "Name" :
-                    currentLanguage === "ar" ? "الاسم" :
-                      "Nom"}
+                  {currentLanguage === "en"
+                    ? "Name"
+                    : currentLanguage === "ar"
+                      ? "الاسم"
+                      : "Nom"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "ID" :
-                    currentLanguage === "ar" ? "رقم" :
-                      "ID"}
+                  {currentLanguage === "en"
+                    ? "ID"
+                    : currentLanguage === "ar"
+                      ? "رقم"
+                      : "ID"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "Gender" :
-                    currentLanguage === "ar" ? "الجنس" :
-                      "Genre"}
+                  {currentLanguage === "en"
+                    ? "Gender"
+                    : currentLanguage === "ar"
+                      ? "الجنس"
+                      : "Genre"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "Nationality" :
-                    currentLanguage === "ar" ? "الجنسية" :
-                      "Nationalité"}
+                  {currentLanguage === "en"
+                    ? "Nationality"
+                    : currentLanguage === "ar"
+                      ? "الجنسية"
+                      : "Nationalité"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "Email" :
-                    currentLanguage === "ar" ? "البريد الإلكتروني" :
-                      "Email"}
+                  {currentLanguage === "en"
+                    ? "Email"
+                    : currentLanguage === "ar"
+                      ? "البريد الإلكتروني"
+                      : "Email"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "Mobile" :
-                    currentLanguage === "ar" ? "الجوال" :
-                      "Mobile"}
+                  {currentLanguage === "en"
+                    ? "Mobile"
+                    : currentLanguage === "ar"
+                      ? "الجوال"
+                      : "Mobile"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "View" :
-                    currentLanguage === "ar" ? "عرض" :
-                      "Voir"}
+                  {currentLanguage === "en"
+                    ? "View"
+                    : currentLanguage === "ar"
+                      ? "عرض"
+                      : "Voir"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "Action" :
-                    currentLanguage === "ar" ? "الإجراء" :
-                      "Action"}
+                  {currentLanguage === "en"
+                    ? "Action"
+                    : currentLanguage === "ar"
+                      ? "الإجراء"
+                      : "Action"}
                 </th>
               </tr>
             </thead>
@@ -304,9 +324,11 @@ const Teacher = () => {
                         href={`/teacher/view-teacher/${teacher.id}`}
                         className="font-medium text-blue-600 hover:underline"
                       >
-                        {currentLanguage === "en" ? "View" :
-                          currentLanguage === "ar" ? "عرض" :
-                            "Voir"}
+                        {currentLanguage === "en"
+                          ? "View"
+                          : currentLanguage === "ar"
+                            ? "عرض"
+                            : "Voir"}
                       </Link>
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
@@ -314,12 +336,13 @@ const Teacher = () => {
                         onClick={() => handleDelete(teacher.id)}
                         className="rounded-lg bg-error px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
                       >
-                        {currentLanguage === "en" ? "Lock" :
-                          currentLanguage === "ar" ? "قفل" :
-                            "Verrouiller"}
+                        {currentLanguage === "en"
+                          ? "Lock"
+                          : currentLanguage === "ar"
+                            ? "قفل"
+                            : "Verrouiller"}
                       </button>
                     </td>
-
                   </tr>
                 ))}
             </tbody>

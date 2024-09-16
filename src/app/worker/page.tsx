@@ -163,9 +163,11 @@ const Worker = () => {
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
                 placeholder={
-                  currentLanguage === 'en' ? "Search" :
-                    currentLanguage === 'ar' ? "بحث" :
-                      "Recherche"
+                  currentLanguage === "en"
+                    ? "Search"
+                    : currentLanguage === "ar"
+                      ? "بحث"
+                      : "Recherche"
                 }
               />
             </div>
@@ -173,14 +175,16 @@ const Worker = () => {
           <div className="flex justify-center">
             <Link
               href="/add-new-worker"
-              className="mb-5 mr-3 w-fit px-[10px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+              className="mb-5 mr-3 w-fit whitespace-nowrap rounded-xl bg-primary px-4 px-[10px] py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
-              {currentLanguage === "en" ? "+ Add new Worker" :
-                currentLanguage === "ar" ? "+ إضافة عامل جديد" :
-                  currentLanguage === "fr" ? "+ Ajouter un nouveau Travailleur" :
-                    "+ Add new Worker"}
+              {currentLanguage === "en"
+                ? "+ Add new Worker"
+                : currentLanguage === "ar"
+                  ? "+ إضافة عامل جديد"
+                  : currentLanguage === "fr"
+                    ? "+ Ajouter un nouveau Travailleur"
+                    : "+ Add new Worker"}
             </Link>
-
           </div>
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
@@ -199,52 +203,76 @@ const Worker = () => {
                   </div>
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "Name" :
-                    currentLanguage === "ar" ? "الاسم" :
-                      currentLanguage === "fr" ? "Nom" :
-                        "Name"}
+                  {currentLanguage === "en"
+                    ? "Name"
+                    : currentLanguage === "ar"
+                      ? "الاسم"
+                      : currentLanguage === "fr"
+                        ? "Nom"
+                        : "Name"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "ID" :
-                    currentLanguage === "ar" ? "الرقم" :
-                      currentLanguage === "fr" ? "ID" :
-                        "ID"}
+                  {currentLanguage === "en"
+                    ? "ID"
+                    : currentLanguage === "ar"
+                      ? "الرقم"
+                      : currentLanguage === "fr"
+                        ? "ID"
+                        : "ID"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "Gender" :
-                    currentLanguage === "ar" ? "الجنس" :
-                      currentLanguage === "fr" ? "Genre" :
-                        "Gender"}
+                  {currentLanguage === "en"
+                    ? "Gender"
+                    : currentLanguage === "ar"
+                      ? "الجنس"
+                      : currentLanguage === "fr"
+                        ? "Genre"
+                        : "Gender"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "Nationality" :
-                    currentLanguage === "ar" ? "الجنسية" :
-                      currentLanguage === "fr" ? "Nationalité" :
-                        "Nationality"}
+                  {currentLanguage === "en"
+                    ? "Nationality"
+                    : currentLanguage === "ar"
+                      ? "الجنسية"
+                      : currentLanguage === "fr"
+                        ? "Nationalité"
+                        : "Nationality"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "Email" :
-                    currentLanguage === "ar" ? "البريد الإلكتروني" :
-                      currentLanguage === "fr" ? "Email" :
-                        "Email"}
+                  {currentLanguage === "en"
+                    ? "Email"
+                    : currentLanguage === "ar"
+                      ? "البريد الإلكتروني"
+                      : currentLanguage === "fr"
+                        ? "Email"
+                        : "Email"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "Mobile" :
-                    currentLanguage === "ar" ? "الموبايل" :
-                      currentLanguage === "fr" ? "Mobile" :
-                        "Mobile"}
+                  {currentLanguage === "en"
+                    ? "Mobile"
+                    : currentLanguage === "ar"
+                      ? "الموبايل"
+                      : currentLanguage === "fr"
+                        ? "Mobile"
+                        : "Mobile"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "View" :
-                    currentLanguage === "ar" ? "عرض" :
-                      currentLanguage === "fr" ? "Voir" :
-                        "View"}
+                  {currentLanguage === "en"
+                    ? "View"
+                    : currentLanguage === "ar"
+                      ? "عرض"
+                      : currentLanguage === "fr"
+                        ? "Voir"
+                        : "View"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en" ? "Action" :
-                    currentLanguage === "ar" ? "الإجراء" :
-                      currentLanguage === "fr" ? "Action" :
-                        "Action"}
+                  {currentLanguage === "en"
+                    ? "Action"
+                    : currentLanguage === "ar"
+                      ? "الإجراء"
+                      : currentLanguage === "fr"
+                        ? "Action"
+                        : "Action"}
                 </th>
               </tr>
             </thead>
@@ -309,9 +337,11 @@ const Worker = () => {
                         href={`/worker/view-worker/${worker.id}`}
                         className="font-medium text-blue-600 hover:underline"
                       >
-                        {currentLanguage === "en" ? "View" :
-                          currentLanguage === "ar" ? "عرض" :
-                            "Voir"}
+                        {currentLanguage === "en"
+                          ? "View"
+                          : currentLanguage === "ar"
+                            ? "عرض"
+                            : "Voir"}
                       </Link>
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
@@ -319,24 +349,27 @@ const Worker = () => {
                         onClick={() => handleDelete(worker.id)}
                         className="rounded-lg bg-error px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
                       >
-                        {currentLanguage === "en" ? "Lock" :
-                          currentLanguage === "ar" ? "قفل" :
-                            "Verrouiller"}
+                        {currentLanguage === "en"
+                          ? "Lock"
+                          : currentLanguage === "ar"
+                            ? "قفل"
+                            : "Verrouiller"}
                       </button>
                     </td>
-
                   </tr>
                 ))}
             </tbody>
           </table>
           {(data?.data.content.length == 0 || data == null) && (
             <div className="flex w-full justify-center py-3 text-center text-[18px] font-semibold">
-              {currentLanguage === "en" ? "There is No Data" :
-                currentLanguage === "ar" ? "لا توجد بيانات" :
-                  currentLanguage === "fr" ? "Aucune donnée" :
-                    "There is No Data"}
+              {currentLanguage === "en"
+                ? "There is No Data"
+                : currentLanguage === "ar"
+                  ? "لا توجد بيانات"
+                  : currentLanguage === "fr"
+                    ? "Aucune donnée"
+                    : "There is No Data"}
             </div>
-
           )}
         </div>
         <div className="relative overflow-auto">

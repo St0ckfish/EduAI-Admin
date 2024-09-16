@@ -128,9 +128,11 @@ const InfrastructureSearch = () => {
                         name="icon"
                         className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
                         placeholder={
-                          currentLanguage === 'en' ? "Search" :
-                            currentLanguage === 'ar' ? "بحث" :
-                              "Recherche"
+                          currentLanguage === "en"
+                            ? "Search"
+                            : currentLanguage === "ar"
+                              ? "بحث"
+                              : "Recherche"
                         }
                       />
                     </div>
@@ -141,19 +143,22 @@ const InfrastructureSearch = () => {
                       className="block h-full w-full rounded-lg border border-borderPrimary bg-bgSecondary p-1.5 text-sm text-textPrimary outline-none focus:border-borderPrimary"
                     >
                       <option selected>
-                        {currentLanguage === 'en' ? "Search by Name" :
-                          currentLanguage === 'ar' ? "البحث بالاسم" :
-                            "Rechercher par nom"}
+                        {currentLanguage === "en"
+                          ? "Search by Name"
+                          : currentLanguage === "ar"
+                            ? "البحث بالاسم"
+                            : "Rechercher par nom"}
                       </option>
-
                     </select>
                   </div>
                 </div>
                 <div className="mt-3">
                   <p className="font-semibold">
-                    {currentLanguage === 'en' ? "0 Infrastructure Found" :
-                      currentLanguage === 'ar' ? "لم يتم العثور على بنية تحتية" :
-                        "0 infrastructures trouvées"}
+                    {currentLanguage === "en"
+                      ? "0 Infrastructure Found"
+                      : currentLanguage === "ar"
+                        ? "لم يتم العثور على بنية تحتية"
+                        : "0 infrastructures trouvées"}
                   </p>
                 </div>
                 <div className="grid h-[450px] items-center justify-center">

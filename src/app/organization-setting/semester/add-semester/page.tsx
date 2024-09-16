@@ -36,6 +36,9 @@ const AddSemester = () => {
       href: "/organization-setting/semester/add-semester",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const {
     register,
@@ -84,7 +87,11 @@ const AddSemester = () => {
                 <line x1="16" y1="14" x2="16" y2="17" />
               </svg>
               <h1 className="font-sans text-[22px] font-semibold">
-                Semester Information
+                {currentLanguage === "ar"
+                  ? "معلومات الفصل الدراسي"
+                  : currentLanguage === "fr"
+                    ? "Informations sur le semestre"
+                    : "Semester Information"}
               </h1>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
@@ -92,7 +99,11 @@ const AddSemester = () => {
                 htmlFor="name"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Name
+                {currentLanguage === "ar"
+                  ? "الاسم"
+                  : currentLanguage === "fr"
+                    ? "Nom"
+                    : "Name"}
                 <input
                   id="name"
                   type="text"
@@ -100,14 +111,25 @@ const AddSemester = () => {
                   {...register("name", { required: true })}
                 />
                 {errors.name && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="code"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                The beginning of the semester
+                {currentLanguage === "ar"
+                  ? "بداية الفصل الدراسي"
+                  : currentLanguage === "fr"
+                    ? "Le début du semestre"
+                    : "The beginning of the semester"}
+
                 <input
                   id="code"
                   type="date"
@@ -115,14 +137,25 @@ const AddSemester = () => {
                   {...register("startDate", { required: true })}
                 />
                 {errors.startDate && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="about"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                The end of the semester
+                {currentLanguage === "ar"
+                  ? "نهاية الفصل الدراسي"
+                  : currentLanguage === "fr"
+                    ? "La fin du semestre"
+                    : "The end of the semester"}
+
                 <input
                   id="about"
                   type="date"
@@ -130,7 +163,13 @@ const AddSemester = () => {
                   {...register("endDate", { required: true })}
                 />
                 {errors.endDate && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
             </div>
@@ -143,7 +182,11 @@ const AddSemester = () => {
                   type="submit"
                   className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                 >
-                  Save
+                  {currentLanguage === "ar"
+                    ? "حفظ"
+                    : currentLanguage === "fr"
+                      ? "Enregistrer"
+                      : "Save"}
                 </button>
               )}
             </div>

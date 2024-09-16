@@ -130,17 +130,21 @@ const Budget = () => {
               </div>
               <div>
                 <p className="text-[12px] text-gray-400">
-                  {currentLanguage === "en" ? "Total Earning" :
-                    currentLanguage === "ar" ? "إجمالي الأرباح" :
-                      "Gains totaux"}
+                  {currentLanguage === "en"
+                    ? "Total Earning"
+                    : currentLanguage === "ar"
+                      ? "إجمالي الأرباح"
+                      : "Gains totaux"}
                 </p>
                 <h1 className="text-[17px] font-semibold">12.130K</h1>
                 <h1 className="text-[10px] text-gray-400">
                   {" "}
                   <span className="font-semibold text-success">4.63%</span>{" "}
-                  {currentLanguage === "en" ? "vs. last Year" :
-                    currentLanguage === "ar" ? "مقارنة بالسنة الماضية" :
-                      "vs. l'année dernière"}
+                  {currentLanguage === "en"
+                    ? "vs. last Year"
+                    : currentLanguage === "ar"
+                      ? "مقارنة بالسنة الماضية"
+                      : "vs. l'année dernière"}
                 </h1>
               </div>
             </div>
@@ -150,17 +154,21 @@ const Budget = () => {
               </div>
               <div>
                 <p className="text-[12px] text-gray-400">
-                  {currentLanguage === "en" ? "Total Spending" :
-                    currentLanguage === "ar" ? "إجمالي الإنفاق" :
-                      "Dépenses totales"}
+                  {currentLanguage === "en"
+                    ? "Total Spending"
+                    : currentLanguage === "ar"
+                      ? "إجمالي الإنفاق"
+                      : "Dépenses totales"}
                 </p>
                 <h1 className="text-[17px] font-semibold">12.130K</h1>
                 <h1 className="text-[10px] text-gray-400">
                   {" "}
                   <span className="font-semibold text-error">4.63%</span>
-                  {currentLanguage === "en" ? "vs. last Year" :
-                    currentLanguage === "ar" ? "مقارنة بالسنة الماضية" :
-                      "vs. l'année dernière"}
+                  {currentLanguage === "en"
+                    ? "vs. last Year"
+                    : currentLanguage === "ar"
+                      ? "مقارنة بالسنة الماضية"
+                      : "vs. l'année dernière"}
                 </h1>
               </div>
             </div>
@@ -176,9 +184,11 @@ const Budget = () => {
                 <div className="flex justify-between">
                   <div className="">
                     <h1 className="font-light">
-                      {currentLanguage === "en" ? "Name" :
-                        currentLanguage === "ar" ? "الاسم" :
-                          "Nom"}
+                      {currentLanguage === "en"
+                        ? "Name"
+                        : currentLanguage === "ar"
+                          ? "الاسم"
+                          : "Nom"}
                     </h1>
                     <p className="font-medium tracking-widest">Mostapha Taha</p>
                   </div>
@@ -190,9 +200,11 @@ const Budget = () => {
                 </div>
                 <div className="pt-1">
                   <h1 className="font-light">
-                    {currentLanguage === "en" ? "Card Number" :
-                      currentLanguage === "ar" ? "رقم البطاقة" :
-                        "Numéro de carte"}
+                    {currentLanguage === "en"
+                      ? "Card Number"
+                      : currentLanguage === "ar"
+                        ? "رقم البطاقة"
+                        : "Numéro de carte"}
                   </h1>
                   <p className="tracking-more-wider font-medium">
                     4642 3489 9867 7632
@@ -202,9 +214,11 @@ const Budget = () => {
                   <div className="flex justify-between">
                     <div className="">
                       <h1 className="text-xs font-light">
-                        {currentLanguage === "en" ? "Valid" :
-                          currentLanguage === "ar" ? "صالح" :
-                            "Valide"}
+                        {currentLanguage === "en"
+                          ? "Valid"
+                          : currentLanguage === "ar"
+                            ? "صالح"
+                            : "Valide"}
                       </h1>
                       <p className="text-sm font-medium tracking-wider">
                         11/15
@@ -212,9 +226,11 @@ const Budget = () => {
                     </div>
                     <div className="">
                       <h1 className="text-xs font-light">
-                        {currentLanguage === "en" ? "Expiry" :
-                          currentLanguage === "ar" ? "انتهاء" :
-                            "Expiration"}
+                        {currentLanguage === "en"
+                          ? "Expiry"
+                          : currentLanguage === "ar"
+                            ? "انتهاء"
+                            : "Expiration"}
                       </h1>
                       <p className="text-sm font-medium tracking-wider">
                         03/25
@@ -222,9 +238,11 @@ const Budget = () => {
                     </div>
                     <div className="">
                       <h1 className="text-xs font-light">
-                        {currentLanguage === "en" ? "CVV" :
-                          currentLanguage === "ar" ? "رمز الأمان" :
-                            "CVV"}
+                        {currentLanguage === "en"
+                          ? "CVV"
+                          : currentLanguage === "ar"
+                            ? "رمز الأمان"
+                            : "CVV"}
                       </h1>
                       <p className="tracking-more-wider text-sm font-bold">
                         ···
@@ -242,17 +260,21 @@ const Budget = () => {
               </div>
               <div>
                 <p className="text-[12px] text-gray-400">
-                  {currentLanguage === "en" ? "Total Earning" :
-                    currentLanguage === "ar" ? "إجمالي الأرباح" :
-                      "Gains totaux"}
+                  {currentLanguage === "en"
+                    ? "Total Earning"
+                    : currentLanguage === "ar"
+                      ? "إجمالي الأرباح"
+                      : "Gains totaux"}
                 </p>
                 <h1 className="text-[17px] font-semibold">12.130K</h1>
                 <h1 className="text-[10px] text-gray-400">
                   {" "}
                   <span className="font-semibold text-success">4.63%</span>{" "}
-                  {currentLanguage === "en" ? "vs. last Year" :
-                    currentLanguage === "ar" ? "مقارنة بالسنة الماضية" :
-                      "vs. l'année dernière"}
+                  {currentLanguage === "en"
+                    ? "vs. last Year"
+                    : currentLanguage === "ar"
+                      ? "مقارنة بالسنة الماضية"
+                      : "vs. l'année dernière"}
                 </h1>
               </div>
             </div>
@@ -262,17 +284,21 @@ const Budget = () => {
               </div>
               <div>
                 <p className="text-[12px] text-gray-400">
-                  {currentLanguage === "en" ? "Total Spending" :
-                    currentLanguage === "ar" ? "إجمالي الإنفاق" :
-                      "Dépenses totales"}
+                  {currentLanguage === "en"
+                    ? "Total Spending"
+                    : currentLanguage === "ar"
+                      ? "إجمالي الإنفاق"
+                      : "Dépenses totales"}
                 </p>
                 <h1 className="text-[17px] font-semibold">12.130K</h1>
                 <h1 className="text-[10px] text-gray-400">
                   {" "}
                   <span className="font-semibold text-error">4.63%</span>
-                  {currentLanguage === "en" ? "vs. last Year" :
-                    currentLanguage === "ar" ? "مقارنة بالسنة الماضية" :
-                      "vs. l'année dernière"}
+                  {currentLanguage === "en"
+                    ? "vs. last Year"
+                    : currentLanguage === "ar"
+                      ? "مقارنة بالسنة الماضية"
+                      : "vs. l'année dernière"}
                 </h1>
               </div>
             </div>
@@ -286,9 +312,11 @@ const Budget = () => {
               className="w-[850px] overflow-x-auto rounded-xl bg-bgPrimary p-2 shadow-xl"
             >
               <p className="text-[18px] font-semibold">
-                {currentLanguage === "en" ? "School Finance" :
-                  currentLanguage === "ar" ? "المالية المدرسية" :
-                    "Finance scolaire"}
+                {currentLanguage === "en"
+                  ? "School Finance"
+                  : currentLanguage === "ar"
+                    ? "المالية المدرسية"
+                    : "Finance scolaire"}
               </p>
 
               <ApexChart />
@@ -301,24 +329,32 @@ const Budget = () => {
               <thead className="bg-thead text-xs uppercase text-textPrimary">
                 <tr>
                   <th scope="col" className="whitespace-nowrap px-6 py-3">
-                    {currentLanguage === "en" ? "Full Name" :
-                      currentLanguage === "ar" ? "الاسم الكامل" :
-                        "Nom complet"}
+                    {currentLanguage === "en"
+                      ? "Full Name"
+                      : currentLanguage === "ar"
+                        ? "الاسم الكامل"
+                        : "Nom complet"}
                   </th>
                   <th scope="col" className="whitespace-nowrap px-6 py-3">
-                    {currentLanguage === "en" ? "ID" :
-                      currentLanguage === "ar" ? "الرقم التعريفي" :
-                        "ID"}
+                    {currentLanguage === "en"
+                      ? "ID"
+                      : currentLanguage === "ar"
+                        ? "الرقم التعريفي"
+                        : "ID"}
                   </th>
                   <th scope="col" className="whitespace-nowrap px-6 py-3">
-                    {currentLanguage === "en" ? "Address" :
-                      currentLanguage === "ar" ? "العنوان" :
-                        "Adresse"}
+                    {currentLanguage === "en"
+                      ? "Address"
+                      : currentLanguage === "ar"
+                        ? "العنوان"
+                        : "Adresse"}
                   </th>
                   <th scope="col" className="whitespace-nowrap px-6 py-3">
-                    {currentLanguage === "en" ? "Status" :
-                      currentLanguage === "ar" ? "الحالة" :
-                        "Statut"}
+                    {currentLanguage === "en"
+                      ? "Status"
+                      : currentLanguage === "ar"
+                        ? "الحالة"
+                        : "Statut"}
                   </th>
                 </tr>
               </thead>

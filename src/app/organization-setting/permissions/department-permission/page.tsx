@@ -116,7 +116,6 @@ const DepartmentPermission = () => {
                 ? "Employé"
                 : "Employee"}
           </Link>
-
         </div>
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">
@@ -148,9 +147,11 @@ const DepartmentPermission = () => {
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-primary focus:ring-primary disabled:pointer-events-none disabled:opacity-50"
                 placeholder={
-                  currentLanguage === 'en' ? "Search" :
-                    currentLanguage === 'ar' ? "بحث" :
-                      "Recherche"
+                  currentLanguage === "en"
+                    ? "Search"
+                    : currentLanguage === "ar"
+                      ? "بحث"
+                      : "Recherche"
                 }
               />
             </div>
@@ -239,7 +240,6 @@ const DepartmentPermission = () => {
                       ? "Action"
                       : "Action"}
                 </th>
-
               </tr>
             </thead>
             <tbody>

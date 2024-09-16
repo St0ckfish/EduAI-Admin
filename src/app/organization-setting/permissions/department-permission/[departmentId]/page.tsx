@@ -3,7 +3,13 @@ import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import BreadCrumbs from "@/components/BreadCrumbs";
 
-const Permissions = () => {
+interface departmentIdProps {
+  params: {
+    departmentId: string;
+  };
+}
+
+const Permissions: React.FC<departmentIdProps> = ({ params }) => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
@@ -27,11 +33,17 @@ const Permissions = () => {
       nameFr: "Autorisations du département",
       href: "/organization-setting/permissions/department-permission",
     },
+    {
+      nameEn: `${params.departmentId}`,
+      nameAr: `${params.departmentId}`,
+      nameFr: `${params.departmentId}`,
+      href: `/organization-setting/permissions/department-permission/${params.departmentId}`,
+    },
   ];
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
-      <div className="relative mt-4 mr-[5px] mt-5 flex h-[650px] items-center justify-center overflow-x-auto bg-transparent max-[1200px]:w-screen sm:rounded-lg lg:ml-[270px]">
+      <div className="relative mr-[5px] mt-4 mt-5 flex h-[650px] items-center justify-center overflow-x-auto bg-transparent max-[1200px]:w-screen sm:rounded-lg lg:ml-[270px]">
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
           <table className="h-[600px] w-[1000px] overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
             <thead className="bg-thead text-xs uppercase text-textPrimary">
@@ -73,7 +85,6 @@ const Permissions = () => {
                         : currentLanguage === "fr"
                           ? "Nouvelle Autorisation"
                           : "New Permission"}
-
                     </span>
                   </label>
 
@@ -110,17 +121,19 @@ const Permissions = () => {
                         id="countries"
                         className="block w-full rounded-lg border border-borderPrimary bg-bgSecondary p-1.5 text-sm text-textPrimary focus:border-blue-500 focus:ring-blue-500"
                       >
-                        <option selected>{currentLanguage === "ar"
-                          ? "اختر"
-                          : currentLanguage === "fr"
-                            ? "Choisir"
-                            : "Choose"}
+                        <option selected>
+                          {currentLanguage === "ar"
+                            ? "اختر"
+                            : currentLanguage === "fr"
+                              ? "Choisir"
+                              : "Choose"}
                         </option>
-                        <option value="US">{currentLanguage === "ar"
-                          ? "مدرس"
-                          : currentLanguage === "fr"
-                            ? "Enseignant"
-                            : "Teacher"}
+                        <option value="US">
+                          {currentLanguage === "ar"
+                            ? "مدرس"
+                            : currentLanguage === "fr"
+                              ? "Enseignant"
+                              : "Teacher"}
                         </option>
                       </select>
                     </span>
@@ -141,7 +154,6 @@ const Permissions = () => {
                         : currentLanguage === "fr"
                           ? "Nouvelle Autorisation"
                           : "New Permission"}
-
                     </span>
                   </label>
 
@@ -178,17 +190,19 @@ const Permissions = () => {
                         id="countries"
                         className="block w-full rounded-lg border border-borderPrimary bg-bgSecondary p-1.5 text-sm text-textPrimary focus:border-blue-500 focus:ring-blue-500"
                       >
-                        <option selected>{currentLanguage === "ar"
-                          ? "اختر"
-                          : currentLanguage === "fr"
-                            ? "Choisir"
-                            : "Choose"}
+                        <option selected>
+                          {currentLanguage === "ar"
+                            ? "اختر"
+                            : currentLanguage === "fr"
+                              ? "Choisir"
+                              : "Choose"}
                         </option>
-                        <option value="DE">{currentLanguage === "ar"
-                          ? "مدرس"
-                          : currentLanguage === "fr"
-                            ? "Enseignant"
-                            : "Teacher"}
+                        <option value="DE">
+                          {currentLanguage === "ar"
+                            ? "مدرس"
+                            : currentLanguage === "fr"
+                              ? "Enseignant"
+                              : "Teacher"}
                         </option>
                       </select>
                     </span>
@@ -209,7 +223,6 @@ const Permissions = () => {
                         : currentLanguage === "fr"
                           ? "Nouvelle Autorisation"
                           : "New Permission"}
-
                     </span>
                   </label>
 
@@ -234,17 +247,19 @@ const Permissions = () => {
                         id="countries"
                         className="block w-full rounded-lg border border-borderPrimary bg-bgSecondary p-1.5 text-sm text-textPrimary focus:border-blue-500 focus:ring-blue-500"
                       >
-                        <option selected>{currentLanguage === "ar"
-                          ? "اختر"
-                          : currentLanguage === "fr"
-                            ? "Choisir"
-                            : "Choose"}
+                        <option selected>
+                          {currentLanguage === "ar"
+                            ? "اختر"
+                            : currentLanguage === "fr"
+                              ? "Choisir"
+                              : "Choose"}
                         </option>
-                        <option value="DE">{currentLanguage === "ar"
-                          ? "مدرس"
-                          : currentLanguage === "fr"
-                            ? "Enseignant"
-                            : "Teacher"}
+                        <option value="DE">
+                          {currentLanguage === "ar"
+                            ? "مدرس"
+                            : currentLanguage === "fr"
+                              ? "Enseignant"
+                              : "Teacher"}
                         </option>
                       </select>
                     </span>
@@ -265,7 +280,6 @@ const Permissions = () => {
                         : currentLanguage === "fr"
                           ? "Nouvelle Autorisation"
                           : "New Permission"}
-
                     </span>
                   </label>
                   <p className="mt-3 text-[14px] text-secondary">
@@ -301,17 +315,19 @@ const Permissions = () => {
                         id="countries"
                         className="block w-full rounded-lg border border-borderPrimary bg-bgSecondary p-1.5 text-sm text-textPrimary focus:border-blue-500 focus:ring-blue-500"
                       >
-                        <option selected>{currentLanguage === "ar"
-                          ? "اختر"
-                          : currentLanguage === "fr"
-                            ? "Choisir"
-                            : "Choose"}
+                        <option selected>
+                          {currentLanguage === "ar"
+                            ? "اختر"
+                            : currentLanguage === "fr"
+                              ? "Choisir"
+                              : "Choose"}
                         </option>
-                        <option value="DE">{currentLanguage === "ar"
-                          ? "مدرس"
-                          : currentLanguage === "fr"
-                            ? "Enseignant"
-                            : "Teacher"}
+                        <option value="DE">
+                          {currentLanguage === "ar"
+                            ? "مدرس"
+                            : currentLanguage === "fr"
+                              ? "Enseignant"
+                              : "Teacher"}
                         </option>
                       </select>
                     </span>

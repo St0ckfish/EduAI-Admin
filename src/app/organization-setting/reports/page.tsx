@@ -73,10 +73,18 @@ const Report = () => {
           href="/organization-setting/reports"
           className="text-blue-500 underline"
         >
-          {currentLanguage === "ar" ? "التقارير" : currentLanguage === "fr" ? "Rapports" : "Reports"}
+          {currentLanguage === "ar"
+            ? "التقارير"
+            : currentLanguage === "fr"
+              ? "Rapports"
+              : "Reports"}
         </Link>
         <Link href="/organization-setting/suggestions">
-          {currentLanguage === "ar" ? "الاقتراحات" : currentLanguage === "fr" ? "Suggestions" : "Suggestions"}
+          {currentLanguage === "ar"
+            ? "الاقتراحات"
+            : currentLanguage === "fr"
+              ? "Suggestions"
+              : "Suggestions"}
         </Link>
       </div>
       <div
@@ -154,7 +162,11 @@ const Report = () => {
           </table>
           {(data?.data.content.length == 0 || data == null) && (
             <div className="flex w-full justify-center py-3 text-center text-[18px] font-semibold">
-              {currentLanguage === "ar" ? "لا توجد بيانات" : currentLanguage === "fr" ? "Il n'y a pas de données" : "There is No Data"}
+              {currentLanguage === "ar"
+                ? "لا توجد بيانات"
+                : currentLanguage === "fr"
+                  ? "Il n'y a pas de données"
+                  : "There is No Data"}
             </div>
           )}
         </div>
