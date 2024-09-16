@@ -1,14 +1,16 @@
-"use client"
-import Modal from "@/components/model"; // Make sure your Modal component is working
+"use client";
+import Modal from "@/components/model"; // تأكد من أن مكون Modal يعمل بشكل صحيح
 import { useState } from "react";
-import RegisterForm from "@/components/registerChat"; // Create this component
-import LoginForm from "@/components/loginChat"; // Create this component
+import RegisterForm from "@/components/registerChat"; // تأكد من إنشاء هذا المكون
+import LoginForm from "@/components/loginChat"; // تأكد من إنشاء هذا المكون
 import dynamic from 'next/dynamic';
+
+// تعطيل SSR لمكون ChatPage
 const ChatPage = dynamic(() => import('@/components/chat'), { ssr: false });
 
 const Chat = () => {
   const [isModalOpen, setModalOpen] = useState(false);
-  const [isRegisterForm, setIsRegisterForm] = useState(false); // Toggle between Register and Login
+  const [isRegisterForm, setIsRegisterForm] = useState(false); // التبديل بين تسجيل المستخدم وتسجيل الدخول
 
   const handleCloseModal = () => {
     setModalOpen(false);
@@ -26,9 +28,10 @@ const Chat = () => {
 
   return (
     <div className="lg:ml-[270px] mt-10">
+      {/* مكون ChatPage سيتم تحميله فقط في المتصفح */}
       <ChatPage />
 
-      {/* Buttons to open Register or Login Modal */}
+      {/* أزرار فتح المودال لتسجيل المستخدم أو تسجيل الدخول */}
       <button onClick={handleOpenRegister} className="mr-4 bg-blue-500 text-white p-2 rounded">
         Register
       </button>
@@ -36,6 +39,7 @@ const Chat = () => {
         Login
       </button>
 
+      {/* مكون المودال */}
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         {isRegisterForm ? (
           <RegisterForm onClose={handleCloseModal} />
