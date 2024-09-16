@@ -24,7 +24,8 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
     pathname === "/otp" ||
     pathname === "/choose-account";
     useEffect(() => {
-      initCometChat();
+      if (typeof window !== 'undefined') {
+      initCometChat();}
     }, []);
 
   return (
