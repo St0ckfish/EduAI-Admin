@@ -1,9 +1,10 @@
 "use client"
-import ChatPage from "@/components/chat";
 import Modal from "@/components/model"; // Make sure your Modal component is working
 import { useState } from "react";
 import RegisterForm from "@/components/registerChat"; // Create this component
 import LoginForm from "@/components/loginChat"; // Create this component
+import dynamic from 'next/dynamic';
+const ChatPage = dynamic(() => import('@/components/chat'), { ssr: false });
 
 const Chat = () => {
   const [isModalOpen, setModalOpen] = useState(false);
