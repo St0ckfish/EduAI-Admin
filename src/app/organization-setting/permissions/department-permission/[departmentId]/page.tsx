@@ -27,12 +27,6 @@ const Permissions = () => {
       nameFr: "Autorisations du département",
       href: "/organization-setting/permissions/department-permission",
     },
-    {
-      nameEn: "Department Permissions",
-      nameAr: "صلاحيات المنظمة",
-      nameFr: "Autorisations du département",
-      href: `/organization-setting/permissions/department-permission/${params.departmentId}`,
-    },
   ];
   return (
     <>
