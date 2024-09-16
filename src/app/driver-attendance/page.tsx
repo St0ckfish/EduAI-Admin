@@ -5,7 +5,6 @@ import {
   useDeleteDriversMutation,
   useGetDriverByIdQuery,
 } from "@/features/User-Management/driverApi";
-import Link from "next/link";
 import { useState, useEffect, SetStateAction } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
@@ -23,7 +22,7 @@ import BreadCrumbs from "@/components/BreadCrumbs";
 const DriverAttendance = () => {
   const breadcrumbs = [
     {
-      nameEn: "Dhashboard",
+      nameEn: "Dashboard",
       nameAr: "لوحة القيادة",
       nameFr: "Tableau de bord",
       href: "/",
@@ -43,7 +42,6 @@ const DriverAttendance = () => {
   ];
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
-  const handleOpen = () => setIsSheetOpen(true);
   const handleClose = () => setIsSheetOpen(false);
 
   const [currentPage, setCurrentPage] = useState(0);

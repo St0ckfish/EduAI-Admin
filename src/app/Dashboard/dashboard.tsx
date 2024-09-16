@@ -332,7 +332,18 @@ const Dashboard: React.FC = () => {
                   </div>
                 </div>
               ))}
-              <div className="grid justify-center">
+              {(mettings?.data.content.length == 0 || mettings == null) && (
+                <div className="flex w-full justify-center py-3 text-center text-[18px] font-semibold">
+                  {currentLanguage === "en"
+                    ? "There is No Data"
+                    : currentLanguage === "ar"
+                      ? "لا توجد بيانات"
+                      : currentLanguage === "fr"
+                        ? "Il n'y a pas de données"
+                        : "There is No Data"}
+                </div>
+              )}
+              <div className="flex justify-center">
                 <button
                   onClick={handleOpenModal}
                   className="mr-3 w-[120px] whitespace-nowrap rounded-xl bg-primary px-1 py-1.5 text-[14px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
@@ -372,7 +383,6 @@ const Dashboard: React.FC = () => {
         </div>
              */}
           </div>
-          
         </div>
         <div className="grid overflow-x-auto rounded-xl">
           <div className="grid h-[500px] w-[550px] overflow-x-auto overflow-y-auto rounded-xl bg-bgPrimary p-2 shadow-xl max-[1536px]:w-full">
@@ -437,7 +447,12 @@ const Dashboard: React.FC = () => {
                     <h1 className="text-[18px] font-semibold text-primary">
                       {note.title}
                     </h1>
-                    <p className="text-textSecondary" dangerouslySetInnerHTML={{ __html: note.description || "" }}/>
+                    <p
+                      className="text-textSecondary"
+                      dangerouslySetInnerHTML={{
+                        __html: note.description || "",
+                      }}
+                    />
                   </div>
                 ),
               )}

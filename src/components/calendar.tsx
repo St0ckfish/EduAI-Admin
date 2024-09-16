@@ -108,7 +108,7 @@ const Calendar = () => {
         </div>
         {/* Display calendar */}
         {/* Day names */}
-        <div className="grid grid-cols-7 ml-2 gap-8" role="row">
+        <div className="grid grid-cols-7 gap-8" role="row">
           <div
             role="columnheader"
             className="font-sans font-medium text-textSecondary"
@@ -152,7 +152,7 @@ const Calendar = () => {
             SAT
           </div>
         </div>
-        <div className="grid grid-cols-7 ml-2" role="grid">
+        <div className="grid grid-cols-7" role="grid">
           {monthDates.map((date, index) => (
             <div
               key={index}

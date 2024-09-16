@@ -22,7 +22,7 @@ const AddNote = () => {
       // Send the title and description as an object
       await createNotification({
         title,
-        description
+        description,
       }).unwrap();
 
       toast.success("Notification sent successfully!");
@@ -38,7 +38,7 @@ const AddNote = () => {
   );
 
   return (
-    <div className="flex lg:ml-[270px] mt-5 mr-3">
+    <div className="mr-3 mt-5 flex lg:ml-[270px]">
       <div className="grid h-full w-full items-center gap-3 rounded-xl bg-bgPrimary p-5">
         <div className="mb-5 flex w-full justify-start">
           <h1 className="text-[22px] font-semibold">
@@ -50,9 +50,7 @@ const AddNote = () => {
         <form onSubmit={handleSubmit}>
           <div className="grid h-full w-full gap-6">
             <label className="grid gap-2 text-[18px] font-semibold" htmlFor="title">
-              {currentLanguage === 'en' ? "Title" :
-                currentLanguage === 'ar' ? "العنوان" :
-                  "Titre"}
+              Title
               <input
                 className="rounded-xl border border-borderPrimary px-4 py-2 outline-none"
                 placeholder={currentLanguage === 'en' ? "Write title...." :
@@ -61,13 +59,11 @@ const AddNote = () => {
                 name="title"
                 id="title"
                 value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                onChange={e => setTitle(e.target.value)}
               />
             </label>
             <label className="grid gap-2 text-[18px] font-semibold" htmlFor="description">
-              {currentLanguage === 'en' ? "Description" :
-                currentLanguage === 'ar' ? "الوصف" :
-                  "Description"}
+              Description
               <div className="mb-5 bg-bgPrimary">
                 <TextEditor
                   value={description}

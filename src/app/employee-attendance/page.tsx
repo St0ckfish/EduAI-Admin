@@ -23,7 +23,7 @@ import BreadCrumbs from "@/components/BreadCrumbs";
 const EmployeeAttendance = () => {
   const breadcrumbs = [
     {
-      nameEn: "Dhashboard",
+      nameEn: "Dashboard",
       nameAr: "لوحة القيادة",
       nameFr: "Tableau de bord",
       href: "/",
