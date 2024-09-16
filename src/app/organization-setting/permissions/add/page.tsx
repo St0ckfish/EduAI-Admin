@@ -60,12 +60,12 @@ const Permissions = () => {
               <tr className="bg-bgPrimary hover:bg-bgSecondary">
                 <th
                   scope="row"
-                  className="whitespace-nowrap px-6 py-4 text-[25px] font-medium text-textSecondary"
+                  className="whitespace-nowrap px-6 py-4 text-[25px] font-medium text-textPrimary"
                 >
                   <label className="inline-flex cursor-pointer items-center">
                     <input type="checkbox" value="" className="peer sr-only" />
-                    <div className="peer relative h-7 w-14 rounded-full bg-secondary after:absolute after:start-[4px] after:top-0.5 after:h-6 after:w-6 after:rounded-full after:border after:border-borderPrimary after:bg-bgPrimary after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-borderPrimary peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rtl:peer-checked:after:-translate-x-full"></div>
-                    <span className="ms-3 whitespace-nowrap text-[25px] font-medium text-textSecondary">
+                    <div className="peer relative h-7 w-14 rounded-full bg-thead after:absolute after:start-[4px] after:top-0.5 after:h-6 after:w-6 after:rounded-full after:border after:border-borderPrimary after:bg-bgPrimary after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-borderPrimary peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rtl:peer-checked:after:-translate-x-full"></div>
+                    <span className="ms-3 whitespace-nowrap text-[25px] font-medium text-textPrimary">
                       New Permission
                     </span>
                   </label>
@@ -76,7 +76,7 @@ const Permissions = () => {
                       Sections
                       <select
                         id="countries"
-                        className="block w-full rounded-lg border border-borderPrimary bg-bgPrimary p-1.5 text-sm text-textSecondary outline-none focus:border-blue-500 focus:ring-blue-500"
+                        className="block w-full rounded-lg border border-borderPrimary bg-bgPrimary p-1.5 text-sm text-textPrimary outline-none focus:border-blue-500 focus:ring-blue-500"
                       >
                         <option selected>Choose Section </option>
                         <option value="US">Teacher</option>
@@ -88,12 +88,12 @@ const Permissions = () => {
               <tr className="bg-bgPrimary hover:bg-bgSecondary">
                 <th
                   scope="row"
-                  className="whitespace-nowrap px-6 py-4 text-[25px] font-medium text-textSecondary"
+                  className="whitespace-nowrap px-6 py-4 text-[25px] font-medium text-textPrimary"
                 >
                   <label className="inline-flex cursor-pointer items-center">
                     <input type="checkbox" value="" className="peer sr-only" />
-                    <div className="peer relative h-7 w-14 rounded-full bg-secondary after:absolute after:start-[4px] after:top-0.5 after:h-6 after:w-6 after:rounded-full after:border after:border-borderPrimary after:bg-bgPrimary after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-borderPrimary peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rtl:peer-checked:after:-translate-x-full"></div>
-                    <span className="ms-3 whitespace-nowrap text-[25px] font-medium text-textSecondary">
+                    <div className="peer relative h-7 w-14 rounded-full bg-thead after:absolute after:start-[4px] after:top-0.5 after:h-6 after:w-6 after:rounded-full after:border after:border-borderPrimary after:bg-bgPrimary after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-borderPrimary peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rtl:peer-checked:after:-translate-x-full"></div>
+                    <span className="ms-3 whitespace-nowrap text-[25px] font-medium text-textPrimary">
                       New Permission
                     </span>
                   </label>
@@ -103,12 +103,12 @@ const Permissions = () => {
               <tr className="bg-bgPrimary hover:bg-bgSecondary">
                 <th
                   scope="row"
-                  className="whitespace-nowrap px-6 py-4 text-[25px] font-medium text-textSecondary"
+                  className="whitespace-nowrap px-6 py-4 text-[25px] font-medium text-textPrimary"
                 >
                   <label className="inline-flex cursor-pointer items-center">
                     <input type="checkbox" value="" className="peer sr-only" />
-                    <div className="peer relative h-7 w-14 rounded-full bg-secondary after:absolute after:start-[4px] after:top-0.5 after:h-6 after:w-6 after:rounded-full after:border after:border-borderPrimary after:bg-bgPrimary after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-borderPrimary peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rtl:peer-checked:after:-translate-x-full"></div>
-                    <span className="ms-3 whitespace-nowrap text-[25px] font-medium text-textSecondary">
+                    <div className="peer relative h-7 w-14 rounded-full bg-thead after:absolute after:start-[4px] after:top-0.5 after:h-6 after:w-6 after:rounded-full after:border after:border-borderPrimary after:bg-bgPrimary after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-borderPrimary peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rtl:peer-checked:after:-translate-x-full"></div>
+                    <span className="ms-3 whitespace-nowrap text-[25px] font-medium text-textPrimary">
                       New Permission
                     </span>
                   </label>
@@ -118,12 +118,12 @@ const Permissions = () => {
               <tr className="bg-bgPrimary hover:bg-bgSecondary">
                 <th
                   scope="row"
-                  className="whitespace-nowrap px-6 py-4 text-[25px] font-medium text-textSecondary"
+                  className="whitespace-nowrap px-6 py-4 text-[25px] font-medium text-textPrimary"
                 >
                   <label className="inline-flex cursor-pointer items-center">
                     <input type="checkbox" value="" className="peer sr-only" />
-                    <div className="peer relative h-7 w-14 rounded-full bg-secondary after:absolute after:start-[4px] after:top-0.5 after:h-6 after:w-6 after:rounded-full after:border after:border-borderPrimary after:bg-bgPrimary after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-borderPrimary peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rtl:peer-checked:after:-translate-x-full"></div>
-                    <span className="ms-3 whitespace-nowrap text-[25px] font-medium text-textSecondary">
+                    <div className="peer relative h-7 w-14 rounded-full bg-thead after:absolute after:start-[4px] after:top-0.5 after:h-6 after:w-6 after:rounded-full after:border after:border-borderPrimary after:bg-bgPrimary after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-borderPrimary peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rtl:peer-checked:after:-translate-x-full"></div>
+                    <span className="ms-3 whitespace-nowrap text-[25px] font-medium text-textPrimary">
                       New Permission
                     </span>
                   </label>

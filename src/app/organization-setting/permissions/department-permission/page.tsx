@@ -36,7 +36,9 @@ const DepartmentPermission = () => {
   const { data, error, isLoading } =
     useGetAllDepartmentPermissionPermissionsQuery(null);
   const [selectAll, setSelectAll] = useState(false);
-
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   useEffect(() => {
     if (data) console.log("Response Data:", data);
     if (error) console.log("Error:", error);
@@ -101,11 +103,20 @@ const DepartmentPermission = () => {
             href="/organization-setting/permissions/department-permission"
             className="text-primary underline"
           >
-            Department
+            {currentLanguage === "ar"
+              ? "القسم"
+              : currentLanguage === "fr"
+                ? "Département"
+                : "Department"}
           </Link>
           <Link href="/organization-setting/permissions/employee-permission">
-            Employee
+            {currentLanguage === "ar"
+              ? "الموظف"
+              : currentLanguage === "fr"
+                ? "Employé"
+                : "Employee"}
           </Link>
+
         </div>
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">
@@ -136,7 +147,11 @@ const DepartmentPermission = () => {
                 id="icon"
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-primary focus:ring-primary disabled:pointer-events-none disabled:opacity-50"
-                placeholder="Search"
+                placeholder={
+                  currentLanguage === 'en' ? "Search" :
+                    currentLanguage === 'ar' ? "بحث" :
+                      "Recherche"
+                }
               />
             </div>
           </div>
@@ -145,7 +160,11 @@ const DepartmentPermission = () => {
               href="/organization-setting/permissions/add"
               className="mb-5 mr-3 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
-              + Add Department Permissions
+              {currentLanguage === "ar"
+                ? "+ إضافة أذونات القسم"
+                : currentLanguage === "fr"
+                  ? "+ Ajouter les autorisations du département"
+                  : "+ Add Department Permissions"}
             </Link>
           </div>
         </div>
@@ -165,29 +184,62 @@ const DepartmentPermission = () => {
                   </div>
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Name
+                  {currentLanguage === "ar"
+                    ? "الاسم"
+                    : currentLanguage === "fr"
+                      ? "Nom"
+                      : "Name"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  id
+                  {currentLanguage === "ar"
+                    ? "الرقم التعريفي"
+                    : currentLanguage === "fr"
+                      ? "ID"
+                      : "id"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  is Full Academic
+                  {currentLanguage === "ar"
+                    ? "أكاديمي كامل"
+                    : currentLanguage === "fr"
+                      ? "Est complet académique"
+                      : "is Full Academic"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  is Full Administration
+                  {currentLanguage === "ar"
+                    ? "إداري كامل"
+                    : currentLanguage === "fr"
+                      ? "Est complet administratif"
+                      : "is Full Administration"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  is Full Communication
+                  {currentLanguage === "ar"
+                    ? "تواصل كامل"
+                    : currentLanguage === "fr"
+                      ? "Est complet communication"
+                      : "is Full Communication"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  is Full Operations
+                  {currentLanguage === "ar"
+                    ? "عمليات كاملة"
+                    : currentLanguage === "fr"
+                      ? "Est complet opérations"
+                      : "is Full Operations"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  view
+                  {currentLanguage === "ar"
+                    ? "عرض"
+                    : currentLanguage === "fr"
+                      ? "Vue"
+                      : "view"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Action
+                  {currentLanguage === "ar"
+                    ? "الإجراء"
+                    : currentLanguage === "fr"
+                      ? "Action"
+                      : "Action"}
                 </th>
+
               </tr>
             </thead>
             <tbody>
@@ -236,12 +288,20 @@ const DepartmentPermission = () => {
                         href={`/organization-setting/permissions/department-permission/${departmentPermission.id}`}
                         className="font-medium text-blue-600 hover:underline"
                       >
-                        edit
+                        {currentLanguage === "ar"
+                          ? "تعديل"
+                          : currentLanguage === "fr"
+                            ? "Éditer"
+                            : "edit"}
                       </Link>
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
                       <button className="rounded-lg bg-error px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110">
-                        Delete
+                        {currentLanguage === "ar"
+                          ? "حذف"
+                          : currentLanguage === "fr"
+                            ? "Supprimer"
+                            : "Delete"}
                       </button>
                     </td>
                   </tr>
