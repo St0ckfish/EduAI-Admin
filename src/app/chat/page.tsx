@@ -1,12 +1,12 @@
 "use client";
+import dynamic from 'next/dynamic';
 import Modal from "@/components/model"; // تأكد من أن مكون Modal يعمل بشكل صحيح
 import { useState } from "react";
-import RegisterForm from "@/components/registerChat"; // تأكد من إنشاء هذا المكون
-import LoginForm from "@/components/loginChat"; // تأكد من إنشاء هذا المكون
-import dynamic from 'next/dynamic';
 
-// تعطيل SSR لمكون ChatPage
+// تعطيل SSR لمكونات ChatPage, RegisterForm و LoginForm
 const ChatPage = dynamic(() => import('@/components/chat'), { ssr: false });
+const RegisterForm = dynamic(() => import('@/components/registerChat'), { ssr: false });
+const LoginForm = dynamic(() => import('@/components/loginChat'), { ssr: false });
 
 const Chat = () => {
   const [isModalOpen, setModalOpen] = useState(false);
