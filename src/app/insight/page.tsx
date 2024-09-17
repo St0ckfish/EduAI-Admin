@@ -130,7 +130,7 @@ function InsightPage() {
         <div className="mt-5 flex flex-wrap justify-evenly gap-5 overflow-x-auto">
           {/* Student Performance Bar Chart */}
           <div className="flex items-center justify-center">
-            <Card className="w-[850px] max-[1170px]:w-[550px] max-[605px]:w-[450px]">
+            <Card className="w-[850px] max-[1170px]:w-[550px] max-[605px]:w-[450px]  bg-bgPrimary">
               <CardHeader>
                 <CardTitle>
                   {currentLanguage === "ar"
@@ -171,7 +171,7 @@ function InsightPage() {
             </Card>
           </div>
           <div className="grid gap-5 overflow-x-auto">
-            <Card className="w-[550px] max-[605px]:w-[450px]">
+            <Card className="w-[550px] max-[605px]:w-[450px] bg-bgPrimary">
               <CardHeader>
                 <CardTitle>
                   {currentLanguage === "ar"
@@ -216,7 +216,7 @@ function InsightPage() {
             </Card>
 
             {/* Low Achievers Bar Chart */}
-            <Card className="w-[550px] overflow-x-auto max-[605px]:w-[450px]">
+            <Card className="w-[550px] overflow-x-auto max-[605px]:w-[450px]  bg-bgPrimary">
               <CardHeader>
                 <CardTitle>
                   {currentLanguage === "ar"
