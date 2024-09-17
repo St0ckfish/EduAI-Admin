@@ -23,11 +23,11 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
     pathname === "/forget-password" ||
     pathname === "/otp" ||
     pathname === "/choose-account";
-  // useEffect(() => {
-  //   if (typeof window !== "undefined") {
-  //     initCometChat();
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      initCometChat();
+    }
+  }, []);
 
   return (
     <html lang="en" suppressHydrationWarning>
