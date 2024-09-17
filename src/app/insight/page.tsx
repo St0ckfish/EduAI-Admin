@@ -89,7 +89,8 @@ function InsightPage() {
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div className="lg:ml-[270px]">
-        <div className="justify-left mb-5 ml-4 mt-10 flex gap-5 text-[20px] font-semibold">
+      <div className="grid overflow-x-scroll">
+      <div className="justify-left mb-5 ml-4 mt-10 flex gap-5 overflow-x-auto text-nowrap text-[20px] font-semibold">
           <Link href="/insight" className="text-blue-500 underline">
             {currentLanguage === "en"
               ? "Student Performance"
@@ -126,6 +127,7 @@ function InsightPage() {
                   ? "Performance de l'examen ML"
                   : "ML Exam Performance"}
           </Link>
+        </div>
         </div>
         <div className="mt-5 flex flex-wrap justify-evenly gap-5 overflow-x-auto">
           {/* Student Performance Bar Chart */}
