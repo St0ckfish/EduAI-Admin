@@ -28,25 +28,22 @@ const Chat = () => {
 
   return (
     <div className="lg:ml-[270px] mt-10">
-      {/* مكون ChatPage سيتم تحميله فقط في المتصفح */}
-      <ChatPage />
-
-      {/* أزرار فتح المودال لتسجيل المستخدم أو تسجيل الدخول */}
-      <button onClick={handleOpenRegister} className="mr-4 bg-blue-500 text-white p-2 rounded">
+      {/* <button onClick={handleOpenRegister} className="mr-4 bg-blue-500 text-white p-2 rounded">
         Register
       </button>
       <button onClick={handleOpenLogin} className="bg-green-500 text-white p-2 rounded">
         Login
       </button>
-
-      {/* مكون المودال */}
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         {isRegisterForm ? (
           <RegisterForm onClose={handleCloseModal} />
         ) : (
           <LoginForm onClose={handleCloseModal} />
         )}
-      </Modal>
+      </Modal> */}
+      <div className='rounded-xl'>
+        <ChatPage />
+      </div>
     </div>
   );
 };

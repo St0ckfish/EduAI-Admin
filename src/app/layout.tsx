@@ -8,8 +8,6 @@ import Notification from "@/components/Notifications";
 import "react-toastify/dist/ReactToastify.css";
 import { usePathname } from "next/navigation";
 import ThemeProvider from "./providers/themeProvider";
-// Remove the top-level import of initCometChat
-// import { initCometChat } from "@/components/cometchat";
 
 interface RootLayoutProps {
   children: ReactNode;
