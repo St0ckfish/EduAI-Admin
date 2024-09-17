@@ -41,6 +41,9 @@ const EmployeeAttendance = () => {
       href: "/employee-attendance",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   const handleOpen = () => setIsSheetOpen(true);
@@ -240,7 +243,13 @@ const EmployeeAttendance = () => {
                 id="icon"
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
-                placeholder="Search"
+                placeholder={
+                  currentLanguage === "en"
+                    ? "Search"
+                    : currentLanguage === "ar"
+                      ? "بحث"
+                      : "Recherche"
+                }
               />
             </div>
           </div>
@@ -279,7 +288,11 @@ const EmployeeAttendance = () => {
                       {employee.userFullName}{" "}
                     </p>
                     <p className="whitespace-nowrap font-semibold text-secondary">
-                      Employee: {employee.userId}
+                      {currentLanguage === "ar"
+                        ? "الموظف"
+                        : currentLanguage === "fr"
+                          ? "Employé"
+                          : "Employee"}: {employee.userId}
                     </p>
                   </div>
                 </div>

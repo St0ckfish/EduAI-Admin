@@ -28,6 +28,9 @@ const AddNewPost = () => {
       href: "/post-management/add-new-post",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const {
     register,
@@ -75,20 +78,51 @@ const AddNewPost = () => {
           <div className="grid gap-3 rounded-xl bg-bgSecondary p-10">
             <div className="rounded-xl border border-borderPrimary bg-bgPrimary p-10">
               <div className="mb-10 flex w-full items-center justify-between text-[18px] font-semibold">
-                <h1 className="text-[20px]">Title</h1>
+                <h1 className="text-[20px]">
+                  {currentLanguage === "ar"
+                    ? "العنوان"
+                    : currentLanguage === "fr"
+                      ? "Titre"
+                      : "Title"}
+                </h1>
                 <button className="flex gap-2" type="submit">
                   <AiOutlineSave size={25} />
-                  {isLoading ? "Saving..." : "Save"}
+                  {isLoading
+                    ? currentLanguage === "ar"
+                      ? "جاري الحفظ..."
+                      : currentLanguage === "fr"
+                        ? "Enregistrement..."
+                        : "Saving..."
+                    : currentLanguage === "ar"
+                      ? "حفظ"
+                      : currentLanguage === "fr"
+                        ? "Enregistrer"
+                        : "Save"}
+
                 </button>
               </div>
               <div className="grid grid-cols-2 gap-3 font-semibold max-[614px]:grid-cols-1">
                 <label className="grid">
-                  Title (English)
+                  {currentLanguage === "ar"
+                    ? "العنوان (بالإنجليزية)"
+                    : currentLanguage === "fr"
+                      ? "Titre (Anglais)"
+                      : "Title (English)"}
                   <input
                     type="text"
-                    placeholder="Write Title"
+                    placeholder={
+                      currentLanguage === "ar"
+                        ? "اكتب العنوان"
+                        : currentLanguage === "fr"
+                          ? "Écrire le titre"
+                          : "Write Title"
+                    }
                     {...register("title_en", {
-                      required: "Title in English is required",
+                      required: currentLanguage === "ar"
+                        ? "العنوان بالإنجليزية مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Le titre en anglais est requis"
+                          : "Title in English is required",
                     })}
                     className="h-[60px] rounded-lg border border-borderPrimary px-3 py-2 outline-none"
                   />
@@ -99,12 +133,24 @@ const AddNewPost = () => {
                   )}
                 </label>
                 <label className="grid">
-                  Title (français)
+                  {currentLanguage === "ar"
+                    ? "العنوان (بالفرنسية)"
+                    : currentLanguage === "fr"
+                      ? "Titre (français)"
+                      : "Title (français)"}
                   <input
                     type="text"
-                    placeholder="Write Title"
+                    placeholder={currentLanguage === "ar"
+                      ? "اكتب العنوان"
+                      : currentLanguage === "fr"
+                        ? "Écrire le titre"
+                        : "Write Title"}
                     {...register("title_fr", {
-                      required: "Title in French is required",
+                      required: currentLanguage === "ar"
+                        ? "العنوان بالفرنسية مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Le titre en français est requis"
+                          : "Title in French is required",
                     })}
                     className="h-[60px] rounded-lg border border-borderPrimary px-3 py-2 outline-none"
                   />
@@ -115,12 +161,24 @@ const AddNewPost = () => {
                   )}
                 </label>
                 <label className="grid">
-                  Title (Arabic)
+                  {currentLanguage === "ar"
+                    ? "العنوان (بالعربية)"
+                    : currentLanguage === "fr"
+                      ? "Titre (arabe)"
+                      : "Title (Arabic)"}
                   <input
                     type="text"
-                    placeholder="Write Title"
+                    placeholder={currentLanguage === "ar"
+                      ? "اكتب العنوان"
+                      : currentLanguage === "fr"
+                        ? "Écrire le titre"
+                        : "Write Title"}
                     {...register("title_ar", {
-                      required: "Title in Arabic is required",
+                      required: currentLanguage === "ar"
+                        ? "العنوان بالعربية مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Le titre en arabe est requis"
+                          : "Title in Arabic is required",
                     })}
                     className="h-[60px] rounded-lg border border-borderPrimary px-3 py-2 outline-none"
                   />
@@ -131,12 +189,24 @@ const AddNewPost = () => {
                   )}
                 </label>
                 <label className="grid">
-                  Content (English)
+                  {currentLanguage === "ar"
+                    ? "المحتوى (بالإنجليزية)"
+                    : currentLanguage === "fr"
+                      ? "Contenu (Anglais)"
+                      : "Content (English)"}
                   <input
                     type="text"
-                    placeholder="Write Content"
+                    placeholder={currentLanguage === "ar"
+                      ? "اكتب المحتوى"
+                      : currentLanguage === "fr"
+                        ? "Écrire le contenu"
+                        : "Write Content"}
                     {...register("content_en", {
-                      required: "Content in English is required",
+                      required: currentLanguage === "ar"
+                        ? "المحتوى بالإنجليزية مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Le contenu en anglais est requis"
+                          : "Content in English is required",
                     })}
                     className="h-[60px] rounded-lg border border-borderPrimary px-3 py-2 outline-none"
                   />
@@ -147,12 +217,24 @@ const AddNewPost = () => {
                   )}
                 </label>
                 <label className="grid">
-                  Content (français)
+                  {currentLanguage === "ar"
+                    ? "المحتوى (بالفرنسية)"
+                    : currentLanguage === "fr"
+                      ? "Contenu (français)"
+                      : "Content (français)"}
                   <input
                     type="text"
-                    placeholder="Write Content"
+                    placeholder={currentLanguage === "ar"
+                      ? "اكتب المحتوى"
+                      : currentLanguage === "fr"
+                        ? "Écrire le contenu"
+                        : "Write Content"}
                     {...register("content_fr", {
-                      required: "Content in French is required",
+                      required: currentLanguage === "ar"
+                        ? "المحتوى بالفرنسية مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Le contenu en français est requis"
+                          : "Content in French is required",
                     })}
                     className="h-[60px] rounded-lg border border-borderPrimary px-3 py-2 outline-none"
                   />
@@ -163,12 +245,24 @@ const AddNewPost = () => {
                   )}
                 </label>
                 <label className="grid">
-                  Content (Arabic)
+                  {currentLanguage === "ar"
+                    ? "المحتوى (بالعربية)"
+                    : currentLanguage === "fr"
+                      ? "Contenu (arabe)"
+                      : "Content (Arabic)"}
                   <input
                     type="text"
-                    placeholder="Write Content"
+                    placeholder={currentLanguage === "ar"
+                      ? "اكتب المحتوى"
+                      : currentLanguage === "fr"
+                        ? "Écrire le contenu"
+                        : "Write Content"}
                     {...register("content_ar", {
-                      required: "Content in Arabic is required",
+                      required: currentLanguage === "ar"
+                        ? "المحتوى بالعربية مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Le contenu en arabe est requis"
+                          : "Content in Arabic is required",
                     })}
                     className="h-[60px] rounded-lg border border-borderPrimary px-3 py-2 outline-none"
                   />
@@ -182,17 +276,23 @@ const AddNewPost = () => {
             </div>
             <div className="rounded-xl border border-borderPrimary bg-bgPrimary p-10">
               <div className="mb-10 flex w-full items-center justify-between text-[18px] font-semibold">
-                <h1 className="text-[20px]">Images or Videos</h1>
+                <h1 className="text-[20px]">
+                  {currentLanguage === "ar"
+                    ? "الصور أو مقاطع الفيديو"
+                    : currentLanguage === "fr"
+                      ? "Images ou vidéos"
+                      : "Images or Videos"}
+                </h1>
               </div>
               <div className="flex justify-center gap-3 font-semibold">
                 <div className="flex w-full items-center justify-center">
                   <label
                     htmlFor="dropzone-file"
-                    className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-bgPrimary hover:bg-bgPrimary"
+                    className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-borderPrimary bg-bgPrimary hover:bg-bgPrimary"
                   >
                     <div className="flex flex-col items-center justify-center pb-6 pt-5">
                       <svg
-                        className="mb-4 h-8 w-8 text-gray-500"
+                        className="mb-4 h-8 w-8 text-textSecondary"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -206,12 +306,19 @@ const AddNewPost = () => {
                           d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
                         />
                       </svg>
-                      <p className="mb-2 text-sm text-gray-500">
-                        <span className="font-semibold">Click to upload</span>{" "}
-                        or drag and drop
+                      <p className="mb-2 text-sm text-textSecondary">
+                        {currentLanguage === "ar"
+                          ? "انقر للرفع أو اسحب وأفلت"
+                          : currentLanguage === "fr"
+                            ? "Cliquez pour télécharger ou glissez-déposez"
+                            : "Click to upload or drag and drop"}
                       </p>
-                      <p className="text-xs text-gray-500">
-                        SVG, PNG, JPG or GIF (MAX. 800x400px)
+                      <p className="text-xs text-textSecondary">
+                        {currentLanguage === "ar"
+                        ? "SVG، PNG، JPG أو GIF (الحد الأقصى. 800x400 بكسل)"
+                        : currentLanguage === "fr"
+                          ? "SVG, PNG, JPG ou GIF (MAX. 800x400px)"
+                          : "SVG, PNG, JPG or GIF (MAX. 800x400px)"}
                       </p>
                     </div>
                     <input

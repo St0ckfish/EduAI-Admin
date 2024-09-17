@@ -40,6 +40,9 @@ const DriverAttendance = () => {
       href: "/driver-attendance",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   const handleClose = () => setIsSheetOpen(false);
@@ -238,7 +241,13 @@ const DriverAttendance = () => {
                 id="icon"
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
-                placeholder="Search"
+                placeholder={
+                  currentLanguage === "en"
+                    ? "Search"
+                    : currentLanguage === "ar"
+                      ? "بحث"
+                      : "Recherche"
+                }
               />
             </div>
           </div>
@@ -277,7 +286,11 @@ const DriverAttendance = () => {
                       {driver.userFullName}{" "}
                     </p>
                     <p className="whitespace-nowrap font-semibold text-secondary">
-                      Driver: {driver.userId}
+                      {currentLanguage === "ar"
+                        ? "السائق"
+                        : currentLanguage === "fr"
+                          ? "Chauffeur"
+                          : "Driver"}: {driver.userId}
                     </p>
                   </div>
                 </div>

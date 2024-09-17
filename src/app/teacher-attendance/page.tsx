@@ -35,6 +35,9 @@ const TeacherAttendance = () => {
       href: "/teacher-attendance",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   type Employee = Record<string, any>;
@@ -162,7 +165,13 @@ const TeacherAttendance = () => {
                 id="icon"
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
-                placeholder="Search"
+                placeholder={
+                  currentLanguage === "en"
+                    ? "Search"
+                    : currentLanguage === "ar"
+                      ? "بحث"
+                      : "Recherche"
+                }
               />
             </div>
           </div>
@@ -201,7 +210,11 @@ const TeacherAttendance = () => {
                       {employee.userFullName}{" "}
                     </p>
                     <p className="whitespace-nowrap font-semibold text-secondary">
-                      Teacher: {employee.userId}
+                      {currentLanguage === "ar"
+                        ? "المعلم"
+                        : currentLanguage === "fr"
+                          ? "Enseignant"
+                          : "Teacher"}: {employee.userId}
                     </p>
                   </div>
                 </div>

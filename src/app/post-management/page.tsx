@@ -23,6 +23,9 @@ const PostManagment = () => {
       href: "/post-management",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const [search, setSearch] = useState("");
   type Post = Record<string, any>;
@@ -89,9 +92,19 @@ const PostManagment = () => {
       >
         <div className="justify-left mb-[80px] ml-4 mt-[20px] flex gap-5 text-[23px] font-semibold">
           <Link href="/post-management" className="text-blue-500 underline">
-            Post
+            {currentLanguage === "ar"
+              ? "منشور"
+              : currentLanguage === "fr"
+                ? "Publication"
+                : "Post"}
           </Link>
-          <Link href="/post-management/reviews">Reviews</Link>
+          <Link href="/post-management/reviews">
+            {currentLanguage === "ar"
+              ? "التقييمات"
+              : currentLanguage === "fr"
+                ? "Avis"
+                : "Reviews"}
+          </Link>
         </div>
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">
@@ -122,7 +135,13 @@ const PostManagment = () => {
                 id="icon"
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
-                placeholder="Search"
+                placeholder={
+                  currentLanguage === "en"
+                    ? "Search"
+                    : currentLanguage === "ar"
+                      ? "بحث"
+                      : "Recherche"
+                }
               />
             </div>
           </div>
@@ -131,7 +150,11 @@ const PostManagment = () => {
               href="/post-management/add-new-post"
               className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
-              + Add new Post
+              {currentLanguage === "ar"
+                ? "+ إضافة منشور جديد"
+                : currentLanguage === "fr"
+                  ? "+ Ajouter une nouvelle publication"
+                  : "+ Add new Post"}
             </Link>
           </div>
         </div>
@@ -150,22 +173,47 @@ const PostManagment = () => {
                   </div>
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Title
+                  {currentLanguage === "ar"
+                    ? "العنوان"
+                    : currentLanguage === "fr"
+                      ? "Titre"
+                      : "Title"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  id
+                  {currentLanguage === "ar"
+                    ? "المعرف"
+                    : currentLanguage === "fr"
+                      ? "Identifiant"
+                      : "ID"}
+
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Content
+                  {currentLanguage === "ar"
+                    ? "المحتوى"
+                    : currentLanguage === "fr"
+                      ? "Contenu"
+                      : "Content"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Image
+                  {currentLanguage === "ar"
+                    ? "الصورة"
+                    : currentLanguage === "fr"
+                      ? "Image"
+                      : "Image"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  view
+                  {currentLanguage === "ar"
+                    ? "المشاهدة"
+                    : currentLanguage === "fr"
+                      ? "Vue"
+                      : "View"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Action
+                  {currentLanguage === "ar"
+                    ? "الإجراء"
+                    : currentLanguage === "fr"
+                      ? "Action"
+                      : "Action"}
                 </th>
               </tr>
             </thead>
@@ -214,12 +262,21 @@ const PostManagment = () => {
                         href={`/post-management/${post.id}`}
                         className="font-medium text-blue-600 hover:underline"
                       >
-                        edit
+                        {currentLanguage === "ar"
+                          ? "تعديل"
+                          : currentLanguage === "fr"
+                            ? "Modifier"
+                            : "Edit"}
                       </Link>
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
                       <button className="rounded-lg bg-error px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110">
-                        Delete
+
+                        {currentLanguage === "ar"
+                          ? "حذف"
+                          : currentLanguage === "fr"
+                            ? "Supprimer"
+                            : "Delete"}
                       </button>
                     </td>
                   </tr>
