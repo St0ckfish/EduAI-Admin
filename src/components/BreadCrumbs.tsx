@@ -36,8 +36,8 @@ const BreadCrumbs: React.FC<BreadCrumbsProps> = ({ breadcrumbs }) => {
             className={`font-semibold transition-all duration-300 ease-in-out ${
               pathname === crumb.href
                 ? "border-b-2 border-primary text-primary"
-                : "text-gray-500 hover:text-primary hover:shadow-md"
-            } rounded-lg px-2 py-1`}
+                : "text-gray-500 hover:text-primary"
+            } px-2 py-1`}
             href={crumb.href}
             style={{ margin: "0 5px" }} // Padding for better spacing
           >
