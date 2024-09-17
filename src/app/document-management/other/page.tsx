@@ -4,7 +4,8 @@ import Soon from "@/components/soon";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import BreadCrumbs from "@/components/BreadCrumbs";
-
+import { useSelector } from "react-redux";
+import { RootState } from "@/GlobalRedux/store";
 const Other = () => {
   const breadcrumbs = [
     {
@@ -26,6 +27,9 @@ const Other = () => {
       href: "/document-management/other",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
 
   const [selectAll, setSelectAll] = useState(false);
 
@@ -103,7 +107,13 @@ const Other = () => {
                 id="icon"
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
-                placeholder="Search"
+                placeholder={
+                  currentLanguage === "en"
+                    ? "Search"
+                    : currentLanguage === "ar"
+                      ? "بحث"
+                      : "Recherche"
+                }
               />
             </div>
           </div>
@@ -112,7 +122,11 @@ const Other = () => {
               href="/"
               className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
-              + Add Invoices
+              {currentLanguage === "ar"
+                ? "+ أضف الفواتير"
+                : currentLanguage === "fr"
+                  ? "+ Ajouter des factures"
+                  : "+ Add Invoices"}
             </Link>
           </div>
         </div>
@@ -121,14 +135,37 @@ const Other = () => {
             href="/document-management/other"
             className="text-blue-500 underline"
           >
-            ID Cards
+            {currentLanguage === "ar"
+              ? "بطاقات الهوية"
+              : currentLanguage === "fr"
+                ? "Cartes d'identité"
+                : "ID Cards"}
           </Link>
-          <Link href="/document-management/other/medical">Medical Records</Link>
+          <Link href="/document-management/other/medical">
+            {currentLanguage === "ar"
+            ? "السجلات الطبية"
+            : currentLanguage === "fr"
+              ? "Dossiers médicaux"
+              : "Medical Records"}</Link>
           <Link href="/document-management/other/disciplinary">
-            Disciplinary Records
+            {currentLanguage === "ar"
+              ? "السجلات التأديبية"
+              : currentLanguage === "fr"
+                ? "Dossiers disciplinaires"
+                : "Disciplinary Records"}
           </Link>
-          <Link href="/document-management/other/financial">Financial Aid</Link>
-          <Link href="/document-management/other/legal">Legal Documents</Link>
+          <Link href="/document-management/other/financial">
+            {currentLanguage === "ar"
+            ? "المساعدات المالية"
+            : currentLanguage === "fr"
+              ? "Aide financière"
+              : "Financial Aid"}</Link>
+          <Link href="/document-management/other/legal">
+            {currentLanguage === "ar"
+            ? "الوثائق القانونية"
+            : currentLanguage === "fr"
+              ? "Documents légaux"
+              : "Legal Documents"}</Link>
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
           <table className="text-bgSecondary0 w-full overflow-x-auto text-left text-sm rtl:text-right">
@@ -145,29 +182,62 @@ const Other = () => {
                   </div>
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Name
+                  {currentLanguage === "ar"
+                    ? "الاسم"
+                    : currentLanguage === "fr"
+                      ? "Nom"
+                      : "Name"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  id
+                  {currentLanguage === "ar"
+                    ? "المعرف"
+                    : currentLanguage === "fr"
+                      ? "ID"
+                      : "ID"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Gender
+                  {currentLanguage === "ar"
+                    ? "الجنس"
+                    : currentLanguage === "fr"
+                      ? "Sexe"
+                      : "Gender"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Taxi Number
+                  {currentLanguage === "ar"
+                    ? "رقم التاكسي"
+                    : currentLanguage === "fr"
+                      ? "Numéro de taxi"
+                      : "Taxi Number"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Address
+                  {currentLanguage === "ar"
+                    ? "العنوان"
+                    : currentLanguage === "fr"
+                      ? "Adresse"
+                      : "Address"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Mobile
+                  {currentLanguage === "ar"
+                    ? "رقم الهاتف"
+                    : currentLanguage === "fr"
+                      ? "Mobile"
+                      : "Mobile"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  About
+                  {currentLanguage === "ar"
+                    ? "عن السائق"
+                    : currentLanguage === "fr"
+                      ? "À propos"
+                      : "About"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  view
+                  {currentLanguage === "ar"
+                    ? "عرض"
+                    : currentLanguage === "fr"
+                      ? "Voir"
+                      : "View"}
                 </th>
+
               </tr>
             </thead>
             <tbody>
@@ -203,7 +273,11 @@ const Other = () => {
                     href="/driver/view-driver"
                     className="font-medium text-blue-600 hover:underline"
                   >
-                    View
+                    {currentLanguage === "ar"
+                      ? "عرض"
+                      : currentLanguage === "fr"
+                        ? "Voir"
+                        : "View"}
                   </Link>
                 </td>
               </tr>
@@ -239,7 +313,11 @@ const Other = () => {
                     href="/driver/view-driver"
                     className="font-medium text-primary hover:underline"
                   >
-                    View
+                    {currentLanguage === "ar"
+                      ? "عرض"
+                      : currentLanguage === "fr"
+                        ? "Voir"
+                        : "View"}
                   </Link>
                 </td>
               </tr>

@@ -162,7 +162,13 @@ const Worker = () => {
                 id="icon"
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
-                placeholder="Search"
+                placeholder={
+                  currentLanguage === "en"
+                    ? "Search"
+                    : currentLanguage === "ar"
+                      ? "بحث"
+                      : "Recherche"
+                }
               />
             </div>
           </div>
@@ -171,7 +177,11 @@ const Worker = () => {
               href="/add-new-worker"
               className="mb-5 mr-3 w-[190px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
-              + Add new Worker
+              {currentLanguage === "ar"
+                ? "+ إضافة عامل جديد"
+                : currentLanguage === "fr"
+                  ? "+ Ajouter un nouveau travailleur"
+                  : "+ Add new Worker"}
             </Link>
           </div>
         </div>
@@ -324,7 +334,11 @@ const Worker = () => {
                         href={`/worker/view-worker/${worker.id}`}
                         className="font-medium text-blue-600 hover:underline"
                       >
-                        View
+                        {currentLanguage === "ar"
+                          ? "عرض"
+                          : currentLanguage === "fr"
+                            ? "Voir"
+                            : "View"}
                       </Link>
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
@@ -332,7 +346,11 @@ const Worker = () => {
                         onClick={() => handleDelete(worker.id)}
                         className="rounded-lg bg-error px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
                       >
-                        Unlock
+                        {currentLanguage === "ar"
+                          ? "إلغاء الحظر"
+                          : currentLanguage === "fr"
+                            ? "Débloquer"
+                            : "Unblock"}
                       </button>
                     </td>
                   </tr>
