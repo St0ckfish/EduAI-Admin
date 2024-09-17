@@ -177,7 +177,6 @@ const Bus = () => {
                 : currentLanguage === "fr"
                   ? "+ Ajouter un nouveau bus"
                   : "+ Add New Bus"}
-
             </Link>
           </div>
         </div>
@@ -244,7 +243,6 @@ const Bus = () => {
                       ? "Modifier"
                       : "Edit"}
                 </th>
-
               </tr>
             </thead>
             <tbody>

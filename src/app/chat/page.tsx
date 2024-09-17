@@ -1,12 +1,16 @@
 "use client";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 import Modal from "@/components/model"; // تأكد من أن مكون Modal يعمل بشكل صحيح
 import { useState } from "react";
 
 // تعطيل SSR لمكونات ChatPage, RegisterForm و LoginForm
-const ChatPage = dynamic(() => import('@/components/chat'), { ssr: false });
-const RegisterForm = dynamic(() => import('@/components/registerChat'), { ssr: false });
-const LoginForm = dynamic(() => import('@/components/loginChat'), { ssr: false });
+const ChatPage = dynamic(() => import("@/components/chat"), { ssr: false });
+const RegisterForm = dynamic(() => import("@/components/registerChat"), {
+  ssr: false,
+});
+const LoginForm = dynamic(() => import("@/components/loginChat"), {
+  ssr: false,
+});
 
 const Chat = () => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -27,15 +31,21 @@ const Chat = () => {
   };
 
   return (
-    <div className="lg:ml-[270px] mt-10">
+    <div className="mt-10 lg:ml-[270px]">
       {/* مكون ChatPage سيتم تحميله فقط في المتصفح */}
       <ChatPage />
 
       {/* أزرار فتح المودال لتسجيل المستخدم أو تسجيل الدخول */}
-      <button onClick={handleOpenRegister} className="mr-4 bg-blue-500 text-white p-2 rounded">
+      <button
+        onClick={handleOpenRegister}
+        className="mr-4 rounded bg-blue-500 p-2 text-white"
+      >
         Register
       </button>
-      <button onClick={handleOpenLogin} className="bg-green-500 text-white p-2 rounded">
+      <button
+        onClick={handleOpenLogin}
+        className="rounded bg-green-500 p-2 text-white"
+      >
         Login
       </button>
 

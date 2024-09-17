@@ -182,7 +182,6 @@ const ArchiveEmployee = () => {
                 : currentLanguage === "fr"
                   ? "+ Ajouter un nouvel employé"
                   : "+ Add New Employee"}
-
             </Link>
           </div>
         </div>

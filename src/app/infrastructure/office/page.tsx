@@ -33,6 +33,9 @@ const Office = () => {
       href: "/infrastructure/office",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const { data, error, isLoading, refetch } = useGetAllOfficesQuery(null);
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const [search, setSearch] = useState("");
@@ -142,7 +145,13 @@ const Office = () => {
                 id="icon"
                 name="icon"
                 className="border-borderPrimarylue-500 block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-b focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
-                placeholder="Search"
+                placeholder={
+                  currentLanguage === "en"
+                    ? "Search"
+                    : currentLanguage === "ar"
+                      ? "بحث"
+                      : "Recherche"
+                }
               />
             </div>
           </div>
@@ -151,7 +160,11 @@ const Office = () => {
               href="/infrastructure/office/add-office"
               className="mb-5 mr-3 w-[210px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-secondary hover:shadow-xl"
             >
-              + New Office
+              {currentLanguage === "ar"
+                ? "+ مكتب جديد"
+                : currentLanguage === "fr"
+                  ? "+ Nouveau bureau"
+                  : "+ New Office"}
             </Link>
           </div>
         </div>
@@ -170,34 +183,74 @@ const Office = () => {
                   </div>
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  building Number
+                  {currentLanguage === "ar"
+                    ? "رقم المبنى"
+                    : currentLanguage === "fr"
+                      ? "Numéro du bâtiment"
+                      : "Building Number"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  category
+                  {currentLanguage === "ar"
+                    ? "الفئة"
+                    : currentLanguage === "fr"
+                      ? "Catégorie"
+                      : "Category"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  lab Name
+                  {currentLanguage === "ar"
+                    ? "اسم المختبر"
+                    : currentLanguage === "fr"
+                      ? "Nom du laboratoire"
+                      : "Lab Name"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  room Number
+                  {currentLanguage === "ar"
+                    ? "رقم الغرفة"
+                    : currentLanguage === "fr"
+                      ? "Numéro de la salle"
+                      : "Room Number"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  max Capacity
+                  {currentLanguage === "ar"
+                    ? "الطاقة الاستيعابية القصوى"
+                    : currentLanguage === "fr"
+                      ? "Capacité maximale"
+                      : "Max Capacity"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  floor Number
+                  {currentLanguage === "ar"
+                    ? "رقم الطابق"
+                    : currentLanguage === "fr"
+                      ? "Numéro de l'étage"
+                      : "Floor Number"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  type
+                  {currentLanguage === "ar"
+                    ? "النوع"
+                    : currentLanguage === "fr"
+                      ? "Type"
+                      : "Type"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  status
+                  {currentLanguage === "ar"
+                    ? "الحالة"
+                    : currentLanguage === "fr"
+                      ? "État"
+                      : "Status"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Action
+                  {currentLanguage === "ar"
+                    ? "الإجراء"
+                    : currentLanguage === "fr"
+                      ? "Action"
+                      : "Action"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Edit
+                  {currentLanguage === "ar"
+                    ? "تعديل"
+                    : currentLanguage === "fr"
+                      ? "Modifier"
+                      : "Edit"}
                 </th>
               </tr>
             </thead>
@@ -252,7 +305,11 @@ const Office = () => {
                         onClick={() => handleDelete(bus.roomId)}
                         className="rounded-lg bg-error px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
                       >
-                        Delete
+                        {currentLanguage === "ar"
+                          ? "حذف"
+                          : currentLanguage === "fr"
+                            ? "Supprimer"
+                            : "Delete"}
                       </button>
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
@@ -260,7 +317,11 @@ const Office = () => {
                         href={`/infrastructure/office/${bus.roomId}`}
                         className="font-medium text-blue-600 hover:underline"
                       >
-                        Edit
+                        {currentLanguage === "ar"
+                          ? "تعديل"
+                          : currentLanguage === "fr"
+                            ? "Modifier"
+                            : "Edit"}
                       </Link>
                     </td>
                   </tr>
@@ -269,7 +330,11 @@ const Office = () => {
           </table>
           {(data?.data.content.length == 0 || data == null) && (
             <div className="flex w-full justify-center py-3 text-center text-[18px] font-semibold">
-              There is No Data
+              {currentLanguage === "ar"
+                ? "لا توجد بيانات"
+                : currentLanguage === "fr"
+                  ? "Aucune donnée"
+                  : "There is No Data"}
             </div>
           )}
         </div>

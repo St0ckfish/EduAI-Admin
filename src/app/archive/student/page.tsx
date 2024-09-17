@@ -181,7 +181,6 @@ const Student = () => {
                 : currentLanguage === "fr"
                   ? "+ Nouvel étudiant"
                   : "+ New Student"}
-
             </Link>
           </div>
         </div>

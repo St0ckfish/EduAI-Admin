@@ -2,7 +2,7 @@ import { useState } from "react";
 import { loginUser } from "@/components/cometchatUser"; // Adjust the path
 
 const LoginForm = ({ onClose }: { onClose: () => void }) => {
-  const [userId, setUserId] = useState('');
+  const [userId, setUserId] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,10 +23,10 @@ const LoginForm = ({ onClose }: { onClose: () => void }) => {
           type="text"
           placeholder="User ID"
           value={userId}
-          onChange={(e) => setUserId(e.target.value)}
-          className="border p-2 mb-4 w-full"
+          onChange={e => setUserId(e.target.value)}
+          className="mb-4 w-full border p-2"
         />
-        <button type="submit" className="bg-green-500 text-white p-2 rounded">
+        <button type="submit" className="rounded bg-green-500 p-2 text-white">
           Login
         </button>
       </form>

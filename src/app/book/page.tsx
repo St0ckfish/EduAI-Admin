@@ -83,7 +83,7 @@ const Book = () => {
       <Soon />
 
       <BreadCrumbs breadcrumbs={breadcrumbs} />
-      <div className="mt-5 relative overflow-auto shadow-md sm:rounded-lg">
+      <div className="relative mt-5 overflow-auto shadow-md sm:rounded-lg">
         <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
           <thead className="bg-thead text-xs uppercase text-textPrimary">
             <tr>
@@ -154,7 +154,6 @@ const Book = () => {
                     ? "Modifier"
                     : "Edit"}
               </th>
-
             </tr>
           </thead>
           <tbody>

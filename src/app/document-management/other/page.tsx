@@ -143,10 +143,11 @@ const Other = () => {
           </Link>
           <Link href="/document-management/other/medical">
             {currentLanguage === "ar"
-            ? "السجلات الطبية"
-            : currentLanguage === "fr"
-              ? "Dossiers médicaux"
-              : "Medical Records"}</Link>
+              ? "السجلات الطبية"
+              : currentLanguage === "fr"
+                ? "Dossiers médicaux"
+                : "Medical Records"}
+          </Link>
           <Link href="/document-management/other/disciplinary">
             {currentLanguage === "ar"
               ? "السجلات التأديبية"
@@ -156,16 +157,18 @@ const Other = () => {
           </Link>
           <Link href="/document-management/other/financial">
             {currentLanguage === "ar"
-            ? "المساعدات المالية"
-            : currentLanguage === "fr"
-              ? "Aide financière"
-              : "Financial Aid"}</Link>
+              ? "المساعدات المالية"
+              : currentLanguage === "fr"
+                ? "Aide financière"
+                : "Financial Aid"}
+          </Link>
           <Link href="/document-management/other/legal">
             {currentLanguage === "ar"
-            ? "الوثائق القانونية"
-            : currentLanguage === "fr"
-              ? "Documents légaux"
-              : "Legal Documents"}</Link>
+              ? "الوثائق القانونية"
+              : currentLanguage === "fr"
+                ? "Documents légaux"
+                : "Legal Documents"}
+          </Link>
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
           <table className="text-bgSecondary0 w-full overflow-x-auto text-left text-sm rtl:text-right">
@@ -237,7 +240,6 @@ const Other = () => {
                       ? "Voir"
                       : "View"}
                 </th>
-
               </tr>
             </thead>
             <tbody>

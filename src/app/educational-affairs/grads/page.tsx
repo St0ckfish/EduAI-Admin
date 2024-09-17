@@ -4,7 +4,8 @@ import Soon from "@/components/soon";
 import Link from "next/link";
 import { useState, useEffect } from "react"; // Import useState and useEffect hooks
 import BreadCrumbs from "@/components/BreadCrumbs";
-
+import { useSelector } from "react-redux";
+import { RootState } from "@/GlobalRedux/store";
 const Grads = () => {
   const breadcrumbs = [
     {
@@ -26,6 +27,9 @@ const Grads = () => {
       href: "/educational-affairs/grads",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const [selectAll, setSelectAll] = useState(false); // State to track whether select all checkbox is checked
 
   // Function to handle click on select all checkbox
@@ -106,7 +110,13 @@ const Grads = () => {
                 id="icon"
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
-                placeholder="Search"
+                placeholder={
+                  currentLanguage === "en"
+                    ? "Search"
+                    : currentLanguage === "ar"
+                      ? "بحث"
+                      : "Recherche"
+                }
               />
             </div>
           </div>
@@ -132,28 +142,60 @@ const Grads = () => {
                   </div>
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Name
+                  {currentLanguage === "ar"
+                    ? "الاسم"
+                    : currentLanguage === "fr"
+                      ? "Nom"
+                      : "Name"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  id
+                  {currentLanguage === "ar"
+                    ? "الرقم"
+                    : currentLanguage === "fr"
+                      ? "ID"
+                      : "ID"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Gender
+                  {currentLanguage === "ar"
+                    ? "الجنس"
+                    : currentLanguage === "fr"
+                      ? "Genre"
+                      : "Gender"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Taxi Number
+                  {currentLanguage === "ar"
+                    ? "رقم التاكسي"
+                    : currentLanguage === "fr"
+                      ? "Numéro de taxi"
+                      : "Taxi Number"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Address
+                  {currentLanguage === "ar"
+                    ? "العنوان"
+                    : currentLanguage === "fr"
+                      ? "Adresse"
+                      : "Address"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Mobile
+                  {currentLanguage === "ar"
+                    ? "رقم الجوال"
+                    : currentLanguage === "fr"
+                      ? "Mobile"
+                      : "Mobile"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  About
+                  {currentLanguage === "ar"
+                    ? "عن"
+                    : currentLanguage === "fr"
+                      ? "À propos"
+                      : "About"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  view
+                  {currentLanguage === "ar"
+                    ? "عرض"
+                    : currentLanguage === "fr"
+                      ? "Voir"
+                      : "View"}
                 </th>
               </tr>
             </thead>
@@ -190,7 +232,11 @@ const Grads = () => {
                     href="/driver/view-driver"
                     className="font-medium text-blue-600 hover:underline"
                   >
-                    View
+                    {currentLanguage === "ar"
+                      ? "عرض"
+                      : currentLanguage === "fr"
+                        ? "Voir"
+                        : "View"}
                   </Link>
                 </td>
               </tr>
@@ -226,7 +272,11 @@ const Grads = () => {
                     href="/driver/view-driver"
                     className="font-medium text-blue-600 hover:underline"
                   >
-                    View
+                    {currentLanguage === "ar"
+                      ? "عرض"
+                      : currentLanguage === "fr"
+                        ? "Voir"
+                        : "View"}
                   </Link>
                 </td>
               </tr>

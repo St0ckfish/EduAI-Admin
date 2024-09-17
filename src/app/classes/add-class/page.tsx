@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import { useCreateClasssMutation } from "@/features/Infrastructure/classApi";
 import { toast } from "react-toastify";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import { RootState } from "@/GlobalRedux/store";
+import { useSelector } from "react-redux";
 
 const AddClass = () => {
   const breadcrumbs = [
@@ -26,6 +28,9 @@ const AddClass = () => {
       href: "/classes/add-class",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const {
     register,
     handleSubmit,
@@ -71,7 +76,11 @@ const AddClass = () => {
                 <line x1="16" y1="14" x2="16" y2="17" />
               </svg>
               <h1 className="font-sans text-[22px] font-semibold">
-                Class Information
+                {currentLanguage === "ar"
+                  ? "معلومات الفصل"
+                  : currentLanguage === "fr"
+                    ? "Informations sur la classe"
+                    : "Class Information"}
               </h1>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
@@ -79,7 +88,11 @@ const AddClass = () => {
                 htmlFor="buildingNumber"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Building Number
+                {currentLanguage === "ar"
+                  ? "رقم المبنى"
+                  : currentLanguage === "fr"
+                    ? "Numéro du bâtiment"
+                    : "Building Number"}
                 <input
                   id="buildingNumber"
                   type="text"
@@ -87,14 +100,24 @@ const AddClass = () => {
                   {...register("buildingNumber", { required: true })}
                 />
                 {errors.buildingNumber && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="roomNumber"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Room Number
+                {currentLanguage === "ar"
+                  ? "رقم الغرفة"
+                  : currentLanguage === "fr"
+                    ? "Numéro de la salle"
+                    : "Room Number"}
                 <input
                   id="roomNumber"
                   type="text"
@@ -102,14 +125,24 @@ const AddClass = () => {
                   {...register("roomNumber", { required: true })}
                 />
                 {errors.roomNumber && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="floorNumber"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Floor Number
+                {currentLanguage === "ar"
+                  ? "رقم الطابق"
+                  : currentLanguage === "fr"
+                    ? "Numéro de l'étage"
+                    : "Floor Number"}
                 <input
                   id="floorNumber"
                   type="number"
@@ -117,14 +150,24 @@ const AddClass = () => {
                   {...register("floorNumber", { required: true })}
                 />
                 {errors.floorNumber && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="type"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Type
+                {currentLanguage === "ar"
+                  ? "النوع"
+                  : currentLanguage === "fr"
+                    ? "Type"
+                    : "Type"}
                 <input
                   id="type"
                   type="text"
@@ -132,14 +175,24 @@ const AddClass = () => {
                   {...register("type", { required: true })}
                 />
                 {errors.type && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="maxCapacity"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Max Capacity
+                {currentLanguage === "ar"
+                  ? "القدرة القصوى"
+                  : currentLanguage === "fr"
+                    ? "Capacité maximale"
+                    : "Max Capacity"}
                 <input
                   id="maxCapacity"
                   type="number"
@@ -147,14 +200,24 @@ const AddClass = () => {
                   {...register("maxCapacity", { required: true })}
                 />
                 {errors.maxCapacity && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="schoolId"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                School Id
+                {currentLanguage === "ar"
+                  ? "معرف المدرسة"
+                  : currentLanguage === "fr"
+                    ? "ID de l'école"
+                    : "School Id"}
                 <input
                   id="schoolId"
                   type="number"
@@ -162,14 +225,24 @@ const AddClass = () => {
                   {...register("schoolId", { required: true })}
                 />
                 {errors.schoolId && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="classroomName"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Classroom Name
+                {currentLanguage === "ar"
+                  ? "اسم الفصل"
+                  : currentLanguage === "fr"
+                    ? "Nom de la salle"
+                    : "Classroom Name"}
                 <input
                   id="classroomName"
                   type="text"
@@ -177,14 +250,24 @@ const AddClass = () => {
                   {...register("classroomName", { required: true })}
                 />
                 {errors.classroomName && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="classroomNumber"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Classroom Number
+                {currentLanguage === "ar"
+                  ? "رقم الفصل"
+                  : currentLanguage === "fr"
+                    ? "Numéro de la classe"
+                    : "Classroom Number"}
                 <input
                   id="classroomNumber"
                   type="number"
@@ -192,14 +275,24 @@ const AddClass = () => {
                   {...register("classroomNumber", { required: true })}
                 />
                 {errors.classroomNumber && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="classroomStudyLevel"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Classroom Study Level
+                {currentLanguage === "ar"
+                  ? "مستوى دراسة الفصل"
+                  : currentLanguage === "fr"
+                    ? "Niveau d'étude de la salle"
+                    : "Classroom Study Level"}
                 <input
                   id="classroomStudyLevel"
                   type="text"
@@ -207,14 +300,24 @@ const AddClass = () => {
                   {...register("classroomStudyLevel", { required: true })}
                 />
                 {errors.classroomStudyLevel && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="classroomStudyStage"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Classroom Study Stage
+                {currentLanguage === "ar"
+                  ? "مرحلة دراسة الفصل"
+                  : currentLanguage === "fr"
+                    ? "Étape d'étude de la salle"
+                    : "Classroom Study Stage"}
                 <input
                   id="classroomStudyStage"
                   type="text"
@@ -222,7 +325,13 @@ const AddClass = () => {
                   {...register("classroomStudyStage", { required: true })}
                 />
                 {errors.classroomStudyStage && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
             </div>
@@ -233,7 +342,17 @@ const AddClass = () => {
                 type="submit"
                 className="w-[180px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
               >
-                {isLoading ? " Adding..." : "Add Class"}
+                {isLoading
+                  ? currentLanguage === "ar"
+                    ? "جاري الإضافة..."
+                    : currentLanguage === "fr"
+                      ? "Ajout en cours..."
+                      : "Adding..."
+                  : currentLanguage === "ar"
+                    ? "تعديل الفصل"
+                    : currentLanguage === "fr"
+                      ? "Modifier la classe"
+                      : "Edit Class"}
               </button>
             </div>
           </div>

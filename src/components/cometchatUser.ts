@@ -3,12 +3,15 @@ import { CometChat } from "@cometchat-pro/chat";
 // لإنشاء مستخدم جديد
 export const createUser = async (uid: string, name: string): Promise<void> => {
   // التأكد من أن الكود يعمل فقط في المتصفح
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     const user = new CometChat.User(uid);
     user.setName(name);
 
     try {
-      await CometChat.createUser(user, process.env.NEXT_PUBLIC_COMETCHAT_AUTH_KEY!);
+      await CometChat.createUser(
+        user,
+        process.env.NEXT_PUBLIC_COMETCHAT_AUTH_KEY!,
+      );
       console.log("User created successfully:", user);
     } catch (error) {
       console.error("Error creating user:", error);
@@ -21,9 +24,12 @@ export const createUser = async (uid: string, name: string): Promise<void> => {
 // لتسجيل دخول المستخدم
 export const loginUser = async (uid: string): Promise<void> => {
   // التأكد من أن الكود يعمل فقط في المتصفح
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     try {
-      const user = await CometChat.login(uid, process.env.NEXT_PUBLIC_COMETCHAT_AUTH_KEY!);
+      const user = await CometChat.login(
+        uid,
+        process.env.NEXT_PUBLIC_COMETCHAT_AUTH_KEY!,
+      );
       console.log("Login successful:", user);
     } catch (error) {
       console.error("Login failed with error:", error);
@@ -35,13 +41,17 @@ export const loginUser = async (uid: string): Promise<void> => {
 
 // لإرسال رسالة
 export const sendMessage = async (
-  receiverID: string, 
-  messageText: string, 
-  receiverType = CometChat.RECEIVER_TYPE.USER
+  receiverID: string,
+  messageText: string,
+  receiverType = CometChat.RECEIVER_TYPE.USER,
 ): Promise<void> => {
   // التأكد من أن الكود يعمل فقط في المتصفح
-  if (typeof window !== 'undefined') {
-    const textMessage = new CometChat.TextMessage(receiverID, messageText, receiverType);
+  if (typeof window !== "undefined") {
+    const textMessage = new CometChat.TextMessage(
+      receiverID,
+      messageText,
+      receiverType,
+    );
 
     try {
       const message = await CometChat.sendMessage(textMessage);
@@ -56,11 +66,11 @@ export const sendMessage = async (
 
 // إضافة مستمع الرسائل
 export const addMessageListener = (
-  listenerID: string, 
-  callback: (message: CometChat.TextMessage) => void
+  listenerID: string,
+  callback: (message: CometChat.TextMessage) => void,
 ): void => {
   // التأكد من أن الكود يعمل فقط في المتصفح
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     CometChat.addMessageListener(
       listenerID,
       new CometChat.MessageListener({
@@ -68,7 +78,7 @@ export const addMessageListener = (
           console.log("Message received:", message);
           callback(message);
         },
-      })
+      }),
     );
   } else {
     console.log("addMessageListener function cannot run on the server.");

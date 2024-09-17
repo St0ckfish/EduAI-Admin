@@ -139,7 +139,8 @@ const Medical = () => {
               ? "بطاقات الهوية"
               : currentLanguage === "fr"
                 ? "Cartes d'identité"
-                : "ID Cards"}</Link>
+                : "ID Cards"}
+          </Link>
           <Link
             href="/document-management/other/medical"
             className="text-blue-500 underline"
@@ -162,13 +163,15 @@ const Medical = () => {
               ? "المساعدات المالية"
               : currentLanguage === "fr"
                 ? "Aide financière"
-                : "Financial Aid"}</Link>
+                : "Financial Aid"}
+          </Link>
           <Link href="/document-management/other/legal">
             {currentLanguage === "ar"
               ? "الوثائق القانونية"
               : currentLanguage === "fr"
                 ? "Documents légaux"
-                : "Legal Documents"}</Link>
+                : "Legal Documents"}
+          </Link>
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
           <table className="w-full overflow-x-auto text-left text-sm text-textSecondary rtl:text-right">

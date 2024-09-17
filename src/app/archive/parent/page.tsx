@@ -183,7 +183,6 @@ const Parent = () => {
                 : currentLanguage === "fr"
                   ? "+ Ajouter un nouveau parent"
                   : "+ Add New Parent"}
-
             </Link>
           </div>
         </div>

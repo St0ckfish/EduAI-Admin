@@ -4,8 +4,39 @@ import { FieldValues, useForm } from "react-hook-form";
 import { useCreateSchedualMutation } from "@/features/Acadimic/scheduleApi";
 import { SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
-
+import BreadCrumbs from "@/components/BreadCrumbs";
+import { RootState } from "@/GlobalRedux/store";
+import { useSelector } from "react-redux";
 const AddSchedule = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Academic",
+      nameAr: "أكاديمي",
+      nameFr: "Académique",
+      href: "/",
+    },
+    {
+      nameEn: "Educational Affairs",
+      nameAr: "الشئون التعليمية",
+      nameFr: "Affaires éducatives",
+      href: "/educational-affairs",
+    },
+    {
+      nameEn: "Schedule",
+      nameAr: "الجدول",
+      nameFr: "Emploi du temps",
+      href: "/educational-affairs/schedule",
+    },
+    {
+      nameEn: "Add Schedule",
+      nameAr: "إضافة جدول",
+      nameFr: "Emploi du temps",
+      href: "/educational-affairs/schedule/add-schedule",
+    },
+  ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const { register, handleSubmit, reset } = useForm();
 
   const [createSchedule, { isLoading: isCreating }] =
@@ -30,44 +61,99 @@ const AddSchedule = () => {
   };
   return (
     <>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
       <form
         onSubmit={handleSubmit(onSubmitCreateSchedule)}
-        className="mr-3 space-y-4 lg:ml-[270px]"
+        className="mr-3 mt-5 space-y-4 lg:ml-[270px]"
       >
         <div>
-          <label>Classroom ID</label>
+          <label>
+            {currentLanguage === "ar"
+              ? "معرف الفصل"
+              : currentLanguage === "fr"
+                ? "ID de la classe"
+                : "Classroom ID"}
+          </label>
           <input
             {...register("classroomId", { required: true })}
-            placeholder="Enter Classroom ID"
+            placeholder={
+              currentLanguage === "ar"
+                ? "أدخل معرف الفصل"
+                : currentLanguage === "fr"
+                  ? "Entrez l'ID de la classe"
+                  : "Enter Classroom ID"
+            }
             className="w-full rounded border border-borderPrimary px-4 py-2"
           />
         </div>
         <div>
-          <label>Teacher ID</label>
+          <label>
+            {currentLanguage === "ar"
+              ? "معرف المعلم"
+              : currentLanguage === "fr"
+                ? "ID de l'enseignant"
+                : "Teacher ID"}
+          </label>
           <input
             {...register("teacherId", { required: true })}
-            placeholder="Enter Teacher ID"
+            placeholder={
+              currentLanguage === "ar"
+                ? "أدخل معرف المعلم"
+                : currentLanguage === "fr"
+                  ? "Entrez l'ID de l'enseignant"
+                  : "Enter Teacher ID"
+            }
             className="w-full rounded border border-borderPrimary px-4 py-2"
           />
         </div>
         <div>
-          <label>Course ID</label>
+          <label>
+            {currentLanguage === "ar"
+              ? "معرف الدورة"
+              : currentLanguage === "fr"
+                ? "ID du cours"
+                : "Course ID"}
+          </label>
           <input
             {...register("courseId", { required: true })}
-            placeholder="Enter Course ID"
+            placeholder={
+              currentLanguage === "ar"
+                ? "أدخل معرف الدورة"
+                : currentLanguage === "fr"
+                  ? "Entrez l'ID du cours"
+                  : "Enter Course ID"
+            }
             className="w-full rounded border border-borderPrimary px-4 py-2"
           />
         </div>
         <div>
-          <label>Day</label>
+          <label>
+            {currentLanguage === "ar"
+              ? "اليوم"
+              : currentLanguage === "fr"
+                ? "Jour"
+                : "Day"}
+          </label>
           <input
             {...register("day", { required: true })}
-            placeholder="Enter Day"
+            placeholder={
+              currentLanguage === "ar"
+                ? "أدخل اليوم"
+                : currentLanguage === "fr"
+                  ? "Entrez le jour"
+                  : "Enter Day"
+            }
             className="w-full rounded border border-borderPrimary px-4 py-2"
           />
         </div>
         <div>
-          <label>Start Time</label>
+          <label>
+            {currentLanguage === "ar"
+              ? "وقت البدء"
+              : currentLanguage === "fr"
+                ? "Heure de début"
+                : "Start Time"}
+          </label>
           <input
             {...register("startTime", { required: true })}
             placeholder="HH:mm:ss"
@@ -76,7 +162,13 @@ const AddSchedule = () => {
           />
         </div>
         <div>
-          <label>End Time</label>
+          <label>
+            {currentLanguage === "ar"
+              ? "وقت الانتهاء"
+              : currentLanguage === "fr"
+                ? "Heure de fin"
+                : "End Time"}
+          </label>
           <input
             {...register("endTime", { required: true })}
             placeholder="HH:mm:ss"
@@ -90,7 +182,17 @@ const AddSchedule = () => {
             className={`rounded bg-blue-500 px-4 py-2 text-white ${isCreating ? "opacity-50" : ""}`}
             disabled={isCreating}
           >
-            {isCreating ? "Submitting..." : "Submit"}
+            {isCreating
+              ? currentLanguage === "ar"
+                ? "جاري الإرسال..."
+                : currentLanguage === "fr"
+                  ? "Soumission en cours..."
+                  : "Submitting..."
+              : currentLanguage === "ar"
+                ? "إرسال"
+                : currentLanguage === "fr"
+                  ? "Soumettre"
+                  : "Submit"}
           </button>
         </div>
       </form>

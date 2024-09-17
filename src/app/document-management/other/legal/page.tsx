@@ -131,7 +131,6 @@ const Legal = () => {
                 : currentLanguage === "fr"
                   ? "+ Ajouter des factures"
                   : "+ Add Invoices"}
-
             </Link>
           </div>
         </div>
@@ -145,10 +144,10 @@ const Legal = () => {
           </Link>
           <Link href="/document-management/other/medical">
             {currentLanguage === "ar"
-            ? "السجلات الطبية"
-            : currentLanguage === "fr"
-              ? "Dossiers médicaux"
-              : "Medical Records"}
+              ? "السجلات الطبية"
+              : currentLanguage === "fr"
+                ? "Dossiers médicaux"
+                : "Medical Records"}
           </Link>
           <Link href="/document-management/other/disciplinary">
             {currentLanguage === "ar"
@@ -202,7 +201,6 @@ const Legal = () => {
                   : currentLanguage === "fr"
                     ? "Contrats d'achat"
                     : "Purchase contracts"}
-
               </p>
             </Link>
           </div>

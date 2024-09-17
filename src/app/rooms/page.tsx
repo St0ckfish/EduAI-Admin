@@ -81,7 +81,7 @@ const Rooms = () => {
 
   return (
     <>
-      {/* <Soon /> */}
+      <Soon />
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div className="relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg lg:ml-[270px]">
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
@@ -132,7 +132,6 @@ const Rooms = () => {
                 : currentLanguage === "fr"
                   ? "+ Ajouter une nouvelle salle"
                   : "+ Add New Room"}
-
             </Link>
           </div>
         </div>
@@ -207,7 +206,6 @@ const Rooms = () => {
                       ? "Modifier"
                       : "Edit"}
                 </th>
-
               </tr>
             </thead>
             <tbody>

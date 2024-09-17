@@ -131,7 +131,6 @@ const Card = () => {
                 : currentLanguage === "fr"
                   ? "+ Ajouter des factures"
                   : "+ Add Invoices"}
-
             </Link>
           </div>
         </div>
@@ -245,7 +244,6 @@ const Card = () => {
                       ? "Voir"
                       : "View"}
                 </th>
-
               </tr>
             </thead>
             <tbody>
@@ -322,10 +320,10 @@ const Card = () => {
                     className="font-medium text-blue-600 hover:underline"
                   >
                     {currentLanguage === "ar"
-                        ? "عرض"
-                        : currentLanguage === "fr"
-                          ? "Voir"
-                          : "View"}
+                      ? "عرض"
+                      : currentLanguage === "fr"
+                        ? "Voir"
+                        : "View"}
                   </Link>
                 </td>
               </tr>
