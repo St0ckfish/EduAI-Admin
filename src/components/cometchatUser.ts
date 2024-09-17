@@ -64,10 +64,36 @@ export const sendMessage = async (
   }
 };
 
+// لإرسال رسالة صورة
+export const sendImageMessage = async (
+  receiverID: string, 
+  file: File, 
+  receiverType = CometChat.RECEIVER_TYPE.USER
+): Promise<void> => {
+  // التأكد من أن الكود يعمل فقط في المتصفح
+  if (typeof window !== 'undefined') {
+    const mediaMessage = new CometChat.MediaMessage(
+      receiverID, 
+      file, 
+      CometChat.MESSAGE_TYPE.IMAGE, 
+      receiverType
+    );
+
+    try {
+      const message = await CometChat.sendMessage(mediaMessage);
+      console.log("Image message sent successfully:", message);
+    } catch (error) {
+      console.error("Image message sending failed:", error);
+    }
+  } else {
+    console.log("sendImageMessage function cannot run on the server.");
+  }
+};
+
 // إضافة مستمع الرسائل
 export const addMessageListener = (
-  listenerID: string,
-  callback: (message: CometChat.TextMessage) => void,
+  listenerID: string, 
+  callback: (message: CometChat.TextMessage | CometChat.MediaMessage) => void
 ): void => {
   // التأكد من أن الكود يعمل فقط في المتصفح
   if (typeof window !== "undefined") {
@@ -75,7 +101,11 @@ export const addMessageListener = (
       listenerID,
       new CometChat.MessageListener({
         onTextMessageReceived: (message: CometChat.TextMessage) => {
-          console.log("Message received:", message);
+          console.log("Text message received:", message);
+          callback(message);
+        },
+        onMediaMessageReceived: (message: CometChat.MediaMessage) => {
+          console.log("Media message received:", message);
           callback(message);
         },
       }),

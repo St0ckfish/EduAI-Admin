@@ -8,7 +8,6 @@ import Notification from "@/components/Notifications";
 import "react-toastify/dist/ReactToastify.css";
 import { usePathname } from "next/navigation";
 import ThemeProvider from "./providers/themeProvider";
-import { initCometChat } from "@/components/cometchat";
 
 interface RootLayoutProps {
   children: ReactNode;
@@ -23,11 +22,14 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
     pathname === "/forget-password" ||
     pathname === "/otp" ||
     pathname === "/choose-account";
-  // useEffect(() => {
-  //   if (typeof window !== "undefined") {
-  //     initCometChat();
-  //   }
-  // }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      import("@/components/cometchat").then(({ initCometChat }) => {
+        initCometChat();
+      });
+    }
+  }, []);
 
   return (
     <html lang="en" suppressHydrationWarning>
