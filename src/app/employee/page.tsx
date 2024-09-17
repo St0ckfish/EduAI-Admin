@@ -34,6 +34,9 @@ const Employee = () => {
       href: "/employee",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
 
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
@@ -158,7 +161,13 @@ const Employee = () => {
                 id="icon"
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
-                placeholder="Search"
+                placeholder={
+                  currentLanguage === "en"
+                    ? "Search"
+                    : currentLanguage === "ar"
+                      ? "بحث"
+                      : "Recherche"
+                }
               />
             </div>
           </div>
@@ -167,7 +176,11 @@ const Employee = () => {
               href="/add-new-employee"
               className="mb-5 mr-3 w-[210px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
             >
-              + New Employee
+              {currentLanguage === "en"
+                ? "+ New Employee"
+                : currentLanguage === "ar"
+                  ? "+ موظف جديد"
+                  : "+ Nouvel Employé"}
             </Link>
           </div>
         </div>
@@ -177,7 +190,6 @@ const Employee = () => {
               <tr>
                 <th scope="col" className="p-4">
                   <div className="flex items-center">
-                    {/* Add event listener for select all checkbox */}
                     <input
                       id="checkbox-all-search"
                       type="checkbox"
@@ -187,31 +199,64 @@ const Employee = () => {
                   </div>
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Name
+                  {currentLanguage === "en"
+                    ? "Name"
+                    : currentLanguage === "ar"
+                      ? "الاسم"
+                      : "Nom"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  id
+                  {currentLanguage === "en"
+                    ? "ID"
+                    : currentLanguage === "ar"
+                      ? "الرقم"
+                      : "ID"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Gender
+                  {currentLanguage === "en"
+                    ? "Gender"
+                    : currentLanguage === "ar"
+                      ? "الجنس"
+                      : "Genre"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Nationality
+                  {currentLanguage === "en"
+                    ? "Nationality"
+                    : currentLanguage === "ar"
+                      ? "الجنسية"
+                      : "Nationalité"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Email
+                  {currentLanguage === "en"
+                    ? "Email"
+                    : currentLanguage === "ar"
+                      ? "البريد الإلكتروني"
+                      : "Email"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Mobile
+                  {currentLanguage === "en"
+                    ? "Mobile"
+                    : currentLanguage === "ar"
+                      ? "الهاتف المحمول"
+                      : "Téléphone"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  view
+                  {currentLanguage === "en"
+                    ? "View"
+                    : currentLanguage === "ar"
+                      ? "عرض"
+                      : "Voir"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Action
+                  {currentLanguage === "en"
+                    ? "Action"
+                    : currentLanguage === "ar"
+                      ? "الإجراء"
+                      : "Action"}
                 </th>
               </tr>
             </thead>
+
             <tbody>
               {data?.data.content
                 .filter((employee: Employee) => {
@@ -274,7 +319,11 @@ const Employee = () => {
                         href={`/employee/view-employee/${employee.id}`}
                         className="font-medium text-blue-600 hover:underline"
                       >
-                        View
+                        {currentLanguage === "en"
+                          ? "View"
+                          : currentLanguage === "ar"
+                            ? "عرض"
+                            : "Voir"}
                       </Link>
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
@@ -282,7 +331,11 @@ const Employee = () => {
                         onClick={() => handleDelete(employee.id)}
                         className="rounded-lg bg-error px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
                       >
-                        Lock
+                        {currentLanguage === "en"
+                          ? "Lock"
+                          : currentLanguage === "ar"
+                            ? "قفل"
+                            : "Verrouiller"}
                       </button>
                     </td>
                   </tr>
@@ -291,7 +344,11 @@ const Employee = () => {
           </table>
           {(data?.data.content.length == 0 || data == null) && (
             <div className="flex w-full justify-center py-3 text-center text-[18px] font-semibold">
-              There is No Data
+              {currentLanguage === "en"
+                ? "There is No Data"
+                : currentLanguage === "ar"
+                  ? "لا توجد بيانات"
+                  : "Aucune donnée"}
             </div>
           )}
         </div>

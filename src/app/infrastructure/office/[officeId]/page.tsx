@@ -44,6 +44,9 @@ const EditOfficd: React.FC<ViewEmployeeProps> = ({ params }) => {
       href: `/infrastructure/office/${params.officeId}`,
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   const [createDriver, { isLoading: isUpdating }] = useUpdateOfficesMutation();
@@ -113,7 +116,11 @@ const EditOfficd: React.FC<ViewEmployeeProps> = ({ params }) => {
                 <line x1="16" y1="14" x2="16" y2="17" />
               </svg>
               <h1 className="font-sans text-[22px] font-semibold">
-                Office Information
+                {currentLanguage === "ar"
+                  ? "معلومات المكتب"
+                  : currentLanguage === "fr"
+                    ? "Informations sur le bureau"
+                    : "Office Information"}
               </h1>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
@@ -121,7 +128,11 @@ const EditOfficd: React.FC<ViewEmployeeProps> = ({ params }) => {
                 htmlFor="buildingNumber"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Building Number
+                {currentLanguage === "ar"
+                  ? "رقم المبنى"
+                  : currentLanguage === "fr"
+                    ? "Numéro du bâtiment"
+                    : "Building Number"}
                 <input
                   id="buildingNumber"
                   {...register("buildingNumber", { required: true })}
@@ -136,7 +147,11 @@ const EditOfficd: React.FC<ViewEmployeeProps> = ({ params }) => {
                 htmlFor="roomNumber"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Room Number
+                {currentLanguage === "ar"
+                  ? "رقم الغرفة"
+                  : currentLanguage === "fr"
+                    ? "Numéro de la salle"
+                    : "Room Number"}
                 <input
                   id="roomNumber"
                   {...register("roomNumber", { required: true })}
@@ -151,7 +166,11 @@ const EditOfficd: React.FC<ViewEmployeeProps> = ({ params }) => {
                 htmlFor="floorNumber"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Floor Number
+                {currentLanguage === "ar"
+                  ? "رقم الطابق"
+                  : currentLanguage === "fr"
+                    ? "Numéro de l'étage"
+                    : "Floor Number"}
                 <input
                   id="floorNumber"
                   {...register("floorNumber", { required: true })}
@@ -166,7 +185,11 @@ const EditOfficd: React.FC<ViewEmployeeProps> = ({ params }) => {
                 htmlFor="type"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Type
+                {currentLanguage === "ar"
+                  ? "النوع"
+                  : currentLanguage === "fr"
+                    ? "Type"
+                    : "Type"}
                 <input
                   id="type"
                   {...register("type", { required: true })}
@@ -181,7 +204,11 @@ const EditOfficd: React.FC<ViewEmployeeProps> = ({ params }) => {
                 htmlFor="maxCapacity"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Max Capacity
+                {currentLanguage === "ar"
+                  ? "الطاقة الاستيعابية القصوى"
+                  : currentLanguage === "fr"
+                    ? "Capacité maximale"
+                    : "Max Capacity"}
                 <input
                   id="maxCapacity"
                   {...register("maxCapacity", { required: true })}
@@ -196,7 +223,11 @@ const EditOfficd: React.FC<ViewEmployeeProps> = ({ params }) => {
                 htmlFor="schoolId"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                School Id
+                {currentLanguage === "ar"
+                  ? "معرف المدرسة"
+                  : currentLanguage === "fr"
+                    ? "ID de l'école"
+                    : "School ID"}
                 <input
                   id="schoolId"
                   {...register("schoolId", { required: true })}
@@ -211,7 +242,11 @@ const EditOfficd: React.FC<ViewEmployeeProps> = ({ params }) => {
                 htmlFor="officeName"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Office Name
+                {currentLanguage === "ar"
+                  ? "اسم المكتب"
+                  : currentLanguage === "fr"
+                    ? "Nom du bureau"
+                    : "Office Name"}
                 <input
                   id="officeName"
                   {...register("officeName", { required: true })}
@@ -226,7 +261,11 @@ const EditOfficd: React.FC<ViewEmployeeProps> = ({ params }) => {
                 htmlFor="officeType"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Office Type
+                {currentLanguage === "ar"
+                  ? "نوع المكتب"
+                  : currentLanguage === "fr"
+                    ? "Type de bureau"
+                    : "Office Type"}
                 <input
                   id="officeType"
                   {...register("officeType", { required: true })}
@@ -247,7 +286,11 @@ const EditOfficd: React.FC<ViewEmployeeProps> = ({ params }) => {
                   type="submit"
                   className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
                 >
-                  Edit Lab
+                    {currentLanguage === "ar"
+                      ? "تعديل المختبر"
+                      : currentLanguage === "fr"
+                        ? "Modifier le laboratoire"
+                        : "Edit Lab"}
                 </button>
               )}
             </div>

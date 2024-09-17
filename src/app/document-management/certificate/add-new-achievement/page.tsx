@@ -36,6 +36,9 @@ const AddNewAchievement = () => {
       href: "/document-management/certificate/add-new-achievement",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const {
     register,
@@ -96,7 +99,11 @@ const AddNewAchievement = () => {
                 <line x1="16" y1="14" x2="16" y2="17" />
               </svg>
               <h1 className="font-sans text-[22px] font-semibold">
-                Achievement Certificates
+                {currentLanguage === "ar"
+                  ? "شهادات الإنجاز"
+                  : currentLanguage === "fr"
+                    ? "Certificats de Réussite"
+                    : "Achievement Certificates"}
               </h1>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
@@ -104,7 +111,12 @@ const AddNewAchievement = () => {
                 htmlFor="studentId"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Student Id
+                {currentLanguage === "ar"
+                  ? "رقم الطالب"
+                  : currentLanguage === "fr"
+                    ? "Identifiant de l'Étudiant"
+                    : "Student Id"}
+
                 <input
                   id="studentId"
                   type="text"
@@ -112,14 +124,24 @@ const AddNewAchievement = () => {
                   {...register("studentId", { required: true })}
                 />
                 {errors.studentId && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="stage"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Educational stage
+                {currentLanguage === "ar"
+                  ? "المرحلة التعليمية"
+                  : currentLanguage === "fr"
+                    ? "Niveau Éducatif"
+                    : "Educational Stage"}
                 <input
                   id="stage"
                   type="text"
@@ -127,14 +149,24 @@ const AddNewAchievement = () => {
                   {...register("stage", { required: true })}
                 />
                 {errors.stage && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="subject"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Subject
+                {currentLanguage === "ar"
+                  ? "المادة"
+                  : currentLanguage === "fr"
+                    ? "Sujet"
+                    : "Subject"}
                 <input
                   id="stage"
                   type="text"
@@ -142,14 +174,24 @@ const AddNewAchievement = () => {
                   {...register("subject", { required: true })}
                 />
                 {errors.subject && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="issueDate"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Graduation Semester
+                {currentLanguage === "ar"
+                  ? "فصل التخرج"
+                  : currentLanguage === "fr"
+                    ? "Semestre de Graduation"
+                    : "Graduation Semester"}
                 <input
                   id="issueDate"
                   type="date"
@@ -157,14 +199,24 @@ const AddNewAchievement = () => {
                   {...register("issueDate", { required: true })}
                 />
                 {errors.issueDate && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="endDate"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Document
+                {currentLanguage === "ar"
+                  ? "وثيقة"
+                  : currentLanguage === "fr"
+                    ? "Document"
+                    : "Document"}
                 <input
                   id="endDate"
                   type="file"
@@ -172,7 +224,13 @@ const AddNewAchievement = () => {
                   {...register("endDate", { required: true })}
                 />
                 {errors.endDate && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
             </div>
@@ -185,7 +243,11 @@ const AddNewAchievement = () => {
                   type="submit"
                   className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
                 >
-                  Save
+                  {currentLanguage === "ar"
+                    ? "حفظ"
+                    : currentLanguage === "fr"
+                      ? "Enregistrer"
+                      : "Save"}
                 </button>
               )}
             </div>

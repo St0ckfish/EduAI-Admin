@@ -37,7 +37,9 @@ const Parent = () => {
 
   const [selectAll, setSelectAll] = useState(false);
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   type Parent = Record<string, any>;
   const [currentPage, setCurrentPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -161,7 +163,13 @@ const Parent = () => {
                 id="icon"
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-hover focus:ring-hover disabled:pointer-events-none disabled:opacity-50"
-                placeholder="Search"
+                placeholder={
+                  currentLanguage === "en"
+                    ? "Search"
+                    : currentLanguage === "ar"
+                      ? "بحث"
+                      : "Recherche"
+                }
               />
             </div>
           </div>
@@ -170,7 +178,11 @@ const Parent = () => {
               href="/add-new-parent"
               className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
-              + New Parent
+              {currentLanguage === "en"
+                ? "+ New Parent"
+                : currentLanguage === "ar"
+                  ? "+ ولي أمر جديد"
+                  : "+ Nouveau Parent"}
             </Link>
           </div>
         </div>
@@ -190,31 +202,64 @@ const Parent = () => {
                   </div>
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Name
+                  {currentLanguage === "en"
+                    ? "Name"
+                    : currentLanguage === "ar"
+                      ? "الاسم"
+                      : "Nom"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  id
+                  {currentLanguage === "en"
+                    ? "id"
+                    : currentLanguage === "ar"
+                      ? "معرف"
+                      : "ID"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Gender
+                  {currentLanguage === "en"
+                    ? "Gender"
+                    : currentLanguage === "ar"
+                      ? "الجنس"
+                      : "Genre"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Nationality
+                  {currentLanguage === "en"
+                    ? "Nationality"
+                    : currentLanguage === "ar"
+                      ? "الجنسية"
+                      : "Nationalité"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Email
+                  {currentLanguage === "en"
+                    ? "Email"
+                    : currentLanguage === "ar"
+                      ? "البريد الإلكتروني"
+                      : "Email"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Mobile
+                  {currentLanguage === "en"
+                    ? "Mobile"
+                    : currentLanguage === "ar"
+                      ? "الهاتف المحمول"
+                      : "Mobile"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  view
+                  {currentLanguage === "en"
+                    ? "View"
+                    : currentLanguage === "ar"
+                      ? "عرض"
+                      : "Voir"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Action
+                  {currentLanguage === "en"
+                    ? "Action"
+                    : currentLanguage === "ar"
+                      ? "إجراء"
+                      : "Action"}
                 </th>
               </tr>
             </thead>
+
             <tbody>
               {data?.data.content
                 .filter((parent: Parent) => {
@@ -238,7 +283,7 @@ const Parent = () => {
                     </td>
                     <th
                       scope="row"
-                      className="flex items-center gap-2 whitespace-nowrap px-6 py-4 font-medium text-gray-900"
+                      className="flex items-center gap-2 whitespace-nowrap px-6 py-4 font-medium text-textSecondary"
                     >
                       <div className="w-[50px]">
                         {parent.picture == null ? (
@@ -255,7 +300,7 @@ const Parent = () => {
                           />
                         )}
                       </div>
-                      <p className="text-textPrimary"> {parent.name} </p>
+                      <p className="text-textSecondary"> {parent.name} </p>
                     </th>
                     <td className="whitespace-nowrap px-6 py-4">{parent.id}</td>
                     <td className="whitespace-nowrap px-6 py-4">
@@ -275,7 +320,11 @@ const Parent = () => {
                         href={`/parent/view-parent/${parent.id}`}
                         className="font-medium text-primary hover:underline"
                       >
-                        View
+                        {currentLanguage === "en"
+                          ? "View"
+                          : currentLanguage === "ar"
+                            ? "عرض"
+                            : "Voir"}
                       </Link>
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
@@ -283,7 +332,11 @@ const Parent = () => {
                         onClick={() => handleDelete(parent.id)}
                         className="rounded-lg bg-error px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
                       >
-                        Lock
+                        {currentLanguage === "en"
+                          ? "Lock"
+                          : currentLanguage === "ar"
+                            ? "قفل"
+                            : "Verrouiller"}
                       </button>
                     </td>
                   </tr>
@@ -292,7 +345,11 @@ const Parent = () => {
           </table>
           {(data?.data.content.length == 0 || data == null) && (
             <div className="flex w-full justify-center py-3 text-center text-[18px] font-semibold">
-              There is No Data
+              {currentLanguage === "en"
+                ? "There is No Data"
+                : currentLanguage === "ar"
+                  ? "لا توجد بيانات"
+                  : "Aucune donnée"}
             </div>
           )}
         </div>

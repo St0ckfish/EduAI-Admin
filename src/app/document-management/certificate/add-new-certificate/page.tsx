@@ -36,6 +36,9 @@ const AddNewCertificate = () => {
       href: "/document-management/certificate/add-new-certificate",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const {
     register,
@@ -95,7 +98,11 @@ const AddNewCertificate = () => {
                 <line x1="16" y1="14" x2="16" y2="17" />
               </svg>
               <h1 className="font-sans text-[22px] font-semibold">
-                Completion Certificates
+                {currentLanguage === "ar"
+                  ? "شهادات إتمام"
+                  : currentLanguage === "fr"
+                    ? "Certificats de Completion"
+                    : "Completion Certificates"}
               </h1>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
@@ -103,7 +110,11 @@ const AddNewCertificate = () => {
                 htmlFor="studentId"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Student Id
+                {currentLanguage === "ar"
+                  ? "رقم الطالب"
+                  : currentLanguage === "fr"
+                    ? "ID de l'étudiant"
+                    : "Student Id"}
                 <input
                   id="studentId"
                   type="text"
@@ -111,14 +122,24 @@ const AddNewCertificate = () => {
                   {...register("studentId", { required: true })}
                 />
                 {errors.studentId && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="stage"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Educational stage
+                {currentLanguage === "ar"
+                  ? "المرحلة التعليمية"
+                  : currentLanguage === "fr"
+                    ? "Niveau éducatif"
+                    : "Educational Stage"}
                 <input
                   id="stage"
                   type="text"
@@ -126,14 +147,24 @@ const AddNewCertificate = () => {
                   {...register("stage", { required: true })}
                 />
                 {errors.stage && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="issueDate"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Graduation Semester
+                {currentLanguage === "ar"
+                  ? "فصل التخرج"
+                  : currentLanguage === "fr"
+                    ? "Semestre de diplomation"
+                    : "Graduation Semester"}
                 <input
                   id="issueDate"
                   type="date"
@@ -141,14 +172,24 @@ const AddNewCertificate = () => {
                   {...register("issueDate", { required: true })}
                 />
                 {errors.issueDate && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="file"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Document
+                {currentLanguage === "ar"
+                  ? "وثيقة"
+                  : currentLanguage === "fr"
+                    ? "Document"
+                    : "Document"}
                 <input
                   id="file"
                   type="file"
@@ -156,7 +197,13 @@ const AddNewCertificate = () => {
                   {...register("file", { required: true })}
                 />
                 {errors.file && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
             </div>
@@ -169,7 +216,11 @@ const AddNewCertificate = () => {
                   type="submit"
                   className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
                 >
-                  Save
+                  {currentLanguage === "ar"
+                    ? "حفظ"
+                    : currentLanguage === "fr"
+                      ? "Enregistrer"
+                      : "Save"}
                 </button>
               )}
             </div>

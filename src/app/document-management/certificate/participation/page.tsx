@@ -33,6 +33,9 @@ const Participation = () => {
       href: "/document-management/certificate/participation",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   type Participation = Record<string, any>;
   const [search, setSearch] = useState("");
@@ -111,18 +114,36 @@ const Participation = () => {
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
         <div className="justify-left mb-[80px] ml-4 mt-[50px] flex flex-wrap gap-5 text-[20px] font-semibold max-[725px]:text-[15px]">
-          <Link href="/document-management/certificate">Completion</Link>
+          <Link href="/document-management/certificate">
+            {currentLanguage === "ar"
+              ? "إكمال"
+              : currentLanguage === "fr"
+                ? "Achèvement"
+                : "Completion"}
+          </Link>
           <Link href="/document-management/certificate/achievement">
-            Achievement
+            {currentLanguage === "ar"
+              ? "إنجاز"
+              : currentLanguage === "fr"
+                ? "Réussite"
+                : "Achievement"}
           </Link>
           <Link
             href="/document-management/certificate/participation"
             className="text-blue-500 underline"
           >
-            Participation
+            {currentLanguage === "ar"
+              ? "المشاركة"
+              : currentLanguage === "fr"
+                ? "Participation"
+                : "Participation"}
           </Link>
           <Link href="/document-management/certificate/professional-development">
-            Professional Development
+            {currentLanguage === "ar"
+              ? "التطوير المهني"
+              : currentLanguage === "fr"
+                ? "Développement Professionnel"
+                : "Professional Development"}
           </Link>
         </div>
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
@@ -154,7 +175,13 @@ const Participation = () => {
                 id="icon"
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
-                placeholder="Search"
+                placeholder={
+                  currentLanguage === "en"
+                    ? "Search"
+                    : currentLanguage === "ar"
+                      ? "بحث"
+                      : "Recherche"
+                }
               />
             </div>
           </div>
@@ -163,7 +190,11 @@ const Participation = () => {
               href="/document-management/certificate/add-new-participation"
               className="mb-5 mr-3 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
-              + Add Completion Participations{" "}
+              {currentLanguage === "ar"
+                ? "+ إضافة مشاركات التخرج"
+                : currentLanguage === "fr"
+                  ? "+ Ajouter des participations de fin d'études"
+                  : "+ Add Completion Participations"}
             </Link>
           </div>
         </div>
@@ -183,22 +214,46 @@ const Participation = () => {
                   </div>
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  User Name
+                  {currentLanguage === "ar"
+                    ? "اسم المستخدم"
+                    : currentLanguage === "fr"
+                      ? "Nom d'utilisateur"
+                      : "User Name"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  User Id
+                  {currentLanguage === "ar"
+                    ? "معرف المستخدم"
+                    : currentLanguage === "fr"
+                      ? "ID utilisateur"
+                      : "User Id"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  role
+                  {currentLanguage === "ar"
+                    ? "الدور"
+                    : currentLanguage === "fr"
+                      ? "Rôle"
+                      : "Role"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  issue Date
+                  {currentLanguage === "ar"
+                    ? "تاريخ الإصدار"
+                    : currentLanguage === "fr"
+                      ? "Date d'émission"
+                      : "Issue Date"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  view
+                  {currentLanguage === "ar"
+                    ? "عرض"
+                    : currentLanguage === "fr"
+                      ? "Afficher"
+                      : "View"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Action
+                  {currentLanguage === "ar"
+                    ? "إجراء"
+                    : currentLanguage === "fr"
+                      ? "Action"
+                      : "Action"}
                 </th>
               </tr>
             </thead>
@@ -248,7 +303,11 @@ const Participation = () => {
                         onClick={() => handleDelete(participation.id)}
                         className="rounded-lg bg-error px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
                       >
-                        Delete
+                        {currentLanguage === "ar"
+                          ? "حذف"
+                          : currentLanguage === "fr"
+                            ? "Supprimer"
+                            : "Delete"}
                       </button>
                     </td>
                   </tr>
@@ -257,7 +316,11 @@ const Participation = () => {
           </table>
           {(data?.data.content.length == 0 || data == null) && (
             <div className="flex w-full justify-center py-3 text-center text-[18px] font-semibold">
-              There is No Data
+              {currentLanguage === "ar"
+                ? "لا توجد بيانات"
+                : currentLanguage === "fr"
+                  ? "Il n'y a pas de données"
+                  : "There is No Data"}
             </div>
           )}
         </div>

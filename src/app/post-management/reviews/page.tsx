@@ -27,6 +27,9 @@ const Reviews = () => {
       href: "/post-management/reviews",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   return (
@@ -37,42 +40,82 @@ const Reviews = () => {
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
         <div className="justify-left mb-[40px] ml-4 mt-[20px] flex gap-5 text-[23px] font-semibold">
-          <Link href="/post-management">Post</Link>
+          <Link href="/post-management">
+            {currentLanguage === "ar"
+              ? "منشور"
+              : currentLanguage === "fr"
+                ? "Publication"
+                : "Post"}
+          </Link>
           <Link
             href="/post-management/reviews"
             className="text-blue-500 underline"
           >
-            Reviews
+            {currentLanguage === "ar"
+              ? "التقييمات"
+              : currentLanguage === "fr"
+                ? "Avis"
+                : "Reviews"}
           </Link>
         </div>
         <div className="grid w-full justify-center overflow-x-auto">
           <div className="grid h-full w-full justify-center overflow-x-auto">
             <div className="mb-5 grid w-full grid-cols-3 justify-center gap-4 overflow-x-auto">
               <div className="grid rounded-xl bg-bgPrimary p-2">
-                <p className="font-semibold">Total Reviews</p>
+                <p className="font-semibold">
+                  {currentLanguage === "ar"
+  ? "إجمالي التقييمات"
+  : currentLanguage === "fr"
+  ? "Total des avis"
+  : "Total Reviews"}
+                </p>
                 <h1 className="text-[18px] font-bold">2K</h1>
                 <h1 className="text-[12px] text-textPrimary">
                   {" "}
-                  <span className="font-semibold text-success">4.63%</span> vs.
-                  last Year
+                  <span className="font-semibold text-success">4.63%</span> 
+                  {currentLanguage === "ar"
+  ? "مقارنة بالعام الماضي"
+  : currentLanguage === "fr"
+  ? "par rapport à l'année dernière"
+  : "vs. last Year"}
                 </h1>
               </div>
               <div className="grid rounded-xl bg-bgPrimary p-2">
-                <p className="font-semibold">Total Reviews</p>
+                <p className="font-semibold">
+                  {currentLanguage === "ar"
+  ? "إجمالي التقييمات"
+  : currentLanguage === "fr"
+  ? "Total des avis"
+  : "Total Reviews"}
+                </p>
                 <h1 className="text-[18px] font-bold">2K</h1>
                 <h1 className="text-[12px] text-textPrimary">
                   {" "}
-                  <span className="font-semibold text-success">4.63%</span> vs.
-                  last Year
+                  <span className="font-semibold text-success">4.63%</span> 
+                  {currentLanguage === "ar"
+  ? "مقارنة بالعام الماضي"
+  : currentLanguage === "fr"
+  ? "par rapport à l'année dernière"
+  : "vs. last Year"}
                 </h1>
               </div>
               <div className="grid rounded-xl bg-bgPrimary p-2">
-                <p className="font-semibold">Total Reviews</p>
+                <p className="font-semibold">
+                  {currentLanguage === "ar"
+  ? "إجمالي التقييمات"
+  : currentLanguage === "fr"
+  ? "Total des avis"
+  : "Total Reviews"}
+                </p>
                 <h1 className="text-[18px] font-bold">2K</h1>
                 <h1 className="text-[12px] text-textPrimary">
                   {" "}
-                  <span className="font-semibold text-success">4.63%</span> vs.
-                  last Year
+                  <span className="font-semibold text-success">4.63%</span> 
+                  {currentLanguage === "ar"
+  ? "مقارنة بالعام الماضي"
+  : currentLanguage === "fr"
+  ? "par rapport à l'année dernière"
+  : "vs. last Year"}
                 </h1>
               </div>
             </div>
@@ -101,9 +144,16 @@ const Reviews = () => {
                   </th>
                   <td className="px-6 py-4">
                     <div className="grid grid-cols-1 gap-3">
-                      Ask CDCR San Quintin State Prison 2008.
-                      <br /> We installed Purex dispensers throughout the prison
-                      to comba
+                      {currentLanguage === "ar"
+  ? "اسأل سجن سان كوينتين في CDCR 2008."
+  : currentLanguage === "fr"
+  ? "Demandez à la prison de San Quintin en 2008."
+  : "Ask CDCR San Quintin State Prison 2008."}
+                      <br /> {currentLanguage === "ar"
+  ? "قمنا بتركيب موزعات Purex في جميع أنحاء السجن لمكافحة"
+  : currentLanguage === "fr"
+  ? "Nous avons installé des distributeurs Purex dans toute la prison pour combattre"
+  : "We installed Purex dispensers throughout the prison to comba"}
                     </div>
                   </td>
                   <td className="px-6 py-4">
@@ -147,9 +197,16 @@ const Reviews = () => {
                   </th>
                   <td className="px-6 py-4">
                     <div className="grid grid-cols-1 gap-3">
-                      Ask CDCR San Quintin State Prison 2008.
-                      <br /> We installed Purex dispensers throughout the prison
-                      to comba
+                      {currentLanguage === "ar"
+  ? "اسأل سجن سان كوينتين في CDCR 2008."
+  : currentLanguage === "fr"
+  ? "Demandez à la prison de San Quintin en 2008."
+  : "Ask CDCR San Quintin State Prison 2008."}
+                      <br /> {currentLanguage === "ar"
+  ? "قمنا بتركيب موزعات Purex في جميع أنحاء السجن لمكافحة"
+  : currentLanguage === "fr"
+  ? "Nous avons installé des distributeurs Purex dans toute la prison pour combattre"
+  : "We installed Purex dispensers throughout the prison to comba"}
                     </div>
                   </td>
                   <td className="px-6 py-4">
@@ -193,9 +250,16 @@ const Reviews = () => {
                   </th>
                   <td className="px-6 py-4">
                     <div className="grid grid-cols-1 gap-3">
-                      Ask CDCR San Quintin State Prison 2008.
-                      <br /> We installed Purex dispensers throughout the prison
-                      to comba
+                      {currentLanguage === "ar"
+  ? "اسأل سجن سان كوينتين في CDCR 2008."
+  : currentLanguage === "fr"
+  ? "Demandez à la prison de San Quintin en 2008."
+  : "Ask CDCR San Quintin State Prison 2008."}
+                      <br /> {currentLanguage === "ar"
+  ? "قمنا بتركيب موزعات Purex في جميع أنحاء السجن لمكافحة"
+  : currentLanguage === "fr"
+  ? "Nous avons installé des distributeurs Purex dans toute la prison pour combattre"
+  : "We installed Purex dispensers throughout the prison to comba"}
                     </div>
                   </td>
                   <td className="px-6 py-4">

@@ -45,7 +45,9 @@ const AddDepartment = () => {
     formState: { errors },
   } = useForm();
   const [createDepartment, { isLoading }] = useCreateDepartmentsMutation();
-
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const onSubmit = async (formData: any) => {
     try {
       const processedData = {
@@ -100,7 +102,11 @@ const AddDepartment = () => {
                 <line x1="16" y1="14" x2="16" y2="17" />
               </svg>
               <h1 className="font-sans text-[22px] font-semibold">
-                Department Information
+                {currentLanguage === "ar"
+                  ? "معلومات القسم"
+                  : currentLanguage === "fr"
+                    ? "Informations sur le département"
+                    : "Department Information"}
               </h1>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
@@ -108,7 +114,11 @@ const AddDepartment = () => {
                 htmlFor="name_en"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Full Name (English)
+                {currentLanguage === "ar"
+                  ? "الاسم الكامل (بالإنجليزية)"
+                  : currentLanguage === "fr"
+                    ? "Nom complet (anglais)"
+                    : "Full Name (English)"}
                 <input
                   id="name_en"
                   type="text"
@@ -116,14 +126,24 @@ const AddDepartment = () => {
                   {...register("name_en", { required: true })}
                 />
                 {errors.name_en && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="name_fr"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Nom Complet (français)
+                {currentLanguage === "ar"
+                  ? "الاسم الكامل (بالفرنسية)"
+                  : currentLanguage === "fr"
+                    ? "Nom Complet (français)"
+                    : "Full Name (French)"}
                 <input
                   id="name_fr"
                   type="text"
@@ -131,14 +151,24 @@ const AddDepartment = () => {
                   {...register("name_fr", { required: true })}
                 />
                 {errors.name_fr && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="name_ar"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                الأسم كامل (بالعربي)
+                {currentLanguage === "ar"
+                  ? "الاسم الكامل (بالعربي)"
+                  : currentLanguage === "fr"
+                    ? "Nom Complet (en arabe)"
+                    : "Full Name (in Arabic)"}
                 <input
                   id="name_ar"
                   type="text"
@@ -146,14 +176,24 @@ const AddDepartment = () => {
                   {...register("name_ar", { required: true })}
                 />
                 {errors.name_ar && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="description_en"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Description (English)
+                {currentLanguage === "ar"
+                  ? "الوصف (بالإنجليزية)"
+                  : currentLanguage === "fr"
+                    ? "Description (en anglais)"
+                    : "Description (English)"}
                 <input
                   id="description_en"
                   type="text"
@@ -161,14 +201,25 @@ const AddDepartment = () => {
                   {...register("description_en", { required: true })}
                 />
                 {errors.description_en && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="description_fr"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Description (Français)
+                {currentLanguage === "ar"
+                  ? "الوصف (بالفرنسية)"
+                  : currentLanguage === "fr"
+                    ? "Description (Français)"
+                    : "Description (French)"}
+
                 <input
                   id="description_fr"
                   type="text"
@@ -176,14 +227,24 @@ const AddDepartment = () => {
                   {...register("description_fr", { required: true })}
                 />
                 {errors.description_fr && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="description_ar"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                الوصف (بالعربي)
+                {currentLanguage === "ar"
+                  ? "الوصف (بالعربي)"
+                  : currentLanguage === "fr"
+                    ? "Description (en arabe)"
+                    : "Description (in Arabic)"}
                 <input
                   id="description_en"
                   type="text"
@@ -191,14 +252,24 @@ const AddDepartment = () => {
                   {...register("description_ar", { required: true })}
                 />
                 {errors.description_ar && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="abbreviation_en"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Abbreviation (English)
+                {currentLanguage === "ar"
+                  ? "الاختصار (بالإنجليزي)"
+                  : currentLanguage === "fr"
+                    ? "Abréviation (en anglais)"
+                    : "Abbreviation (in English)"}
                 <input
                   id="abbreviation_en"
                   type="text"
@@ -206,14 +277,25 @@ const AddDepartment = () => {
                   {...register("abbreviation_en", { required: true })}
                 />
                 {errors.abbreviation_en && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="abbreviation_fr"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Abréviation (Français)
+                {currentLanguage === "ar"
+                  ? "الاختصار (بالفرنسي)"
+                  : currentLanguage === "fr"
+                    ? "Abréviation (en français)"
+                    : "Abbreviation (in French)"}
+
                 <input
                   id="abbreviation_fr"
                   type="text"
@@ -221,14 +303,24 @@ const AddDepartment = () => {
                   {...register("abbreviation_fr", { required: true })}
                 />
                 {errors.abbreviation_fr && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="abbreviation_ar"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                اختصار (بالعربي)
+                {currentLanguage === "ar"
+                  ? "اختصار (بالعربي)"
+                  : currentLanguage === "fr"
+                    ? "Abréviation (en arabe)"
+                    : "Abbreviation (in Arabic)"}
                 <input
                   id="abbreviation_ar"
                   type="text"
@@ -236,14 +328,25 @@ const AddDepartment = () => {
                   {...register("abbreviation_ar", { required: true })}
                 />
                 {errors.abbreviation_ar && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="headId"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                HeadId
+                {currentLanguage === "ar"
+                  ? "المعرف الرئيسي"
+                  : currentLanguage === "fr"
+                    ? "ID du Responsable"
+                    : "HeadId"}
+
                 <input
                   id="headId"
                   type="number"
@@ -251,14 +354,24 @@ const AddDepartment = () => {
                   {...register("headId", { required: true })}
                 />
                 {errors.headId && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="roles"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Employee
+                {currentLanguage === "ar"
+                  ? "موظف"
+                  : currentLanguage === "fr"
+                    ? "Employé"
+                    : "Employee"}
                 <select
                   defaultValue=""
                   id="roles"
@@ -266,7 +379,11 @@ const AddDepartment = () => {
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 >
                   <option selected value="">
-                    Select Nationality{" "}
+                    {currentLanguage === "ar"
+                      ? "اختر الوظيفة"
+                      : currentLanguage === "fr"
+                        ? "Sélectionnez le poste"
+                        : "Select Position"}
                   </option>
                   {data &&
                     Object.entries(data.data).map(([key, value]) => (
@@ -276,7 +393,13 @@ const AddDepartment = () => {
                     ))}
                 </select>
                 {errors.roles && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
             </div>
@@ -288,7 +411,11 @@ const AddDepartment = () => {
                   type="submit"
                   className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                 >
-                  Save
+                  {currentLanguage === "ar"
+                    ? "حفظ"
+                    : currentLanguage === "fr"
+                      ? "Enregistrer"
+                      : "Save"}
                 </button>
               )}
             </div>

@@ -4,6 +4,8 @@ import Soon from "@/components/soon";
 import Link from "next/link";
 import { useState, useEffect } from "react"; // Import useState and useEffect hooks
 import BreadCrumbs from "@/components/BreadCrumbs";
+import { useSelector } from "react-redux";
+import { RootState } from "@/GlobalRedux/store";
 
 const Rooms = () => {
   const breadcrumbs = [
@@ -26,6 +28,9 @@ const Rooms = () => {
       href: "/rooms",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
 
   const [selectAll, setSelectAll] = useState(false); // State to track whether select all checkbox is checked
 
@@ -107,7 +112,13 @@ const Rooms = () => {
                 id="icon"
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
-                placeholder="Search"
+                placeholder={
+                  currentLanguage === "en"
+                    ? "Search"
+                    : currentLanguage === "ar"
+                      ? "بحث"
+                      : "Recherche"
+                }
               />
             </div>
           </div>
@@ -116,7 +127,11 @@ const Rooms = () => {
               href="/add-new-room"
               className="mb-5 mr-3 w-[210px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
-              + Add New Room
+              {currentLanguage === "ar"
+                ? "+ إضافة غرفة جديدة"
+                : currentLanguage === "fr"
+                  ? "+ Ajouter une nouvelle salle"
+                  : "+ Add New Room"}
             </Link>
           </div>
         </div>
@@ -136,28 +151,60 @@ const Rooms = () => {
                   </div>
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Name
+                  {currentLanguage === "ar"
+                    ? "الاسم"
+                    : currentLanguage === "fr"
+                      ? "Nom"
+                      : "Name"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  id
+                  {currentLanguage === "ar"
+                    ? "رقم التعريف"
+                    : currentLanguage === "fr"
+                      ? "ID"
+                      : "id"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Gender
+                  {currentLanguage === "ar"
+                    ? "الجنس"
+                    : currentLanguage === "fr"
+                      ? "Genre"
+                      : "Gender"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Taxi Number
+                  {currentLanguage === "ar"
+                    ? "رقم التاكسي"
+                    : currentLanguage === "fr"
+                      ? "Numéro de taxi"
+                      : "Taxi Number"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Address
+                  {currentLanguage === "ar"
+                    ? "العنوان"
+                    : currentLanguage === "fr"
+                      ? "Adresse"
+                      : "Address"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Mobile
+                  {currentLanguage === "ar"
+                    ? "الجوال"
+                    : currentLanguage === "fr"
+                      ? "Mobile"
+                      : "Mobile"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  About
+                  {currentLanguage === "ar"
+                    ? "معلومات"
+                    : currentLanguage === "fr"
+                      ? "À propos"
+                      : "About"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Edit
+                  {currentLanguage === "ar"
+                    ? "تعديل"
+                    : currentLanguage === "fr"
+                      ? "Modifier"
+                      : "Edit"}
                 </th>
               </tr>
             </thead>
@@ -189,7 +236,11 @@ const Rooms = () => {
                     href="/edit-room"
                     className="font-medium text-blue-600 hover:underline"
                   >
-                    Edit
+                    {currentLanguage === "ar"
+                      ? "تعديل"
+                      : currentLanguage === "fr"
+                        ? "Modifier"
+                        : "Edit"}
                   </Link>
                 </td>
               </tr>
@@ -220,7 +271,11 @@ const Rooms = () => {
                     href="/edit-room"
                     className="font-medium text-blue-600 hover:underline"
                   >
-                    Edit
+                    {currentLanguage === "ar"
+                      ? "تعديل"
+                      : currentLanguage === "fr"
+                        ? "Modifier"
+                        : "Edit"}
                   </Link>
                 </td>
               </tr>

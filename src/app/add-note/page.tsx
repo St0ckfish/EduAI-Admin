@@ -4,6 +4,8 @@ import Spinner from "@/components/spinner";
 import TextEditor from "@/components/textEditor";
 import { useCreateNoteMutation } from "@/features/dashboard/dashboardApi";
 import { toast } from "react-toastify";
+import { RootState } from "@/GlobalRedux/store";
+import { useSelector } from "react-redux";
 
 const AddNote = () => {
   const [title, setTitle] = useState("");
@@ -31,11 +33,21 @@ const AddNote = () => {
     }
   };
 
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
+
   return (
     <div className="mr-3 mt-5 flex lg:ml-[270px]">
       <div className="grid h-full w-full items-center gap-3 rounded-xl bg-bgPrimary p-5">
         <div className="mb-5 flex w-full justify-start">
-          <h1 className="text-[22px] font-semibold">Create Note</h1>
+          <h1 className="text-[22px] font-semibold">
+            {currentLanguage === "en"
+              ? "Create Note"
+              : currentLanguage === "ar"
+                ? "إنشاء ملاحظة"
+                : "Créer une note"}
+          </h1>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="grid h-full w-full gap-6">
@@ -46,7 +58,13 @@ const AddNote = () => {
               Title
               <input
                 className="rounded-xl border border-borderPrimary px-4 py-2 outline-none"
-                placeholder="Write title...."
+                placeholder={
+                  currentLanguage === "en"
+                    ? "Write title...."
+                    : currentLanguage === "ar"
+                      ? "اكتب العنوان...."
+                      : "Écrire le titre...."
+                }
                 name="title"
                 id="title"
                 value={title}
@@ -62,7 +80,13 @@ const AddNote = () => {
                 <TextEditor
                   value={description}
                   onChange={setDescription}
-                  placeholder="Enter your content here..."
+                  placeholder={
+                    currentLanguage === "en"
+                      ? "Enter your content here..."
+                      : currentLanguage === "ar"
+                        ? "أدخل محتواك هنا..."
+                        : "Entrez votre contenu ici..."
+                  }
                 />
               </div>
             </label>
@@ -85,7 +109,11 @@ const AddNote = () => {
                   >
                     <polygon points="3 11 22 2 13 21 11 13 3 11" />
                   </svg>
-                  Send
+                  {currentLanguage === "en"
+                    ? "Send"
+                    : currentLanguage === "ar"
+                      ? "إرسال"
+                      : "Envoyer"}
                 </button>
               )}
             </div>

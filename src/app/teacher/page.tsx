@@ -6,9 +6,9 @@ import {
   useDeleteTeachersMutation,
   useGetAllTeachersQuery,
 } from "@/features/User-Management/teacherApi";
-import { RootState } from "@/GlobalRedux/store";
 import Link from "next/link";
 import { useState, useEffect, SetStateAction } from "react";
+import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import BreadCrumbs from "@/components/BreadCrumbs";
@@ -34,6 +34,10 @@ const Teacher = () => {
       href: "/teacher",
     },
   ];
+
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
 
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
@@ -159,16 +163,28 @@ const Teacher = () => {
                 id="icon"
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
-                placeholder="Search"
+                placeholder={
+                  currentLanguage === "en"
+                    ? "Search"
+                    : currentLanguage === "ar"
+                      ? "بحث"
+                      : "Recherche"
+                }
               />
             </div>
           </div>
           <div className="flex justify-center">
             <Link
               href="/add-new-teacher"
-              className="mb-5 mr-3 w-[200px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+              className="mb-5 mr-3 w-fit whitespace-nowrap rounded-xl bg-primary px-4 px-[10px] py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
-              + Add new Teacher
+              {currentLanguage === "en"
+                ? "+ Add new Teacher"
+                : currentLanguage === "ar"
+                  ? "+ إضافة معلم جديد"
+                  : currentLanguage === "fr"
+                    ? "+ Ajouter un nouvel enseignant"
+                    : "+ Add new Teacher"}
             </Link>
           </div>
         </div>
@@ -188,31 +204,64 @@ const Teacher = () => {
                   </div>
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Name
+                  {currentLanguage === "en"
+                    ? "Name"
+                    : currentLanguage === "ar"
+                      ? "الاسم"
+                      : "Nom"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  id
+                  {currentLanguage === "en"
+                    ? "ID"
+                    : currentLanguage === "ar"
+                      ? "رقم"
+                      : "ID"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Gender
+                  {currentLanguage === "en"
+                    ? "Gender"
+                    : currentLanguage === "ar"
+                      ? "الجنس"
+                      : "Genre"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Nationality
+                  {currentLanguage === "en"
+                    ? "Nationality"
+                    : currentLanguage === "ar"
+                      ? "الجنسية"
+                      : "Nationalité"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Email
+                  {currentLanguage === "en"
+                    ? "Email"
+                    : currentLanguage === "ar"
+                      ? "البريد الإلكتروني"
+                      : "Email"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Mobile
+                  {currentLanguage === "en"
+                    ? "Mobile"
+                    : currentLanguage === "ar"
+                      ? "الجوال"
+                      : "Mobile"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  view
+                  {currentLanguage === "en"
+                    ? "View"
+                    : currentLanguage === "ar"
+                      ? "عرض"
+                      : "Voir"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Action
+                  {currentLanguage === "en"
+                    ? "Action"
+                    : currentLanguage === "ar"
+                      ? "الإجراء"
+                      : "Action"}
                 </th>
               </tr>
             </thead>
+
             <tbody>
               {data?.data.content
                 .filter((teacher: Teacher) => {
@@ -236,7 +285,7 @@ const Teacher = () => {
                     </td>
                     <th
                       scope="row"
-                      className="flex items-center gap-2 whitespace-nowrap px-6 py-4 font-medium text-gray-900"
+                      className="flex items-center gap-2 whitespace-nowrap px-6 py-4 font-medium text-textSecondary"
                     >
                       <div className="w-[50px]">
                         {teacher.picture == null ? (
@@ -275,7 +324,11 @@ const Teacher = () => {
                         href={`/teacher/view-teacher/${teacher.id}`}
                         className="font-medium text-blue-600 hover:underline"
                       >
-                        View
+                        {currentLanguage === "en"
+                          ? "View"
+                          : currentLanguage === "ar"
+                            ? "عرض"
+                            : "Voir"}
                       </Link>
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
@@ -283,7 +336,11 @@ const Teacher = () => {
                         onClick={() => handleDelete(teacher.id)}
                         className="rounded-lg bg-error px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
                       >
-                        Lock
+                        {currentLanguage === "en"
+                          ? "Lock"
+                          : currentLanguage === "ar"
+                            ? "قفل"
+                            : "Verrouiller"}
                       </button>
                     </td>
                   </tr>

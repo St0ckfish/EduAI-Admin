@@ -50,6 +50,9 @@ const Events = () => {
       href: "/educational-affairs/events",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const { data, error, isLoading, refetch } = useGetAllEventsQuery(null);
   const [createEvent] = useCreateEventsMutation();
@@ -129,13 +132,21 @@ const Events = () => {
             onClick={handleOpenModal}
             className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
           >
-            + Add Event
+            {currentLanguage === "ar"
+              ? "+ إضافة حدث"
+              : currentLanguage === "fr"
+                ? "+ Ajouter un événement"
+                : "+ Add Event"}
           </button>
         </div>
         <Timeline meetings={data?.data.content} />
         <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
           <h2 className="mb-4 text-xl font-light text-textPrimary">
-            Create Event
+            {currentLanguage === "ar"
+              ? "إنشاء حدث"
+              : currentLanguage === "fr"
+                ? "Créer un événement"
+                : "Create Event"}
           </h2>
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -289,13 +300,21 @@ const Events = () => {
                 type="submit"
                 className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
               >
-                Add
+                {currentLanguage === "ar"
+                  ? "إضافة"
+                  : currentLanguage === "fr"
+                    ? "Ajouter"
+                    : "Add"}
               </button>
               <button
                 onClick={handleCloseModal}
                 className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-error px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#af4747] hover:shadow-xl"
               >
-                Cancel
+                {currentLanguage === "ar"
+                  ? "إلغاء"
+                  : currentLanguage === "fr"
+                    ? "Annuler"
+                    : "Cancel"}
               </button>
             </div>
           </form>

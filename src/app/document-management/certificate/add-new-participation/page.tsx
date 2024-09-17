@@ -36,6 +36,9 @@ const AddNewParticipation = () => {
       href: "/document-management/certificate/add-new-participation",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const {
     register,
@@ -97,7 +100,11 @@ const AddNewParticipation = () => {
                 <line x1="16" y1="14" x2="16" y2="17" />
               </svg>
               <h1 className="font-sans text-[22px] font-semibold">
-                Participation Certificates
+                {currentLanguage === "ar"
+                  ? "شهادات المشاركة"
+                  : currentLanguage === "fr"
+                    ? "Certificats de participation"
+                    : "Participation Certificates"}
               </h1>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
@@ -105,7 +112,11 @@ const AddNewParticipation = () => {
                 htmlFor="userId"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                User Id
+                {currentLanguage === "ar"
+                  ? "معرف المستخدم"
+                  : currentLanguage === "fr"
+                    ? "Identifiant utilisateur"
+                    : "User Id"}
                 <input
                   id="userId"
                   type="text"
@@ -113,14 +124,25 @@ const AddNewParticipation = () => {
                   {...register("userId", { required: true })}
                 />
                 {errors.userId && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="title_en"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Title (en)
+                {currentLanguage === "ar"
+                  ? "العنوان (بالإنجليزية)"
+                  : currentLanguage === "fr"
+                    ? "Titre (en)"
+                    : "Title (en)"}
+
                 <input
                   id="title_en"
                   type="text"
@@ -128,14 +150,24 @@ const AddNewParticipation = () => {
                   {...register("title_en", { required: true })}
                 />
                 {errors.title_en && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="title_ar"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Title (ar)
+                {currentLanguage === "ar"
+                  ? "العنوان (بالعربي)"
+                  : currentLanguage === "fr"
+                    ? "Titre (ar)"
+                    : "Title (ar)"}
                 <input
                   id="title_ar"
                   type="text"
@@ -143,14 +175,25 @@ const AddNewParticipation = () => {
                   {...register("title_ar", { required: true })}
                 />
                 {errors.title_ar && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="title_en"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Title (fr)
+                {currentLanguage === "ar"
+                  ? "العنوان (بالفرنسية)"
+                  : currentLanguage === "fr"
+                    ? "Titre (français)"
+                    : "Title (fr)"}
+
                 <input
                   id="title_fr"
                   type="text"
@@ -158,14 +201,24 @@ const AddNewParticipation = () => {
                   {...register("title_fr", { required: true })}
                 />
                 {errors.title_fr && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="issueDate"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Graduation Semester
+                {currentLanguage === "ar"
+                  ? "فصل التخرج"
+                  : currentLanguage === "fr"
+                    ? "Semestre de Diplôme"
+                    : "Graduation Semester"}
                 <input
                   id="issueDate"
                   type="date"
@@ -173,14 +226,24 @@ const AddNewParticipation = () => {
                   {...register("issueDate", { required: true })}
                 />
                 {errors.issueDate && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="file"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Document
+                {currentLanguage === "ar"
+                  ? "وثيقة"
+                  : currentLanguage === "fr"
+                    ? "Document"
+                    : "Document"}
                 <input
                   id="file"
                   type="file"
@@ -188,7 +251,13 @@ const AddNewParticipation = () => {
                   {...register("file", { required: true })}
                 />
                 {errors.file && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
             </div>
@@ -201,7 +270,11 @@ const AddNewParticipation = () => {
                   type="submit"
                   className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
                 >
-                  Save
+                  {currentLanguage === "ar"
+                    ? "حفظ"
+                    : currentLanguage === "fr"
+                      ? "Enregistrer"
+                      : "Save"}
                 </button>
               )}
             </div>

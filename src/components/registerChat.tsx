@@ -2,8 +2,8 @@ import { useState } from "react";
 import { createUser } from "@/components/cometchatUser"; // Adjust the path
 
 const RegisterForm = ({ onClose }: { onClose: () => void }) => {
-  const [username, setUsername] = useState('');
-  const [userId, setUserId] = useState('');
+  const [username, setUsername] = useState("");
+  const [userId, setUserId] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,17 +24,17 @@ const RegisterForm = ({ onClose }: { onClose: () => void }) => {
           type="text"
           placeholder="User ID"
           value={userId}
-          onChange={(e) => setUserId(e.target.value)}
-          className="border p-2 mb-4 w-full"
+          onChange={e => setUserId(e.target.value)}
+          className="mb-4 w-full border p-2"
         />
         <input
           type="text"
           placeholder="Username"
           value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="border p-2 mb-4 w-full"
+          onChange={e => setUsername(e.target.value)}
+          className="mb-4 w-full border p-2"
         />
-        <button type="submit" className="bg-blue-500 text-white p-2 rounded">
+        <button type="submit" className="rounded bg-blue-500 p-2 text-white">
           Register
         </button>
       </form>

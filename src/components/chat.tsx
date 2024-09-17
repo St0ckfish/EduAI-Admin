@@ -43,12 +43,12 @@ const ChatPage = () => {
 
       // Add a message listener
       addMessageListener("chat_listener", (message: any) => {
-        setMessages((prevMessages) => [...prevMessages, message]);
+        setMessages(prevMessages => [...prevMessages, message]);
       });
     }
 
     return () => {
-      if (typeof window !== 'undefined') {
+      if (typeof window !== "undefined") {
         // Clean up the listener
         CometChat.removeMessageListener("chat_listener");
       }

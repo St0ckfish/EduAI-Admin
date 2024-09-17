@@ -44,6 +44,9 @@ const EditLab: React.FC<ViewEmployeeProps> = ({ params }) => {
       href: `/infrastructure/lab/${params.labId}`,
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   const [createDriver, { isLoading: isUpdating }] = useUpdateLabsMutation();
@@ -114,7 +117,11 @@ const EditLab: React.FC<ViewEmployeeProps> = ({ params }) => {
                 <line x1="16" y1="14" x2="16" y2="17" />
               </svg>
               <h1 className="font-sans text-[22px] font-semibold">
-                Lab Information
+                {currentLanguage === "ar"
+                  ? "معلومات المختبر"
+                  : currentLanguage === "fr"
+                    ? "Informations sur le laboratoire"
+                    : "Lab Information"}
               </h1>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
@@ -122,7 +129,11 @@ const EditLab: React.FC<ViewEmployeeProps> = ({ params }) => {
                 htmlFor="buildingNumber"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Building Number
+                {currentLanguage === "ar"
+                  ? "رقم المبنى"
+                  : currentLanguage === "fr"
+                    ? "Numéro du bâtiment"
+                    : "Building Number"}
                 <input
                   id="buildingNumber"
                   {...register("buildingNumber", { required: true })}
@@ -137,7 +148,11 @@ const EditLab: React.FC<ViewEmployeeProps> = ({ params }) => {
                 htmlFor="roomNumber"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Room Number
+                {currentLanguage === "ar"
+                  ? "رقم الغرفة"
+                  : currentLanguage === "fr"
+                    ? "Numéro de la pièce"
+                    : "Room Number"}
                 <input
                   id="roomNumber"
                   {...register("roomNumber", { required: true })}
@@ -152,7 +167,11 @@ const EditLab: React.FC<ViewEmployeeProps> = ({ params }) => {
                 htmlFor="floorNumber"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Floor Number
+                {currentLanguage === "ar"
+                  ? "رقم الطابق"
+                  : currentLanguage === "fr"
+                    ? "Numéro de l'étage"
+                    : "Floor Number"}
                 <input
                   id="floorNumber"
                   {...register("floorNumber", { required: true })}
@@ -167,7 +186,11 @@ const EditLab: React.FC<ViewEmployeeProps> = ({ params }) => {
                 htmlFor="type"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Type
+                {currentLanguage === "ar"
+                  ? "النوع"
+                  : currentLanguage === "fr"
+                    ? "Type"
+                    : "Type"}
                 <input
                   id="type"
                   {...register("type", { required: true })}
@@ -182,7 +205,11 @@ const EditLab: React.FC<ViewEmployeeProps> = ({ params }) => {
                 htmlFor="maxCapacity"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Max Capacity
+                {currentLanguage === "ar"
+                  ? "الحد الأقصى للسعة"
+                  : currentLanguage === "fr"
+                    ? "Capacité maximale"
+                    : "Max Capacity"}
                 <input
                   id="maxCapacity"
                   {...register("maxCapacity", { required: true })}
@@ -197,7 +224,11 @@ const EditLab: React.FC<ViewEmployeeProps> = ({ params }) => {
                 htmlFor="schoolId"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                School Id
+                {currentLanguage === "ar"
+                  ? "رقم المدرسة"
+                  : currentLanguage === "fr"
+                    ? "ID de l'école"
+                    : "School Id"}
                 <input
                   id="schoolId"
                   {...register("schoolId", { required: true })}
@@ -212,7 +243,11 @@ const EditLab: React.FC<ViewEmployeeProps> = ({ params }) => {
                 htmlFor="labName"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Lab Name
+                {currentLanguage === "ar"
+                  ? "اسم المختبر"
+                  : currentLanguage === "fr"
+                    ? "Nom du laboratoire"
+                    : "Lab Name"}
                 <input
                   id="labName"
                   {...register("labName", { required: true })}
@@ -227,7 +262,11 @@ const EditLab: React.FC<ViewEmployeeProps> = ({ params }) => {
                 htmlFor="labType"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Lab Type
+                {currentLanguage === "ar"
+                  ? "نوع المختبر"
+                  : currentLanguage === "fr"
+                    ? "Type de laboratoire"
+                    : "Lab Type"}
                 <input
                   id="labType"
                   {...register("labType", { required: true })}

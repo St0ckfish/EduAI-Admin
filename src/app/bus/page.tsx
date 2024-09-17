@@ -33,6 +33,9 @@ const Bus = () => {
       href: "/bus",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const { data, error, isLoading, refetch } = useGetAllBussQuery(null);
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const [search, setSearch] = useState("");
@@ -154,7 +157,13 @@ const Bus = () => {
                 id="icon"
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
-                placeholder="Search"
+                placeholder={
+                  currentLanguage === "en"
+                    ? "Search"
+                    : currentLanguage === "ar"
+                      ? "بحث"
+                      : "Recherche"
+                }
               />
             </div>
           </div>
@@ -163,7 +172,11 @@ const Bus = () => {
               href="/add-new-bus"
               className="mb-5 mr-3 w-[210px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
-              + Add New Bus
+              {currentLanguage === "ar"
+                ? "+ إضافة حافلة جديدة"
+                : currentLanguage === "fr"
+                  ? "+ Ajouter un nouveau bus"
+                  : "+ Add New Bus"}
             </Link>
           </div>
         </div>
@@ -182,25 +195,53 @@ const Bus = () => {
                   </div>
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Bus Number
+                  {currentLanguage === "ar"
+                    ? "رقم الحافلة"
+                    : currentLanguage === "fr"
+                      ? "Numéro de bus"
+                      : "Bus Number"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  bus Capacity
+                  {currentLanguage === "ar"
+                    ? "سعة الحافلة"
+                    : currentLanguage === "fr"
+                      ? "Capacité du bus"
+                      : "Bus Capacity"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  school Id
+                  {currentLanguage === "ar"
+                    ? "رقم المدرسة"
+                    : currentLanguage === "fr"
+                      ? "ID de l'école"
+                      : "School Id"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  created At
+                  {currentLanguage === "ar"
+                    ? "تاريخ الإنشاء"
+                    : currentLanguage === "fr"
+                      ? "Date de création"
+                      : "Created At"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  updated At
+                  {currentLanguage === "ar"
+                    ? "تاريخ التحديث"
+                    : currentLanguage === "fr"
+                      ? "Date de mise à jour"
+                      : "Updated At"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Action
+                  {currentLanguage === "ar"
+                    ? "الإجراء"
+                    : currentLanguage === "fr"
+                      ? "Action"
+                      : "Action"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Edit
+                  {currentLanguage === "ar"
+                    ? "تعديل"
+                    : currentLanguage === "fr"
+                      ? "Modifier"
+                      : "Edit"}
                 </th>
               </tr>
             </thead>
@@ -248,7 +289,11 @@ const Bus = () => {
                         onClick={() => handleDelete(bus.busId)}
                         className="rounded-lg bg-error px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
                       >
-                        Delete
+                        {currentLanguage === "ar"
+                          ? "حذف"
+                          : currentLanguage === "fr"
+                            ? "Supprimer"
+                            : "Delete"}
                       </button>
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
@@ -256,7 +301,11 @@ const Bus = () => {
                         href={`/edit-bus/${bus.busId}`}
                         className="font-medium text-blue-600 hover:underline"
                       >
-                        Edit
+                        {currentLanguage === "ar"
+                          ? "تعديل"
+                          : currentLanguage === "fr"
+                            ? "Modifier"
+                            : "Edit"}
                       </Link>
                     </td>
                   </tr>
@@ -265,7 +314,13 @@ const Bus = () => {
           </table>
           {(data?.data.content.length == 0 || data == null) && (
             <div className="flex w-full justify-center py-3 text-center text-[18px] font-semibold">
-              There is No Data
+              {currentLanguage === "en"
+                ? "There is No Data"
+                : currentLanguage === "ar"
+                  ? "لا توجد بيانات"
+                  : currentLanguage === "fr"
+                    ? "Il n'y a pas de données"
+                    : "There is No Data"}
             </div>
           )}
         </div>

@@ -42,7 +42,9 @@ const AddCourse = () => {
     },
   ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const {
     register,
     handleSubmit,
@@ -119,7 +121,11 @@ const AddCourse = () => {
                 <line x1="16" y1="14" x2="16" y2="17" />
               </svg>
               <h1 className="font-sans text-[22px] font-semibold">
-                Course Information
+                {currentLanguage === "ar"
+                  ? "معلومات الدورة"
+                  : currentLanguage === "fr"
+                    ? "Informations sur le cours"
+                    : "Course Information"}
               </h1>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
@@ -127,7 +133,11 @@ const AddCourse = () => {
                 htmlFor="name"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Name (en)
+                {currentLanguage === "ar"
+                  ? "(en) الاسم"
+                  : currentLanguage === "fr"
+                    ? "Nom (en)"
+                    : "Name (en)"}
                 <input
                   id="name"
                   {...register("name_en", { required: true })}
@@ -135,14 +145,24 @@ const AddCourse = () => {
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.name_en && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="name"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Name (ar)
+                {currentLanguage === "ar"
+                  ? "(ar) الاسم"
+                  : currentLanguage === "fr"
+                    ? "Nom (ar)"
+                    : "Name (ar)"}
                 <input
                   id="name"
                   {...register("name_ar", { required: true })}
@@ -150,14 +170,24 @@ const AddCourse = () => {
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.name_ar && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="name"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Name (fr)
+                {currentLanguage === "ar"
+                  ? "(fr) الاسم"
+                  : currentLanguage === "fr"
+                    ? "Nom (fr)"
+                    : "Name (fr)"}
                 <input
                   id="name"
                   {...register("name_fr", { required: true })}
@@ -165,14 +195,24 @@ const AddCourse = () => {
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.name_fr && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="name"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Description (en)
+                {currentLanguage === "ar"
+                  ? "(en) الوصف"
+                  : currentLanguage === "fr"
+                    ? "Description (en)"
+                    : "Description (en)"}
                 <input
                   id="name"
                   {...register("description_en", { required: true })}
@@ -180,14 +220,24 @@ const AddCourse = () => {
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.description_en && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="name"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Description (ar)
+                {currentLanguage === "ar"
+                  ? "(ar) الوصف"
+                  : currentLanguage === "fr"
+                    ? "Description (ar)"
+                    : "Description (ar)"}
                 <input
                   id="name"
                   {...register("description_ar", { required: true })}
@@ -195,14 +245,24 @@ const AddCourse = () => {
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.description_ar && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="name"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Description (fr)
+                {currentLanguage === "ar"
+                  ? "(fr) الوصف"
+                  : currentLanguage === "fr"
+                    ? "Description (fr)"
+                    : "Description (fr)"}
                 <input
                   id="name"
                   {...register("description_fr", { required: true })}
@@ -210,14 +270,24 @@ const AddCourse = () => {
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.description_fr && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="countryId"
                 className="grid text-start font-sans text-[15px] font-semibold text-blackOrWhite"
               >
-                Country
+                {currentLanguage === "ar"
+                  ? "البلد"
+                  : currentLanguage === "fr"
+                    ? "Pays"
+                    : "Country"}
                 <select
                   defaultValue=""
                   id="countryId"
@@ -225,7 +295,11 @@ const AddCourse = () => {
                   className={`border ${errors.countryId ? "border-warning" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-sm text-blackOrWhite outline-none max-[458px]:w-[350px]`}
                 >
                   <option selected value="">
-                    Select Country{" "}
+                    {currentLanguage === "ar"
+                      ? "اختر البلد"
+                      : currentLanguage === "fr"
+                        ? "Sélectionner le pays"
+                        : "Select Country"}
                   </option>
                   {CountryData &&
                     Object.entries(CountryData.data).map(([key, value]) => (
@@ -236,7 +310,11 @@ const AddCourse = () => {
                 </select>
                 {errors.countryId && (
                   <span className="text-[13px] text-error">
-                    Country is Required
+                    {currentLanguage === "ar"
+                      ? "البلد مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Le pays est requis"
+                        : "Country is Required"}
                   </span>
                 )}
               </label>
@@ -244,7 +322,11 @@ const AddCourse = () => {
                 htmlFor="level"
                 className="grid text-start font-sans text-[15px] font-semibold text-blackOrWhite"
               >
-                Study Level
+                {currentLanguage === "ar"
+                  ? "مستوى الدراسة"
+                  : currentLanguage === "fr"
+                    ? "Niveau d'étude"
+                    : "Study Level"}
                 <select
                   defaultValue=""
                   id="level"
@@ -252,7 +334,11 @@ const AddCourse = () => {
                   className={`border ${errors.level ? "border-warning" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-sm text-blackOrWhite outline-none max-[458px]:w-[350px]`}
                 >
                   <option selected value="">
-                    Select Study Level{" "}
+                    {currentLanguage === "ar"
+                      ? "اختر مستوى الدراسة"
+                      : currentLanguage === "fr"
+                        ? "Sélectionner le niveau d'étude"
+                        : "Select Study Level"}
                   </option>
                   {LevelData &&
                     Object.entries(LevelData.data).map(([key, value]) => (
@@ -263,7 +349,11 @@ const AddCourse = () => {
                 </select>
                 {errors.level && (
                   <span className="text-[13px] text-error">
-                    Study Level is Required
+                    {currentLanguage === "ar"
+                      ? "مستوى الدراسة مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Le niveau d'études est requis"
+                        : "Study Level is Required"}
                   </span>
                 )}
               </label>
@@ -271,7 +361,11 @@ const AddCourse = () => {
                 htmlFor="registrationType"
                 className="grid text-start font-sans text-[15px] font-semibold text-blackOrWhite"
               >
-                Registration
+                {currentLanguage === "ar"
+                  ? "التسجيل"
+                  : currentLanguage === "fr"
+                    ? "Inscription"
+                    : "Registration"}
                 <select
                   defaultValue=""
                   id="registrationType"
@@ -279,7 +373,11 @@ const AddCourse = () => {
                   className={`border ${errors.registrationType ? "border-warning" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-sm text-blackOrWhite outline-none max-[458px]:w-[350px]`}
                 >
                   <option selected value="">
-                    Select Registration{" "}
+                    {currentLanguage === "ar"
+                      ? "اختر التسجيل"
+                      : currentLanguage === "fr"
+                        ? "Sélectionner l'inscription"
+                        : "Select Registration"}
                   </option>
                   {RegData &&
                     Object.entries(RegData.data).map(([key, value]) => (
@@ -290,7 +388,11 @@ const AddCourse = () => {
                 </select>
                 {errors.registrationType && (
                   <span className="text-[13px] text-error">
-                    Registration is Required
+                    {currentLanguage === "ar"
+                      ? "التسجيل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "L'inscription est requise"
+                        : "Registration is Required"}
                   </span>
                 )}
               </label>
@@ -298,7 +400,11 @@ const AddCourse = () => {
                 htmlFor="language"
                 className="grid text-start font-sans text-[15px] font-semibold text-blackOrWhite"
               >
-                Language
+                {currentLanguage === "ar"
+                  ? "اللغة"
+                  : currentLanguage === "fr"
+                    ? "Langue"
+                    : "Language"}
                 <select
                   defaultValue=""
                   id="language"
@@ -306,7 +412,11 @@ const AddCourse = () => {
                   className={`border ${errors.language ? "border-warning" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-sm text-blackOrWhite outline-none max-[458px]:w-[350px]`}
                 >
                   <option selected value="">
-                    Select Language{" "}
+                    {currentLanguage === "ar"
+                      ? "اختر اللغة"
+                      : currentLanguage === "fr"
+                        ? "Sélectionner la langue"
+                        : "Select Language"}{" "}
                   </option>
                   {LangData &&
                     Object.entries(LangData.data).map(([key, value]) => (
@@ -317,7 +427,11 @@ const AddCourse = () => {
                 </select>
                 {errors.language && (
                   <span className="text-[13px] text-error">
-                    Language is Required
+                    {currentLanguage === "ar"
+                      ? "اللغة مطلوبة"
+                      : currentLanguage === "fr"
+                        ? "La langue est requise"
+                        : "Language is Required"}
                   </span>
                 )}
               </label>
@@ -325,7 +439,11 @@ const AddCourse = () => {
                 htmlFor="code"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Code
+                {currentLanguage === "ar"
+                  ? "الرمز"
+                  : currentLanguage === "fr"
+                    ? "Code"
+                    : "Code"}
                 <input
                   id="code"
                   {...register("code", { required: true })}
@@ -333,14 +451,24 @@ const AddCourse = () => {
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.code && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="code"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                EDU System Id
+                {currentLanguage === "ar"
+                  ? "معرف النظام التعليمي"
+                  : currentLanguage === "fr"
+                    ? "ID du système éducatif"
+                    : "EDU System Id"}
                 <input
                   id="eduSystemId"
                   {...register("eduSystemId", { required: true })}
@@ -348,7 +476,13 @@ const AddCourse = () => {
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.eduSystemId && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
             </div>
@@ -361,7 +495,11 @@ const AddCourse = () => {
                   type="submit"
                   className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                 >
-                  Add Course
+                  {currentLanguage === "ar"
+                    ? "+ إضافة دورة"
+                    : currentLanguage === "fr"
+                      ? "+ Ajouter un cours"
+                      : "+ Add Course"}
                 </button>
               )}
             </div>

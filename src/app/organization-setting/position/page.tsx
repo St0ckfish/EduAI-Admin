@@ -33,6 +33,9 @@ const Position = () => {
       href: "/organization-setting/position",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
 
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   type Position = Record<string, any>;
@@ -141,7 +144,13 @@ const Position = () => {
                 id="icon"
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-primary focus:ring-primary disabled:pointer-events-none disabled:opacity-50"
-                placeholder="Search"
+                placeholder={
+                  currentLanguage === "en"
+                    ? "Search"
+                    : currentLanguage === "ar"
+                      ? "بحث"
+                      : "Recherche"
+                }
               />
             </div>
           </div>
@@ -150,7 +159,11 @@ const Position = () => {
               href="/organization-setting/position/add-position"
               className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
             >
-              + Add Position
+              {currentLanguage === "ar"
+                ? "+ إضافة وظيفة"
+                : currentLanguage === "fr"
+                  ? "+ Ajouter un poste"
+                  : "+ Add Position"}
             </Link>
           </div>
         </div>
@@ -170,22 +183,46 @@ const Position = () => {
                   </div>
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Name
+                  {currentLanguage === "ar"
+                    ? "الاسم"
+                    : currentLanguage === "fr"
+                      ? "Nom"
+                      : "Name"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  id
+                  {currentLanguage === "ar"
+                    ? "الرقم التعريفي"
+                    : currentLanguage === "fr"
+                      ? "ID"
+                      : "ID"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Abbreviation
+                  {currentLanguage === "ar"
+                    ? "الاختصار"
+                    : currentLanguage === "fr"
+                      ? "Abréviation"
+                      : "Abbreviation"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Description
+                  {currentLanguage === "ar"
+                    ? "الوصف"
+                    : currentLanguage === "fr"
+                      ? "Description"
+                      : "Description"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  view
+                  {currentLanguage === "ar"
+                    ? "عرض"
+                    : currentLanguage === "fr"
+                      ? "Afficher"
+                      : "View"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Action
+                  {currentLanguage === "ar"
+                    ? "الإجراء"
+                    : currentLanguage === "fr"
+                      ? "Action"
+                      : "Action"}
                 </th>
               </tr>
             </thead>
@@ -245,7 +282,11 @@ const Position = () => {
                         href={`/organization-setting/department/${Position.id}`}
                         className="font-medium text-primary hover:underline"
                       >
-                        View
+                        {currentLanguage === "ar"
+                          ? "عرض"
+                          : currentLanguage === "fr"
+                            ? "Afficher"
+                            : "View"}
                       </Link>
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
@@ -254,7 +295,11 @@ const Position = () => {
                         onClick={() => handleDelete(Position.id)}
                         className="rounded-lg bg-error px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
                       >
-                        Delete
+                        {currentLanguage === "ar"
+                          ? "حذف"
+                          : currentLanguage === "fr"
+                            ? "Supprimer"
+                            : "Delete"}
                       </button>
                     </td>
                   </tr>

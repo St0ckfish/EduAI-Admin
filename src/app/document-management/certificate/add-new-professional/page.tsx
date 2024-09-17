@@ -36,6 +36,9 @@ const AddNewProfessional = () => {
       href: "/document-management/certificate/add-new-professional",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const {
     register,
@@ -95,7 +98,11 @@ const AddNewProfessional = () => {
                 <line x1="16" y1="14" x2="16" y2="17" />
               </svg>
               <h1 className="font-sans text-[22px] font-semibold">
-                Professional Certificates
+                {currentLanguage === "ar"
+                  ? "الشهادات المهنية"
+                  : currentLanguage === "fr"
+                    ? "Certificats Professionnels"
+                    : "Professional Certificates"}
               </h1>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
@@ -103,7 +110,11 @@ const AddNewProfessional = () => {
                 htmlFor="userId"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                User Id
+                {currentLanguage === "ar"
+                  ? "معرّف المستخدم"
+                  : currentLanguage === "fr"
+                    ? "Identifiant Utilisateur"
+                    : "User Id"}
                 <input
                   id="userId"
                   type="text"
@@ -111,14 +122,24 @@ const AddNewProfessional = () => {
                   {...register("userId", { required: true })}
                 />
                 {errors.userId && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="type"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Type
+                {currentLanguage === "ar"
+                  ? "النوع"
+                  : currentLanguage === "fr"
+                    ? "Type"
+                    : "Type"}
                 <input
                   id="type"
                   type="text"
@@ -126,14 +147,24 @@ const AddNewProfessional = () => {
                   {...register("type", { required: true })}
                 />
                 {errors.type && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="issueDate"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Graduation Semester
+                {currentLanguage === "ar"
+                  ? "فصل التخرج"
+                  : currentLanguage === "fr"
+                    ? "Semestre de graduation"
+                    : "Graduation Semester"}
                 <input
                   id="issueDate"
                   type="date"
@@ -141,14 +172,24 @@ const AddNewProfessional = () => {
                   {...register("issueDate", { required: true })}
                 />
                 {errors.issueDate && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="endDate"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Document
+                {currentLanguage === "ar"
+                  ? "وثيقة"
+                  : currentLanguage === "fr"
+                    ? "Document"
+                    : "Document"}
                 <input
                   id="endDate"
                   type="file"
@@ -156,7 +197,13 @@ const AddNewProfessional = () => {
                   {...register("endDate", { required: true })}
                 />
                 {errors.endDate && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
             </div>
@@ -169,7 +216,11 @@ const AddNewProfessional = () => {
                   type="submit"
                   className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
                 >
-                  Save
+                  {currentLanguage === "ar"
+                    ? "حفظ"
+                    : currentLanguage === "fr"
+                      ? "Enregistrer"
+                      : "Save"}
                 </button>
               )}
             </div>

@@ -25,6 +25,7 @@ import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { FaThumbsUp } from "react-icons/fa";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import { FaComment } from 'react-icons/fa';
 
 const News = () => {
   const breadcrumbs = [
@@ -47,6 +48,9 @@ const News = () => {
       href: "/post-management/news",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   type Post = Record<string, any>;
   const { data, error, isLoading, refetch } = useGetAllAllPostsQuery(null);
@@ -173,7 +177,7 @@ const News = () => {
                   )}
                   <div className="grid text-nowrap text-[14px] font-semibold">
                     <p className="text-blackOrWhite">{post.publisherName}</p>
-                    <p className="text-[#65676b]">
+                    <p className="text-textSecondary">
                       {formatTransactionDate(post.creationDate)}
                     </p>
                   </div>
@@ -183,7 +187,7 @@ const News = () => {
                     <div className="flex h-[35px] items-center gap-2 rounded-full bg-bgPrimary px-1.5 py-1">
                       <button onClick={() => handleDelete(post.id)}>
                         <svg
-                          className="h-6 w-6 text-red-500"
+                          className="h-6 w-6 text-error"
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"
@@ -218,7 +222,7 @@ const News = () => {
                     <div className="invisible flex h-[35px] w-[100px] gap-2 rounded-full bg-bgPrimary px-3 py-0.5">
                       <button>
                         <svg
-                          className="h-6 w-6 text-red-500"
+                          className="h-6 w-6 text-error"
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"
@@ -289,7 +293,7 @@ const News = () => {
               <div className="mb-3 mt-2 flex items-center justify-between font-semibold">
                 <div className="flex items-center">
                   <FaThumbsUp size={20} className="mr-[10px] text-primary" />
-                  <p className="text-[#65676b]">{post.likesCount}</p>
+                  <p className="text-textSecondary">{post.likesCount}</p>
                 </div>
                 <div className="flex justify-between gap-3">
                   <button
@@ -297,13 +301,17 @@ const News = () => {
                       handleClick(post.id);
                       toggleNavbar3(index);
                     }}
-                    className="primary:border-b border-spacing-2 text-[#65676b]"
+                    className="primary:border-b border-spacing-2 text-textSecondary"
                   >
-                    Comments
+                    {currentLanguage === "ar"
+                      ? "تعليقات"
+                      : currentLanguage === "fr"
+                        ? "Commentaires"
+                        : "Comments"}
                   </button>
                 </div>
               </div>
-              <div className="flex items-center justify-center gap-10 border-y border-[#65676b] px-2 py-3 font-semibold text-[#65676b] max-[505px]:gap-8">
+              <div className="flex items-center justify-center gap-10 border-y border-borderPrimary px-2 py-3 font-semibold text-textSecondary max-[505px]:gap-8">
                 <div className="flex gap-3">
                   <button
                     onClick={() =>
@@ -319,7 +327,11 @@ const News = () => {
                     ) : (
                       <FaThumbsUp size={20} className="mr-[10px]" />
                     )}
-                    Like
+                    {currentLanguage === "ar"
+                      ? "إعجاب"
+                      : currentLanguage === "fr"
+                        ? "J'aime"
+                        : "Like"}
                   </button>
                 </div>
                 <div className="flex gap-3">
@@ -327,16 +339,13 @@ const News = () => {
                     onClick={() => toggleNavbar2(index)}
                     className="flex gap-2"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      style={{ fill: "rgba(101, 103, 107, 1)" }}
-                    >
-                      <path d="M20 2H4c-1.103 0-2 .897-2 2v18l5.333-4H20c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zm0 14H6.667L4 18V4h16v12z"></path>
-                    </svg>
-                    Comment
+                    <FaComment size={20} className="text-textSecondary mt-[2px]" />
+                    {currentLanguage === "ar"
+                      ? "تعليق"
+                      : currentLanguage === "fr"
+                        ? "Commentaire"
+                        : "Comment"}
+
                   </button>
                 </div>
               </div>
@@ -387,19 +396,19 @@ const News = () => {
                           comment: {
                             creatorName: ReactNode;
                             comment:
-                              | string
-                              | number
-                              | bigint
-                              | boolean
-                              | ReactElement<
-                                  any,
-                                  string | JSXElementConstructor<any>
-                                >
-                              | Iterable<ReactNode>
-                              | ReactPortal
-                              | Promise<AwaitedReactNode>
-                              | null
-                              | undefined;
+                            | string
+                            | number
+                            | bigint
+                            | boolean
+                            | ReactElement<
+                              any,
+                              string | JSXElementConstructor<any>
+                            >
+                            | Iterable<ReactNode>
+                            | ReactPortal
+                            | Promise<AwaitedReactNode>
+                            | null
+                            | undefined;
                           },
                           index: number,
                         ) => (

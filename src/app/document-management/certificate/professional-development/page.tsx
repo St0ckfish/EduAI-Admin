@@ -33,6 +33,9 @@ const ProfessionalDevelopment = () => {
       href: "/document-management/certificate/professional-development",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
 
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   type Professional = Record<string, any>;
@@ -112,18 +115,36 @@ const ProfessionalDevelopment = () => {
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
         <div className="justify-left mb-[80px] ml-4 mt-[50px] flex flex-wrap gap-5 text-[20px] font-semibold max-[725px]:text-[15px]">
-          <Link href="/document-management/certificate">Completion</Link>
+          <Link href="/document-management/certificate">
+            {currentLanguage === "ar"
+              ? "إكمال"
+              : currentLanguage === "fr"
+                ? "Achèvement"
+                : "Completion"}
+          </Link>
           <Link href="/document-management/certificate/achievement">
-            Achievement
+            {currentLanguage === "ar"
+              ? "إنجاز"
+              : currentLanguage === "fr"
+                ? "Réussite"
+                : "Achievement"}
           </Link>
           <Link href="/document-management/certificate/participation">
-            Participation
+            {currentLanguage === "ar"
+              ? "مشاركة"
+              : currentLanguage === "fr"
+                ? "Participation"
+                : "Participation"}
           </Link>
           <Link
             href="/document-management/certificate/professional-development"
             className="text-blue-500 underline"
           >
-            Professional Development
+            {currentLanguage === "ar"
+              ? "تطوير مهني"
+              : currentLanguage === "fr"
+                ? "Développement Professionnel"
+                : "Professional Development"}
           </Link>
         </div>
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
@@ -155,7 +176,13 @@ const ProfessionalDevelopment = () => {
                 id="icon"
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
-                placeholder="Search"
+                placeholder={
+                  currentLanguage === "en"
+                    ? "Search"
+                    : currentLanguage === "ar"
+                      ? "بحث"
+                      : "Recherche"
+                }
               />
             </div>
           </div>
@@ -164,7 +191,11 @@ const ProfessionalDevelopment = () => {
               href="/document-management/certificate/add-new-professional"
               className="mb-5 mr-3 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
-              + Add Completion Professionals{" "}
+              {currentLanguage === "ar"
+                ? "+ أضف مهنيين للإنجاز"
+                : currentLanguage === "fr"
+                  ? "+ Ajouter des Professionnels de la Réussite"
+                  : "+ Add Completion Professionals"}
             </Link>
           </div>
         </div>
@@ -184,22 +215,46 @@ const ProfessionalDevelopment = () => {
                   </div>
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  type
+                  {currentLanguage === "ar"
+                    ? "النوع"
+                    : currentLanguage === "fr"
+                      ? "Type"
+                      : "Type"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  user Name
+                  {currentLanguage === "ar"
+                    ? "اسم المستخدم"
+                    : currentLanguage === "fr"
+                      ? "Nom d'utilisateur"
+                      : "User Name"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  user Id
+                  {currentLanguage === "ar"
+                    ? "رقم المستخدم"
+                    : currentLanguage === "fr"
+                      ? "ID utilisateur"
+                      : "User Id"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  issue Date
+                  {currentLanguage === "ar"
+                    ? "تاريخ الإصدار"
+                    : currentLanguage === "fr"
+                      ? "Date d'émission"
+                      : "Issue Date"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  view
+                  {currentLanguage === "ar"
+                    ? "عرض"
+                    : currentLanguage === "fr"
+                      ? "Voir"
+                      : "View"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Action
+                  {currentLanguage === "ar"
+                    ? "إجراء"
+                    : currentLanguage === "fr"
+                      ? "Action"
+                      : "Action"}
                 </th>
               </tr>
             </thead>
@@ -249,7 +304,11 @@ const ProfessionalDevelopment = () => {
                         onClick={() => handleDelete(professional.id)}
                         className="rounded-lg bg-error px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
                       >
-                        Delete
+                        {currentLanguage === "ar"
+                          ? "حذف"
+                          : currentLanguage === "fr"
+                            ? "Supprimer"
+                            : "Delete"}
                       </button>
                     </td>
                   </tr>
@@ -258,7 +317,11 @@ const ProfessionalDevelopment = () => {
           </table>
           {(data?.data.content.length == 0 || data == null) && (
             <div className="flex w-full justify-center py-3 text-center text-[18px] font-semibold">
-              There is No Data
+              {currentLanguage === "ar"
+                ? "لا توجد بيانات"
+                : currentLanguage === "fr"
+                  ? "Aucune donnée"
+                  : "There is No Data"}
             </div>
           )}
         </div>

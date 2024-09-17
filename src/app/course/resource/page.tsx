@@ -4,6 +4,8 @@ import Soon from "@/components/soon";
 import Link from "next/link";
 import { useState, useEffect } from "react"; // Import useState and useEffect hooks
 import BreadCrumbs from "@/components/BreadCrumbs";
+import { useSelector } from "react-redux";
+import { RootState } from "@/GlobalRedux/store";
 
 const Resource = () => {
   const breadcrumbs = [
@@ -26,6 +28,9 @@ const Resource = () => {
       href: "/course/resource",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const [selectAll, setSelectAll] = useState(false); // State to track whether select all checkbox is checked
 
   // Function to handle click on select all checkbox
@@ -75,7 +80,7 @@ const Resource = () => {
 
   return (
     <>
-      <Soon />
+      {/* <Soon /> */}
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div className="relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg lg:ml-[270px]">
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
@@ -106,7 +111,13 @@ const Resource = () => {
                 id="icon"
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
-                placeholder="Search"
+                placeholder={
+                  currentLanguage === "en"
+                    ? "Search"
+                    : currentLanguage === "ar"
+                      ? "بحث"
+                      : "Recherche"
+                }
               />
             </div>
           </div>
@@ -115,18 +126,50 @@ const Resource = () => {
               href="/"
               className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
-              + Add
+              {currentLanguage === "ar"
+                ? "+ إضافة"
+                : currentLanguage === "fr"
+                  ? "+ Ajouter"
+                  : "+ Add"}
             </Link>
           </div>
         </div>
         <div className="justify-left mb-5 ml-4 flex gap-5 text-[18px] font-semibold">
           <Link href="/course/resource" className="text-blue-500 underline">
-            Digital Resources
+            {currentLanguage === "ar"
+              ? "الموارد الرقمية"
+              : currentLanguage === "fr"
+                ? "Ressources numériques"
+                : "Digital Resources"}
           </Link>
-          <Link href="/course/resource">Equipment</Link>
-          <Link href="/course/resource">Facilities</Link>
-          <Link href="/course/resource">Instructional Materials</Link>
-          <Link href="/course/resource">Textbooks</Link>
+          <Link href="/course/resource">
+            {currentLanguage === "ar"
+              ? "المعدات"
+              : currentLanguage === "fr"
+                ? "Équipement"
+                : "Equipment"}
+          </Link>
+          <Link href="/course/resource">
+            {currentLanguage === "ar"
+              ? "المرافق"
+              : currentLanguage === "fr"
+                ? "Installations"
+                : "Facilities"}
+          </Link>
+          <Link href="/course/resource">
+            {currentLanguage === "ar"
+              ? "المواد التعليمية"
+              : currentLanguage === "fr"
+                ? "Matériel pédagogique"
+                : "Instructional Materials"}
+          </Link>
+          <Link href="/course/resource">
+            {currentLanguage === "ar"
+              ? "الكتب الدراسية"
+              : currentLanguage === "fr"
+                ? "Manuels"
+                : "Textbooks"}
+          </Link>
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
           <table className="w-full overflow-x-auto text-left text-sm text-textSecondary rtl:text-right">
@@ -144,28 +187,60 @@ const Resource = () => {
                   </div>
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Name
+                  {currentLanguage === "ar"
+                    ? "الاسم"
+                    : currentLanguage === "fr"
+                      ? "Nom"
+                      : "Name"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  id
+                  {currentLanguage === "ar"
+                    ? "الرقم"
+                    : currentLanguage === "fr"
+                      ? "ID"
+                      : "ID"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Gender
+                  {currentLanguage === "ar"
+                    ? "الجنس"
+                    : currentLanguage === "fr"
+                      ? "Genre"
+                      : "Gender"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Taxi Number
+                  {currentLanguage === "ar"
+                    ? "رقم التاكسي"
+                    : currentLanguage === "fr"
+                      ? "Numéro de taxi"
+                      : "Taxi Number"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Address
+                  {currentLanguage === "ar"
+                    ? "العنوان"
+                    : currentLanguage === "fr"
+                      ? "Adresse"
+                      : "Address"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Mobile
+                  {currentLanguage === "ar"
+                    ? "رقم الجوال"
+                    : currentLanguage === "fr"
+                      ? "Mobile"
+                      : "Mobile"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  About
+                  {currentLanguage === "ar"
+                    ? "عن"
+                    : currentLanguage === "fr"
+                      ? "À propos"
+                      : "About"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  view
+                  {currentLanguage === "ar"
+                    ? "عرض"
+                    : currentLanguage === "fr"
+                      ? "Voir"
+                      : "View"}
                 </th>
               </tr>
             </thead>
@@ -202,7 +277,11 @@ const Resource = () => {
                     href="/driver/view-driver"
                     className="font-medium text-blue-600 hover:underline"
                   >
-                    View
+                    {currentLanguage === "ar"
+                      ? "عرض"
+                      : currentLanguage === "fr"
+                        ? "Voir"
+                        : "View"}
                   </Link>
                 </td>
               </tr>
@@ -238,7 +317,11 @@ const Resource = () => {
                     href="/driver/view-driver"
                     className="font-medium text-blue-600 hover:underline"
                   >
-                    View
+                    {currentLanguage === "ar"
+                      ? "عرض"
+                      : currentLanguage === "fr"
+                        ? "Voir"
+                        : "View"}
                   </Link>
                 </td>
               </tr>

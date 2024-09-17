@@ -39,6 +39,9 @@ const Schedule = () => {
       href: "/educational-affairs/schedule",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const [teacherId, setTeacherId] = useState(null);
 
@@ -62,17 +65,31 @@ const Schedule = () => {
           <div className="ml-2 flex items-center justify-start gap-3 text-xl font-semibold max-[540px]:mb-2 max-[540px]:ml-0 max-[540px]:justify-center">
             <Link
               href="/educational-affairs/schedule/add-schedule"
-              className="rounded bg-blue-500 px-4 py-2 text-white"
+              className="rounded bg-primary px-4 py-2 text-white"
             >
-              Add Event
+              {currentLanguage === "ar"
+                ? "إضافة حدث"
+                : currentLanguage === "fr"
+                  ? "Ajouter un événement"
+                  : "Add Event"}
             </Link>
             <Link
-              className="text-blue-500 underline"
+              className="text-primary underline"
               href="/educational-affairs/schedule"
             >
-              Teacher
+              {currentLanguage === "ar"
+                ? "معلم"
+                : currentLanguage === "fr"
+                  ? "Enseignant"
+                  : "Teacher"}
             </Link>
-            <Link href="/educational-affairs/schedule/class">Class</Link>
+            <Link href="/educational-affairs/schedule/class">
+              {currentLanguage === "ar"
+                ? "الصف"
+                : currentLanguage === "fr"
+                  ? "Classe"
+                  : "Class"}
+            </Link>
           </div>
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -80,14 +97,24 @@ const Schedule = () => {
           >
             <input
               {...register("teacherId", { required: true })}
-              placeholder="Enter Teacher ID"
               className="mr-3 rounded border border-borderPrimary px-4 py-2 outline-none"
+              placeholder={
+                currentLanguage === "ar"
+                  ? "أدخل معرف المعلم"
+                  : currentLanguage === "fr"
+                    ? "Entrez l'ID de l'enseignant"
+                    : "Enter Teacher ID"
+              }
             />
             <button
               type="submit"
-              className="rounded bg-blue-500 px-4 py-2 text-white"
+              className="rounded bg-primary px-4 py-2 text-white"
             >
-              Load Schedule
+              {currentLanguage === "ar"
+                ? "تحميل الجدول"
+                : currentLanguage === "fr"
+                  ? "Charger l'emploi du temps"
+                  : "Load Schedule"}
             </button>
           </form>
         </div>

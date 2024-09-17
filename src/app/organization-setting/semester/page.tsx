@@ -38,7 +38,9 @@ const Semester = () => {
   const [search, setSearch] = useState("");
   const { data, error, isLoading, refetch } = useGetAllSemestersQuery(null);
   const [selectAll, setSelectAll] = useState(false);
-
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   useEffect(() => {
     if (data) console.log("Response Data:", data);
     if (error) console.log("Error:", error);
@@ -140,7 +142,13 @@ const Semester = () => {
                 id="icon"
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-primary focus:ring-primary disabled:pointer-events-none disabled:opacity-50"
-                placeholder="Search"
+                placeholder={
+                  currentLanguage === "en"
+                    ? "Search"
+                    : currentLanguage === "ar"
+                      ? "بحث"
+                      : "Recherche"
+                }
               />
             </div>
           </div>
@@ -149,7 +157,11 @@ const Semester = () => {
               href="/organization-setting/semester/add-semester"
               className="mb-5 mr-3 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
-              + Add Semester
+              {currentLanguage === "ar"
+                ? "+ أضف فصل"
+                : currentLanguage === "fr"
+                  ? "+ Ajouter Semestre"
+                  : "+ Add Semester"}
             </Link>
           </div>
         </div>
@@ -169,22 +181,46 @@ const Semester = () => {
                   </div>
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Name
+                  {currentLanguage === "ar"
+                    ? "الاسم"
+                    : currentLanguage === "fr"
+                      ? "Nom"
+                      : "Name"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  id
+                  {currentLanguage === "ar"
+                    ? "معرف"
+                    : currentLanguage === "fr"
+                      ? "ID"
+                      : "id"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Abbreviation
+                  {currentLanguage === "ar"
+                    ? "اختصار"
+                    : currentLanguage === "fr"
+                      ? "Abréviation"
+                      : "Abbreviation"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Description
+                  {currentLanguage === "ar"
+                    ? "وصف"
+                    : currentLanguage === "fr"
+                      ? "Description"
+                      : "Description"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  view
+                  {currentLanguage === "ar"
+                    ? "عرض"
+                    : currentLanguage === "fr"
+                      ? "Voir"
+                      : "View"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Action
+                  {currentLanguage === "ar"
+                    ? "إجراء"
+                    : currentLanguage === "fr"
+                      ? "Action"
+                      : "Action"}
                 </th>
               </tr>
             </thead>
@@ -244,7 +280,11 @@ const Semester = () => {
                         href={`/organization-setting/department/${Semester.id}`}
                         className="font-medium text-primary hover:underline"
                       >
-                        View
+                        {currentLanguage === "ar"
+                          ? "عرض"
+                          : currentLanguage === "fr"
+                            ? "Voir"
+                            : "View"}
                       </Link>
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
@@ -253,7 +293,11 @@ const Semester = () => {
                         onClick={() => handleDelete(Semester.id)}
                         className="rounded-lg bg-error px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
                       >
-                        Delete
+                        {currentLanguage === "ar"
+                          ? "حذف"
+                          : currentLanguage === "fr"
+                            ? "Supprimer"
+                            : "Delete"}
                       </button>
                     </td>
                   </tr>

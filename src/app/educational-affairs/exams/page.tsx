@@ -4,6 +4,8 @@ import Spinner from "@/components/spinner";
 import { useGetAllExpensesQuery } from "@/features/Acadimic/examsApi";
 import { Key } from "react";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import { useSelector } from "react-redux";
+import { RootState } from "@/GlobalRedux/store";
 
 const Exams = () => {
   const breadcrumbs = [
@@ -26,6 +28,9 @@ const Exams = () => {
       href: "/educational-affairs/exams",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const { data: exams, isLoading: isExams } = useGetAllExpensesQuery(null);
   if (isExams)
     return (
@@ -79,7 +84,9 @@ const Exams = () => {
                     </div>
                     <div>
                       <p className="text-[12px] text-textSecondary">
-                        Total student
+                        currentLanguage === "ar" ? "إجمالي الطلاب" :
+                        currentLanguage === "fr" ? "Total des étudiants" :
+                        "Total student"
                       </p>
                       <p className="text-[12px] text-textSecondary">50</p>
                     </div>
@@ -102,7 +109,9 @@ const Exams = () => {
                     </div>
                     <div>
                       <p className="text-[12px] text-textSecondary">
-                        Total student
+                        currentLanguage === "ar" ? "إجمالي الطلاب" :
+                        currentLanguage === "fr" ? "Total des étudiants" :
+                        "Total student"
                       </p>
                       <p className="text-[12px] text-textSecondary">50</p>
                     </div>
@@ -125,7 +134,9 @@ const Exams = () => {
                     </div>
                     <div>
                       <p className="text-[12px] text-textSecondary">
-                        Total student
+                        currentLanguage === "ar" ? "إجمالي الطلاب" :
+                        currentLanguage === "fr" ? "Total des étudiants" :
+                        "Total student"
                       </p>
                       <p className="text-[12px] text-textSecondary">50</p>
                     </div>
@@ -148,7 +159,9 @@ const Exams = () => {
                     </div>
                     <div>
                       <p className="text-[12px] text-textSecondary">
-                        Total student
+                        currentLanguage === "ar" ? "إجمالي الطلاب" :
+                        currentLanguage === "fr" ? "Total des étudiants" :
+                        "Total student"
                       </p>
                       <p className="text-[12px] text-textSecondary">50</p>
                     </div>
@@ -171,7 +184,9 @@ const Exams = () => {
                     </div>
                     <div>
                       <p className="text-[12px] text-textSecondary">
-                        Total student
+                        currentLanguage === "ar" ? "إجمالي الطلاب" :
+                        currentLanguage === "fr" ? "Total des étudiants" :
+                        "Total student"
                       </p>
                       <p className="text-[12px] text-textSecondary">50</p>
                     </div>
@@ -194,7 +209,9 @@ const Exams = () => {
                     </div>
                     <div>
                       <p className="text-[12px] text-textSecondary">
-                        Total student
+                        currentLanguage === "ar" ? "إجمالي الطلاب" :
+                        currentLanguage === "fr" ? "Total des étudiants" :
+                        "Total student"
                       </p>
                       <p className="text-[12px] text-textSecondary">50</p>
                     </div>

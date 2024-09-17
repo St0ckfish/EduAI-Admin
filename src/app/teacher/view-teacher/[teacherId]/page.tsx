@@ -4,7 +4,8 @@ import Spinner from "@/components/spinner";
 import TeacherInfo from "@/components/teacherInfo";
 import { useGetTeacherByIdQuery } from "@/features/User-Management/teacherApi";
 import { useEffect } from "react";
-
+import { RootState } from "@/GlobalRedux/store";
+import { useSelector } from "react-redux";
 interface ViewTeacherProps {
   params: {
     teacherId: string;
@@ -12,7 +13,9 @@ interface ViewTeacherProps {
 }
 const ViewTeacher: React.FC<ViewTeacherProps> = ({ params }) => {
   const { data, error, isLoading } = useGetTeacherByIdQuery(params.teacherId);
-
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   useEffect(() => {
     if (data) {
       console.log(data);
@@ -37,7 +40,13 @@ const ViewTeacher: React.FC<ViewTeacherProps> = ({ params }) => {
           <div className="grid h-[700px] items-center justify-center gap-10 rounded-xl bg-bgPrimary p-5">
             <div className="flex justify-start">
               <h1 className="font-sans font-semibold text-textPrimary">
-                Today Schedule
+                {currentLanguage === "en"
+                  ? "Today Schedule"
+                  : currentLanguage === "ar"
+                    ? "جدول اليوم"
+                    : currentLanguage === "fr"
+                      ? "Programme du jour"
+                      : "Today Schedule"}
               </h1>
             </div>
             <Calendar />
@@ -48,16 +57,40 @@ const ViewTeacher: React.FC<ViewTeacherProps> = ({ params }) => {
                 <thead className="bg-thead text-xs uppercase text-textPrimary">
                   <tr>
                     <th scope="col" className="whitespace-nowrap px-6 py-3">
-                      Full Name
+                      {currentLanguage === "en"
+                        ? "Full Name"
+                        : currentLanguage === "ar"
+                          ? "الاسم الكامل"
+                          : currentLanguage === "fr"
+                            ? "Nom complet"
+                            : "Full Name"}
                     </th>
                     <th scope="col" className="whitespace-nowrap px-6 py-3">
-                      ID
+                      {currentLanguage === "en"
+                        ? "ID"
+                        : currentLanguage === "ar"
+                          ? "الرقم التعريفي"
+                          : currentLanguage === "fr"
+                            ? "ID"
+                            : "ID"}
                     </th>
                     <th scope="col" className="whitespace-nowrap px-6 py-3">
-                      Address
+                      {currentLanguage === "en"
+                        ? "Address"
+                        : currentLanguage === "ar"
+                          ? "العنوان"
+                          : currentLanguage === "fr"
+                            ? "Adresse"
+                            : "Address"}
                     </th>
                     <th scope="col" className="whitespace-nowrap px-6 py-3">
-                      Status
+                      {currentLanguage === "en"
+                        ? "Status"
+                        : currentLanguage === "ar"
+                          ? "الحالة"
+                          : currentLanguage === "fr"
+                            ? "Statut"
+                            : "Status"}
                     </th>
                   </tr>
                 </thead>

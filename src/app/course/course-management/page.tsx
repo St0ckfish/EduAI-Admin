@@ -33,6 +33,9 @@ const CourseManagement = () => {
       href: "/course/course-management",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState<number | boolean | null>(false);
@@ -94,7 +97,13 @@ const CourseManagement = () => {
                 id="icon"
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
-                placeholder="Search"
+                placeholder={
+                  currentLanguage === "en"
+                    ? "Search"
+                    : currentLanguage === "ar"
+                      ? "بحث"
+                      : "Recherche"
+                }
               />
             </div>
           </div>
@@ -103,7 +112,11 @@ const CourseManagement = () => {
               href="/course/course-management/add-course"
               className="mb-5 mr-3 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
-              + Add New Course
+              {currentLanguage === "ar"
+                ? "+ إضافة دورة جديدة"
+                : currentLanguage === "fr"
+                  ? "+ Ajouter un nouveau cours"
+                  : "+ Add New Course"}
             </Link>
           </div>
         </div>

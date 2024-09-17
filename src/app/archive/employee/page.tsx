@@ -162,7 +162,13 @@ const ArchiveEmployee = () => {
                 id="icon"
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
-                placeholder="Search"
+                placeholder={
+                  currentLanguage === "en"
+                    ? "Search"
+                    : currentLanguage === "ar"
+                      ? "بحث"
+                      : "Recherche"
+                }
               />
             </div>
           </div>
@@ -171,7 +177,11 @@ const ArchiveEmployee = () => {
               href="/add-new-employee"
               className="mb-5 mr-3 w-[210px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
-              + Add New Employee
+              {currentLanguage === "ar"
+                ? "+ إضافة موظف جديد"
+                : currentLanguage === "fr"
+                  ? "+ Ajouter un nouvel employé"
+                  : "+ Add New Employee"}
             </Link>
           </div>
         </div>
@@ -326,7 +336,11 @@ const ArchiveEmployee = () => {
                         href={`/employee/view-employee/${employee.id}`}
                         className="font-medium text-blue-600 hover:underline"
                       >
-                        View
+                        {currentLanguage === "ar"
+                          ? "عرض"
+                          : currentLanguage === "fr"
+                            ? "Voir"
+                            : "View"}
                       </Link>
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">

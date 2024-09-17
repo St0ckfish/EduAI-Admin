@@ -4,6 +4,8 @@ import { FaAlignLeft, FaAlignCenter, FaAlignRight } from "react-icons/fa"; // Al
 import { FaListOl, FaListUl } from "react-icons/fa"; // List icons
 import { AiOutlineLink, AiOutlinePicture } from "react-icons/ai"; // Link and Image icons
 import { useTheme } from "next-themes";
+import { RootState } from "@/GlobalRedux/store";
+import { useSelector } from "react-redux";
 
 const TextEditor = ({
   value,
@@ -30,8 +32,12 @@ const TextEditor = ({
   const { theme } = useTheme(); // Get the current theme
 
   const getButtonClassName = () => {
-    return `rounded px-3 py-2 bg-bgSecondary ${theme === "dark" ? "hover:bg-hover" : "hover:bg-gray-300"}`;
+    return `rounded px-3 py-2 bg-bgSecondary ${theme === "dark" ? "hover:bg-hover" : "hover:bg-thead"}`;
   };
+
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
 
   useEffect(() => {
     if (editorRef.current && value !== editorRef.current.innerHTML) {
@@ -47,10 +53,34 @@ const TextEditor = ({
           className="rounded bg-bgSecondary p-2"
           aria-label="Text format"
         >
-          <option value="p">Paragraph</option>
-          <option value="h1">Heading 1</option>
-          <option value="h2">Heading 2</option>
-          <option value="h3">Heading 3</option>
+          <option value="p">
+            {currentLanguage === "en"
+              ? "Paragraph"
+              : currentLanguage === "ar"
+                ? "فقرة"
+                : "Paragraphe"}
+          </option>
+          <option value="h1">
+            {currentLanguage === "en"
+              ? "Heading 1"
+              : currentLanguage === "ar"
+                ? "العنوان 1"
+                : "Titre 1"}
+          </option>
+          <option value="h2">
+            {currentLanguage === "en"
+              ? "Heading 2"
+              : currentLanguage === "ar"
+                ? "العنوان 2"
+                : "Titre 2"}
+          </option>
+          <option value="h3">
+            {currentLanguage === "en"
+              ? "Heading 3"
+              : currentLanguage === "ar"
+                ? "العنوان 3"
+                : "Titre 3"}
+          </option>
         </select>
         <button
           type="button"

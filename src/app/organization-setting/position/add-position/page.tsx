@@ -36,7 +36,9 @@ const AddPosition = () => {
       href: "/organization-setting/position/add-position",
     },
   ];
-
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const {
     register,
@@ -63,7 +65,7 @@ const AddPosition = () => {
           <div className="grid h-[900px] items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:h-[800px] xl:w-[1000px]">
             <div className="flex items-center justify-start gap-2">
               <svg
-                className="h-6 w-6 font-bold text-[#526484] group-hover:text-primary"
+                className="h-6 w-6 font-bold text-secondary group-hover:text-primary"
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
@@ -85,7 +87,11 @@ const AddPosition = () => {
                 <line x1="16" y1="14" x2="16" y2="17" />
               </svg>
               <h1 className="font-sans text-[22px] font-semibold">
-                Position Information
+                {currentLanguage === "ar"
+                  ? "معلومات الوظيفة"
+                  : currentLanguage === "fr"
+                    ? "Informations sur le poste"
+                    : "Position Information"}
               </h1>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
@@ -93,7 +99,11 @@ const AddPosition = () => {
                 htmlFor="departmentId"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Department Id
+                {currentLanguage === "ar"
+                  ? "معرف القسم"
+                  : currentLanguage === "fr"
+                    ? "ID du Département"
+                    : "Department Id"}
                 <input
                   id="departmentId"
                   type="number"
@@ -101,14 +111,24 @@ const AddPosition = () => {
                   {...register("departmentId", { required: true })}
                 />
                 {errors.departmentId && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="title_en"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Title (English)
+                {currentLanguage === "ar"
+                  ? "العنوان (بالإنجليزية)"
+                  : currentLanguage === "fr"
+                    ? "Titre (en anglais)"
+                    : "Title (English)"}
                 <input
                   id="title_en"
                   type="text"
@@ -116,14 +136,24 @@ const AddPosition = () => {
                   {...register("title_en", { required: true })}
                 />
                 {errors.title_en && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="title_fr"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Title (français)
+                {currentLanguage === "ar"
+                  ? "العنوان (بالفرنسية)"
+                  : currentLanguage === "fr"
+                    ? "Titre (français)"
+                    : "Title (français)"}
                 <input
                   id="title_fr"
                   type="text"
@@ -131,14 +161,24 @@ const AddPosition = () => {
                   {...register("title_fr", { required: true })}
                 />
                 {errors.title_en && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="title_ar"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                العنوان (بالعربي)
+                {currentLanguage === "ar"
+                  ? "العنوان (بالعربي)"
+                  : currentLanguage === "fr"
+                    ? "Titre (arabe)"
+                    : "Title (in Arabic)"}
                 <input
                   id="title_ar"
                   type="text"
@@ -146,7 +186,13 @@ const AddPosition = () => {
                   {...register("title_ar", { required: true })}
                 />
                 {errors.title_ar && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
             </div>
@@ -159,7 +205,11 @@ const AddPosition = () => {
                   type="submit"
                   className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                 >
-                  Save
+                  {currentLanguage === "ar"
+                    ? "حفظ"
+                    : currentLanguage === "fr"
+                      ? "Enregistrer"
+                      : "Save"}
                 </button>
               )}
             </div>

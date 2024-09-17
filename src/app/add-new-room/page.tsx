@@ -1,5 +1,7 @@
 "use client";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import { RootState } from "@/GlobalRedux/store";
+import { useSelector } from "react-redux";
 
 const AddNewRoom = () => {
   const breadcrumbs = [
@@ -22,6 +24,10 @@ const AddNewRoom = () => {
       href: "/room",
     },
   ];
+
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
@@ -52,7 +58,13 @@ const AddNewRoom = () => {
                 <line x1="16" y1="14" x2="16" y2="17" />
               </svg>
               <h1 className="font-sans text-[22px] font-semibold">
-                Room Information
+                {currentLanguage === "en"
+                  ? "Room Information"
+                  : currentLanguage === "ar"
+                    ? "معلومات الغرفة"
+                    : currentLanguage === "fr"
+                      ? "Informations sur la chambre"
+                      : "Room Information"}
               </h1>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
@@ -60,29 +72,49 @@ const AddNewRoom = () => {
                 htmlFor="name"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Room Number
+                {currentLanguage === "en"
+                  ? "Room Number"
+                  : currentLanguage === "ar"
+                    ? "رقم الغرفة"
+                    : currentLanguage === "fr"
+                      ? "Numéro de la chambre"
+                      : "Room Number"}
                 <input
                   id="name"
                   type="number"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
               </label>
+
               <label
                 htmlFor="code"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Floor
+                {currentLanguage === "en"
+                  ? "Floor"
+                  : currentLanguage === "ar"
+                    ? "الطابق"
+                    : currentLanguage === "fr"
+                      ? "Étage"
+                      : "Floor"}
                 <input
                   id="code"
                   type="text"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
               </label>
+
               <label
                 htmlFor="about"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Room Type
+                {currentLanguage === "en"
+                  ? "Room Type"
+                  : currentLanguage === "ar"
+                    ? "نوع الغرفة"
+                    : currentLanguage === "fr"
+                      ? "Type de chambre"
+                      : "Room Type"}
                 <input
                   id="about"
                   type="text"
@@ -94,29 +126,49 @@ const AddNewRoom = () => {
                 htmlFor="Version"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Room Category
+                {currentLanguage === "en"
+                  ? "Room Category"
+                  : currentLanguage === "ar"
+                    ? "فئة الغرفة"
+                    : currentLanguage === "fr"
+                      ? "Catégorie de chambre"
+                      : "Room Category"}
                 <input
                   id="Version"
                   type="text"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
               </label>
+
               <label
                 htmlFor="Version"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Capacity
+                {currentLanguage === "en"
+                  ? "Capacity"
+                  : currentLanguage === "ar"
+                    ? "السعة"
+                    : currentLanguage === "fr"
+                      ? "Capacité"
+                      : "Capacity"}
                 <input
                   id="Version"
                   type="text"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
               </label>
+
               <label
                 htmlFor="Initial"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Status
+                {currentLanguage === "en"
+                  ? "Status"
+                  : currentLanguage === "ar"
+                    ? "الحالة"
+                    : currentLanguage === "fr"
+                      ? "Statut"
+                      : "Status"}
                 <input
                   id="Initial"
                   type="text"
@@ -130,7 +182,13 @@ const AddNewRoom = () => {
                 type="submit"
                 className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
               >
-                Add Room
+                {currentLanguage === "en"
+                  ? "Add Room"
+                  : currentLanguage === "ar"
+                    ? "إضافة غرفة"
+                    : currentLanguage === "fr"
+                      ? "Ajouter une chambre"
+                      : "Add Room"}
               </button>
             </div>
           </div>

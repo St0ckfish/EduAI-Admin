@@ -4,6 +4,8 @@ import Soon from "@/components/soon";
 import Link from "next/link";
 import { useState, useEffect } from "react"; // Import useState and useEffect hooks
 import BreadCrumbs from "@/components/BreadCrumbs";
+import { useSelector } from "react-redux";
+import { RootState } from "@/GlobalRedux/store";
 
 const Book = () => {
   const breadcrumbs = [
@@ -26,6 +28,9 @@ const Book = () => {
       href: "/book",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const [selectAll, setSelectAll] = useState(false); // State to track whether select all checkbox is checked
 
   // Function to handle click on select all checkbox
@@ -78,7 +83,7 @@ const Book = () => {
       <Soon />
 
       <BreadCrumbs breadcrumbs={breadcrumbs} />
-      <div className="relative overflow-auto shadow-md sm:rounded-lg">
+      <div className="relative mt-5 overflow-auto shadow-md sm:rounded-lg">
         <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
           <thead className="bg-thead text-xs uppercase text-textPrimary">
             <tr>
@@ -94,28 +99,60 @@ const Book = () => {
                 </div>
               </th>
               <th scope="col" className="whitespace-nowrap px-6 py-3">
-                Name
+                {currentLanguage === "ar"
+                  ? "الاسم"
+                  : currentLanguage === "fr"
+                    ? "Nom"
+                    : "Name"}
               </th>
               <th scope="col" className="whitespace-nowrap px-6 py-3">
-                id
+                {currentLanguage === "ar"
+                  ? "الرقم التعريفي"
+                  : currentLanguage === "fr"
+                    ? "ID"
+                    : "ID"}
               </th>
               <th scope="col" className="whitespace-nowrap px-6 py-3">
-                Gender
+                {currentLanguage === "ar"
+                  ? "الجنس"
+                  : currentLanguage === "fr"
+                    ? "Genre"
+                    : "Gender"}
               </th>
               <th scope="col" className="whitespace-nowrap px-6 py-3">
-                Taxi Number
+                {currentLanguage === "ar"
+                  ? "رقم التاكسي"
+                  : currentLanguage === "fr"
+                    ? "Numéro de taxi"
+                    : "Taxi Number"}
               </th>
               <th scope="col" className="whitespace-nowrap px-6 py-3">
-                Address
+                {currentLanguage === "ar"
+                  ? "العنوان"
+                  : currentLanguage === "fr"
+                    ? "Adresse"
+                    : "Address"}
               </th>
               <th scope="col" className="whitespace-nowrap px-6 py-3">
-                Mobile
+                {currentLanguage === "ar"
+                  ? "الموبايل"
+                  : currentLanguage === "fr"
+                    ? "Mobile"
+                    : "Mobile"}
               </th>
               <th scope="col" className="whitespace-nowrap px-6 py-3">
-                About
+                {currentLanguage === "ar"
+                  ? "معلومات"
+                  : currentLanguage === "fr"
+                    ? "À propos"
+                    : "About"}
               </th>
               <th scope="col" className="whitespace-nowrap px-6 py-3">
-                Edit
+                {currentLanguage === "ar"
+                  ? "تعديل"
+                  : currentLanguage === "fr"
+                    ? "Modifier"
+                    : "Edit"}
               </th>
             </tr>
           </thead>
@@ -147,7 +184,11 @@ const Book = () => {
                   href="/edit-book"
                   className="font-medium text-blue-600 hover:underline"
                 >
-                  Edit
+                  {currentLanguage === "ar"
+                    ? "تعديل"
+                    : currentLanguage === "fr"
+                      ? "Modifier"
+                      : "Edit"}
                 </Link>
               </td>
             </tr>
@@ -178,7 +219,11 @@ const Book = () => {
                   href="/edit-book"
                   className="font-medium text-blue-600 hover:underline"
                 >
-                  Edit
+                  {currentLanguage === "ar"
+                    ? "تعديل"
+                    : currentLanguage === "fr"
+                      ? "Modifier"
+                      : "Edit"}
                 </Link>
               </td>
             </tr>

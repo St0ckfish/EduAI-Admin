@@ -22,6 +22,9 @@ const Infrastructure = () => {
       href: "/classes",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   type Class = Record<string, any>;
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const { data, error, isLoading } = useGetAllClasssQuery(null);
@@ -72,7 +75,13 @@ const Infrastructure = () => {
               id="icon"
               name="icon"
               className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
-              placeholder="Search"
+              placeholder={
+                currentLanguage === "en"
+                  ? "Search"
+                  : currentLanguage === "ar"
+                    ? "بحث"
+                    : "Recherche"
+              }
             />
           </div>
         </div>
@@ -81,7 +90,11 @@ const Infrastructure = () => {
             href="/classes/add-class"
             className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
           >
-            + Add Class
+            {currentLanguage === "ar"
+              ? "+ إضافة فصل"
+              : currentLanguage === "fr"
+                ? "+ Ajouter une classe"
+                : "+ Add Class"}
           </Link>
         </div>
       </div>
@@ -99,13 +112,25 @@ const Infrastructure = () => {
               <div key={classItem.roomId}>
                 <Link href={`/class-detials/${classItem.roomId}`}>
                   <div className="flex h-[130px] w-[200px] items-center justify-center gap-2 rounded-xl bg-bgPrimary p-2 shadow-xl max-[640px]:w-[300px]">
-                    <div className="flex h-[70px] w-[70px] items-center justify-center rounded-full bg-[#09C2DE] text-center text-[18px] font-bold text-white">
+                    <div className="flex h-[70px] w-[70px] items-center justify-center rounded-full bg-info text-center text-[18px] font-bold text-white">
                       {classItem.classroomName}
                     </div>
                     <div className="grid text-[13px] font-semibold">
-                      <p className="text-secondary">N.Student</p>
+                      <p className="text-secondary">
+                        {currentLanguage === "ar"
+                          ? "عدد الطلاب"
+                          : currentLanguage === "fr"
+                            ? "N. Étudiant"
+                            : "N.Student"}
+                      </p>
                       <p>30</p>
-                      <p className="text-secondary">N.Student</p>
+                      <p className="text-secondary">
+                        {currentLanguage === "ar"
+                          ? "عدد الطلاب"
+                          : currentLanguage === "fr"
+                            ? "N. Étudiant"
+                            : "N.Student"}
+                      </p>
                       <p>4</p>
                     </div>
                   </div>

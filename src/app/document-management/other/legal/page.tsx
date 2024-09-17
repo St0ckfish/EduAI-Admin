@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import { useSelector } from "react-redux";
+import { RootState } from "@/GlobalRedux/store";
 
 const Legal = () => {
   const breadcrumbs = [
@@ -31,6 +33,9 @@ const Legal = () => {
       href: "/document-management/other/legal",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const [selectAll, setSelectAll] = useState(false);
 
   const handleSelectAll = () => {
@@ -106,7 +111,13 @@ const Legal = () => {
                 id="icon"
                 name="icon"
                 className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
-                placeholder="Search"
+                placeholder={
+                  currentLanguage === "en"
+                    ? "Search"
+                    : currentLanguage === "ar"
+                      ? "بحث"
+                      : "Recherche"
+                }
               />
             </div>
           </div>
@@ -115,22 +126,52 @@ const Legal = () => {
               href="/"
               className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
             >
-              + Add Invoices
+              {currentLanguage === "ar"
+                ? "+ أضف الفواتير"
+                : currentLanguage === "fr"
+                  ? "+ Ajouter des factures"
+                  : "+ Add Invoices"}
             </Link>
           </div>
         </div>
         <div className="justify-left mb-[80px] ml-4 mt-[50px] flex flex-wrap gap-5 text-[20px] font-semibold max-[725px]:text-[15px]">
-          <Link href="/document-management/other">ID Cards</Link>
-          <Link href="/document-management/other/medical">Medical Records</Link>
-          <Link href="/document-management/other/disciplinary">
-            Disciplinary Records
+          <Link href="/document-management/other">
+            {currentLanguage === "ar"
+              ? "بطاقات الهوية"
+              : currentLanguage === "fr"
+                ? "Cartes d'identité"
+                : "ID Cards"}
           </Link>
-          <Link href="/document-management/other/financial">Financial Aid</Link>
+          <Link href="/document-management/other/medical">
+            {currentLanguage === "ar"
+              ? "السجلات الطبية"
+              : currentLanguage === "fr"
+                ? "Dossiers médicaux"
+                : "Medical Records"}
+          </Link>
+          <Link href="/document-management/other/disciplinary">
+            {currentLanguage === "ar"
+              ? "السجلات التأديبية"
+              : currentLanguage === "fr"
+                ? "Dossiers disciplinaires"
+                : "Disciplinary Records"}
+          </Link>
+          <Link href="/document-management/other/financial">
+            {currentLanguage === "ar"
+              ? "المساعدات المالية"
+              : currentLanguage === "fr"
+                ? "Aide financière"
+                : "Financial Aid"}
+          </Link>
           <Link
             href="/document-management/other/legal"
             className="text-blue-500 underline"
           >
-            Legal Documents
+            {currentLanguage === "ar"
+              ? "الوثائق القانونية"
+              : currentLanguage === "fr"
+                ? "Documents légaux"
+                : "Legal Documents"}
           </Link>
         </div>
         <div className="relative overflow-auto px-10">
@@ -140,7 +181,13 @@ const Legal = () => {
               href="/document-management/other/legal"
             >
               <img src="/images/folder.png" alt="#" />
-              <p>Contract contracts</p>
+              <p>
+                {currentLanguage === "ar"
+                  ? "العقود"
+                  : currentLanguage === "fr"
+                    ? "Contrats"
+                    : "Contract contracts"}
+              </p>
             </Link>
 
             <Link
@@ -148,7 +195,13 @@ const Legal = () => {
               href="/document-management/other/legal"
             >
               <img src="/images/folder.png" alt="#" />
-              <p>Purchase contracts</p>
+              <p>
+                {currentLanguage === "ar"
+                  ? "عقود الشراء"
+                  : currentLanguage === "fr"
+                    ? "Contrats d'achat"
+                    : "Purchase contracts"}
+              </p>
             </Link>
           </div>
         </div>
