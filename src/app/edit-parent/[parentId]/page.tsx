@@ -14,6 +14,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 interface ViewParentProps {
   params: {
@@ -22,6 +23,26 @@ interface ViewParentProps {
 }
 
 const EditParent: React.FC<ViewParentProps> = ({ params }) => {
+  const breadcrumbs = [
+    {
+      nameEn: "Administration",
+      nameAr: "الإدارة",
+      nameFr: "Administration",
+      href: "/",
+    },
+    {
+      nameEn: "Parent",
+      nameAr: "ولي الأمر",
+      nameFr: "Parent",
+      href: "/parent",
+    },
+    {
+      nameEn: "Edit Parent",
+      nameAr: "تعديل ولي الأمر",
+      nameFr: "Modifier le parent",
+      href: `/edit-parent/${params.parentId}`,
+    },
+  ];
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
   );
@@ -81,7 +102,9 @@ const EditParent: React.FC<ViewParentProps> = ({ params }) => {
     );
   return (
     <>
-      <div className="mr-[5px] grid h-[850px] items-center justify-center lg:ml-[270px]">
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
+
+      <div className="mt-5 mr-[5px] grid h-[850px] items-center justify-center lg:ml-[270px]">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="my-10 grid items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:w-[1000px]">
             <div className="flex items-center justify-start gap-2">
