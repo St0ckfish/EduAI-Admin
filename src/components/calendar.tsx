@@ -2,8 +2,13 @@
 import React, { useState } from "react";
 import { format } from "date-fns";
 import { enUS } from "date-fns/locale";
+import { useSelector } from "react-redux";
+import { RootState } from "@/GlobalRedux/store";
 
 const Calendar = () => {
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const currentDate = new Date();
 
   // State for selected date
@@ -113,46 +118,75 @@ const Calendar = () => {
             role="columnheader"
             className="font-sans font-medium text-textSecondary"
           >
-            SUN
+            {currentLanguage === "ar"
+              ? "الأحد"
+              : currentLanguage === "fr"
+                ? "DIM"
+                : "SUN"}
           </div>
           <div
             role="columnheader"
             className="font-sans font-medium text-textSecondary"
           >
-            MON
+            {currentLanguage === "ar"
+              ? "الإثنين"
+              : currentLanguage === "fr"
+                ? "LUN"
+                : "MON"}
           </div>
           <div
             role="columnheader"
             className="font-sans font-medium text-textSecondary"
           >
-            TUE
+            {currentLanguage === "ar"
+              ? "الثلاثاء"
+              : currentLanguage === "fr"
+                ? "MAR"
+                : "TUE"}
           </div>
           <div
             role="columnheader"
             className="font-sans font-medium text-textSecondary"
           >
-            WED
+
+            {currentLanguage === "ar"
+              ? "الأربعاء"
+              : currentLanguage === "fr"
+                ? "MER"
+                : "WED"}
           </div>
           <div
             role="columnheader"
             className="font-sans font-medium text-textSecondary"
           >
-            THU
+            {currentLanguage === "ar"
+              ? "الخميس"
+              : currentLanguage === "fr"
+                ? "JEU"
+                : "THU"}
           </div>
           <div
             role="columnheader"
             className="font-sans font-medium text-textSecondary"
           >
-            FRI
+            {currentLanguage === "ar"
+              ? "الجمعة"
+              : currentLanguage === "fr"
+                ? "VEN"
+                : "FRI"}
           </div>
           <div
             role="columnheader"
             className="font-sans font-medium text-textSecondary"
           >
-            SAT
+            {currentLanguage === "ar"
+              ? "السبت"
+              : currentLanguage === "fr"
+                ? "SAM"
+                : "SAT"}
           </div>
         </div>
-        <div className="grid grid-cols-7" role="grid">
+        <div className="grid grid-cols-7 gap-x-7" role="grid">
           {monthDates.map((date, index) => (
             <div
               key={index}
@@ -164,9 +198,8 @@ const Calendar = () => {
                   : "false"
               }
               aria-label={date ? format(date, "MMMM d, yyyy") : ""}
-              className={`flex h-8 w-8 cursor-pointer items-center justify-center rounded-full font-semibold text-textSecondary ${
-                date ? "hover:bg-thead focus:bg-primary" : ""
-              } ${date && date.getDate() === selectedDate.getDate() ? "bg-primary text-white" : ""}`}
+              className={`flex h-8 w-8 cursor-pointer items-center justify-center rounded-full font-semibold text-textSecondary ${date ? "hover:bg-thead focus:bg-primary" : ""
+                } ${date && date.getDate() === selectedDate.getDate() ? "bg-primary text-white" : ""}`}
               onClick={() => date && handleDateClick(date)}
             >
               {date ? date.getDate() : ""}
