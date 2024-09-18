@@ -1,5 +1,11 @@
 "use client";
+import { RootState } from "@/GlobalRedux/store";
+import { useSelector } from "react-redux";
+
 const EditBook = () => {
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   return (
     <>
       <div className="mr-[5px] grid h-[850px] items-center justify-center lg:ml-[270px]">
@@ -29,7 +35,11 @@ const EditBook = () => {
                 <line x1="16" y1="14" x2="16" y2="17" />
               </svg>
               <h1 className="font-sans text-[22px] font-semibold">
-                Book Information
+                {currentLanguage === "ar"
+                  ? "معلومات الكتاب"
+                  : currentLanguage === "fr"
+                    ? "Informations sur le livre"
+                    : "Book Information"}
               </h1>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
@@ -37,7 +47,11 @@ const EditBook = () => {
                 htmlFor="name"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Book Number
+                {currentLanguage === "ar"
+                  ? "رقم الكتاب"
+                  : currentLanguage === "fr"
+                    ? "Numéro du livre"
+                    : "Book Number"}
                 <input
                   id="name"
                   type="number"
@@ -48,7 +62,12 @@ const EditBook = () => {
                 htmlFor="code"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Book Name
+                {currentLanguage === "ar"
+                  ? "اسم الكتاب"
+                  : currentLanguage === "fr"
+                    ? "Nom du livre"
+                    : "Book Name"}
+
                 <input
                   id="code"
                   type="text"
@@ -59,7 +78,11 @@ const EditBook = () => {
                 htmlFor="about"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Writer
+                {currentLanguage === "ar"
+                  ? "الكاتب"
+                  : currentLanguage === "fr"
+                    ? "Auteur"
+                    : "Writer"}
                 <input
                   id="about"
                   type="text"
@@ -71,7 +94,11 @@ const EditBook = () => {
                 htmlFor="Version"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Subject
+                {currentLanguage === "ar"
+                  ? "الموضوع"
+                  : currentLanguage === "fr"
+                    ? "Sujet"
+                    : "Subject"}
                 <input
                   id="Version"
                   type="text"
@@ -82,7 +109,11 @@ const EditBook = () => {
                 htmlFor="Version"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Creating Dat
+                {currentLanguage === "ar"
+                  ? "تاريخ الإنشاء"
+                  : currentLanguage === "fr"
+                    ? "Date de création"
+                    : "Creating Date"}
                 <input
                   id="Version"
                   type="text"
@@ -96,7 +127,11 @@ const EditBook = () => {
                 type="submit"
                 className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
               >
-                Add Book
+                {currentLanguage === "ar"
+                  ? "إضافة كتاب"
+                  : currentLanguage === "fr"
+                    ? "Ajouter un livre"
+                    : "Add Book"}
               </button>
             </div>
           </div>

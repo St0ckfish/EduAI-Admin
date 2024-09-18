@@ -98,7 +98,6 @@ const AddNewPost = () => {
                       : currentLanguage === "fr"
                         ? "Enregistrer"
                         : "Save"}
-
                 </button>
               </div>
               <div className="grid grid-cols-2 gap-3 font-semibold max-[614px]:grid-cols-1">
@@ -118,11 +117,12 @@ const AddNewPost = () => {
                           : "Write Title"
                     }
                     {...register("title_en", {
-                      required: currentLanguage === "ar"
-                        ? "العنوان بالإنجليزية مطلوب"
-                        : currentLanguage === "fr"
-                          ? "Le titre en anglais est requis"
-                          : "Title in English is required",
+                      required:
+                        currentLanguage === "ar"
+                          ? "العنوان بالإنجليزية مطلوب"
+                          : currentLanguage === "fr"
+                            ? "Le titre en anglais est requis"
+                            : "Title in English is required",
                     })}
                     className="h-[60px] rounded-lg border border-borderPrimary px-3 py-2 outline-none"
                   />
@@ -140,17 +140,20 @@ const AddNewPost = () => {
                       : "Title (français)"}
                   <input
                     type="text"
-                    placeholder={currentLanguage === "ar"
-                      ? "اكتب العنوان"
-                      : currentLanguage === "fr"
-                        ? "Écrire le titre"
-                        : "Write Title"}
-                    {...register("title_fr", {
-                      required: currentLanguage === "ar"
-                        ? "العنوان بالفرنسية مطلوب"
+                    placeholder={
+                      currentLanguage === "ar"
+                        ? "اكتب العنوان"
                         : currentLanguage === "fr"
-                          ? "Le titre en français est requis"
-                          : "Title in French is required",
+                          ? "Écrire le titre"
+                          : "Write Title"
+                    }
+                    {...register("title_fr", {
+                      required:
+                        currentLanguage === "ar"
+                          ? "العنوان بالفرنسية مطلوب"
+                          : currentLanguage === "fr"
+                            ? "Le titre en français est requis"
+                            : "Title in French is required",
                     })}
                     className="h-[60px] rounded-lg border border-borderPrimary px-3 py-2 outline-none"
                   />
@@ -168,17 +171,20 @@ const AddNewPost = () => {
                       : "Title (Arabic)"}
                   <input
                     type="text"
-                    placeholder={currentLanguage === "ar"
-                      ? "اكتب العنوان"
-                      : currentLanguage === "fr"
-                        ? "Écrire le titre"
-                        : "Write Title"}
-                    {...register("title_ar", {
-                      required: currentLanguage === "ar"
-                        ? "العنوان بالعربية مطلوب"
+                    placeholder={
+                      currentLanguage === "ar"
+                        ? "اكتب العنوان"
                         : currentLanguage === "fr"
-                          ? "Le titre en arabe est requis"
-                          : "Title in Arabic is required",
+                          ? "Écrire le titre"
+                          : "Write Title"
+                    }
+                    {...register("title_ar", {
+                      required:
+                        currentLanguage === "ar"
+                          ? "العنوان بالعربية مطلوب"
+                          : currentLanguage === "fr"
+                            ? "Le titre en arabe est requis"
+                            : "Title in Arabic is required",
                     })}
                     className="h-[60px] rounded-lg border border-borderPrimary px-3 py-2 outline-none"
                   />
@@ -196,17 +202,20 @@ const AddNewPost = () => {
                       : "Content (English)"}
                   <input
                     type="text"
-                    placeholder={currentLanguage === "ar"
-                      ? "اكتب المحتوى"
-                      : currentLanguage === "fr"
-                        ? "Écrire le contenu"
-                        : "Write Content"}
-                    {...register("content_en", {
-                      required: currentLanguage === "ar"
-                        ? "المحتوى بالإنجليزية مطلوب"
+                    placeholder={
+                      currentLanguage === "ar"
+                        ? "اكتب المحتوى"
                         : currentLanguage === "fr"
-                          ? "Le contenu en anglais est requis"
-                          : "Content in English is required",
+                          ? "Écrire le contenu"
+                          : "Write Content"
+                    }
+                    {...register("content_en", {
+                      required:
+                        currentLanguage === "ar"
+                          ? "المحتوى بالإنجليزية مطلوب"
+                          : currentLanguage === "fr"
+                            ? "Le contenu en anglais est requis"
+                            : "Content in English is required",
                     })}
                     className="h-[60px] rounded-lg border border-borderPrimary px-3 py-2 outline-none"
                   />
@@ -224,17 +233,20 @@ const AddNewPost = () => {
                       : "Content (français)"}
                   <input
                     type="text"
-                    placeholder={currentLanguage === "ar"
-                      ? "اكتب المحتوى"
-                      : currentLanguage === "fr"
-                        ? "Écrire le contenu"
-                        : "Write Content"}
-                    {...register("content_fr", {
-                      required: currentLanguage === "ar"
-                        ? "المحتوى بالفرنسية مطلوب"
+                    placeholder={
+                      currentLanguage === "ar"
+                        ? "اكتب المحتوى"
                         : currentLanguage === "fr"
-                          ? "Le contenu en français est requis"
-                          : "Content in French is required",
+                          ? "Écrire le contenu"
+                          : "Write Content"
+                    }
+                    {...register("content_fr", {
+                      required:
+                        currentLanguage === "ar"
+                          ? "المحتوى بالفرنسية مطلوب"
+                          : currentLanguage === "fr"
+                            ? "Le contenu en français est requis"
+                            : "Content in French is required",
                     })}
                     className="h-[60px] rounded-lg border border-borderPrimary px-3 py-2 outline-none"
                   />
@@ -252,17 +264,20 @@ const AddNewPost = () => {
                       : "Content (Arabic)"}
                   <input
                     type="text"
-                    placeholder={currentLanguage === "ar"
-                      ? "اكتب المحتوى"
-                      : currentLanguage === "fr"
-                        ? "Écrire le contenu"
-                        : "Write Content"}
-                    {...register("content_ar", {
-                      required: currentLanguage === "ar"
-                        ? "المحتوى بالعربية مطلوب"
+                    placeholder={
+                      currentLanguage === "ar"
+                        ? "اكتب المحتوى"
                         : currentLanguage === "fr"
-                          ? "Le contenu en arabe est requis"
-                          : "Content in Arabic is required",
+                          ? "Écrire le contenu"
+                          : "Write Content"
+                    }
+                    {...register("content_ar", {
+                      required:
+                        currentLanguage === "ar"
+                          ? "المحتوى بالعربية مطلوب"
+                          : currentLanguage === "fr"
+                            ? "Le contenu en arabe est requis"
+                            : "Content in Arabic is required",
                     })}
                     className="h-[60px] rounded-lg border border-borderPrimary px-3 py-2 outline-none"
                   />
@@ -315,10 +330,10 @@ const AddNewPost = () => {
                       </p>
                       <p className="text-xs text-textSecondary">
                         {currentLanguage === "ar"
-                        ? "SVG، PNG، JPG أو GIF (الحد الأقصى. 800x400 بكسل)"
-                        : currentLanguage === "fr"
-                          ? "SVG, PNG, JPG ou GIF (MAX. 800x400px)"
-                          : "SVG, PNG, JPG or GIF (MAX. 800x400px)"}
+                          ? "SVG، PNG، JPG أو GIF (الحد الأقصى. 800x400 بكسل)"
+                          : currentLanguage === "fr"
+                            ? "SVG, PNG, JPG ou GIF (MAX. 800x400px)"
+                            : "SVG, PNG, JPG or GIF (MAX. 800x400px)"}
                       </p>
                     </div>
                     <input

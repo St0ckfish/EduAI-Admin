@@ -89,50 +89,50 @@ function InsightPage() {
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div className="lg:ml-[270px]">
-      <div className="grid overflow-x-scroll">
-      <div className="justify-left mb-5 ml-4 mt-10 flex gap-5 overflow-x-auto text-nowrap text-[20px] font-semibold">
-          <Link href="/insight" className="text-blue-500 underline">
-            {currentLanguage === "en"
-              ? "Student Performance"
-              : currentLanguage === "ar"
-                ? "أداء الطالب"
-                : currentLanguage === "fr"
-                  ? "Performance de l'étudiant"
-                  : "Student Performance"}
-          </Link>
-          <Link href="/insight/school">
-            {currentLanguage === "en"
-              ? "School Performance"
-              : currentLanguage === "ar"
-                ? "أداء المدرسة"
-                : currentLanguage === "fr"
-                  ? "Performance de l'école"
-                  : "School Performance"}
-          </Link>
-          <Link href="/insight/class">
-            {currentLanguage === "en"
-              ? "Class Performance"
-              : currentLanguage === "ar"
-                ? "أداء الفصل"
-                : currentLanguage === "fr"
-                  ? "Performance de la classe"
-                  : "Class Performance"}
-          </Link>
-          <Link href="/insight/ml-exam">
-            {currentLanguage === "en"
-              ? "ML Exam Performance"
-              : currentLanguage === "ar"
-                ? "أداء اختبار تعلم الآلة"
-                : currentLanguage === "fr"
-                  ? "Performance de l'examen ML"
-                  : "ML Exam Performance"}
-          </Link>
-        </div>
+        <div className="grid overflow-x-scroll">
+          <div className="justify-left mb-5 ml-4 mt-10 flex gap-5 overflow-x-auto text-nowrap text-[20px] font-semibold">
+            <Link href="/insight" className="text-blue-500 underline">
+              {currentLanguage === "en"
+                ? "Student Performance"
+                : currentLanguage === "ar"
+                  ? "أداء الطالب"
+                  : currentLanguage === "fr"
+                    ? "Performance de l'étudiant"
+                    : "Student Performance"}
+            </Link>
+            <Link href="/insight/school">
+              {currentLanguage === "en"
+                ? "School Performance"
+                : currentLanguage === "ar"
+                  ? "أداء المدرسة"
+                  : currentLanguage === "fr"
+                    ? "Performance de l'école"
+                    : "School Performance"}
+            </Link>
+            <Link href="/insight/class">
+              {currentLanguage === "en"
+                ? "Class Performance"
+                : currentLanguage === "ar"
+                  ? "أداء الفصل"
+                  : currentLanguage === "fr"
+                    ? "Performance de la classe"
+                    : "Class Performance"}
+            </Link>
+            <Link href="/insight/ml-exam">
+              {currentLanguage === "en"
+                ? "ML Exam Performance"
+                : currentLanguage === "ar"
+                  ? "أداء اختبار تعلم الآلة"
+                  : currentLanguage === "fr"
+                    ? "Performance de l'examen ML"
+                    : "ML Exam Performance"}
+            </Link>
+          </div>
         </div>
         <div className="mt-5 flex flex-wrap justify-evenly gap-5 overflow-x-auto">
           {/* Student Performance Bar Chart */}
           <div className="flex items-center justify-center">
-            <Card className="w-[850px] max-[1170px]:w-[550px] max-[605px]:w-[450px]  bg-bgPrimary">
+            <Card className="w-[850px] bg-bgPrimary max-[1170px]:w-[550px] max-[605px]:w-[450px]">
               <CardHeader>
                 <CardTitle>
                   {currentLanguage === "ar"
@@ -173,7 +173,7 @@ function InsightPage() {
             </Card>
           </div>
           <div className="grid gap-5 overflow-x-auto">
-            <Card className="w-[550px] max-[605px]:w-[450px] bg-bgPrimary">
+            <Card className="w-[550px] bg-bgPrimary max-[605px]:w-[450px]">
               <CardHeader>
                 <CardTitle>
                   {currentLanguage === "ar"
@@ -218,7 +218,7 @@ function InsightPage() {
             </Card>
 
             {/* Low Achievers Bar Chart */}
-            <Card className="w-[550px] overflow-x-auto max-[605px]:w-[450px]  bg-bgPrimary">
+            <Card className="w-[550px] overflow-x-auto bg-bgPrimary max-[605px]:w-[450px]">
               <CardHeader>
                 <CardTitle>
                   {currentLanguage === "ar"

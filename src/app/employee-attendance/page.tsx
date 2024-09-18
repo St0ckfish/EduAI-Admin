@@ -292,7 +292,8 @@ const EmployeeAttendance = () => {
                         ? "الموظف"
                         : currentLanguage === "fr"
                           ? "Employé"
-                          : "Employee"}: {employee.userId}
+                          : "Employee"}
+                      : {employee.userId}
                     </p>
                   </div>
                 </div>

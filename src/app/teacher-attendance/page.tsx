@@ -214,7 +214,8 @@ const TeacherAttendance = () => {
                         ? "المعلم"
                         : currentLanguage === "fr"
                           ? "Enseignant"
-                          : "Teacher"}: {employee.userId}
+                          : "Teacher"}
+                      : {employee.userId}
                     </p>
                   </div>
                 </div>

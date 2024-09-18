@@ -33,6 +33,8 @@ const Card = () => {
       href: "/document-management/other/card",
     },
   ];
+  const booleanValue = useSelector((state: RootState) => state.boolean.value);
+
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
   );
@@ -82,7 +84,9 @@ const Card = () => {
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
-      <div className="relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg lg:ml-[270px]">
+      <div
+        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
+      >
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">
             <label htmlFor="icon" className="sr-only">

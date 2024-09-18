@@ -231,38 +231,43 @@ const Dashboard: React.FC = () => {
       <div className="grid overflow-x-auto">
         <div className="mb-6 flex w-full justify-evenly gap-4 whitespace-nowrap max-[812px]:justify-center max-[576px]:h-[120px]">
           <div
-            dir={currentLanguage === 'ar' ? 'rtl' : 'ltr'}
-            className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]">
+            dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+            className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]"
+          >
             <p className="text-[12px] text-textSecondary">
               {students?.message}{" "}
             </p>
             <h1 className="text-[17px] font-semibold">{students?.data} 🧑‍🎓</h1>
           </div>
           <div
-            dir={currentLanguage === 'ar' ? 'rtl' : 'ltr'}
-            className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]">
+            dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+            className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]"
+          >
             <p className="text-[12px] text-textSecondary">
               {employees?.message}
             </p>
             <h1 className="text-[17px] font-semibold">{employees?.data} 👨‍💼</h1>
           </div>
-          <div 
-          dir={currentLanguage === 'ar' ? 'rtl' : 'ltr'}         
-          className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]">
+          <div
+            dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+            className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]"
+          >
             <p className="text-[12px] text-textSecondary">
               {teachers?.message}
             </p>
             <h1 className="text-[17px] font-semibold">{teachers?.data} 👨‍🏫</h1>
           </div>
-          <div 
-          dir={currentLanguage === 'ar' ? 'rtl' : 'ltr'}         
-          className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]">
+          <div
+            dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+            className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]"
+          >
             <p className="text-[12px] text-textSecondary">{workers?.message}</p>
             <h1 className="text-[17px] font-semibold">{workers?.data} 🧑‍🏭</h1>
           </div>
           <div
-            dir={currentLanguage === 'ar' ? 'rtl' : 'ltr'}       
-            className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]">
+            dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+            className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]"
+          >
             <p className="text-[12px] text-textSecondary">
               {currentLanguage === "ar"
                 ? "الأحداث"
@@ -286,11 +291,14 @@ const Dashboard: React.FC = () => {
 
       <div className="mb-6 grid w-full grid-cols-1 justify-between gap-10 overflow-x-auto 2xl:flex">
         <div className="flex overflow-x-auto rounded-xl max-[1535px]:justify-center">
-          <div 
+          <div
             id="chart"
-            className="w-[850px]  overflow-x-auto rounded-xl bg-bgPrimary p-2 shadow-xl"
+            className="w-[850px] overflow-x-auto rounded-xl bg-bgPrimary p-2 shadow-xl"
           >
-            <p dir={currentLanguage === 'ar' ? 'rtl' : 'ltr'} className="pb-3 text-[18px] font-semibold">
+            <p
+              dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+              className="pb-3 text-[18px] font-semibold"
+            >
               {" "}
               {currentLanguage === "en"
                 ? "School Finance"
@@ -314,7 +322,7 @@ const Dashboard: React.FC = () => {
             <div className="grid w-[550px] items-center justify-center overflow-x-auto rounded-2xl bg-bgPrimary p-2 shadow-xl max-[1536px]:h-[450px] max-[1536px]:w-[850px]">
               {mettings?.data.content.map((meeting: Meeting) => (
                 <div
-                  dir={currentLanguage === 'ar' ? 'rtl' : 'ltr'} 
+                  dir={currentLanguage === "ar" ? "rtl" : "ltr"}
                   key={meeting.id}
                   className="flex items-center justify-evenly"
                 >
@@ -343,7 +351,7 @@ const Dashboard: React.FC = () => {
                       {format(parseISO(meeting.startDate), "hh:mm a")} -{" "}
                       {format(parseISO(meeting.endDate), "hh:mm a")}
                     </p>
-                    <p className="text-[16px] mx-2 text-gray-600">
+                    <p className="mx-2 text-[16px] text-gray-600">
                       {currentLanguage === "ar"
                         ? "23 مهتم بالحدث"
                         : currentLanguage === "fr"
@@ -377,8 +385,9 @@ const Dashboard: React.FC = () => {
                 </button>
               </div>
               <div
-                dir={currentLanguage === 'ar' ? 'rtl' : 'ltr'} 
-                className="flex justify-end text-end">
+                dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+                className="flex justify-end text-end"
+              >
                 <Link
                   href="/educational-affairs/events"
                   className="font-semibold text-primary underline"
@@ -416,8 +425,9 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
         <div
-          dir={currentLanguage === 'ar' ? 'rtl' : 'ltr'} 
-          className="grid overflow-x-auto rounded-xl">
+          dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+          className="grid overflow-x-auto rounded-xl"
+        >
           <div className="grid h-[500px] w-[550px] overflow-x-auto overflow-y-auto rounded-xl bg-bgPrimary p-2 shadow-xl max-[1536px]:w-full">
             <div className="flex w-full justify-between">
               <p className="text-[20px] font-bold">
@@ -448,33 +458,33 @@ const Dashboard: React.FC = () => {
                 (note: {
                   id: React.Key | null | undefined;
                   title:
-                  | string
-                  | number
-                  | bigint
-                  | boolean
-                  | React.ReactElement<
-                    any,
-                    string | React.JSXElementConstructor<any>
-                  >
-                  | Iterable<React.ReactNode>
-                  | React.ReactPortal
-                  | Promise<React.AwaitedReactNode>
-                  | null
-                  | undefined;
+                    | string
+                    | number
+                    | bigint
+                    | boolean
+                    | React.ReactElement<
+                        any,
+                        string | React.JSXElementConstructor<any>
+                      >
+                    | Iterable<React.ReactNode>
+                    | React.ReactPortal
+                    | Promise<React.AwaitedReactNode>
+                    | null
+                    | undefined;
                   description:
-                  | string
-                  | number
-                  | bigint
-                  | boolean
-                  | React.ReactElement<
-                    any,
-                    string | React.JSXElementConstructor<any>
-                  >
-                  | Iterable<React.ReactNode>
-                  | React.ReactPortal
-                  | Promise<React.AwaitedReactNode>
-                  | null
-                  | undefined;
+                    | string
+                    | number
+                    | bigint
+                    | boolean
+                    | React.ReactElement<
+                        any,
+                        string | React.JSXElementConstructor<any>
+                      >
+                    | Iterable<React.ReactNode>
+                    | React.ReactPortal
+                    | Promise<React.AwaitedReactNode>
+                    | null
+                    | undefined;
                 }) => (
                   <div key={note.id}>
                     <h1 className="text-[18px] font-semibold text-primary">
@@ -500,7 +510,6 @@ const Dashboard: React.FC = () => {
             : currentLanguage === "fr"
               ? "Créer un événement"
               : "Create Event"}
-
         </h2>
         <form
           onSubmit={handleSubmit(onSubmit)}

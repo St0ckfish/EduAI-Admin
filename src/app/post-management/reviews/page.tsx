@@ -64,58 +64,58 @@ const Reviews = () => {
               <div className="grid rounded-xl bg-bgPrimary p-2">
                 <p className="font-semibold">
                   {currentLanguage === "ar"
-  ? "إجمالي التقييمات"
-  : currentLanguage === "fr"
-  ? "Total des avis"
-  : "Total Reviews"}
+                    ? "إجمالي التقييمات"
+                    : currentLanguage === "fr"
+                      ? "Total des avis"
+                      : "Total Reviews"}
                 </p>
                 <h1 className="text-[18px] font-bold">2K</h1>
                 <h1 className="text-[12px] text-textPrimary">
                   {" "}
-                  <span className="font-semibold text-success">4.63%</span> 
+                  <span className="font-semibold text-success">4.63%</span>
                   {currentLanguage === "ar"
-  ? "مقارنة بالعام الماضي"
-  : currentLanguage === "fr"
-  ? "par rapport à l'année dernière"
-  : "vs. last Year"}
+                    ? "مقارنة بالعام الماضي"
+                    : currentLanguage === "fr"
+                      ? "par rapport à l'année dernière"
+                      : "vs. last Year"}
                 </h1>
               </div>
               <div className="grid rounded-xl bg-bgPrimary p-2">
                 <p className="font-semibold">
                   {currentLanguage === "ar"
-  ? "إجمالي التقييمات"
-  : currentLanguage === "fr"
-  ? "Total des avis"
-  : "Total Reviews"}
+                    ? "إجمالي التقييمات"
+                    : currentLanguage === "fr"
+                      ? "Total des avis"
+                      : "Total Reviews"}
                 </p>
                 <h1 className="text-[18px] font-bold">2K</h1>
                 <h1 className="text-[12px] text-textPrimary">
                   {" "}
-                  <span className="font-semibold text-success">4.63%</span> 
+                  <span className="font-semibold text-success">4.63%</span>
                   {currentLanguage === "ar"
-  ? "مقارنة بالعام الماضي"
-  : currentLanguage === "fr"
-  ? "par rapport à l'année dernière"
-  : "vs. last Year"}
+                    ? "مقارنة بالعام الماضي"
+                    : currentLanguage === "fr"
+                      ? "par rapport à l'année dernière"
+                      : "vs. last Year"}
                 </h1>
               </div>
               <div className="grid rounded-xl bg-bgPrimary p-2">
                 <p className="font-semibold">
                   {currentLanguage === "ar"
-  ? "إجمالي التقييمات"
-  : currentLanguage === "fr"
-  ? "Total des avis"
-  : "Total Reviews"}
+                    ? "إجمالي التقييمات"
+                    : currentLanguage === "fr"
+                      ? "Total des avis"
+                      : "Total Reviews"}
                 </p>
                 <h1 className="text-[18px] font-bold">2K</h1>
                 <h1 className="text-[12px] text-textPrimary">
                   {" "}
-                  <span className="font-semibold text-success">4.63%</span> 
+                  <span className="font-semibold text-success">4.63%</span>
                   {currentLanguage === "ar"
-  ? "مقارنة بالعام الماضي"
-  : currentLanguage === "fr"
-  ? "par rapport à l'année dernière"
-  : "vs. last Year"}
+                    ? "مقارنة بالعام الماضي"
+                    : currentLanguage === "fr"
+                      ? "par rapport à l'année dernière"
+                      : "vs. last Year"}
                 </h1>
               </div>
             </div>
@@ -145,15 +145,16 @@ const Reviews = () => {
                   <td className="px-6 py-4">
                     <div className="grid grid-cols-1 gap-3">
                       {currentLanguage === "ar"
-  ? "اسأل سجن سان كوينتين في CDCR 2008."
-  : currentLanguage === "fr"
-  ? "Demandez à la prison de San Quintin en 2008."
-  : "Ask CDCR San Quintin State Prison 2008."}
-                      <br /> {currentLanguage === "ar"
-  ? "قمنا بتركيب موزعات Purex في جميع أنحاء السجن لمكافحة"
-  : currentLanguage === "fr"
-  ? "Nous avons installé des distributeurs Purex dans toute la prison pour combattre"
-  : "We installed Purex dispensers throughout the prison to comba"}
+                        ? "اسأل سجن سان كوينتين في CDCR 2008."
+                        : currentLanguage === "fr"
+                          ? "Demandez à la prison de San Quintin en 2008."
+                          : "Ask CDCR San Quintin State Prison 2008."}
+                      <br />{" "}
+                      {currentLanguage === "ar"
+                        ? "قمنا بتركيب موزعات Purex في جميع أنحاء السجن لمكافحة"
+                        : currentLanguage === "fr"
+                          ? "Nous avons installé des distributeurs Purex dans toute la prison pour combattre"
+                          : "We installed Purex dispensers throughout the prison to comba"}
                     </div>
                   </td>
                   <td className="px-6 py-4">
@@ -198,15 +199,16 @@ const Reviews = () => {
                   <td className="px-6 py-4">
                     <div className="grid grid-cols-1 gap-3">
                       {currentLanguage === "ar"
-  ? "اسأل سجن سان كوينتين في CDCR 2008."
-  : currentLanguage === "fr"
-  ? "Demandez à la prison de San Quintin en 2008."
-  : "Ask CDCR San Quintin State Prison 2008."}
-                      <br /> {currentLanguage === "ar"
-  ? "قمنا بتركيب موزعات Purex في جميع أنحاء السجن لمكافحة"
-  : currentLanguage === "fr"
-  ? "Nous avons installé des distributeurs Purex dans toute la prison pour combattre"
-  : "We installed Purex dispensers throughout the prison to comba"}
+                        ? "اسأل سجن سان كوينتين في CDCR 2008."
+                        : currentLanguage === "fr"
+                          ? "Demandez à la prison de San Quintin en 2008."
+                          : "Ask CDCR San Quintin State Prison 2008."}
+                      <br />{" "}
+                      {currentLanguage === "ar"
+                        ? "قمنا بتركيب موزعات Purex في جميع أنحاء السجن لمكافحة"
+                        : currentLanguage === "fr"
+                          ? "Nous avons installé des distributeurs Purex dans toute la prison pour combattre"
+                          : "We installed Purex dispensers throughout the prison to comba"}
                     </div>
                   </td>
                   <td className="px-6 py-4">
@@ -251,15 +253,16 @@ const Reviews = () => {
                   <td className="px-6 py-4">
                     <div className="grid grid-cols-1 gap-3">
                       {currentLanguage === "ar"
-  ? "اسأل سجن سان كوينتين في CDCR 2008."
-  : currentLanguage === "fr"
-  ? "Demandez à la prison de San Quintin en 2008."
-  : "Ask CDCR San Quintin State Prison 2008."}
-                      <br /> {currentLanguage === "ar"
-  ? "قمنا بتركيب موزعات Purex في جميع أنحاء السجن لمكافحة"
-  : currentLanguage === "fr"
-  ? "Nous avons installé des distributeurs Purex dans toute la prison pour combattre"
-  : "We installed Purex dispensers throughout the prison to comba"}
+                        ? "اسأل سجن سان كوينتين في CDCR 2008."
+                        : currentLanguage === "fr"
+                          ? "Demandez à la prison de San Quintin en 2008."
+                          : "Ask CDCR San Quintin State Prison 2008."}
+                      <br />{" "}
+                      {currentLanguage === "ar"
+                        ? "قمنا بتركيب موزعات Purex في جميع أنحاء السجن لمكافحة"
+                        : currentLanguage === "fr"
+                          ? "Nous avons installé des distributeurs Purex dans toute la prison pour combattre"
+                          : "We installed Purex dispensers throughout the prison to comba"}
                     </div>
                   </td>
                   <td className="px-6 py-4">
