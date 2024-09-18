@@ -1,5 +1,11 @@
 "use client";
+import { RootState } from "@/GlobalRedux/store";
+import { useSelector } from "react-redux";
+
 const EditRoom = () => {
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   return (
     <>
       <div className="mr-[5px] grid h-[850px] items-center justify-center lg:ml-[270px]">
@@ -7,7 +13,7 @@ const EditRoom = () => {
           <div className="grid h-[900px] items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:h-[800px] xl:w-[1000px]">
             <div className="flex items-center justify-start gap-2">
               <svg
-                className="h-6 w-6 font-bold text-[#526484] group-hover:text-[#3e5af0]"
+                className="h-6 w-6 font-bold text-secondary group-hover:text-primary"
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
@@ -29,7 +35,11 @@ const EditRoom = () => {
                 <line x1="16" y1="14" x2="16" y2="17" />
               </svg>
               <h1 className="font-sans text-[22px] font-semibold">
-                Room Information
+                {currentLanguage === "ar"
+                  ? "معلومات الغرفة"
+                  : currentLanguage === "fr"
+                    ? "Informations sur la chambre"
+                    : "Room Information"}
               </h1>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
@@ -37,7 +47,11 @@ const EditRoom = () => {
                 htmlFor="name"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Room Number
+                {currentLanguage === "ar"
+                  ? "رقم الغرفة"
+                  : currentLanguage === "fr"
+                    ? "Numéro de la chambre"
+                    : "Room Number"}
                 <input
                   id="name"
                   type="number"
@@ -48,7 +62,11 @@ const EditRoom = () => {
                 htmlFor="code"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Floor
+                {currentLanguage === "ar"
+                  ? "الطابق"
+                  : currentLanguage === "fr"
+                    ? "Étage"
+                    : "Floor"}
                 <input
                   id="code"
                   type="text"
@@ -59,7 +77,11 @@ const EditRoom = () => {
                 htmlFor="about"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Room Type
+                {currentLanguage === "ar"
+                  ? "نوع الغرفة"
+                  : currentLanguage === "fr"
+                    ? "Type de chambre"
+                    : "Room Type"}
                 <input
                   id="about"
                   type="text"
@@ -71,7 +93,11 @@ const EditRoom = () => {
                 htmlFor="Version"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Room Category
+                {currentLanguage === "ar"
+                  ? "فئة الغرفة"
+                  : currentLanguage === "fr"
+                    ? "Catégorie de chambre"
+                    : "Room Category"}
                 <input
                   id="Version"
                   type="text"
@@ -82,7 +108,11 @@ const EditRoom = () => {
                 htmlFor="Version"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Capacity
+                {currentLanguage === "ar"
+                  ? "الطاقة الاستيعابية"
+                  : currentLanguage === "fr"
+                    ? "Capacité"
+                    : "Capacity"}
                 <input
                   id="Version"
                   type="text"
@@ -93,7 +123,11 @@ const EditRoom = () => {
                 htmlFor="Initial"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Status
+                {currentLanguage === "ar"
+                  ? "الحالة"
+                  : currentLanguage === "fr"
+                    ? "État"
+                    : "Status"}
                 <input
                   id="Initial"
                   type="text"
@@ -105,9 +139,13 @@ const EditRoom = () => {
             <div className="flex justify-center text-center">
               <button
                 type="submit"
-                className="w-[140px] rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
               >
-                Add Room
+                {currentLanguage === "ar"
+                  ? "إضافة غرفة"
+                  : currentLanguage === "fr"
+                    ? "Ajouter une chambre"
+                    : "Add Room"}
               </button>
             </div>
           </div>

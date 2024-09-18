@@ -1,5 +1,11 @@
 "use client";
+import { RootState } from "@/GlobalRedux/store";
+import { useSelector } from "react-redux";
+
 const EditTeacher = () => {
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   return (
     <>
       <div className="mr-[5px] grid h-[850px] items-center justify-center lg:ml-[270px]">
@@ -7,7 +13,7 @@ const EditTeacher = () => {
           <div className="grid h-[900px] items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:h-[800px] xl:w-[1000px]">
             <div className="flex items-center justify-start gap-2">
               <svg
-                className="h-6 w-6 font-bold text-[#526484] group-hover:text-[#3e5af0]"
+                className="h-6 w-6 font-bold text-secondary group-hover:text-primary"
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
@@ -29,7 +35,11 @@ const EditTeacher = () => {
                 <line x1="16" y1="14" x2="16" y2="17" />
               </svg>
               <h1 className="font-sans text-[22px] font-semibold">
-                Teacher Information
+                {currentLanguage === "ar"
+                  ? "معلومات المعلم"
+                  : currentLanguage === "fr"
+                    ? "Informations sur l'enseignant"
+                    : "Teacher Information"}
               </h1>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
@@ -37,7 +47,11 @@ const EditTeacher = () => {
                 htmlFor="name"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Name
+                {currentLanguage === "ar"
+                  ? "الاسم"
+                  : currentLanguage === "fr"
+                    ? "Nom"
+                    : "Name"}
                 <input
                   id="name"
                   type="text"
@@ -48,7 +62,12 @@ const EditTeacher = () => {
                 htmlFor="code"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                ID
+                {currentLanguage === "ar"
+                  ? "الرقم التعريفي"
+                  : currentLanguage === "fr"
+                    ? "ID"
+                    : "ID"}
+
                 <input
                   id="code"
                   type="text"
@@ -59,7 +78,11 @@ const EditTeacher = () => {
                 htmlFor="about"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Age
+                {currentLanguage === "ar"
+                  ? "العمر"
+                  : currentLanguage === "fr"
+                    ? "Âge"
+                    : "Age"}
                 <input
                   id="about"
                   type="text"
@@ -70,7 +93,12 @@ const EditTeacher = () => {
                 htmlFor="about"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Gender
+                {currentLanguage === "ar"
+                  ? "الجنس"
+                  : currentLanguage === "fr"
+                    ? "Sexe"
+                    : "Gender"}
+
                 <input
                   id="about"
                   type="text"
@@ -83,7 +111,12 @@ const EditTeacher = () => {
                 htmlFor="Version"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Class
+                {currentLanguage === "ar"
+                  ? "الصف"
+                  : currentLanguage === "fr"
+                    ? "Classe"
+                    : "Class"}
+
                 <input
                   id="Version"
                   type="text"
@@ -94,7 +127,12 @@ const EditTeacher = () => {
                 htmlFor="Version"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Father Name
+                {currentLanguage === "ar"
+                  ? "اسم الأب"
+                  : currentLanguage === "fr"
+                    ? "Nom du père"
+                    : "Father Name"}
+
                 <input
                   id="Version"
                   type="text"
@@ -105,7 +143,11 @@ const EditTeacher = () => {
                 htmlFor="Initial"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Mother Name
+                {currentLanguage === "ar"
+                  ? "اسم الأم"
+                  : currentLanguage === "fr"
+                    ? "Nom de la mère"
+                    : "Mother Name"}
                 <input
                   id="Initial"
                   type="text"
@@ -116,7 +158,11 @@ const EditTeacher = () => {
                 htmlFor="Expiration"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Date Of Birth
+                {currentLanguage === "ar"
+                  ? "تاريخ الميلاد"
+                  : currentLanguage === "fr"
+                    ? "Date de naissance"
+                    : "Date Of Birth"}
                 <input
                   id="Expiration"
                   type="date"
@@ -129,7 +175,12 @@ const EditTeacher = () => {
                 htmlFor="name"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Religion
+                {currentLanguage === "ar"
+                  ? "الدين"
+                  : currentLanguage === "fr"
+                    ? "Religion"
+                    : "Religion"}
+
                 <input
                   id="name"
                   type="text"
@@ -140,7 +191,12 @@ const EditTeacher = () => {
                 htmlFor="code"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Address
+                {currentLanguage === "ar"
+                  ? "العنوان"
+                  : currentLanguage === "fr"
+                    ? "Adresse"
+                    : "Address"}
+
                 <input
                   id="code"
                   type="text"
@@ -151,7 +207,11 @@ const EditTeacher = () => {
                 htmlFor="about"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Email
+                {currentLanguage === "ar"
+                  ? "البريد الإلكتروني"
+                  : currentLanguage === "fr"
+                    ? "Email"
+                    : "Email"}
                 <input
                   id="about"
                   type="text"
@@ -162,7 +222,11 @@ const EditTeacher = () => {
                 htmlFor="about"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Mobile
+                {currentLanguage === "ar"
+                  ? "الهاتف المحمول"
+                  : currentLanguage === "fr"
+                    ? "Mobile"
+                    : "Mobile"}
                 <input
                   id="about"
                   type="text"
@@ -173,9 +237,13 @@ const EditTeacher = () => {
             <div className="flex justify-center text-center">
               <button
                 type="submit"
-                className="w-[140px] rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
               >
-                Edit Teacher
+                {currentLanguage === "ar"
+                  ? "تعديل المعلم"
+                  : currentLanguage === "fr"
+                    ? "Modifier l'enseignant"
+                    : "Edit Teacher"}
               </button>
             </div>
           </div>

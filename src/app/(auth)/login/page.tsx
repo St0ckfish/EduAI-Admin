@@ -5,8 +5,13 @@ import { useLoginDashboardMutation } from "@/features/loginApi";
 import { useRouter } from "next/navigation";
 import Cookie from "js-cookie";
 import { toast } from "react-toastify";
+import { RootState } from "@/GlobalRedux/store";
+import { useSelector } from "react-redux";
 
 const Login = () => {
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const router = useRouter();
   const {
     register,
@@ -20,10 +25,22 @@ const Login = () => {
       const result = await loginDashboard(data).unwrap();
       console.log("Login success:", result);
       Cookie.set("token", result.data);
-      toast.success("Login Success");
+      toast.success(
+        currentLanguage === "ar"
+          ? "تسجيل الدخول ناجح"
+          : currentLanguage === "fr"
+            ? "Connexion réussie"
+            : "Login success",
+      );
       router.replace("/");
     } catch (err) {
-      toast.error("Failed to login");
+      toast.error(
+        currentLanguage === "ar"
+          ? "فشل في تسجيل الدخول"
+          : currentLanguage === "fr"
+            ? "Échec de la connexion"
+            : "Failed to login",
+      );
       console.error("Failed to login:", err);
     }
   };
@@ -41,10 +58,18 @@ const Login = () => {
           </div>
           <div className="mb-10 grid">
             <h1 className="font-sans text-[28px] font-bold text-primary">
-              Log in
+              {currentLanguage === "ar"
+                ? "تسجيل الدخول"
+                : currentLanguage === "fr"
+                  ? "Connexion"
+                  : "Log in"}
             </h1>
             <p className="font-sans text-[20px] font-semibold text-secondary">
-              To access your account
+              {currentLanguage === "ar"
+                ? "للوصول إلى حسابك"
+                : currentLanguage === "fr"
+                  ? "Pour accéder à votre compte"
+                  : "To access your account"}
             </p>
           </div>
           <div className="grid items-center justify-center">
@@ -53,16 +78,30 @@ const Login = () => {
                 htmlFor="email"
                 className="grid text-start font-sans text-[18px] font-semibold text-[#041631] text-primary"
               >
-                Your Email
+                {currentLanguage === "ar"
+                  ? "بريدك الإلكتروني"
+                  : currentLanguage === "fr"
+                    ? "Votre Email"
+                    : "Your Email"}
                 <input
                   id="email"
                   {...register("username", { required: true })}
-                  placeholder="Enter Your Email"
+                  placeholder={
+                    currentLanguage === "ar"
+                      ? "أدخل بريدك الإلكتروني"
+                      : currentLanguage === "fr"
+                        ? "Entrez votre email"
+                        : "Enter Your Email"
+                  }
                   className={`w-[450px] rounded-xl border px-4 py-3 text-textPrimary ${errors.username ? "border-warning" : "border-borderPrimary"} outline-none max-[471px]:w-[350px]`}
                 />
                 {errors.username && (
                   <span className="text-[13px] text-error">
-                    Email is Required
+                    {currentLanguage === "ar"
+                      ? "البريد الإلكتروني مطلوب"
+                      : currentLanguage === "fr"
+                        ? "L'email est requis"
+                        : "Email is Required"}
                   </span>
                 )}
               </label>
@@ -70,17 +109,31 @@ const Login = () => {
                 htmlFor="password"
                 className="grid text-start font-sans text-[18px] font-semibold text-[#041631] text-primary"
               >
-                Your Password
+                {currentLanguage === "ar"
+                  ? "كلمة المرور الخاصة بك"
+                  : currentLanguage === "fr"
+                    ? "Votre mot de passe"
+                    : "Your Password"}
                 <input
                   id="password"
                   {...register("password", { required: true })}
-                  placeholder="Enter Your Password"
+                  placeholder={
+                    currentLanguage === "ar"
+                      ? "أدخل كلمة المرور الخاصة بك"
+                      : currentLanguage === "fr"
+                        ? "Entrez votre mot de passe"
+                        : "Enter Your Password"
+                  }
                   className={`w-[450px] rounded-xl border px-4 py-3 text-textPrimary ${errors.password ? "border-warning" : "border-borderPrimary"} outline-none max-[471px]:w-[350px]`}
                   type="password"
                 />
                 {errors.password && (
                   <span className="text-[13px] text-error">
-                    Password is Required
+                    {currentLanguage === "ar"
+                      ? "كلمة المرور مطلوبة"
+                      : currentLanguage === "fr"
+                        ? "Le mot de passe est requis"
+                        : "Password is Required"}
                   </span>
                 )}
               </label>
@@ -89,7 +142,11 @@ const Login = () => {
                   href="/forget-password"
                   className="flex font-sans text-[12px] font-medium text-secondary hover:underline"
                 >
-                  Forgot password ?
+                  {currentLanguage === "ar"
+                    ? "نسيت كلمة المرور؟"
+                    : currentLanguage === "fr"
+                      ? "Mot de passe oublié ?"
+                      : "Forgot password ?"}
                 </a>
               </div>
 
@@ -100,23 +157,45 @@ const Login = () => {
                   type="submit"
                   className="w-[450px] rounded-xl bg-primary px-4 py-2 text-[18px] font-bold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl max-[471px]:w-[350px]"
                 >
-                  {isLoading ? " Loading..." : "Login"}
+                  {isLoading
+                    ? currentLanguage === "ar"
+                      ? "جاري التحميل..."
+                      : currentLanguage === "fr"
+                        ? "Chargement..."
+                        : "Loading..."
+                    : currentLanguage === "ar"
+                      ? "تسجيل الدخول"
+                      : currentLanguage === "fr"
+                        ? "Connexion"
+                        : "Login"}
                 </button>
               </div>
               {error && (
                 <p className="font-semibold text-error">
-                  Username or Password are not valid!
+                  {currentLanguage === "ar"
+                    ? "اسم المستخدم أو كلمة المرور غير صالحين!"
+                    : currentLanguage === "fr"
+                      ? "Le nom d'utilisateur ou le mot de passe ne sont pas valides !"
+                      : "Username or Password are not valid!"}
                 </p>
               )}
               <div className="flex items-center justify-center gap-2 text-center">
                 <p className="font-sans font-medium text-secondary">
-                  Need an account?
+                  {currentLanguage === "ar"
+                    ? "تحتاج إلى حساب؟"
+                    : currentLanguage === "fr"
+                      ? "Besoin d'un compte ?"
+                      : "Need an account?"}
                 </p>
                 <a
                   href="/signup"
                   className="flex font-sans font-medium text-primary hover:underline"
                 >
-                  Create Account
+                  {currentLanguage === "ar"
+                    ? "إنشاء حساب"
+                    : currentLanguage === "fr"
+                      ? "Créer un compte"
+                      : "Create Account"}
                 </a>
               </div>
             </form>

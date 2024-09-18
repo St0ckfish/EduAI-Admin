@@ -16,6 +16,9 @@ interface ViewBusProps {
   };
 }
 const EditBus: React.FC<ViewBusProps> = ({ params }) => {
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const { data, error, isLoading } = useGetBusByIdQuery(params.busId);
 
@@ -40,9 +43,21 @@ const EditBus: React.FC<ViewBusProps> = ({ params }) => {
   const onSubmit = async (data: any) => {
     try {
       await createBus({ formData: data, id: params.busId }).unwrap();
-      toast.success("Bus created successfully");
+      toast.success(
+        currentLanguage === "ar"
+          ? "تم إنشاء الحافلة بنجاح"
+          : currentLanguage === "fr"
+            ? "Bus créé avec succès"
+            : "Bus created successfully",
+      );
     } catch (err) {
-      toast.error("Failed to create Bus");
+      toast.error(
+        currentLanguage === "ar"
+          ? "فشل في إنشاء الحافلة"
+          : currentLanguage === "fr"
+            ? "Échec de la création du bus"
+            : "Failed to create Bus",
+      );
     }
   };
   if (isLoading)
@@ -80,7 +95,11 @@ const EditBus: React.FC<ViewBusProps> = ({ params }) => {
                 <line x1="16" y1="14" x2="16" y2="17" />
               </svg>
               <h1 className="font-sans text-[22px] font-semibold">
-                Bus Information
+                {currentLanguage === "ar"
+                  ? "معلومات الحافلة"
+                  : currentLanguage === "fr"
+                    ? "Informations sur le bus"
+                    : "Bus Information"}
               </h1>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
@@ -88,7 +107,11 @@ const EditBus: React.FC<ViewBusProps> = ({ params }) => {
                 htmlFor="name"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Bus Number
+                {currentLanguage === "ar"
+                  ? "رقم الحافلة"
+                  : currentLanguage === "fr"
+                    ? "Numéro du bus"
+                    : "Bus Number"}
                 <input
                   id="name"
                   {...register("busNumber", { required: true })}
@@ -96,14 +119,24 @@ const EditBus: React.FC<ViewBusProps> = ({ params }) => {
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.busNumber && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="code"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Bus Capacity
+                {currentLanguage === "ar"
+                  ? "سعة الحافلة"
+                  : currentLanguage === "fr"
+                    ? "Capacité du bus"
+                    : "Bus Capacity"}
                 <input
                   id="code"
                   {...register("busCapacity", { required: true })}
@@ -111,7 +144,13 @@ const EditBus: React.FC<ViewBusProps> = ({ params }) => {
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.busCapacity && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
             </div>
@@ -124,7 +163,11 @@ const EditBus: React.FC<ViewBusProps> = ({ params }) => {
                   type="submit"
                   className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
                 >
-                  Add Bus
+                  {currentLanguage === "ar"
+                    ? "إضافة حافلة"
+                    : currentLanguage === "fr"
+                      ? "Ajouter un bus"
+                      : "Add Bus"}
                 </button>
               )}
             </div>

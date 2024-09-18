@@ -12,6 +12,9 @@ import { useEffect } from "react";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { RootState } from "@/GlobalRedux/store";
+import { useSelector } from "react-redux";
+
 interface ViewEmpolyeeProps {
   params: {
     employeeId: string;
@@ -19,6 +22,9 @@ interface ViewEmpolyeeProps {
 }
 
 const EditEmployee: React.FC<ViewEmpolyeeProps> = ({ params }) => {
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const { data, error, isLoading } = useGetDriversQuery(params.employeeId);
   const [createDriver, { isLoading: isUpdating }] = useUpdateDriversMutation();
   const { data: rigiond } = useGetAllReginionIDQuery(null);
@@ -49,9 +55,21 @@ const EditEmployee: React.FC<ViewEmpolyeeProps> = ({ params }) => {
   const onSubmit = async (data: any) => {
     try {
       await createDriver({ formData: data, id: params.employeeId }).unwrap();
-      toast.success("Driver Updated successfully");
+      toast.success(
+        currentLanguage === "ar"
+          ? "تم تحديث السائق بنجاح"
+          : currentLanguage === "fr"
+            ? "Chauffeur mis à jour avec succès"
+            : "Driver Updated successfully",
+      );
     } catch (err) {
-      toast.error("Failed to Update Driver");
+      toast.error(
+        currentLanguage === "ar"
+          ? "فشل في تحديث الموظف"
+          : currentLanguage === "fr"
+            ? "Échec de la mise à jour de l'employé"
+            : "Failed to Update Employee",
+      );
     }
   };
 
@@ -89,7 +107,11 @@ const EditEmployee: React.FC<ViewEmpolyeeProps> = ({ params }) => {
                 <line x1="16" y1="14" x2="16" y2="17" />
               </svg>
               <h1 className="font-sans text-[22px] font-semibold">
-                Employee Information
+                {currentLanguage === "ar"
+                  ? "معلومات الموظف"
+                  : currentLanguage === "fr"
+                    ? "Informations sur l'employé"
+                    : "Employee Information"}
               </h1>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
@@ -97,7 +119,11 @@ const EditEmployee: React.FC<ViewEmpolyeeProps> = ({ params }) => {
                 htmlFor="email"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Email
+                {currentLanguage === "ar"
+                  ? "البريد الإلكتروني"
+                  : currentLanguage === "fr"
+                    ? "Email"
+                    : "Email"}
                 <input
                   id="email"
                   type="email"
@@ -105,14 +131,24 @@ const EditEmployee: React.FC<ViewEmpolyeeProps> = ({ params }) => {
                   {...register("email", { required: true })}
                 />
                 {errors.email && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="nid"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                NID
+                {currentLanguage === "ar"
+                  ? "الرقم القومي"
+                  : currentLanguage === "fr"
+                    ? "N° de pièce d'identité"
+                    : "NID"}
                 <input
                   id="nid"
                   type="text"
@@ -120,48 +156,112 @@ const EditEmployee: React.FC<ViewEmpolyeeProps> = ({ params }) => {
                   {...register("nid", { required: true })}
                 />
                 {errors.nid && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="gender"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Gender
+                {currentLanguage === "ar"
+                  ? "الجنس"
+                  : currentLanguage === "fr"
+                    ? "Sexe"
+                    : "Gender"}
                 <select
                   id="gender"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("gender", { required: true })}
                 >
                   <option selected value="">
-                    Select gender{" "}
+                    {currentLanguage === "ar"
+                      ? "اختر الجنس"
+                      : currentLanguage === "fr"
+                        ? "Sélectionnez le sexe"
+                        : "Select gender"}
                   </option>
-                  <option value="MALE">Male </option>
-                  <option value="FEMALE">Female </option>
+                  <option value="MALE">
+                    {currentLanguage === "ar"
+                      ? "ذكر"
+                      : currentLanguage === "fr"
+                        ? "Homme"
+                        : "Male"}
+                  </option>
+                  <option value="FEMALE">
+                    {currentLanguage === "ar"
+                      ? "أنثى"
+                      : currentLanguage === "fr"
+                        ? "Femme"
+                        : "Female"}
+                  </option>
                 </select>
                 {errors.gender && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="religion"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Religion
+                {currentLanguage === "ar"
+                  ? "الدين"
+                  : currentLanguage === "fr"
+                    ? "Religion"
+                    : "Religion"}
                 <select
                   id="religion"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("religion", { required: true })}
                 >
                   <option selected value="">
-                    Select religion{" "}
+                    {currentLanguage === "ar"
+                      ? "اختر الدين"
+                      : currentLanguage === "fr"
+                        ? "Sélectionnez la religion"
+                        : "Select religion"}
                   </option>
-                  <option value="MUSLIM">Muslim </option>
-                  <option value="CHRISTIAN">Christian </option>
-                  <option value="OTHERS">Others </option>
+                  <option value="MUSLIM">
+                    {currentLanguage === "ar"
+                      ? "مسلم"
+                      : currentLanguage === "fr"
+                        ? "Musulman"
+                        : "Muslim"}
+                  </option>
+                  <option value="CHRISTIAN">
+                    {currentLanguage === "ar"
+                      ? "مسيحي"
+                      : currentLanguage === "fr"
+                        ? "Chrétien"
+                        : "Christian"}
+                  </option>
+                  <option value="OTHERS">
+                    {currentLanguage === "ar"
+                      ? "أخرى"
+                      : currentLanguage === "fr"
+                        ? "Autres"
+                        : "Others"}
+                  </option>
                 </select>
                 {errors.religion && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
             </div>
@@ -170,7 +270,11 @@ const EditEmployee: React.FC<ViewEmpolyeeProps> = ({ params }) => {
                 htmlFor="name_en"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Name (EN)
+                {currentLanguage === "ar"
+                  ? "الاسم (بالإنجليزية)"
+                  : currentLanguage === "fr"
+                    ? "Nom (EN)"
+                    : "Name (EN)"}
                 <input
                   id="name_en"
                   type="text"
@@ -178,14 +282,24 @@ const EditEmployee: React.FC<ViewEmpolyeeProps> = ({ params }) => {
                   {...register("name_en", { required: true })}
                 />
                 {errors.name_en && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="name_en"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Name (AR)
+                {currentLanguage === "ar"
+                  ? "الاسم (بالعربية)"
+                  : currentLanguage === "fr"
+                    ? "Nom (AR)"
+                    : "Name (AR)"}
                 <input
                   id="name_ar"
                   type="text"
@@ -193,14 +307,24 @@ const EditEmployee: React.FC<ViewEmpolyeeProps> = ({ params }) => {
                   {...register("name_ar", { required: true })}
                 />
                 {errors.name_ar && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="name_fr"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Name (FR)
+                {currentLanguage === "ar"
+                  ? "الاسم (بالفرنسية)"
+                  : currentLanguage === "fr"
+                    ? "Nom (FR)"
+                    : "Name (FR)"}
                 <input
                   id="name_fr"
                   type="text"
@@ -208,22 +332,36 @@ const EditEmployee: React.FC<ViewEmpolyeeProps> = ({ params }) => {
                   {...register("name_fr", { required: true })}
                 />
                 {errors.name_fr && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="regionId"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                RegionId
+                {currentLanguage === "ar"
+                  ? "معرف المنطقة"
+                  : currentLanguage === "fr"
+                    ? "ID de la région"
+                    : "RegionId"}
                 <select
                   defaultValue=""
                   id="regionId"
                   {...register("regionId", { required: true })}
-                  className={`border ${errors.regionId ? "border-[#d74f41]" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-[18px] text-[#000000] outline-none max-[458px]:w-[350px]`}
+                  className="h-full w-[400px] rounded-xl border border-borderPrimary px-4 py-3 text-[18px] text-[#000000] outline-none max-[458px]:w-[350px]"
                 >
                   <option selected value="">
-                    Select Region Id{" "}
+                    {currentLanguage === "ar"
+                      ? "اختر معرف المنطقة"
+                      : currentLanguage === "fr"
+                        ? "Sélectionnez l'ID de région"
+                        : "Select Region Id"}
                   </option>
                   {rigiond &&
                     rigiond.data.map(
@@ -254,20 +392,36 @@ const EditEmployee: React.FC<ViewEmpolyeeProps> = ({ params }) => {
                     )}
                 </select>
                 {errors.regionId && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="nationality"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Your Nationality
+                {currentLanguage === "ar"
+                  ? "جنسيتك"
+                  : currentLanguage === "fr"
+                    ? "Votre nationalité"
+                    : "Your Nationality"}
                 <select
                   id="nationality"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("nationality", { required: true })}
                 >
-                  <option value="">Select Nationality</option>
+                  <option value="">
+                    {currentLanguage === "ar"
+                      ? "اختر الجنسية"
+                      : currentLanguage === "fr"
+                        ? "Sélectionnez la nationalité"
+                        : "Select Nationality"}
+                  </option>
                   {nationalityData &&
                     Object.entries(nationalityData.data).map(([key, value]) => (
                       <option key={key} value={key}>
@@ -276,14 +430,24 @@ const EditEmployee: React.FC<ViewEmpolyeeProps> = ({ params }) => {
                     ))}
                 </select>
                 {errors.nationality && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="about"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                About
+                {currentLanguage === "ar"
+                  ? "حول"
+                  : currentLanguage === "fr"
+                    ? "À propos"
+                    : "About"}
                 <input
                   id="about"
                   type="text"
@@ -291,14 +455,24 @@ const EditEmployee: React.FC<ViewEmpolyeeProps> = ({ params }) => {
                   {...register("about", { required: true })}
                 />
                 {errors.about && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="birthDate"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Date Of Birth
+                {currentLanguage === "ar"
+                  ? "تاريخ الميلاد"
+                  : currentLanguage === "fr"
+                    ? "Date de naissance"
+                    : "Date Of Birth"}
                 <input
                   id="birthDate"
                   type="date"
@@ -306,14 +480,24 @@ const EditEmployee: React.FC<ViewEmpolyeeProps> = ({ params }) => {
                   {...register("birthDate", { required: true })}
                 />
                 {errors.birthDate && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="qualification"
                 className="grid items-center font-sans text-[18px] font-semibold"
               >
-                Select Qualification
+                {currentLanguage === "ar"
+                  ? "اختر المؤهل"
+                  : currentLanguage === "fr"
+                    ? "Sélectionnez le diplôme"
+                    : "Select Qualification"}
                 <select
                   defaultValue=""
                   id="qualification"
@@ -321,18 +505,48 @@ const EditEmployee: React.FC<ViewEmpolyeeProps> = ({ params }) => {
                   className="h-[55px] w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 >
                   <option selected value="">
-                    Select qualification
+                    {currentLanguage === "ar"
+                      ? "اختر المؤهل"
+                      : currentLanguage === "fr"
+                        ? "Sélectionnez le diplôme"
+                        : "Select qualification"}
                   </option>
                   <option value="HIGH_SCHOOL_DIPLOMA">
-                    High School Diploma
+                    {currentLanguage === "ar"
+                      ? "شهادة الثانوية العامة"
+                      : currentLanguage === "fr"
+                        ? "Diplôme de baccalauréat"
+                        : "High School Diploma"}
                   </option>
-                  <option value="MASTER_DEGREE">Master Degree </option>
-                  <option value="BACHELOR_DEGREE">Bachelor Degree </option>
-                  <option value="DOCTORATE_DEGREE">Doctorate Degree </option>
+                  <option value="MASTER_DEGREE">
+                    {currentLanguage === "ar"
+                      ? "درجة الماجستير"
+                      : currentLanguage === "fr"
+                        ? "Master"
+                        : "Master Degree"}
+                  </option>
+                  <option value="BACHELOR_DEGREE">
+                    {currentLanguage === "ar"
+                      ? "درجة البكالوريوس"
+                      : currentLanguage === "fr"
+                        ? "Licence"
+                        : "Bachelor Degree"}
+                  </option>
+                  <option value="DOCTORATE_DEGREE">
+                    {currentLanguage === "ar"
+                      ? "درجة الدكتوراه"
+                      : currentLanguage === "fr"
+                        ? "Doctorat"
+                        : "Doctorate Degree"}
+                  </option>
                 </select>
                 {errors.qualification && (
-                  <span className="text-[18px] text-[#e81123]">
-                    Qualification is Required
+                  <span className="text-[18px] text-error">
+                    {currentLanguage === "ar"
+                      ? "المؤهل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "La qualification est requise"
+                        : "Qualification is Required"}
                   </span>
                 )}
               </label>
@@ -342,7 +556,11 @@ const EditEmployee: React.FC<ViewEmpolyeeProps> = ({ params }) => {
                 htmlFor="hireDate"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                hireDate
+                {currentLanguage === "ar"
+                  ? "تاريخ التوظيف"
+                  : currentLanguage === "fr"
+                    ? "Date d'embauche"
+                    : "hireDate"}
                 <input
                   id="hireDate"
                   type="date"
@@ -350,14 +568,24 @@ const EditEmployee: React.FC<ViewEmpolyeeProps> = ({ params }) => {
                   {...register("hireDate", { required: true })}
                 />
                 {errors.hireDate && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="number"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Mobile
+                {currentLanguage === "ar"
+                  ? "الموبايل"
+                  : currentLanguage === "fr"
+                    ? "Mobile"
+                    : "Mobile"}
                 <input
                   id="number"
                   type="text"
@@ -365,14 +593,24 @@ const EditEmployee: React.FC<ViewEmpolyeeProps> = ({ params }) => {
                   {...register("number", { required: true })}
                 />
                 {errors.number && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="positionId"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Position Id
+                {currentLanguage === "ar"
+                  ? "معرف الوظيفة"
+                  : currentLanguage === "fr"
+                    ? "ID du poste"
+                    : "Position Id"}
                 <input
                   id="positionId"
                   type="number"
@@ -380,56 +618,130 @@ const EditEmployee: React.FC<ViewEmpolyeeProps> = ({ params }) => {
                   {...register("positionId", { required: true })}
                 />
                 {errors.positionId && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="employeeStatus"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Employee Status
+                {currentLanguage === "ar"
+                  ? "حالة الموظف"
+                  : currentLanguage === "fr"
+                    ? "Statut de l'employé"
+                    : "Employee Status"}
                 <select
                   id="employeeStatus"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("employeeStatus", { required: true })}
                 >
                   <option selected value="">
-                    Select Employee Status
+                    {currentLanguage === "ar"
+                      ? "اختر حالة الموظف"
+                      : currentLanguage === "fr"
+                        ? "Sélectionnez le statut de l'employé"
+                        : "Select Employee Status"}
                   </option>
-                  <option value="ACTIVE">Active </option>
-                  <option value="ON_BREAK">On Break </option>
-                  <option value="STAY_OUT">Stay Out </option>
+                  <option value="ACTIVE">
+                    {currentLanguage === "ar"
+                      ? "نشط"
+                      : currentLanguage === "fr"
+                        ? "Actif"
+                        : "Active"}
+                  </option>
+                  <option value="ON_BREAK">
+                    {currentLanguage === "ar"
+                      ? "استراحة"
+                      : currentLanguage === "fr"
+                        ? "En pause"
+                        : "On Break"}
+                  </option>
+                  <option value="STAY_OUT">
+                    {currentLanguage === "ar"
+                      ? "مغادر"
+                      : currentLanguage === "fr"
+                        ? "Absent"
+                        : "Stay Out"}
+                  </option>
                 </select>
                 {errors.employeeStatus && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="employeeType"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Employee Type
+                {currentLanguage === "ar"
+                  ? "نوع الموظف"
+                  : currentLanguage === "fr"
+                    ? "Type d'employé"
+                    : "Employee Type"}
                 <select
                   id="employeeType"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("employeeType", { required: true })}
                 >
                   <option selected value="">
-                    Select Employee Type
+                    {currentLanguage === "ar"
+                      ? "اختر نوع الموظف"
+                      : currentLanguage === "fr"
+                        ? "Sélectionnez le type d'employé"
+                        : "Select Employee Type"}
                   </option>
-                  <option value="EMPLOYEE">EMPLOYEE </option>
-                  <option value="WORKER">WORKER </option>
-                  <option value="DRIVER">DRIVER </option>
+                  <option value="EMPLOYEE">
+                    {currentLanguage === "ar"
+                      ? "موظف"
+                      : currentLanguage === "fr"
+                        ? "EMPLOYÉ"
+                        : "EMPLOYEE"}
+                  </option>
+                  <option value="WORKER">
+                    {currentLanguage === "ar"
+                      ? "عامل"
+                      : currentLanguage === "fr"
+                        ? "TRAVAILLEUR"
+                        : "WORKER"}
+                  </option>
+                  <option value="DRIVER">
+                    {currentLanguage === "ar"
+                      ? "سائق"
+                      : currentLanguage === "fr"
+                        ? "CHAUFFEUR"
+                        : "DRIVER"}
+                  </option>
                 </select>
                 {errors.employeeType && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
               <label
                 htmlFor="salary"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                Salary
+                {currentLanguage === "ar"
+                  ? "الراتب"
+                  : currentLanguage === "fr"
+                    ? "Salaire"
+                    : "Salary"}
                 <input
                   id="salary"
                   type="number"
@@ -437,7 +749,13 @@ const EditEmployee: React.FC<ViewEmpolyeeProps> = ({ params }) => {
                   {...register("salary", { required: true })}
                 />
                 {errors.salary && (
-                  <span className="text-red-600">This field is required</span>
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                  </span>
                 )}
               </label>
             </div>
@@ -448,9 +766,13 @@ const EditEmployee: React.FC<ViewEmpolyeeProps> = ({ params }) => {
                 <button
                   disabled={isLoading}
                   type="submit"
-                  className="w-[180px] rounded-xl bg-[#3E5AF0] px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                  className="w-[180px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                 >
-                  Edit Employee
+                  {currentLanguage === "ar"
+                    ? "تعديل الموظف"
+                    : currentLanguage === "fr"
+                      ? "Modifier l'employé"
+                      : "Edit Employee"}
                 </button>
               )}
             </div>
