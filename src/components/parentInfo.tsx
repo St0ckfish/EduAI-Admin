@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import Link from "next/link";
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { RootState } from "@/GlobalRedux/store";
 
 const ParentInfo = ({ data }: { data: any }) => {
   const currentLanguage = useSelector(
