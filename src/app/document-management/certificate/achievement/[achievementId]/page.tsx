@@ -13,6 +13,9 @@ interface ViewDriverProps {
   };
 }
 const ViewAchievement: React.FC<ViewDriverProps> = ({ params }) => {
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const { data, error, isLoading } = useGetAchievementByIdQuery(
     params.achievementId,
