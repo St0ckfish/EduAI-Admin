@@ -5,7 +5,7 @@ import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import { RiFileList2Line } from "react-icons/ri"; // Report
 import { AiOutlineSafetyCertificate } from "react-icons/ai"; // Permission
-import { FaCalendarAlt, FaUmbrellaBeach } from "react-icons/fa"; // Semester, Annual Leave
+import { FaCalendarAlt, FaClock, FaExclamationTriangle, FaTasks, FaUmbrellaBeach } from "react-icons/fa"; // Semester, Annual Leave
 import { MdBusiness, MdWorkOutline } from "react-icons/md"; // Department, Position
 import BreadCrumbs from "@/components/BreadCrumbs";
 
@@ -148,6 +148,66 @@ const OrganizationSettings = () => {
             ? "كل الإجازات السنوية"
             : currentLanguage === "fr"
               ? "Tous les congés annuels"
+              : "All Annual Leave", // Default to English
+    },
+    {
+      href: "/organization-setting/complaint",
+      icon: <FaExclamationTriangle size={40} />,
+      title:
+        currentLanguage === "en"
+          ? "Complaint"
+          : currentLanguage === "ar"
+            ? "شكوى "
+            : currentLanguage === "fr"
+              ? "Plainte"
+              : "Plainte", // Default to English
+      description:
+        currentLanguage === "en"
+          ? "Some Information about the complaint each parent and teacher"
+          : currentLanguage === "ar"
+            ? "بعض المعلومات حول الشكوى لكل ولي أمر ومعلم"
+            : currentLanguage === "fr"
+              ? "Quelques informations sur la plainte de chaque parent et enseignant"
+              : "All Annual Leave", // Default to English
+    },
+    {
+      href: "/organization-setting/payment",
+      icon: <FaClock size={40} />,
+      title:
+        currentLanguage === "en"
+          ? "Payment  Due Date"
+          : currentLanguage === "ar"
+            ? "تاريخ استحقاق الدفع "
+            : currentLanguage === "fr"
+              ? "Date d'échéance du paiement"
+              : "Date d'échéance du paiement", // Default to English
+      description:
+        currentLanguage === "en"
+          ? "Payment due date for tuition ,activity ,transport ,uniform and Material"
+          : currentLanguage === "ar"
+            ? "تاريخ استحقاق الدفع للرسوم الدراسية، النشاط، النقل، الزي الرسمي، والمواد"
+            : currentLanguage === "fr"
+              ? "Date d'échéance du paiement pour les frais de scolarité, l'activité, le transport, l'uniforme et le matériel"
+              : "All Annual Leave", // Default to English
+    },
+    {
+      href: "/organization-setting/exams",
+      icon: <FaTasks size={40} />,
+      title:
+        currentLanguage === "en"
+          ? "Exam Type"
+          : currentLanguage === "ar"
+            ? "نوع الامتحان "
+            : currentLanguage === "fr"
+              ? "Type d'examen"
+              : "Type d'examen", // Default to English
+      description:
+        currentLanguage === "en"
+          ? "Some information about Exam type "
+          : currentLanguage === "ar"
+            ? "بعض المعلومات حول الامتحانات"
+            : currentLanguage === "fr"
+              ? "Quelques informations sur le type d'examen"
               : "All Annual Leave", // Default to English
     },
   ];
