@@ -26,7 +26,8 @@ const MLExam = () => {
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div className="lg:ml-[270px]">
-        <div className="justify-left mb-5 ml-4 mt-10 flex gap-5 text-[20px] font-semibold">
+      <div className="grid overflow-x-auto">
+      <div className="justify-left mb-5 ml-4 mt-10 flex gap-5 overflow-x-auto text-nowrap text-[20px] font-semibold">
           <Link href="/insight">
             {currentLanguage === "en"
               ? "Student Performance"
@@ -64,6 +65,7 @@ const MLExam = () => {
                   : "ML Exam Performance"}
           </Link>
         </div>
+      </div>
       </div>
     </>
   );
