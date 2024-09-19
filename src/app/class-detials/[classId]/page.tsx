@@ -1,6 +1,8 @@
 import Calendar from "@/components/calendar";
 import CircleProgress from "@/components/circleProgress";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import { RootState } from "@/GlobalRedux/store";
+import { useSelector } from "react-redux";
 
 interface ViewDriverProps {
   params: {
@@ -28,6 +30,9 @@ const classDetails: React.FC<ViewDriverProps> = ({ params }) => {
       href: `/class-detials/${params.classId}`,
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
