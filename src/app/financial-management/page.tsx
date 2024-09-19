@@ -8,6 +8,10 @@ import {
   FaWallet,
   FaBuilding,
   FaMoneyBill,
+  FaReceipt,
+  FaFileInvoice,
+  FaCalculator,
+  FaSchool,
 } from "react-icons/fa";
 import BreadCrumbs from "@/components/BreadCrumbs";
 
@@ -38,20 +42,40 @@ const FinancialManagement = () => {
       icon: <FaDollarSign size={40} />,
       title:
         currentLanguage === "en"
-          ? "Fees"
+          ? "Invoices"
           : currentLanguage === "ar"
-            ? "الرسوم"
+            ? "الفواتير"
             : currentLanguage === "fr"
-              ? "Frais"
+              ? "Factures"
               : "Fees",
       description:
         currentLanguage === "en"
-          ? "All invoices and scholarship"
+          ? "All invoices"
           : currentLanguage === "ar"
-            ? "جميع الفواتير والمنح الدراسية"
+            ? "جميع الفواتير  "
             : currentLanguage === "fr"
-              ? "Toutes les factures et bourses"
-              : "All invoices and scholarship",
+              ? "Toutes les factures"
+              : "All invoices ",
+    },
+    {
+      href: "/fees-management/scholarship",
+      icon: <FaSchool size={40} />,
+      title:
+        currentLanguage === "en"
+          ? "Scholarship"
+          : currentLanguage === "ar"
+            ? "المنح الدراسية"
+            : currentLanguage === "fr"
+              ? "Bourses"
+              : "Fees",
+      description:
+        currentLanguage === "en"
+          ? "All scholarships"
+          : currentLanguage === "ar"
+            ? "جميع المنح الدراسية"
+            : currentLanguage === "fr"
+              ? "Toutes les bourses"
+              : "All scholarship",
     },
     {
       href: "/financial-management/budget",
@@ -104,6 +128,26 @@ const FinancialManagement = () => {
             : currentLanguage === "fr"
               ? "Paiement"
               : "Paiement", // Default to English
+      description:
+        currentLanguage === "en"
+          ? "Payment Request and Setting"
+          : currentLanguage === "ar"
+            ? "طلب الدفع والاعدادات"
+            : currentLanguage === "fr"
+              ? "Demande de paiement, Paramètre"
+              : "Demande de paiement, Paramètre", // Default to English
+    },
+    {
+      href: "/financial-management/taxes",
+      icon: <FaCalculator size={40} />,
+      title:
+        currentLanguage === "en"
+          ? "Taxes"
+          : currentLanguage === "ar"
+            ? "الضرائب"
+            : currentLanguage === "fr"
+              ? "Impôts"
+              : "Impôts", // Default to English
       description:
         currentLanguage === "en"
           ? "Payment Request and Setting"

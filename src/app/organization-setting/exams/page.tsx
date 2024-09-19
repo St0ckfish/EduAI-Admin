@@ -1,6 +1,8 @@
+import Soon from "@/components/soon";
+
 const Exams = () => {
   return ( 
-    <></>
+    <><Soon/></>
    );
 }
  
