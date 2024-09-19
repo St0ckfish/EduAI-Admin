@@ -10,8 +10,13 @@ import {
 } from "@/features/loginApi";
 import Cookie from "js-cookie";
 import { toast } from "react-toastify";
+import { RootState } from "@/GlobalRedux/store";
+import { useSelector } from "react-redux";
 
 const OTP = () => {
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
@@ -52,17 +57,35 @@ const OTP = () => {
     try {
       await sendOtp({ code, email }).unwrap();
       Cookie.set("otp", code);
-      toast.success("OTP verified successfully!");
+      toast.success(
+        currentLanguage === "ar"
+          ? "تم التحقق من OTP بنجاح!"
+          : currentLanguage === "fr"
+            ? "OTP vérifié avec succès !"
+            : "OTP verified successfully!",
+      );
       router.replace("/new-password");
     } catch (error) {
-      toast.error("Failed to verify OTP. Please try again.");
+      toast.error(
+        currentLanguage === "ar"
+          ? "فشل في التحقق من OTP. يرجى المحاولة مرة أخرى."
+          : currentLanguage === "fr"
+            ? "Échec de la vérification de l'OTP. Veuillez réessayer."
+            : "Failed to verify OTP. Please try again.",
+      );
     }
   };
   const [selectAccount] = useSelectAccoutMutation();
   const SendOtpAgian = async () => {
     const UserId = Cookie.get("userId");
     await selectAccount({ id: UserId, email: email }).unwrap();
-    toast.success("Reset password email generated and sent successfully");
+    toast.success(
+      currentLanguage === "ar"
+        ? "تم إنشاء وإرسال بريد إعادة تعيين كلمة المرور بنجاح"
+        : currentLanguage === "fr"
+          ? "Email de réinitialisation du mot de passe généré et envoyé avec succès"
+          : "Reset password email generated and sent successfully",
+    );
   };
 
   const formatTime = (seconds: number) => {
@@ -77,7 +100,11 @@ const OTP = () => {
         <div className="grid items-center justify-center text-center">
           <div className="mb-10 grid">
             <h1 className="font-sans text-[28px] font-bold text-primary">
-              Check your Email
+              {currentLanguage === "ar"
+                ? "تحقق من بريدك الإلكتروني"
+                : currentLanguage === "fr"
+                  ? "Vérifiez votre email"
+                  : "Check your Email"}
             </h1>
             <p className="font-sans text-[20px] font-semibold text-secondary">{`OTP code has been sent to ${email}`}</p>
           </div>
@@ -106,7 +133,11 @@ const OTP = () => {
                     type="submit"
                     className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] font-bold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                   >
-                    Verify
+                    {currentLanguage === "ar"
+                      ? "تحقق"
+                      : currentLanguage === "fr"
+                        ? "Vérifier"
+                        : "Verify"}
                   </button>
                   <p className="font-sans text-[17px] font-semibold text-warning">{`${formatTime(timer)}`}</p>
                   <button
@@ -117,7 +148,11 @@ const OTP = () => {
                     type="button"
                     className="w-[140px] rounded-xl border-2 border-primary px-4 py-2 text-[18px] font-bold text-primary duration-300 ease-in hover:shadow-xl"
                   >
-                    Send Again
+                    {currentLanguage === "ar"
+                      ? "أرسل مرة أخرى"
+                      : currentLanguage === "fr"
+                        ? "Envoyer à nouveau"
+                        : "Send Again"}
                   </button>
                 </div>
               )}

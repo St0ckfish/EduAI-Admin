@@ -31,7 +31,7 @@ const Chat = () => {
   };
 
   return (
-    <div className="lg:ml-[270px] mt-10">
+    <div className="mt-10 lg:ml-[270px]">
       {/* <button onClick={handleOpenRegister} className="mr-4 bg-blue-500 text-white p-2 rounded">
         Register
       </button>
@@ -48,7 +48,7 @@ const Chat = () => {
           <LoginForm onClose={handleCloseModal} />
         )}
       </Modal> */}
-      <div className='rounded-xl'>
+      <div className="rounded-xl">
         <ChatPage />
       </div>
     </div>

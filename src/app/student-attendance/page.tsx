@@ -226,7 +226,8 @@ const StudentAttendance = () => {
                         ? "الطالب"
                         : currentLanguage === "fr"
                           ? "Étudiant"
-                          : "Student"}: {student.studentId}
+                          : "Student"}
+                      : {student.studentId}
                     </p>
                   </div>
                 </div>

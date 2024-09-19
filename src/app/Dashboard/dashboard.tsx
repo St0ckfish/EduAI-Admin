@@ -230,30 +230,51 @@ const Dashboard: React.FC = () => {
     <div className="mr-10 grid w-full justify-center overflow-x-auto p-6">
       <div className="grid overflow-x-auto">
         <div className="mb-6 flex w-full justify-evenly gap-4 whitespace-nowrap max-[812px]:justify-center max-[576px]:h-[120px]">
-          <div className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]">
+          <div
+            dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+            className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]"
+          >
             <p className="text-[12px] text-textSecondary">
               {students?.message}{" "}
             </p>
             <h1 className="text-[17px] font-semibold">{students?.data} 🧑‍🎓</h1>
           </div>
-          <div className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]">
+          <div
+            dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+            className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]"
+          >
             <p className="text-[12px] text-textSecondary">
               {employees?.message}
             </p>
             <h1 className="text-[17px] font-semibold">{employees?.data} 👨‍💼</h1>
           </div>
-          <div className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]">
+          <div
+            dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+            className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]"
+          >
             <p className="text-[12px] text-textSecondary">
               {teachers?.message}
             </p>
             <h1 className="text-[17px] font-semibold">{teachers?.data} 👨‍🏫</h1>
           </div>
-          <div className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]">
+          <div
+            dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+            className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]"
+          >
             <p className="text-[12px] text-textSecondary">{workers?.message}</p>
             <h1 className="text-[17px] font-semibold">{workers?.data} 🧑‍🏭</h1>
           </div>
-          <div className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]">
-            <p className="text-[12px] text-textSecondary">Events</p>
+          <div
+            dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+            className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]"
+          >
+            <p className="text-[12px] text-textSecondary">
+              {currentLanguage === "ar"
+                ? "الأحداث"
+                : currentLanguage === "fr"
+                  ? "Événements"
+                  : "Events"}
+            </p>
             <h1 className="text-[17px] font-semibold">
               {events?.data}⏰{" "}
               {currentLanguage === "en"
@@ -274,7 +295,10 @@ const Dashboard: React.FC = () => {
             id="chart"
             className="w-[850px] overflow-x-auto rounded-xl bg-bgPrimary p-2 shadow-xl"
           >
-            <p className="text-[18px] font-semibold">
+            <p
+              dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+              className="pb-3 text-[18px] font-semibold"
+            >
               {" "}
               {currentLanguage === "en"
                 ? "School Finance"
@@ -298,10 +322,11 @@ const Dashboard: React.FC = () => {
             <div className="grid w-[550px] items-center justify-center overflow-x-auto rounded-2xl bg-bgPrimary p-2 shadow-xl max-[1536px]:h-[450px] max-[1536px]:w-[850px]">
               {mettings?.data.content.map((meeting: Meeting) => (
                 <div
+                  dir={currentLanguage === "ar" ? "rtl" : "ltr"}
                   key={meeting.id}
                   className="flex items-center justify-evenly"
                 >
-                  <div className="mr-3 h-[75px] w-[66px] items-center justify-center rounded-xl bg-[#F9DCA4] p-2 text-center">
+                  <div className="mx-3 h-[75px] w-[66px] items-center justify-center rounded-xl bg-[#F9DCA4] p-2 text-center">
                     <h1 className="text-[18px] font-semibold text-warning">
                       {format(parseISO(meeting.startDate), "d")}
                     </h1>
@@ -326,8 +351,12 @@ const Dashboard: React.FC = () => {
                       {format(parseISO(meeting.startDate), "hh:mm a")} -{" "}
                       {format(parseISO(meeting.endDate), "hh:mm a")}
                     </p>
-                    <p className="text-[16px] text-gray-600">
-                      23 Intersted in the event
+                    <p className="mx-2 text-[16px] text-gray-600">
+                      {currentLanguage === "ar"
+                        ? "23 مهتم بالحدث"
+                        : currentLanguage === "fr"
+                          ? "23 intéressés par l'événement"
+                          : "23 Interested in the event"}
                     </p>
                   </div>
                 </div>
@@ -348,15 +377,26 @@ const Dashboard: React.FC = () => {
                   onClick={handleOpenModal}
                   className="mr-3 w-[120px] whitespace-nowrap rounded-xl bg-primary px-1 py-1.5 text-[14px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
                 >
-                  + New Event
+                  {currentLanguage === "ar"
+                    ? "+ حدث جديد"
+                    : currentLanguage === "fr"
+                      ? "+ Nouvel événement"
+                      : "+ New Event"}
                 </button>
               </div>
-              <div className="flex justify-end text-end">
+              <div
+                dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+                className="flex justify-end text-end"
+              >
                 <Link
                   href="/educational-affairs/events"
                   className="font-semibold text-primary underline"
                 >
-                  More Events
+                  {currentLanguage === "ar"
+                    ? "المزيد من الأحداث"
+                    : currentLanguage === "fr"
+                      ? "Plus d'événements"
+                      : "More Events"}
                 </Link>
               </div>
             </div>
@@ -384,7 +424,10 @@ const Dashboard: React.FC = () => {
              */}
           </div>
         </div>
-        <div className="grid overflow-x-auto rounded-xl">
+        <div
+          dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+          className="grid overflow-x-auto rounded-xl"
+        >
           <div className="grid h-[500px] w-[550px] overflow-x-auto overflow-y-auto rounded-xl bg-bgPrimary p-2 shadow-xl max-[1536px]:w-full">
             <div className="flex w-full justify-between">
               <p className="text-[20px] font-bold">
@@ -461,7 +504,13 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-        <h2 className="mb-4 text-xl font-light">Create Event</h2>
+        <h2 className="mb-4 text-xl font-light">
+          {currentLanguage === "ar"
+            ? "إنشاء حدث"
+            : currentLanguage === "fr"
+              ? "Créer un événement"
+              : "Create Event"}
+        </h2>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="grid grid-cols-2 gap-5"
@@ -604,13 +653,21 @@ const Dashboard: React.FC = () => {
               type="submit"
               className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
-              Add
+              {currentLanguage === "ar"
+                ? "إضافة"
+                : currentLanguage === "fr"
+                  ? "Ajouter"
+                  : "Add"}
             </button>
             <button
               onClick={handleCloseModal}
               className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-error px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-warning hover:shadow-xl"
             >
-              Cancel
+              {currentLanguage === "ar"
+                ? "إلغاء"
+                : currentLanguage === "fr"
+                  ? "Annuler"
+                  : "Cancel"}
             </button>
           </div>
         </form>

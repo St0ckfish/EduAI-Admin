@@ -25,7 +25,7 @@ import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { FaThumbsUp } from "react-icons/fa";
 import BreadCrumbs from "@/components/BreadCrumbs";
-import { FaComment } from 'react-icons/fa';
+import { FaComment } from "react-icons/fa";
 
 const News = () => {
   const breadcrumbs = [
@@ -339,13 +339,15 @@ const News = () => {
                     onClick={() => toggleNavbar2(index)}
                     className="flex gap-2"
                   >
-                    <FaComment size={20} className="text-textSecondary mt-[2px]" />
+                    <FaComment
+                      size={20}
+                      className="mt-[2px] text-textSecondary"
+                    />
                     {currentLanguage === "ar"
                       ? "تعليق"
                       : currentLanguage === "fr"
                         ? "Commentaire"
                         : "Comment"}
-
                   </button>
                 </div>
               </div>
@@ -396,19 +398,19 @@ const News = () => {
                           comment: {
                             creatorName: ReactNode;
                             comment:
-                            | string
-                            | number
-                            | bigint
-                            | boolean
-                            | ReactElement<
-                              any,
-                              string | JSXElementConstructor<any>
-                            >
-                            | Iterable<ReactNode>
-                            | ReactPortal
-                            | Promise<AwaitedReactNode>
-                            | null
-                            | undefined;
+                              | string
+                              | number
+                              | bigint
+                              | boolean
+                              | ReactElement<
+                                  any,
+                                  string | JSXElementConstructor<any>
+                                >
+                              | Iterable<ReactNode>
+                              | ReactPortal
+                              | Promise<AwaitedReactNode>
+                              | null
+                              | undefined;
                           },
                           index: number,
                         ) => (

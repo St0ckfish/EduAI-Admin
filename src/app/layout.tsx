@@ -32,7 +32,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
   }, []);
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="ar" suppressHydrationWarning>
       <head>
         <title>Edu AI-Admin</title>
         <meta name="description" content="Edu AI-Admin" />

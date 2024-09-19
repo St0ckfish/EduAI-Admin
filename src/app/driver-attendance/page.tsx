@@ -290,7 +290,8 @@ const DriverAttendance = () => {
                         ? "السائق"
                         : currentLanguage === "fr"
                           ? "Chauffeur"
-                          : "Driver"}: {driver.userId}
+                          : "Driver"}
+                      : {driver.userId}
                     </p>
                   </div>
                 </div>

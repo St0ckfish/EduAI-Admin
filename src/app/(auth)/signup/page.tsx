@@ -13,6 +13,8 @@ import {
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import React, { useEffect, useState } from "react";
+import { RootState } from "@/GlobalRedux/store";
+import { useSelector } from "react-redux";
 
 // Define the validation schema using Zod
 const signupSchema = z.object({
@@ -36,6 +38,9 @@ const signupSchema = z.object({
 });
 
 const Signup = () => {
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const router = useRouter();
   const [step, setStep] = useState(1);
   const handleNext = () => setStep(step + 1);
@@ -71,17 +76,35 @@ const Signup = () => {
     try {
       const result = await loginDashboard(data).unwrap();
       console.log("Account created successfully:", result);
-      toast.success("Account created successfully");
+      toast.success(
+        currentLanguage === "ar"
+          ? "تم إنشاء الحساب بنجاح"
+          : currentLanguage === "fr"
+            ? "Compte créé avec succès"
+            : "Account created successfully",
+      );
       router.replace("/login");
     } catch (err) {
-      toast.error((err as any).data?.message || "Failed to create account");
+      toast.error(
+        (err as any).data?.message || currentLanguage === "ar"
+          ? "فشل في إنشاء الحساب"
+          : currentLanguage === "fr"
+            ? "Échec de la création du compte"
+            : "Failed to create account",
+      );
       console.error("Failed to create account:", err);
     }
   };
 
   useEffect(() => {
     if (Object.keys(errors).length > 0) {
-      toast.warn("Please complete all required inputs");
+      toast.warn(
+        currentLanguage === "ar"
+          ? "يرجى إكمال جميع الحقول المطلوبة"
+          : currentLanguage === "fr"
+            ? "Veuillez compléter tous les champs requis"
+            : "Please complete all required inputs",
+      );
     }
   }, [errors]);
 
@@ -105,10 +128,18 @@ const Signup = () => {
           </div>
           <div className="mb-5 grid">
             <h1 className="font-sans text-[28px] font-bold text-primary">
-              Sign Up
+              {currentLanguage === "ar"
+                ? "التسجيل"
+                : currentLanguage === "fr"
+                  ? "S'inscrire"
+                  : "Sign Up"}
             </h1>
             <p className="font-sans text-[20px] font-semibold text-secondary">
-              Sign up to enjoy the application
+              {currentLanguage === "ar"
+                ? "سجل للاستمتاع بالتطبيق"
+                : currentLanguage === "fr"
+                  ? "Inscrivez-vous pour profiter de l'application"
+                  : "Sign up to enjoy the application"}
             </p>
           </div>
           <div className="grid items-center justify-center">
@@ -122,13 +153,23 @@ const Signup = () => {
                     <input
                       id="username"
                       {...register("username", { required: true })}
-                      placeholder=" username"
+                      placeholder={
+                        currentLanguage === "ar"
+                          ? "اسم المستخدم"
+                          : currentLanguage === "fr"
+                            ? "Nom d'utilisateur"
+                            : "username"
+                      }
                       className={`rounded-xl border px-4 py-3 ${errors.username ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                       type="text"
                     />
                     {errors.username && (
                       <span className="text-[13px] text-error">
-                        Username is Required
+                        {currentLanguage === "ar"
+                          ? "اسم المستخدم مطلوب"
+                          : currentLanguage === "fr"
+                            ? "Le nom d'utilisateur est requis"
+                            : "Username is Required"}
                       </span>
                     )}
                   </label>
@@ -139,13 +180,23 @@ const Signup = () => {
                     <input
                       id="email"
                       {...register("email", { required: true })}
-                      placeholder=" email"
+                      placeholder={
+                        currentLanguage === "ar"
+                          ? "البريد الإلكتروني"
+                          : currentLanguage === "fr"
+                            ? "Email"
+                            : "email"
+                      }
                       className={`rounded-xl border px-4 py-3 ${errors.email ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                       type="email"
                     />
                     {errors.email && (
                       <span className="text-[13px] text-error">
-                        Email is Required
+                        {currentLanguage === "ar"
+                          ? "البريد الإلكتروني مطلوب"
+                          : currentLanguage === "fr"
+                            ? "L'email est requis"
+                            : "Email is Required"}
                       </span>
                     )}
                   </label>
@@ -156,14 +207,23 @@ const Signup = () => {
                     <input
                       id="password"
                       {...register("password", { required: true })}
-                      placeholder=" password"
+                      placeholder={
+                        currentLanguage === "ar"
+                          ? "كلمة المرور"
+                          : currentLanguage === "fr"
+                            ? "Mot de passe"
+                            : "Password"
+                      }
                       className={`rounded-xl border px-4 py-3 ${errors.password ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                       type="password"
                     />
                     {errors.password && (
                       <span className="text-[13px] text-error">
-                        Password must be at least 8 characters long 123 (@_#*&)
-                        A_Z a_z
+                        {currentLanguage === "ar"
+                          ? "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل 123 (@_#*&). تشمل الأحرف الكبيرة والصغيرة A-Z a-z"
+                          : currentLanguage === "fr"
+                            ? "Le mot de passe doit comporter au moins 8 caractères 123 (@_#*&). Inclut les majuscules et les minuscules A-Z a-z"
+                            : "Password must be at least 8 characters long 123 (@_#*&). Includes uppercase and lowercase letters A-Z a-z"}
                       </span>
                     )}
                   </label>
@@ -180,7 +240,11 @@ const Signup = () => {
                     />
                     {errors.nid && (
                       <span className="text-[13px] text-error">
-                        NID is Required
+                        {currentLanguage === "ar"
+                          ? "الرقم القومي مطلوب"
+                          : currentLanguage === "fr"
+                            ? "NID est requis"
+                            : "NID is Required"}
                       </span>
                     )}
                   </label>
@@ -201,13 +265,21 @@ const Signup = () => {
                         <path stroke="none" d="M0 0h24v24H0z" />{" "}
                         <polyline points="15 6 9 12 15 18" />
                       </svg>
-                      Previous
+                      {currentLanguage === "ar"
+                        ? "السابق"
+                        : currentLanguage === "fr"
+                          ? "Précédent"
+                          : "Previous"}
                     </p>
                     <button
                       className="flex w-[120px] items-center justify-center gap-2 rounded-xl bg-primary px-3 py-2 font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                       onClick={handleNext}
                     >
-                      Next
+                      {currentLanguage === "ar"
+                        ? "التالي"
+                        : currentLanguage === "fr"
+                          ? "Suivant"
+                          : "Next"}
                       <svg
                         className="h-5 w-5"
                         viewBox="0 0 24 24"
@@ -237,7 +309,11 @@ const Signup = () => {
                       className={`rounded-xl border px-4 py-3 ${errors.regionId ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                     >
                       <option selected value="">
-                        Select Region Id{" "}
+                        {currentLanguage === "ar"
+                          ? "اختر معرف المنطقة"
+                          : currentLanguage === "fr"
+                            ? "Sélectionnez l'ID de région"
+                            : "Select Region Id"}
                       </option>
                       {rigiond &&
                         rigiond.data.map(
@@ -273,7 +349,11 @@ const Signup = () => {
                     </select>
                     {errors.regionId && (
                       <span className="text-[13px] text-error">
-                        regionId is Required
+                        {currentLanguage === "ar"
+                          ? "معرف المنطقة مطلوب"
+                          : currentLanguage === "fr"
+                            ? "L'ID de région est requis"
+                            : "regionId is Required"}
                       </span>
                     )}
                   </label>
@@ -288,14 +368,35 @@ const Signup = () => {
                       className={`rounded-xl border px-4 py-3 ${errors.gender ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                     >
                       <option selected value="">
-                        Select gender{" "}
+                        {currentLanguage === "ar"
+                          ? "اختر الجنس"
+                          : currentLanguage === "fr"
+                            ? "Sélectionnez le sexe"
+                            : "Select gender"}
                       </option>
-                      <option value="MALE">Male </option>
-                      <option value="FEMALE">Female </option>
+                      <option value="MALE">
+                        {currentLanguage === "ar"
+                          ? "ذكر"
+                          : currentLanguage === "fr"
+                            ? "Homme"
+                            : "Male"}
+                      </option>
+
+                      <option value="FEMALE">
+                        {currentLanguage === "ar"
+                          ? "أنثى"
+                          : currentLanguage === "fr"
+                            ? "Femme"
+                            : "Female"}
+                      </option>
                     </select>
                     {errors.gender && (
                       <span className="text-[13px] text-error">
-                        Gender is Required
+                        {currentLanguage === "ar"
+                          ? "الجنس مطلوب"
+                          : currentLanguage === "fr"
+                            ? "Le sexe est requis"
+                            : "Gender is Required"}
                       </span>
                     )}
                   </label>
@@ -310,15 +411,41 @@ const Signup = () => {
                       className={`rounded-xl border px-4 py-3 ${errors.religion ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                     >
                       <option selected value="">
-                        Select religion{" "}
+                        {currentLanguage === "ar"
+                          ? "اختر الدين"
+                          : currentLanguage === "fr"
+                            ? "Sélectionnez la religion"
+                            : "Select religion"}
                       </option>
-                      <option value="MUSLIM">Muslim </option>
-                      <option value="CHRISTIAN">Christian </option>
-                      <option value="OTHERS">Others </option>
+                      <option value="MUSLIM">
+                        {currentLanguage === "ar"
+                          ? "مسلم"
+                          : currentLanguage === "fr"
+                            ? "Musulman"
+                            : "Muslim"}
+                      </option>
+                      <option value="CHRISTIAN">
+                        {currentLanguage === "ar"
+                          ? "مسيحي"
+                          : currentLanguage === "fr"
+                            ? "Chrétien"
+                            : "Christian"}
+                      </option>
+                      <option value="OTHERS">
+                        {currentLanguage === "ar"
+                          ? "أخرى"
+                          : currentLanguage === "fr"
+                            ? "Autres"
+                            : "Others"}
+                      </option>
                     </select>
                     {errors.religion && (
                       <span className="text-[13px] text-error">
-                        Religion is Required
+                        {currentLanguage === "ar"
+                          ? "الدين مطلوب"
+                          : currentLanguage === "fr"
+                            ? "La religion est requise"
+                            : "Religion is Required"}
                       </span>
                     )}
                   </label>
@@ -329,13 +456,23 @@ const Signup = () => {
                     <input
                       id="number"
                       {...register("number", { required: true })}
-                      placeholder=" number"
+                      placeholder={
+                        currentLanguage === "ar"
+                          ? "رقم"
+                          : currentLanguage === "fr"
+                            ? "Numéro"
+                            : "Number"
+                      }
                       className={`rounded-xl border px-4 py-3 ${errors.number ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                       type="number"
                     />
                     {errors.number && (
                       <span className="text-[13px] text-error">
-                        number is Required
+                        {currentLanguage === "ar"
+                          ? "الرقم مطلوب"
+                          : currentLanguage === "fr"
+                            ? "Le numéro est requis"
+                            : "number is Required"}
                       </span>
                     )}
                   </label>
@@ -359,13 +496,21 @@ const Signup = () => {
                         <path stroke="none" d="M0 0h24v24H0z" />{" "}
                         <polyline points="15 6 9 12 15 18" />
                       </svg>
-                      Previous
+                      {currentLanguage === "ar"
+                        ? "السابق"
+                        : currentLanguage === "fr"
+                          ? "Précédent"
+                          : "Previous"}
                     </button>
                     <button
                       className="flex w-[120px] items-center justify-center gap-2 rounded-xl bg-primary px-3 py-2 font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                       onClick={handleNext}
                     >
-                      Next
+                      {currentLanguage === "ar"
+                        ? "التالي"
+                        : currentLanguage === "fr"
+                          ? "Suivant"
+                          : "Next"}
                       <svg
                         className="h-5 w-5"
                         viewBox="0 0 24 24"
@@ -395,7 +540,11 @@ const Signup = () => {
                       className={`rounded-xl border px-4 py-3 ${errors.nationality ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                     >
                       <option selected value="">
-                        Select Nationality{" "}
+                        {currentLanguage === "ar"
+                          ? "اختر الجنسية"
+                          : currentLanguage === "fr"
+                            ? "Sélectionnez la nationalité"
+                            : "Select Nationality"}
                       </option>
                       {nationalityData &&
                         Object.entries(nationalityData.data).map(
@@ -408,7 +557,11 @@ const Signup = () => {
                     </select>
                     {errors.nationality && (
                       <span className="text-[13px] text-error">
-                        Nationality is Required
+                        {currentLanguage === "ar"
+                          ? "الجنسية مطلوبة"
+                          : currentLanguage === "fr"
+                            ? "La nationalité est requise"
+                            : "Nationality is Required"}
                       </span>
                     )}
                   </label>
@@ -423,15 +576,41 @@ const Signup = () => {
                       className={`rounded-xl border px-4 py-3 ${errors.employeeType ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                     >
                       <option selected value="">
-                        Select religion{" "}
+                        {currentLanguage === "ar"
+                          ? "اختر الدين"
+                          : currentLanguage === "fr"
+                            ? "Sélectionnez la religion"
+                            : "Select religion"}
                       </option>
-                      <option value="EMPLOYEE">Employee </option>
-                      <option value="DRIVER">Driver </option>
-                      <option value="WORKER">Worker </option>
+                      <option value="EMPLOYEE">
+                        {currentLanguage === "ar"
+                          ? "موظف"
+                          : currentLanguage === "fr"
+                            ? "Employé"
+                            : "Employee"}
+                      </option>
+                      <option value="DRIVER">
+                        {currentLanguage === "ar"
+                          ? "سائق"
+                          : currentLanguage === "fr"
+                            ? "Chauffeur"
+                            : "Driver"}
+                      </option>
+                      <option value="WORKER">
+                        {currentLanguage === "ar"
+                          ? "عامل"
+                          : currentLanguage === "fr"
+                            ? "Travailleur"
+                            : "Worker"}
+                      </option>
                     </select>
                     {errors.employeeType && (
                       <span className="text-[13px] text-error">
-                        Employee Type is Required
+                        {currentLanguage === "ar"
+                          ? "نوع الموظف مطلوب"
+                          : currentLanguage === "fr"
+                            ? "Le type d'employé est requis"
+                            : "Employee Type is Required"}
                       </span>
                     )}
                   </label>
@@ -446,20 +625,48 @@ const Signup = () => {
                       className={`rounded-xl border px-4 py-3 ${errors.qualification ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                     >
                       <option selected value="">
-                        Select religion{" "}
+                        {currentLanguage === "ar"
+                          ? "اختر الدين"
+                          : currentLanguage === "fr"
+                            ? "Sélectionnez la religion"
+                            : "Select religion"}
                       </option>
                       <option value="HIGH_SCHOOL_DIPLOMA">
-                        High School Diploma{" "}
+                        {currentLanguage === "ar"
+                          ? "شهادة الثانوية العامة"
+                          : currentLanguage === "fr"
+                            ? "Diplôme de baccalauréat"
+                            : "High School Diploma"}
                       </option>
-                      <option value="MASTER_DEGREE">Master Degree </option>
-                      <option value="BACHELOR_DEGREE">Bachelor Degree </option>
+                      <option value="MASTER_DEGREE">
+                        {currentLanguage === "ar"
+                          ? "درجة الماجستير"
+                          : currentLanguage === "fr"
+                            ? "Master"
+                            : "Master Degree"}
+                      </option>
+                      <option value="BACHELOR_DEGREE">
+                        {currentLanguage === "ar"
+                          ? "درجة البكالوريوس"
+                          : currentLanguage === "fr"
+                            ? "Licence"
+                            : "Bachelor Degree"}
+                      </option>
                       <option value="DOCTORATE_DEGREE">
-                        Doctorate Degree{" "}
+                        {currentLanguage === "ar"
+                          ? "درجة الدكتوراه"
+                          : currentLanguage === "fr"
+                            ? "Doctorat"
+                            : "Doctorate Degree"}
                       </option>
                     </select>
                     {errors.qualification && (
                       <span className="text-[13px] text-error">
-                        Qualification is Required
+                        {currentLanguage === "ar"
+                          ? "المؤهل مطلوب"
+                          : currentLanguage === "fr"
+                            ? "La qualification est requise"
+                            : "Qualification is Required"}
                       </span>
                     )}
                   </label>
@@ -467,17 +674,31 @@ const Signup = () => {
                     htmlFor="birthDate"
                     className="grid text-start font-sans text-[15px] font-semibold text-[#9a9a9a]"
                   >
-                    Birthday
+                    {currentLanguage === "ar"
+                      ? "تاريخ الميلاد"
+                      : currentLanguage === "fr"
+                        ? "Date de naissance"
+                        : "Birthday"}
                     <input
                       id="birthDate"
                       {...register("birthDate", { required: true })}
-                      placeholder=" NID"
+                      placeholder={
+                        currentLanguage === "ar"
+                          ? "رقم الهوية الوطنية"
+                          : currentLanguage === "fr"
+                            ? "N° de pièce d'identité"
+                            : "NID"
+                      }
                       className={`rounded-xl border px-4 py-3 ${errors.birthDate ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                       type="date"
                     />
                     {errors.birthDate && (
                       <span className="text-[13px] text-error">
-                        birthDate is Required
+                        {currentLanguage === "ar"
+                          ? "تاريخ الميلاد مطلوب"
+                          : currentLanguage === "fr"
+                            ? "La date de naissance est requise"
+                            : "birthDate is Required"}
                       </span>
                     )}
                   </label>
@@ -501,13 +722,21 @@ const Signup = () => {
                         <path stroke="none" d="M0 0h24v24H0z" />{" "}
                         <polyline points="15 6 9 12 15 18" />
                       </svg>
-                      Previous
+                      {currentLanguage === "ar"
+                        ? "السابق"
+                        : currentLanguage === "fr"
+                          ? "Précédent"
+                          : "Previous"}
                     </button>
                     <button
                       className="flex w-[120px] items-center justify-center gap-2 rounded-xl bg-primary px-3 py-2 font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                       onClick={handleNext}
                     >
-                      Next
+                      {currentLanguage === "ar"
+                        ? "التالي"
+                        : currentLanguage === "fr"
+                          ? "Suivant"
+                          : "Next"}
                       <svg
                         className="h-5 w-5"
                         viewBox="0 0 24 24"
@@ -533,13 +762,23 @@ const Signup = () => {
                     <input
                       id="name_en"
                       {...register("name_en", { required: true })}
-                      placeholder=" English Name"
+                      placeholder={
+                        currentLanguage === "ar"
+                          ? "الاسم بالإنجليزية"
+                          : currentLanguage === "fr"
+                            ? "Nom en anglais"
+                            : "English Name"
+                      }
                       className={`rounded-xl border px-4 py-3 ${errors.name_en ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                       type="text"
                     />
                     {errors.name_en && (
                       <span className="text-[13px] text-error">
-                        English Name is Required
+                        {currentLanguage === "ar"
+                          ? "الاسم بالإنجليزية مطلوب"
+                          : currentLanguage === "fr"
+                            ? "Le nom en anglais est requis"
+                            : "English Name is Required"}
                       </span>
                     )}
                   </label>
@@ -550,13 +789,23 @@ const Signup = () => {
                     <input
                       id="name_ar"
                       {...register("name_ar", { required: true })}
-                      placeholder=" Arabic Name"
+                      placeholder={
+                        currentLanguage === "ar"
+                          ? "الاسم بالعربية"
+                          : currentLanguage === "fr"
+                            ? "Nom en arabe"
+                            : "Arabic Name"
+                      }
                       className={`rounded-xl border px-4 py-3 ${errors.name_ar ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                       type="text"
                     />
                     {errors.name_ar && (
                       <span className="text-[13px] text-error">
-                        Arabic Name is Required
+                        {currentLanguage === "ar"
+                          ? "الاسم بالعربية مطلوب"
+                          : currentLanguage === "fr"
+                            ? "Le nom en arabe est requis"
+                            : "Arabic Name is Required"}
                       </span>
                     )}
                   </label>
@@ -567,13 +816,23 @@ const Signup = () => {
                     <input
                       id="name_fr"
                       {...register("name_fr", { required: true })}
-                      placeholder=" French Name"
+                      placeholder={
+                        currentLanguage === "ar"
+                          ? "الاسم بالفرنسية"
+                          : currentLanguage === "fr"
+                            ? "Nom en français"
+                            : "French Name"
+                      }
                       className={`rounded-xl border px-4 py-3 ${errors.name_fr ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                       type="text"
                     />
                     {errors.name_fr && (
                       <span className="text-[13px] text-error">
-                        French Name is Required
+                        {currentLanguage === "ar"
+                          ? "الاسم بالفرنسية مطلوب"
+                          : currentLanguage === "fr"
+                            ? "Le nom en français est requis"
+                            : "French Name is Required"}
                       </span>
                     )}
                   </label>
@@ -584,13 +843,23 @@ const Signup = () => {
                     <input
                       id="schoolId"
                       {...register("schoolId", { required: true })}
-                      placeholder=" schoolId"
+                      placeholder={
+                        currentLanguage === "ar"
+                          ? "معرف المدرسة"
+                          : currentLanguage === "fr"
+                            ? "ID de l'école"
+                            : "schoolId"
+                      }
                       className={`rounded-xl border px-4 py-3 ${errors.schoolId ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                       type="number"
                     />
                     {errors.schoolId && (
                       <span className="text-[13px] text-error">
-                        schoolId is Required
+                        {currentLanguage === "ar"
+                          ? "معرف المدرسة مطلوب"
+                          : currentLanguage === "fr"
+                            ? "L'ID de l'école est requis"
+                            : "schoolId is Required"}
                       </span>
                     )}
                   </label>
@@ -601,12 +870,22 @@ const Signup = () => {
                     <textarea
                       id="about"
                       {...register("about", { required: true })}
-                      placeholder=" about"
+                      placeholder={
+                        currentLanguage === "ar"
+                          ? "حول"
+                          : currentLanguage === "fr"
+                            ? "À propos"
+                            : "about"
+                      }
                       className={`rounded-xl border px-4 py-3 ${errors.about ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                     />
                     {errors.about && (
                       <span className="text-[13px] text-error">
-                        about is Required
+                        {currentLanguage === "ar"
+                          ? "حول مطلوب"
+                          : currentLanguage === "fr"
+                            ? "À propos est requis"
+                            : "about is Required"}
                       </span>
                     )}
                   </label>
@@ -630,32 +909,58 @@ const Signup = () => {
                         <path stroke="none" d="M0 0h24v24H0z" />{" "}
                         <polyline points="15 6 9 12 15 18" />
                       </svg>
-                      Previous
+                      {currentLanguage === "ar"
+                        ? "السابق"
+                        : currentLanguage === "fr"
+                          ? "Précédent"
+                          : "Previous"}
                     </button>
                     <button
                       disabled={isLoading}
                       type="submit"
                       className="flex w-[120px] items-center justify-center gap-2 rounded-xl bg-primary px-3 py-2 font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                     >
-                      {isLoading ? " Loading..." : "SignUp"}
+                      {isLoading
+                        ? currentLanguage === "ar"
+                          ? "جاري التحميل..."
+                          : currentLanguage === "fr"
+                            ? "Chargement..."
+                            : "Loading..."
+                        : currentLanguage === "ar"
+                          ? "تسجيل"
+                          : currentLanguage === "fr"
+                            ? "S'inscrire"
+                            : "SignUp"}
                     </button>
                   </div>
                 </div>
               )}
               {error && (
                 <p className="font-semibold text-error">
-                  You may not have completed the data or entered it correctly!
+                  {currentLanguage === "ar"
+                    ? "قد تكون قد أكملت البيانات أو أدخلتها بشكل غير صحيح!"
+                    : currentLanguage === "fr"
+                      ? "Vous n'avez peut-être pas complété les données ou les avez saisies incorrectement !"
+                      : "You may not have completed the data or entered it correctly!"}
                 </p>
               )}
               <div className="mt-4 flex items-center justify-center gap-2 text-center">
                 <p className="font-sans font-medium text-secondary">
-                  Already have an account?
+                  {currentLanguage === "ar"
+                    ? "هل لديك حساب بالفعل؟"
+                    : currentLanguage === "fr"
+                      ? "Vous avez déjà un compte ?"
+                      : "Already have an account?"}
                 </p>
                 <a
                   href="/login"
                   className="flex font-sans font-medium text-primary hover:underline"
                 >
-                  Login
+                  {currentLanguage === "ar"
+                    ? "تسجيل الدخول"
+                    : currentLanguage === "fr"
+                      ? "Se connecter"
+                      : "Login"}
                 </a>
               </div>
             </form>

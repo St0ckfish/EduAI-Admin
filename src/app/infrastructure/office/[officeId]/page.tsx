@@ -286,11 +286,11 @@ const EditOfficd: React.FC<ViewEmployeeProps> = ({ params }) => {
                   type="submit"
                   className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
                 >
-                    {currentLanguage === "ar"
-                      ? "تعديل المختبر"
-                      : currentLanguage === "fr"
-                        ? "Modifier le laboratoire"
-                        : "Edit Lab"}
+                  {currentLanguage === "ar"
+                    ? "تعديل المختبر"
+                    : currentLanguage === "fr"
+                      ? "Modifier le laboratoire"
+                      : "Edit Lab"}
                 </button>
               )}
             </div>

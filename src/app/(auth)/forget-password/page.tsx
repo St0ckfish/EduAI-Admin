@@ -9,8 +9,13 @@ import { useRouter } from "next/navigation";
 import Cookie from "js-cookie";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
+import { RootState } from "@/GlobalRedux/store";
+import { useSelector } from "react-redux";
 
 const ForgetPassword = () => {
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const router = useRouter();
   const {
     register,
@@ -29,10 +34,22 @@ const ForgetPassword = () => {
       const Email = Cookie.get("email");
       const UserId = Cookie.get("userId");
       await selectAccount({ id: UserId, email: Email }).unwrap();
-      toast.success("Reset password email generated and sent successfully");
+      toast.success(
+        currentLanguage === "ar"
+          ? "تم إنشاء وإرسال بريد إعادة تعيين كلمة المرور بنجاح"
+          : currentLanguage === "fr"
+            ? "Email de réinitialisation du mot de passe généré et envoyé avec succès"
+            : "Reset password email generated and sent successfully",
+      );
       router.replace("/otp");
     } catch (err) {
-      toast.error("Failed to Find this username or Email");
+      toast.error(
+        currentLanguage === "ar"
+          ? "فشل في العثور على اسم المستخدم أو البريد الإلكتروني"
+          : currentLanguage === "fr"
+            ? "Échec de la recherche de ce nom d'utilisateur ou de cet e-mail"
+            : "Failed to find this username or email",
+      );
     }
   };
   return (
@@ -41,10 +58,18 @@ const ForgetPassword = () => {
         <div className="gird items-center justify-center text-center">
           <div className="mb-10 grid">
             <h1 className="font-sans text-[28px] font-bold text-primary">
-              Forgot Password
+              {currentLanguage === "ar"
+                ? "نسيت كلمة المرور"
+                : currentLanguage === "fr"
+                  ? "Mot de passe oublié"
+                  : "Forgot Password"}
             </h1>
             <p className="font-sans text-[20px] font-semibold text-secondary">
-              Enter your phone to get OTP.
+              {currentLanguage === "ar"
+                ? "أدخل رقم هاتفك للحصول على رمز OTP."
+                : currentLanguage === "fr"
+                  ? "Entrez votre téléphone pour obtenir un OTP."
+                  : "Enter your phone to get OTP."}
             </p>
           </div>
           <div className="grid items-center justify-center">
@@ -53,17 +78,31 @@ const ForgetPassword = () => {
                 htmlFor="text"
                 className="grid text-start font-sans text-[18px] font-semibold text-textSecondary"
               >
-                Username | Email
+                {currentLanguage === "ar"
+                  ? "اسم المستخدم | البريد الإلكتروني"
+                  : currentLanguage === "fr"
+                    ? "Nom d'utilisateur | Email"
+                    : "Username | Email"}
                 <input
                   id="text"
                   {...register("username", { required: true })}
-                  placeholder="Usernamre | Email"
+                  placeholder={
+                    currentLanguage === "ar"
+                      ? "اسم المستخدم | البريد الإلكتروني"
+                      : currentLanguage === "fr"
+                        ? "Nom d'utilisateur | Email"
+                        : "Username | Email"
+                  }
                   className={`w-[450px] rounded-xl border px-4 py-3 ${errors.username ? "border-warning" : "border-borderPrimary"} outline-none max-[471px]:w-[350px]`}
                   type="text"
                 />
                 {errors.username && (
                   <span className="text-[13px] text-error">
-                    Email is Required
+                    {currentLanguage === "ar"
+                      ? "البريد الإلكتروني مطلوب"
+                      : currentLanguage === "fr"
+                        ? "L'email est requis"
+                        : "Email is Required"}
                   </span>
                 )}
               </label>
@@ -75,7 +114,11 @@ const ForgetPassword = () => {
                     type="submit"
                     className="w-[170px] rounded-xl bg-primary px-4 py-2 text-[18px] font-bold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                   >
-                    Recovery code
+                    {currentLanguage === "ar"
+                      ? "رمز الاسترداد"
+                      : currentLanguage === "fr"
+                        ? "Code de récupération"
+                        : "Recovery Code"}
                   </button>
                 </div>
               )}

@@ -230,11 +230,11 @@ const AddOffice = () => {
                 htmlFor="labType"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                  {currentLanguage === "ar"
-    ? "نوع المكتب"
-    : currentLanguage === "fr"
-    ? "Type de bureau"
-    : "Office Type"}
+                {currentLanguage === "ar"
+                  ? "نوع المكتب"
+                  : currentLanguage === "fr"
+                    ? "Type de bureau"
+                    : "Office Type"}
                 <input
                   id="labType"
                   {...register("officeType", { required: true })}
@@ -255,11 +255,11 @@ const AddOffice = () => {
                   type="submit"
                   className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                 >
-                    {currentLanguage === "ar"
-                      ? "إضافة مختبر"
-                      : currentLanguage === "fr"
-                        ? "Ajouter un laboratoire"
-                        : "Add Lab"}
+                  {currentLanguage === "ar"
+                    ? "إضافة مختبر"
+                    : currentLanguage === "fr"
+                      ? "Ajouter un laboratoire"
+                      : "Add Lab"}
                 </button>
               )}
             </div>

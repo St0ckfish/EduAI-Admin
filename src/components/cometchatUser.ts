@@ -66,17 +66,17 @@ export const sendMessage = async (
 
 // لإرسال رسالة صورة
 export const sendImageMessage = async (
-  receiverID: string, 
-  file: File, 
-  receiverType = CometChat.RECEIVER_TYPE.USER
+  receiverID: string,
+  file: File,
+  receiverType = CometChat.RECEIVER_TYPE.USER,
 ): Promise<void> => {
   // التأكد من أن الكود يعمل فقط في المتصفح
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     const mediaMessage = new CometChat.MediaMessage(
-      receiverID, 
-      file, 
-      CometChat.MESSAGE_TYPE.IMAGE, 
-      receiverType
+      receiverID,
+      file,
+      CometChat.MESSAGE_TYPE.IMAGE,
+      receiverType,
     );
 
     try {
@@ -92,8 +92,8 @@ export const sendImageMessage = async (
 
 // إضافة مستمع الرسائل
 export const addMessageListener = (
-  listenerID: string, 
-  callback: (message: CometChat.TextMessage | CometChat.MediaMessage) => void
+  listenerID: string,
+  callback: (message: CometChat.TextMessage | CometChat.MediaMessage) => void,
 ): void => {
   // التأكد من أن الكود يعمل فقط في المتصفح
   if (typeof window !== "undefined") {
