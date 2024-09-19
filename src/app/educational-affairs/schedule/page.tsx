@@ -59,6 +59,7 @@ const Schedule = () => {
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
+        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-7`}
       >
         <div className="my-12 mr-5 flex justify-between max-[540px]:my-1 max-[540px]:mr-0 max-[540px]:grid max-[540px]:justify-center">

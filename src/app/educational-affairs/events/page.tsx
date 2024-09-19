@@ -125,6 +125,7 @@ const Events = () => {
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
+        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         className={` ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-7`}
       >
         <div className="flex justify-end">

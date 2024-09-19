@@ -2,6 +2,8 @@
 import Link from "next/link";
 import { useState, useEffect } from "react"; // Import useState and useEffect hooks
 import BreadCrumbs from "@/components/BreadCrumbs";
+import { useSelector } from "react-redux";
+import { RootState } from "@/GlobalRedux/store";
 
 const Updates = () => {
   const breadcrumbs = [
@@ -19,7 +21,10 @@ const Updates = () => {
     },
   ];
   const [selectAll, setSelectAll] = useState(false); // State to track whether select all checkbox is checked
-
+  const booleanValue = useSelector((state: RootState) => state.boolean.value); // sidebar
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   // Function to handle click on select all checkbox
   const handleSelectAll = () => {
     setSelectAll(!selectAll); // Toggle select all state
@@ -68,7 +73,10 @@ const Updates = () => {
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
-      <div className="relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent max-[1200px]:w-screen sm:rounded-lg lg:ml-[270px]">
+      <div
+        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+        className={` ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent max-[1200px]:w-screen sm:rounded-lg`}
+      >
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">
             <label htmlFor="icon" className="sr-only">
@@ -97,7 +105,13 @@ const Updates = () => {
                 id="icon"
                 name="icon"
                 className="border-borderPrimarylue-500 block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-b focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
-                placeholder="Search"
+                placeholder={
+                  currentLanguage === "ar"
+                    ? "بحث"
+                    : currentLanguage === "fr"
+                      ? "Rechercher"
+                      : "Search"
+                }
               />
             </div>
           </div>
@@ -118,13 +132,25 @@ const Updates = () => {
                   </div>
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Name School
+                  {currentLanguage === "ar"
+                    ? "اسم المدرسة"
+                    : currentLanguage === "fr"
+                      ? "Nom de l'école"
+                      : "Name School"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Code
+                  {currentLanguage === "ar"
+                    ? "الرمز"
+                    : currentLanguage === "fr"
+                      ? "Code"
+                      : "Code"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  About
+                  {currentLanguage === "ar"
+                    ? "حول"
+                    : currentLanguage === "fr"
+                      ? "À propos"
+                      : "About"}
                 </th>
               </tr>
             </thead>

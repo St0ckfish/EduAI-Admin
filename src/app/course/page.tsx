@@ -73,6 +73,7 @@ const Course = () => {
       <BreadCrumbs breadcrumbs={breadcrumbs} />
 
       <div
+        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} mt-12 grid justify-center`}
       >
         <div className="md:grid-cols2 grid grid-cols-2 gap-5 max-[577px]:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2">

@@ -74,6 +74,7 @@ const AddDepartment = () => {
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
+        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         className={` ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mr-[5px] mt-10 grid items-center justify-center`}
       >
         <form onSubmit={handleSubmit(onSubmit)}>

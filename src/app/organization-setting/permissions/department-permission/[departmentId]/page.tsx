@@ -43,7 +43,10 @@ const Permissions: React.FC<departmentIdProps> = ({ params }) => {
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
-      <div className="relative mr-[5px] mt-4 mt-5 flex h-[650px] items-center justify-center overflow-x-auto bg-transparent max-[1200px]:w-screen sm:rounded-lg lg:ml-[270px]">
+      <div
+        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+        className="relative mr-[5px] mt-4 mt-5 flex h-[650px] items-center justify-center overflow-x-auto bg-transparent max-[1200px]:w-screen sm:rounded-lg lg:ml-[270px]"
+      >
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
           <table className="h-[600px] w-[1000px] overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
             <thead className="bg-thead text-xs uppercase text-textPrimary">

@@ -40,6 +40,7 @@ const Permissions = () => {
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
+        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         className={`justify-left flex flex-wrap gap-5 text-[20px] max-[725px]:text-[15px] ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mb-[80px] ml-4 mt-[50px] font-semibold`}
       >
         <Link href="/organization-setting/permissions/add">

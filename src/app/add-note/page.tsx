@@ -38,7 +38,10 @@ const AddNote = () => {
   );
 
   return (
-    <div className="mr-3 mt-5 flex lg:ml-[270px]">
+    <div
+      dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+      className="mr-3 mt-5 flex lg:ml-[270px]"
+    >
       <div className="grid h-full w-full items-center gap-3 rounded-xl bg-bgPrimary p-5">
         <div className="mb-5 flex w-full justify-start">
           <h1 className="text-[22px] font-semibold">

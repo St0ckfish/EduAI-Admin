@@ -1,13 +1,22 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
+import { useSelector } from "react-redux";
+import { RootState } from "@/GlobalRedux/store";
 
 const StudentInfo = ({ data }: { data: any }) => {
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   return (
     <>
       <div className="grid rounded-xl bg-bgPrimary p-5">
         <div className="flex justify-between">
           <h1 className="font-sans font-semibold text-textPrimary">
-            Student Information
+            {currentLanguage === "ar"
+              ? "معلومات الطالب"
+              : currentLanguage === "fr"
+                ? "Informations sur l'élève"
+                : "Student Information"}
           </h1>
           <Link href="/student">
             <svg
@@ -46,7 +55,11 @@ const StudentInfo = ({ data }: { data: any }) => {
           <p className="font-sans font-semibold text-textPrimary">
             {" "}
             <span className="font-sans font-semibold text-textSecondary">
-              Student ID :
+              {currentLanguage === "ar"
+                ? "الرقم التعريفي للطالب:"
+                : currentLanguage === "fr"
+                  ? "ID de l'élève :"
+                  : "Student ID:"}
             </span>
             {data.data.id}
           </p>
@@ -54,63 +67,107 @@ const StudentInfo = ({ data }: { data: any }) => {
 
         <div className="grid justify-start">
           <h1 className="font-sans text-[22px] font-semibold text-textPrimary">
-            Basic Details
+            {currentLanguage === "ar"
+              ? "التفاصيل الأساسية"
+              : currentLanguage === "fr"
+                ? "Détails de base"
+                : "Basic Details"}
           </h1>
           <div className="grid w-[400px] grid-cols-2 max-[485px]:w-[240px]">
             <h3 className="font-sans font-semibold text-textSecondary">
-              Date Of Birth:
+              {currentLanguage === "ar"
+                ? "تاريخ الميلاد:"
+                : currentLanguage === "fr"
+                  ? "Date de naissance :"
+                  : "Date Of Birth:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.birthDate}
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
-              Email:
+              {currentLanguage === "ar"
+                ? "البريد الإلكتروني:"
+                : currentLanguage === "fr"
+                  ? "Email :"
+                  : "Email:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.email}
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
-              Gender:
+              {currentLanguage === "ar"
+                ? "الجنس:"
+                : currentLanguage === "fr"
+                  ? "Sexe :"
+                  : "Gender:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.gender}
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
-              nationality:
+              {currentLanguage === "ar"
+                ? "الجنسية:"
+                : currentLanguage === "fr"
+                  ? "Nationalité :"
+                  : "Nationality:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.nationality}
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
-              role:
+              {currentLanguage === "ar"
+                ? "الدور:"
+                : currentLanguage === "fr"
+                  ? "Rôle :"
+                  : "Role:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.role}
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
-              Date Of Birth:
+              {currentLanguage === "ar"
+                ? "تاريخ الميلاد:"
+                : currentLanguage === "fr"
+                  ? "Date de naissance :"
+                  : "Date Of Birth:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
               02/05/2012
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
-              Religion:
+              {currentLanguage === "ar"
+                ? "الدين:"
+                : currentLanguage === "fr"
+                  ? "Religion :"
+                  : "Religion:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">Islam</p>
             <h3 className="font-sans font-semibold text-textSecondary">
-              Address:
+              {currentLanguage === "ar"
+                ? "العنوان:"
+                : currentLanguage === "fr"
+                  ? "Adresse :"
+                  : "Address:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
               13,street, Zamalk,Cairo
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
-              Email:
+              {currentLanguage === "ar"
+                ? "البريد الإلكتروني:"
+                : currentLanguage === "fr"
+                  ? "Email :"
+                  : "Email:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
               Ahmed.M.Sayed@gmail.com
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
-              Mobile:
+              {currentLanguage === "ar"
+                ? "الهاتف المحمول:"
+                : currentLanguage === "fr"
+                  ? "Mobile :"
+                  : "Mobile:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
               01220145607
@@ -120,16 +177,29 @@ const StudentInfo = ({ data }: { data: any }) => {
 
         <div className="mt-4 grid grid-cols-1">
           <p className="font-sans text-[20px] font-semibold text-textPrimary">
-            About the student:
+            {currentLanguage === "ar"
+              ? "حول الطالب:"
+              : currentLanguage === "fr"
+                ? "À propos de l'élève :"
+                : "About the student:"}
           </p>
           <p className="mb-5 font-sans text-[16px] font-semibold text-textSecondary">
             {data.data.about}
           </p>
           <p className="font-sans text-[20px] font-semibold text-textPrimary">
-            Certification:
+            {currentLanguage === "ar"
+              ? "الشهادة"
+              : currentLanguage === "fr"
+                ? "Certification"
+                : "Certification"}
           </p>
           <p className="font-sans text-[16px] font-semibold text-textSecondary">
-            2021-2022 <br /> He got first place in the school
+            2021-2022 <br />{" "}
+            {currentLanguage === "ar"
+              ? "حصل على المركز الأول في المدرسة"
+              : currentLanguage === "fr"
+                ? "Il a obtenu la première place à l'école"
+                : "He got first place in the school"}
           </p>
         </div>
       </div>

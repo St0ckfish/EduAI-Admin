@@ -120,6 +120,7 @@ const Budget = () => {
       <BreadCrumbs breadcrumbs={breadcrumbs} />
 
       <div
+        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         className={`${booleanValue ? "lg:ml-[120px]" : "lg:ml-[290px]"} mt-12 grid justify-center`}
       >
         <div className="mb-5 flex justify-center gap-2 max-[840px]:grid">

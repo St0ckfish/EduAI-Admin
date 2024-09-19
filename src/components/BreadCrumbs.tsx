@@ -3,7 +3,7 @@ import React from "react";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
-import { MdNavigateNext } from "react-icons/md";
+import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import { usePathname } from "next/navigation";
 
 interface BreadcrumbItem {
@@ -26,9 +26,10 @@ const BreadCrumbs: React.FC<BreadCrumbsProps> = ({ breadcrumbs }) => {
 
   return (
     <div
+      dir={currentLanguage === "ar" ? "rtl" : "ltr"}
       className={`flex items-center gap-2 ${
         booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"
-      } ml-5 mt-10 flex-wrap text-[18px] max-[550px]:text-[15px]`}
+      } mx-5 mt-10 flex-wrap text-[18px] max-[550px]:text-[15px]`}
     >
       {breadcrumbs.map((crumb, index) => (
         <React.Fragment key={index}>
@@ -47,9 +48,12 @@ const BreadCrumbs: React.FC<BreadCrumbsProps> = ({ breadcrumbs }) => {
                 ? crumb.nameAr
                 : crumb.nameFr}
           </Link>
-          {index < breadcrumbs.length - 1 && (
-            <MdNavigateNext size={25} className="text-gray-400" />
-          )}
+          {index < breadcrumbs.length - 1 &&
+            (currentLanguage === "ar" ? (
+              <MdNavigateBefore size={25} className="text-gray-400" />
+            ) : (
+              <MdNavigateNext size={25} className="text-gray-400" />
+            ))}
         </React.Fragment>
       ))}
     </div>

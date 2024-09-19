@@ -31,7 +31,10 @@ const classDetails: React.FC<ViewDriverProps> = ({ params }) => {
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
-      <div className="mt-16 grid justify-center lg:ml-[290px] lg:mr-32">
+      <div
+        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+        className="mt-16 grid justify-center lg:ml-[290px] lg:mr-32"
+      >
         <div className="grid justify-center md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3">
           <div className="grid justify-center gap-2">
             <div className="flex h-[130px] w-[200px] items-center justify-center gap-2 rounded-xl bg-bgPrimary p-2 shadow-xl"></div>

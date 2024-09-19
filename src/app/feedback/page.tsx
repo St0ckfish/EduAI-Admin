@@ -1,9 +1,22 @@
 "use client";
 import Link from "next/link";
+import { useSelector } from "react-redux";
+import { RootState } from "@/GlobalRedux/store";
+
 const FeedBack = () => {
+  const booleanValue = useSelector((state: RootState) => state.boolean.value); // sidebar
+
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   return (
     <>
-      <div className="relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent max-[1200px]:w-screen sm:rounded-lg lg:ml-[270px]">
+      <div
+        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+        className={`${
+          booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"
+        } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent max-[1200px]:w-screen sm:rounded-lg`}
+      >
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">
             <label htmlFor="icon" className="sr-only">
@@ -31,15 +44,21 @@ const FeedBack = () => {
                 type="text"
                 id="icon"
                 name="icon"
-                className="block w-full rounded-lg border-2 border-gray-200 px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
-                placeholder="Search"
+                className="border-borderPrimarylue-500 block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-b focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
+                placeholder={
+                  currentLanguage === "en"
+                    ? "Search"
+                    : currentLanguage === "ar"
+                      ? "بحث"
+                      : "Recherche"
+                }
               />
             </div>
           </div>
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
           <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
-            <thead className="bg-[#daeafb] text-xs uppercase text-gray-700">
+            <thead className="bg-thead text-xs uppercase text-textPrimary">
               <tr>
                 <th scope="col" className="p-4">
                   <div className="flex items-center">
@@ -51,18 +70,30 @@ const FeedBack = () => {
                   </div>
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Name School
+                  {currentLanguage === "ar"
+                    ? "اسم المدرسة"
+                    : currentLanguage === "fr"
+                      ? "Nom de l'école"
+                      : "Name School"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  Code
+                  {currentLanguage === "ar"
+                    ? "الرمز"
+                    : currentLanguage === "fr"
+                      ? "Code"
+                      : "Code"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  About
+                  {currentLanguage === "ar"
+                    ? "حول"
+                    : currentLanguage === "fr"
+                      ? "À propos"
+                      : "About"}
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr className="border-b bg-white hover:bg-gray-50">
+              <tr className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary">
                 <td className="w-4 p-4">
                   <div className="flex items-center">
                     <input
@@ -84,7 +115,12 @@ const FeedBack = () => {
                     href="/"
                     className="font-medium text-blue-600 hover:underline"
                   >
-                    View
+                    Vi
+                    {currentLanguage === "ar"
+                      ? "عرض"
+                      : currentLanguage === "fr"
+                        ? "Voir"
+                        : "View"}
                   </Link>
                 </td>
               </tr>

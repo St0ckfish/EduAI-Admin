@@ -7,7 +7,8 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import TextEditor from "@/components/textEditor";
 import BreadCrumbs from "@/components/BreadCrumbs";
-
+import { useSelector } from "react-redux";
+import { RootState } from "@/GlobalRedux/store";
 //
 
 const SendNotifications = () => {
@@ -31,6 +32,9 @@ const SendNotifications = () => {
       href: "/notifies/send-notifications",
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -45,6 +49,8 @@ const SendNotifications = () => {
     "PARENT",
     "EMPLOYEE",
   ];
+
+  const booleanValue = useSelector((state: RootState) => state.boolean.value); // sidebar
 
   const handleCheckboxChange = (role: string) => {
     setRoles(prevRoles =>
@@ -109,9 +115,18 @@ const SendNotifications = () => {
             </label>
           ))}
         </div>
-        <div className="grid h-full w-full items-center gap-3 rounded-xl bg-bgPrimary p-5">
+        <div
+          dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+          className="grid h-full w-full items-center gap-3 rounded-xl bg-bgPrimary p-5"
+        >
           <div className="mb-5 flex w-full justify-start">
-            <h1 className="text-[22px] font-semibold">Send Notifications</h1>
+            <h1 className="text-[22px] font-semibold">
+              {currentLanguage === "ar"
+                ? "إرسال الإشعارات"
+                : currentLanguage === "fr"
+                  ? "Envoyer des notifications"
+                  : "Send Notifications"}
+            </h1>
           </div>
           <form onSubmit={handleSubmit}>
             <div className="grid h-full w-full gap-6">
@@ -119,10 +134,20 @@ const SendNotifications = () => {
                 className="grid gap-2 text-[18px] font-semibold"
                 htmlFor="title"
               >
-                Title
+                {currentLanguage === "ar"
+                  ? "العنوان"
+                  : currentLanguage === "fr"
+                    ? "Titre"
+                    : "Title"}
                 <input
                   className="rounded-xl border border-borderPrimary px-4 py-2 outline-none"
-                  placeholder="Write title...."
+                  placeholder={
+                    currentLanguage === "ar"
+                      ? "اكتب العنوان هنا..."
+                      : currentLanguage === "fr"
+                        ? "Écrivez le titre ici..."
+                        : "Write title...."
+                  }
                   name="title"
                   id="title"
                   value={title}
@@ -133,12 +158,22 @@ const SendNotifications = () => {
                 className="grid gap-2 text-[18px] font-semibold"
                 htmlFor="description"
               >
-                Description
+                {currentLanguage === "ar"
+                  ? "الوصف"
+                  : currentLanguage === "fr"
+                    ? "Description"
+                    : "Description"}
                 <div className="mb-5 bg-bgPrimary">
                   <TextEditor
                     value={description}
                     onChange={setDescription}
-                    placeholder="Enter your content here..."
+                    placeholder={
+                      currentLanguage === "ar"
+                        ? "أدخل محتواك هنا..."
+                        : currentLanguage === "fr"
+                          ? "Entrez votre contenu ici..."
+                          : "Enter your content here..."
+                    }
                   />
                 </div>
               </label>
@@ -161,7 +196,11 @@ const SendNotifications = () => {
                     >
                       <polygon points="3 11 22 2 13 21 11 13 3 11" />
                     </svg>
-                    Send Notifications
+                    {currentLanguage === "ar"
+                      ? "إرسال الإشعارات"
+                      : currentLanguage === "fr"
+                        ? "Envoyer des notifications"
+                        : "Send Notifications"}
                   </button>
                 )}
               </div>

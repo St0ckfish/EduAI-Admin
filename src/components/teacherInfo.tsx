@@ -1,14 +1,23 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import Link from "next/link";
+import { useSelector } from "react-redux";
+import { RootState } from "@/GlobalRedux/store";
 
 const TeacherInfo = ({ data }: { data: any }) => {
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   return (
     <>
       <div className="grid rounded-xl bg-bgPrimary p-5">
         <div className="flex justify-between">
           <h1 className="font-sans font-semibold text-textPrimary">
-            Teacher Information
+            {currentLanguage === "ar"
+              ? "معلومات المعلم"
+              : currentLanguage === "fr"
+                ? "Informations sur l'enseignant"
+                : "Teacher Information"}
           </h1>
           <Link href={`/edit-teacher/${data.data.id}`}>
             <svg
@@ -47,7 +56,11 @@ const TeacherInfo = ({ data }: { data: any }) => {
           <p className="font-sans font-semibold text-textPrimary">
             {" "}
             <span className="font-sans font-semibold text-textSecondary">
-              Teacher ID :
+              {currentLanguage === "ar"
+                ? "رقم المعلم:"
+                : currentLanguage === "fr"
+                  ? "ID de l'enseignant :"
+                  : "Teacher ID:"}
             </span>
             {data.data.id}
           </p>
@@ -55,65 +68,109 @@ const TeacherInfo = ({ data }: { data: any }) => {
 
         <div className="grid justify-start">
           <h1 className="font-sans text-[22px] font-semibold text-textPrimary">
-            Basic Details
+            {currentLanguage === "ar"
+              ? "التفاصيل الأساسية"
+              : currentLanguage === "fr"
+                ? "Détails de base"
+                : "Basic Details"}
           </h1>
           <div className="grid w-[400px] grid-cols-2 max-[485px]:w-[240px]">
             <h3 className="font-sans font-semibold text-textSecondary">
-              Email:
+              {currentLanguage === "ar"
+                ? "البريد الإلكتروني:"
+                : currentLanguage === "fr"
+                  ? "Email :"
+                  : "Email:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.email}
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
-              Salary:
+              {currentLanguage === "ar"
+                ? "الراتب:"
+                : currentLanguage === "fr"
+                  ? "Salaire :"
+                  : "Salary:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.salary == null ? `Not specified` : data.data.salary}
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
-              Date Of Birth:
+              {currentLanguage === "ar"
+                ? "تاريخ الميلاد:"
+                : currentLanguage === "fr"
+                  ? "Date de naissance :"
+                  : "Date Of Birth:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.birthDate}
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
-              Gender:
+              {currentLanguage === "ar"
+                ? "الجنس:"
+                : currentLanguage === "fr"
+                  ? "Sexe :"
+                  : "Gender:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.gender}
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
-              nationality:
+              {currentLanguage === "ar"
+                ? "الجنسية:"
+                : currentLanguage === "fr"
+                  ? "Nationalité :"
+                  : "Nationality:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.nationality}
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
-              Gender:
+              {currentLanguage === "ar"
+                ? "الجنس:"
+                : currentLanguage === "fr"
+                  ? "Sexe :"
+                  : "Gender:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.gender}
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
-              Qualification:
+              {currentLanguage === "ar"
+                ? "المؤهل:"
+                : currentLanguage === "fr"
+                  ? "Qualification :"
+                  : "Qualification:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.qualification}
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
-              Religion:
+              {currentLanguage === "ar"
+                ? "الدين:"
+                : currentLanguage === "fr"
+                  ? "Religion :"
+                  : "Religion:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.religion}
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
-              Address:
+              {currentLanguage === "ar"
+                ? "العنوان:"
+                : currentLanguage === "fr"
+                  ? "Adresse :"
+                  : "Address:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
               13,street, Zamalk,Cairo
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
-              Mobile:
+              {currentLanguage === "ar"
+                ? "الهاتف المحمول:"
+                : currentLanguage === "fr"
+                  ? "Mobile :"
+                  : "Mobile:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.number}
@@ -123,7 +180,11 @@ const TeacherInfo = ({ data }: { data: any }) => {
 
         <div className="mt-4 grid grid-cols-1">
           <p className="font-sans text-[20px] font-semibold text-textPrimary">
-            About the Teacher:
+            {currentLanguage === "ar"
+              ? "حول المعلم:"
+              : currentLanguage === "fr"
+                ? "À propos de l'enseignant :"
+                : "About the Teacher:"}
           </p>
           <p className="mb-5 font-sans text-[16px] font-semibold text-textSecondary">
             {data.data.about}

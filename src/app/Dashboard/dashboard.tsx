@@ -227,7 +227,10 @@ const Dashboard: React.FC = () => {
     );
 
   return (
-    <div className="mr-10 grid w-full justify-center overflow-x-auto p-6">
+    <div
+      dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+      className="mr-10 grid w-full justify-center overflow-x-auto p-6"
+    >
       <div className="grid overflow-x-auto">
         <div className="mb-6 flex w-full justify-evenly gap-4 whitespace-nowrap max-[812px]:justify-center max-[576px]:h-[120px]">
           <div

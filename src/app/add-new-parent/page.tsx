@@ -127,6 +127,7 @@ const AddNewParent = () => {
       <BreadCrumbs breadcrumbs={breadcrumbs} />
 
       <div
+        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         className={` ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mr-[5px] grid items-center justify-center`}
       >
         <form onSubmit={handleSubmit(onSubmit)}>

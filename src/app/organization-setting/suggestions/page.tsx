@@ -68,6 +68,7 @@ const Suggestion = () => {
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
+        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} justify-left mb-4 ml-4 mt-2 mt-[20px] flex gap-5 text-[23px] font-semibold`}
       >
         <Link href="/organization-setting/reports">
