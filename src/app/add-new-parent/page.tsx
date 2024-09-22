@@ -41,6 +41,11 @@ const AddNewParent = () => {
       href: "/add-new-parent",
     },
   ];
+  const [parentIdPhotoName, setParentIdPhotoName] = useState("");
+  const [studentIdPhotoName, setStudentIdPhotoName] = useState("");
+  const [studentProfilePhotoName, setStudentProfilePhotoName] = useState("");
+  const [studentCertificatesOfAchievementName, setStudentCertificatesOfAchievementName] = useState("");
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const { data: nationalityData, isLoading: nationalityLoading } =
     useGetAllNationalitysQuery(null);
@@ -53,12 +58,13 @@ const AddNewParent = () => {
   const { data: rigiond } = useGetAllReginionIDQuery(null);
   const [fileName, setFileName] = useState("");
 
-  const handleFileChange = (event: any) => {
+  const handleFileChange = (event: any, setFileName: (name: string) => void) => {
     const file = event.target.files[0];
     if (file) {
       setFileName(file.name);
     }
   };
+
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
   );
@@ -1202,10 +1208,7 @@ const AddNewParent = () => {
                 )}
               </label>
 
-              <label
-                htmlFor="parentIdPhoto"
-                className="grid font-sans text-[18px] font-semibold"
-              >
+              <label htmlFor="parentIdPhoto" className="grid font-sans text-[18px] font-semibold">
                 {currentLanguage === "en"
                   ? "Parent ID Photo"
                   : currentLanguage === "ar"
@@ -1218,13 +1221,13 @@ const AddNewParent = () => {
                   type="file"
                   className="hidden"
                   {...register("parentIdPhoto")}
-                  onChange={handleFileChange}
+                  onChange={(e) => handleFileChange(e, setParentIdPhotoName)}
                 />
                 <span className="w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
                   <div className="flex">
                     <FaCloudUploadAlt className="mx-2 mt-1" />
-                    {fileName
-                      ? fileName
+                    {parentIdPhotoName
+                      ? parentIdPhotoName
                       : currentLanguage === "en"
                         ? "Choose a file"
                         : currentLanguage === "ar"
@@ -1238,10 +1241,7 @@ const AddNewParent = () => {
             </div>
             {/* File input fields */}
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
-              <label
-                htmlFor="studentIdPhoto"
-                className="grid font-sans text-[18px] font-semibold"
-              >
+              <label htmlFor="studentIdPhoto" className="grid font-sans text-[18px] font-semibold">
                 {currentLanguage === "en"
                   ? "Student ID Photo"
                   : currentLanguage === "ar"
@@ -1254,13 +1254,13 @@ const AddNewParent = () => {
                   type="file"
                   className="hidden"
                   {...register("studentIdPhoto")}
-                  onChange={handleFileChange}
+                  onChange={(e) => handleFileChange(e, setStudentIdPhotoName)}
                 />
                 <span className="w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
                   <div className="flex">
                     <FaCloudUploadAlt className="mx-2 mt-1" />
-                    {fileName
-                      ? fileName
+                    {studentIdPhotoName
+                      ? studentIdPhotoName
                       : currentLanguage === "en"
                         ? "Choose a file"
                         : currentLanguage === "ar"
@@ -1272,10 +1272,7 @@ const AddNewParent = () => {
                 </span>
               </label>
 
-              <label
-                htmlFor="studentProfilePhoto"
-                className="grid font-sans text-[18px] font-semibold"
-              >
+              <label htmlFor="studentProfilePhoto" className="grid font-sans text-[18px] font-semibold">
                 {currentLanguage === "en"
                   ? "Student Profile Photo"
                   : currentLanguage === "ar"
@@ -1288,13 +1285,13 @@ const AddNewParent = () => {
                   type="file"
                   className="hidden"
                   {...register("studentProfilePhoto")}
-                  onChange={handleFileChange}
+                  onChange={(e) => handleFileChange(e, setStudentProfilePhotoName)}
                 />
                 <span className="w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
                   <div className="flex">
                     <FaCloudUploadAlt className="mx-2 mt-1" />
-                    {fileName
-                      ? fileName
+                    {studentProfilePhotoName
+                      ? studentProfilePhotoName
                       : currentLanguage === "en"
                         ? "Choose a file"
                         : currentLanguage === "ar"
@@ -1305,10 +1302,7 @@ const AddNewParent = () => {
                   </div>
                 </span>
               </label>
-              <label
-                htmlFor="studentCertificatesOfAchievement"
-                className="grid font-sans text-[18px] font-semibold"
-              >
+              <label htmlFor="studentCertificatesOfAchievement" className="grid font-sans text-[18px] font-semibold">
                 {currentLanguage === "en"
                   ? "Student Certificates Of Achievement"
                   : currentLanguage === "ar"
@@ -1321,13 +1315,13 @@ const AddNewParent = () => {
                   type="file"
                   className="hidden"
                   {...register("studentCertificatesOfAchievement")}
-                  onChange={handleFileChange}
+                  onChange={(e) => handleFileChange(e, setStudentCertificatesOfAchievementName)}
                 />
                 <span className="w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
                   <div className="flex">
                     <FaCloudUploadAlt className="mx-2 mt-1" />
-                    {fileName
-                      ? fileName
+                    {studentCertificatesOfAchievementName
+                      ? studentCertificatesOfAchievementName
                       : currentLanguage === "en"
                         ? "Choose a file"
                         : currentLanguage === "ar"
@@ -1338,6 +1332,7 @@ const AddNewParent = () => {
                   </div>
                 </span>
               </label>
+
             </div>
             <div className="flex justify-center text-center">
               <button

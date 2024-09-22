@@ -29,6 +29,12 @@ const Invoices = () => {
       nameFr: "Impôts",
       href: "/financial-management/taxes",
     },
+    {
+      nameEn: "Invoices",
+      nameAr: "الفواتير",
+      nameFr: "Factures",
+      href: "/financial-management/taxes/invoices",
+    },
   ];
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language
@@ -55,11 +61,18 @@ const Invoices = () => {
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
+        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         className={`${
           booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"
         } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
-        <h1 className="text-[30px] font-bold mb-5 ml-8">Taxes</h1>
+        <h1 className="text-[30px] font-bold mb-5 ml-8">
+          {currentLanguage === "ar"
+            ? "الضرائب"
+            : currentLanguage === "fr"
+              ? "Taxes"
+              : "Taxes"}
+        </h1>
         <div className="justify-left mb-5 ml-4 flex gap-5 text-[23px] font-semibold">
           <Link href="/financial-management/taxes">
             {currentLanguage === "en"
@@ -94,7 +107,6 @@ const Invoices = () => {
                 <p className="flex gap-2">
               <img src={tax.img} alt="#" />
                   {tax.label}
-
                 </p>
                 <p>
                   {tax.value} {tax.type === "Percentage" ? "%" : "$"}

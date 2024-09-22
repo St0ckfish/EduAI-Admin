@@ -92,7 +92,7 @@ const EditTaxes = ({ params }: TaxesId) => {
       nameEn: "Edit Taxes",
       nameAr: "تعديل الضريبة",
       nameFr: "Modifier la taxe",
-      href: `/financial-management/taxes/edit-taxes/${taxesId}`,
+      href: `/financial-management/taxes/${params.taxesId}`,
     },
   ];
 
@@ -176,6 +176,7 @@ const EditTaxes = ({ params }: TaxesId) => {
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
+        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         className={`${
           booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"
         } mt-20`}
