@@ -2,15 +2,12 @@
 "use client";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import {
-  useDeleteInvoicesMutation,
-} from "@/features/Financial/feesApi";
 import Spinner from "@/components/spinner";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import BreadCrumbs from "@/components/BreadCrumbs";
-import { useGetAllTaxesQuery } from "@/features/Financial/taxesApi";
+import { useDeleteTaxesMutation, useGetAllTaxesQuery } from "@/features/Financial/taxesApi";
 
 const FeesManagement = () => {
   
@@ -87,7 +84,7 @@ const FeesManagement = () => {
     };
   }, []);
 
-  const [deleteInvoice] = useDeleteInvoicesMutation();
+  const [deleteInvoice] = useDeleteTaxesMutation();
 
   const handleDelete = async (id: number) => {
     console.log(id);
@@ -362,7 +359,7 @@ const FeesManagement = () => {
                     <td className="whitespace-nowrap px-6 py-4">
                       <div className="flex items-center gap-3">
                         <button
-                          onClick={() => handleDelete(invoice.billedToId)}
+                          onClick={() => handleDelete(invoice.id)}
                         >
                           <svg
                             className="h-6 w-6 text-red-500"
@@ -379,28 +376,10 @@ const FeesManagement = () => {
                           </svg>
                         </button>
                         <Link
-                          href={`/fees-management/${invoice.billedToId}`}
+                          href={`/financial-management/taxes/${invoice.id}`}
                           className="font-medium text-blue-600 hover:underline"
                         >
-                          <svg
-                            className="h-6 w-6 text-blue-500"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                            />
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                            />
-                          </svg>
+                          edit
                         </Link>
                       </div>
                     </td>

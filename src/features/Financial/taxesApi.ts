@@ -33,7 +33,7 @@ export const taxesApi = createApi({
     //
     deleteTaxes: builder.mutation({
       query: id => ({
-        url: `/api/v1/bank-account/${id}`,
+        url: `/api/v1/school-tax?schoolTaxId=${id}`,
         method: "DELETE",
       }),
     }),
@@ -47,12 +47,12 @@ export const taxesApi = createApi({
     }),
     //
     getTaxeById: builder.query({
-      query: id => `/api/v1/bank-account/${id}`,
+      query: id => `/api/v1/school-tax/update?schoolTaxId=${id}`,
     }),
     //
     updateTaxes: builder.mutation({
       query: ({ formData, id }) => ({
-        url: `/api/v1/bank-account/${id}`,
+        url: `/api/v1/school-tax?schoolTaxId=${id}`,
         method: "PUT",
         body: formData,
       }),
