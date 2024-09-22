@@ -228,7 +228,6 @@ const Dashboard: React.FC = () => {
 
   return (
     <div
-      dir={currentLanguage === "ar" ? "rtl" : "ltr"}
       className="mr-10 grid w-full justify-center overflow-x-auto p-6"
     >
       <div className="grid overflow-x-auto">

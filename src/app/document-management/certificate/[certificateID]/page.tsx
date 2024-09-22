@@ -28,7 +28,7 @@ const ViewCertificate: React.FC<ViewDriverProps> = ({ params }) => {
       console.error("Error:", error);
     }
   }, [data, error]);
-  
+
   if (isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">

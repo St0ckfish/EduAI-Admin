@@ -5,7 +5,13 @@ import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import { RiFileList2Line } from "react-icons/ri"; // Report
 import { AiOutlineSafetyCertificate } from "react-icons/ai"; // Permission
-import { FaCalendarAlt, FaClock, FaExclamationTriangle, FaTasks, FaUmbrellaBeach } from "react-icons/fa"; // Semester, Annual Leave
+import {
+  FaCalendarAlt,
+  FaClock,
+  FaExclamationTriangle,
+  FaTasks,
+  FaUmbrellaBeach,
+} from "react-icons/fa"; // Semester, Annual Leave
 import { MdBusiness, MdWorkOutline } from "react-icons/md"; // Department, Position
 import BreadCrumbs from "@/components/BreadCrumbs";
 

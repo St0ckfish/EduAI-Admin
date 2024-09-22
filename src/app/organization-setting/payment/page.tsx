@@ -1,9 +1,11 @@
 import Soon from "@/components/soon";
 
 const Payment = () => {
-  return ( 
-    <><Soon/></>
-   );
-}
- 
+  return (
+    <>
+      <Soon />
+    </>
+  );
+};
+
 export default Payment;
