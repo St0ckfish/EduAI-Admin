@@ -34,6 +34,7 @@ import { attendanceApi } from "@/features/attendance/attendanceApi";
 import { examsApi } from "@/features/Acadimic/examsApi";
 import { scheduleApi } from "@/features/Acadimic/scheduleApi";
 import { complainApi } from "@/features/Organization-Setteings/complainApi";
+import { taxesApi } from "@/features/Financial/taxesApi";
 
 export const store = configureStore({
   reducer: {
@@ -52,6 +53,7 @@ export const store = configureStore({
     [eventsApi.reducerPath]: eventsApi.reducer,
     [bankApi.reducerPath]: bankApi.reducer,
     [attendanceApi.reducerPath]: attendanceApi.reducer,
+    [taxesApi.reducerPath]: taxesApi.reducer,
     [feesApi.reducerPath]: feesApi.reducer,
     [labApi.reducerPath]: labApi.reducer,
     [courseApi.reducerPath]: courseApi.reducer,
@@ -79,6 +81,7 @@ export const store = configureStore({
       .concat(achievementApi.middleware)
       .concat(labApi.middleware)
       .concat(employeePermissionApi.middleware)
+      .concat(taxesApi.middleware)
       .concat(scheduleApi.middleware)
       .concat(busApi.middleware)
       .concat(departmentPermissionApi.middleware)

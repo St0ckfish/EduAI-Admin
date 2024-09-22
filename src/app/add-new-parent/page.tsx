@@ -120,7 +120,7 @@ const AddNewParent = () => {
     try {
       await createEmployee(formData).unwrap();
       toast.success("Parent created successfully");
-    } catch (err) {
+    } catch {
       toast.error("Failed to create parent");
     }
   };

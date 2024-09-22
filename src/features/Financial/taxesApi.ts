@@ -12,8 +12,8 @@ const getTokenFromCookie = () => {
   return getCookie("token");
 };
 
-export const studentApi = createApi({
-  reducerPath: "studentApi",
+export const taxesApi = createApi({
+  reducerPath: "taxesApi",
   baseQuery: fetchBaseQuery({
     baseUrl: baseUrl,
     prepareHeaders: headers => {
@@ -27,34 +27,37 @@ export const studentApi = createApi({
     },
   }),
   endpoints: builder => ({
-    getAllStudents: builder.query({
-      query: ({ archived, page, size }) =>
-        `/api/v1/management/student/all?size=${size}&page=${page}&archived=${archived}`,
+    getAllTaxes: builder.query({
+      query: () => "/api/v1/school-tax/all",
     }),
     //
-    deleteStudents: builder.mutation({
-      query: ({ id, lock }) => ({
-        url: `/api/v1/management/student/account-lock/${id}?locked=${lock}`,
-        method: "PUT",
+    getAllFessTaxes: builder.query({
+      query: () => "/api/v1/fees-taxes",
+    }),
+    //
+    deleteTaxes: builder.mutation({
+      query: id => ({
+        url: `/api/v1/school-tax?schoolTaxId=${id}`,
+        method: "DELETE",
       }),
     }),
     //
-    createStudents: builder.mutation({
+    createTaxes: builder.mutation({
       query: formData => ({
-        url: `/api/v1/management/student/new`,
+        url: `/api/v1/school-tax`,
         method: "POST",
         body: formData,
       }),
     }),
     //
-    getStudentById: builder.query({
-      query: id => `/api/v1/management/student/${id}`,
+    getTaxeById: builder.query({
+      query: id => `/api/v1/school-tax/update?schoolTaxId=${id}`,
     }),
     //
-    updateStudents: builder.mutation({
+    updateTaxes: builder.mutation({
       query: ({ formData, id }) => ({
-        url: `cases/categories/${id}`,
-        method: "PATCH",
+        url: `/api/v1/school-tax?schoolTaxId=${id}`,
+        method: "PUT",
         body: formData,
       }),
     }),
@@ -62,9 +65,10 @@ export const studentApi = createApi({
 });
 
 export const {
-  useGetAllStudentsQuery,
-  useDeleteStudentsMutation,
-  useCreateStudentsMutation,
-  useGetStudentByIdQuery,
-  useUpdateStudentsMutation,
-} = studentApi;
+  useGetAllFessTaxesQuery,
+  useGetAllTaxesQuery,
+  useDeleteTaxesMutation,
+  useCreateTaxesMutation,
+  useGetTaxeByIdQuery,
+  useUpdateTaxesMutation,
+} = taxesApi;

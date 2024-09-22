@@ -74,7 +74,7 @@ const Parent = () => {
       }).unwrap();
       toast.success(`Parent with ID ${id} Locked successfully`);
       void refetch();
-    } catch (err) {
+    } catch {
       toast.error("Failed to lock the Parent");
     }
   };
