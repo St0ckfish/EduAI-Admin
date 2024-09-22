@@ -131,7 +131,7 @@ const Events = () => {
         <div className="flex justify-end">
           <button
             onClick={handleOpenModal}
-            className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+            className="mb-5 mr-3 w-fit px-5 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
           >
             {currentLanguage === "ar"
               ? "+ إضافة حدث"
