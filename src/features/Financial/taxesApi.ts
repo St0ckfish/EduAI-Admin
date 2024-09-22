@@ -31,6 +31,10 @@ export const taxesApi = createApi({
       query: () => "/api/v1/school-tax/all",
     }),
     //
+    getAllFessTaxes: builder.query({
+      query: () => "/api/v1/fees-taxes",
+    }),
+    //
     deleteTaxes: builder.mutation({
       query: id => ({
         url: `/api/v1/school-tax?schoolTaxId=${id}`,
@@ -61,6 +65,7 @@ export const taxesApi = createApi({
 });
 
 export const {
+  useGetAllFessTaxesQuery,
   useGetAllTaxesQuery,
   useDeleteTaxesMutation,
   useCreateTaxesMutation,

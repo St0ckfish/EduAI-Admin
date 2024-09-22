@@ -191,7 +191,7 @@ const FeesManagement = () => {
                   : "Invoices"}{" "}
             {/* Default to English */}
           </Link>
-          <Link href="/financial-management/taxes">
+          <Link href="/financial-management/taxes/invoices">
             {currentLanguage === "en"
               ? "Invoices Taxes"
               : currentLanguage === "ar"
