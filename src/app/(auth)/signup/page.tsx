@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @next/next/no-img-element */
 "use client";
@@ -38,6 +39,7 @@ const signupSchema = z.object({
 });
 
 const Signup = () => {
+  const [errorMessage, setErrorMessage] = useState<any[]>([]);
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
   );
@@ -84,7 +86,10 @@ const Signup = () => {
             : "Account created successfully",
       );
       router.replace("/login");
-    } catch (err) {
+    } catch (err: any) {
+      setErrorMessage(err.data.data);
+      console.log(errorMessage);
+
       toast.error(
         (err as any).data?.message || currentLanguage === "ar"
           ? "فشل في إنشاء الحساب"
@@ -964,6 +969,14 @@ const Signup = () => {
                 </a>
               </div>
             </form>
+            <div className="text-red-500">
+              {Array.isArray(errorMessage) &&
+                errorMessage.map((err: string, index: number) => (
+                  <div key={index}>
+                    <p>{err}</p>
+                  </div>
+                ))}
+            </div>
           </div>
         </div>
         <div className="flex h-full w-full justify-end">

@@ -4,15 +4,16 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import {
   useDeleteInvoicesMutation,
-  useGetAllInvoicesQuery,
 } from "@/features/Financial/feesApi";
 import Spinner from "@/components/spinner";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import { useGetAllTaxesQuery } from "@/features/Financial/taxesApi";
 
 const FeesManagement = () => {
+  
   const breadcrumbs = [
     {
       nameEn: "Administration",
@@ -27,17 +28,17 @@ const FeesManagement = () => {
       href: "/financial-management",
     },
     {
-      nameEn: "Fees Management",
-      nameAr: "إدارة المستندات",
-      nameFr: "Gestion des documents",
-      href: "/fees-management",
+      nameEn: "Taxes",
+      nameAr: "الضرائب",
+      nameFr: "Impôts",
+      href: "/financial-management/taxes",
     },
   ];
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
   );
   const [selectAll, setSelectAll] = useState(false);
-  const { data, error, isLoading, refetch } = useGetAllInvoicesQuery(null);
+  const { data, error, isLoading, refetch } = useGetAllTaxesQuery(null);
   useEffect(() => {
     if (data) console.log("Response Data:", data);
     if (error) console.log("Error:", error);
@@ -165,11 +166,11 @@ const FeesManagement = () => {
           </div>
           <div className="flex justify-center">
             <Link
-              href="/fees-management/new-invoice"
+              href="/financial-management/taxes/add-taxes"
               className="mb-5 mr-3 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               {currentLanguage === "en"
-                ? "+ Add Invoices"
+                ? "+ Add Taxes"
                 : currentLanguage === "ar"
                   ? "+ إضافة الفواتير"
                   : currentLanguage === "fr"
@@ -181,25 +182,25 @@ const FeesManagement = () => {
         </div>
         <div className="justify-left mb-5 ml-4 flex gap-5 text-[23px] font-semibold">
           <Link
-            href="/financial-management"
+            href="/financial-management/taxes"
             className="text-blue-500 underline"
           >
             {currentLanguage === "en"
-              ? "Invoices"
+              ? "Paid Taxes"
               : currentLanguage === "ar"
-                ? "الفواتير"
+                ? "الضرائب المدفوعة"
                 : currentLanguage === "fr"
-                  ? "Factures"
+                  ? "Taxes payées"
                   : "Invoices"}{" "}
             {/* Default to English */}
           </Link>
-          <Link href="/fees-management/scholarship">
+          <Link href="/financial-management/taxes">
             {currentLanguage === "en"
-              ? "Scholarship"
+              ? "Invoices Taxes"
               : currentLanguage === "ar"
-                ? "منحة دراسية"
+                ? "ضرائب الفواتير "
                 : currentLanguage === "fr"
-                  ? "Bourse d'études"
+                  ? "Factures Taxes"
                   : "Scholarship"}{" "}
             {/* Default to English */}
           </Link>
@@ -220,7 +221,7 @@ const FeesManagement = () => {
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "en"
-                    ? "Name"
+                    ? "Tax Type"
                     : currentLanguage === "ar"
                       ? "الاسم"
                       : currentLanguage === "fr"
@@ -230,51 +231,71 @@ const FeesManagement = () => {
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "en"
-                    ? "Paid Amount"
+                    ? "Start Date"
                     : currentLanguage === "ar"
                       ? "المبلغ المدفوع"
                       : currentLanguage === "fr"
                         ? "Montant Payé"
-                        : "Paid Amount"}{" "}
+                        : "Start Date"}{" "}
                   {/* Default to English */}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "en"
-                    ? "Total Fees Amount"
+                    ? "End Date"
                     : currentLanguage === "ar"
                       ? "إجمالي مبلغ الرسوم"
                       : currentLanguage === "fr"
                         ? "Montant Total des Frais"
-                        : "Total Fees Amount"}{" "}
+                        : "End Date"}{" "}
                   {/* Default to English */}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "en"
-                    ? "Invoice Date"
+                    ? "about"
                     : currentLanguage === "ar"
                       ? "تاريخ الفاتورة"
                       : currentLanguage === "fr"
-                        ? "Date de la Facture"
-                        : "Invoice Date"}{" "}
+                        ? "about"
+                        : "about"}{" "}
                   {/* Default to English */}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "en"
-                    ? "Status"
+                    ? "Amount Paid"
                     : currentLanguage === "ar"
                       ? "الحالة"
                       : currentLanguage === "fr"
-                        ? "Statut"
-                        : "Status"}{" "}
+                        ? "Amount Paid"
+                        : "Amount Paid "}{" "}
                   {/* Default to English */}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "en"
-                    ? "Discount"
+                    ? "Payment Date"
+                    : currentLanguage === "ar"
+                      ? "الحالة"
+                      : currentLanguage === "fr"
+                        ? "Amount Paid"
+                        : "Amount Paid "}{" "}
+                  {/* Default to English */}
+                </th>
+                <th scope="col" className="whitespace-nowrap px-6 py-3">
+                  {currentLanguage === "en"
+                    ? "Payment Method"
                     : currentLanguage === "ar"
                       ? "الخصم"
                       : currentLanguage === "fr"
-                        ? "Réduction"
+                        ? "Payment Date"
+                        : "Discount"}{" "}
+                  {/* Default to English */}
+                </th>
+                <th scope="col" className="whitespace-nowrap px-6 py-3">
+                  {currentLanguage === "en"
+                    ? "Receipt"
+                    : currentLanguage === "ar"
+                      ? "الخصم"
+                      : currentLanguage === "fr"
+                        ? "Payment Date"
                         : "Discount"}{" "}
                   {/* Default to English */}
                 </th>
@@ -315,34 +336,28 @@ const FeesManagement = () => {
                       scope="row"
                       className="text-text-textSeceondary flex items-center whitespace-nowrap px-6 py-4 font-medium"
                     >
-                      {invoice.billedToName}
+                      {invoice.taxType}
                     </th>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {formatTransactionDate(invoice.startDate)}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {formatTransactionDate(invoice.endDate)}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {invoice.about}
+                    </td>
                     <td className="whitespace-nowrap px-6 py-4">
                       {invoice.paidAmount}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
-                      {invoice.totalFeesAmount}
+                      {formatTransactionDate(invoice.paymentDate)}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
-                      {formatTransactionDate(invoice.creationDate)}
+                      {invoice.paymentMethod}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
-                      {invoice.paymentStatus == "NOT_FULLY_PAID" ? (
-                        <div className="flex items-center gap-2 font-semibold text-error">
-                          {" "}
-                          <div className="h-2.5 w-2.5 rounded-full bg-error"></div>{" "}
-                          Unpaid{" "}
-                        </div>
-                      ) : (
-                        <div className="flex items-center gap-2 font-semibold text-primary">
-                          {" "}
-                          <div className="h-2.5 w-2.5 rounded-full bg-primary"></div>{" "}
-                          Unpaid{" "}
-                        </div>
-                      )}
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4">
-                      {invoice.discountAmount}
+                      {invoice.receiptNumber}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
                       <div className="flex items-center gap-3">
