@@ -8,8 +8,6 @@ import {
   FaWallet,
   FaBuilding,
   FaMoneyBill,
-  FaReceipt,
-  FaFileInvoice,
   FaCalculator,
   FaSchool,
 } from "react-icons/fa";
