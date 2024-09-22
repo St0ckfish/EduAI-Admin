@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import { useState } from "react";
+import { FaCloudUploadAlt } from "react-icons/fa";
 
 const AddNewAchievement = () => {
   const breadcrumbs = [
@@ -46,7 +48,14 @@ const AddNewAchievement = () => {
     formState: { errors },
   } = useForm();
   const [createCertificate, { isLoading }] = useCreateAchievementsMutation();
+  const [fileName, setFileName] = useState("");
 
+  const handleFileChange = (event: any) => {
+    const file = event.target.files[0];
+    if (file) {
+      setFileName(file.name);
+    }
+  };
   const onSubmit = async (formData: any) => {
     const data = new FormData();
     data.append(
@@ -209,7 +218,7 @@ const AddNewAchievement = () => {
                   </span>
                 )}
               </label>
-              <label
+              {/* <label
                 htmlFor="endDate"
                 className="grid font-sans text-[18px] font-semibold"
               >
@@ -223,7 +232,37 @@ const AddNewAchievement = () => {
                   type="file"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("endDate", { required: true })}
+                /> */}
+              <label
+                htmlFor="endDate"
+                className="grid font-sans text-[18px] font-semibold"
+              >
+                {currentLanguage === "ar"
+                  ? "وثيقة"
+                  : currentLanguage === "fr"
+                    ? "Document"
+                    : "Document"}
+                <input
+                  id="endDate"
+                  type="file"
+                  className="hidden"
+                  {...register("endDate", { required: true })}
+                  onChange={handleFileChange}
                 />
+                <span className="w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
+                  <div className="flex">
+                    <FaCloudUploadAlt className="mx-2 mt-1" />
+                    {fileName
+                      ? fileName
+                      : currentLanguage === "en"
+                        ? "Choose a file"
+                        : currentLanguage === "ar"
+                          ? "اختر ملف"
+                          : currentLanguage === "fr"
+                            ? "Choisir un fichier"
+                            : "Choose a file"}
+                  </div>
+                </span>
                 {errors.endDate && (
                   <span className="text-error">
                     {currentLanguage === "ar"

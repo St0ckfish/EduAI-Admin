@@ -31,6 +31,8 @@ const Book = () => {
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
   );
+  const booleanValue = useSelector((state: RootState) => state.boolean.value); // sidebar
+
   const [selectAll, setSelectAll] = useState(false); // State to track whether select all checkbox is checked
 
   // Function to handle click on select all checkbox
@@ -85,7 +87,9 @@ const Book = () => {
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className="relative mt-5 overflow-auto shadow-md sm:rounded-lg"
+        className={`${
+          booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"
+        } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
         <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
           <thead className="bg-thead text-xs uppercase text-textPrimary">

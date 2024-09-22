@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import { useState } from "react";
+import { FaCloudUploadAlt } from "react-icons/fa";
 
 const AddNewParticipation = () => {
   const breadcrumbs = [
@@ -46,6 +48,14 @@ const AddNewParticipation = () => {
     formState: { errors },
   } = useForm();
   const [createCertificate, { isLoading }] = useCreateParticipationsMutation();
+  const [fileName, setFileName] = useState("");
+
+  const handleFileChange = (event: any) => {
+    const file = event.target.files[0];
+    if (file) {
+      setFileName(file.name);
+    }
+  };
 
   const onSubmit = async (formData: any) => {
     const data = new FormData();
@@ -248,9 +258,24 @@ const AddNewParticipation = () => {
                 <input
                   id="file"
                   type="file"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="hidden"
                   {...register("file", { required: true })}
+                  onChange={handleFileChange}
                 />
+                <span className="w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
+                  <div className="flex">
+                    <FaCloudUploadAlt className="mx-2 mt-1" />
+                    {fileName
+                      ? fileName
+                      : currentLanguage === "en"
+                        ? "Choose a file"
+                        : currentLanguage === "ar"
+                          ? "اختر ملف"
+                          : currentLanguage === "fr"
+                            ? "Choisir un fichier"
+                            : "Choose a file"}
+                  </div>
+                </span>
                 {errors.file && (
                   <span className="text-error">
                     {currentLanguage === "ar"

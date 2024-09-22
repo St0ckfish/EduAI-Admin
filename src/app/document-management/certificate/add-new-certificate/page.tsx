@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import { useState } from "react";
+import { FaCloudUploadAlt } from "react-icons/fa";
 
 const AddNewCertificate = () => {
   const breadcrumbs = [
@@ -46,7 +48,14 @@ const AddNewCertificate = () => {
     formState: { errors },
   } = useForm();
   const [createCertificate, { isLoading }] = useCreateCertificatesMutation();
+  const [fileName, setFileName] = useState("");
 
+  const handleFileChange = (event: any) => {
+    const file = event.target.files[0];
+    if (file) {
+      setFileName(file.name);
+    }
+  };
   const onSubmit = async (formData: any) => {
     const data = new FormData();
     data.append(
@@ -186,17 +195,34 @@ const AddNewCertificate = () => {
                 htmlFor="file"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "ar"
-                  ? "وثيقة"
-                  : currentLanguage === "fr"
-                    ? "Document"
-                    : "Document"}
+                {currentLanguage === "en"
+                  ? "Student Certificates Of Achievement"
+                  : currentLanguage === "ar"
+                    ? "شهادات إنجاز الطالب"
+                    : currentLanguage === "fr"
+                      ? "Certificats de réussite de l'étudiant"
+                      : "Student Certificates Of Achievement"}
                 <input
                   id="file"
                   type="file"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="hidden"
                   {...register("file", { required: true })}
+                  onChange={handleFileChange}
                 />
+                <span className="w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
+                  <div className="flex">
+                    <FaCloudUploadAlt className="mx-2 mt-1" />
+                    {fileName
+                      ? fileName
+                      : currentLanguage === "en"
+                        ? "Choose a file"
+                        : currentLanguage === "ar"
+                          ? "اختر ملف"
+                          : currentLanguage === "fr"
+                            ? "Choisir un fichier"
+                            : "Choose a file"}
+                  </div>
+                </span>
                 {errors.file && (
                   <span className="text-error">
                     {currentLanguage === "ar"

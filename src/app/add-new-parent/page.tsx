@@ -11,8 +11,8 @@ import { toast } from "react-toastify";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import BreadCrumbs from "@/components/BreadCrumbs";
-import { useState } from 'react';
-
+import { useState } from "react";
+import { FaCloudUploadAlt } from "react-icons/fa";
 
 const AddNewParent = () => {
   const breadcrumbs = [
@@ -51,14 +51,14 @@ const AddNewParent = () => {
   } = useForm();
   const [createEmployee, { isLoading }] = useCreateParentsMutation();
   const { data: rigiond } = useGetAllReginionIDQuery(null);
-  const [fileName, setFileName] = useState(""); 
+  const [fileName, setFileName] = useState("");
 
-    const handleFileChange = (event: any) => {
-      const file = event.target.files[0]; 
-      if (file) {
-        setFileName(file.name); 
-      }
-    };
+  const handleFileChange = (event: any) => {
+    const file = event.target.files[0];
+    if (file) {
+      setFileName(file.name);
+    }
+  };
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
   );
@@ -472,7 +472,7 @@ const AddNewParent = () => {
                   defaultValue=""
                   id="regionId"
                   {...register("regionId", { required: true })}
-                  className="border border-borderPrimary h-full w-[400px] rounded-xl px-4 py-3 text-[18px] text-[#000000] outline-none max-[458px]:w-[350px]"
+                  className="h-full w-[400px] rounded-xl border border-borderPrimary px-4 py-3 text-[18px] text-[#000000] outline-none max-[458px]:w-[350px]"
                 >
                   <option value="">
                     {currentLanguage === "en"
@@ -1201,7 +1201,7 @@ const AddNewParent = () => {
                   </span>
                 )}
               </label>
-              
+
               <label
                 htmlFor="parentIdPhoto"
                 className="grid font-sans text-[18px] font-semibold"
@@ -1220,18 +1220,19 @@ const AddNewParent = () => {
                   {...register("parentIdPhoto")}
                   onChange={handleFileChange}
                 />
-                <span
-                  className="cursor-pointer w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px] overflow-hidden whitespace-nowrap text-ellipsis"
-                >
-                  {fileName
-                    ? fileName
-                    : currentLanguage === "en"
-                      ? "Choose a file"
-                      : currentLanguage === "ar"
-                        ? "اختر ملف"
-                        : currentLanguage === "fr"
-                          ? "Choisir un fichier"
-                          : "Choose a file"}
+                <span className="w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
+                  <div className="flex">
+                    <FaCloudUploadAlt className="mx-2 mt-1" />
+                    {fileName
+                      ? fileName
+                      : currentLanguage === "en"
+                        ? "Choose a file"
+                        : currentLanguage === "ar"
+                          ? "اختر ملف"
+                          : currentLanguage === "fr"
+                            ? "Choisir un fichier"
+                            : "Choose a file"}
+                  </div>
                 </span>
               </label>
             </div>
@@ -1241,7 +1242,7 @@ const AddNewParent = () => {
                 htmlFor="studentIdPhoto"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                 {currentLanguage === "en"
+                {currentLanguage === "en"
                   ? "Student ID Photo"
                   : currentLanguage === "ar"
                     ? "صورة هوية الطالب"
@@ -1255,21 +1256,22 @@ const AddNewParent = () => {
                   {...register("studentIdPhoto")}
                   onChange={handleFileChange}
                 />
-                <span
-                  className="cursor-pointer w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px] overflow-hidden whitespace-nowrap text-ellipsis"
-                >
-                  {fileName
-                    ? fileName
-                    : currentLanguage === "en"
-                      ? "Choose a file"
-                      : currentLanguage === "ar"
-                        ? "اختر ملف"
-                        : currentLanguage === "fr"
-                          ? "Choisir un fichier"
-                          : "Choose a file"}
+                <span className="w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
+                  <div className="flex">
+                    <FaCloudUploadAlt className="mx-2 mt-1" />
+                    {fileName
+                      ? fileName
+                      : currentLanguage === "en"
+                        ? "Choose a file"
+                        : currentLanguage === "ar"
+                          ? "اختر ملف"
+                          : currentLanguage === "fr"
+                            ? "Choisir un fichier"
+                            : "Choose a file"}
+                  </div>
                 </span>
               </label>
-              
+
               <label
                 htmlFor="studentProfilePhoto"
                 className="grid font-sans text-[18px] font-semibold"
@@ -1288,18 +1290,19 @@ const AddNewParent = () => {
                   {...register("studentProfilePhoto")}
                   onChange={handleFileChange}
                 />
-                <span
-                  className="cursor-pointer w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px] overflow-hidden whitespace-nowrap text-ellipsis"
-                >
-                  {fileName
-                    ? fileName
-                    : currentLanguage === "en"
-                      ? "Choose a file"
-                      : currentLanguage === "ar"
-                        ? "اختر ملف"
-                        : currentLanguage === "fr"
-                          ? "Choisir un fichier"
-                          : "Choose a file"}
+                <span className="w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
+                  <div className="flex">
+                    <FaCloudUploadAlt className="mx-2 mt-1" />
+                    {fileName
+                      ? fileName
+                      : currentLanguage === "en"
+                        ? "Choose a file"
+                        : currentLanguage === "ar"
+                          ? "اختر ملف"
+                          : currentLanguage === "fr"
+                            ? "Choisir un fichier"
+                            : "Choose a file"}
+                  </div>
                 </span>
               </label>
               <label
@@ -1320,18 +1323,19 @@ const AddNewParent = () => {
                   {...register("studentCertificatesOfAchievement")}
                   onChange={handleFileChange}
                 />
-                <span
-                  className="cursor-pointer w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px] overflow-hidden whitespace-nowrap text-ellipsis"
-                >
-                  {fileName
-                    ? fileName
-                    : currentLanguage === "en"
-                      ? "Choose a file"
-                      : currentLanguage === "ar"
-                        ? "اختر ملف"
-                        : currentLanguage === "fr"
-                          ? "Choisir un fichier"
-                          : "Choose a file"}
+                <span className="w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
+                  <div className="flex">
+                    <FaCloudUploadAlt className="mx-2 mt-1" />
+                    {fileName
+                      ? fileName
+                      : currentLanguage === "en"
+                        ? "Choose a file"
+                        : currentLanguage === "ar"
+                          ? "اختر ملف"
+                          : currentLanguage === "fr"
+                            ? "Choisir un fichier"
+                            : "Choose a file"}
+                  </div>
                 </span>
               </label>
             </div>
