@@ -82,8 +82,6 @@ const Enrollment = () => {
 
   return (
     <>
-      {/* <Soon /> */}
-
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
