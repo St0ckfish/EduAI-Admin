@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import { useGetAllSchoolsQuery } from "@/features/attendance/attendanceApi";
 
 const AddNewDriver = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
@@ -20,6 +21,7 @@ const AddNewDriver = () => {
 
   const { data: nationalityData, isLoading: nationalityLoading } =
     useGetAllNationalitysQuery(null);
+  const { data: schoolData, isLoading: isSchool } = useGetAllSchoolsQuery(null);
   const {
     register,
     handleSubmit,
