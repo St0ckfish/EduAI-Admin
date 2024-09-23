@@ -87,9 +87,9 @@ const Exams = () => {
                     </div>
                     <div>
                       <p className="text-[12px] text-textSecondary">
-                        currentLanguage === "ar" ? "إجمالي الطلاب" :
+                        {currentLanguage === "ar" ? "إجمالي الطلاب" :
                         currentLanguage === "fr" ? "Total des étudiants" :
-                        "Total student"
+                        "Total student"}
                       </p>
                       <p className="text-[12px] text-textSecondary">50</p>
                     </div>
@@ -112,9 +112,9 @@ const Exams = () => {
                     </div>
                     <div>
                       <p className="text-[12px] text-textSecondary">
-                        currentLanguage === "ar" ? "إجمالي الطلاب" :
+                        {currentLanguage === "ar" ? "إجمالي الطلاب" :
                         currentLanguage === "fr" ? "Total des étudiants" :
-                        "Total student"
+                        "Total student"}
                       </p>
                       <p className="text-[12px] text-textSecondary">50</p>
                     </div>
@@ -137,9 +137,9 @@ const Exams = () => {
                     </div>
                     <div>
                       <p className="text-[12px] text-textSecondary">
-                        currentLanguage === "ar" ? "إجمالي الطلاب" :
+                        {currentLanguage === "ar" ? "إجمالي الطلاب" :
                         currentLanguage === "fr" ? "Total des étudiants" :
-                        "Total student"
+                        "Total student"}
                       </p>
                       <p className="text-[12px] text-textSecondary">50</p>
                     </div>
@@ -162,9 +162,9 @@ const Exams = () => {
                     </div>
                     <div>
                       <p className="text-[12px] text-textSecondary">
-                        currentLanguage === "ar" ? "إجمالي الطلاب" :
+                        {currentLanguage === "ar" ? "إجمالي الطلاب" :
                         currentLanguage === "fr" ? "Total des étudiants" :
-                        "Total student"
+                        "Total student"}
                       </p>
                       <p className="text-[12px] text-textSecondary">50</p>
                     </div>
@@ -187,9 +187,9 @@ const Exams = () => {
                     </div>
                     <div>
                       <p className="text-[12px] text-textSecondary">
-                        currentLanguage === "ar" ? "إجمالي الطلاب" :
+                        {currentLanguage === "ar" ? "إجمالي الطلاب" :
                         currentLanguage === "fr" ? "Total des étudiants" :
-                        "Total student"
+                        "Total student"}
                       </p>
                       <p className="text-[12px] text-textSecondary">50</p>
                     </div>
@@ -212,9 +212,9 @@ const Exams = () => {
                     </div>
                     <div>
                       <p className="text-[12px] text-textSecondary">
-                        currentLanguage === "ar" ? "إجمالي الطلاب" :
+                        {currentLanguage === "ar" ? "إجمالي الطلاب" :
                         currentLanguage === "fr" ? "Total des étudiants" :
-                        "Total student"
+                        "Total student"}
                       </p>
                       <p className="text-[12px] text-textSecondary">50</p>
                     </div>

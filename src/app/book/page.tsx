@@ -48,6 +48,7 @@ const Book = () => {
 
   useEffect(() => {
     // Function to handle click on other checkboxes
+    alert("This page is not ready to use");
     const handleOtherCheckboxes = () => {
       const allCheckboxes = document.querySelectorAll<HTMLInputElement>(
         'input[type="checkbox"]:not(#checkbox-all-search)',
@@ -63,6 +64,7 @@ const Book = () => {
         setSelectAll(allChecked);
       }
     };
+
 
     // Add event listeners to other checkboxes
     const otherCheckboxes = document.querySelectorAll<HTMLInputElement>(
@@ -82,8 +84,7 @@ const Book = () => {
 
   return (
     <>
-      <Soon />
-
+      {/* <Soon /> */}
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}

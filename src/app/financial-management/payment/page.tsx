@@ -72,6 +72,8 @@ const Payment = () => {
       }
     };
 
+    alert("This page is not ready to use.");
+
     const otherCheckboxes = document.querySelectorAll<HTMLInputElement>(
       'input[type="checkbox"]:not(#checkbox-all-search)',
     );
@@ -120,7 +122,7 @@ const Payment = () => {
 
   return (
     <>
-      <Soon />
+      {/* <Soon /> */}
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
