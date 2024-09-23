@@ -82,7 +82,7 @@ const AddTaxes = () => {
   ];
 
   const currentLanguage = useSelector(
-    (state: RootState) => state.language.language
+    (state: RootState) => state.language.language,
   );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
@@ -122,8 +122,8 @@ const AddTaxes = () => {
         currentLanguage === "ar"
           ? "تم إنشاء سجل الضريبة بنجاح"
           : currentLanguage === "fr"
-          ? "Enregistrement de la taxe créé avec succès"
-          : "Tax record created successfully"
+            ? "Enregistrement de la taxe créé avec succès"
+            : "Tax record created successfully",
       );
     } catch (err) {
       console.error("Failed to create tax record", err);
@@ -131,8 +131,8 @@ const AddTaxes = () => {
         currentLanguage === "ar"
           ? "فشل في إنشاء سجل الضريبة"
           : currentLanguage === "fr"
-          ? "Échec de la création de l'enregistrement de la taxe"
-          : "Failed to create tax record"
+            ? "Échec de la création de l'enregistrement de la taxe"
+            : "Failed to create tax record",
       );
     }
   };
@@ -142,9 +142,7 @@ const AddTaxes = () => {
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`${
-          booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"
-        } mt-20`}
+        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-20`}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid gap-3 rounded-xl bg-bgSecondary p-10">
@@ -154,8 +152,8 @@ const AddTaxes = () => {
                   {currentLanguage === "ar"
                     ? "تفاصيل الضريبة"
                     : currentLanguage === "fr"
-                    ? "Détails de la taxe"
-                    : "Tax Details"}
+                      ? "Détails de la taxe"
+                      : "Tax Details"}
                 </h1>
                 <button className="flex gap-2" type="submit">
                   <AiOutlineSave size={25} />
@@ -163,13 +161,13 @@ const AddTaxes = () => {
                     ? currentLanguage === "ar"
                       ? "جاري الحفظ..."
                       : currentLanguage === "fr"
-                      ? "Enregistrement..."
-                      : "Saving..."
+                        ? "Enregistrement..."
+                        : "Saving..."
                     : currentLanguage === "ar"
-                    ? "حفظ"
-                    : currentLanguage === "fr"
-                    ? "Enregistrer"
-                    : "Save"}
+                      ? "حفظ"
+                      : currentLanguage === "fr"
+                        ? "Enregistrer"
+                        : "Save"}
                 </button>
               </div>
               <div className="grid grid-cols-2 gap-3 font-semibold max-[614px]:grid-cols-1">
@@ -178,16 +176,16 @@ const AddTaxes = () => {
                   {currentLanguage === "ar"
                     ? "نوع الضريبة"
                     : currentLanguage === "fr"
-                    ? "Type de taxe"
-                    : "Tax Type"}
+                      ? "Type de taxe"
+                      : "Tax Type"}
                   <select
                     {...register("taxType", {
                       required:
                         currentLanguage === "ar"
                           ? "نوع الضريبة مطلوب"
                           : currentLanguage === "fr"
-                          ? "Le type de taxe est requis"
-                          : "Tax Type is required",
+                            ? "Le type de taxe est requis"
+                            : "Tax Type is required",
                     })}
                     className="h-[60px] rounded-lg border border-borderPrimary px-3 py-2 outline-none"
                   >
@@ -195,16 +193,16 @@ const AddTaxes = () => {
                       {currentLanguage === "ar"
                         ? "اختر نوع الضريبة"
                         : currentLanguage === "fr"
-                        ? "Sélectionnez le type de taxe"
-                        : "Select Tax Type"}
+                          ? "Sélectionnez le type de taxe"
+                          : "Select Tax Type"}
                     </option>
-                    {taxTypes.map((type) => (
+                    {taxTypes.map(type => (
                       <option key={type.value} value={type.value}>
                         {currentLanguage === "ar"
                           ? type.labels.ar
                           : currentLanguage === "fr"
-                          ? type.labels.fr
-                          : type.labels.en}
+                            ? type.labels.fr
+                            : type.labels.en}
                       </option>
                     ))}
                   </select>
@@ -219,16 +217,16 @@ const AddTaxes = () => {
                   {currentLanguage === "ar"
                     ? "طريقة الدفع"
                     : currentLanguage === "fr"
-                    ? "Méthode de paiement"
-                    : "Payment Method"}
+                      ? "Méthode de paiement"
+                      : "Payment Method"}
                   <select
                     {...register("paymentMethod", {
                       required:
                         currentLanguage === "ar"
                           ? "طريقة الدفع مطلوبة"
                           : currentLanguage === "fr"
-                          ? "La méthode de paiement est requise"
-                          : "Payment Method is required",
+                            ? "La méthode de paiement est requise"
+                            : "Payment Method is required",
                     })}
                     className="h-[60px] rounded-lg border border-borderPrimary px-3 py-2 outline-none"
                   >
@@ -236,16 +234,16 @@ const AddTaxes = () => {
                       {currentLanguage === "ar"
                         ? "اختر طريقة الدفع"
                         : currentLanguage === "fr"
-                        ? "Sélectionnez la méthode de paiement"
-                        : "Select Payment Method"}
+                          ? "Sélectionnez la méthode de paiement"
+                          : "Select Payment Method"}
                     </option>
-                    {paymentMethods.map((method) => (
+                    {paymentMethods.map(method => (
                       <option key={method.value} value={method.value}>
                         {currentLanguage === "ar"
                           ? method.labels.ar
                           : currentLanguage === "fr"
-                          ? method.labels.fr
-                          : method.labels.en}
+                            ? method.labels.fr
+                            : method.labels.en}
                       </option>
                     ))}
                   </select>
@@ -260,24 +258,24 @@ const AddTaxes = () => {
                   {currentLanguage === "ar"
                     ? "المبلغ المدفوع"
                     : currentLanguage === "fr"
-                    ? "Montant payé"
-                    : "Paid Amount"}
+                      ? "Montant payé"
+                      : "Paid Amount"}
                   <input
                     type="number"
                     placeholder={
                       currentLanguage === "ar"
                         ? "اكتب المبلغ المدفوع"
                         : currentLanguage === "fr"
-                        ? "Entrez le montant payé"
-                        : "Enter Paid Amount"
+                          ? "Entrez le montant payé"
+                          : "Enter Paid Amount"
                     }
                     {...register("paidAmount", {
                       required:
                         currentLanguage === "ar"
                           ? "المبلغ المدفوع مطلوب"
                           : currentLanguage === "fr"
-                          ? "Le montant payé est requis"
-                          : "Paid Amount is required",
+                            ? "Le montant payé est requis"
+                            : "Paid Amount is required",
                     })}
                     className="h-[60px] rounded-lg border border-borderPrimary px-3 py-2 outline-none"
                   />
@@ -292,8 +290,8 @@ const AddTaxes = () => {
                   {currentLanguage === "ar"
                     ? "تاريخ البدء"
                     : currentLanguage === "fr"
-                    ? "Date de début"
-                    : "Start Date"}
+                      ? "Date de début"
+                      : "Start Date"}
                   <input
                     type="date"
                     {...register("startDate", {
@@ -301,8 +299,8 @@ const AddTaxes = () => {
                         currentLanguage === "ar"
                           ? "تاريخ البدء مطلوب"
                           : currentLanguage === "fr"
-                          ? "La date de début est requise"
-                          : "Start Date is required",
+                            ? "La date de début est requise"
+                            : "Start Date is required",
                     })}
                     className="h-[60px] rounded-lg border border-borderPrimary px-3 py-2 outline-none"
                   />
@@ -317,8 +315,8 @@ const AddTaxes = () => {
                   {currentLanguage === "ar"
                     ? "تاريخ الانتهاء"
                     : currentLanguage === "fr"
-                    ? "Date de fin"
-                    : "End Date"}
+                      ? "Date de fin"
+                      : "End Date"}
                   <input
                     type="date"
                     {...register("endDate", {
@@ -326,8 +324,8 @@ const AddTaxes = () => {
                         currentLanguage === "ar"
                           ? "تاريخ الانتهاء مطلوب"
                           : currentLanguage === "fr"
-                          ? "La date de fin est requise"
-                          : "End Date is required",
+                            ? "La date de fin est requise"
+                            : "End Date is required",
                     })}
                     className="h-[60px] rounded-lg border border-borderPrimary px-3 py-2 outline-none"
                   />
@@ -342,8 +340,8 @@ const AddTaxes = () => {
                   {currentLanguage === "ar"
                     ? "تاريخ الدفع"
                     : currentLanguage === "fr"
-                    ? "Date de paiement"
-                    : "Payment Date"}
+                      ? "Date de paiement"
+                      : "Payment Date"}
                   <input
                     type="datetime-local"
                     {...register("paymentDate", {
@@ -351,8 +349,8 @@ const AddTaxes = () => {
                         currentLanguage === "ar"
                           ? "تاريخ الدفع مطلوب"
                           : currentLanguage === "fr"
-                          ? "La date de paiement est requise"
-                          : "Payment Date is required",
+                            ? "La date de paiement est requise"
+                            : "Payment Date is required",
                     })}
                     className="h-[60px] rounded-lg border border-borderPrimary px-3 py-2 outline-none"
                   />
@@ -367,24 +365,24 @@ const AddTaxes = () => {
                   {currentLanguage === "ar"
                     ? "رقم الإيصال"
                     : currentLanguage === "fr"
-                    ? "Numéro de reçu"
-                    : "Receipt Number"}
+                      ? "Numéro de reçu"
+                      : "Receipt Number"}
                   <input
                     type="text"
                     placeholder={
                       currentLanguage === "ar"
                         ? "اكتب رقم الإيصال"
                         : currentLanguage === "fr"
-                        ? "Entrez le numéro de reçu"
-                        : "Enter Receipt Number"
+                          ? "Entrez le numéro de reçu"
+                          : "Enter Receipt Number"
                     }
                     {...register("receiptNumber", {
                       required:
                         currentLanguage === "ar"
                           ? "رقم الإيصال مطلوب"
                           : currentLanguage === "fr"
-                          ? "Le numéro de reçu est requis"
-                          : "Receipt Number is required",
+                            ? "Le numéro de reçu est requis"
+                            : "Receipt Number is required",
                     })}
                     className="h-[60px] rounded-lg border border-borderPrimary px-3 py-2 outline-none"
                   />
@@ -395,27 +393,27 @@ const AddTaxes = () => {
                   )}
                 </label>
                 {/* About */}
-                <label className="grid col-span-2">
+                <label className="col-span-2 grid">
                   {currentLanguage === "ar"
                     ? "حول"
                     : currentLanguage === "fr"
-                    ? "À propos"
-                    : "About"}
+                      ? "À propos"
+                      : "About"}
                   <textarea
                     placeholder={
                       currentLanguage === "ar"
                         ? "اكتب معلومات إضافية"
                         : currentLanguage === "fr"
-                        ? "Entrez des informations supplémentaires"
-                        : "Enter additional information"
+                          ? "Entrez des informations supplémentaires"
+                          : "Enter additional information"
                     }
                     {...register("about", {
                       required:
                         currentLanguage === "ar"
                           ? "المعلومات مطلوبة"
                           : currentLanguage === "fr"
-                          ? "Les informations sont requises"
-                          : "About is required",
+                            ? "Les informations sont requises"
+                            : "About is required",
                     })}
                     className="h-[100px] rounded-lg border border-borderPrimary px-3 py-2 outline-none"
                   />
@@ -433,8 +431,8 @@ const AddTaxes = () => {
                   {currentLanguage === "ar"
                     ? "تحميل ملف"
                     : currentLanguage === "fr"
-                    ? "Télécharger un fichier"
-                    : "Upload File"}
+                      ? "Télécharger un fichier"
+                      : "Upload File"}
                 </h1>
               </div>
               <div className="flex justify-center gap-3 font-semibold">
@@ -463,15 +461,15 @@ const AddTaxes = () => {
                         {currentLanguage === "ar"
                           ? "انقر للرفع أو اسحب وأفلت"
                           : currentLanguage === "fr"
-                          ? "Cliquez pour télécharger ou glissez-déposez"
-                          : "Click to upload or drag and drop"}
+                            ? "Cliquez pour télécharger ou glissez-déposez"
+                            : "Click to upload or drag and drop"}
                       </p>
                       <p className="text-xs text-textSecondary">
                         {currentLanguage === "ar"
                           ? "PNG، JPG أو PDF (الحد الأقصى. 10 ميغابايت)"
                           : currentLanguage === "fr"
-                          ? "PNG, JPG ou PDF (MAX. 10MB)"
-                          : "PNG, JPG or PDF (MAX. 10MB)"}
+                            ? "PNG, JPG ou PDF (MAX. 10MB)"
+                            : "PNG, JPG or PDF (MAX. 10MB)"}
                       </p>
                     </div>
                     <input

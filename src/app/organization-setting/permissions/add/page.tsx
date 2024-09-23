@@ -55,136 +55,143 @@ const Permissions = () => {
               : "Employee"}
         </Link>
       </div>
-      <div className="relative mr-[5px] mt-5 flex h-[650px] items-center justify-center overflow-x-auto bg-transparent max-[1200px]:w-screen sm:rounded-lg lg:ml-[270px]">
-        <div className="relative overflow-auto shadow-md sm:rounded-lg">
-          <table className="text-bgSecondary0 h-[600px] w-[1000px] overflow-x-auto text-left text-sm rtl:text-right">
-            <thead className="bg-thead text-[18px] uppercase text-textPrimary">
-              <tr>
-                <th scope="col" className="whitespace-nowrap px-6 py-6">
-                  {currentLanguage === "ar"
-                    ? "إذن"
-                    : currentLanguage === "fr"
-                      ? "Autorisation"
-                      : "Permission"}
-                </th>
-                <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "ar"
-                    ? "المنطبق على"
-                    : currentLanguage === "fr"
-                      ? "Applicable Pour"
-                      : "Applicable For"}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="bg-bgPrimary hover:bg-bgSecondary">
-                <th
-                  scope="row"
-                  className="whitespace-nowrap px-6 py-4 text-[25px] font-medium text-textPrimary"
-                >
-                  <label className="inline-flex cursor-pointer items-center">
-                    <input type="checkbox" value="" className="peer sr-only" />
-                    <div className="peer relative h-7 w-14 rounded-full bg-thead after:absolute after:start-[4px] after:top-0.5 after:h-6 after:w-6 after:rounded-full after:border after:border-borderPrimary after:bg-bgPrimary after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-borderPrimary peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rtl:peer-checked:after:-translate-x-full"></div>
-                    <span className="ms-3 whitespace-nowrap text-[25px] font-medium text-textPrimary">
-                      {currentLanguage === "ar"
-                        ? "إذن جديد"
-                        : currentLanguage === "fr"
-                          ? "Nouvelle Autorisation"
-                          : "New Permission"}
-                    </span>
-                  </label>
-                </th>
-                <td className="whitespace-nowrap px-6 py-4">
-                  <div className="grid grid-cols-2 gap-3">
-                    <span className="grid items-center gap-2 text-[18px] font-semibold text-blackOrWhite">
-                      {currentLanguage === "ar"
-                        ? "الأقسام"
-                        : currentLanguage === "fr"
-                          ? "Sections"
-                          : "Sections"}
-                      <select
-                        id="countries"
-                        className="block w-full rounded-lg border border-borderPrimary bg-bgPrimary p-1.5 text-sm text-textPrimary outline-none focus:border-blue-500 focus:ring-blue-500"
-                      >
-                        <option selected>
-                          {currentLanguage === "ar"
-                            ? "اختر القسم"
-                            : currentLanguage === "fr"
-                              ? "Choisir la section"
-                              : "Choose Section"}
-                        </option>
-                        <option value="US">
-                          {currentLanguage === "ar"
-                            ? "معلم"
-                            : currentLanguage === "fr"
-                              ? "Enseignant"
-                              : "Teacher"}
-                        </option>
-                      </select>
-                    </span>
-                  </div>
-                </td>
-              </tr>
-              <tr className="bg-bgPrimary hover:bg-bgSecondary">
-                <th
-                  scope="row"
-                  className="whitespace-nowrap px-6 py-4 text-[25px] font-medium text-textPrimary"
-                >
-                  <label className="inline-flex cursor-pointer items-center">
-                    <input type="checkbox" value="" className="peer sr-only" />
-                    <div className="peer relative h-7 w-14 rounded-full bg-thead after:absolute after:start-[4px] after:top-0.5 after:h-6 after:w-6 after:rounded-full after:border after:border-borderPrimary after:bg-bgPrimary after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-borderPrimary peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rtl:peer-checked:after:-translate-x-full"></div>
-                    <span className="ms-3 whitespace-nowrap text-[25px] font-medium text-textPrimary">
-                      {currentLanguage === "ar"
-                        ? "إذن جديد"
-                        : currentLanguage === "fr"
-                          ? "Nouvelle Autorisation"
-                          : "New Permission"}
-                    </span>
-                  </label>
-                </th>
-                <td className="whitespace-nowrap px-6 py-4"></td>
-              </tr>
-              <tr className="bg-bgPrimary hover:bg-bgSecondary">
-                <th
-                  scope="row"
-                  className="whitespace-nowrap px-6 py-4 text-[25px] font-medium text-textPrimary"
-                >
-                  <label className="inline-flex cursor-pointer items-center">
-                    <input type="checkbox" value="" className="peer sr-only" />
-                    <div className="peer relative h-7 w-14 rounded-full bg-thead after:absolute after:start-[4px] after:top-0.5 after:h-6 after:w-6 after:rounded-full after:border after:border-borderPrimary after:bg-bgPrimary after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-borderPrimary peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rtl:peer-checked:after:-translate-x-full"></div>
-                    <span className="ms-3 whitespace-nowrap text-[25px] font-medium text-textPrimary">
-                      {currentLanguage === "ar"
-                        ? "إذن جديد"
-                        : currentLanguage === "fr"
-                          ? "Nouvelle Autorisation"
-                          : "New Permission"}
-                    </span>
-                  </label>
-                </th>
-                <td className="whitespace-nowrap px-6 py-4"></td>
-              </tr>
-              <tr className="bg-bgPrimary hover:bg-bgSecondary">
-                <th
-                  scope="row"
-                  className="whitespace-nowrap px-6 py-4 text-[25px] font-medium text-textPrimary"
-                >
-                  <label className="inline-flex cursor-pointer items-center">
-                    <input type="checkbox" value="" className="peer sr-only" />
-                    <div className="peer relative h-7 w-14 rounded-full bg-thead after:absolute after:start-[4px] after:top-0.5 after:h-6 after:w-6 after:rounded-full after:border after:border-borderPrimary after:bg-bgPrimary after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-borderPrimary peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rtl:peer-checked:after:-translate-x-full"></div>
-                    <span className="ms-3 whitespace-nowrap text-[25px] font-medium text-textPrimary">
-                      {currentLanguage === "ar"
-                        ? "إذن جديد"
-                        : currentLanguage === "fr"
-                          ? "Nouvelle Autorisation"
-                          : "New Permission"}
-                    </span>
-                  </label>
-                </th>
-                <td className="whitespace-nowrap px-6 py-4"></td>
-              </tr>
-            </tbody>
-          </table>
+      <div className={` ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mr-3`}>
+      <div className="bg-bgPrimary rounded-xl pb-5">
+        <div className="bg-thead flex justify-between rounded-t-xl px-10 py-4 font-semibold text-[18px]">
+          <p>Permission</p>
+          <p>Applicable For</p>
         </div>
+        <div className="py-8 px-10 flex justify-between max-[640px]:grid max-[640px]:justify-center max-[640px]:gap-10">
+          <div className="grid gap-5 font-semibold text-[18px]">
+            <div className="flex gap-2 items-center">
+              <button>
+              <svg
+                className="h-6 w-6 text-secondary"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                strokeWidth="2"
+                stroke="currentColor"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                {" "}
+                <path stroke="none" d="M0 0h24v24H0z" />{" "}
+                <polyline points="9 6 15 12 9 18" />
+              </svg>
+              </button>
+              <input
+                id="checkbox-all-search"
+                type="checkbox"
+                className="-gray-800 h-5 w-5 rounded border-borderPrimary bg-bgPrimary text-primary focus:ring-2 focus:ring-hover"
+                
+              />
+              <p>Administration</p>
+            </div>
+            <div className="flex gap-2 items-center">
+              <button>
+              <svg
+                className="h-6 w-6 text-secondary"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                strokeWidth="2"
+                stroke="currentColor"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                {" "}
+                <path stroke="none" d="M0 0h24v24H0z" />{" "}
+                <polyline points="9 6 15 12 9 18" />
+              </svg>
+              </button>
+              <input
+                id="checkbox-all-search"
+                type="checkbox"
+                className="-gray-800 h-5 w-5 rounded border-borderPrimary bg-bgPrimary text-primary focus:ring-2 focus:ring-hover"
+                
+              />
+              <p>Academic</p>
+            </div>
+            <div className="flex gap-2 items-center">
+              <button>
+              <svg
+                className="h-6 w-6 text-secondary"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                strokeWidth="2"
+                stroke="currentColor"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                {" "}
+                <path stroke="none" d="M0 0h24v24H0z" />{" "}
+                <polyline points="9 6 15 12 9 18" />
+              </svg>
+              </button>
+              <input
+                id="checkbox-all-search"
+                type="checkbox"
+                className="-gray-800 h-5 w-5 rounded border-borderPrimary bg-bgPrimary text-primary focus:ring-2 focus:ring-hover"
+                
+              />
+              <p>Operations</p>
+            </div>
+            <div className="flex gap-2 items-center">
+              <button>
+              <svg
+                className="h-6 w-6 text-secondary"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                strokeWidth="2"
+                stroke="currentColor"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                {" "}
+                <path stroke="none" d="M0 0h24v24H0z" />{" "}
+                <polyline points="9 6 15 12 9 18" />
+              </svg>
+              </button>
+              <input
+                id="checkbox-all-search"
+                type="checkbox"
+                className="-gray-800 h-5 w-5 rounded border-borderPrimary bg-bgPrimary text-primary focus:ring-2 focus:ring-hover"
+                
+              />
+              <p>Communication</p>
+            </div>
+          </div>
+          <div className="grid w-[300px] gap-5 font-semibold h-[90px]">
+            <p>Sections</p>
+            <select
+              id="countries"
+              className="block w-full rounded-lg border border-borderPrimary bg-bgPrimary p-1.5 text-sm text-textSecondary outline-none focus:border-blue-500 focus:ring-blue-500"
+            >
+              <option selected>
+                {currentLanguage === "ar"
+                  ? "اختر"
+                  : currentLanguage === "fr"
+                    ? "Choisir"
+                    : "Choose"}
+              </option>
+              <option value="US">
+                {currentLanguage === "ar"
+                  ? "مدرس"
+                  : currentLanguage === "fr"
+                    ? "Enseignant"
+                    : "Teacher"}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
       </div>
     </>
   );

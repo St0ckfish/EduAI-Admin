@@ -7,10 +7,12 @@ import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import BreadCrumbs from "@/components/BreadCrumbs";
-import { useDeleteTaxesMutation, useGetAllTaxesQuery } from "@/features/Financial/taxesApi";
+import {
+  useDeleteTaxesMutation,
+  useGetAllTaxesQuery,
+} from "@/features/Financial/taxesApi";
 
 const FeesManagement = () => {
-  
   const breadcrumbs = [
     {
       nameEn: "Administration",
@@ -359,9 +361,7 @@ const FeesManagement = () => {
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
                       <div className="flex items-center gap-3">
-                        <button
-                          onClick={() => handleDelete(invoice.id)}
-                        >
+                        <button onClick={() => handleDelete(invoice.id)}>
                           <svg
                             className="h-6 w-6 text-red-500"
                             fill="none"

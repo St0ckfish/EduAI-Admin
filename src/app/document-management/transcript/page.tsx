@@ -8,25 +8,25 @@ import { RootState } from "@/GlobalRedux/store";
 
 const Enrollment = () => {
   const breadcrumbs = [
-      {
-        nameEn: "Administration",
-        nameAr: "الإدارة",
-        nameFr: "Administration",
-        href: "/",
-      },
-      {
-        nameEn: "Document Management",
-        nameAr: "إدارة المستندات",
-        nameFr: "Gestion des documents",
-        href: "/document-management",
-      },
-      {
-        nameEn: "Transcript",
-        nameAr: "سجل الدرجات",
-        nameFr: "Relevé de notes",
-        href: "/document-management/transcript",
-      },
-    ];
+    {
+      nameEn: "Administration",
+      nameAr: "الإدارة",
+      nameFr: "Administration",
+      href: "/",
+    },
+    {
+      nameEn: "Document Management",
+      nameAr: "إدارة المستندات",
+      nameFr: "Gestion des documents",
+      href: "/document-management",
+    },
+    {
+      nameEn: "Transcript",
+      nameAr: "سجل الدرجات",
+      nameFr: "Relevé de notes",
+      href: "/document-management/transcript",
+    },
+  ];
 
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
@@ -87,8 +87,9 @@ const Enrollment = () => {
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"
-          } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
+        className={`${
+          booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"
+        } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
         <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
           <thead className="bg-thead text-xs uppercase text-textPrimary">

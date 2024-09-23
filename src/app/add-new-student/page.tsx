@@ -12,6 +12,9 @@ import { toast } from "react-toastify";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import { FaCloudUploadAlt } from "react-icons/fa";
+import { useState } from "react";
+
 
 const AddNewStudent = () => {
   const breadcrumbs = [
@@ -40,16 +43,30 @@ const AddNewStudent = () => {
       href: "/add-new-student",
     },
   ];
+  const [studentCertificatesOfAchievement, setStudentCertificatesOfAchievement] = useState("");
+  const [studentProfilePhoto, setStudentProfilePhoto] = useState("");
+  const [studentIdPhoto, setStudentIdPhoto] = useState("");
+  const [fileName, setFileName] = useState("");
+
+  const handleFileChange = (
+    event: any,
+    setFileName: (name: string) => void,
+  ) => {
+    const file = event.target.files[0];
+    if (file) {
+      setFileName(file.name);
+    }
+  };
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const { data: nationalityData, isLoading: nationalityLoading } =
     useGetAllNationalitysQuery(null);
   const { data: regionData } = useGetAllReginionIDQuery(null);
-  const { data: parentData, isLoading: parentLoading } =
-    useGetAllParentsQuery({
-      archived: "false",
-      page: 0,
-      size: 1000000,
-    });
+  const { data: parentData, isLoading: parentLoading } = useGetAllParentsQuery({
+    archived: "false",
+    page: 0,
+    size: 1000000,
+  });
 
   const {
     register,
@@ -59,7 +76,7 @@ const AddNewStudent = () => {
   const [createStudent, { isLoading }] = useCreateStudentsMutation();
 
   const currentLanguage = useSelector(
-    (state: RootState) => state.language.language
+    (state: RootState) => state.language.language,
   );
 
   const onSubmit = async (data: any) => {
@@ -85,7 +102,7 @@ const AddNewStudent = () => {
         relationshipToStudent: data.relationshipToStudent,
         studyLevel: data.studyLevel,
         eduSystemId: data.eduSystemId,
-      })
+      }),
     );
 
     // Append file inputs
@@ -99,7 +116,7 @@ const AddNewStudent = () => {
     )
       formData.append(
         "studentCertificatesOfAchievement",
-        data.studentCertificatesOfAchievement[0]
+        data.studentCertificatesOfAchievement[0],
       );
 
     try {
@@ -117,7 +134,6 @@ const AddNewStudent = () => {
       </div>
     );
   }
-
 
   return (
     <>
@@ -138,8 +154,8 @@ const AddNewStudent = () => {
                 {currentLanguage === "en"
                   ? "Parent"
                   : currentLanguage === "ar"
-                  ? "الوالد"
-                  : "Parent"}
+                    ? "الوالد"
+                    : "Parent"}
                 <select
                   id="parentId"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
@@ -149,14 +165,15 @@ const AddNewStudent = () => {
                     {currentLanguage === "en"
                       ? "Select Parent"
                       : currentLanguage === "ar"
-                      ? "اختر الوالد"
-                      : "Sélectionner un parent"}
+                        ? "اختر الوالد"
+                        : "Sélectionner un parent"}
                   </option>
-                  {parentData && parentData?.data.content?.map((parent: any) => (
-                    <option key={parent.id} value={parent.id}>
-                      {parent.name}
-                    </option>
-                  ))}
+                  {parentData &&
+                    parentData?.data.content?.map((parent: any) => (
+                      <option key={parent.id} value={parent.id}>
+                        {parent.name}
+                      </option>
+                    ))}
                 </select>
                 {errors.parentId && (
                   <span className="text-error">
@@ -266,8 +283,8 @@ const AddNewStudent = () => {
                     {currentLanguage === "en"
                       ? "Select gender"
                       : currentLanguage === "ar"
-                      ? "اختر الجنس"
-                      : "Sélectionner le genre"}
+                        ? "اختر الجنس"
+                        : "Sélectionner le genre"}
                   </option>
                   <option value="MALE">
                     {currentLanguage === "en" ? "Male" : "ذكر"}
@@ -300,8 +317,8 @@ const AddNewStudent = () => {
                     {currentLanguage === "en"
                       ? "Select religion"
                       : currentLanguage === "ar"
-                      ? "اختر الدين"
-                      : "Sélectionner la religion"}
+                        ? "اختر الدين"
+                        : "Sélectionner la religion"}
                   </option>
                   <option value="MUSLIM">
                     {currentLanguage === "en" ? "Muslim" : "مسلم"}
@@ -339,13 +356,11 @@ const AddNewStudent = () => {
                       : "اختر الجنسية"}
                   </option>
                   {nationalityData &&
-                    Object.entries(nationalityData.data).map(
-                      ([key, value]) => (
-                        <option key={key} value={key}>
-                          {String(value)}
-                        </option>
-                      )
-                    )}
+                    Object.entries(nationalityData.data).map(([key, value]) => (
+                      <option key={key} value={key}>
+                        {String(value)}
+                      </option>
+                    ))}
                 </select>
                 {errors.nationality && (
                   <span className="text-error">
@@ -393,7 +408,9 @@ const AddNewStudent = () => {
                 htmlFor="name_en"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Name (English)" : "الاسم (إنجليزي)"}
+                {currentLanguage === "en"
+                  ? "Name (English)"
+                  : "الاسم (إنجليزي)"}
                 <input
                   id="name_en"
                   type="text"
@@ -459,7 +476,7 @@ const AddNewStudent = () => {
                 {currentLanguage === "en" ? "About" : "نبذة"}
                 <textarea
                   id="about"
-                  className="w-[400px] h-[100px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="h-[100px] w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("about")}
                 />
                 {errors.about && (
@@ -565,7 +582,8 @@ const AddNewStudent = () => {
                 {currentLanguage === "en"
                   ? "Educational System"
                   : "النظام التعليمي"}
-                <input type="text"
+                <input
+                  type="text"
                   id="eduSystemId"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("eduSystemId", { required: true })}
@@ -584,48 +602,110 @@ const AddNewStudent = () => {
                 htmlFor="studentIdPhoto"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en"
-                  ? "Student ID Photo"
-                  : "صورة هوية الطالب"}
+                {currentLanguage === "ar"
+                  ? "صورة بطاقة الطالب"
+                  : currentLanguage === "fr"
+                    ? "Photo de la carte d'étudiant"
+                    : "Student ID Photo"}
+
+
                 <input
                   id="studentIdPhoto"
                   type="file"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="hidden"
                   {...register("studentIdPhoto")}
+                  onChange={e =>
+                    handleFileChange(e, setStudentIdPhoto)
+                  }
                 />
+                <span className="w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
+                  <div className="flex">
+                    <FaCloudUploadAlt className="mx-2 mt-1" />
+                    {studentIdPhoto
+                      ? studentIdPhoto
+                      : currentLanguage === "en"
+                        ? "Choose a file"
+                        : currentLanguage === "ar"
+                          ? "اختر ملف"
+                          : currentLanguage === "fr"
+                            ? "Choisir un fichier"
+                            : "Choose a file"}
+                  </div>
+                </span>
               </label>
 
               {/* Student Profile Photo */}
+
               <label
                 htmlFor="studentProfilePhoto"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en"
-                  ? "Student Profile Photo"
-                  : "صورة الملف الشخصي للطالب"}
+                {currentLanguage === "ar"
+  ? "صورة ملف الطالب"
+  : currentLanguage === "fr"
+  ? "Photo de profil étudiant"
+  : "Student Profile Photo"}
+
                 <input
                   id="studentProfilePhoto"
                   type="file"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="hidden"
                   {...register("studentProfilePhoto")}
+                  onChange={e =>
+                    handleFileChange(e, setStudentProfilePhoto)
+                  }
                 />
+                <span className="w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
+                  <div className="flex">
+                    <FaCloudUploadAlt className="mx-2 mt-1" />
+                    {studentProfilePhoto
+                      ? studentProfilePhoto
+                      : currentLanguage === "en"
+                        ? "Choose a file"
+                        : currentLanguage === "ar"
+                          ? "اختر ملف"
+                          : currentLanguage === "fr"
+                            ? "Choisir un fichier"
+                            : "Choose a file"}
+                  </div>
+                </span>
               </label>
-
-              {/* Student Certificates Of Achievement */}
               <label
                 htmlFor="studentCertificatesOfAchievement"
                 className="grid font-sans text-[18px] font-semibold"
               >
                 {currentLanguage === "en"
                   ? "Student Certificates Of Achievement"
-                  : "شهادات إنجاز الطالب"}
+                  : currentLanguage === "ar"
+                    ? "شهادات إنجاز الطالب"
+                    : currentLanguage === "fr"
+                      ? "Certificats de réussite de l'étudiant"
+                      : "Student Certificates Of Achievement"}
                 <input
                   id="studentCertificatesOfAchievement"
                   type="file"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="hidden"
                   {...register("studentCertificatesOfAchievement")}
+                  onChange={e =>
+                    handleFileChange(e, setStudentCertificatesOfAchievement)
+                  }
                 />
+                <span className="w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
+                  <div className="flex">
+                    <FaCloudUploadAlt className="mx-2 mt-1" />
+                    {studentCertificatesOfAchievement
+                      ? studentCertificatesOfAchievement
+                      : currentLanguage === "en"
+                        ? "Choose a file"
+                        : currentLanguage === "ar"
+                          ? "اختر ملف"
+                          : currentLanguage === "fr"
+                            ? "Choisir un fichier"
+                            : "Choose a file"}
+                  </div>
+                </span>
               </label>
+
             </div>
 
             <div className="flex justify-center text-center">
@@ -638,13 +718,13 @@ const AddNewStudent = () => {
                   ? currentLanguage === "en"
                     ? "Adding..."
                     : currentLanguage === "ar"
-                    ? "جارٍ الإضافة..."
-                    : "Ajout en cours..."
+                      ? "جارٍ الإضافة..."
+                      : "Ajout en cours..."
                   : currentLanguage === "en"
-                  ? "Add Student"
-                  : currentLanguage === "ar"
-                  ? "إضافة طالب"
-                  : "Ajouter un étudiant"}
+                    ? "Add Student"
+                    : currentLanguage === "ar"
+                      ? "إضافة طالب"
+                      : "Ajouter un étudiant"}
               </button>
             </div>
           </div>
