@@ -11,8 +11,11 @@ import { toast } from "react-toastify";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
+import { useGetAllPositionsQuery } from "@/features/User-Management/driverApi";
 
 const AddNewTeacher = () => {
+  const { data: positionData, isLoading: isPosition } = useGetAllPositionsQuery(null);
+
   const breadcrumbs = [
     {
       nameEn: "Administration",
@@ -53,7 +56,7 @@ const AddNewTeacher = () => {
     try {
       await createTeacher(data).unwrap();
       toast.success("Teacher created successfully");
-    } catch (err) {
+    } catch {
       toast.error(
         "Failed to create Teacher:  you may enter the passord incorrectly",
       );
@@ -64,7 +67,7 @@ const AddNewTeacher = () => {
     (state: RootState) => state.language.language,
   );
 
-  if (nationalityLoading)
+  if (nationalityLoading || isPosition)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -763,12 +766,51 @@ const AddNewTeacher = () => {
                   : currentLanguage === "ar"
                     ? "معرف الوظيفة"
                     : "ID du poste"}
-                <input
+                <select
+                  defaultValue=""
                   id="positionId"
-                  type="number"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("positionId", { required: true })}
-                />
+                  className={`border ${errors.positionId ? "border-borderPrimary" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-[18px] text-blackOrWhite outline-none max-[458px]:w-[350px]`}
+                >
+                  <option value="">
+                    {currentLanguage === "en"
+                      ? "Select Position Id"
+                      : currentLanguage === "ar"
+                        ? "اختر معرف الوظيفة"
+                        : currentLanguage === "fr"
+                          ? "Sélectionner l'ID de la position"
+                          : "Select Region Id"}{" "}
+                    {/* default */}
+                  </option>
+                  {positionData &&
+                    positionData.data.content.map(
+                      (
+                        rigion: {
+                          title: string;
+                          id: string | number | readonly string[] | undefined;
+                          name:
+                          | string
+                          | number
+                          | bigint
+                          | boolean
+                          | React.ReactElement<
+                            any,
+                            string | React.JSXElementConstructor<any>
+                          >
+                          | Iterable<React.ReactNode>
+                          | React.ReactPortal
+                          | Promise<React.AwaitedReactNode>
+                          | null
+                          | undefined;
+                        },
+                        index: React.Key | null | undefined,
+                      ) => (
+                        <option key={index} value={rigion.id}>
+                          {rigion.title}
+                        </option>
+                      ),
+                    )}
+                </select>
                 {errors.positionId && (
                   <span className="text-error">
                     {currentLanguage === "en"
