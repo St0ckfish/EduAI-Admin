@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import Soon from "@/components/soon";
 import Link from "next/link";
 import { useState, useEffect } from "react"; // Import useState and useEffect hooks
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
+import { toast } from "react-toastify";
 
 const Book = () => {
   const breadcrumbs = [
@@ -31,6 +31,7 @@ const Book = () => {
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
   );
+  
   const booleanValue = useSelector((state: RootState) => state.boolean.value); // sidebar
 
   const [selectAll, setSelectAll] = useState(false); // State to track whether select all checkbox is checked
@@ -47,8 +48,14 @@ const Book = () => {
   };
 
   useEffect(() => {
+    toast.warning(
+      currentLanguage === "ar"
+        ? "هذه الصفحة غير جاهزة للاستخدام!"
+        : currentLanguage === "fr"
+          ? "Cette page n'est pas prête à être utilisée!"
+          : "This page is not ready to use!"
+    );
     // Function to handle click on other checkboxes
-    alert("This page is not ready to use");
     const handleOtherCheckboxes = () => {
       const allCheckboxes = document.querySelectorAll<HTMLInputElement>(
         'input[type="checkbox"]:not(#checkbox-all-search)',
@@ -84,7 +91,6 @@ const Book = () => {
 
   return (
     <>
-      {/* <Soon /> */}
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}

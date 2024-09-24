@@ -48,6 +48,7 @@ const eventSchema = z.object({
   file: z.any().optional(), // Include file in schema to handle it
 });
 
+
 const Dashboard: React.FC = () => {
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,

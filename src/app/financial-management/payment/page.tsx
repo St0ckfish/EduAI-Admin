@@ -11,7 +11,6 @@ import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import BreadCrumbs from "@/components/BreadCrumbs";
-import Soon from "@/components/soon";
 const Payment = () => {
   const breadcrumbs = [
     {
@@ -30,7 +29,7 @@ const Payment = () => {
       nameEn: "Pyment",
       nameAr: "الدفع",
       nameFr: "Paiement",
-      href: "/payment",
+      href: "/financial-management/payment",
     },
   ];
   const currentLanguage = useSelector(
@@ -56,6 +55,7 @@ const Payment = () => {
   };
 
   useEffect(() => {
+    
     const handleOtherCheckboxes = () => {
       const allCheckboxes = document.querySelectorAll<HTMLInputElement>(
         'input[type="checkbox"]:not(#checkbox-all-search)',
@@ -72,7 +72,6 @@ const Payment = () => {
       }
     };
 
-    alert("This page is not ready to use.");
 
     const otherCheckboxes = document.querySelectorAll<HTMLInputElement>(
       'input[type="checkbox"]:not(#checkbox-all-search)',
