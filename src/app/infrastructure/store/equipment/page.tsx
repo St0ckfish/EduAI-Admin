@@ -20,10 +20,10 @@ const Store = () => {
       href: "/infrastructure",
     },
     {
-      nameEn: "Digital Resources",
-      nameAr: "الموارد الرقمية",
-      nameFr: "Ressources numériques",
-      href: "/infrastructure/store",
+      nameEn: "Equipment",
+      nameAr: "المعدات",
+      nameFr: "Équipement",
+      href: "/infrastructure/store/equipment",
     },
   ];
 
@@ -92,7 +92,7 @@ const Store = () => {
           className="flex h-[70px] items-center gap-7 overflow-auto rounded-t-xl px-3 font-semibold"
         >
           <Link
-            className="text-primary underline underline-offset-4"
+            className=" underline-offset-4"
             href="/infrastructure/store"
           >
             {currentLanguage === "ar"
@@ -103,14 +103,14 @@ const Store = () => {
             {/* Default to English */}
           </Link>
           <Link
-            className="underline-offset-4 hover:text-primary hover:underline"
+            className="text-primary underline underline-offset-4 hover:text-primary hover:underline"
             href="/infrastructure/store/equipment"
           >
             {currentLanguage === "ar"
-  ? "المعدات"
-  : currentLanguage === "fr"
-  ? "Équipement"
-  : "Equipment"}
+              ? "المعدات"
+              : currentLanguage === "fr"
+                ? "Équipement"
+                : "Equipment"}
             {/* Default to English */}
           </Link>
           <Link
@@ -118,21 +118,21 @@ const Store = () => {
             href="/infrastructure/store/facilities"
           >
             {currentLanguage === "ar"
-  ? "المرافق"
-  : currentLanguage === "fr"
-  ? "Installations"
-  : "Facilities"}
+              ? "المرافق"
+              : currentLanguage === "fr"
+                ? "Installations"
+                : "Facilities"}
             {/* Default to English */}
           </Link>
           <Link
             className="underline-offset-4 hover:text-primary hover:underline"
             href="/infrastructure/store/instructional-materials"
           >
-           {currentLanguage === "ar"
-  ? "المواد التعليمية"
-  : currentLanguage === "fr"
-  ? "Matériel didactique"
-  : "Instructional Materials"}
+            {currentLanguage === "ar"
+              ? "المواد التعليمية"
+              : currentLanguage === "fr"
+                ? "Matériel didactique"
+                : "Instructional Materials"}
 
             {/* Default to English */}
           </Link>
@@ -141,10 +141,10 @@ const Store = () => {
             href="/infrastructure/store/textBooks"
           >
             {currentLanguage === "ar"
-  ? "الكتب الدراسية"
-  : currentLanguage === "fr"
-  ? "Manuels scolaires"
-  : "textBooks"}
+              ? "الكتب الدراسية"
+              : currentLanguage === "fr"
+                ? "Manuels scolaires"
+                : "textBooks"}
             {/* Default to English */}
           </Link>
         </div>

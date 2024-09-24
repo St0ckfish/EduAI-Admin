@@ -2,7 +2,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import Spinner from "@/components/spinner";
-import { useCreateDriversMutation } from "@/features/User-Management/driverApi";
+import { useCreateDriversMutation, useGetAllPositionsQuery } from "@/features/User-Management/driverApi";
 import {
   useGetAllNationalitysQuery,
   useGetAllReginionIDQuery,
@@ -22,6 +22,7 @@ const AddNewDriver = () => {
   const { data: nationalityData, isLoading: nationalityLoading } =
     useGetAllNationalitysQuery(null);
   const { data: schoolData, isLoading: isSchool } = useGetAllSchoolsQuery(null);
+  const { data: positionData, isLoading: isPosition } = useGetAllPositionsQuery(null);
   const {
     register,
     handleSubmit,
@@ -34,7 +35,7 @@ const AddNewDriver = () => {
     try {
       await createDriver(data).unwrap();
       toast.success("Driver created successfully");
-    } catch (err) {
+    } catch {
       toast.error(
         "Failed to create Driver: you may enter the password incorrectly ",
       );
@@ -68,7 +69,7 @@ const AddNewDriver = () => {
     },
   ];
 
-  if (nationalityLoading)
+  if (nationalityLoading || isPosition || isSchool)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -466,19 +467,19 @@ const AddNewDriver = () => {
                         rigion: {
                           id: string | number | readonly string[] | undefined;
                           name:
-                            | string
-                            | number
-                            | bigint
-                            | boolean
-                            | React.ReactElement<
-                                any,
-                                string | React.JSXElementConstructor<any>
-                              >
-                            | Iterable<React.ReactNode>
-                            | React.ReactPortal
-                            | Promise<React.AwaitedReactNode>
-                            | null
-                            | undefined;
+                          | string
+                          | number
+                          | bigint
+                          | boolean
+                          | React.ReactElement<
+                            any,
+                            string | React.JSXElementConstructor<any>
+                          >
+                          | Iterable<React.ReactNode>
+                          | React.ReactPortal
+                          | Promise<React.AwaitedReactNode>
+                          | null
+                          | undefined;
                         },
                         index: React.Key | null | undefined,
                       ) => (
@@ -816,12 +817,59 @@ const AddNewDriver = () => {
                       ? "ID de position"
                       : "Position Id"}{" "}
                 {/* default */}
-                <input
+                {/* <input
                   id="positionId"
                   type="number"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("positionId", { required: true })}
-                />
+                /> */}
+
+                <select
+                  defaultValue=""
+                  id="positionId"
+                  {...register("positionId", { required: true })}
+                  className={`border ${errors.positionId ? "border-borderPrimary" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-[18px] text-blackOrWhite outline-none max-[458px]:w-[350px]`}
+                >
+                  <option value="">
+                    {currentLanguage === "en"
+                      ? "Select Position Id"
+                      : currentLanguage === "ar"
+                        ? "اختر معرف الوظيفة"
+                        : currentLanguage === "fr"
+                          ? "Sélectionner l'ID de la position"
+                          : "Select Region Id"}{" "}
+                    {/* default */}
+                  </option>
+                  {positionData &&
+                    positionData.data.content.map(
+                      (
+                        rigion: {
+                          title: string;
+                          id: string | number | readonly string[] | undefined;
+                          name:
+                          | string
+                          | number
+                          | bigint
+                          | boolean
+                          | React.ReactElement<
+                            any,
+                            string | React.JSXElementConstructor<any>
+                          >
+                          | Iterable<React.ReactNode>
+                          | React.ReactPortal
+                          | Promise<React.AwaitedReactNode>
+                          | null
+                          | undefined;
+                        },
+                        index: React.Key | null | undefined,
+                      ) => (
+                        <option key={index} value={rigion.id}>
+                          {rigion.title}
+                        </option>
+                      ),
+                    )}
+                </select>
+
                 {errors.positionId && (
                   <span className="text-error">
                     {currentLanguage === "en"
