@@ -74,10 +74,10 @@ const EditAnnual = () => {
               </svg>
               <h1 className="font-sans text-[22px] font-semibold">
                 {currentLanguage === "ar"
-                  ? "إضافة إجازة سنوية جديدة"
+                  ? "تعديل الإجازة السنوية"
                   : currentLanguage === "fr"
-                    ? "Ajouter un nouveau congé annuel"
-                    : "Add New Annual Leave"}
+                    ? "Modifier le congé annuel"
+                    : "Edit Annual Leave"}
                 {/* default */}
               </h1>
             </div>
@@ -151,10 +151,11 @@ const EditAnnual = () => {
                 className="w-fit px-5 rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
               >
                 {currentLanguage === "ar"
-                  ? "إضافة إجازة سنوية جديدة"
+                  ? "حفظ"
                   : currentLanguage === "fr"
-                    ? "Ajouter un nouveau congé annuel"
-                    : "Add New Annual Leave"}
+                    ? "Sauvegarder"
+                    : "Save"}
+
                 {/* default */}
               </button>
             </div>
