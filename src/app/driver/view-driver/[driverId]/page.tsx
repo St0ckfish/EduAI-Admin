@@ -41,6 +41,9 @@ const ViewDriver: React.FC<ViewDriverProps> = ({ params }) => {
       href: `/driver/view-driver/${params.driverId}`,
     },
   ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   const { data, error, isLoading } = useGetDriverByIdQuery(params.driverId);
@@ -64,14 +67,19 @@ const ViewDriver: React.FC<ViewDriverProps> = ({ params }) => {
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
+        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} mt-[40px] grid py-4`}
       >
-        <div className="grid grid-cols-2 gap-7 max-[1342px]:grid-cols-1 max-[1342px]:px-5">
+        <div className="grid grid-cols-2 gap-7 pr-7 max-[1342px]:grid-cols-1 max-[1342px]:px-5">
           <DriverInfo data={data} />
           <div className="grid h-[400px] items-center justify-center gap-10 rounded-xl bg-bgPrimary p-5">
             <div className="flex justify-between">
               <h1 className="font-sans font-semibold text-textPrimary">
-                Number of student in Bus
+                {currentLanguage === "ar"
+                  ? "عدد الطلاب في الحافلة"
+                  : currentLanguage === "fr"
+                    ? "Nombre d'élèves dans le bus"
+                    : "Number of students in Bus"}
               </h1>
               <img src="/images/bus 1.png" alt="#" />
             </div>
@@ -81,16 +89,32 @@ const ViewDriver: React.FC<ViewDriverProps> = ({ params }) => {
                   <thead className="bg-thead text-xs uppercase text-textPrimary">
                     <tr>
                       <th scope="col" className="whitespace-nowrap px-6 py-3">
-                        Full Name
+                        {currentLanguage === "ar"
+                          ? "الاسم الكامل"
+                          : currentLanguage === "fr"
+                            ? "Nom complet"
+                            : "Full Name"}
                       </th>
                       <th scope="col" className="whitespace-nowrap px-6 py-3">
-                        ID
+                        {currentLanguage === "ar"
+                          ? "الرقم التعريفي"
+                          : currentLanguage === "fr"
+                            ? "ID"
+                            : "ID"}
                       </th>
                       <th scope="col" className="whitespace-nowrap px-6 py-3">
-                        Address
+                        {currentLanguage === "ar"
+                          ? "العنوان"
+                          : currentLanguage === "fr"
+                            ? "Adresse"
+                            : "Address"}
                       </th>
                       <th scope="col" className="whitespace-nowrap px-6 py-3">
-                        Status
+                        {currentLanguage === "ar"
+                          ? "الحالة"
+                          : currentLanguage === "fr"
+                            ? "Statut"
+                            : "Status"}
                       </th>
                     </tr>
                   </thead>

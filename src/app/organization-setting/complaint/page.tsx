@@ -7,7 +7,10 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import { toast } from "react-toastify";
 import BreadCrumbs from "@/components/BreadCrumbs";
-import { useGetAllComplainsQuery, useDeleteComplainsMutation } from "@/features/Organization-Setteings/complainApi";
+import {
+  useGetAllComplainsQuery,
+  useDeleteComplainsMutation,
+} from "@/features/Organization-Setteings/complainApi";
 const ComplaintParent = () => {
   const breadcrumbs = [
     {
@@ -36,8 +39,8 @@ const ComplaintParent = () => {
   type Department = Record<string, any>;
   const [search, setSearch] = useState("");
   const { data, error, isLoading, refetch } = useGetAllComplainsQuery({
-    type: "TEACHER_TO_STUDENT", 
-    approved: ""
+    type: "TEACHER_TO_STUDENT",
+    approved: "",
   });
   const [selectAll, setSelectAll] = useState(false);
 
@@ -47,7 +50,7 @@ const ComplaintParent = () => {
   }, [data, error]);
 
   const [deleteDepartment, { isLoading: isDeleting }] =
-  useDeleteComplainsMutation();
+    useDeleteComplainsMutation();
 
   const handleDelete = async (id: any) => {
     try {
@@ -115,7 +118,8 @@ const ComplaintParent = () => {
       >
         <div className="justify-left mb-[80px] ml-4 mt-[50px] flex flex-wrap gap-5 text-[20px] font-semibold max-[725px]:text-[15px]">
           <Link
-            href="/organization-setting/complaint" className="text-primary underline"
+            href="/organization-setting/complaint"
+            className="text-primary underline"
           >
             {currentLanguage === "ar"
               ? "مدرس"
@@ -123,7 +127,7 @@ const ComplaintParent = () => {
                 ? "Professeur"
                 : "Teacher"}
           </Link>
-          <Link href="/organization-setting/complaint/parent" >
+          <Link href="/organization-setting/complaint/parent">
             {currentLanguage === "ar"
               ? "الوالد"
               : currentLanguage === "fr"
@@ -197,7 +201,7 @@ const ComplaintParent = () => {
                   {currentLanguage === "ar"
                     ? "اسم الطالب"
                     : currentLanguage === "fr"
-                    ? "étudiant nom"
+                      ? "étudiant nom"
                       : "student Name"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
@@ -248,7 +252,10 @@ const ComplaintParent = () => {
                       scope="row"
                       className="flex items-center gap-2 whitespace-nowrap px-6 py-4 font-medium text-gray-900"
                     >
-                      <p className="text-textSecondary"> {Department.teacherName} </p>
+                      <p className="text-textSecondary">
+                        {" "}
+                        {Department.teacherName}{" "}
+                      </p>
                     </th>
                     <td className="whitespace-nowrap px-6 py-4">
                       {Department.studentName}
@@ -259,7 +266,7 @@ const ComplaintParent = () => {
                     <td className="whitespace-nowrap px-6 py-4">
                       {Department.message}
                     </td>
-                    
+
                     <td className="whitespace-nowrap px-6 py-4">
                       <button
                         disabled={isDeleting}

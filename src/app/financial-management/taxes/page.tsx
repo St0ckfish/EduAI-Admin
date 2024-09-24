@@ -7,10 +7,12 @@ import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import BreadCrumbs from "@/components/BreadCrumbs";
-import { useDeleteTaxesMutation, useGetAllTaxesQuery } from "@/features/Financial/taxesApi";
+import {
+  useDeleteTaxesMutation,
+  useGetAllTaxesQuery,
+} from "@/features/Financial/taxesApi";
 
 const FeesManagement = () => {
-  
   const breadcrumbs = [
     {
       nameEn: "Administration",
@@ -120,6 +122,7 @@ const FeesManagement = () => {
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
+        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
@@ -358,9 +361,7 @@ const FeesManagement = () => {
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
                       <div className="flex items-center gap-3">
-                        <button
-                          onClick={() => handleDelete(invoice.id)}
-                        >
+                        <button onClick={() => handleDelete(invoice.id)}>
                           <svg
                             className="h-6 w-6 text-red-500"
                             fill="none"

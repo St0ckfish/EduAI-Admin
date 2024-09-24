@@ -72,6 +72,7 @@ const AddNewPost = () => {
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
+        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-20`}
       >
         <form onSubmit={handleSubmit(onSubmit)}>

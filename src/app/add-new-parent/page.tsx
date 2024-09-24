@@ -11,6 +11,8 @@ import { toast } from "react-toastify";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import { useState } from "react";
+import { FaCloudUploadAlt } from "react-icons/fa";
 
 const AddNewParent = () => {
   const breadcrumbs = [
@@ -39,6 +41,15 @@ const AddNewParent = () => {
       href: "/add-new-parent",
     },
   ];
+  const [parentIdPhotoName, setParentIdPhotoName] = useState("");
+  const [studentIdPhotoName, setStudentIdPhotoName] = useState("");
+  const [studentProfilePhotoName, setStudentProfilePhotoName] = useState("");
+
+  const [
+    studentCertificatesOfAchievementName,
+    setStudentCertificatesOfAchievementName,
+  ] = useState("");
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const { data: nationalityData, isLoading: nationalityLoading } =
     useGetAllNationalitysQuery(null);
@@ -49,6 +60,17 @@ const AddNewParent = () => {
   } = useForm();
   const [createEmployee, { isLoading }] = useCreateParentsMutation();
   const { data: rigiond } = useGetAllReginionIDQuery(null);
+  const [fileName, setFileName] = useState("");
+
+  const handleFileChange = (
+    event: any,
+    setFileName: (name: string) => void,
+  ) => {
+    const file = event.target.files[0];
+    if (file) {
+      setFileName(file.name);
+    }
+  };
 
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
@@ -127,6 +149,7 @@ const AddNewParent = () => {
       <BreadCrumbs breadcrumbs={breadcrumbs} />
 
       <div
+        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         className={` ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mr-[5px] grid items-center justify-center`}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -462,7 +485,7 @@ const AddNewParent = () => {
                   defaultValue=""
                   id="regionId"
                   {...register("regionId", { required: true })}
-                  className={`border ${errors.regionId ? "border-warning" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-[18px] text-[#000000] outline-none max-[458px]:w-[350px]`}
+                  className="h-full w-[400px] rounded-xl border border-borderPrimary px-4 py-3 text-[18px] text-[#000000] outline-none max-[458px]:w-[350px]"
                 >
                   <option value="">
                     {currentLanguage === "en"
@@ -1191,6 +1214,7 @@ const AddNewParent = () => {
                   </span>
                 )}
               </label>
+
               <label
                 htmlFor="parentIdPhoto"
                 className="grid font-sans text-[18px] font-semibold"
@@ -1205,9 +1229,24 @@ const AddNewParent = () => {
                 <input
                   id="parentIdPhoto"
                   type="file"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="hidden"
                   {...register("parentIdPhoto")}
+                  onChange={e => handleFileChange(e, setParentIdPhotoName)}
                 />
+                <span className="w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
+                  <div className="flex">
+                    <FaCloudUploadAlt className="mx-2 mt-1" />
+                    {parentIdPhotoName
+                      ? parentIdPhotoName
+                      : currentLanguage === "en"
+                        ? "Choose a file"
+                        : currentLanguage === "ar"
+                          ? "اختر ملف"
+                          : currentLanguage === "fr"
+                            ? "Choisir un fichier"
+                            : "Choose a file"}
+                  </div>
+                </span>
               </label>
             </div>
             {/* File input fields */}
@@ -1226,10 +1265,26 @@ const AddNewParent = () => {
                 <input
                   id="studentIdPhoto"
                   type="file"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="hidden"
                   {...register("studentIdPhoto")}
+                  onChange={e => handleFileChange(e, setStudentIdPhotoName)}
                 />
+                <span className="w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
+                  <div className="flex">
+                    <FaCloudUploadAlt className="mx-2 mt-1" />
+                    {studentIdPhotoName
+                      ? studentIdPhotoName
+                      : currentLanguage === "en"
+                        ? "Choose a file"
+                        : currentLanguage === "ar"
+                          ? "اختر ملف"
+                          : currentLanguage === "fr"
+                            ? "Choisir un fichier"
+                            : "Choose a file"}
+                  </div>
+                </span>
               </label>
+
               <label
                 htmlFor="studentProfilePhoto"
                 className="grid font-sans text-[18px] font-semibold"
@@ -1244,9 +1299,26 @@ const AddNewParent = () => {
                 <input
                   id="studentProfilePhoto"
                   type="file"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="hidden"
                   {...register("studentProfilePhoto")}
+                  onChange={e =>
+                    handleFileChange(e, setStudentProfilePhotoName)
+                  }
                 />
+                <span className="w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
+                  <div className="flex">
+                    <FaCloudUploadAlt className="mx-2 mt-1" />
+                    {studentProfilePhotoName
+                      ? studentProfilePhotoName
+                      : currentLanguage === "en"
+                        ? "Choose a file"
+                        : currentLanguage === "ar"
+                          ? "اختر ملف"
+                          : currentLanguage === "fr"
+                            ? "Choisir un fichier"
+                            : "Choose a file"}
+                  </div>
+                </span>
               </label>
               <label
                 htmlFor="studentCertificatesOfAchievement"
@@ -1262,9 +1334,26 @@ const AddNewParent = () => {
                 <input
                   id="studentCertificatesOfAchievement"
                   type="file"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  className="hidden"
                   {...register("studentCertificatesOfAchievement")}
+                  onChange={e =>
+                    handleFileChange(e, setStudentCertificatesOfAchievementName)
+                  }
                 />
+                <span className="w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
+                  <div className="flex">
+                    <FaCloudUploadAlt className="mx-2 mt-1" />
+                    {studentCertificatesOfAchievementName
+                      ? studentCertificatesOfAchievementName
+                      : currentLanguage === "en"
+                        ? "Choose a file"
+                        : currentLanguage === "ar"
+                          ? "اختر ملف"
+                          : currentLanguage === "fr"
+                            ? "Choisir un fichier"
+                            : "Choose a file"}
+                  </div>
+                </span>
               </label>
             </div>
             <div className="flex justify-center text-center">

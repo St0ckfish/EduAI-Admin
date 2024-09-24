@@ -28,7 +28,7 @@ const TextEditor = ({
   const [editorIsEmpty, setEditorIsEmpty] = useState(true);
   const { theme } = useTheme();
   const currentLanguage = useSelector(
-    (state: RootState) => state.language.language
+    (state: RootState) => state.language.language,
   );
 
   // State to keep track of formatting
@@ -322,10 +322,7 @@ const TextEditor = ({
     document.addEventListener("selectionchange", handleSelectionChange);
 
     return () => {
-      document.removeEventListener(
-        "selectionchange",
-        handleSelectionChange
-      );
+      document.removeEventListener("selectionchange", handleSelectionChange);
     };
   }, []);
 
@@ -333,37 +330,37 @@ const TextEditor = ({
     <div className="mx-auto p-4">
       <div className="flex flex-wrap gap-4 space-x-2 rounded-t-md border border-borderPrimary p-2">
         <select
-          onChange={(e) => wrapSelectionWithTag(e.target.value)}
-          className="rounded outline-none p-2"
+          onChange={e => wrapSelectionWithTag(e.target.value)}
+          className="rounded p-2 outline-none"
           aria-label="Text format"
         >
           <option value="p">
             {currentLanguage === "en"
               ? "Paragraph"
               : currentLanguage === "ar"
-              ? "فقرة"
-              : "Paragraphe"}
+                ? "فقرة"
+                : "Paragraphe"}
           </option>
           <option value="h1">
             {currentLanguage === "en"
               ? "Heading 1"
               : currentLanguage === "ar"
-              ? "العنوان 1"
-              : "Titre 1"}
+                ? "العنوان 1"
+                : "Titre 1"}
           </option>
           <option value="h2">
             {currentLanguage === "en"
               ? "Heading 2"
               : currentLanguage === "ar"
-              ? "العنوان 2"
-              : "Titre 2"}
+                ? "العنوان 2"
+                : "Titre 2"}
           </option>
           <option value="h3">
             {currentLanguage === "en"
               ? "Heading 3"
               : currentLanguage === "ar"
-              ? "العنوان 3"
-              : "Titre 3"}
+                ? "العنوان 3"
+                : "Titre 3"}
           </option>
         </select>
         <button
@@ -475,9 +472,7 @@ const TextEditor = ({
           suppressContentEditableWarning={true}
         ></div>
         {editorIsEmpty && (
-          <div
-            className="pointer-events-none absolute top-0 left-0 p-4 text-gray-400"
-          >
+          <div className="pointer-events-none absolute left-0 top-0 p-4 text-gray-400">
             {placeholder || "Start typing..."}
           </div>
         )}

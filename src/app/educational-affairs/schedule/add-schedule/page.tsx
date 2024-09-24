@@ -63,6 +63,7 @@ const AddSchedule = () => {
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <form
+        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         onSubmit={handleSubmit(onSubmitCreateSchedule)}
         className="mr-3 mt-5 space-y-4 lg:ml-[270px]"
       >

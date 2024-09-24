@@ -5,6 +5,8 @@ import Spinner from "@/components/spinner";
 import StudentInfo from "@/components/studentInfo";
 import { useGetStudentByIdQuery } from "@/features/User-Management/studentApi";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/GlobalRedux/store";
 
 interface ViewStudentProps {
   params: {
@@ -13,6 +15,9 @@ interface ViewStudentProps {
 }
 
 const ViewStudent: React.FC<ViewStudentProps> = ({ params }) => {
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const { data, error, isLoading } = useGetStudentByIdQuery(params.studentId);
 
   useEffect(() => {
@@ -33,8 +38,11 @@ const ViewStudent: React.FC<ViewStudentProps> = ({ params }) => {
 
   return (
     <>
-      <div className="grid py-4 lg:ml-[290px]">
-        <div className="grid grid-cols-2 gap-7 max-[1342px]:grid-cols-1 max-[1342px]:px-5">
+      <div
+        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+        className="grid py-4 lg:ml-[290px]"
+      >
+        <div className="grid grid-cols-2 gap-7 pr-7 max-[1342px]:grid-cols-1 max-[1342px]:px-5">
           <StudentInfo data={data} />
           <div className="grid gap-10">
             <Calendar />

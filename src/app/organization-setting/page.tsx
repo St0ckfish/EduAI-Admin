@@ -5,7 +5,13 @@ import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import { RiFileList2Line } from "react-icons/ri"; // Report
 import { AiOutlineSafetyCertificate } from "react-icons/ai"; // Permission
-import { FaCalendarAlt, FaClock, FaExclamationTriangle, FaTasks, FaUmbrellaBeach } from "react-icons/fa"; // Semester, Annual Leave
+import {
+  FaCalendarAlt,
+  FaClock,
+  FaExclamationTriangle,
+  FaTasks,
+  FaUmbrellaBeach,
+} from "react-icons/fa"; // Semester, Annual Leave
 import { MdBusiness, MdWorkOutline } from "react-icons/md"; // Department, Position
 import BreadCrumbs from "@/components/BreadCrumbs";
 
@@ -215,6 +221,7 @@ const OrganizationSettings = () => {
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
+        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} mt-12 grid justify-center`}
       >
         <div className="grid grid-cols-2 gap-5 max-[577px]:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4">

@@ -28,7 +28,8 @@ export const complainApi = createApi({
   }),
   endpoints: builder => ({
     getAllComplains: builder.query({
-      query: ({approved, type}) => `/api/v1/management/complain/all?size=1000000&page=0&deleted=false&type=${type}&approved=${approved}`,
+      query: ({ approved, type }) =>
+        `/api/v1/management/complain/all?size=1000000&page=0&deleted=false&type=${type}&approved=${approved}`,
     }),
     //
     deleteComplains: builder.mutation({

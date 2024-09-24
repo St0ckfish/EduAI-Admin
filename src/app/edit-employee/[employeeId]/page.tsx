@@ -14,6 +14,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 interface ViewEmpolyeeProps {
   params: {
@@ -22,6 +23,26 @@ interface ViewEmpolyeeProps {
 }
 
 const EditEmployee: React.FC<ViewEmpolyeeProps> = ({ params }) => {
+  const breadcrumbs = [
+    {
+      nameEn: "Administration",
+      nameAr: "الإدارة",
+      nameFr: "Administration",
+      href: "/",
+    },
+    {
+      nameEn: "Employee",
+      nameAr: "موظف",
+      nameFr: "Employé",
+      href: "/employee",
+    },
+    {
+      nameEn: "Edit Employee",
+      nameAr: "تعديل الموظف",
+      nameFr: "Modifier l'employé",
+      href: `/edit-employee/${params.employeeId}`,
+    },
+  ];
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
   );
@@ -81,7 +102,12 @@ const EditEmployee: React.FC<ViewEmpolyeeProps> = ({ params }) => {
     );
   return (
     <>
-      <div className="mr-[5px] grid h-[850px] items-center justify-center lg:ml-[270px]">
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
+
+      <div
+        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+        className="mr-[5px] mt-5 grid h-[850px] items-center justify-center lg:ml-[270px]"
+      >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="my-10 grid items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:w-[1000px]">
             <div className="flex items-center justify-start gap-2">

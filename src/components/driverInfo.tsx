@@ -1,14 +1,23 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import Link from "next/link";
+import { useSelector } from "react-redux";
+import { RootState } from "@/GlobalRedux/store";
 
 const DriverInfo = ({ data }: { data: any }) => {
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   return (
     <>
       <div className="grid h-[700px] rounded-xl bg-bgPrimary p-5">
         <div className="flex justify-between">
           <h1 className="font-sans font-semibold text-textPrimary">
-            Driver Information
+            {currentLanguage === "ar"
+              ? "معلومات السائق"
+              : currentLanguage === "fr"
+                ? "Informations sur le chauffeur"
+                : "Driver Information"}
           </h1>
           <Link href={`/edit-driver/${data.data.id}`}>
             <svg
@@ -31,13 +40,13 @@ const DriverInfo = ({ data }: { data: any }) => {
           {data.data.picture == null ? (
             <img
               src="/images/userr.png"
-              className="mr-2 h-[120px] w-[120px] rounded-full"
+              className="mx-2 h-[120px] w-[120px] rounded-full"
               alt="#"
             />
           ) : (
             <img
               src={data.data.picture}
-              className="mr-2 h-[120px] w-[120px] rounded-full"
+              className="mx-2 h-[120px] w-[120px] rounded-full"
               alt="#"
             />
           )}
@@ -51,57 +60,99 @@ const DriverInfo = ({ data }: { data: any }) => {
 
         <div className="grid justify-start">
           <h1 className="font-sans text-[22px] font-semibold text-textPrimary">
-            Basic Details
+            {currentLanguage === "ar"
+              ? "التفاصيل الأساسية"
+              : currentLanguage === "fr"
+                ? "Détails de base"
+                : "Basic Details"}
           </h1>
           <div className="grid w-[400px] grid-cols-2 max-[485px]:w-[240px]">
             <h3 className="font-sans font-semibold text-textSecondary">
-              Email:
+              {currentLanguage === "ar"
+                ? "البريد الإلكتروني:"
+                : currentLanguage === "fr"
+                  ? "Email :"
+                  : "Email:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.email}
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
-              Salary:
+              {currentLanguage === "ar"
+                ? "الراتب:"
+                : currentLanguage === "fr"
+                  ? "Salaire :"
+                  : "Salary:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.salary == null ? `Not specified` : data.data.salary}
             </p>
-            <h3 className="font-sans font-semibold text-textSecondary">Age:</h3>
+            <h3 className="font-sans font-semibold text-textSecondary">
+              {currentLanguage === "ar"
+                ? "العمر:"
+                : currentLanguage === "fr"
+                  ? "Âge :"
+                  : "Age:"}
+            </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.birthDate}
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
-              Gender:
+              {currentLanguage === "ar"
+                ? "الجنس:"
+                : currentLanguage === "fr"
+                  ? "Sexe :"
+                  : "Gender:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.gender}
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
-              Position:
+              {currentLanguage === "ar"
+                ? "الوظيفة:"
+                : currentLanguage === "fr"
+                  ? "Position :"
+                  : "Position:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.role}
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
-              Religion:
+              {currentLanguage === "ar"
+                ? "الدين:"
+                : currentLanguage === "fr"
+                  ? "Religion :"
+                  : "Religion:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.religion}
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
-              Address:
+              {currentLanguage === "ar"
+                ? "العنوان:"
+                : currentLanguage === "fr"
+                  ? "Adresse :"
+                  : "Address:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.nationality}
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
-              Mobile:
+              {currentLanguage === "ar"
+                ? "الهاتف المحمول:"
+                : currentLanguage === "fr"
+                  ? "Mobile :"
+                  : "Mobile:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.phoneNumber}
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
-              About:
+              {currentLanguage === "ar"
+                ? "نبذة:"
+                : currentLanguage === "fr"
+                  ? "À propos :"
+                  : "About:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.about}

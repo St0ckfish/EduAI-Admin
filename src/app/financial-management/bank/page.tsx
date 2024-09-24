@@ -145,6 +145,7 @@ const Bank = () => {
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
+        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-10`}
       >
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">

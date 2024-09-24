@@ -41,7 +41,10 @@ const Exams = () => {
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
-      <div className="mt-12 lg:ml-[290px] lg:mr-10">
+      <div
+        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+        className="mt-12 lg:ml-[290px] lg:mr-10"
+      >
         <div className="flex justify-end">
           <div className="flex justify-end">
             <button className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl">

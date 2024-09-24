@@ -26,45 +26,45 @@ const Class = () => {
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div className="lg:ml-[270px]">
-      <div className="grid overflow-x-auto">
-      <div className="justify-left mb-5 ml-4 mt-10 flex gap-5 overflow-x-auto text-nowrap text-[20px] font-semibold">
-          <Link href="/insight">
-            {currentLanguage === "en"
-              ? "Student Performance"
-              : currentLanguage === "ar"
-                ? "أداء الطالب"
-                : currentLanguage === "fr"
-                  ? "Performance de l'étudiant"
-                  : "Student Performance"}
-          </Link>
-          <Link href="/insight/school">
-            {currentLanguage === "en"
-              ? "School Performance"
-              : currentLanguage === "ar"
-                ? "أداء المدرسة"
-                : currentLanguage === "fr"
-                  ? "Performance de l'école"
-                  : "School Performance"}
-          </Link>
-          <Link href="/insight/class" className="text-blue-500 underline">
-            {currentLanguage === "en"
-              ? "Class Performance"
-              : currentLanguage === "ar"
-                ? "أداء الفصل"
-                : currentLanguage === "fr"
-                  ? "Performance de la classe"
-                  : "Class Performance"}
-          </Link>
-          <Link href="/insight/ml-exam">
-            {currentLanguage === "en"
-              ? "ML Exam Performance"
-              : currentLanguage === "ar"
-                ? "أداء اختبار تعلم الآلة"
-                : currentLanguage === "fr"
-                  ? "Performance de l'examen ML"
-                  : "ML Exam Performance"}
-          </Link>
-        </div>
+        <div className="grid overflow-x-auto">
+          <div className="justify-left mb-5 ml-4 mt-10 flex gap-5 overflow-x-auto text-nowrap text-[20px] font-semibold">
+            <Link href="/insight">
+              {currentLanguage === "en"
+                ? "Student Performance"
+                : currentLanguage === "ar"
+                  ? "أداء الطالب"
+                  : currentLanguage === "fr"
+                    ? "Performance de l'étudiant"
+                    : "Student Performance"}
+            </Link>
+            <Link href="/insight/school">
+              {currentLanguage === "en"
+                ? "School Performance"
+                : currentLanguage === "ar"
+                  ? "أداء المدرسة"
+                  : currentLanguage === "fr"
+                    ? "Performance de l'école"
+                    : "School Performance"}
+            </Link>
+            <Link href="/insight/class" className="text-blue-500 underline">
+              {currentLanguage === "en"
+                ? "Class Performance"
+                : currentLanguage === "ar"
+                  ? "أداء الفصل"
+                  : currentLanguage === "fr"
+                    ? "Performance de la classe"
+                    : "Class Performance"}
+            </Link>
+            <Link href="/insight/ml-exam">
+              {currentLanguage === "en"
+                ? "ML Exam Performance"
+                : currentLanguage === "ar"
+                  ? "أداء اختبار تعلم الآلة"
+                  : currentLanguage === "fr"
+                    ? "Performance de l'examen ML"
+                    : "ML Exam Performance"}
+            </Link>
+          </div>
         </div>
       </div>
     </>

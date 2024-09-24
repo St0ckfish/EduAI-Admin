@@ -45,6 +45,7 @@ const Infrastructure = () => {
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
+        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         className={`flex justify-between ${booleanValue ? "lg:ml-[150px]" : "lg:ml-[320px]"} mt-16 text-center max-[502px]:grid max-[502px]:justify-center lg:mr-[40px]`}
       >
         <div className="mb-3">

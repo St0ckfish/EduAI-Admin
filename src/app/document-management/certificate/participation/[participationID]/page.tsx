@@ -12,6 +12,9 @@ interface ViewDriverProps {
   };
 }
 const ViewParticipation: React.FC<ViewDriverProps> = ({ params }) => {
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const { data, error, isLoading } = useGetParticipationByIdQuery(
     params.participationID,
@@ -32,7 +35,10 @@ const ViewParticipation: React.FC<ViewDriverProps> = ({ params }) => {
       </div>
     );
   return (
-    <div className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"}`}>
+    <div
+      dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+      className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"}`}
+    >
       <div className="grid h-full w-full items-center justify-center gap-4 rounded-xl bg-bgPrimary p-9 max-[505px]:p-2">
         <div className="flex w-full justify-end">
           <Link href={data.data.fileViewDownload}>

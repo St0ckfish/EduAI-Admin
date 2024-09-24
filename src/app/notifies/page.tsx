@@ -10,6 +10,8 @@ import Spinner from "@/components/spinner";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import { useSelector } from "react-redux";
+import { RootState } from "@/GlobalRedux/store";
 
 const Notifies = () => {
   const breadcrumbs = [
@@ -67,6 +69,9 @@ const Notifies = () => {
       toast.error("Failed to Delete Notification");
     }
   };
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
 
   if (isLoading)
     return (
@@ -78,7 +83,10 @@ const Notifies = () => {
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
-      <div className="mt-12 lg:ml-[290px]">
+      <div
+        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+        className="mt-12 lg:ml-[290px]"
+      >
         <div className="flex justify-end">
           <Link
             href="/notifies/send-notifications"
@@ -97,12 +105,22 @@ const Notifies = () => {
               {" "}
               <polygon points="3 11 22 2 13 21 11 13 3 11" />
             </svg>
-            Send Notifications
+            {currentLanguage === "ar"
+              ? "إرسال الإشعارات"
+              : currentLanguage === "fr"
+                ? "Envoyer des notifications"
+                : "Send Notifications"}
           </Link>
         </div>
         <div className="grid h-full w-full items-center justify-center gap-3 rounded-xl bg-bgPrimary p-5">
           <div className="mb-5 flex w-full justify-start">
-            <h1 className="text-[22px] font-semibold">Notifications</h1>
+            <h1 className="text-[22px] font-semibold">
+              {currentLanguage === "ar"
+                ? "الإشعارات"
+                : currentLanguage === "fr"
+                  ? "Notifications"
+                  : "Notifications"}
+            </h1>
           </div>
 
           {data?.data.content.map((notifi: Notifi, index: number) => (

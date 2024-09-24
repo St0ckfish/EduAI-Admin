@@ -77,7 +77,10 @@ const AddNewTeacher = () => {
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
-      <div className="mr-[5px] grid h-[850px] items-center justify-center lg:ml-[270px]">
+      <div
+        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+        className="mr-[5px] grid h-[850px] items-center justify-center lg:ml-[270px]"
+      >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="my-10 grid items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:w-[1000px]">
             <div className="flex items-center justify-start gap-2">
@@ -278,7 +281,12 @@ const AddNewTeacher = () => {
                   </option>
                 </select>
                 {errors.religion && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">{currentLanguage === "ar"
+                    ? "هذا الحقل مطلوب"
+                    : currentLanguage === "fr"
+                      ? "Ce champ est requis"
+                      : "This field is required"}
+                  </span>
                 )}
               </label>
             </div>
@@ -350,19 +358,19 @@ const AddNewTeacher = () => {
                         rigion: {
                           id: string | number | readonly string[] | undefined;
                           name:
-                            | string
-                            | number
-                            | bigint
-                            | boolean
-                            | React.ReactElement<
-                                any,
-                                string | React.JSXElementConstructor<any>
-                              >
-                            | Iterable<React.ReactNode>
-                            | React.ReactPortal
-                            | Promise<React.AwaitedReactNode>
-                            | null
-                            | undefined;
+                          | string
+                          | number
+                          | bigint
+                          | boolean
+                          | React.ReactElement<
+                            any,
+                            string | React.JSXElementConstructor<any>
+                          >
+                          | Iterable<React.ReactNode>
+                          | React.ReactPortal
+                          | Promise<React.AwaitedReactNode>
+                          | null
+                          | undefined;
                         },
                         index: React.Key | null | undefined,
                       ) => (

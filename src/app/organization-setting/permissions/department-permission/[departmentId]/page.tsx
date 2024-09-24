@@ -43,7 +43,10 @@ const Permissions: React.FC<departmentIdProps> = ({ params }) => {
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
-      <div className={` ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mr-3 mt-[40px]`}>
+      <div 
+        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+
+        className={` ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mr-3 mt-[40px]`}>
       <div className="bg-bgPrimary rounded-xl pb-5">
         <div className="bg-thead flex justify-between rounded-t-xl px-10 py-4 font-semibold text-[18px]">
           <p>Permission</p>

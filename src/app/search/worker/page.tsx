@@ -55,7 +55,10 @@ const WorkerSearch = () => {
       >
         <div className="flex h-full w-full justify-center overflow-auto p-2">
           <div className="grid h-full w-full overflow-auto rounded-xl bg-bgPrimary">
-            <div className="flex h-[70px] items-center gap-7 overflow-auto rounded-t-xl bg-bgPrimary pl-3 font-semibold">
+            <div
+              dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+              className="flex h-[70px] items-center gap-7 overflow-auto rounded-t-xl bg-bgPrimary px-3 font-semibold"
+            >
               <Link
                 className="underline-offset-4 hover:text-blue-500 hover:underline"
                 href="/search"
@@ -135,7 +138,10 @@ const WorkerSearch = () => {
                 {/* Default to English */}
               </Link>
             </div>
-            <div className="grid grid-cols-1 gap-4 p-7 xl:grid-cols-2">
+            <div
+              dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+              className="grid grid-cols-1 gap-4 p-7 xl:grid-cols-2"
+            >
               <div className="grid p-4">
                 <div className="flex gap-3 md:justify-center">
                   <div>
