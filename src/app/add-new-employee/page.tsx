@@ -14,9 +14,6 @@ import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 
 const AddNewEmployee = () => {
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
   const breadcrumbs = [
     {
       nameEn: "Administration",
