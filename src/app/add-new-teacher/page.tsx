@@ -278,7 +278,12 @@ const AddNewTeacher = () => {
                   </option>
                 </select>
                 {errors.religion && (
-                  <span className="text-error">This field is required</span>
+                  <span className="text-error">{currentLanguage === "ar"
+                    ? "هذا الحقل مطلوب"
+                    : currentLanguage === "fr"
+                      ? "Ce champ est requis"
+                      : "This field is required"}
+                  </span>
                 )}
               </label>
             </div>
@@ -350,19 +355,19 @@ const AddNewTeacher = () => {
                         rigion: {
                           id: string | number | readonly string[] | undefined;
                           name:
-                            | string
-                            | number
-                            | bigint
-                            | boolean
-                            | React.ReactElement<
-                                any,
-                                string | React.JSXElementConstructor<any>
-                              >
-                            | Iterable<React.ReactNode>
-                            | React.ReactPortal
-                            | Promise<React.AwaitedReactNode>
-                            | null
-                            | undefined;
+                          | string
+                          | number
+                          | bigint
+                          | boolean
+                          | React.ReactElement<
+                            any,
+                            string | React.JSXElementConstructor<any>
+                          >
+                          | Iterable<React.ReactNode>
+                          | React.ReactPortal
+                          | Promise<React.AwaitedReactNode>
+                          | null
+                          | undefined;
                         },
                         index: React.Key | null | undefined,
                       ) => (

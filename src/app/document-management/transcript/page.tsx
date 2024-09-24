@@ -6,7 +6,7 @@ import BreadCrumbs from "@/components/BreadCrumbs";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 
-const Enrollment = () => {
+const Transcript = () => {
   const breadcrumbs = [
     {
       nameEn: "Administration",
@@ -231,4 +231,4 @@ const Enrollment = () => {
   );
 };
 
-export default Enrollment;
+export default Transcript;
