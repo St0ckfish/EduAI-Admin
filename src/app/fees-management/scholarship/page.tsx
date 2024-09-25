@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import { toast } from "react-toastify";
 
 const Scholarship = () => {
   const breadcrumbs = [
@@ -50,6 +51,13 @@ const Scholarship = () => {
   };
 
   useEffect(() => {
+    toast.warning(
+      currentLanguage === "ar"
+        ? "هذه الصفحة غير جاهزة للاستخدام!"
+        : currentLanguage === "fr"
+          ? "Cette page n'est pas prête à être utilisée!"
+          : "This page is not ready to use!"
+    );
     const handleOtherCheckboxes = () => {
       const allCheckboxes = document.querySelectorAll<HTMLInputElement>(
         'input[type="checkbox"]:not(#checkbox-all-search)',
