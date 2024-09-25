@@ -1,16 +1,22 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Spinner from "@/components/spinner";
-import { useCreatePositionsMutation } from "@/features/Organization-Setteings/positionApi";
+import { useGetPositionByIdQuery, useUpdatePositionsMutation } from "@/features/Organization-Setteings/positionApi";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { useGetAllPositionsQuery } from "@/features/User-Management/driverApi";
 
-const AddPosition = () => {
+interface ParamsType {
+  params: {
+    positionId: number;
+  };
+}
+
+const AddPosition = ({ params }: ParamsType) => {
   const breadcrumbs = [
     {
       nameEn: "Administration",
@@ -30,39 +36,55 @@ const AddPosition = () => {
       nameFr: "Postes",
       href: "/organization-setting/position",
     },
-    {
-      nameEn: "Add Position",
-      nameAr: "إضافة منصب",
-      nameFr: "Ajouter un poste",
-      href: "/organization-setting/position/add-position",
-    },
   ];
+
   const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+    (state: RootState) => state.language.language
   );
-  const { data: positionData, isLoading: isPosition } = useGetAllPositionsQuery(null);
-  const booleanValue = useSelector((state: RootState) => state.boolean.value);
+  const booleanValue = useSelector(
+    (state: RootState) => state.boolean.value
+  );
+
+  // Fetch position by ID
+  const { data: positionData, isLoading: isPositionLoading } = useGetPositionByIdQuery(params.positionId);
+  const { data: allPositions, isLoading: isAllPositionsLoading } = useGetAllPositionsQuery(null);
+  
   const {
     register,
     handleSubmit,
+    setValue,  // Use this to set field values
     formState: { errors },
   } = useForm();
-  const [createPosition, { isLoading }] = useCreatePositionsMutation();
+
+  const [updatePosition, { isLoading }] = useUpdatePositionsMutation();
+
+  // Populate form fields with position data when available
+  useEffect(() => {
+    if (positionData) {
+      setValue("departmentId", positionData.data.departmentId);
+      setValue("title_en", positionData.data.title_en);
+      setValue("title_fr", positionData.data.title_fr);
+      setValue("title_ar", positionData.data.title_ar);
+    }
+  }, [positionData, setValue]);
 
   const onSubmit = async (data: any) => {
     try {
-      await createPosition(data).unwrap();
-      toast.success("Position created successfully");
+      await updatePosition({ formData: data, id: params.positionId }).unwrap();
+      toast.success("Position updated successfully");
     } catch {
-      toast.error("Failed to create Position");
+      toast.error("Failed to update position");
     }
   };
-  if (isPosition)
+
+  if (isPositionLoading || isAllPositionsLoading) {
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
       </div>
     );
+  }
+
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
@@ -84,15 +106,14 @@ const AddPosition = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
-                {" "}
-                <path stroke="none" d="M0 0h24v24H0z" />{" "}
-                <line x1="3" y1="21" x2="21" y2="21" />{" "}
-                <line x1="3" y1="10" x2="21" y2="10" />{" "}
-                <polyline points="5 6 12 3 19 6" />{" "}
-                <line x1="4" y1="10" x2="4" y2="21" />{" "}
-                <line x1="20" y1="10" x2="20" y2="21" />{" "}
-                <line x1="8" y1="14" x2="8" y2="17" />{" "}
-                <line x1="12" y1="14" x2="12" y2="17" />{" "}
+                <path stroke="none" d="M0 0h24v24H0z" />
+                <line x1="3" y1="21" x2="21" y2="21" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+                <polyline points="5 6 12 3 19 6" />
+                <line x1="4" y1="10" x2="4" y2="21" />
+                <line x1="20" y1="10" x2="20" y2="21" />
+                <line x1="8" y1="14" x2="8" y2="17" />
+                <line x1="12" y1="14" x2="12" y2="17" />
                 <line x1="16" y1="14" x2="16" y2="17" />
               </svg>
               <h1 className="font-sans text-[22px] font-semibold">
@@ -114,7 +135,7 @@ const AddPosition = () => {
                     ? "ID du Département"
                     : "Department Id"}
 
-<select
+                <select
                   defaultValue=""
                   id="departmentId"
                   {...register("departmentId", { required: true })}
@@ -130,33 +151,19 @@ const AddPosition = () => {
                           : "Select Region Id"}{" "}
                     {/* default */}
                   </option>
-                  {positionData &&
-                    positionData.data.content.map(
+                  {allPositions &&
+                    allPositions.data.content.map(
                       (
-                        rigion: {
+                        region: {
                           title: string;
                           id: string | number | readonly string[] | undefined;
-                          name:
-                          | string
-                          | number
-                          | bigint
-                          | boolean
-                          | React.ReactElement<
-                            any,
-                            string | React.JSXElementConstructor<any>
-                          >
-                          | Iterable<React.ReactNode>
-                          | React.ReactPortal
-                          | Promise<React.AwaitedReactNode>
-                          | null
-                          | undefined;
                         },
-                        index: React.Key | null | undefined,
+                        index: React.Key | null | undefined
                       ) => (
-                        <option key={index} value={rigion.id}>
-                          {rigion.title}
+                        <option key={index} value={region.id}>
+                          {region.title}
                         </option>
-                      ),
+                      )
                     )}
                 </select>
                 {errors.departmentId && (
@@ -169,6 +176,8 @@ const AddPosition = () => {
                   </span>
                 )}
               </label>
+
+              {/* Other input fields */}
               <label
                 htmlFor="title_en"
                 className="grid font-sans text-[18px] font-semibold"
@@ -194,6 +203,7 @@ const AddPosition = () => {
                   </span>
                 )}
               </label>
+
               <label
                 htmlFor="title_fr"
                 className="grid font-sans text-[18px] font-semibold"
@@ -209,7 +219,7 @@ const AddPosition = () => {
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("title_fr", { required: true })}
                 />
-                {errors.title_en && (
+                {errors.title_fr && (
                   <span className="text-error">
                     {currentLanguage === "ar"
                       ? "هذا الحقل مطلوب"
@@ -219,6 +229,7 @@ const AddPosition = () => {
                   </span>
                 )}
               </label>
+
               <label
                 htmlFor="title_ar"
                 className="grid font-sans text-[18px] font-semibold"

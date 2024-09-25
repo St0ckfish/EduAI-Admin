@@ -34,7 +34,7 @@ export const positionApi = createApi({
     deletePositions: builder.mutation({
       query: id => ({
         url: `/api/v1/management/position/${id}`,
-        method: "PUT",
+        method: "DELETE",
       }),
     }),
     //
@@ -53,7 +53,7 @@ export const positionApi = createApi({
     updatePositions: builder.mutation({
       query: ({ formData, id }) => ({
         url: `/api/v1/management/position/${id}`,
-        method: "PATCH",
+        method: "PUT",
         body: formData,
       }),
     }),

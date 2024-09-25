@@ -39,7 +39,7 @@ export const attendanceApi = createApi({
     //
     getAllSchools: builder.query({
       query: () =>
-        `/api/v1/management/school/all?size=1000000&page=0&subscribed`,
+        `/api/v1/public/school/basic-info?name&size=1000000&page=0`,
     }),
     //
     getDriversCount: builder.query({
