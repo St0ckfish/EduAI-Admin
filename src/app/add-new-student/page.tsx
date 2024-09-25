@@ -15,7 +15,6 @@ import BreadCrumbs from "@/components/BreadCrumbs";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { useState } from "react";
 
-
 const AddNewStudent = () => {
   const breadcrumbs = [
     {
@@ -43,7 +42,10 @@ const AddNewStudent = () => {
       href: "/add-new-student",
     },
   ];
-  const [studentCertificatesOfAchievement, setStudentCertificatesOfAchievement] = useState("");
+  const [
+    studentCertificatesOfAchievement,
+    setStudentCertificatesOfAchievement,
+  ] = useState("");
   const [studentProfilePhoto, setStudentProfilePhoto] = useState("");
   const [studentIdPhoto, setStudentIdPhoto] = useState("");
   const [fileName, setFileName] = useState("");
@@ -608,15 +610,12 @@ const AddNewStudent = () => {
                     ? "Photo de la carte d'étudiant"
                     : "Student ID Photo"}
 
-
                 <input
                   id="studentIdPhoto"
                   type="file"
                   className="hidden"
                   {...register("studentIdPhoto")}
-                  onChange={e =>
-                    handleFileChange(e, setStudentIdPhoto)
-                  }
+                  onChange={e => handleFileChange(e, setStudentIdPhoto)}
                 />
                 <span className="w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
                   <div className="flex">
@@ -641,19 +640,17 @@ const AddNewStudent = () => {
                 className="grid font-sans text-[18px] font-semibold"
               >
                 {currentLanguage === "ar"
-  ? "صورة ملف الطالب"
-  : currentLanguage === "fr"
-  ? "Photo de profil étudiant"
-  : "Student Profile Photo"}
+                  ? "صورة ملف الطالب"
+                  : currentLanguage === "fr"
+                    ? "Photo de profil étudiant"
+                    : "Student Profile Photo"}
 
                 <input
                   id="studentProfilePhoto"
                   type="file"
                   className="hidden"
                   {...register("studentProfilePhoto")}
-                  onChange={e =>
-                    handleFileChange(e, setStudentProfilePhoto)
-                  }
+                  onChange={e => handleFileChange(e, setStudentProfilePhoto)}
                 />
                 <span className="w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
                   <div className="flex">
@@ -705,7 +702,6 @@ const AddNewStudent = () => {
                   </div>
                 </span>
               </label>
-
             </div>
 
             <div className="flex justify-center text-center">

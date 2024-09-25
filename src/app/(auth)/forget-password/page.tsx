@@ -61,7 +61,7 @@ const ForgetPassword = () => {
   };
   return (
     <>
-      <div className="absolute top-5 right-5">
+      <div className="absolute right-5 top-5">
         <DropdownMenu.Root>
           <DropdownMenu.Trigger asChild>
             <button
@@ -151,7 +151,9 @@ const ForgetPassword = () => {
           <div className="grid items-center justify-center">
             <form
               dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-              className="grid gap-10" onSubmit={handleSubmit(onSubmit)}>
+              className="grid gap-10"
+              onSubmit={handleSubmit(onSubmit)}
+            >
               <label
                 htmlFor="text"
                 className="grid text-start font-sans text-[18px] font-semibold text-textSecondary"

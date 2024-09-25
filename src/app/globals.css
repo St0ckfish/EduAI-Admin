@@ -15,7 +15,7 @@ body {
   --text-secondary: #89939e;
   --warning: #f4bd0e;
   --error: #e53835;
-  --success: #1EE0AC;
+  --success: #1ee0ac;
   --info: #09c2de;
   --border-primary: #d9d9d9;
   --thead: #daeafb;
@@ -69,7 +69,7 @@ div.apexcharts-xaxistooltip.apexcharts-xaxistooltip-bottom.apexcharts-theme-ligh
   color: var(--secondary) !important;
 }
 
-.css-13cymwt-control { 
+.css-13cymwt-control {
   background-color: var(--bg-primary) !important;
   border: 1px solid var(--border-primary) !important;
 }

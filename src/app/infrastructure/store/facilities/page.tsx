@@ -85,16 +85,12 @@ const Facilities = () => {
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"
-          } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
+        className={`${
+          booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"
+        } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
-        <div
-          className="flex h-[70px] items-center gap-7 overflow-auto rounded-t-xl px-3 font-semibold"
-        >
-          <Link
-            className="underline-offset-4"
-            href="/infrastructure/store"
-          >
+        <div className="flex h-[70px] items-center gap-7 overflow-auto rounded-t-xl px-3 font-semibold">
+          <Link className="underline-offset-4" href="/infrastructure/store">
             {currentLanguage === "ar"
               ? "الموارد الرقمية"
               : currentLanguage === "fr"
@@ -197,8 +193,6 @@ const Facilities = () => {
                 : currentLanguage === "fr"
                   ? "Ajouter un magasin"
                   : "Add Store"}
-
-
             </Link>
           </div>
         </div>
@@ -222,7 +216,6 @@ const Facilities = () => {
                   : currentLanguage === "fr"
                     ? "Nom"
                     : "Name"}
-
               </th>
               <th scope="col" className="whitespace-nowrap px-6 py-3">
                 {currentLanguage === "ar"
@@ -230,7 +223,6 @@ const Facilities = () => {
                   : currentLanguage === "fr"
                     ? "Nombre total"
                     : "Total Number"}
-
               </th>
               <th scope="col" className="whitespace-nowrap px-6 py-3">
                 {currentLanguage === "ar"
@@ -238,7 +230,6 @@ const Facilities = () => {
                   : currentLanguage === "fr"
                     ? "Nombre des dernières additions"
                     : "Number of latest Addition"}
-
               </th>
               <th scope="col" className="whitespace-nowrap px-6 py-3">
                 {currentLanguage === "ar"
@@ -253,7 +244,6 @@ const Facilities = () => {
                   : currentLanguage === "fr"
                     ? "Dernière mise à jour"
                     : "Last update"}
-
               </th>
               <th scope="col" className="whitespace-nowrap px-6 py-3">
                 {currentLanguage === "ar"
@@ -269,8 +259,6 @@ const Facilities = () => {
                     ? "Action"
                     : "Action"}
               </th>
-
-
             </tr>
           </thead>
           <tbody>

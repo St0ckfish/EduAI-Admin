@@ -54,7 +54,7 @@ const Login = () => {
 
   return (
     <>
-      <div className="absolute top-5 right-5">
+      <div className="absolute right-5 top-5">
         <DropdownMenu.Root>
           <DropdownMenu.Trigger asChild>
             <button
@@ -132,8 +132,7 @@ const Login = () => {
               alt="#"
             />
           </div>
-          <div
-            className="mb-10 grid">
+          <div className="mb-10 grid">
             <h1 className="font-sans text-[28px] font-bold text-primary">
               {currentLanguage === "ar"
                 ? "تسجيل الدخول"
@@ -152,7 +151,9 @@ const Login = () => {
           <div className="grid items-center justify-center">
             <form
               dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-              className="grid gap-10" onSubmit={handleSubmit(onSubmit)}>
+              className="grid gap-10"
+              onSubmit={handleSubmit(onSubmit)}
+            >
               <label
                 htmlFor="email"
                 className="grid text-start font-sans text-[18px] font-semibold text-[#041631] text-primary"

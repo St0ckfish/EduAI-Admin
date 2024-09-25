@@ -14,7 +14,8 @@ import { useSelector } from "react-redux";
 import { useGetAllPositionsQuery } from "@/features/User-Management/driverApi";
 
 const AddNewTeacher = () => {
-  const { data: positionData, isLoading: isPosition } = useGetAllPositionsQuery(null);
+  const { data: positionData, isLoading: isPosition } =
+    useGetAllPositionsQuery(null);
 
   const breadcrumbs = [
     {
@@ -281,11 +282,12 @@ const AddNewTeacher = () => {
                   </option>
                 </select>
                 {errors.religion && (
-                  <span className="text-error">{currentLanguage === "ar"
-                    ? "هذا الحقل مطلوب"
-                    : currentLanguage === "fr"
-                      ? "Ce champ est requis"
-                      : "This field is required"}
+                  <span className="text-error">
+                    {currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
                   </span>
                 )}
               </label>
@@ -358,19 +360,19 @@ const AddNewTeacher = () => {
                         rigion: {
                           id: string | number | readonly string[] | undefined;
                           name:
-                          | string
-                          | number
-                          | bigint
-                          | boolean
-                          | React.ReactElement<
-                            any,
-                            string | React.JSXElementConstructor<any>
-                          >
-                          | Iterable<React.ReactNode>
-                          | React.ReactPortal
-                          | Promise<React.AwaitedReactNode>
-                          | null
-                          | undefined;
+                            | string
+                            | number
+                            | bigint
+                            | boolean
+                            | React.ReactElement<
+                                any,
+                                string | React.JSXElementConstructor<any>
+                              >
+                            | Iterable<React.ReactNode>
+                            | React.ReactPortal
+                            | Promise<React.AwaitedReactNode>
+                            | null
+                            | undefined;
                         },
                         index: React.Key | null | undefined,
                       ) => (
@@ -797,19 +799,19 @@ const AddNewTeacher = () => {
                           title: string;
                           id: string | number | readonly string[] | undefined;
                           name:
-                          | string
-                          | number
-                          | bigint
-                          | boolean
-                          | React.ReactElement<
-                            any,
-                            string | React.JSXElementConstructor<any>
-                          >
-                          | Iterable<React.ReactNode>
-                          | React.ReactPortal
-                          | Promise<React.AwaitedReactNode>
-                          | null
-                          | undefined;
+                            | string
+                            | number
+                            | bigint
+                            | boolean
+                            | React.ReactElement<
+                                any,
+                                string | React.JSXElementConstructor<any>
+                              >
+                            | Iterable<React.ReactNode>
+                            | React.ReactPortal
+                            | Promise<React.AwaitedReactNode>
+                            | null
+                            | undefined;
                         },
                         index: React.Key | null | undefined,
                       ) => (

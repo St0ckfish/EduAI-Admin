@@ -56,7 +56,7 @@ const Scholarship = () => {
         ? "هذه الصفحة غير جاهزة للاستخدام!"
         : currentLanguage === "fr"
           ? "Cette page n'est pas prête à être utilisée!"
-          : "This page is not ready to use!"
+          : "This page is not ready to use!",
     );
     const handleOtherCheckboxes = () => {
       const allCheckboxes = document.querySelectorAll<HTMLInputElement>(

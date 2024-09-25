@@ -31,7 +31,7 @@ const Payment = () => {
     },
   ];
   const currentLanguage = useSelector(
-    (state: RootState) => state.language.language
+    (state: RootState) => state.language.language,
   );
 
   if (isLoading)
@@ -42,11 +42,36 @@ const Payment = () => {
     );
 
   const taxFields = [
-    { label: "Tuition Date", type: data.data?.tuitionTaxType, value: data.data?.tuitionDate, img: "/images/tuition.png" },
-    { label: "TransportDate", type: data.data?.transportTaxType, value: data.data?.transportDate, img: "/images/buss.png" },
-    { label: "Activity Date", type: data.data?.activityTaxType, value: data.data?.activityDate, img: "/images/calendar.png" },
-    { label: "Material Date", type: data.data?.materialTaxType, value: data.data?.activityDate, img: "/images/tuition.png" },
-    { label: "Uniform Date", type: data.data?.uniformTaxType, value: data.data?.uniformDate, img: "/images/uniform.png" },
+    {
+      label: "Tuition Date",
+      type: data.data?.tuitionTaxType,
+      value: data.data?.tuitionDate,
+      img: "/images/tuition.png",
+    },
+    {
+      label: "TransportDate",
+      type: data.data?.transportTaxType,
+      value: data.data?.transportDate,
+      img: "/images/buss.png",
+    },
+    {
+      label: "Activity Date",
+      type: data.data?.activityTaxType,
+      value: data.data?.activityDate,
+      img: "/images/calendar.png",
+    },
+    {
+      label: "Material Date",
+      type: data.data?.materialTaxType,
+      value: data.data?.activityDate,
+      img: "/images/tuition.png",
+    },
+    {
+      label: "Uniform Date",
+      type: data.data?.uniformTaxType,
+      value: data.data?.uniformDate,
+      img: "/images/uniform.png",
+    },
   ];
 
   return (
@@ -57,22 +82,18 @@ const Payment = () => {
           booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"
         } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
-
-        <div className="flex flex-wrap gap-10 justify-center w-full">
+        <div className="flex w-full flex-wrap justify-center gap-10">
           {taxFields?.map((tax, index) => (
             <div
               key={index}
-              className="bg-bgPrimary p-8 rounded-xl grid gap-4 w-[500px]"
+              className="grid w-[500px] gap-4 rounded-xl bg-bgPrimary p-8"
             >
-              <div className="flex justify-between font-semibold text-[20px]">
+              <div className="flex justify-between text-[20px] font-semibold">
                 <p className="flex gap-2">
-              <img src={tax.img} alt="#" />
+                  <img src={tax.img} alt="#" />
                   {tax.label}
-
                 </p>
-                <p>
-                  {tax.value}
-                </p>
+                <p>{tax.value}</p>
               </div>
             </div>
           ))}

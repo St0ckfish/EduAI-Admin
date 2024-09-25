@@ -45,7 +45,8 @@ const AddNewEmployee = () => {
   );
   const { data: nationalityData, isLoading: nationalityLoading } =
     useGetAllNationalitysQuery(null);
-  const { data: positionData, isLoading: isPosition } = useGetAllPositionsQuery(null);
+  const { data: positionData, isLoading: isPosition } =
+    useGetAllPositionsQuery(null);
   const {
     register,
     handleSubmit,
@@ -684,19 +685,19 @@ const AddNewEmployee = () => {
                           title: string;
                           id: string | number | readonly string[] | undefined;
                           name:
-                          | string
-                          | number
-                          | bigint
-                          | boolean
-                          | React.ReactElement<
-                            any,
-                            string | React.JSXElementConstructor<any>
-                          >
-                          | Iterable<React.ReactNode>
-                          | React.ReactPortal
-                          | Promise<React.AwaitedReactNode>
-                          | null
-                          | undefined;
+                            | string
+                            | number
+                            | bigint
+                            | boolean
+                            | React.ReactElement<
+                                any,
+                                string | React.JSXElementConstructor<any>
+                              >
+                            | Iterable<React.ReactNode>
+                            | React.ReactPortal
+                            | Promise<React.AwaitedReactNode>
+                            | null
+                            | undefined;
                         },
                         index: React.Key | null | undefined,
                       ) => (

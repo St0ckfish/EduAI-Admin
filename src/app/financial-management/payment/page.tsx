@@ -55,7 +55,6 @@ const Payment = () => {
   };
 
   useEffect(() => {
-    
     const handleOtherCheckboxes = () => {
       const allCheckboxes = document.querySelectorAll<HTMLInputElement>(
         'input[type="checkbox"]:not(#checkbox-all-search)',
@@ -71,7 +70,6 @@ const Payment = () => {
         setSelectAll(allChecked);
       }
     };
-
 
     const otherCheckboxes = document.querySelectorAll<HTMLInputElement>(
       'input[type="checkbox"]:not(#checkbox-all-search)',

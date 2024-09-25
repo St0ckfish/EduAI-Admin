@@ -31,7 +31,7 @@ const Book = () => {
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
   );
-  
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value); // sidebar
 
   const [selectAll, setSelectAll] = useState(false); // State to track whether select all checkbox is checked
@@ -53,7 +53,7 @@ const Book = () => {
         ? "هذه الصفحة غير جاهزة للاستخدام!"
         : currentLanguage === "fr"
           ? "Cette page n'est pas prête à être utilisée!"
-          : "This page is not ready to use!"
+          : "This page is not ready to use!",
     );
     // Function to handle click on other checkboxes
     const handleOtherCheckboxes = () => {
@@ -71,7 +71,6 @@ const Book = () => {
         setSelectAll(allChecked);
       }
     };
-
 
     // Add event listeners to other checkboxes
     const otherCheckboxes = document.querySelectorAll<HTMLInputElement>(

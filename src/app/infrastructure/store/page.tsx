@@ -85,12 +85,11 @@ const Store = () => {
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"
-          } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
+        className={`${
+          booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"
+        } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
-        <div
-          className="flex h-[70px] items-center gap-7 overflow-auto rounded-t-xl px-3 font-semibold"
-        >
+        <div className="flex h-[70px] items-center gap-7 overflow-auto rounded-t-xl px-3 font-semibold">
           <Link
             className="text-primary underline underline-offset-4"
             href="/infrastructure/store"
@@ -107,10 +106,10 @@ const Store = () => {
             href="/infrastructure/store/equipment"
           >
             {currentLanguage === "ar"
-  ? "المعدات"
-  : currentLanguage === "fr"
-  ? "Équipement"
-  : "Equipment"}
+              ? "المعدات"
+              : currentLanguage === "fr"
+                ? "Équipement"
+                : "Equipment"}
             {/* Default to English */}
           </Link>
           <Link
@@ -118,21 +117,21 @@ const Store = () => {
             href="/infrastructure/store/facilities"
           >
             {currentLanguage === "ar"
-  ? "المرافق"
-  : currentLanguage === "fr"
-  ? "Installations"
-  : "Facilities"}
+              ? "المرافق"
+              : currentLanguage === "fr"
+                ? "Installations"
+                : "Facilities"}
             {/* Default to English */}
           </Link>
           <Link
             className="underline-offset-4 hover:text-primary hover:underline"
             href="/infrastructure/store/instructional-materials"
           >
-           {currentLanguage === "ar"
-  ? "المواد التعليمية"
-  : currentLanguage === "fr"
-  ? "Matériel didactique"
-  : "Instructional Materials"}
+            {currentLanguage === "ar"
+              ? "المواد التعليمية"
+              : currentLanguage === "fr"
+                ? "Matériel didactique"
+                : "Instructional Materials"}
 
             {/* Default to English */}
           </Link>
@@ -141,10 +140,10 @@ const Store = () => {
             href="/infrastructure/store/textBooks"
           >
             {currentLanguage === "ar"
-  ? "الكتب الدراسية"
-  : currentLanguage === "fr"
-  ? "Manuels scolaires"
-  : "textBooks"}
+              ? "الكتب الدراسية"
+              : currentLanguage === "fr"
+                ? "Manuels scolaires"
+                : "textBooks"}
             {/* Default to English */}
           </Link>
         </div>
@@ -193,12 +192,10 @@ const Store = () => {
               className="mb-5 mr-3 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               {currentLanguage === "ar"
-  ? "إضافة متجر"
-  : currentLanguage === "fr"
-  ? "Ajouter un magasin"
-  : "Add Store"}
-
-
+                ? "إضافة متجر"
+                : currentLanguage === "fr"
+                  ? "Ajouter un magasin"
+                  : "Add Store"}
             </Link>
           </div>
         </div>
@@ -222,7 +219,6 @@ const Store = () => {
                   : currentLanguage === "fr"
                     ? "Nom"
                     : "Name"}
-
               </th>
               <th scope="col" className="whitespace-nowrap px-6 py-3">
                 {currentLanguage === "ar"
@@ -230,47 +226,42 @@ const Store = () => {
                   : currentLanguage === "fr"
                     ? "Nombre total"
                     : "Total Number"}
-
-              </th>
-              <th scope="col" className="whitespace-nowrap px-6 py-3">
-               {currentLanguage === "ar"
-  ? "عدد الإضافات الأخيرة"
-  : currentLanguage === "fr"
-  ? "Nombre des dernières additions"
-  : "Number of latest Addition"}
-
               </th>
               <th scope="col" className="whitespace-nowrap px-6 py-3">
                 {currentLanguage === "ar"
-  ? "عدد السحوبات الأخيرة"
-  : currentLanguage === "fr"
-  ? "Nombre des derniers tirages"
-  : "Number of latest pulling"}
+                  ? "عدد الإضافات الأخيرة"
+                  : currentLanguage === "fr"
+                    ? "Nombre des dernières additions"
+                    : "Number of latest Addition"}
               </th>
               <th scope="col" className="whitespace-nowrap px-6 py-3">
                 {currentLanguage === "ar"
-  ? "آخر تحديث"
-  : currentLanguage === "fr"
-  ? "Dernière mise à jour"
-  : "Last update"}
-
+                  ? "عدد السحوبات الأخيرة"
+                  : currentLanguage === "fr"
+                    ? "Nombre des derniers tirages"
+                    : "Number of latest pulling"}
               </th>
               <th scope="col" className="whitespace-nowrap px-6 py-3">
                 {currentLanguage === "ar"
-  ? "الحالة"
-  : currentLanguage === "fr"
-  ? "Statut"
-  : "Status"}
+                  ? "آخر تحديث"
+                  : currentLanguage === "fr"
+                    ? "Dernière mise à jour"
+                    : "Last update"}
               </th>
               <th scope="col" className="whitespace-nowrap px-6 py-3">
                 {currentLanguage === "ar"
-  ? "الإجراء"
-  : currentLanguage === "fr"
-  ? "Action"
-  : "Action"}
+                  ? "الحالة"
+                  : currentLanguage === "fr"
+                    ? "Statut"
+                    : "Status"}
               </th>
-              
-
+              <th scope="col" className="whitespace-nowrap px-6 py-3">
+                {currentLanguage === "ar"
+                  ? "الإجراء"
+                  : currentLanguage === "fr"
+                    ? "Action"
+                    : "Action"}
+              </th>
             </tr>
           </thead>
           <tbody>

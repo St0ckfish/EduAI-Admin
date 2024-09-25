@@ -15,7 +15,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import React, { useEffect, useState } from "react";
 import { RootState } from "@/GlobalRedux/store";
-import Select from 'react-select';
+import Select from "react-select";
 import { useSelector } from "react-redux";
 import { useGetAllSchoolsQuery } from "@/features/attendance/attendanceApi";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
@@ -44,7 +44,6 @@ const signupSchema = z.object({
 });
 
 const Signup = () => {
-
   const [errorMessage, setErrorMessage] = useState<any[]>([]);
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
@@ -58,14 +57,19 @@ const Signup = () => {
   const handleNext = () => setStep(step + 1);
   const handlePrevious = () => setStep(step - 1);
   const { data: schoolData, isLoading: isSchool } = useGetAllSchoolsQuery(null);
-  const options = schoolData?.data?.map((school: {
-    cityName: any;
-    countryName: any;
-    regionName: any; id: any; name: any;
-  }) => ({
-    value: school.id,
-    label: `${school.name} - ${school.regionName}, ${school.cityName}, ${school.countryName}`,
-  })) || [];
+  const options =
+    schoolData?.data?.map(
+      (school: {
+        cityName: any;
+        countryName: any;
+        regionName: any;
+        id: any;
+        name: any;
+      }) => ({
+        value: school.id,
+        label: `${school.name} - ${school.regionName}, ${school.cityName}, ${school.countryName}`,
+      }),
+    ) || [];
   const {
     control,
     register,
@@ -141,7 +145,7 @@ const Signup = () => {
 
   return (
     <>
-      <div className="absolute top-5 right-5">
+      <div className="absolute right-5 top-5">
         <DropdownMenu.Root>
           <DropdownMenu.Trigger asChild>
             <button
@@ -238,8 +242,9 @@ const Signup = () => {
           <div className="grid items-center justify-center">
             <form
               dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-
-              className="grid gap-2" onSubmit={handleSubmit(onSubmit)}>
+              className="grid gap-2"
+              onSubmit={handleSubmit(onSubmit)}
+            >
               {step === 1 && (
                 <div className="grid w-full grid-cols-1 gap-3">
                   <label
@@ -330,12 +335,13 @@ const Signup = () => {
                     <input
                       id="nid"
                       {...register("nid", { required: true })}
-                      placeholder={currentLanguage === "ar"
-                        ? "الرقم القومي"
-                        : currentLanguage === "fr"
-                          ? "Numéro d'identification nationale"
-                          : "NID"}
-
+                      placeholder={
+                        currentLanguage === "ar"
+                          ? "الرقم القومي"
+                          : currentLanguage === "fr"
+                            ? "Numéro d'identification nationale"
+                            : "NID"
+                      }
                       className={`rounded-xl border px-4 py-3 ${errors.nid ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                       type="number"
                     />
@@ -351,7 +357,8 @@ const Signup = () => {
                   </label>
                   <div
                     dir="ltr"
-                    className="mt-12 flex w-full justify-end gap-3">
+                    className="mt-12 flex w-full justify-end gap-3"
+                  >
                     <p className="flex w-[120px] cursor-no-drop items-center justify-center gap-2 rounded-xl border border-[#e6e8e7] bg-white px-3 py-2 font-semibold text-primary">
                       <svg
                         className="h-5 w-5"
@@ -423,24 +430,24 @@ const Signup = () => {
                           (
                             rigion: {
                               id:
-                              | string
-                              | number
-                              | readonly string[]
-                              | undefined;
+                                | string
+                                | number
+                                | readonly string[]
+                                | undefined;
                               name:
-                              | string
-                              | number
-                              | bigint
-                              | boolean
-                              | React.ReactElement<
-                                any,
-                                string | React.JSXElementConstructor<any>
-                              >
-                              | Iterable<React.ReactNode>
-                              | React.ReactPortal
-                              | Promise<React.AwaitedReactNode>
-                              | null
-                              | undefined;
+                                | string
+                                | number
+                                | bigint
+                                | boolean
+                                | React.ReactElement<
+                                    any,
+                                    string | React.JSXElementConstructor<any>
+                                  >
+                                | Iterable<React.ReactNode>
+                                | React.ReactPortal
+                                | Promise<React.AwaitedReactNode>
+                                | null
+                                | undefined;
                             },
                             index: React.Key | null | undefined,
                           ) => (
@@ -581,7 +588,8 @@ const Signup = () => {
                   </label>
                   <div
                     dir="ltr"
-                    className="mt-12 flex w-full justify-end gap-3">
+                    className="mt-12 flex w-full justify-end gap-3"
+                  >
                     <button
                       className="flex w-[120px] items-center justify-center gap-2 rounded-xl bg-primary px-3 py-2 font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                       onClick={handlePrevious}
@@ -809,7 +817,8 @@ const Signup = () => {
                   </label>
                   <div
                     dir="ltr"
-                    className="mt-12 flex w-full justify-end gap-3">
+                    className="mt-12 flex w-full justify-end gap-3"
+                  >
                     <button
                       className="flex w-[120px] items-center justify-center gap-2 rounded-xl bg-primary px-3 py-2 font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                       onClick={handlePrevious}
@@ -964,9 +973,11 @@ const Signup = () => {
                                 : "schoolId"
                           }
                           classNamePrefix="react-select"
-                          className={`rounded-xl ${errors.schoolId ? "border-warning" : "border-borderPrimary"
-                            } w-[400px] outline-none max-[458px]:w-[350px] bg-bgPrimary 
-                        dark:bg-bgSecondary dark:border-gray-600`}
+                          className={`rounded-xl ${
+                            errors.schoolId
+                              ? "border-warning"
+                              : "border-borderPrimary"
+                          } w-[400px] bg-bgPrimary outline-none dark:border-gray-600 dark:bg-bgSecondary max-[458px]:w-[350px]`}
                           isSearchable
                         />
                       )}
@@ -1010,8 +1021,8 @@ const Signup = () => {
                   </label>
                   <div
                     dir="ltr"
-
-                    className="mt-12 flex w-full justify-end gap-3">
+                    className="mt-12 flex w-full justify-end gap-3"
+                  >
                     <button
                       className="flex w-[120px] items-center justify-center gap-2 rounded-xl bg-primary px-3 py-2 font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                       onClick={handlePrevious}

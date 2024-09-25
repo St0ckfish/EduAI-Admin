@@ -4,7 +4,6 @@ import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 
-
 const AddTransport = () => {
   const breadcrumbs = [
     {
@@ -96,11 +95,13 @@ const AddTransport = () => {
                   id="route"
                   type="number"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  placeholder={currentLanguage === "ar"
-                    ? "أدخل المسار"
-                    : currentLanguage === "fr"
-                      ? "Entrez l'itinéraire"
-                      : "Enter Route"}
+                  placeholder={
+                    currentLanguage === "ar"
+                      ? "أدخل المسار"
+                      : currentLanguage === "fr"
+                        ? "Entrez l'itinéraire"
+                        : "Enter Route"
+                  }
                 />
               </label>
               <label
@@ -117,11 +118,13 @@ const AddTransport = () => {
                   id="cost"
                   type="number"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  placeholder={currentLanguage === "ar"
-                    ? "أدخل التكلفة"
-                    : currentLanguage === "fr"
-                      ? "Entrez le coût"
-                      : "Enter Cost"}
+                  placeholder={
+                    currentLanguage === "ar"
+                      ? "أدخل التكلفة"
+                      : currentLanguage === "fr"
+                        ? "Entrez le coût"
+                        : "Enter Cost"
+                  }
                 />
               </label>
               <label
@@ -138,11 +141,13 @@ const AddTransport = () => {
                   id="about"
                   type="text"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  placeholder={currentLanguage === "ar"
-                    ? "اكتب شيئًا"
-                    : currentLanguage === "fr"
-                      ? "Écrivez quelque chose"
-                      : "Write Something"}
+                  placeholder={
+                    currentLanguage === "ar"
+                      ? "اكتب شيئًا"
+                      : currentLanguage === "fr"
+                        ? "Écrivez quelque chose"
+                        : "Write Something"
+                  }
                 />
               </label>
             </div>
@@ -150,7 +155,7 @@ const AddTransport = () => {
             <div className="flex justify-center text-center">
               <button
                 type="submit"
-                className="w-fit px-5 rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+                className="w-fit rounded-xl bg-primary px-4 px-5 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
               >
                 {currentLanguage === "ar"
                   ? "حفظ"

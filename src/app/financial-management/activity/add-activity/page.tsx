@@ -4,7 +4,6 @@ import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 
-
 const AddActivity = () => {
   const breadcrumbs = [
     {
@@ -96,11 +95,13 @@ const AddActivity = () => {
                   id="activityType"
                   type="number"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  placeholder={currentLanguage === "ar"
-                    ? "أدخل نوع النشاط"
-                    : currentLanguage === "fr"
-                      ? "Entrez le type d'activité"
-                      : "Enter Activity Type"}
+                  placeholder={
+                    currentLanguage === "ar"
+                      ? "أدخل نوع النشاط"
+                      : currentLanguage === "fr"
+                        ? "Entrez le type d'activité"
+                        : "Enter Activity Type"
+                  }
                 />
               </label>
               <label
@@ -117,11 +118,13 @@ const AddActivity = () => {
                   id="cost"
                   type="number"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  placeholder={currentLanguage === "ar"
-                    ? "أدخل التكلفة"
-                    : currentLanguage === "fr"
-                      ? "Entrez le coût"
-                      : "Enter Cost"}
+                  placeholder={
+                    currentLanguage === "ar"
+                      ? "أدخل التكلفة"
+                      : currentLanguage === "fr"
+                        ? "Entrez le coût"
+                        : "Enter Cost"
+                  }
                 />
               </label>
               <label
@@ -138,22 +141,21 @@ const AddActivity = () => {
                   id="about"
                   type="text"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  placeholder={currentLanguage === "ar"
-                    ? "اكتب شيئًا"
-                    : currentLanguage === "fr"
-                      ? "Écrivez quelque chose"
-                      : "Write Something"}
+                  placeholder={
+                    currentLanguage === "ar"
+                      ? "اكتب شيئًا"
+                      : currentLanguage === "fr"
+                        ? "Écrivez quelque chose"
+                        : "Write Something"
+                  }
                 />
               </label>
-
-
-              
             </div>
 
             <div className="flex justify-center text-center">
               <button
                 type="submit"
-                className="w-fit px-5 rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+                className="w-fit rounded-xl bg-primary px-4 px-5 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
               >
                 {currentLanguage === "ar"
                   ? "حفظ"

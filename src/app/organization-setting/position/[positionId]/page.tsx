@@ -3,7 +3,10 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Spinner from "@/components/spinner";
-import { useGetPositionByIdQuery, useUpdatePositionsMutation } from "@/features/Organization-Setteings/positionApi";
+import {
+  useGetPositionByIdQuery,
+  useUpdatePositionsMutation,
+} from "@/features/Organization-Setteings/positionApi";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
@@ -39,20 +42,20 @@ const AddPosition = ({ params }: ParamsType) => {
   ];
 
   const currentLanguage = useSelector(
-    (state: RootState) => state.language.language
+    (state: RootState) => state.language.language,
   );
-  const booleanValue = useSelector(
-    (state: RootState) => state.boolean.value
-  );
+  const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   // Fetch position by ID
-  const { data: positionData, isLoading: isPositionLoading } = useGetPositionByIdQuery(params.positionId);
-  const { data: allPositions, isLoading: isAllPositionsLoading } = useGetAllPositionsQuery(null);
-  
+  const { data: positionData, isLoading: isPositionLoading } =
+    useGetPositionByIdQuery(params.positionId);
+  const { data: allPositions, isLoading: isAllPositionsLoading } =
+    useGetAllPositionsQuery(null);
+
   const {
     register,
     handleSubmit,
-    setValue,  // Use this to set field values
+    setValue, // Use this to set field values
     formState: { errors },
   } = useForm();
 
@@ -158,12 +161,12 @@ const AddPosition = ({ params }: ParamsType) => {
                           title: string;
                           id: string | number | readonly string[] | undefined;
                         },
-                        index: React.Key | null | undefined
+                        index: React.Key | null | undefined,
                       ) => (
                         <option key={index} value={region.id}>
                           {region.title}
                         </option>
-                      )
+                      ),
                     )}
                 </select>
                 {errors.departmentId && (

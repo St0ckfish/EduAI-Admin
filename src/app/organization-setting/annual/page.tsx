@@ -85,8 +85,9 @@ const Annual = () => {
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"
-          } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
+        className={`${
+          booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"
+        } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">
@@ -137,7 +138,6 @@ const Annual = () => {
                 : currentLanguage === "fr"
                   ? "Ajouter un nouveau congé annuel"
                   : "Add New Annual Leave"}
-
             </Link>
           </div>
         </div>
@@ -176,7 +176,6 @@ const Annual = () => {
                     ? "Action"
                     : "Action"}
               </th>
-
             </tr>
           </thead>
           <tbody>

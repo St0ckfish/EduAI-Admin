@@ -2,7 +2,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import Spinner from "@/components/spinner";
-import { useCreateDriversMutation, useGetAllPositionsQuery } from "@/features/User-Management/driverApi";
+import {
+  useCreateDriversMutation,
+  useGetAllPositionsQuery,
+} from "@/features/User-Management/driverApi";
 import {
   useGetAllNationalitysQuery,
   useGetAllReginionIDQuery,
@@ -20,7 +23,8 @@ const AddNewDriver = () => {
 
   const { data: nationalityData, isLoading: nationalityLoading } =
     useGetAllNationalitysQuery(null);
-  const { data: positionData, isLoading: isPosition } = useGetAllPositionsQuery(null);
+  const { data: positionData, isLoading: isPosition } =
+    useGetAllPositionsQuery(null);
   const {
     register,
     handleSubmit,
@@ -465,19 +469,19 @@ const AddNewDriver = () => {
                         rigion: {
                           id: string | number | readonly string[] | undefined;
                           name:
-                          | string
-                          | number
-                          | bigint
-                          | boolean
-                          | React.ReactElement<
-                            any,
-                            string | React.JSXElementConstructor<any>
-                          >
-                          | Iterable<React.ReactNode>
-                          | React.ReactPortal
-                          | Promise<React.AwaitedReactNode>
-                          | null
-                          | undefined;
+                            | string
+                            | number
+                            | bigint
+                            | boolean
+                            | React.ReactElement<
+                                any,
+                                string | React.JSXElementConstructor<any>
+                              >
+                            | Iterable<React.ReactNode>
+                            | React.ReactPortal
+                            | Promise<React.AwaitedReactNode>
+                            | null
+                            | undefined;
                         },
                         index: React.Key | null | undefined,
                       ) => (
@@ -821,7 +825,6 @@ const AddNewDriver = () => {
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("positionId", { required: true })}
                 /> */}
-
                 <select
                   defaultValue=""
                   id="positionId"
@@ -845,19 +848,19 @@ const AddNewDriver = () => {
                           title: string;
                           id: string | number | readonly string[] | undefined;
                           name:
-                          | string
-                          | number
-                          | bigint
-                          | boolean
-                          | React.ReactElement<
-                            any,
-                            string | React.JSXElementConstructor<any>
-                          >
-                          | Iterable<React.ReactNode>
-                          | React.ReactPortal
-                          | Promise<React.AwaitedReactNode>
-                          | null
-                          | undefined;
+                            | string
+                            | number
+                            | bigint
+                            | boolean
+                            | React.ReactElement<
+                                any,
+                                string | React.JSXElementConstructor<any>
+                              >
+                            | Iterable<React.ReactNode>
+                            | React.ReactPortal
+                            | Promise<React.AwaitedReactNode>
+                            | null
+                            | undefined;
                         },
                         index: React.Key | null | undefined,
                       ) => (
@@ -867,7 +870,6 @@ const AddNewDriver = () => {
                       ),
                     )}
                 </select>
-
                 {errors.positionId && (
                   <span className="text-error">
                     {currentLanguage === "en"

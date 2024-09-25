@@ -40,7 +40,8 @@ const AddPosition = () => {
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
   );
-  const { data: positionData, isLoading: isPosition } = useGetAllPositionsQuery(null);
+  const { data: positionData, isLoading: isPosition } =
+    useGetAllPositionsQuery(null);
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const {
     register,
@@ -114,7 +115,7 @@ const AddPosition = () => {
                     ? "ID du Département"
                     : "Department Id"}
 
-<select
+                <select
                   defaultValue=""
                   id="departmentId"
                   {...register("departmentId", { required: true })}
@@ -137,19 +138,19 @@ const AddPosition = () => {
                           title: string;
                           id: string | number | readonly string[] | undefined;
                           name:
-                          | string
-                          | number
-                          | bigint
-                          | boolean
-                          | React.ReactElement<
-                            any,
-                            string | React.JSXElementConstructor<any>
-                          >
-                          | Iterable<React.ReactNode>
-                          | React.ReactPortal
-                          | Promise<React.AwaitedReactNode>
-                          | null
-                          | undefined;
+                            | string
+                            | number
+                            | bigint
+                            | boolean
+                            | React.ReactElement<
+                                any,
+                                string | React.JSXElementConstructor<any>
+                              >
+                            | Iterable<React.ReactNode>
+                            | React.ReactPortal
+                            | Promise<React.AwaitedReactNode>
+                            | null
+                            | undefined;
                         },
                         index: React.Key | null | undefined,
                       ) => (

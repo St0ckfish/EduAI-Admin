@@ -14,7 +14,8 @@ import { useSelector } from "react-redux";
 import { useGetAllPositionsQuery } from "@/features/User-Management/driverApi";
 
 const AddNewWorker = () => {
-  const { data: positionData, isLoading: isPosition } = useGetAllPositionsQuery(null);
+  const { data: positionData, isLoading: isPosition } =
+    useGetAllPositionsQuery(null);
 
   const breadcrumbs = [
     {
@@ -683,19 +684,19 @@ const AddNewWorker = () => {
                           title: string;
                           id: string | number | readonly string[] | undefined;
                           name:
-                          | string
-                          | number
-                          | bigint
-                          | boolean
-                          | React.ReactElement<
-                            any,
-                            string | React.JSXElementConstructor<any>
-                          >
-                          | Iterable<React.ReactNode>
-                          | React.ReactPortal
-                          | Promise<React.AwaitedReactNode>
-                          | null
-                          | undefined;
+                            | string
+                            | number
+                            | bigint
+                            | boolean
+                            | React.ReactElement<
+                                any,
+                                string | React.JSXElementConstructor<any>
+                              >
+                            | Iterable<React.ReactNode>
+                            | React.ReactPortal
+                            | Promise<React.AwaitedReactNode>
+                            | null
+                            | undefined;
                         },
                         index: React.Key | null | undefined,
                       ) => (

@@ -52,7 +52,7 @@ const ResetPassword = () => {
   };
   return (
     <>
-      <div className="absolute top-5 right-5">
+      <div className="absolute right-5 top-5">
         <DropdownMenu.Root>
           <DropdownMenu.Trigger asChild>
             <button
@@ -142,7 +142,9 @@ const ResetPassword = () => {
           <div className="grid items-center justify-center">
             <form
               dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-              className="grid gap-10" onSubmit={handleSubmit(onSubmit)}>
+              className="grid gap-10"
+              onSubmit={handleSubmit(onSubmit)}
+            >
               <label
                 htmlFor="password"
                 className="grid text-start font-sans text-[18px] font-semibold text-textSecondary"
@@ -181,7 +183,7 @@ const ResetPassword = () => {
                 <div className="flex justify-center text-center">
                   <button
                     type="submit"
-                    className="w-fit p-5 rounded-xl bg-primary px-4 py-2 text-[18px] font-bold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+                    className="w-fit rounded-xl bg-primary p-5 px-4 py-2 text-[18px] font-bold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                   >
                     {currentLanguage === "ar"
                       ? "إعادة تعيين كلمة المرور"

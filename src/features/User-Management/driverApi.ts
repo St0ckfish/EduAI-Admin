@@ -28,8 +28,7 @@ export const driverApi = createApi({
   }),
   endpoints: builder => ({
     getAllPositions: builder.query({
-      query: () =>
-        `/api/v1/management/position/all?size=1000000&page=0`,
+      query: () => `/api/v1/management/position/all?size=1000000&page=0`,
     }),
     //
     getAllDrivers: builder.query({

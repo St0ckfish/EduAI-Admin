@@ -103,7 +103,7 @@ const OTP = () => {
 
   return (
     <>
-      <div className="absolute top-5 right-5">
+      <div className="absolute right-5 top-5">
         <DropdownMenu.Root>
           <DropdownMenu.Trigger asChild>
             <button
@@ -184,16 +184,18 @@ const OTP = () => {
             </h1>
             <p className="font-sans text-[20px] font-semibold text-secondary">
               {currentLanguage === "ar"
-              ? `تم إرسال رمز التحقق إلى ${email}`
-              : currentLanguage === "fr"
-                ? `Le code OTP a été envoyé à ${email}`
-                : `OTP code has been sent to ${email}`}
+                ? `تم إرسال رمز التحقق إلى ${email}`
+                : currentLanguage === "fr"
+                  ? `Le code OTP a été envoyé à ${email}`
+                  : `OTP code has been sent to ${email}`}
             </p>
           </div>
           <div className="grid items-center justify-center">
             <form
               dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-              id="otp-form" onSubmit={handleSubmit}>
+              id="otp-form"
+              onSubmit={handleSubmit}
+            >
               <div className="mb-12 flex items-center justify-center gap-3">
                 {otp.map((value, index) => (
                   <input
