@@ -44,7 +44,7 @@ const signupSchema = z.object({
 });
 
 const Signup = () => {
-  
+
   const [errorMessage, setErrorMessage] = useState<any[]>([]);
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
@@ -61,8 +61,8 @@ const Signup = () => {
   const options = schoolData?.data?.map((school: {
     cityName: any;
     countryName: any;
-    regionName: any; id: any; name: any; 
-}) => ({
+    regionName: any; id: any; name: any;
+  }) => ({
     value: school.id,
     label: `${school.name} - ${school.regionName}, ${school.cityName}, ${school.countryName}`,
   })) || [];
@@ -423,24 +423,24 @@ const Signup = () => {
                           (
                             rigion: {
                               id:
-                                | string
-                                | number
-                                | readonly string[]
-                                | undefined;
+                              | string
+                              | number
+                              | readonly string[]
+                              | undefined;
                               name:
-                                | string
-                                | number
-                                | bigint
-                                | boolean
-                                | React.ReactElement<
-                                    any,
-                                    string | React.JSXElementConstructor<any>
-                                  >
-                                | Iterable<React.ReactNode>
-                                | React.ReactPortal
-                                | Promise<React.AwaitedReactNode>
-                                | null
-                                | undefined;
+                              | string
+                              | number
+                              | bigint
+                              | boolean
+                              | React.ReactElement<
+                                any,
+                                string | React.JSXElementConstructor<any>
+                              >
+                              | Iterable<React.ReactNode>
+                              | React.ReactPortal
+                              | Promise<React.AwaitedReactNode>
+                              | null
+                              | undefined;
                             },
                             index: React.Key | null | undefined,
                           ) => (
@@ -807,9 +807,9 @@ const Signup = () => {
                       </span>
                     )}
                   </label>
-                  <div 
+                  <div
                     dir="ltr"
-                  className="mt-12 flex w-full justify-end gap-3">
+                    className="mt-12 flex w-full justify-end gap-3">
                     <button
                       className="flex w-[120px] items-center justify-center gap-2 rounded-xl bg-primary px-3 py-2 font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                       onClick={handlePrevious}
@@ -948,29 +948,30 @@ const Signup = () => {
                     className="grid text-start font-sans text-[15px] font-semibold text-[#9a9a9a]"
                   >
                     <Controller
-      name="schoolId"
-      control={control}
-      rules={{ required: true }}
-      render={({ field }) => (
-        <Select
-          {...field}
-          options={options}
-          isLoading={isSchool}
-          placeholder={
-            currentLanguage === "ar"
-              ? "معرف المدرسة"
-              : currentLanguage === "fr"
-              ? "ID de l'école"
-              : "schoolId"
-          }
-          classNamePrefix="react-select"
-          className={`rounded-xl ${
-            errors.schoolId ? "border-warning" : "border-borderPrimary"
-          } w-[400px] outline-none max-[458px]:w-[350px]`}
-          isSearchable
-        />
-      )}
-    />
+                      name="schoolId"
+                      control={control}
+                      rules={{ required: true }}
+                      render={({ field }) => (
+                        <Select
+                          {...field}
+                          options={options}
+                          isLoading={isSchool}
+                          placeholder={
+                            currentLanguage === "ar"
+                              ? "معرف المدرسة"
+                              : currentLanguage === "fr"
+                                ? "ID de l'école"
+                                : "schoolId"
+                          }
+                          classNamePrefix="react-select"
+                          className={`rounded-xl ${errors.schoolId ? "border-warning" : "border-borderPrimary"
+                            } w-[400px] outline-none max-[458px]:w-[350px] bg-bgPrimary 
+                        dark:bg-bgSecondary dark:border-gray-600`}
+                          isSearchable
+                        />
+                      )}
+                    />
+
                     {errors.schoolId && (
                       <span className="text-[13px] text-error">
                         {currentLanguage === "ar"
@@ -1007,10 +1008,10 @@ const Signup = () => {
                       </span>
                     )}
                   </label>
-                  <div 
+                  <div
                     dir="ltr"
 
-                  className="mt-12 flex w-full justify-end gap-3">
+                    className="mt-12 flex w-full justify-end gap-3">
                     <button
                       className="flex w-[120px] items-center justify-center gap-2 rounded-xl bg-primary px-3 py-2 font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                       onClick={handlePrevious}
