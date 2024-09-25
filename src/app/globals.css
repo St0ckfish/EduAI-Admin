@@ -68,3 +68,24 @@ div.apexcharts-xaxistooltip.apexcharts-xaxistooltip-bottom.apexcharts-theme-ligh
   border: var(--border-primary) 1px solid !important;
   color: var(--secondary) !important;
 }
+
+.css-13cymwt-control { 
+  background-color: var(--bg-primary) !important;
+  border: 1px solid var(--border-primary) !important;
+}
+
+.css-t3ipsp-control {
+  background-color: var(--bg-primary) !important;
+}
+
+.css-1nmdiq5-menu {
+  background-color: var(--bg-primary) !important;
+}
+
+.css-1nmdiq5-menu div > div:hover {
+  background-color: var(--thead) !important;
+}
+
+.css-1nmdiq5-menu div > div {
+  background-color: var(--bg-primary) !important;
+}
