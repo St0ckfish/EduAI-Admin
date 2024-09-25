@@ -3,7 +3,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import Spinner from "@/components/spinner";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import {
@@ -15,7 +15,9 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import React, { useEffect, useState } from "react";
 import { RootState } from "@/GlobalRedux/store";
+import Select from 'react-select';
 import { useSelector } from "react-redux";
+import { useGetAllSchoolsQuery } from "@/features/attendance/attendanceApi";
 
 // Define the validation schema using Zod
 const signupSchema = z.object({
@@ -39,6 +41,7 @@ const signupSchema = z.object({
 });
 
 const Signup = () => {
+  
   const [errorMessage, setErrorMessage] = useState<any[]>([]);
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
@@ -47,8 +50,17 @@ const Signup = () => {
   const [step, setStep] = useState(1);
   const handleNext = () => setStep(step + 1);
   const handlePrevious = () => setStep(step - 1);
-
+  const { data: schoolData, isLoading: isSchool } = useGetAllSchoolsQuery(null);
+  const options = schoolData?.data?.map((school: {
+    cityName: any;
+    countryName: any;
+    regionName: any; id: any; name: any; 
+}) => ({
+    value: school.id,
+    label: `${school.name} - ${school.regionName}, ${school.cityName}, ${school.countryName}`,
+  })) || [];
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors },
@@ -111,9 +123,9 @@ const Signup = () => {
             : "Please complete all required inputs",
       );
     }
-  }, [errors]);
+  }, [currentLanguage, errors]);
 
-  if (nationalityLoading)
+  if (nationalityLoading || isSchool)
     return (
       <div className="grid h-screen grid-cols-2 items-center justify-center bg-white duration-300 ease-in max-[1040px]:grid-cols-1">
         <Spinner />
@@ -845,19 +857,30 @@ const Signup = () => {
                     htmlFor="schoolId"
                     className="grid text-start font-sans text-[15px] font-semibold text-[#9a9a9a]"
                   >
-                    <input
-                      id="schoolId"
-                      {...register("schoolId", { required: true })}
-                      placeholder={
-                        currentLanguage === "ar"
-                          ? "معرف المدرسة"
-                          : currentLanguage === "fr"
-                            ? "ID de l'école"
-                            : "schoolId"
-                      }
-                      className={`rounded-xl border px-4 py-3 ${errors.schoolId ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
-                      type="number"
-                    />
+                    <Controller
+      name="schoolId"
+      control={control}
+      rules={{ required: true }}
+      render={({ field }) => (
+        <Select
+          {...field}
+          options={options}
+          isLoading={isSchool}
+          placeholder={
+            currentLanguage === "ar"
+              ? "معرف المدرسة"
+              : currentLanguage === "fr"
+              ? "ID de l'école"
+              : "schoolId"
+          }
+          classNamePrefix="react-select"
+          className={`rounded-xl ${
+            errors.schoolId ? "border-warning" : "border-borderPrimary"
+          } w-[400px] outline-none max-[458px]:w-[350px]`}
+          isSearchable
+        />
+      )}
+    />
                     {errors.schoolId && (
                       <span className="text-[13px] text-error">
                         {currentLanguage === "ar"

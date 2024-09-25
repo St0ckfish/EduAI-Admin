@@ -43,7 +43,7 @@ const Payment = () => {
 
   const taxFields = [
     { label: "Tuition Date", type: data.data?.tuitionTaxType, value: data.data?.tuitionDate, img: "/images/tuition.png" },
-    { label: "transportDate", type: data.data?.transportTaxType, value: data.data?.transportDate, img: "/images/buss.png" },
+    { label: "TransportDate", type: data.data?.transportTaxType, value: data.data?.transportDate, img: "/images/buss.png" },
     { label: "Activity Date", type: data.data?.activityTaxType, value: data.data?.activityDate, img: "/images/calendar.png" },
     { label: "Material Date", type: data.data?.materialTaxType, value: data.data?.activityDate, img: "/images/tuition.png" },
     { label: "Uniform Date", type: data.data?.uniformTaxType, value: data.data?.uniformDate, img: "/images/uniform.png" },
@@ -59,7 +59,7 @@ const Payment = () => {
       >
 
         <div className="flex flex-wrap gap-10 justify-center w-full">
-          {taxFields.map((tax, index) => (
+          {taxFields?.map((tax, index) => (
             <div
               key={index}
               className="bg-bgPrimary p-8 rounded-xl grid gap-4 w-[500px]"

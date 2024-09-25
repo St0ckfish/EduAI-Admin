@@ -56,7 +56,7 @@ const Position = () => {
       await deletePosition(id).unwrap();
       toast.success(`Position with ID ${id} deleted successfully`);
       refetch();
-    } catch (err) {
+    } catch {
       toast.error("Failed to delete the Position");
     }
   };
@@ -69,6 +69,18 @@ const Position = () => {
     checkboxes.forEach(checkbox => {
       checkbox.checked = !selectAll;
     });
+  };
+
+  const formatTransactionDate = (dateString: string | number | Date) => {
+    if (!dateString) return "No transaction date";
+    const formatter = new Intl.DateTimeFormat("en-EG", {
+      timeZone: "Asia/Riyadh",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour12: false,
+    });
+    return formatter.format(new Date(dateString));
   };
 
   useEffect(() => {
@@ -199,17 +211,17 @@ const Position = () => {
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "ar"
-                    ? "الاختصار"
+                    ? "تم إنشاؤه في"
                     : currentLanguage === "fr"
-                      ? "Abréviation"
-                      : "Abbreviation"}
+                      ? "créé à"
+                      : "created At"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "ar"
-                    ? "الوصف"
+                    ? "تم التحديث في"
                     : currentLanguage === "fr"
-                      ? "Description"
-                      : "Description"}
+                      ? "mis à jour à"
+                      : "updated At"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "ar"
@@ -232,7 +244,7 @@ const Position = () => {
                 .filter((Position: Position) => {
                   return search.toLocaleLowerCase() === ""
                     ? Position
-                    : Position.name.toLocaleLowerCase().includes(search);
+                    : Position.title.toLocaleLowerCase().includes(search);
                 })
                 .map((Position: Position) => (
                   <tr
@@ -267,20 +279,20 @@ const Position = () => {
                           />
                         )}
                       </div>
-                      <p> {Position.name} </p>
+                      <p> {Position.title} </p>
                     </th>
                     <td className="whitespace-nowrap px-6 py-4">
                       {Position.id}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
-                      {Position.abbreviation}
+                      {formatTransactionDate(Position.createdAt)}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
-                      {Position.description}
+                      {formatTransactionDate(Position.updatedAt)}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
                       <Link
-                        href={`/organization-setting/department/${Position.id}`}
+                        href={`/organization-setting/position/${Position.id}`}
                         className="font-medium text-primary hover:underline"
                       >
                         {currentLanguage === "ar"

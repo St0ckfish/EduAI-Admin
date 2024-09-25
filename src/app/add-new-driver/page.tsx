@@ -11,7 +11,6 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import BreadCrumbs from "@/components/BreadCrumbs";
-import { useGetAllSchoolsQuery } from "@/features/attendance/attendanceApi";
 
 const AddNewDriver = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
@@ -21,7 +20,6 @@ const AddNewDriver = () => {
 
   const { data: nationalityData, isLoading: nationalityLoading } =
     useGetAllNationalitysQuery(null);
-  const { data: schoolData, isLoading: isSchool } = useGetAllSchoolsQuery(null);
   const { data: positionData, isLoading: isPosition } = useGetAllPositionsQuery(null);
   const {
     register,
@@ -69,7 +67,7 @@ const AddNewDriver = () => {
     },
   ];
 
-  if (nationalityLoading || isPosition || isSchool)
+  if (nationalityLoading || isPosition)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
