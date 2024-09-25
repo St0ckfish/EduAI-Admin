@@ -7,11 +7,18 @@ import Cookie from "js-cookie";
 import { toast } from "react-toastify";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import { useDispatch } from "react-redux";
+import { setLanguage } from "@/features/language/languageSlice";
 
 const Login = () => {
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
   );
+  const dispatch2 = useDispatch();
+  const handleLanguageChange = (language: any) => {
+    dispatch2(setLanguage(language));
+  };
   const router = useRouter();
   const {
     register,
@@ -47,6 +54,75 @@ const Login = () => {
 
   return (
     <>
+      <div className="absolute top-5 right-5">
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger asChild>
+            <button
+              className="text-violet11 hover:bg-violet3 inline-flex h-[35px] w-[35px] items-center justify-center rounded-full bg-bgPrimary outline-none"
+              aria-label="Customise options"
+            >
+              {currentLanguage === "en" ? (
+                <img src="/images/en.png" alt="#" />
+              ) : currentLanguage === "ar" ? (
+                <img src="/images/ar.png" alt="#" />
+              ) : currentLanguage === "fr" ? (
+                <img src="/images/fr.png" alt="#" />
+              ) : (
+                <img src="/images/fr.png" alt="#" />
+              )}
+            </button>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Portal>
+            <DropdownMenu.Content
+              className="data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade z-50 mr-2 mt-5 grid min-w-[150px] justify-center gap-5 rounded-md bg-bgPrimary p-[5px] font-semibold shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform]"
+              sideOffset={5}
+            >
+              <DropdownMenu.Item className="text-violet11 data-[disabled]:text-mauve8 data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1 group relative mt-2 flex h-[25px] select-none items-center rounded-[3px] px-[5px] text-[13px] leading-none outline-none data-[disabled]:pointer-events-none">
+                <button
+                  onClick={() => handleLanguageChange("ar")}
+                  className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
+                >
+                  {currentLanguage === "en"
+                    ? "Arabic"
+                    : currentLanguage === "ar"
+                      ? "العربية"
+                      : currentLanguage === "fr"
+                        ? "Arabe"
+                        : "Arabic"}
+                </button>
+              </DropdownMenu.Item>
+              <DropdownMenu.Item className="text-violet11 data-[disabled]:text-mauve8 data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1 group relative flex h-[25px] select-none items-center rounded-[3px] px-[5px] text-[13px] leading-none outline-none data-[disabled]:pointer-events-none">
+                <button
+                  onClick={() => handleLanguageChange("en")}
+                  className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
+                >
+                  {currentLanguage === "en"
+                    ? "English"
+                    : currentLanguage === "ar"
+                      ? "الإنجليزية"
+                      : currentLanguage === "fr"
+                        ? "Anglais"
+                        : "English"}
+                </button>
+              </DropdownMenu.Item>
+              <DropdownMenu.Item className="text-violet11 data-[disabled]:text-mauve8 data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1 group relative mb-2 flex h-[25px] select-none items-center rounded-[3px] px-[5px] text-[13px] leading-none outline-none data-[disabled]:pointer-events-none">
+                <button
+                  onClick={() => handleLanguageChange("fr")}
+                  className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
+                >
+                  {currentLanguage === "en"
+                    ? "French"
+                    : currentLanguage === "ar"
+                      ? "الفرنسية"
+                      : currentLanguage === "fr"
+                        ? "Français"
+                        : "French"}
+                </button>
+              </DropdownMenu.Item>
+            </DropdownMenu.Content>
+          </DropdownMenu.Portal>
+        </DropdownMenu.Root>
+      </div>
       <div className="grid h-screen grid-cols-2 items-center justify-center bg-bgSecondary duration-300 ease-in max-[1040px]:grid-cols-1">
         <div className="gird items-center justify-center text-center">
           <div className="mb-20">
@@ -56,7 +132,8 @@ const Login = () => {
               alt="#"
             />
           </div>
-          <div className="mb-10 grid">
+          <div
+            className="mb-10 grid">
             <h1 className="font-sans text-[28px] font-bold text-primary">
               {currentLanguage === "ar"
                 ? "تسجيل الدخول"
@@ -73,7 +150,9 @@ const Login = () => {
             </p>
           </div>
           <div className="grid items-center justify-center">
-            <form className="grid gap-10" onSubmit={handleSubmit(onSubmit)}>
+            <form
+              dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+              className="grid gap-10" onSubmit={handleSubmit(onSubmit)}>
               <label
                 htmlFor="email"
                 className="grid text-start font-sans text-[18px] font-semibold text-[#041631] text-primary"
