@@ -245,11 +245,11 @@ const AddNewAchievement = () => {
                 <input
                   id="endDate"
                   type="file"
-                  className="hidden"
+                  className="opacity-0 cursor-pointer"
                   {...register("endDate", { required: true })}
                   onChange={handleFileChange}
                 />
-                <span className="w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
+                <span className="w-[400px] -mt-8 cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
                   <div className="flex">
                     <FaCloudUploadAlt className="mx-2 mt-1" />
                     {fileName
