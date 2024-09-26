@@ -1255,11 +1255,11 @@ const AddNewParent = () => {
                 <input
                   id="parentIdPhoto"
                   type="file"
-                  className="hidden"
+                  className="opacity-0 cursor-pointer"
                   {...register("parentIdPhoto")}
                   onChange={e => handleFileChange(e, setParentIdPhotoName)}
                 />
-                <span className="w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
+                <span className="w-[400px] -mt-8 cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
                   <div className="flex">
                     <FaCloudUploadAlt className="mx-2 mt-1" />
                     {parentIdPhotoName
@@ -1291,11 +1291,11 @@ const AddNewParent = () => {
                 <input
                   id="studentIdPhoto"
                   type="file"
-                  className="hidden"
+                  className="opacity-0 cursor-pointer"
                   {...register("studentIdPhoto")}
                   onChange={e => handleFileChange(e, setStudentIdPhotoName)}
                 />
-                <span className="w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
+                <span className="w-[400px] -mt-8 cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
                   <div className="flex">
                     <FaCloudUploadAlt className="mx-2 mt-1" />
                     {studentIdPhotoName
@@ -1325,13 +1325,13 @@ const AddNewParent = () => {
                 <input
                   id="studentProfilePhoto"
                   type="file"
-                  className="hidden"
+                  className="opacity-0 cursor-pointer"
                   {...register("studentProfilePhoto")}
                   onChange={e =>
                     handleFileChange(e, setStudentProfilePhotoName)
                   }
                 />
-                <span className="w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
+                <span className="w-[400px] -mt-8 cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
                   <div className="flex">
                     <FaCloudUploadAlt className="mx-2 mt-1" />
                     {studentProfilePhotoName
@@ -1360,13 +1360,13 @@ const AddNewParent = () => {
                 <input
                   id="studentCertificatesOfAchievement"
                   type="file"
-                  className="hidden"
+                  className="opacity-0 cursor-pointer"
                   {...register("studentCertificatesOfAchievement")}
                   onChange={e =>
                     handleFileChange(e, setStudentCertificatesOfAchievementName)
                   }
                 />
-                <span className="w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
+                <span className="w-[400px] -mt-8 cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
                   <div className="flex">
                     <FaCloudUploadAlt className="mx-2 mt-1" />
                     {studentCertificatesOfAchievementName
