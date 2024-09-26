@@ -381,7 +381,7 @@ const EditParent: React.FC<ViewParentProps> = ({ params }) => {
                   defaultValue=""
                   id="regionId"
                   {...register("regionId", { required: true })}
-                  className={`border ${errors.regionId ? "border-[#d74f41]" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-[18px] text-[#000000] outline-none max-[458px]:w-[350px]`}
+                  className={`h-full w-[400px] rounded-xl border border-borderPrimary px-4 py-3 text-[18px] text-[#000000] outline-none max-[458px]:w-[350px]`}
                 >
                   <option selected value="">
                     {currentLanguage === "ar"
@@ -495,24 +495,53 @@ const EditParent: React.FC<ViewParentProps> = ({ params }) => {
                 htmlFor="birthDate"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "ar"
-                  ? "تاريخ الميلاد"
-                  : currentLanguage === "fr"
-                    ? "Date de naissance"
-                    : "Date Of Birth"}
+                {currentLanguage === "en"
+                  ? "Date Of Birth"
+                  : currentLanguage === "ar"
+                    ? "تاريخ الميلاد"
+                    : currentLanguage === "fr"
+                      ? "Date de naissance"
+                      : "Date Of Birth"}
                 <input
                   id="birthDate"
                   type="date"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("birthDate", { required: true })}
+                  {...register("birthDate", {
+                    required: true,
+                    validate: value => {
+                      const today = new Date();
+                      const birthDate = new Date(value);
+                      const age = today.getFullYear() - birthDate.getFullYear();
+                      const monthDiff = today.getMonth() - birthDate.getMonth();
+
+                      // Adjust age if the birth date hasn't been reached yet this year
+                      if (
+                        monthDiff < 0 ||
+                        (monthDiff === 0 &&
+                          today.getDate() < birthDate.getDate())
+                      ) {
+                        return age > 20;
+                      }
+
+                      return age >= 20;
+                    },
+                  })}
                 />
                 {errors.birthDate && (
                   <span className="text-error">
-                    {currentLanguage === "ar"
-                      ? "هذا الحقل مطلوب"
-                      : currentLanguage === "fr"
-                        ? "Ce champ est requis"
-                        : "This field is required"}
+                    {currentLanguage === "en"
+                      ? errors.birthDate.type === "validate"
+                        ? "The Parent Must be older than 20"
+                        : "This field is required"
+                      : currentLanguage === "ar"
+                        ? errors.birthDate.type === "validate"
+                          ? "يجب أن يكون عمر الوالد أكبر من 20 عامًا"
+                          : "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? errors.birthDate.type === "validate"
+                            ? "Le parent doit avoir plus de 20 ans"
+                            : "Ce champ est requis"
+                          : "This field is required"}
                   </span>
                 )}
               </label>

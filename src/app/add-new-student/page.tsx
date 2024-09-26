@@ -516,18 +516,49 @@ const AddNewStudent = () => {
                 htmlFor="birthDate"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Birth Date" : "تاريخ الميلاد"}
+                {currentLanguage === "en"
+                  ? "Date Of Birth"
+                  : currentLanguage === "ar"
+                    ? "تاريخ الميلاد"
+                    : currentLanguage === "fr"
+                      ? "Date de naissance"
+                      : "Date Of Birth"}
                 <input
                   id="birthDate"
                   type="date"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("birthDate", { required: true })}
+                  {...register("birthDate", {
+                    required: true,
+                    validate: value => {
+                      const today = new Date();
+                      const birthDate = new Date(value);
+                      const age = today.getFullYear() - birthDate.getFullYear();
+                      const isOlderThanSix =
+                        age > 6 ||
+                        (age === 6 &&
+                          today >=
+                            new Date(
+                              birthDate.setFullYear(today.getFullYear()),
+                            ));
+                      return isOlderThanSix;
+                    },
+                  })}
                 />
                 {errors.birthDate && (
                   <span className="text-error">
                     {currentLanguage === "en"
-                      ? "This field is required"
-                      : "هذا الحقل مطلوب"}
+                      ? errors.birthDate.type === "validate"
+                        ? "The Student Must be older than 6"
+                        : "This field is required"
+                      : currentLanguage === "ar"
+                        ? errors.birthDate.type === "validate"
+                          ? "يجب أن يكون عمر الطالب أكبر من 6 سنوات"
+                          : "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? errors.birthDate.type === "validate"
+                            ? "L'étudiant doit avoir plus de 6 ans"
+                            : "Ce champ est requis"
+                          : "This field is required"}
                   </span>
                 )}
               </label>

@@ -367,7 +367,7 @@ const AddNewWorker = () => {
                   defaultValue=""
                   id="regionId"
                   {...register("regionId", { required: true })}
-                  className={`border ${errors.regionId ? "border-warning" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-[18px] text-[#000000] outline-none max-[458px]:w-[350px]`}
+                  className={`h-full w-[400px] rounded-xl border border-borderPrimary px-4 py-3 text-[18px] text-[#000000] outline-none max-[458px]:w-[350px]`}
                 >
                   <option value="">
                     {currentLanguage === "en"
@@ -522,23 +522,53 @@ const AddNewWorker = () => {
                   ? "Date Of Birth"
                   : currentLanguage === "ar"
                     ? "تاريخ الميلاد"
-                    : "Date de naissance"}
+                    : currentLanguage === "fr"
+                      ? "Date de naissance"
+                      : "Date Of Birth"}
                 <input
                   id="birthDate"
                   type="date"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("birthDate", { required: true })}
+                  {...register("birthDate", {
+                    required: true,
+                    validate: value => {
+                      const today = new Date();
+                      const birthDate = new Date(value);
+                      const age = today.getFullYear() - birthDate.getFullYear();
+                      const monthDiff = today.getMonth() - birthDate.getMonth();
+
+                      // Adjust age if the birth date hasn't been reached yet this year
+                      if (
+                        monthDiff < 0 ||
+                        (monthDiff === 0 &&
+                          today.getDate() < birthDate.getDate())
+                      ) {
+                        return age > 20;
+                      }
+
+                      return age >= 20;
+                    },
+                  })}
                 />
                 {errors.birthDate && (
                   <span className="text-error">
                     {currentLanguage === "en"
-                      ? "This field is required"
+                      ? errors.birthDate.type === "validate"
+                        ? "The Worker Must be older than 20"
+                        : "This field is required"
                       : currentLanguage === "ar"
-                        ? "هذه الحقول مطلوبة"
-                        : "Ce champ est requis"}
+                        ? errors.birthDate.type === "validate"
+                          ? "يجب أن يكون عمر العامل أكبر من 20 عامًا"
+                          : "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? errors.birthDate.type === "validate"
+                            ? "L'ouvrier doit avoir plus de 20 ans"
+                            : "Ce champ est requis"
+                          : "This field is required"}
                   </span>
                 )}
               </label>
+
               <label
                 htmlFor="qualification"
                 className="mt-4 grid items-center font-sans text-[18px] font-semibold"
