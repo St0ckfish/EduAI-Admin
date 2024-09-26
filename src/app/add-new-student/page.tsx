@@ -613,7 +613,7 @@ const AddNewStudent = () => {
                 <input
                   id="studentIdPhoto"
                   type="file"
-                  className="hidden"
+                  className="opacity-0 cursor-pointer"
                   {...register("studentIdPhoto")}
                   onChange={e => handleFileChange(e, setStudentIdPhoto)}
                 />
@@ -648,7 +648,7 @@ const AddNewStudent = () => {
                 <input
                   id="studentProfilePhoto"
                   type="file"
-                  className="hidden"
+                  className="opacity-0 cursor-pointer"
                   {...register("studentProfilePhoto")}
                   onChange={e => handleFileChange(e, setStudentProfilePhoto)}
                 />
@@ -681,7 +681,7 @@ const AddNewStudent = () => {
                 <input
                   id="studentCertificatesOfAchievement"
                   type="file"
-                  className="hidden"
+                  className="opacity-0 cursor-pointer"
                   {...register("studentCertificatesOfAchievement")}
                   onChange={e =>
                     handleFileChange(e, setStudentCertificatesOfAchievement)
