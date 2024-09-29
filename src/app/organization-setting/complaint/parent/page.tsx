@@ -31,6 +31,12 @@ const ComplaintParent = () => {
       nameFr: "Plainte",
       href: "/organization-setting/complaint",
     },
+    {
+      nameEn: "Parent",
+      nameAr: "الأب",
+      nameFr: "Parent",
+      href: "/organization-setting/complaint/parent",
+    },
   ];
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
