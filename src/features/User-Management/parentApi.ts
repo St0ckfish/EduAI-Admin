@@ -41,7 +41,7 @@ export const parentApi = createApi({
     //
     createParents: builder.mutation({
       query: formData => ({
-        url: `/api/v1/auth/new-parent-registration`,
+        url: `/api/v1/management/parent/new`,
         method: "POST",
         body: formData,
       }),

@@ -2,26 +2,24 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @next/next/no-img-element */
 "use client";
+import SearchableSelect from "@/components/select";
 import Spinner from "@/components/spinner";
-import { useForm, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { useGetAllSchoolsQuery } from "@/features/attendance/attendanceApi";
+import { setLanguage } from "@/features/language/languageSlice";
 import {
   useGetAllNationalitysQuery,
-  useSignupApiDashboardMutation,
   useGetAllReginionIDQuery,
+  useSignupApiDashboardMutation,
 } from "@/features/signupApi";
-import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
-import React, { useEffect, useState } from "react";
 import { RootState } from "@/GlobalRedux/store";
-import Select from "react-select";
-import { useSelector } from "react-redux";
-import { useGetAllSchoolsQuery } from "@/features/attendance/attendanceApi";
+import { zodResolver } from "@hookform/resolvers/zod";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import { useDispatch } from "react-redux";
-import { setLanguage } from "@/features/language/languageSlice";
-import SearchableSelect from "@/components/select";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { z } from "zod";
 
 // Define the validation schema using Zod
 const signupSchema = z.object({
@@ -75,8 +73,6 @@ const Signup = () => {
     control,
     register,
     handleSubmit,
-    setValue,
-    clearErrors,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(signupSchema),

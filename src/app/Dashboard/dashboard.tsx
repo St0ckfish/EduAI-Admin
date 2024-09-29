@@ -372,7 +372,7 @@ const Dashboard: React.FC = () => {
                         : "There is No Data"}
                 </div>
               )}
-              <div className="flex justify-center">
+              <div className="flex justify-center items-end h-full">
                 <button
                   onClick={handleOpenModal}
                   className="mr-3 w-[120px] whitespace-nowrap rounded-xl bg-primary px-1 py-1.5 text-[14px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
@@ -386,7 +386,7 @@ const Dashboard: React.FC = () => {
               </div>
               <div
                 dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-                className="flex justify-end text-end"
+                className="flex justify-end text-end w-full"
               >
                 <Link
                   href="/educational-affairs/events"
@@ -441,7 +441,7 @@ const Dashboard: React.FC = () => {
               </p>
               <Link
                 href="/add-note"
-                className="mb-5 mr-3 whitespace-nowrap rounded-xl bg-primary px-2 py-1 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+                className="mb-5 mr-3 whitespace-nowrap rounded-xl h-[35px] bg-primary px-2 py-1 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
               >
                 {currentLanguage === "en"
                   ? "+ Add Note"
