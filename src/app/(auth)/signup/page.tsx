@@ -962,8 +962,7 @@ const Signup = () => {
                     <SearchableSelect
         name="schoolId"
         control={control}
-        setValue={setValue}
-        clearErrors={clearErrors}
+
         errors={errors}
         options={options}
         currentLanguage="en"
