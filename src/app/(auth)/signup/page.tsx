@@ -21,6 +21,7 @@ import { useGetAllSchoolsQuery } from "@/features/attendance/attendanceApi";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useDispatch } from "react-redux";
 import { setLanguage } from "@/features/language/languageSlice";
+import SearchableSelect from "@/components/select";
 
 // Define the validation schema using Zod
 const signupSchema = z.object({
@@ -74,6 +75,8 @@ const Signup = () => {
     control,
     register,
     handleSubmit,
+    setValue,
+    clearErrors,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(signupSchema),
@@ -956,42 +959,16 @@ const Signup = () => {
                     htmlFor="schoolId"
                     className="grid text-start font-sans text-[15px] font-semibold text-[#9a9a9a]"
                   >
-                    <Controller
-                      name="schoolId"
-                      control={control}
-                      rules={{ required: true }}
-                      render={({ field }) => (
-                        <Select
-                          {...field}
-                          options={options}
-                          isLoading={isSchool}
-                          placeholder={
-                            currentLanguage === "ar"
-                              ? "معرف المدرسة"
-                              : currentLanguage === "fr"
-                                ? "ID de l'école"
-                                : "schoolId"
-                          }
-                          classNamePrefix="react-select"
-                          className={`rounded-xl ${
-                            errors.schoolId
-                              ? "border-warning"
-                              : "border-borderPrimary"
-                          } w-[400px] bg-bgPrimary outline-none dark:border-gray-600 dark:bg-bgSecondary max-[458px]:w-[350px]`}
-                          isSearchable
-                        />
-                      )}
-                    />
-
-                    {errors.schoolId && (
-                      <span className="text-[13px] text-error">
-                        {currentLanguage === "ar"
-                          ? "معرف المدرسة مطلوب"
-                          : currentLanguage === "fr"
-                            ? "L'ID de l'école est requis"
-                            : "schoolId is Required"}
-                      </span>
-                    )}
+                    <SearchableSelect
+        name="schoolId"
+        control={control}
+        setValue={setValue}
+        clearErrors={clearErrors}
+        errors={errors}
+        options={options}
+        currentLanguage="en"
+        placeholder="Select School"
+      />
                   </label>
                   <label
                     htmlFor="about"
