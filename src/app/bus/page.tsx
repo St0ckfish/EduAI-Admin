@@ -55,7 +55,7 @@ const Bus = () => {
 
       toast.success(`Bus with ID ${id} Deleted successfully`);
       void refetch();
-    } catch (err) {
+    } catch {
       toast.error("Failed to Delete the Bus");
     }
   };
