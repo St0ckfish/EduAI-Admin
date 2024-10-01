@@ -6,7 +6,7 @@ import BreadCrumbs from "@/components/BreadCrumbs";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 
-const Resource = () => {
+const Equipment = () => {
   const breadcrumbs = [
     {
       nameEn: "Academic",
@@ -21,10 +21,10 @@ const Resource = () => {
       href: "/course",
     },
     {
-      nameEn: "Resource",
-      nameAr: "المصدر",
-      nameFr: "Ressource",
-      href: "/course/resource",
+      nameEn: "Equipment",
+      nameAr: "المعدات",
+      nameFr: "Équipement",
+      href: "/course/resource/equipment",
     },
   ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
@@ -127,26 +127,29 @@ const Resource = () => {
           </div>
           <div className="flex justify-center">
             <Link
-              href="/course/resource/add-resource"
+              href="/course/resource/equipment/add-equipment"
               className="mb-5 mr-3 w-fit whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               {currentLanguage === "ar"
-                ? "إضافة مورد"
+                ? "إضافة معدات"
                 : currentLanguage === "fr"
-                  ? "Ajouter une ressource"
-                  : "Add Resource"}
+                  ? "Ajouter un équipement"
+                  : "Add Equipment"}
             </Link>
           </div>
         </div>
         <div className="justify-left mb-5 ml-4 flex gap-5 text-[18px] font-semibold">
-          <Link href="/course/resource" className="text-blue-500 underline">
+          <Link href="/course/resource">
             {currentLanguage === "ar"
               ? "الموارد الرقمية"
               : currentLanguage === "fr"
                 ? "Ressources numériques"
                 : "Digital Resources"}
           </Link>
-          <Link href="/course/resource/equipment">
+          <Link
+            href="/course/resource/equipment"
+            className="text-blue-500 underline"
+          >
             {currentLanguage === "ar"
               ? "المعدات"
               : currentLanguage === "fr"
@@ -270,7 +273,7 @@ const Resource = () => {
                 <td className="whitespace-nowrap px-6 py-4">This is text</td>
                 <td className="whitespace-nowrap px-6 py-4">
                   <Link
-                    href="/course/resource/edit-resource"
+                    href="/course/resource/equipment/edit-equipment"
                     className="font-medium text-blue-600 hover:underline"
                   >
                     {currentLanguage === "ar"
@@ -309,7 +312,7 @@ const Resource = () => {
                 <td className="whitespace-nowrap px-6 py-4">This is text</td>
                 <td className="whitespace-nowrap px-6 py-4">
                   <Link
-                    href="/course/resource/edit-resource"
+                    href="/course/resource/equipment/edit-equipment"
                     className="font-medium text-blue-600 hover:underline"
                   >
                     {currentLanguage === "ar"
@@ -328,4 +331,4 @@ const Resource = () => {
   );
 };
 
-export default Resource;
+export default Equipment;

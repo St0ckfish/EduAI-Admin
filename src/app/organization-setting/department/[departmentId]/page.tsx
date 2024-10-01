@@ -1,5 +1,3 @@
-
-
 "use client";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -87,7 +85,7 @@ const DepartmentId = ({ params }: EditDepartmentProps) => {
           ? "تم تعديل القسم بنجاح"
           : currentLanguage === "fr"
             ? "Département modifié avec succès"
-            : "Department Edited Successfully"
+            : "Department Edited Successfully",
       );
     } catch (err) {
       toast.error(
@@ -95,7 +93,7 @@ const DepartmentId = ({ params }: EditDepartmentProps) => {
           ? "فشل في تعديل القسم"
           : currentLanguage === "fr"
             ? "Échec de la modification du département"
-            : "Failed to edit department"
+            : "Failed to edit department",
       );
     }
   };
@@ -201,7 +199,6 @@ const DepartmentId = ({ params }: EditDepartmentProps) => {
                 htmlFor="fullName_ar"
                 className="grid font-sans text-[18px] font-semibold"
               >
-
                 {currentLanguage === "ar"
                   ? "الاسم الكامل (بالعربية)"
                   : currentLanguage === "fr"
@@ -377,7 +374,6 @@ const DepartmentId = ({ params }: EditDepartmentProps) => {
                 htmlFor="employee"
                 className="grid font-sans text-[18px] font-semibold"
               >
-
                 {currentLanguage === "ar"
                   ? "الموظف"
                   : currentLanguage === "fr"
@@ -408,8 +404,6 @@ const DepartmentId = ({ params }: EditDepartmentProps) => {
                   </span>
                 )}
               </label>
-
-
             </div>
 
             <div className="flex justify-center text-center">

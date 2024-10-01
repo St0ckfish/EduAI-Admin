@@ -2,40 +2,34 @@
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
-import { useForm } from "react-hook-form";
 
-const AddExam = () => {
+const AddTextBooks = () => {
   const breadcrumbs = [
     {
-      nameEn: "Administration",
-      nameAr: "الإدارة",
-      nameFr: "Administration",
+      nameEn: "Academic",
+      nameAr: "أكاديمي",
+      nameFr: "Académique",
       href: "/",
     },
     {
-      nameEn: "Organization Settings",
-      nameAr: "إعدادات المنظمة",
-      nameFr: "Paramètres org",
-      href: "/organization-setting",
+      nameEn: "Course",
+      nameAr: "الدورة",
+      nameFr: "Cours",
+      href: "/course",
     },
     {
-      nameEn: "Exams",
-      nameAr: "الإمتحانات",
-      nameFr: "Examens",
-      href: "/organization-setting/exams",
+      nameEn: "TextBooks",
+      nameAr: "الكتب الدراسية",
+      nameFr: "Manuels scolaires",
+      href: "/course/resource/textBooks",
     },
     {
-      nameEn: "Add Exam",
-      nameAr: "إضافة إمتحان",
-      nameFr: "Ajouter un examen",
-      href: "/organization-setting/exams/add-exam",
+      nameEn: "Add TextBooks",
+      nameAr: "إضافة كتب دراسية",
+      nameFr: "Ajouter des manuels scolaires",
+      href: "/course/resource/textBooks/add-textBooks",
     },
   ];
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
   );
@@ -73,123 +67,91 @@ const AddExam = () => {
               </svg>
               <h1 className="font-sans text-[22px] font-semibold">
                 {currentLanguage === "ar"
-                  ? "إضافة امتحان"
+                  ? "إضافة كتب دراسية"
                   : currentLanguage === "fr"
-                    ? "Ajouter un examen"
-                    : "Add Exam"}
+                    ? "Ajouter des manuels scolaires"
+                    : "Add TextBooks"}
+
                 {/* default */}
               </h1>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
               <label
-                htmlFor="annual"
+                htmlFor="name"
                 className="grid font-sans text-[18px] font-semibold"
               >
                 {currentLanguage === "ar"
-                  ? "اسم الامتحان"
+                  ? "الاسم"
                   : currentLanguage === "fr"
-                    ? "Nom de l'examen"
-                    : "Exam Name"}
-
+                    ? "Nom"
+                    : "Name"}
                 {/* default */}
                 <input
-                  id="annual"
+                  id="name"
                   type="number"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  placeholder={
-                    currentLanguage === "ar"
-                      ? "أدخل اسم الامتحان"
-                      : currentLanguage === "fr"
-                        ? "Entrez le nom de l'examen"
-                        : "Enter exam name"
-                  }
                 />
               </label>
               <label
-                htmlFor="annual"
+                htmlFor="totalNumber"
                 className="grid font-sans text-[18px] font-semibold"
               >
                 {currentLanguage === "ar"
-                  ? "درجة الامتحان"
+                  ? "الإجمالي"
                   : currentLanguage === "fr"
-                    ? "Note de l'examen"
-                    : "Exam Grade"}
-
+                    ? "Nombre total"
+                    : "Total Number"}
                 {/* default */}
                 <input
-                  id="annual"
-                  type="number"
+                  id="totalNumber"
+                  type="text"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  placeholder={
-                    currentLanguage === "ar"
-                      ? "أدخل درجة الامتحان"
-                      : currentLanguage === "fr"
-                        ? "Entrez la note de l'examen"
-                        : "Enter exam grade"
-                  }
                 />
               </label>
               <label
-                htmlFor="annual"
+                htmlFor="latestAddition"
                 className="grid font-sans text-[18px] font-semibold"
               >
                 {currentLanguage === "ar"
-                  ? "درجة النجاح"
+                  ? "عدد الإضافات الأخيرة"
                   : currentLanguage === "fr"
-                    ? "Note de passage"
-                    : "Passing Grade"}
-
+                    ? "Nombre de la dernière addition"
+                    : "Number of latest addition"}
                 {/* default */}
                 <input
-                  id="annual"
-                  type="number"
+                  id="latestAddition"
+                  type="text"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  placeholder={
-                    currentLanguage === "ar"
-                      ? "أدخل درجة النجاح"
-                      : currentLanguage === "fr"
-                        ? "Entrez la note de passage"
-                        : "Enter passing grade"
-                  }
                 />
               </label>
-
               <label
-                htmlFor="leaveType"
+                htmlFor="latestPulling"
                 className="grid font-sans text-[18px] font-semibold"
               >
                 {currentLanguage === "ar"
-                  ? "المستوى الدراسي"
+                  ? "عدد السحوبات الأخيرة"
                   : currentLanguage === "fr"
-                    ? "Niveau d'étude"
-                    : "Study Level"}
-                <select
-                  id="leaveType"
+                    ? "Nombre du dernier retrait"
+                    : "Number of latest pulling"}
+                {/* default */}
+                <input
+                  id="latestPulling"
+                  type="text"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("leaveType", { required: true })}
-                >
-                  <option value="">
-                    {currentLanguage === "ar"
-                      ? "اختر المستوى الدراسي"
-                      : currentLanguage === "fr"
-                        ? "Sélectionnez le niveau d'étude"
-                        : "Select study level"}
-                  </option>
-                </select>
+                />
               </label>
             </div>
 
             <div className="flex justify-center text-center">
               <button
                 type="submit"
-                className="w-fit rounded-xl bg-primary px-4 px-5 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+                className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
               >
                 {currentLanguage === "ar"
                   ? "حفظ"
                   : currentLanguage === "fr"
-                    ? "Sauvegarder"
+                    ? "Enregistrer"
                     : "Save"}
-
                 {/* default */}
               </button>
             </div>
@@ -200,4 +162,4 @@ const AddExam = () => {
   );
 };
 
-export default AddExam;
+export default AddTextBooks;

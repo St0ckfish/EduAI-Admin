@@ -644,11 +644,11 @@ const AddNewStudent = () => {
                 <input
                   id="studentIdPhoto"
                   type="file"
-                  className="opacity-0 cursor-pointer"
+                  className="cursor-pointer opacity-0"
                   {...register("studentIdPhoto")}
                   onChange={e => handleFileChange(e, setStudentIdPhoto)}
                 />
-                <span className="w-[400px] -mt-8 cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
+                <span className="-mt-8 w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
                   <div className="flex">
                     <FaCloudUploadAlt className="mx-2 mt-1" />
                     {studentIdPhoto
@@ -679,11 +679,11 @@ const AddNewStudent = () => {
                 <input
                   id="studentProfilePhoto"
                   type="file"
-                  className="opacity-0 cursor-pointer"
+                  className="cursor-pointer opacity-0"
                   {...register("studentProfilePhoto")}
                   onChange={e => handleFileChange(e, setStudentProfilePhoto)}
                 />
-                <span className="w-[400px] -mt-8 cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
+                <span className="-mt-8 w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
                   <div className="flex">
                     <FaCloudUploadAlt className="mx-2 mt-1" />
                     {studentProfilePhoto
@@ -712,13 +712,13 @@ const AddNewStudent = () => {
                 <input
                   id="studentCertificatesOfAchievement"
                   type="file"
-                  className="opacity-0 cursor-pointer"
+                  className="cursor-pointer opacity-0"
                   {...register("studentCertificatesOfAchievement")}
                   onChange={e =>
                     handleFileChange(e, setStudentCertificatesOfAchievement)
                   }
                 />
-                <span className="w-[400px] -mt-8 cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
+                <span className="-mt-8 w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
                   <div className="flex">
                     <FaCloudUploadAlt className="mx-2 mt-1" />
                     {studentCertificatesOfAchievement

@@ -93,8 +93,9 @@ const Exams = () => {
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"
-          } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
+        className={`${
+          booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"
+        } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">
@@ -190,13 +191,13 @@ const Exams = () => {
                     ? "Niveau d'étude"
                     : "Study Level"}
               </th>
-              
+
               <th scope="col" className="whitespace-nowrap px-6 py-3">
                 {currentLanguage === "ar"
-  ? "الإجراء"
-  : currentLanguage === "fr"
-  ? "Action"
-  : "Action"}
+                  ? "الإجراء"
+                  : currentLanguage === "fr"
+                    ? "Action"
+                    : "Action"}
               </th>
             </tr>
           </thead>

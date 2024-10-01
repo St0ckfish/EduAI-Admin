@@ -1,5 +1,3 @@
-
-
 "use client";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -83,7 +81,7 @@ const EditCourse = ({ params }: EditCourseProps) => {
           ? "تم تعديل الدورة بنجاح"
           : currentLanguage === "fr"
             ? "Cours modifié avec succès"
-            : "Course Edited successfully"
+            : "Course Edited successfully",
       );
     } catch (err) {
       toast.error(
@@ -247,11 +245,11 @@ const EditCourse = ({ params }: EditCourseProps) => {
                 htmlFor="desc_en"
                 className="grid font-sans text-[18px] font-semibold"
               >
-               {currentLanguage === "ar"
-  ? "الوصف (بالإنجليزية)"
-  : currentLanguage === "fr"
-  ? "Description (en anglais)"
-  : "Description (en)"}
+                {currentLanguage === "ar"
+                  ? "الوصف (بالإنجليزية)"
+                  : currentLanguage === "fr"
+                    ? "Description (en anglais)"
+                    : "Description (en)"}
                 <input
                   id="desc_en"
                   {...register("desc_en", { required: true })}
@@ -318,8 +316,6 @@ const EditCourse = ({ params }: EditCourseProps) => {
                   </span>
                 )}
               </label>
-
-
             </div>
 
             <div className="flex justify-center text-center">

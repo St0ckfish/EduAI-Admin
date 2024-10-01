@@ -1,12 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
+import Soon from "@/components/soon";
 import Link from "next/link";
 import { useState, useEffect } from "react"; // Import useState and useEffect hooks
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 
-const Resource = () => {
+const TextBooks = () => {
   const breadcrumbs = [
     {
       nameEn: "Academic",
@@ -21,10 +22,10 @@ const Resource = () => {
       href: "/course",
     },
     {
-      nameEn: "Resource",
-      nameAr: "المصدر",
-      nameFr: "Ressource",
-      href: "/course/resource",
+      nameEn: "TextBooks",
+      nameAr: "الكتب الدراسية",
+      nameFr: "Manuels scolaires",
+      href: "/course/resource/textBooks",
     },
   ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
@@ -127,19 +128,19 @@ const Resource = () => {
           </div>
           <div className="flex justify-center">
             <Link
-              href="/course/resource/add-resource"
+              href="/course/resource/textBooks/add-textBooks"
               className="mb-5 mr-3 w-fit whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               {currentLanguage === "ar"
-                ? "إضافة مورد"
+                ? "إضافة كتب دراسية"
                 : currentLanguage === "fr"
-                  ? "Ajouter une ressource"
-                  : "Add Resource"}
+                  ? "Ajouter des manuels scolaires"
+                  : "Add TextBooks"}
             </Link>
           </div>
         </div>
         <div className="justify-left mb-5 ml-4 flex gap-5 text-[18px] font-semibold">
-          <Link href="/course/resource" className="text-blue-500 underline">
+          <Link href="/course/resource">
             {currentLanguage === "ar"
               ? "الموارد الرقمية"
               : currentLanguage === "fr"
@@ -167,7 +168,10 @@ const Resource = () => {
                 ? "Matériel pédagogique"
                 : "Instructional Materials"}
           </Link>
-          <Link href="/course/resource/textBooks">
+          <Link
+            href="/course/resource/textBooks"
+            className="text-blue-500 underline"
+          >
             {currentLanguage === "ar"
               ? "الكتب الدراسية"
               : currentLanguage === "fr"
@@ -270,7 +274,7 @@ const Resource = () => {
                 <td className="whitespace-nowrap px-6 py-4">This is text</td>
                 <td className="whitespace-nowrap px-6 py-4">
                   <Link
-                    href="/course/resource/edit-resource"
+                    href="/course/resource/textBooks/edit-textBooks"
                     className="font-medium text-blue-600 hover:underline"
                   >
                     {currentLanguage === "ar"
@@ -309,7 +313,7 @@ const Resource = () => {
                 <td className="whitespace-nowrap px-6 py-4">This is text</td>
                 <td className="whitespace-nowrap px-6 py-4">
                   <Link
-                    href="/course/resource/edit-resource"
+                    href="/course/resource/textBooks/edit-textBooks"
                     className="font-medium text-blue-600 hover:underline"
                   >
                     {currentLanguage === "ar"
@@ -328,4 +332,4 @@ const Resource = () => {
   );
 };
 
-export default Resource;
+export default TextBooks;

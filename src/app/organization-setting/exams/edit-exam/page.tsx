@@ -97,11 +97,13 @@ const EditExam = () => {
                   id="annual"
                   type="number"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  placeholder={currentLanguage === "ar"
-                    ? "أدخل اسم الامتحان"
-                    : currentLanguage === "fr"
-                      ? "Entrez le nom de l'examen"
-                      : "Enter exam name"}
+                  placeholder={
+                    currentLanguage === "ar"
+                      ? "أدخل اسم الامتحان"
+                      : currentLanguage === "fr"
+                        ? "Entrez le nom de l'examen"
+                        : "Enter exam name"
+                  }
                 />
               </label>
               <label
@@ -119,11 +121,13 @@ const EditExam = () => {
                   id="annual"
                   type="number"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  placeholder={currentLanguage === "ar"
-                    ? "أدخل درجة الامتحان"
-                    : currentLanguage === "fr"
-                      ? "Entrez la note de l'examen"
-                      : "Enter exam grade"}
+                  placeholder={
+                    currentLanguage === "ar"
+                      ? "أدخل درجة الامتحان"
+                      : currentLanguage === "fr"
+                        ? "Entrez la note de l'examen"
+                        : "Enter exam grade"
+                  }
                 />
               </label>
               <label
@@ -141,11 +145,13 @@ const EditExam = () => {
                   id="annual"
                   type="number"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  placeholder={currentLanguage === "ar"
-                    ? "أدخل درجة النجاح"
-                    : currentLanguage === "fr"
-                      ? "Entrez la note de passage"
-                      : "Enter passing grade"}
+                  placeholder={
+                    currentLanguage === "ar"
+                      ? "أدخل درجة النجاح"
+                      : currentLanguage === "fr"
+                        ? "Entrez la note de passage"
+                        : "Enter passing grade"
+                  }
                 />
               </label>
 

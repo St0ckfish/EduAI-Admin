@@ -4,9 +4,7 @@ interface ViewInvoiceProps {
   };
 }
 const ViewInvoice: React.FC<ViewInvoiceProps> = ({ params }) => {
-  return <>
-    {params.invoiceId}
-  </>;
+  return <>{params.invoiceId}</>;
 };
 
 export default ViewInvoice;
