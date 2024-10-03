@@ -263,7 +263,7 @@ const Exams = () => {
               {data?.filter((exam: Exam) => {
                   return search.toLocaleLowerCase() === ""
                     ? exam
-                    : exam.name.toLocaleLowerCase().includes(search);
+                    : exam.teacherName.toLocaleLowerCase().includes(search);
                 })
                 .map((exam: Exam, index: number) => (
                   <tr
