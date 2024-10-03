@@ -1,19 +1,18 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
-import Link from "next/link";
-import { useState, useEffect, SetStateAction } from "react";
-import {
-  useGetAllEmployeesQuery,
-  useDeleteEmployeesMutation,
-} from "@/features/User-Management/employeeApi";
+/* eslint-disable @next/next/no-img-element */
 import Spinner from "@/components/spinner";
+import {
+  useGetAllBussQuery,
+  useDeleteBussMutation,
+} from "@/features/Infrastructure/busApi";
+import Link from "next/link";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import { toast } from "react-toastify";
-import Pagination from "@/components/pagination";
 import BreadCrumbs from "@/components/BreadCrumbs";
 
-const ArchiveEmployee = () => {
+const Bus = () => {
   const breadcrumbs = [
     {
       nameEn: "Administration",
@@ -28,56 +27,52 @@ const ArchiveEmployee = () => {
       href: "/archive",
     },
     {
-      nameEn: "Employee",
-      nameAr: "الموظف",
-      nameFr: "Employé",
-      href: "/archive/employee",
+      nameEn: "Bus",
+      nameAr: "المكتبة",
+      nameFr: "Autobus",
+      href: "/archive/bus",
     },
   ];
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
   );
-
-  const [currentPage, setCurrentPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-
-  const onPageChange = (page: SetStateAction<number>) => {
-    setCurrentPage(page);
-  };
-  const onElementChange = (ele: SetStateAction<number>) => {
-    setRowsPerPage(ele);
-    setCurrentPage(0);
-  };
+  const { data, error, isLoading, refetch } = useGetAllBussQuery("0");
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-
-  type Employee = Record<string, any>;
   const [search, setSearch] = useState("");
-  const { data, error, isLoading, refetch } = useGetAllEmployeesQuery({
-    archived: "true",
-    page: currentPage,
-    size: rowsPerPage,
-  });
-  const [selectAll, setSelectAll] = useState(false);
 
   useEffect(() => {
     if (data) console.log("Response Data:", data);
     if (error) console.log("Error:", error);
   }, [data, error]);
 
-  const [deleteEmployees] = useDeleteEmployeesMutation();
+  const [deleteBuses] = useDeleteBussMutation();
+  type Bus = Record<string, any>;
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: number) => {
+    console.log(id);
     try {
-      await deleteEmployees({
-        id: id,
-        lock: "false",
-      }).unwrap();
-      toast.success(`Employee with ID ${id} unLocked successfully`);
+      await deleteBuses(id).unwrap();
+
+      toast.success(`Bus with ID ${id} Deleted successfully`);
       void refetch();
     } catch {
-      toast.error("Failed to unlock the Employee");
+      toast.error("Failed to Delete the Bus");
     }
   };
+
+  const formatTransactionDate = (dateString: string | number | Date) => {
+    if (!dateString) return "No transaction date";
+    const formatter = new Intl.DateTimeFormat("en-EG", {
+      timeZone: "Asia/Riyadh",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour12: false,
+    });
+    return formatter.format(new Date(dateString));
+  };
+
+  const [selectAll, setSelectAll] = useState(false);
 
   const handleSelectAll = () => {
     setSelectAll(!selectAll);
@@ -119,6 +114,7 @@ const ArchiveEmployee = () => {
       });
     };
   }, []);
+
   if (isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
@@ -129,7 +125,6 @@ const ArchiveEmployee = () => {
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
-
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
@@ -142,7 +137,7 @@ const ArchiveEmployee = () => {
             <div className="relative min-w-72 md:min-w-80">
               <div className="pointer-events-none absolute inset-y-0 start-0 z-20 flex items-center ps-4">
                 <svg
-                  className="size-4 flex-shrink-0 text-textSecondary"
+                  className="size-4 flex-shrink-0 text-gray-400"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
@@ -175,116 +170,92 @@ const ArchiveEmployee = () => {
           </div>
           <div className="flex justify-center">
             <Link
-              href="/add-new-employee"
+              href="/add-new-bus"
               className="mb-5 mr-3 w-[210px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               {currentLanguage === "ar"
-                ? "+ إضافة موظف جديد"
+                ? "+ إضافة حافلة جديدة"
                 : currentLanguage === "fr"
-                  ? "+ Ajouter un nouvel employé"
-                  : "+ Add New Employee"}
+                  ? "+ Ajouter un nouveau bus"
+                  : "+ Add New Bus"}
             </Link>
           </div>
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
-          <table className="w-full overflow-x-auto text-left text-sm text-textSecondary rtl:text-right">
+          <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
             <thead className="bg-thead text-xs uppercase text-textPrimary">
               <tr>
                 <th scope="col" className="p-4">
                   <div className="flex items-center">
-                    {/* Add event listener for select all checkbox */}
                     <input
                       id="checkbox-all-search"
                       type="checkbox"
-                      className="-gray-800 h-4 w-4 rounded border-borderPrimary bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500"
+                      className="-gray-800 h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500"
                       onChange={handleSelectAll}
                     />
                   </div>
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en"
-                    ? "Name"
-                    : currentLanguage === "ar"
-                      ? "الاسم"
-                      : currentLanguage === "fr"
-                        ? "Nom"
-                        : "Name"}{" "}
+                  {currentLanguage === "ar"
+                    ? "رقم الحافلة"
+                    : currentLanguage === "fr"
+                      ? "Numéro de bus"
+                      : "Bus Number"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en"
-                    ? "ID"
-                    : currentLanguage === "ar"
-                      ? "الرقم"
-                      : currentLanguage === "fr"
-                        ? "Identifiant"
-                        : "ID"}{" "}
+                  {currentLanguage === "ar"
+                    ? "سعة الحافلة"
+                    : currentLanguage === "fr"
+                      ? "Capacité du bus"
+                      : "Bus Capacity"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en"
-                    ? "Gender"
-                    : currentLanguage === "ar"
-                      ? "الجنس"
-                      : currentLanguage === "fr"
-                        ? "Genre"
-                        : "Gender"}{" "}
+                  {currentLanguage === "ar"
+                    ? "رقم المدرسة"
+                    : currentLanguage === "fr"
+                      ? "ID de l'école"
+                      : "School Id"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en"
-                    ? "Nationality"
-                    : currentLanguage === "ar"
-                      ? "الجنسية"
-                      : currentLanguage === "fr"
-                        ? "Nationalité"
-                        : "Nationality"}{" "}
+                  {currentLanguage === "ar"
+                    ? "تاريخ الإنشاء"
+                    : currentLanguage === "fr"
+                      ? "Date de création"
+                      : "Created At"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en"
-                    ? "Email"
-                    : currentLanguage === "ar"
-                      ? "البريد الإلكتروني"
-                      : currentLanguage === "fr"
-                        ? "Courriel"
-                        : "Email"}{" "}
+                  {currentLanguage === "ar"
+                    ? "تاريخ التحديث"
+                    : currentLanguage === "fr"
+                      ? "Date de mise à jour"
+                      : "Updated At"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en"
-                    ? "Mobile"
-                    : currentLanguage === "ar"
-                      ? "الجوال"
-                      : currentLanguage === "fr"
-                        ? "Mobile"
-                        : "Mobile"}{" "}
+                  {currentLanguage === "ar"
+                    ? "الإجراء"
+                    : currentLanguage === "fr"
+                      ? "Action"
+                      : "Action"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en"
-                    ? "View"
-                    : currentLanguage === "ar"
-                      ? "عرض"
-                      : currentLanguage === "fr"
-                        ? "Voir"
-                        : "View"}{" "}
-                </th>
-                <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "en"
-                    ? "Action"
-                    : currentLanguage === "ar"
-                      ? "الإجراء"
-                      : currentLanguage === "fr"
-                        ? "Action"
-                        : "Action"}{" "}
+                  {currentLanguage === "ar"
+                    ? "تعديل"
+                    : currentLanguage === "fr"
+                      ? "Modifier"
+                      : "Edit"}
                 </th>
               </tr>
             </thead>
             <tbody>
               {data?.data.content
-                .filter((employee: Employee) => {
+                .filter((bus: Bus) => {
                   return search.toLocaleLowerCase() === ""
-                    ? employee
-                    : employee.name.toLocaleLowerCase().includes(search);
+                    ? bus
+                    : bus.name.toLocaleLowerCase().includes(search);
                 })
-                .map((employee: Employee) => (
+                .map((bus: Bus, index: number) => (
                   <tr
-                    key={employee.id}
+                    key={index}
                     className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary"
                   >
                     <td className="w-4 p-4">
@@ -298,59 +269,45 @@ const ArchiveEmployee = () => {
                     </td>
                     <th
                       scope="row"
-                      className="flex items-center gap-2 whitespace-nowrap px-6 py-4 font-medium text-gray-900"
+                      className="flex items-center whitespace-nowrap px-6 py-4 font-medium text-secondary"
                     >
-                      <div className="w-[50px]">
-                        {employee.picture == null ? (
-                          <img
-                            src="/images/userr.png"
-                            className="mr-2 h-[40px] w-[40px] rounded-full"
-                            alt="#"
-                          />
-                        ) : (
-                          <img
-                            src={employee.picture}
-                            className="mr-2 h-[40px] w-[40px] rounded-full"
-                            alt="#"
-                          />
-                        )}
-                      </div>
-                      <p className="text-textSecondary"> {employee.name} </p>
+                      {bus.busNumber}
                     </th>
                     <td className="whitespace-nowrap px-6 py-4">
-                      {employee.id}
+                      {bus.busCapacity}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
-                      {employee.gender}
+                      {bus.schoolId}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
-                      {employee.nationality}
+                      {formatTransactionDate(bus.createdAt)}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
-                      {employee.email}
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4">
-                      {employee.number}
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4">
-                      <Link
-                        href={`/employee/view-employee/${employee.id}`}
-                        className="font-medium text-blue-600 hover:underline"
-                      >
-                        {currentLanguage === "ar"
-                          ? "عرض"
-                          : currentLanguage === "fr"
-                            ? "Voir"
-                            : "View"}
-                      </Link>
+                      {formatTransactionDate(bus.updatedAt)}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
                       <button
-                        onClick={() => handleDelete(employee.id)}
-                        className="rounded-lg bg-red-500 px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+                        onClick={() => handleDelete(bus.busId)}
+                        className="rounded-lg bg-error px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
                       >
-                        Unlock
+                        {currentLanguage === "ar"
+                          ? "حذف"
+                          : currentLanguage === "fr"
+                            ? "Supprimer"
+                            : "Delete"}
                       </button>
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      <Link
+                        href={`/edit-bus/${bus.busId}`}
+                        className="font-medium text-blue-600 hover:underline"
+                      >
+                        {currentLanguage === "ar"
+                          ? "تعديل"
+                          : currentLanguage === "fr"
+                            ? "Modifier"
+                            : "Edit"}
+                      </Link>
                     </td>
                   </tr>
                 ))}
@@ -368,18 +325,9 @@ const ArchiveEmployee = () => {
             </div>
           )}
         </div>
-        <div className="relative overflow-auto">
-          <Pagination
-            totalPages={data?.data.totalPages}
-            elementsPerPage={rowsPerPage}
-            onChangeElementsPerPage={onElementChange}
-            currentPage={currentPage}
-            onChangePage={onPageChange}
-          />
-        </div>
       </div>
     </>
   );
 };
 
-export default ArchiveEmployee;
+export default Bus;

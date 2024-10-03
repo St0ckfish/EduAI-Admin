@@ -41,7 +41,7 @@ export const classApi = createApi({
     //
     createClasss: builder.mutation({
       query: formData => ({
-        url: `/api/v1/management/classroom/`,
+        url: `/api/v1/management/classroom`,
         method: "POST",
         body: formData,
       }),

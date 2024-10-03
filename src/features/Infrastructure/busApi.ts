@@ -28,7 +28,7 @@ export const busApi = createApi({
   }),
   endpoints: builder => ({
     getAllBuss: builder.query({
-      query: () => "/api/v1/bus/all?size=1000000&page=0&getActive=1",
+      query: (archive) => `/api/v1/bus/all?size=1000000&page=0&getActive=${archive}`,
     }),
     //
     deleteBuss: builder.mutation({
