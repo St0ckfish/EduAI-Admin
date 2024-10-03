@@ -741,10 +741,10 @@ const Signup = () => {
                     >
                       <option selected value="">
                         {currentLanguage === "ar"
-                          ? "اختر الدين"
+                          ? "اختر نوع الموظف"
                           : currentLanguage === "fr"
-                            ? "Sélectionnez la religion"
-                            : "Select religion"}
+                            ? "Sélectionnez la Type d'employé"
+                            : "Select Employee Type"}
                       </option>
                       <option value="EMPLOYEE">
                         {currentLanguage === "ar"
@@ -790,10 +790,10 @@ const Signup = () => {
                     >
                       <option selected value="">
                         {currentLanguage === "ar"
-                          ? "اختر الدين"
+                          ? "اختر مؤهل"
                           : currentLanguage === "fr"
-                            ? "Sélectionnez la religion"
-                            : "Select religion"}
+                            ? "Sélectionnez la Qualification"
+                            : "Select Qualification"}
                       </option>
                       <option value="HIGH_SCHOOL_DIPLOMA">
                         {currentLanguage === "ar"
