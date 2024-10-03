@@ -1,15 +1,31 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
 import Spinner from "@/components/spinner";
-import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import { toast } from "react-toastify";
 import BreadCrumbs from "@/components/BreadCrumbs";
-import { useGetAllExamsQuery, useDeleteExamMutation } from "@/features/Acadimic/examsApi";
+import { useGetExamResByIdQuery, useDeleteExamResultMutation } from "@/features/Acadimic/examsApi";
 
-const Exams = () => {
+interface ParamsType {
+  params:{
+    examResId :number
+  }
+}
+
+const ExamRes = ({params}:ParamsType) => {
+  const formatTransactionDate = (dateString: string | number | Date) => {
+    if (!dateString) return "No transaction date";
+    const formatter = new Intl.DateTimeFormat("en-EG", {
+      timeZone: "Asia/Riyadh",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour12: false,
+    });
+    return formatter.format(new Date(dateString));
+  };
   const breadcrumbs = [
     {
       nameEn: "Academic",
@@ -24,16 +40,16 @@ const Exams = () => {
       href: "/educational-affairs",
     },
     {
-      nameEn: "Exams",
+      nameEn: "Exam Result",
       nameAr: "المكتبة",
       nameFr: "Autoexam",
-      href: "/educational-affairs/exams",
+      href: `/educational-affairs/exams/exam-result/${params.examResId}`,
     },
   ];
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
   );
-  const { data, error, isLoading, refetch } = useGetAllExamsQuery(null);
+  const { data, error, isLoading, refetch } = useGetExamResByIdQuery(params.examResId);
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const [search, setSearch] = useState("");
 
@@ -42,7 +58,7 @@ const Exams = () => {
     if (error) console.log("Error:", error);
   }, [data, error]);
 
-  const [deleteExames] = useDeleteExamMutation();
+  const [deleteExames] = useDeleteExamResultMutation();
   type Exam = Record<string, any>;
 
   const handleDelete = async (id: number) => {
@@ -50,10 +66,10 @@ const Exams = () => {
     try {
       await deleteExames(id).unwrap();
 
-      toast.success(`Exam with ID ${id} Deleted successfully`);
+      toast.success(`Exam Result with ID ${id} Deleted successfully`);
       void refetch();
     } catch {
-      toast.error("Failed to Delete the Exam");
+      toast.error("Failed to Delete the Exam Result");
     }
   };
 
@@ -154,16 +170,6 @@ const Exams = () => {
             </div>
           </div>
           <div className="flex justify-center">
-            <Link
-              href="/educational-affairs/exams/add-exam"
-              className="mb-5 mr-3 w-[210px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
-            >
-              {currentLanguage === "ar"
-                ? "+ إضافة حافلة جديدة"
-                : currentLanguage === "fr"
-                  ? "+ Ajouter un nouveau exam"
-                  : "+ Add New Exam"}
-            </Link>
           </div>
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
@@ -185,64 +191,38 @@ const Exams = () => {
                     ? "رقم الحافلة"
                     : currentLanguage === "fr"
                       ? "Numéro de exam"
-                      : "Exam Date"}
+                      : "student Name"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "ar"
                     ? "سعة الحافلة"
                     : currentLanguage === "fr"
                       ? "Capacité du exam"
-                      : "Exam Beginning"}
+                      : "student Id"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "ar"
                     ? "رقم المدرسة"
                     : currentLanguage === "fr"
                       ? "ID de l'école"
-                      : "Exam Ending"}
+                      : "status"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "ar"
                     ? "تاريخ الإنشاء"
                     : currentLanguage === "fr"
                       ? "Date de création"
-                      : "teacher Name"}
+                      : "score"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "ar"
                     ? "تاريخ التحديث"
                     : currentLanguage === "fr"
                       ? "Date de mise à jour"
-                      : "course Name"}
+                      : "score Date"}
                 </th>
-                <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "ar"
-                    ? "تاريخ التحديث"
-                    : currentLanguage === "fr"
-                      ? "Date de mise à jour"
-                      : "semester Name"}
-                </th>
-                <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "ar"
-                    ? "تاريخ التحديث"
-                    : currentLanguage === "fr"
-                      ? "Date de mise à jour"
-                      : "class Name"}
-                </th>
-                <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "ar"
-                    ? "تاريخ التحديث"
-                    : currentLanguage === "fr"
-                      ? "Date de mise à jour"
-                      : "exam Type Name"}
-                </th>
-                <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "ar"
-                    ? "الإجراء"
-                    : currentLanguage === "fr"
-                      ? "Action"
-                      : "View"}
-                </th>
+                
+                
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "ar"
                     ? "الإجراء"
@@ -250,20 +230,14 @@ const Exams = () => {
                       ? "Action"
                       : "Action"}
                 </th>
-                <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "ar"
-                    ? "تعديل"
-                    : currentLanguage === "fr"
-                      ? "Modifier"
-                      : "Edit"}
-                </th>
+                
               </tr>
             </thead>
             <tbody>
               {data?.filter((exam: Exam) => {
                   return search.toLocaleLowerCase() === ""
                     ? exam
-                    : exam.name.toLocaleLowerCase().includes(search);
+                    : exam.studentName.toLocaleLowerCase().includes(search);
                 })
                 .map((exam: Exam, index: number) => (
                   <tr
@@ -283,40 +257,19 @@ const Exams = () => {
                       scope="row"
                       className="flex items-center whitespace-nowrap px-6 py-4 font-medium text-secondary"
                     >
-                      {exam.examDate}
+                      {exam.studentName}
                     </th>
                     <td className="whitespace-nowrap px-6 py-4">
-                      {exam.examBeginning}
+                      {exam.studentId}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
-                      {exam.examEnding}
+                      {exam.status}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
-                      {exam.teacherName}
+                      {exam.score}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
-                      {exam.courseName}
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4">
-                      {exam.semesterName}
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4">
-                      {exam.className}
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4">
-                      {exam.examTypeName}
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4">
-                      <Link
-                        href={`/educational-affairs/exams/exam-result/${exam.id}`}
-                        className="font-medium text-blue-600 hover:underline"
-                      >
-                        {currentLanguage === "ar"
-                          ? "تعديل"
-                          : currentLanguage === "fr"
-                            ? "Modifier"
-                            : "view"}
-                      </Link>
+                      {formatTransactionDate(exam.scoreDate)}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
                       <button
@@ -329,18 +282,6 @@ const Exams = () => {
                             ? "Supprimer"
                             : "Delete"}
                       </button>
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4">
-                      <Link
-                        href={`/educational-affairs/exams/${exam.id}`}
-                        className="font-medium text-blue-600 hover:underline"
-                      >
-                        {currentLanguage === "ar"
-                          ? "تعديل"
-                          : currentLanguage === "fr"
-                            ? "Modifier"
-                            : "Edit"}
-                      </Link>
                     </td>
                   </tr>
                 ))}
@@ -363,4 +304,4 @@ const Exams = () => {
   );
 };
 
-export default Exams;
+export default ExamRes;

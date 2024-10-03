@@ -10,6 +10,7 @@ import {
   useGetAllNationalitysQuery,
   useGetAllReginionIDQuery,
   useSignupApiDashboardMutation,
+  useGetValidUsernameQuery
 } from "@/features/signupApi";
 import { RootState } from "@/GlobalRedux/store";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -73,6 +74,7 @@ const Signup = () => {
     control,
     register,
     handleSubmit,
+    setError, clearErrors,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(signupSchema),
@@ -122,6 +124,41 @@ const Signup = () => {
       console.error("Failed to create account:", err);
     }
   };
+  const [username, setUsername] = useState<string>('');
+  const [debouncedUsername, setDebouncedUsername] = useState<string>(username);
+  const [isValid, setIsValid] = useState<boolean | null>(null); 
+
+  // Debounce logic to delay API calls
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedUsername(username);
+    }, 300); // 300ms delay for debounce
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [username]);
+
+  // Query to check the username validity
+  const { data } = useGetValidUsernameQuery(debouncedUsername, {
+    skip: !debouncedUsername, // Skip the query if debouncedUsername is empty
+  });
+  useEffect(() => {
+    if (data && data.data) {
+      setError('username', {
+        type: 'manual',
+        message: currentLanguage === "ar" 
+          ? "اسم المستخدم غير متاح"
+          : currentLanguage === "fr"
+            ? "Nom d'utilisateur indisponible"
+            : "Username is not available",
+      });
+      setIsValid(false);
+    } else if (data && !data.data) {
+      clearErrors('username');
+      setIsValid(true);
+    }
+  }, [data, setError, clearErrors, currentLanguage]);
 
   useEffect(() => {
     if (Object.keys(errors).length > 0) {
@@ -262,7 +299,22 @@ const Signup = () => {
                       }
                       className={`rounded-xl border px-4 py-3 ${errors.username ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                       type="text"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
                     />
+                    {errors.username ? (
+                      <span className="text-warning mt-2">
+                        {errors.username.message?.toString()}
+                      </span>
+                    ) : isValid && debouncedUsername ? (
+                      <span className="text-green-500 mt-2">
+                        {currentLanguage === "ar" 
+                          ? "اسم المستخدم متاح"
+                          : currentLanguage === "fr"
+                            ? "Nom d'utilisateur disponible"
+                            : "Username is available"}
+                      </span>
+                    ) : null}
                     {errors.username && (
                       <span className="text-[13px] text-error">
                         {currentLanguage === "ar"

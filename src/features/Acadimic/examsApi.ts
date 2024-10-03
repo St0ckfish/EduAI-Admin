@@ -38,6 +38,13 @@ export const examsApi = createApi({
       }),
     }),
     //
+    deleteExamResult: builder.mutation({
+      query: id => ({
+        url: `/api/v1/exam-results/${id}`,
+        method: "DELETE",
+      }),
+    }),
+    //
     createExams: builder.mutation({
       query: formData => ({
         url: `/api/v1/academic/educationalAffairs/exams`,
@@ -46,8 +53,8 @@ export const examsApi = createApi({
       }),
     }),
     //
-    getCourseById: builder.query({
-      query: id => `/api/v1/management/course/${id}`,
+    getExamResById: builder.query({
+      query: id => `/api/v1/exam-results/exam/${id}`,
     }),
     //
     updateExam: builder.mutation({
@@ -64,6 +71,7 @@ export const {
   useGetAllExamsQuery,
   useDeleteExamMutation,
   useCreateExamsMutation,
-  useGetCourseByIdQuery,
+  useGetExamResByIdQuery,
   useUpdateExamMutation,
+  useDeleteExamResultMutation
 } = examsApi;
