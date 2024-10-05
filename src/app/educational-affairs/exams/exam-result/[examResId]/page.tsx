@@ -1,65 +1,20 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
 import Spinner from "@/components/spinner";
-import {
-  useGetAllBussQuery,
-  useDeleteBussMutation,
-} from "@/features/Infrastructure/busApi";
-import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import { toast } from "react-toastify";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import { useGetExamResByIdQuery, useDeleteExamResultMutation } from "@/features/Acadimic/examsApi";
 
-const Bus = () => {
-  const breadcrumbs = [
-    {
-      nameEn: "Administration",
-      nameAr: "الإدارة",
-      nameFr: "Administration",
-      href: "/",
-    },
-    {
-      nameEn: "Infrastructure",
-      nameAr: "الدورات والموارد",
-      nameFr: "Cours et Ressources",
-      href: "/infrastructure",
-    },
-    {
-      nameEn: "Bus",
-      nameAr: "المكتبة",
-      nameFr: "Autobus",
-      href: "/bus",
-    },
-  ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
-  const { data, error, isLoading, refetch } = useGetAllBussQuery(null);
-  const booleanValue = useSelector((state: RootState) => state.boolean.value);
-  const [search, setSearch] = useState("");
+interface ParamsType {
+  params:{
+    examResId :number
+  }
+}
 
-  useEffect(() => {
-    if (data) console.log("Response Data:", data);
-    if (error) console.log("Error:", error);
-  }, [data, error]);
-
-  const [deleteBuses] = useDeleteBussMutation();
-  type Bus = Record<string, any>;
-
-  const handleDelete = async (id: number) => {
-    console.log(id);
-    try {
-      await deleteBuses(id).unwrap();
-
-      toast.success(`Bus with ID ${id} Deleted successfully`);
-      void refetch();
-    } catch {
-      toast.error("Failed to Delete the Bus");
-    }
-  };
-
+const ExamRes = ({params}:ParamsType) => {
   const formatTransactionDate = (dateString: string | number | Date) => {
     if (!dateString) return "No transaction date";
     const formatter = new Intl.DateTimeFormat("en-EG", {
@@ -70,6 +25,52 @@ const Bus = () => {
       hour12: false,
     });
     return formatter.format(new Date(dateString));
+  };
+  const breadcrumbs = [
+    {
+      nameEn: "Academic",
+      nameAr: "الإدارة",
+      nameFr: "Administration",
+      href: "/",
+    },
+    {
+      nameEn: "Educational Affairs",
+      nameAr: "الدورات والموارد",
+      nameFr: "Cours et Ressources",
+      href: "/educational-affairs",
+    },
+    {
+      nameEn: "Exam Result",
+      nameAr: "المكتبة",
+      nameFr: "Autoexam",
+      href: `/educational-affairs/exams/exam-result/${params.examResId}`,
+    },
+  ];
+  const currentLanguage = useSelector(
+    (state: RootState) => state.language.language,
+  );
+  const { data, error, isLoading, refetch } = useGetExamResByIdQuery(params.examResId);
+  const booleanValue = useSelector((state: RootState) => state.boolean.value);
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    if (data) console.log("Response Data:", data);
+    if (error) console.log("Error:", error);
+  }, [data, error]);
+
+  const [deleteExames] = useDeleteExamResultMutation();
+  type Exam = Record<string, any>;
+
+  const handleDelete = async (id: number) => {
+    console.log(id);
+    try {
+      await deleteExames(id).unwrap();
+
+      toast.success(`Exam Result with ID ${id} Deleted successfully`);
+      void refetch();
+    } catch {
+      toast.error("Failed to Delete the Exam Result");
+    }
   };
 
   const [selectAll, setSelectAll] = useState(false);
@@ -127,10 +128,7 @@ const Bus = () => {
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`
-          ${currentLanguage === "ar" ?
-          (booleanValue ? "lg:mr-[100px]" : "lg:mr-[270px]")
-          : (booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]")} relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
+        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">
@@ -172,16 +170,6 @@ const Bus = () => {
             </div>
           </div>
           <div className="flex justify-center">
-            <Link
-              href="/add-new-bus"
-              className="mb-5 mr-3 w-[210px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
-            >
-              {currentLanguage === "ar"
-                ? "+ إضافة حافلة جديدة"
-                : currentLanguage === "fr"
-                  ? "+ Ajouter un nouveau bus"
-                  : "+ Add New Bus"}
-            </Link>
           </div>
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
@@ -202,37 +190,39 @@ const Bus = () => {
                   {currentLanguage === "ar"
                     ? "رقم الحافلة"
                     : currentLanguage === "fr"
-                      ? "Numéro de bus"
-                      : "Bus Number"}
+                      ? "Numéro de exam"
+                      : "student Name"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "ar"
                     ? "سعة الحافلة"
                     : currentLanguage === "fr"
-                      ? "Capacité du bus"
-                      : "Bus Capacity"}
+                      ? "Capacité du exam"
+                      : "student Id"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "ar"
                     ? "رقم المدرسة"
                     : currentLanguage === "fr"
                       ? "ID de l'école"
-                      : "School Id"}
+                      : "status"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "ar"
                     ? "تاريخ الإنشاء"
                     : currentLanguage === "fr"
                       ? "Date de création"
-                      : "Created At"}
+                      : "score"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "ar"
                     ? "تاريخ التحديث"
                     : currentLanguage === "fr"
                       ? "Date de mise à jour"
-                      : "Updated At"}
+                      : "score Date"}
                 </th>
+                
+                
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "ar"
                     ? "الإجراء"
@@ -240,23 +230,16 @@ const Bus = () => {
                       ? "Action"
                       : "Action"}
                 </th>
-                <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "ar"
-                    ? "تعديل"
-                    : currentLanguage === "fr"
-                      ? "Modifier"
-                      : "Edit"}
-                </th>
+                
               </tr>
             </thead>
             <tbody>
-              {data?.data.content
-                .filter((bus: Bus) => {
+              {data?.filter((exam: Exam) => {
                   return search.toLocaleLowerCase() === ""
-                    ? bus
-                    : bus.name.toLocaleLowerCase().includes(search);
+                    ? exam
+                    : exam.studentName.toLocaleLowerCase().includes(search);
                 })
-                .map((bus: Bus, index: number) => (
+                .map((exam: Exam, index: number) => (
                   <tr
                     key={index}
                     className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary"
@@ -274,23 +257,23 @@ const Bus = () => {
                       scope="row"
                       className="flex items-center whitespace-nowrap px-6 py-4 font-medium text-secondary"
                     >
-                      {bus.busNumber}
+                      {exam.studentName}
                     </th>
                     <td className="whitespace-nowrap px-6 py-4">
-                      {bus.busCapacity}
+                      {exam.studentId}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
-                      {bus.schoolId}
+                      {exam.status}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
-                      {formatTransactionDate(bus.createdAt)}
+                      {exam.score}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
-                      {formatTransactionDate(bus.updatedAt)}
+                      {formatTransactionDate(exam.scoreDate)}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
                       <button
-                        onClick={() => handleDelete(bus.busId)}
+                        onClick={() => handleDelete(exam.id)}
                         className="rounded-lg bg-error px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
                       >
                         {currentLanguage === "ar"
@@ -300,23 +283,11 @@ const Bus = () => {
                             : "Delete"}
                       </button>
                     </td>
-                    <td className="whitespace-nowrap px-6 py-4">
-                      <Link
-                        href={`/edit-bus/${bus.busId}`}
-                        className="font-medium text-blue-600 hover:underline"
-                      >
-                        {currentLanguage === "ar"
-                          ? "تعديل"
-                          : currentLanguage === "fr"
-                            ? "Modifier"
-                            : "Edit"}
-                      </Link>
-                    </td>
                   </tr>
                 ))}
             </tbody>
           </table>
-          {(data?.data.content.length == 0 || data == null) && (
+          {(data?.length == 0 || data == null) && (
             <div className="flex w-full justify-center py-3 text-center text-[18px] font-semibold">
               {currentLanguage === "en"
                 ? "There is No Data"
@@ -333,4 +304,4 @@ const Bus = () => {
   );
 };
 
-export default Bus;
+export default ExamRes;

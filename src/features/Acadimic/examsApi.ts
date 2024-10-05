@@ -27,33 +27,40 @@ export const examsApi = createApi({
     },
   }),
   endpoints: builder => ({
-    getAllExpenses: builder.query({
+    getAllExams: builder.query({
       query: () => "/api/v1/academic/educationalAffairs/exams",
     }),
     //
-    deleteCourses: builder.mutation({
+    deleteExam: builder.mutation({
       query: id => ({
-        url: `/api/v1/management/course/${id}`,
+        url: `/api/v1/academic/educationalAffairs/exams/${id}`,
         method: "DELETE",
       }),
     }),
     //
-    createCourses: builder.mutation({
+    deleteExamResult: builder.mutation({
+      query: id => ({
+        url: `/api/v1/exam-results/${id}`,
+        method: "DELETE",
+      }),
+    }),
+    //
+    createExams: builder.mutation({
       query: formData => ({
-        url: `/api/v1/management/course`,
+        url: `/api/v1/academic/educationalAffairs/exams`,
         method: "POST",
         body: formData,
       }),
     }),
     //
-    getCourseById: builder.query({
-      query: id => `/api/v1/management/course/${id}`,
+    getExamResById: builder.query({
+      query: id => `/api/v1/exam-results/exam/${id}`,
     }),
     //
-    updateCourses: builder.mutation({
+    updateExam: builder.mutation({
       query: ({ formData, id }) => ({
-        url: `/api/v1/management/course/${id}`,
-        method: "PATCH",
+        url: `/api/v1/academic/educationalAffairs/exams/${id}`,
+        method: "PUT",
         body: formData,
       }),
     }),
@@ -61,9 +68,10 @@ export const examsApi = createApi({
 });
 
 export const {
-  useGetAllExpensesQuery,
-  useDeleteCoursesMutation,
-  useCreateCoursesMutation,
-  useGetCourseByIdQuery,
-  useUpdateCoursesMutation,
+  useGetAllExamsQuery,
+  useDeleteExamMutation,
+  useCreateExamsMutation,
+  useGetExamResByIdQuery,
+  useUpdateExamMutation,
+  useDeleteExamResultMutation
 } = examsApi;

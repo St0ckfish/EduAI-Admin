@@ -51,7 +51,9 @@ const TeahcerSearch = () => {
   return (
     <>
       <div
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} mt-12`}
+        className={`${currentLanguage === "ar" ?
+          (booleanValue ? "lg:mr-[40px]" : "lg:mr-[290px]")
+          : (booleanValue ? "lg:ml-[40px]" : "lg:ml-[290px]")} mt-12`}
       >
         <div className="flex h-full w-full justify-center overflow-auto p-2">
           <div className="grid h-full w-full overflow-auto rounded-xl bg-bgPrimary">

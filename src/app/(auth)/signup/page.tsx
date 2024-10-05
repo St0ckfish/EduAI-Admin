@@ -2,25 +2,25 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @next/next/no-img-element */
 "use client";
+import SearchableSelect from "@/components/select";
 import Spinner from "@/components/spinner";
-import { useForm, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { useGetAllSchoolsQuery } from "@/features/attendance/attendanceApi";
+import { setLanguage } from "@/features/language/languageSlice";
 import {
   useGetAllNationalitysQuery,
-  useSignupApiDashboardMutation,
   useGetAllReginionIDQuery,
+  useSignupApiDashboardMutation,
+  useGetValidUsernameQuery
 } from "@/features/signupApi";
-import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
-import React, { useEffect, useState } from "react";
 import { RootState } from "@/GlobalRedux/store";
-import Select from "react-select";
-import { useSelector } from "react-redux";
-import { useGetAllSchoolsQuery } from "@/features/attendance/attendanceApi";
+import { zodResolver } from "@hookform/resolvers/zod";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import { useDispatch } from "react-redux";
-import { setLanguage } from "@/features/language/languageSlice";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { z } from "zod";
 
 // Define the validation schema using Zod
 const signupSchema = z.object({
@@ -74,6 +74,7 @@ const Signup = () => {
     control,
     register,
     handleSubmit,
+    setError, clearErrors,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(signupSchema),
@@ -123,6 +124,41 @@ const Signup = () => {
       console.error("Failed to create account:", err);
     }
   };
+  const [username, setUsername] = useState<string>('');
+  const [debouncedUsername, setDebouncedUsername] = useState<string>(username);
+  const [isValid, setIsValid] = useState<boolean | null>(null); 
+
+  // Debounce logic to delay API calls
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedUsername(username);
+    }, 300); // 300ms delay for debounce
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [username]);
+
+  // Query to check the username validity
+  const { data } = useGetValidUsernameQuery(debouncedUsername, {
+    skip: !debouncedUsername, // Skip the query if debouncedUsername is empty
+  });
+  useEffect(() => {
+    if (data && data.data) {
+      setError('username', {
+        type: 'manual',
+        message: currentLanguage === "ar" 
+          ? "اسم المستخدم غير متاح"
+          : currentLanguage === "fr"
+            ? "Nom d'utilisateur indisponible"
+            : "Username is not available",
+      });
+      setIsValid(false);
+    } else if (data && !data.data) {
+      clearErrors('username');
+      setIsValid(true);
+    }
+  }, [data, setError, clearErrors, currentLanguage]);
 
   useEffect(() => {
     if (Object.keys(errors).length > 0) {
@@ -263,7 +299,22 @@ const Signup = () => {
                       }
                       className={`rounded-xl border px-4 py-3 ${errors.username ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                       type="text"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
                     />
+                    {errors.username ? (
+                      <span className="text-warning mt-2">
+                        {errors.username.message?.toString()}
+                      </span>
+                    ) : isValid && debouncedUsername ? (
+                      <span className="text-green-500 mt-2">
+                        {currentLanguage === "ar" 
+                          ? "اسم المستخدم متاح"
+                          : currentLanguage === "fr"
+                            ? "Nom d'utilisateur disponible"
+                            : "Username is available"}
+                      </span>
+                    ) : null}
                     {errors.username && (
                       <span className="text-[13px] text-error">
                         {currentLanguage === "ar"
@@ -956,42 +1007,15 @@ const Signup = () => {
                     htmlFor="schoolId"
                     className="grid text-start font-sans text-[15px] font-semibold text-[#9a9a9a]"
                   >
-                    <Controller
-                      name="schoolId"
-                      control={control}
-                      rules={{ required: true }}
-                      render={({ field }) => (
-                        <Select
-                          {...field}
-                          options={options}
-                          isLoading={isSchool}
-                          placeholder={
-                            currentLanguage === "ar"
-                              ? "معرف المدرسة"
-                              : currentLanguage === "fr"
-                                ? "ID de l'école"
-                                : "schoolId"
-                          }
-                          classNamePrefix="react-select"
-                          className={`rounded-xl ${
-                            errors.schoolId
-                              ? "border-warning"
-                              : "border-borderPrimary"
-                          } w-[400px] bg-bgPrimary outline-none dark:border-gray-600 dark:bg-bgSecondary max-[458px]:w-[350px]`}
-                          isSearchable
-                        />
-                      )}
-                    />
+                    <SearchableSelect
+        name="schoolId"
+        control={control}
 
-                    {errors.schoolId && (
-                      <span className="text-[13px] text-error">
-                        {currentLanguage === "ar"
-                          ? "معرف المدرسة مطلوب"
-                          : currentLanguage === "fr"
-                            ? "L'ID de l'école est requis"
-                            : "schoolId is Required"}
-                      </span>
-                    )}
+        errors={errors}
+        options={options}
+        currentLanguage="en"
+        placeholder="Select School"
+      />
                   </label>
                   <label
                     htmlFor="about"
