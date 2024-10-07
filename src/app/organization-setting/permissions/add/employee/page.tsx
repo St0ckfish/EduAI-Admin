@@ -1,6 +1,5 @@
 "use client";
 import { RootState } from "@/GlobalRedux/store";
-import Link from "next/link";
 import { useSelector } from "react-redux";
 import BreadCrumbs from "@/components/BreadCrumbs";
 
@@ -22,12 +21,6 @@ const Permissions = () => {
       href: "/organization-setting",
     },
     {
-      nameEn: "Add Permissions",
-      nameAr: "إضافة صلاحيات",
-      nameFr: "Ajouter des autorisations",
-      href: "/organization-setting/permissions/add",
-    },
-    {
       nameEn: "Employee",
       nameAr: "موظف",
       nameFr: "Employé",
@@ -39,30 +32,9 @@ const Permissions = () => {
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
+      
       <div
-        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`justify-left flex flex-wrap gap-5 text-[20px] max-[725px]:text-[15px] ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mb-[20px] ml-4 mt-[50px] font-semibold`}
-      >
-        <Link href="/organization-setting/permissions/add">
-          {currentLanguage === "ar"
-            ? "قسم"
-            : currentLanguage === "fr"
-              ? "Département"
-              : "Department"}
-        </Link>
-        <Link
-          href="/organization-setting/permissions/add/employee"
-          className="text-blue-500 underline"
-        >
-          {currentLanguage === "ar"
-            ? "موظف"
-            : currentLanguage === "fr"
-              ? "Employé"
-              : "Employee"}
-        </Link>
-      </div>
-      <div
-        className={` ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mr-3`}
+        className={` ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mr-3 mt-[70px]`}
       >
         <div className="rounded-xl bg-bgPrimary pb-5">
           <div className="flex justify-between rounded-t-xl bg-thead px-10 py-4 text-[18px] font-semibold">

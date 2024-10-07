@@ -97,25 +97,7 @@ const EmployeePermission = () => {
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
-        <div className="justify-left mb-[80px] ml-4 mt-[50px] flex flex-wrap gap-5 text-[20px] font-semibold max-[725px]:text-[15px]">
-          <Link href="/organization-setting/permissions/department-permission">
-            {currentLanguage === "ar"
-              ? "قسم"
-              : currentLanguage === "fr"
-                ? "Département"
-                : "Department"}
-          </Link>
-          <Link
-            href="/organization-setting/permissions/employee-permission"
-            className="text-primary underline"
-          >
-            {currentLanguage === "ar"
-              ? "موظف"
-              : currentLanguage === "fr"
-                ? "Employé"
-                : "Employee"}
-          </Link>
-        </div>
+        
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">
             <label htmlFor="icon" className="sr-only">

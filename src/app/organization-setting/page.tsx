@@ -57,7 +57,7 @@ const OrganizationSettings = () => {
               : "All user Reports", // Default to English
     },
     {
-      href: "/organization-setting/permissions/department-permission",
+      href: "/organization-setting/permissions/employee-permission",
       icon: <AiOutlineSafetyCertificate size={40} />,
       title:
         currentLanguage === "en"
