@@ -79,7 +79,13 @@ const Payment = () => {
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         className={`${
-          booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
         } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
         <div className="flex w-full flex-wrap justify-center gap-10">

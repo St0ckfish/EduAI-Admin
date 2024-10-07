@@ -9,12 +9,12 @@ import { RootState } from "@/GlobalRedux/store";
 import BreadCrumbs from "@/components/BreadCrumbs";
 
 interface ParamsType {
-  params:{
+  params: {
     examId: number;
-  }
+  };
 }
 
-const EditExam = ({params}: ParamsType) => {
+const EditExam = ({ params }: ParamsType) => {
   const breadcrumbs = [
     {
       nameEn: "Administration",
@@ -55,7 +55,7 @@ const EditExam = ({params}: ParamsType) => {
 
   const onSubmit = async (data: any) => {
     try {
-      await createExam({ formData:data, id: params.examId }).unwrap();
+      await createExam({ formData: data, id: params.examId }).unwrap();
       toast.success("Exam edited successfully");
     } catch {
       toast.error("Failed to edite Exam");
@@ -161,35 +161,35 @@ const EditExam = ({params}: ParamsType) => {
                   </span>
                 )}
               </label>
-            <label
-              htmlFor="period"
-              className="grid font-sans text-[18px] font-semibold"
-            >
-              {currentLanguage === "en"
-                ? "Period"
-                : currentLanguage === "ar"
-                  ? "معرف نوع الامتحان"
-                  : currentLanguage === "fr"
-                    ? "ID du type d'examen"
-                    : "Exam Type ID"}{" "}
-              <input
-                id="period"
-                {...register("period", { required: true })}
-                type="text"
-                className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-              />
-              {errors.period && (
-                <span className="text-error">
-                  {currentLanguage === "en"
-                    ? "This field is required"
-                    : currentLanguage === "ar"
-                      ? "هذا الحقل مطلوب"
-                      : currentLanguage === "fr"
-                        ? "Ce champ est requis"
-                        : "This field is required"}{" "}
-                </span>
-              )}
-            </label>
+              <label
+                htmlFor="period"
+                className="grid font-sans text-[18px] font-semibold"
+              >
+                {currentLanguage === "en"
+                  ? "Period"
+                  : currentLanguage === "ar"
+                    ? "معرف نوع الامتحان"
+                    : currentLanguage === "fr"
+                      ? "ID du type d'examen"
+                      : "Exam Type ID"}{" "}
+                <input
+                  id="period"
+                  {...register("period", { required: true })}
+                  type="text"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                />
+                {errors.period && (
+                  <span className="text-error">
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                  </span>
+                )}
+              </label>
             </div>
 
             <div className="flex justify-center text-center">

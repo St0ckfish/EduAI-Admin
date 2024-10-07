@@ -83,7 +83,6 @@ const AddNewParent = () => {
     }
   };
 
-
   if (nationalityLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
@@ -96,10 +95,15 @@ const AddNewParent = () => {
 
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={` 
-${currentLanguage === "ar" ?
-            (booleanValue ? "lg:mr-[100px]" : "lg:mr-[270px]")
-            : (booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]")} mr-[5px] grid items-center justify-center`}
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } mr-[5px] grid items-center justify-center`}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="my-10 grid items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:w-[1000px]">
@@ -757,7 +761,7 @@ ${currentLanguage === "ar" ?
               <button
                 disabled={isLoading}
                 type="submit"
-                className="w-[180px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+                className="w-fit rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
               >
                 {isLoading
                   ? currentLanguage === "en"

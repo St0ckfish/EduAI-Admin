@@ -37,7 +37,15 @@ const ViewProfessional: React.FC<ViewDriverProps> = ({ params }) => {
   return (
     <div
       dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-      className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"}`}
+      className={`${
+    currentLanguage === "ar"
+      ? booleanValue
+        ? "lg:mr-[100px]"
+        : "lg:mr-[270px]"
+      : booleanValue
+        ? "lg:ml-[100px]"
+        : "lg:ml-[270px]"
+  }`}
     >
       <div className="grid h-full w-full items-center justify-center gap-4 rounded-xl bg-bgPrimary p-9 max-[505px]:p-2">
         <div className="flex w-full justify-end">

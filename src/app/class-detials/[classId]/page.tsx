@@ -43,10 +43,15 @@ const classDetails: React.FC<ViewDriverProps> = ({ params }) => {
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`
-          ${currentLanguage === "ar" ?
-          (booleanValue ? "lg:mr-[100px]" : "lg:mr-[270px]")
-          : (booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]")} mt-16 grid justify-center lg:ml-[290px] lg:mr-32`}
+        className={` ${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } mt-16 grid justify-center lg:ml-[290px] lg:mr-32`}
       >
         <div className="mb-5 grid grid-cols-1 gap-4 xl:grid-cols-2">
           <div className="mb-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-2">

@@ -10,7 +10,7 @@ import {
   useGetAllNationalitysQuery,
   useGetAllReginionIDQuery,
   useSignupApiDashboardMutation,
-  useGetValidUsernameQuery
+  useGetValidUsernameQuery,
 } from "@/features/signupApi";
 import { RootState } from "@/GlobalRedux/store";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -74,7 +74,8 @@ const Signup = () => {
     control,
     register,
     handleSubmit,
-    setError, clearErrors,
+    setError,
+    clearErrors,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(signupSchema),
@@ -124,9 +125,9 @@ const Signup = () => {
       console.error("Failed to create account:", err);
     }
   };
-  const [username, setUsername] = useState<string>('');
+  const [username, setUsername] = useState<string>("");
   const [debouncedUsername, setDebouncedUsername] = useState<string>(username);
-  const [isValid, setIsValid] = useState<boolean | null>(null); 
+  const [isValid, setIsValid] = useState<boolean | null>(null);
 
   // Debounce logic to delay API calls
   useEffect(() => {
@@ -145,17 +146,18 @@ const Signup = () => {
   });
   useEffect(() => {
     if (data && data.data) {
-      setError('username', {
-        type: 'manual',
-        message: currentLanguage === "ar" 
-          ? "اسم المستخدم غير متاح"
-          : currentLanguage === "fr"
-            ? "Nom d'utilisateur indisponible"
-            : "Username is not available",
+      setError("username", {
+        type: "manual",
+        message:
+          currentLanguage === "ar"
+            ? "اسم المستخدم غير متاح"
+            : currentLanguage === "fr"
+              ? "Nom d'utilisateur indisponible"
+              : "Username is not available",
       });
       setIsValid(false);
     } else if (data && !data.data) {
-      clearErrors('username');
+      clearErrors("username");
       setIsValid(true);
     }
   }, [data, setError, clearErrors, currentLanguage]);
@@ -300,15 +302,15 @@ const Signup = () => {
                       className={`rounded-xl border px-4 py-3 ${errors.username ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                       type="text"
                       value={username}
-                      onChange={(e) => setUsername(e.target.value)}
+                      onChange={e => setUsername(e.target.value)}
                     />
                     {errors.username ? (
-                      <span className="text-warning mt-2">
+                      <span className="mt-2 text-warning">
                         {errors.username.message?.toString()}
                       </span>
                     ) : isValid && debouncedUsername ? (
-                      <span className="text-green-500 mt-2">
-                        {currentLanguage === "ar" 
+                      <span className="mt-2 text-green-500">
+                        {currentLanguage === "ar"
                           ? "اسم المستخدم متاح"
                           : currentLanguage === "fr"
                             ? "Nom d'utilisateur disponible"
@@ -1008,14 +1010,13 @@ const Signup = () => {
                     className="grid text-start font-sans text-[15px] font-semibold text-[#9a9a9a]"
                   >
                     <SearchableSelect
-        name="schoolId"
-        control={control}
-
-        errors={errors}
-        options={options}
-        currentLanguage="en"
-        placeholder="Select School"
-      />
+                      name="schoolId"
+                      control={control}
+                      errors={errors}
+                      options={options}
+                      currentLanguage="en"
+                      placeholder="Select School"
+                    />
                   </label>
                   <label
                     htmlFor="about"

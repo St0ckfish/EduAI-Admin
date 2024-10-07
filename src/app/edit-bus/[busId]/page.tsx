@@ -187,14 +187,13 @@ const EditBus: React.FC<ViewBusProps> = ({ params }) => {
               ) : (
                 <button
                   type="submit"
-                  className="w-fit px-5 rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                  className="w-fit rounded-xl bg-primary px-4 px-5 py-2 text-[18px] text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
                 >
-                    {currentLanguage === "ar"
-                      ? "تعديل الحافلة"
-                      : currentLanguage === "fr"
-                        ? "Modifier l'autobus"
-                        : "Edit Bus"}
-
+                  {currentLanguage === "ar"
+                    ? "تعديل الحافلة"
+                    : currentLanguage === "fr"
+                      ? "Modifier l'autobus"
+                      : "Edit Bus"}
                 </button>
               )}
             </div>

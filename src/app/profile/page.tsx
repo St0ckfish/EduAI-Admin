@@ -64,7 +64,15 @@ const Profile = () => {
     <>
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={` ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-7`}
+        className={` ${
+    currentLanguage === "ar"
+      ? booleanValue
+        ? "lg:mr-[100px]"
+        : "lg:mr-[270px]"
+      : booleanValue
+        ? "lg:ml-[100px]"
+        : "lg:ml-[270px]"
+  } mt-7`}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid h-full w-full rounded-xl bg-bgPrimary p-7">

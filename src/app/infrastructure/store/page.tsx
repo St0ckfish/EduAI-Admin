@@ -86,7 +86,13 @@ const Store = () => {
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         className={`${
-          booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
         } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
         <div className="flex h-[70px] items-center gap-7 overflow-auto rounded-t-xl px-3 font-semibold">

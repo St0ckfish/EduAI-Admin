@@ -168,7 +168,9 @@ const AddExam = () => {
                       : "Teacher Course Registration ID"}{" "}
                 <input
                   id="teacherCourseRegistrationId"
-                  {...register("teacherCourseRegistrationId", { required: true })}
+                  {...register("teacherCourseRegistrationId", {
+                    required: true,
+                  })}
                   type="number"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />

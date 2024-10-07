@@ -41,7 +41,15 @@ const Permissions = () => {
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`justify-left flex flex-wrap gap-5 text-[20px] max-[725px]:text-[15px] ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mb-[20px] ml-4 mt-[50px] font-semibold`}
+        className={`justify-left flex flex-wrap gap-5 text-[20px] max-[725px]:text-[15px] ${
+    currentLanguage === "ar"
+      ? booleanValue
+        ? "lg:mr-[100px]"
+        : "lg:mr-[270px]"
+      : booleanValue
+        ? "lg:ml-[100px]"
+        : "lg:ml-[270px]"
+  } mb-[20px] ml-4 mt-[50px] font-semibold`}
       >
         <Link href="/organization-setting/permissions/add">
           {currentLanguage === "ar"
@@ -62,7 +70,15 @@ const Permissions = () => {
         </Link>
       </div>
       <div
-        className={` ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mr-3`}
+        className={` ${
+    currentLanguage === "ar"
+      ? booleanValue
+        ? "lg:mr-[100px]"
+        : "lg:mr-[270px]"
+      : booleanValue
+        ? "lg:ml-[100px]"
+        : "lg:ml-[270px]"
+  } mr-3`}
       >
         <div className="rounded-xl bg-bgPrimary pb-5">
           <div className="flex justify-between rounded-t-xl bg-thead px-10 py-4 text-[18px] font-semibold">
