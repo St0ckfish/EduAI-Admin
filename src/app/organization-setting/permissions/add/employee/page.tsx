@@ -57,7 +57,7 @@ const Permissions = () => {
     if (data.selectedEmployeeId) {
       await updateEmployeePermissions({
         id: data.selectedEmployeeId,
-        formData: selectedPermissions,
+        formData: { permissions: selectedPermissions },
       });
     }
   };
