@@ -18,7 +18,7 @@ export const signupApi = createApi({
     }),
     //
     getValidUsername: builder.query({
-      query: (username) => `/api/v1/auth/exists-by-username?username=${username}`,
+      query: username => `/api/v1/auth/exists-by-username?username=${username}`,
     }),
     getAllReginionID: builder.query({
       query: () => "/api/v1/location/public/region?city-id",
@@ -51,5 +51,5 @@ export const {
   useGetAllLevelsQuery,
   useGetAllRegistrationsQuery,
   useGetAllLanguagesQuery,
-  useGetValidUsernameQuery
+  useGetValidUsernameQuery,
 } = signupApi;

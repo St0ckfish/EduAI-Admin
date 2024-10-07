@@ -113,14 +113,14 @@ const Participation = () => {
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         className={`${
-    currentLanguage === "ar"
-      ? booleanValue
-        ? "lg:mr-[100px]"
-        : "lg:mr-[270px]"
-      : booleanValue
-        ? "lg:ml-[100px]"
-        : "lg:ml-[270px]"
-  } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
         <div className="justify-left mb-[80px] ml-4 mt-[50px] flex flex-wrap gap-5 text-[20px] font-semibold max-[725px]:text-[15px]">
           <Link href="/document-management/certificate">

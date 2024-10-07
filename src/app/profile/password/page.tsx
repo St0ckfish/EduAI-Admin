@@ -13,14 +13,14 @@ const Password = () => {
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         className={` ${
-    currentLanguage === "ar"
-      ? booleanValue
-        ? "lg:mr-[100px]"
-        : "lg:mr-[270px]"
-      : booleanValue
-        ? "lg:ml-[100px]"
-        : "lg:ml-[270px]"
-  } mt-7`}
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } mt-7`}
       >
         <div className="grid h-full w-full rounded-xl bg-bgPrimary p-7">
           <div>
@@ -96,14 +96,14 @@ const Password = () => {
                   </label>
                 </div>
                 <div className="mt-7 flex justify-between">
-                  <button className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl">
+                  <button className="mb-5 mr-3 w-fit whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl">
                     {currentLanguage === "ar"
                       ? "حفظ"
                       : currentLanguage === "fr"
                         ? "Sauvegarder"
                         : "Save"}
                   </button>
-                  <button className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl border border-primary px-4 py-2 text-[18px] font-semibold text-primary duration-300 ease-in hover:shadow-xl">
+                  <button className="mb-5 mr-3 w-fit whitespace-nowrap rounded-xl border border-primary px-4 py-2 text-[18px] font-semibold text-primary duration-300 ease-in hover:shadow-xl">
                     {currentLanguage === "ar"
                       ? "إلغاء"
                       : currentLanguage === "fr"

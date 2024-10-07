@@ -12,11 +12,18 @@ import { useRouter } from "next/navigation";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
-import { setLanguage } from "@/features/language/languageSlice";
+import { initializeLanguage, setLanguage } from "@/features/language/languageSlice";
 import { useTheme } from "next-themes";
 import { FiSun, FiMoon } from "react-icons/fi";
+import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 
 const NavBar = () => {
+  const { currentLanguage, loading } = useSelector((state: RootState) => state.language);
+  const dispatchLang = useDispatch();
+  useEffect(() => {
+    dispatchLang(initializeLanguage());
+  }, [dispatchLang]);
+
   const router = useRouter();
   const {
     data: userData,
@@ -125,9 +132,7 @@ const NavBar = () => {
     Cookie.remove("token");
   };
 
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+  
 
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
@@ -135,6 +140,11 @@ const NavBar = () => {
     console.log(currentLanguage);
     dispatch2(setLanguage(language));
   };
+
+  if (loading) {
+    return <></>; 
+  }
+
   return (
     <>
       <header>
@@ -456,27 +466,23 @@ const NavBar = () => {
               </div>
             </nav>
           </header>
-          <div className="sticky inset-x-0 top-0 z-20 border-y border-borderPrimary bg-bgPrimary px-4 sm:px-6 md:px-8 lg:hidden">
+          <div
+          dir={currentLanguage === "ar" ? "rtl" : "ltr"}  
+          className="sticky inset-x-0 top-0 z-20 border-y border-borderPrimary bg-bgPrimary px-4 sm:px-6 md:px-8 lg:hidden">
             <div className="flex items-center justify-between py-2">
               <ol className="ms-3 flex items-center whitespace-nowrap">
                 <li className="flex items-center text-sm text-textPrimary">
-                  Application Layout
-                  <svg
-                    className="mx-3 size-2.5 flex-shrink-0 overflow-visible text-gray-400"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M5 1L10.6869 7.16086C10.8637 7.35239 10.8637 7.64761 10.6869 7.83914L5 14"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                </li>
+                  {currentLanguage === "ar"
+            ? "تخطيط التطبيق"
+            : currentLanguage === "fr"
+            ? "Mise en page de l'application"
+            : "Application Layout"}
+
+            {currentLanguage === "ar" ? 
+              <MdNavigateBefore size={25} className="text-gray-400" />
+            : <MdNavigateNext size={25} className="text-gray-400" />}
+
+              </li>
               </ol>
 
               <button
@@ -689,7 +695,7 @@ const NavBar = () => {
                     </button>
                     {isOpen2 && (
                       <ul
-                        className={`${small ? "hidden w-[180px] translate-x-5 whitespace-nowrap rounded-xl bg-bgPrimary p-2 group-hover:grid" : ""} mx-9 mt-2 grid gap-2 text-[14px] font-semibold`}
+                        className={`${small ? "hidden w-fit translate-x-5 whitespace-nowrap rounded-xl bg-bgPrimary p-2 group-hover:grid" : ""} mx-9 mt-2 grid gap-2 text-[14px] font-semibold`}
                       >
                         <Link
                           className="hover:text-primary"
@@ -832,7 +838,7 @@ const NavBar = () => {
                     </button>
                     {isOpen3 && (
                       <ul
-                        className={`${small ? "hidden w-[180px] translate-x-5 whitespace-nowrap rounded-xl bg-bgPrimary p-2 group-hover:grid" : ""} mx-9 mt-2 grid gap-2 text-[14px] font-semibold`}
+                        className={`${small ? "hidden w-fit translate-x-5 whitespace-nowrap rounded-xl bg-bgPrimary p-2 group-hover:grid" : ""} mx-9 mt-2 grid gap-2 text-[14px] font-semibold`}
                       >
                         <Link className="hover:text-primary" href="/course">
                           {currentLanguage === "en"
@@ -895,7 +901,7 @@ const NavBar = () => {
                     </button>
                     {isOpen4 && (
                       <ul
-                        className={`${small ? "hidden w-[180px] translate-x-5 whitespace-nowrap rounded-xl bg-bgPrimary p-2 group-hover:grid" : ""} mx-9 mt-2 grid gap-2 text-[14px] font-semibold`}
+                        className={`${small ? "hidden w-fit translate-x-5 whitespace-nowrap rounded-xl bg-bgPrimary p-2 group-hover:grid" : ""} mx-9 mt-2 grid gap-2 text-[14px] font-semibold`}
                       >
                         <Link
                           className="hover:text-primary"
@@ -959,7 +965,7 @@ const NavBar = () => {
                     </button>
                     {isOpen5 && (
                       <ul
-                        className={`${small ? "hidden w-[180px] translate-x-5 whitespace-nowrap rounded-xl bg-bgPrimary p-2 group-hover:grid" : ""} mx-9 mt-2 grid gap-2 text-[14px] font-semibold`}
+                        className={`${small ? "hidden w-fit translate-x-5 whitespace-nowrap rounded-xl bg-bgPrimary p-2 group-hover:grid" : ""} mx-9 mt-2 grid gap-2 text-[14px] font-semibold`}
                       >
                         <Link
                           className="hover:text-primary"

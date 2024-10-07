@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  language: "en",
+  currentLanguage: "en", // Default language
+  loading: true,        // Loading state
 };
 
 const languageSlice = createSlice({
@@ -9,10 +10,19 @@ const languageSlice = createSlice({
   initialState,
   reducers: {
     setLanguage: (state, action) => {
-      state.language = action.payload;
+      state.currentLanguage = action.payload;
+      localStorage.setItem('language', action.payload);
+      state.loading = false; // Set loading to false when the language is set
+    },
+    initializeLanguage: (state) => {
+      const savedLanguage = typeof window !== 'undefined' ? localStorage.getItem('language') : null;
+      if (savedLanguage) {
+        state.currentLanguage = savedLanguage;
+      }
+      state.loading = false; // Set loading to false after initialization
     },
   },
 });
 
-export const { setLanguage } = languageSlice.actions;
+export const { setLanguage, initializeLanguage } = languageSlice.actions;
 export default languageSlice.reducer;

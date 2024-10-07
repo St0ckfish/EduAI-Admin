@@ -73,5 +73,5 @@ export const {
   useCreateExamsMutation,
   useGetExamResByIdQuery,
   useUpdateExamMutation,
-  useDeleteExamResultMutation
+  useDeleteExamResultMutation,
 } = examsApi;

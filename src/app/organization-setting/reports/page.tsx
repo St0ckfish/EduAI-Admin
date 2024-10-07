@@ -69,14 +69,14 @@ const Report = () => {
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         className={`${
-    currentLanguage === "ar"
-      ? booleanValue
-        ? "lg:mr-[100px]"
-        : "lg:mr-[270px]"
-      : booleanValue
-        ? "lg:ml-[100px]"
-        : "lg:ml-[270px]"
-  } justify-left mb-4 ml-4 mt-2 mt-[20px] flex gap-5 text-[23px] font-semibold`}
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } justify-left mb-4 ml-4 mt-2 mt-[20px] flex gap-5 text-[23px] font-semibold`}
       >
         <Link
           href="/organization-setting/reports"
@@ -98,14 +98,14 @@ const Report = () => {
       </div>
       <div
         className={`${
-    currentLanguage === "ar"
-      ? booleanValue
-        ? "lg:mr-[100px]"
-        : "lg:mr-[270px]"
-      : booleanValue
-        ? "lg:ml-[100px]"
-        : "lg:ml-[270px]"
-  } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
           <table className="w-full overflow-x-auto text-left text-sm text-textSecondary rtl:text-right">

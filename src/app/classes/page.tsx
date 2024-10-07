@@ -52,7 +52,7 @@ const Infrastructure = () => {
               ? "lg:mr-[150px]"
               : "lg:mr-[320px]"
             : booleanValue
-              ? "lg:ml-[150px]" 
+              ? "lg:ml-[150px]"
               : "lg:ml-[320px]"
         } mt-16 text-center max-[502px]:grid max-[502px]:justify-center lg:mr-[40px]`}
       >
@@ -97,7 +97,7 @@ const Infrastructure = () => {
         <div className="flex justify-center">
           <Link
             href="/classes/add-class"
-            className="mb-5 mx-3 w-fit whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+            className="mx-3 mb-5 w-fit whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
           >
             {currentLanguage === "ar"
               ? "+ إضافة فصل"

@@ -27,11 +27,15 @@ const BreadCrumbs: React.FC<BreadCrumbsProps> = ({ breadcrumbs }) => {
   return (
     <div
       dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-      className={`flex items-center gap-2
-        ${currentLanguage === "ar" ?
-          (booleanValue ? "lg:mr-[100px]" : "lg:mr-[270px]")
-        : (booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]")}
-        mx-5 mt-10 flex-wrap text-[18px] max-[550px]:text-[15px]`}
+      className={`flex items-center gap-2 ${
+        currentLanguage === "ar"
+          ? booleanValue
+            ? "lg:mr-[100px]"
+            : "lg:mr-[270px]"
+          : booleanValue
+            ? "lg:ml-[100px]"
+            : "lg:ml-[270px]"
+      } mx-5 mt-10 flex-wrap text-[18px] max-[550px]:text-[15px]`}
     >
       {breadcrumbs.map((crumb, index) => (
         <React.Fragment key={index}>

@@ -5,7 +5,6 @@
 import SearchableSelect from "@/components/select";
 import Spinner from "@/components/spinner";
 import { useGetAllSchoolsQuery } from "@/features/attendance/attendanceApi";
-import { setLanguage } from "@/features/language/languageSlice";
 import {
   useGetAllNationalitysQuery,
   useGetAllReginionIDQuery,
@@ -21,6 +20,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { z } from "zod";
+import { initializeLanguage, setLanguage } from "@/features/language/languageSlice";
 
 // Define the validation schema using Zod
 const signupSchema = z.object({
@@ -44,10 +44,13 @@ const signupSchema = z.object({
 });
 
 const Signup = () => {
+  const { currentLanguage, loading } = useSelector((state: RootState) => state.language);
+  const dispatchLang = useDispatch();
+  useEffect(() => {
+    dispatchLang(initializeLanguage());
+  }, [dispatchLang]);
+  
   const [errorMessage, setErrorMessage] = useState<any[]>([]);
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
   const dispatch2 = useDispatch();
   const handleLanguageChange = (language: any) => {
     dispatch2(setLanguage(language));
@@ -176,11 +179,11 @@ const Signup = () => {
 
   if (nationalityLoading || isSchool)
     return (
-      <div className="grid h-screen grid-cols-2 items-center justify-center bg-white duration-300 ease-in max-[1040px]:grid-cols-1">
+      <div className="grid h-screen grid-cols-2 items-center bg-bgSecondary justify-center duration-300 ease-in max-[1040px]:grid-cols-1">
         <Spinner />
       </div>
     );
-
+    
   return (
     <>
       <div className="absolute right-5 top-5">

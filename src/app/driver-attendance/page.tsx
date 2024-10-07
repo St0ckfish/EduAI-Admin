@@ -212,14 +212,14 @@ const DriverAttendance = () => {
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         className={`${
-    currentLanguage === "ar"
-      ? booleanValue
-        ? "lg:mr-[100px]"
-        : "lg:mr-[270px]"
-      : booleanValue
-        ? "lg:ml-[100px]"
-        : "lg:ml-[270px]"
-  } relative mr-[5px] mt-10 h-screen bg-transparent sm:rounded-lg`}
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } relative mr-[5px] mt-10 h-screen bg-transparent sm:rounded-lg`}
       >
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">

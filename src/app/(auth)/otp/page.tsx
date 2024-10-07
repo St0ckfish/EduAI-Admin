@@ -14,12 +14,15 @@ import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useDispatch } from "react-redux";
-import { setLanguage } from "@/features/language/languageSlice";
+import { initializeLanguage, setLanguage } from "@/features/language/languageSlice";
 
 const OTP = () => {
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+  const { currentLanguage, loading } = useSelector((state: RootState) => state.language);
+  const dispatchLang = useDispatch();
+  useEffect(() => {
+    dispatchLang(initializeLanguage());
+  }, [dispatchLang]);
+
   const dispatch2 = useDispatch();
   const handleLanguageChange = (language: any) => {
     dispatch2(setLanguage(language));
@@ -100,6 +103,12 @@ const OTP = () => {
     const remainingSeconds = seconds % 60;
     return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
+
+  if (loading) {
+    return <div className="grid h-screen grid-cols-2 items-center bg-bgSecondary justify-center duration-300 ease-in max-[1040px]:grid-cols-1">
+    <Spinner />
+  </div>  
+  }
 
   return (
     <>

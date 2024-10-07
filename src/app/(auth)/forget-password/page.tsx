@@ -13,12 +13,16 @@ import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useDispatch } from "react-redux";
-import { setLanguage } from "@/features/language/languageSlice";
+import { initializeLanguage, setLanguage } from "@/features/language/languageSlice";
+import { useEffect } from "react";
 
 const ForgetPassword = () => {
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+  const { currentLanguage, loading } = useSelector((state: RootState) => state.language);
+  const dispatchLang = useDispatch();
+  useEffect(() => {
+    dispatchLang(initializeLanguage());
+  }, [dispatchLang]);
+
   const dispatch2 = useDispatch();
   const handleLanguageChange = (language: any) => {
     dispatch2(setLanguage(language));
@@ -59,6 +63,13 @@ const ForgetPassword = () => {
       );
     }
   };
+
+  if (loading) {
+    return <div className="grid h-screen grid-cols-2 items-center bg-bgSecondary justify-center duration-300 ease-in max-[1040px]:grid-cols-1">
+    <Spinner />
+  </div>  
+  }
+
   return (
     <>
       <div className="absolute right-5 top-5">
