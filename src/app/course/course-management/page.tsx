@@ -67,7 +67,15 @@ const CourseManagement = () => {
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`lg:ml-[290px] ${booleanValue ? "lg:ml-[120px]" : "lg:ml-[290px]"} mt-12`}
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[40px]"
+              : "lg:mr-[290px]"
+            : booleanValue
+              ? "lg:ml-[40px]"
+              : "lg:ml-[290px]"
+        } mt-12`}        
       >
         <div className="flex w-full justify-between px-8 text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">

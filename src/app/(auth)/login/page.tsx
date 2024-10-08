@@ -9,12 +9,16 @@ import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useDispatch } from "react-redux";
-import { initializeLanguage, setLanguage } from "@/features/language/languageSlice";
+import {
+  initializeLanguage,
+  setLanguage,
+} from "@/features/language/languageSlice";
 import { useEffect } from "react";
 import Spinner from "@/components/spinner";
 
 const Login = () => {
-  const { currentLanguage, loading } = useSelector((state: RootState) => state.language);
+  const { language, loading } = useSelector((state: RootState) => state.language);
+
   const dispatchLang = useDispatch();
   useEffect(() => {
     dispatchLang(initializeLanguage());
@@ -38,18 +42,18 @@ const Login = () => {
       console.log("Login success:", result);
       Cookie.set("token", result.data);
       toast.success(
-        currentLanguage === "ar"
+        language === "ar"
           ? "تسجيل الدخول ناجح"
-          : currentLanguage === "fr"
+          : language === "fr"
             ? "Connexion réussie"
             : "Login success",
       );
       router.replace("/");
     } catch (err) {
       toast.error(
-        currentLanguage === "ar"
+        language === "ar"
           ? "فشل في تسجيل الدخول"
-          : currentLanguage === "fr"
+          : language === "fr"
             ? "Échec de la connexion"
             : "Failed to login",
       );
@@ -58,11 +62,13 @@ const Login = () => {
   };
 
   if (loading) {
-    return <div className="grid h-screen grid-cols-2 items-center bg-bgSecondary justify-center duration-300 ease-in max-[1040px]:grid-cols-1">
-    <Spinner />
-  </div> 
+    return (
+      <div className="grid h-screen grid-cols-2 items-center justify-center bg-bgSecondary duration-300 ease-in max-[1040px]:grid-cols-1">
+        <Spinner />
+      </div>
+    );
   }
-  
+
   return (
     <>
       <div className="absolute right-5 top-5">
@@ -72,11 +78,11 @@ const Login = () => {
               className="text-violet11 hover:bg-violet3 inline-flex h-[35px] w-[35px] items-center justify-center rounded-full bg-bgPrimary outline-none"
               aria-label="Customise options"
             >
-              {currentLanguage === "en" ? (
+              {language === "en" ? (
                 <img src="/images/en.png" alt="#" />
-              ) : currentLanguage === "ar" ? (
+              ) : language === "ar" ? (
                 <img src="/images/ar.png" alt="#" />
-              ) : currentLanguage === "fr" ? (
+              ) : language === "fr" ? (
                 <img src="/images/fr.png" alt="#" />
               ) : (
                 <img src="/images/fr.png" alt="#" />
@@ -93,11 +99,11 @@ const Login = () => {
                   onClick={() => handleLanguageChange("ar")}
                   className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
                 >
-                  {currentLanguage === "en"
+                  {language === "en"
                     ? "Arabic"
-                    : currentLanguage === "ar"
+                    : language === "ar"
                       ? "العربية"
-                      : currentLanguage === "fr"
+                      : language === "fr"
                         ? "Arabe"
                         : "Arabic"}
                 </button>
@@ -107,11 +113,11 @@ const Login = () => {
                   onClick={() => handleLanguageChange("en")}
                   className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
                 >
-                  {currentLanguage === "en"
+                  {language === "en"
                     ? "English"
-                    : currentLanguage === "ar"
+                    : language === "ar"
                       ? "الإنجليزية"
-                      : currentLanguage === "fr"
+                      : language === "fr"
                         ? "Anglais"
                         : "English"}
                 </button>
@@ -121,11 +127,11 @@ const Login = () => {
                   onClick={() => handleLanguageChange("fr")}
                   className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
                 >
-                  {currentLanguage === "en"
+                  {language === "en"
                     ? "French"
-                    : currentLanguage === "ar"
+                    : language === "ar"
                       ? "الفرنسية"
-                      : currentLanguage === "fr"
+                      : language === "fr"
                         ? "Français"
                         : "French"}
                 </button>
@@ -145,23 +151,23 @@ const Login = () => {
           </div>
           <div className="mb-10 grid">
             <h1 className="font-sans text-[28px] font-bold text-primary">
-              {currentLanguage === "ar"
+              {language === "ar"
                 ? "تسجيل الدخول"
-                : currentLanguage === "fr"
+                : language === "fr"
                   ? "Connexion"
                   : "Log in"}
             </h1>
             <p className="font-sans text-[20px] font-semibold text-secondary">
-              {currentLanguage === "ar"
+              {language === "ar"
                 ? "للوصول إلى حسابك"
-                : currentLanguage === "fr"
+                : language === "fr"
                   ? "Pour accéder à votre compte"
                   : "To access your account"}
             </p>
           </div>
           <div className="grid items-center justify-center">
             <form
-              dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+              dir={language === "ar" ? "rtl" : "ltr"}
               className="grid gap-10"
               onSubmit={handleSubmit(onSubmit)}
             >
@@ -169,18 +175,18 @@ const Login = () => {
                 htmlFor="email"
                 className="grid text-start font-sans text-[18px] font-semibold text-[#041631] text-primary"
               >
-                {currentLanguage === "ar"
+                {language === "ar"
                   ? "بريدك الإلكتروني"
-                  : currentLanguage === "fr"
+                  : language === "fr"
                     ? "Votre Email"
                     : "Your Email"}
                 <input
                   id="email"
                   {...register("username", { required: true })}
                   placeholder={
-                    currentLanguage === "ar"
+                    language === "ar"
                       ? "أدخل بريدك الإلكتروني"
-                      : currentLanguage === "fr"
+                      : language === "fr"
                         ? "Entrez votre email"
                         : "Enter Your Email"
                   }
@@ -188,9 +194,9 @@ const Login = () => {
                 />
                 {errors.username && (
                   <span className="text-[13px] text-error">
-                    {currentLanguage === "ar"
+                    {language === "ar"
                       ? "البريد الإلكتروني مطلوب"
-                      : currentLanguage === "fr"
+                      : language === "fr"
                         ? "L'email est requis"
                         : "Email is Required"}
                   </span>
@@ -200,18 +206,18 @@ const Login = () => {
                 htmlFor="password"
                 className="grid text-start font-sans text-[18px] font-semibold text-[#041631] text-primary"
               >
-                {currentLanguage === "ar"
+                {language === "ar"
                   ? "كلمة المرور الخاصة بك"
-                  : currentLanguage === "fr"
+                  : language === "fr"
                     ? "Votre mot de passe"
                     : "Your Password"}
                 <input
                   id="password"
                   {...register("password", { required: true })}
                   placeholder={
-                    currentLanguage === "ar"
+                    language === "ar"
                       ? "أدخل كلمة المرور الخاصة بك"
-                      : currentLanguage === "fr"
+                      : language === "fr"
                         ? "Entrez votre mot de passe"
                         : "Enter Your Password"
                   }
@@ -220,9 +226,9 @@ const Login = () => {
                 />
                 {errors.password && (
                   <span className="text-[13px] text-error">
-                    {currentLanguage === "ar"
+                    {language === "ar"
                       ? "كلمة المرور مطلوبة"
-                      : currentLanguage === "fr"
+                      : language === "fr"
                         ? "Le mot de passe est requis"
                         : "Password is Required"}
                   </span>
@@ -233,9 +239,9 @@ const Login = () => {
                   href="/forget-password"
                   className="flex font-sans text-[12px] font-medium text-secondary hover:underline"
                 >
-                  {currentLanguage === "ar"
+                  {language === "ar"
                     ? "نسيت كلمة المرور؟"
-                    : currentLanguage === "fr"
+                    : language === "fr"
                       ? "Mot de passe oublié ?"
                       : "Forgot password ?"}
                 </a>
@@ -249,32 +255,32 @@ const Login = () => {
                   className="w-[450px] rounded-xl bg-primary px-4 py-2 text-[18px] font-bold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl max-[471px]:w-[350px]"
                 >
                   {isLoading
-                    ? currentLanguage === "ar"
+                    ? language === "ar"
                       ? "جاري التحميل..."
-                      : currentLanguage === "fr"
+                      : language === "fr"
                         ? "Chargement..."
                         : "Loading..."
-                    : currentLanguage === "ar"
+                    : language === "ar"
                       ? "تسجيل الدخول"
-                      : currentLanguage === "fr"
+                      : language === "fr"
                         ? "Connexion"
                         : "Login"}
                 </button>
               </div>
               {error && (
                 <p className="font-semibold text-error">
-                  {currentLanguage === "ar"
+                  {language === "ar"
                     ? "اسم المستخدم أو كلمة المرور غير صالحين!"
-                    : currentLanguage === "fr"
+                    : language === "fr"
                       ? "Le nom d'utilisateur ou le mot de passe ne sont pas valides !"
                       : "Username or Password are not valid!"}
                 </p>
               )}
               <div className="flex items-center justify-center gap-2 text-center">
                 <p className="font-sans font-medium text-secondary">
-                  {currentLanguage === "ar"
+                  {language === "ar"
                     ? "تحتاج إلى حساب؟"
-                    : currentLanguage === "fr"
+                    : language === "fr"
                       ? "Besoin d'un compte ?"
                       : "Need an account?"}
                 </p>
@@ -282,9 +288,9 @@ const Login = () => {
                   href="/signup"
                   className="flex font-sans font-medium text-primary hover:underline"
                 >
-                  {currentLanguage === "ar"
+                  {language === "ar"
                     ? "إنشاء حساب"
-                    : currentLanguage === "fr"
+                    : language === "fr"
                       ? "Créer un compte"
                       : "Create Account"}
                 </a>

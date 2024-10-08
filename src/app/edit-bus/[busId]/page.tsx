@@ -93,8 +93,15 @@ const EditBus: React.FC<ViewBusProps> = ({ params }) => {
 
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className="mr-[5px] mt-[40px] grid h-[500px] items-center justify-center lg:ml-[270px]"
-      >
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } mr-[5px] grid mt-[40px] h-[500px] items-center justify-center`}       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid h-[400px] items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:h-[500px] xl:w-[1000px]">
             <div className="flex items-center justify-start gap-2">
@@ -187,7 +194,7 @@ const EditBus: React.FC<ViewBusProps> = ({ params }) => {
               ) : (
                 <button
                   type="submit"
-                  className="w-fit rounded-xl bg-primary px-4 px-5 py-2 text-[18px] text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                  className="w-fit rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
                 >
                   {currentLanguage === "ar"
                     ? "تعديل الحافلة"

@@ -60,6 +60,8 @@ const School = () => {
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
   );
+  const booleanValue = useSelector((state: RootState) => state.boolean.value); // sidebar
+
   const breadcrumbs = [
     {
       nameEn: "Ai Insights",
@@ -92,7 +94,15 @@ const School = () => {
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
-      <div className="lg:ml-[270px]">
+      <div className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        }`}>
         <div className="grid overflow-x-scroll">
           <div className="justify-left mb-5 ml-4 mt-10 flex gap-5 overflow-x-auto text-nowrap text-[20px] font-semibold">
             <Link href="/insight">

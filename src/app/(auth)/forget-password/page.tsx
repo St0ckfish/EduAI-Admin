@@ -13,11 +13,15 @@ import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useDispatch } from "react-redux";
-import { initializeLanguage, setLanguage } from "@/features/language/languageSlice";
+import {
+  initializeLanguage,
+  setLanguage,
+} from "@/features/language/languageSlice";
 import { useEffect } from "react";
 
 const ForgetPassword = () => {
-  const { currentLanguage, loading } = useSelector((state: RootState) => state.language);
+  const { language, loading } = useSelector((state: RootState) => state.language);
+
   const dispatchLang = useDispatch();
   useEffect(() => {
     dispatchLang(initializeLanguage());
@@ -46,18 +50,18 @@ const ForgetPassword = () => {
       const UserId = Cookie.get("userId");
       await selectAccount({ id: UserId, email: Email }).unwrap();
       toast.success(
-        currentLanguage === "ar"
+        language === "ar"
           ? "تم إنشاء وإرسال بريد إعادة تعيين كلمة المرور بنجاح"
-          : currentLanguage === "fr"
+          : language === "fr"
             ? "Email de réinitialisation du mot de passe généré et envoyé avec succès"
             : "Reset password email generated and sent successfully",
       );
       router.replace("/otp");
     } catch (err) {
       toast.error(
-        currentLanguage === "ar"
+        language === "ar"
           ? "فشل في العثور على اسم المستخدم أو البريد الإلكتروني"
-          : currentLanguage === "fr"
+          : language === "fr"
             ? "Échec de la recherche de ce nom d'utilisateur ou de cet e-mail"
             : "Failed to find this username or email",
       );
@@ -65,9 +69,11 @@ const ForgetPassword = () => {
   };
 
   if (loading) {
-    return <div className="grid h-screen grid-cols-2 items-center bg-bgSecondary justify-center duration-300 ease-in max-[1040px]:grid-cols-1">
-    <Spinner />
-  </div>  
+    return (
+      <div className="grid h-screen grid-cols-2 items-center justify-center bg-bgSecondary duration-300 ease-in max-[1040px]:grid-cols-1">
+        <Spinner />
+      </div>
+    );
   }
 
   return (
@@ -79,11 +85,11 @@ const ForgetPassword = () => {
               className="text-violet11 hover:bg-violet3 inline-flex h-[35px] w-[35px] items-center justify-center rounded-full bg-bgPrimary outline-none"
               aria-label="Customise options"
             >
-              {currentLanguage === "en" ? (
+              {language === "en" ? (
                 <img src="/images/en.png" alt="#" />
-              ) : currentLanguage === "ar" ? (
+              ) : language === "ar" ? (
                 <img src="/images/ar.png" alt="#" />
-              ) : currentLanguage === "fr" ? (
+              ) : language === "fr" ? (
                 <img src="/images/fr.png" alt="#" />
               ) : (
                 <img src="/images/fr.png" alt="#" />
@@ -100,11 +106,11 @@ const ForgetPassword = () => {
                   onClick={() => handleLanguageChange("ar")}
                   className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
                 >
-                  {currentLanguage === "en"
+                  {language === "en"
                     ? "Arabic"
-                    : currentLanguage === "ar"
+                    : language === "ar"
                       ? "العربية"
-                      : currentLanguage === "fr"
+                      : language === "fr"
                         ? "Arabe"
                         : "Arabic"}
                 </button>
@@ -114,11 +120,11 @@ const ForgetPassword = () => {
                   onClick={() => handleLanguageChange("en")}
                   className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
                 >
-                  {currentLanguage === "en"
+                  {language === "en"
                     ? "English"
-                    : currentLanguage === "ar"
+                    : language === "ar"
                       ? "الإنجليزية"
-                      : currentLanguage === "fr"
+                      : language === "fr"
                         ? "Anglais"
                         : "English"}
                 </button>
@@ -128,11 +134,11 @@ const ForgetPassword = () => {
                   onClick={() => handleLanguageChange("fr")}
                   className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
                 >
-                  {currentLanguage === "en"
+                  {language === "en"
                     ? "French"
-                    : currentLanguage === "ar"
+                    : language === "ar"
                       ? "الفرنسية"
-                      : currentLanguage === "fr"
+                      : language === "fr"
                         ? "Français"
                         : "French"}
                 </button>
@@ -145,23 +151,23 @@ const ForgetPassword = () => {
         <div className="gird items-center justify-center text-center">
           <div className="mb-10 grid">
             <h1 className="font-sans text-[28px] font-bold text-primary">
-              {currentLanguage === "ar"
+              {language === "ar"
                 ? "نسيت كلمة المرور"
-                : currentLanguage === "fr"
+                : language === "fr"
                   ? "Mot de passe oublié"
                   : "Forgot Password"}
             </h1>
             <p className="font-sans text-[20px] font-semibold text-secondary">
-              {currentLanguage === "ar"
+              {language === "ar"
                 ? "أدخل رقم هاتفك للحصول على رمز التحقق"
-                : currentLanguage === "fr"
+                : language === "fr"
                   ? "Entrez votre téléphone pour recevoir le code OTP"
                   : "Enter your phone to get OTP"}
             </p>
           </div>
           <div className="grid items-center justify-center">
             <form
-              dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+              dir={language === "ar" ? "rtl" : "ltr"}
               className="grid gap-10"
               onSubmit={handleSubmit(onSubmit)}
             >
@@ -169,18 +175,18 @@ const ForgetPassword = () => {
                 htmlFor="text"
                 className="grid text-start font-sans text-[18px] font-semibold text-textSecondary"
               >
-                {currentLanguage === "ar"
+                {language === "ar"
                   ? "اسم المستخدم | البريد الإلكتروني"
-                  : currentLanguage === "fr"
+                  : language === "fr"
                     ? "Nom d'utilisateur | Email"
                     : "Username | Email"}
                 <input
                   id="text"
                   {...register("username", { required: true })}
                   placeholder={
-                    currentLanguage === "ar"
+                    language === "ar"
                       ? "اسم المستخدم | البريد الإلكتروني"
-                      : currentLanguage === "fr"
+                      : language === "fr"
                         ? "Nom d'utilisateur | Email"
                         : "Username | Email"
                   }
@@ -189,9 +195,9 @@ const ForgetPassword = () => {
                 />
                 {errors.username && (
                   <span className="text-[13px] text-error">
-                    {currentLanguage === "ar"
+                    {language === "ar"
                       ? "البريد الإلكتروني مطلوب"
-                      : currentLanguage === "fr"
+                      : language === "fr"
                         ? "L'email est requis"
                         : "Email is Required"}
                   </span>
@@ -205,9 +211,9 @@ const ForgetPassword = () => {
                     type="submit"
                     className="w-[170px] rounded-xl bg-primary px-4 py-2 text-[18px] font-bold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                   >
-                    {currentLanguage === "ar"
+                    {language === "ar"
                       ? "رمز الاسترداد"
-                      : currentLanguage === "fr"
+                      : language === "fr"
                         ? "Code de récupération"
                         : "Recovery Code"}
                   </button>

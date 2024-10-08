@@ -10,11 +10,15 @@ import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useDispatch } from "react-redux";
-import { initializeLanguage, setLanguage } from "@/features/language/languageSlice";
+import {
+  initializeLanguage,
+  setLanguage,
+} from "@/features/language/languageSlice";
 import { useEffect } from "react";
 
 const ResetPassword = () => {
-  const { currentLanguage, loading } = useSelector((state: RootState) => state.language);
+  const { language, loading } = useSelector((state: RootState) => state.language);
+
   const dispatchLang = useDispatch();
   useEffect(() => {
     dispatchLang(initializeLanguage());
@@ -40,9 +44,9 @@ const ResetPassword = () => {
     try {
       await resetPassword({ code, email, password }).unwrap();
       toast.success(
-        currentLanguage === "ar"
+        language === "ar"
           ? "تمت إعادة تعيين كلمة المرور بنجاح"
-          : currentLanguage === "fr"
+          : language === "fr"
             ? "Mot de passe réinitialisé avec succès"
             : "Password Reset successfully",
       );
@@ -56,9 +60,11 @@ const ResetPassword = () => {
   };
 
   if (loading) {
-    return <div className="grid h-screen grid-cols-2 items-center bg-bgSecondary justify-center duration-300 ease-in max-[1040px]:grid-cols-1">
-    <Spinner />
-  </div>  
+    return (
+      <div className="grid h-screen grid-cols-2 items-center justify-center bg-bgSecondary duration-300 ease-in max-[1040px]:grid-cols-1">
+        <Spinner />
+      </div>
+    );
   }
   return (
     <>
@@ -69,11 +75,11 @@ const ResetPassword = () => {
               className="text-violet11 hover:bg-violet3 inline-flex h-[35px] w-[35px] items-center justify-center rounded-full bg-bgPrimary outline-none"
               aria-label="Customise options"
             >
-              {currentLanguage === "en" ? (
+              {language === "en" ? (
                 <img src="/images/en.png" alt="#" />
-              ) : currentLanguage === "ar" ? (
+              ) : language === "ar" ? (
                 <img src="/images/ar.png" alt="#" />
-              ) : currentLanguage === "fr" ? (
+              ) : language === "fr" ? (
                 <img src="/images/fr.png" alt="#" />
               ) : (
                 <img src="/images/fr.png" alt="#" />
@@ -90,11 +96,11 @@ const ResetPassword = () => {
                   onClick={() => handleLanguageChange("ar")}
                   className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
                 >
-                  {currentLanguage === "en"
+                  {language === "en"
                     ? "Arabic"
-                    : currentLanguage === "ar"
+                    : language === "ar"
                       ? "العربية"
-                      : currentLanguage === "fr"
+                      : language === "fr"
                         ? "Arabe"
                         : "Arabic"}
                 </button>
@@ -104,11 +110,11 @@ const ResetPassword = () => {
                   onClick={() => handleLanguageChange("en")}
                   className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
                 >
-                  {currentLanguage === "en"
+                  {language === "en"
                     ? "English"
-                    : currentLanguage === "ar"
+                    : language === "ar"
                       ? "الإنجليزية"
-                      : currentLanguage === "fr"
+                      : language === "fr"
                         ? "Anglais"
                         : "English"}
                 </button>
@@ -118,11 +124,11 @@ const ResetPassword = () => {
                   onClick={() => handleLanguageChange("fr")}
                   className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
                 >
-                  {currentLanguage === "en"
+                  {language === "en"
                     ? "French"
-                    : currentLanguage === "ar"
+                    : language === "ar"
                       ? "الفرنسية"
-                      : currentLanguage === "fr"
+                      : language === "fr"
                         ? "Français"
                         : "French"}
                 </button>
@@ -135,23 +141,23 @@ const ResetPassword = () => {
         <div className="gird items-center justify-center text-center">
           <div className="mb-10 grid">
             <h1 className="font-sans text-[28px] font-bold text-primary">
-              {currentLanguage === "ar"
+              {language === "ar"
                 ? "إعادة تعيين كلمة المرور"
-                : currentLanguage === "fr"
+                : language === "fr"
                   ? "Réinitialiser votre mot de passe"
                   : "Reset your password"}
             </h1>
             <p className="font-sans text-[20px] font-semibold text-secondary">
-              {currentLanguage === "ar"
+              {language === "ar"
                 ? "أدخل كلمة المرور الجديدة"
-                : currentLanguage === "fr"
+                : language === "fr"
                   ? "Entrez le nouveau mot de passe"
                   : "Enter new password"}
             </p>
           </div>
           <div className="grid items-center justify-center">
             <form
-              dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+              dir={language === "ar" ? "rtl" : "ltr"}
               className="grid gap-10"
               onSubmit={handleSubmit(onSubmit)}
             >
@@ -159,18 +165,18 @@ const ResetPassword = () => {
                 htmlFor="password"
                 className="grid text-start font-sans text-[18px] font-semibold text-textSecondary"
               >
-                {currentLanguage === "ar"
+                {language === "ar"
                   ? "كلمة المرور الجديدة"
-                  : currentLanguage === "fr"
+                  : language === "fr"
                     ? "Nouveau mot de passe"
                     : "New password"}
                 <input
                   {...register("password", { required: true })}
                   id="password"
                   placeholder={
-                    currentLanguage === "ar"
+                    language === "ar"
                       ? "أدخل كلمة المرور الجديدة الخاصة بك"
-                      : currentLanguage === "fr"
+                      : language === "fr"
                         ? "Entrez votre nouveau mot de passe"
                         : "Enter your new password"
                   }
@@ -179,9 +185,9 @@ const ResetPassword = () => {
                 />
                 {errors.username && (
                   <span className="text-[13px] text-error">
-                    {currentLanguage === "ar"
+                    {language === "ar"
                       ? "البريد الإلكتروني مطلوب"
-                      : currentLanguage === "fr"
+                      : language === "fr"
                         ? "L'email est requis"
                         : "Email is Required"}
                   </span>
@@ -195,9 +201,9 @@ const ResetPassword = () => {
                     type="submit"
                     className="w-fit rounded-xl bg-primary p-5 px-4 py-2 text-[18px] font-bold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                   >
-                    {currentLanguage === "ar"
+                    {language === "ar"
                       ? "إعادة تعيين كلمة المرور"
-                      : currentLanguage === "fr"
+                      : language === "fr"
                         ? "Réinitialiser le mot de passe"
                         : "Reset password"}
                   </button>

@@ -16,6 +16,8 @@ const ViewTeacher: React.FC<ViewTeacherProps> = ({ params }) => {
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
   );
+  const booleanValue = useSelector((state: RootState) => state.boolean.value);
+
   useEffect(() => {
     if (data) {
       console.log(data);
@@ -36,8 +38,15 @@ const ViewTeacher: React.FC<ViewTeacherProps> = ({ params }) => {
     <>
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className="grid py-4 lg:ml-[290px]"
-      >
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[40px]"
+              : "lg:mr-[290px]"
+            : booleanValue
+              ? "lg:ml-[40px]"
+              : "lg:ml-[290px]"
+        } grid py-4`}      >
         <div className="grid grid-cols-2 gap-7 pr-7 max-[1342px]:grid-cols-1 max-[1342px]:px-5">
           <TeacherInfo data={data} />
           <div className="grid h-[700px] items-center justify-center gap-10 rounded-xl bg-bgPrimary p-5">

@@ -14,10 +14,14 @@ import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useDispatch } from "react-redux";
-import { initializeLanguage, setLanguage } from "@/features/language/languageSlice";
+import {
+  initializeLanguage,
+  setLanguage,
+} from "@/features/language/languageSlice";
 
 const OTP = () => {
-  const { currentLanguage, loading } = useSelector((state: RootState) => state.language);
+  const { language, loading } = useSelector((state: RootState) => state.language);
+
   const dispatchLang = useDispatch();
   useEffect(() => {
     dispatchLang(initializeLanguage());
@@ -68,18 +72,18 @@ const OTP = () => {
       await sendOtp({ code, email }).unwrap();
       Cookie.set("otp", code);
       toast.success(
-        currentLanguage === "ar"
+        language === "ar"
           ? "تم التحقق من OTP بنجاح!"
-          : currentLanguage === "fr"
+          : language === "fr"
             ? "OTP vérifié avec succès !"
             : "OTP verified successfully!",
       );
       router.replace("/new-password");
     } catch (error) {
       toast.error(
-        currentLanguage === "ar"
+        language === "ar"
           ? "فشل في التحقق من OTP. يرجى المحاولة مرة أخرى."
-          : currentLanguage === "fr"
+          : language === "fr"
             ? "Échec de la vérification de l'OTP. Veuillez réessayer."
             : "Failed to verify OTP. Please try again.",
       );
@@ -90,9 +94,9 @@ const OTP = () => {
     const UserId = Cookie.get("userId");
     await selectAccount({ id: UserId, email: email }).unwrap();
     toast.success(
-      currentLanguage === "ar"
+      language === "ar"
         ? "تم إنشاء وإرسال بريد إعادة تعيين كلمة المرور بنجاح"
-        : currentLanguage === "fr"
+        : language === "fr"
           ? "Email de réinitialisation du mot de passe généré et envoyé avec succès"
           : "Reset password email generated and sent successfully",
     );
@@ -105,9 +109,11 @@ const OTP = () => {
   };
 
   if (loading) {
-    return <div className="grid h-screen grid-cols-2 items-center bg-bgSecondary justify-center duration-300 ease-in max-[1040px]:grid-cols-1">
-    <Spinner />
-  </div>  
+    return (
+      <div className="grid h-screen grid-cols-2 items-center justify-center bg-bgSecondary duration-300 ease-in max-[1040px]:grid-cols-1">
+        <Spinner />
+      </div>
+    );
   }
 
   return (
@@ -119,11 +125,11 @@ const OTP = () => {
               className="text-violet11 hover:bg-violet3 inline-flex h-[35px] w-[35px] items-center justify-center rounded-full bg-bgPrimary outline-none"
               aria-label="Customise options"
             >
-              {currentLanguage === "en" ? (
+              {language === "en" ? (
                 <img src="/images/en.png" alt="#" />
-              ) : currentLanguage === "ar" ? (
+              ) : language === "ar" ? (
                 <img src="/images/ar.png" alt="#" />
-              ) : currentLanguage === "fr" ? (
+              ) : language === "fr" ? (
                 <img src="/images/fr.png" alt="#" />
               ) : (
                 <img src="/images/fr.png" alt="#" />
@@ -140,11 +146,11 @@ const OTP = () => {
                   onClick={() => handleLanguageChange("ar")}
                   className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
                 >
-                  {currentLanguage === "en"
+                  {language === "en"
                     ? "Arabic"
-                    : currentLanguage === "ar"
+                    : language === "ar"
                       ? "العربية"
-                      : currentLanguage === "fr"
+                      : language === "fr"
                         ? "Arabe"
                         : "Arabic"}
                 </button>
@@ -154,11 +160,11 @@ const OTP = () => {
                   onClick={() => handleLanguageChange("en")}
                   className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
                 >
-                  {currentLanguage === "en"
+                  {language === "en"
                     ? "English"
-                    : currentLanguage === "ar"
+                    : language === "ar"
                       ? "الإنجليزية"
-                      : currentLanguage === "fr"
+                      : language === "fr"
                         ? "Anglais"
                         : "English"}
                 </button>
@@ -168,11 +174,11 @@ const OTP = () => {
                   onClick={() => handleLanguageChange("fr")}
                   className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
                 >
-                  {currentLanguage === "en"
+                  {language === "en"
                     ? "French"
-                    : currentLanguage === "ar"
+                    : language === "ar"
                       ? "الفرنسية"
-                      : currentLanguage === "fr"
+                      : language === "fr"
                         ? "Français"
                         : "French"}
                 </button>
@@ -185,23 +191,23 @@ const OTP = () => {
         <div className="grid items-center justify-center text-center">
           <div className="mb-10 grid">
             <h1 className="font-sans text-[28px] font-bold text-primary">
-              {currentLanguage === "ar"
+              {language === "ar"
                 ? "تحقق من بريدك الإلكتروني"
-                : currentLanguage === "fr"
+                : language === "fr"
                   ? "Vérifiez votre email"
                   : "Check your Email"}
             </h1>
             <p className="font-sans text-[20px] font-semibold text-secondary">
-              {currentLanguage === "ar"
+              {language === "ar"
                 ? `تم إرسال رمز التحقق إلى ${email}`
-                : currentLanguage === "fr"
+                : language === "fr"
                   ? `Le code OTP a été envoyé à ${email}`
                   : `OTP code has been sent to ${email}`}
             </p>
           </div>
           <div className="grid items-center justify-center">
             <form
-              dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+              dir={language === "ar" ? "rtl" : "ltr"}
               id="otp-form"
               onSubmit={handleSubmit}
             >
@@ -228,9 +234,9 @@ const OTP = () => {
                     type="submit"
                     className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] font-bold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                   >
-                    {currentLanguage === "ar"
+                    {language === "ar"
                       ? "تحقق"
-                      : currentLanguage === "fr"
+                      : language === "fr"
                         ? "Vérifier"
                         : "Verify"}
                   </button>
@@ -243,9 +249,9 @@ const OTP = () => {
                     type="button"
                     className="w-[140px] rounded-xl border-2 border-primary px-4 py-2 text-[18px] font-bold text-primary duration-300 ease-in hover:shadow-xl"
                   >
-                    {currentLanguage === "ar"
+                    {language === "ar"
                       ? "أرسل مرة أخرى"
-                      : currentLanguage === "fr"
+                      : language === "fr"
                         ? "Envoyer à nouveau"
                         : "Send Again"}
                   </button>

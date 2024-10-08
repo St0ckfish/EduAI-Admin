@@ -12,13 +12,17 @@ import { useRouter } from "next/navigation";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
-import { initializeLanguage, setLanguage } from "@/features/language/languageSlice";
+import {
+  initializeLanguage,
+  setLanguage,
+} from "@/features/language/languageSlice";
 import { useTheme } from "next-themes";
 import { FiSun, FiMoon } from "react-icons/fi";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 
 const NavBar = () => {
-  const { currentLanguage, loading } = useSelector((state: RootState) => state.language);
+  const { language, loading } = useSelector((state: RootState) => state.language);
+  
   const dispatchLang = useDispatch();
   useEffect(() => {
     dispatchLang(initializeLanguage());
@@ -132,26 +136,25 @@ const NavBar = () => {
     Cookie.remove("token");
   };
 
-  
-
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   const handleLanguageChange = (language: any) => {
-    console.log(currentLanguage);
+    console.log(language);
     dispatch2(setLanguage(language));
   };
 
   if (loading) {
-    return <></>; 
+    return <></>;
   }
 
   return (
     <>
       <header>
         <div>
-          <header 
-            dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-            className={`${booleanValue ? "lg:ps-24" : " lg:ps-64"} sticky inset-x-0 top-0 z-[48] flex w-full flex-wrap border-b border-borderPrimary bg-bgPrimary py-2.5 text-sm dark:border-borderPrimary sm:flex-nowrap sm:justify-start sm:py-4`}>
+          <header
+            dir={language === "ar" ? "rtl" : "ltr"}
+            className={`${booleanValue ? "lg:ps-24" : "lg:ps-64"} sticky inset-x-0 top-0 z-[48] flex w-full flex-wrap border-b border-borderPrimary bg-bgPrimary py-2.5 text-sm dark:border-borderPrimary sm:flex-nowrap sm:justify-start sm:py-4`}
+          >
             <nav
               className="mx-auto flex w-full basis-full items-center px-4 sm:px-6"
               aria-label="Global"
@@ -218,9 +221,9 @@ const NavBar = () => {
                       name="icon"
                       className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-primary focus:ring-primary disabled:pointer-events-none disabled:opacity-50"
                       placeholder={
-                        currentLanguage === "en"
+                        language === "en"
                           ? "Search"
-                          : currentLanguage === "ar"
+                          : language === "ar"
                             ? "بحث"
                             : "Recherche"
                       }
@@ -296,11 +299,11 @@ const NavBar = () => {
                         className="text-violet11 hover:bg-violet3 inline-flex h-[35px] w-[35px] items-center justify-center rounded-full bg-bgPrimary outline-none"
                         aria-label="Customise options"
                       >
-                        {currentLanguage === "en" ? (
+                        {language === "en" ? (
                           <img src="/images/en.png" alt="#" />
-                        ) : currentLanguage === "ar" ? (
+                        ) : language === "ar" ? (
                           <img src="/images/ar.png" alt="#" />
-                        ) : currentLanguage === "fr" ? (
+                        ) : language === "fr" ? (
                           <img src="/images/fr.png" alt="#" />
                         ) : (
                           <img src="/images/fr.png" alt="#" />
@@ -317,11 +320,11 @@ const NavBar = () => {
                             onClick={() => handleLanguageChange("ar")}
                             className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
                           >
-                            {currentLanguage === "en"
+                            {language === "en"
                               ? "Arabic"
-                              : currentLanguage === "ar"
+                              : language === "ar"
                                 ? "العربية"
-                                : currentLanguage === "fr"
+                                : language === "fr"
                                   ? "Arabe"
                                   : "Arabic"}
                           </button>
@@ -331,11 +334,11 @@ const NavBar = () => {
                             onClick={() => handleLanguageChange("en")}
                             className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
                           >
-                            {currentLanguage === "en"
+                            {language === "en"
                               ? "English"
-                              : currentLanguage === "ar"
+                              : language === "ar"
                                 ? "الإنجليزية"
-                                : currentLanguage === "fr"
+                                : language === "fr"
                                   ? "Anglais"
                                   : "English"}
                           </button>
@@ -345,11 +348,11 @@ const NavBar = () => {
                             onClick={() => handleLanguageChange("fr")}
                             className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
                           >
-                            {currentLanguage === "en"
+                            {language === "en"
                               ? "French"
-                              : currentLanguage === "ar"
+                              : language === "ar"
                                 ? "الفرنسية"
-                                : currentLanguage === "fr"
+                                : language === "fr"
                                   ? "Français"
                                   : "French"}
                           </button>
@@ -391,18 +394,18 @@ const NavBar = () => {
 
                       {profile && (
                         <DropdownMenu.Content
-                          className={` ${currentLanguage === "ar" ? "left-[20px]" : "right-[20px]"} fixed top-[20px] min-w-60 rounded-lg bg-bgPrimary p-2 text-textPrimary shadow-md`}
+                          className={` ${language === "ar" ? "left-[20px]" : "right-[20px]"} fixed top-[20px] min-w-60 rounded-lg bg-bgPrimary p-2 text-textPrimary shadow-md`}
                           aria-labelledby="hs-dropdown-with-header"
                           align="end"
                           sideOffset={5}
                         >
                           <div className="rounded-t-lg bg-bgPrimary px-5 py-3">
                             <p className="text-sm text-textPrimary">
-                              {currentLanguage === "en"
+                              {language === "en"
                                 ? "Signed in as"
-                                : currentLanguage === "ar"
+                                : language === "ar"
                                   ? "مسجل الدخول باسم"
-                                  : currentLanguage === "fr"
+                                  : language === "fr"
                                     ? "Connecté en tant que"
                                     : "Signed in as"}
                             </p>
@@ -433,11 +436,11 @@ const NavBar = () => {
                                   <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
                                   <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                                 </svg>
-                                {currentLanguage === "en"
+                                {language === "en"
                                   ? "Profile"
-                                  : currentLanguage === "ar"
+                                  : language === "ar"
                                     ? "الملف الشخصي"
-                                    : currentLanguage === "fr"
+                                    : language === "fr"
                                       ? "Profil"
                                       : "Profile"}
                               </Link>
@@ -448,11 +451,11 @@ const NavBar = () => {
                                 className="flex items-center gap-x-3.5 rounded-lg border-none px-3 py-2 text-sm text-textPrimary outline-none hover:bg-error hover:text-white"
                                 href="/login"
                               >
-                                {currentLanguage === "en"
+                                {language === "en"
                                   ? "Sign out"
-                                  : currentLanguage === "ar"
+                                  : language === "ar"
                                     ? "تسجيل الخروج"
-                                    : currentLanguage === "fr"
+                                    : language === "fr"
                                       ? "Déconnexion"
                                       : "Sign out"}
                               </a>
@@ -467,22 +470,24 @@ const NavBar = () => {
             </nav>
           </header>
           <div
-          dir={currentLanguage === "ar" ? "rtl" : "ltr"}  
-          className="sticky inset-x-0 top-0 z-20 border-y border-borderPrimary bg-bgPrimary px-4 sm:px-6 md:px-8 lg:hidden">
+            dir={language === "ar" ? "rtl" : "ltr"}
+            className="sticky inset-x-0 top-0 z-20 border-y border-borderPrimary bg-bgPrimary px-4 sm:px-6 md:px-8 lg:hidden"
+          >
             <div className="flex items-center justify-between py-2">
               <ol className="ms-3 flex items-center whitespace-nowrap">
                 <li className="flex items-center text-sm text-textPrimary">
-                  {currentLanguage === "ar"
-            ? "تخطيط التطبيق"
-            : currentLanguage === "fr"
-            ? "Mise en page de l'application"
-            : "Application Layout"}
+                  {language === "ar"
+                    ? "تخطيط التطبيق"
+                    : language === "fr"
+                      ? "Mise en page de l'application"
+                      : "Application Layout"}
 
-            {currentLanguage === "ar" ? 
-              <MdNavigateBefore size={25} className="text-gray-400" />
-            : <MdNavigateNext size={25} className="text-gray-400" />}
-
-              </li>
+                  {language === "ar" ? (
+                    <MdNavigateBefore size={25} className="text-gray-400" />
+                  ) : (
+                    <MdNavigateNext size={25} className="text-gray-400" />
+                  )}
+                </li>
               </ol>
 
               <button
@@ -515,7 +520,7 @@ const NavBar = () => {
           </div>
           {isOpen && (
             <div
-              dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+              dir={language === "ar" ? "rtl" : "ltr"}
               id="application-sidebar"
               className={`hs-overlay hs-overlay-open:translate-x-0 transform transition-all duration-300 [--auto-close:lg] ${small ? "w-[90px]" : "w-[260px]"} drop-shadow-2xl lg:drop-shadow-none ${!isOpen ? "w-0" : ""} fixed inset-y-0 start-0 z-[60] border-e border-borderPrimary bg-bgPrimary duration-300 ease-in lg:bottom-0 lg:end-auto lg:block lg:translate-x-0`}
             >
@@ -529,7 +534,7 @@ const NavBar = () => {
                     />
                   ) : (
                     <img
-                      className="w-[150px] -translate-7 translate-y-3"
+                      className="-translate-7 w-[150px] translate-y-3"
                       src="/images/logo.png"
                       alt="Logo"
                     />
@@ -618,11 +623,11 @@ const NavBar = () => {
                       </svg>
                       {!small && (
                         <p>
-                          {currentLanguage === "en"
+                          {language === "en"
                             ? "Dashboard"
-                            : currentLanguage === "ar"
+                            : language === "ar"
                               ? "لوحة القيادة"
-                              : currentLanguage === "fr"
+                              : language === "fr"
                                 ? "Tableau de bord"
                                 : "Dashboard"}
                         </p>
@@ -649,11 +654,11 @@ const NavBar = () => {
                       </svg>
                       {!small && (
                         <p>
-                          {currentLanguage === "en"
+                          {language === "en"
                             ? "Search"
-                            : currentLanguage === "ar"
+                            : language === "ar"
                               ? "البحث"
-                              : currentLanguage === "fr"
+                              : language === "fr"
                                 ? "Recherche"
                                 : "Recherche"}
                         </p>
@@ -683,11 +688,11 @@ const NavBar = () => {
                       </svg>
                       {!small && (
                         <p>
-                          {currentLanguage === "en"
+                          {language === "en"
                             ? "Administration"
-                            : currentLanguage === "ar"
+                            : language === "ar"
                               ? "إدارة"
-                              : currentLanguage === "fr"
+                              : language === "fr"
                                 ? "Administration"
                                 : "Administration"}
                         </p>
@@ -701,11 +706,11 @@ const NavBar = () => {
                           className="hover:text-primary"
                           href="/user-management"
                         >
-                          {currentLanguage === "en"
+                          {language === "en"
                             ? "User Management"
-                            : currentLanguage === "ar"
+                            : language === "ar"
                               ? "إدارة المستخدمين"
-                              : currentLanguage === "fr"
+                              : language === "fr"
                                 ? "Gestion des utilisateurs"
                                 : "User Management"}{" "}
                           {/* Default to English */}
@@ -715,11 +720,11 @@ const NavBar = () => {
                           className="hover:text-primary"
                           href="/financial-management"
                         >
-                          {currentLanguage === "en"
+                          {language === "en"
                             ? "Financial Management"
-                            : currentLanguage === "ar"
+                            : language === "ar"
                               ? "الإدارة المالية"
-                              : currentLanguage === "fr"
+                              : language === "fr"
                                 ? "Gestion financière"
                                 : "Financial Management"}{" "}
                           {/* Default to English */}
@@ -729,11 +734,11 @@ const NavBar = () => {
                           className="hover:text-primary"
                           href="/organization-setting"
                         >
-                          {currentLanguage === "en"
+                          {language === "en"
                             ? "Organization Settings"
-                            : currentLanguage === "ar"
+                            : language === "ar"
                               ? "إعدادات المنظمة"
-                              : currentLanguage === "fr"
+                              : language === "fr"
                                 ? "Paramètres org."
                                 : "Organization Setting"}{" "}
                           {/* Default to English */}
@@ -743,22 +748,22 @@ const NavBar = () => {
                           className="hover:text-primary"
                           href="/document-management"
                         >
-                          {currentLanguage === "en"
+                          {language === "en"
                             ? "Document Management"
-                            : currentLanguage === "ar"
+                            : language === "ar"
                               ? "إدارة المستندات"
-                              : currentLanguage === "fr"
+                              : language === "fr"
                                 ? "Gestion des documents"
                                 : "Document Management"}{" "}
                           {/* Default to English */}
                         </Link>
 
                         <Link className="hover:text-primary" href="/archive">
-                          {currentLanguage === "en"
+                          {language === "en"
                             ? "Archive"
-                            : currentLanguage === "ar"
+                            : language === "ar"
                               ? "الأرشيف"
-                              : currentLanguage === "fr"
+                              : language === "fr"
                                 ? "Archives"
                                 : "Archive"}{" "}
                           {/* Default to English */}
@@ -786,11 +791,11 @@ const NavBar = () => {
                       </svg>
                       {!small && (
                         <p>
-                          {currentLanguage === "en"
+                          {language === "en"
                             ? "Insight"
-                            : currentLanguage === "ar"
+                            : language === "ar"
                               ? " بصيرة"
-                              : currentLanguage === "fr"
+                              : language === "fr"
                                 ? "Aperçu"
                                 : "Insight"}
                         </p>
@@ -826,11 +831,11 @@ const NavBar = () => {
                       </svg>
                       {!small && (
                         <p>
-                          {currentLanguage === "en"
+                          {language === "en"
                             ? "Academic"
-                            : currentLanguage === "ar"
+                            : language === "ar"
                               ? "أكاديمي"
-                              : currentLanguage === "fr"
+                              : language === "fr"
                                 ? "Académique"
                                 : "Académique"}
                         </p>
@@ -841,11 +846,11 @@ const NavBar = () => {
                         className={`${small ? "hidden w-fit translate-x-5 whitespace-nowrap rounded-xl bg-bgPrimary p-2 group-hover:grid" : ""} mx-9 mt-2 grid gap-2 text-[14px] font-semibold`}
                       >
                         <Link className="hover:text-primary" href="/course">
-                          {currentLanguage === "en"
+                          {language === "en"
                             ? "Course and Resource"
-                            : currentLanguage === "ar"
+                            : language === "ar"
                               ? "الدورات والموارد"
-                              : currentLanguage === "fr"
+                              : language === "fr"
                                 ? "Cours et Ressources"
                                 : "Course and Resource"}{" "}
                           {/* Default to English */}
@@ -855,11 +860,11 @@ const NavBar = () => {
                           className="hover:text-primary"
                           href="/educational-affairs"
                         >
-                          {currentLanguage === "en"
+                          {language === "en"
                             ? "Educational Affairs"
-                            : currentLanguage === "ar"
+                            : language === "ar"
                               ? "الشؤون التعليمية"
-                              : currentLanguage === "fr"
+                              : language === "fr"
                                 ? "Gestion pédagogique"
                                 : "Educational Affairs"}{" "}
                           {/* Default to English */}
@@ -889,11 +894,11 @@ const NavBar = () => {
 
                       {!small && (
                         <p>
-                          {currentLanguage === "en"
+                          {language === "en"
                             ? "Operations"
-                            : currentLanguage === "ar"
+                            : language === "ar"
                               ? "العمليات"
-                              : currentLanguage === "fr"
+                              : language === "fr"
                                 ? "Opérations"
                                 : "Opérations"}
                         </p>
@@ -907,11 +912,11 @@ const NavBar = () => {
                           className="hover:text-primary"
                           href="/infrastructure"
                         >
-                          {currentLanguage === "en"
+                          {language === "en"
                             ? "Infrastructure"
-                            : currentLanguage === "ar"
+                            : language === "ar"
                               ? "البنية التحتية"
-                              : currentLanguage === "fr"
+                              : language === "fr"
                                 ? "Infrastructure"
                                 : "Infrastructure"}{" "}
                           {/* Default to English */}
@@ -921,11 +926,11 @@ const NavBar = () => {
                           className="hover:text-primary"
                           href="/attendances"
                         >
-                          {currentLanguage === "en"
+                          {language === "en"
                             ? "Attendance/Leave"
-                            : currentLanguage === "ar"
+                            : language === "ar"
                               ? "الحضور / الإجازة"
-                              : currentLanguage === "fr"
+                              : language === "fr"
                                 ? "Présence/Absence"
                                 : "Attendance/Leave"}{" "}
                           {/* Default to English */}
@@ -953,11 +958,11 @@ const NavBar = () => {
                       </svg>
                       {!small && (
                         <p>
-                          {currentLanguage === "en"
+                          {language === "en"
                             ? "Communication"
-                            : currentLanguage === "ar"
+                            : language === "ar"
                               ? "التواصل"
-                              : currentLanguage === "fr"
+                              : language === "fr"
                                 ? "Communication"
                                 : "Communication"}
                         </p>
@@ -971,11 +976,11 @@ const NavBar = () => {
                           className="hover:text-primary"
                           href="/post-management/news"
                         >
-                          {currentLanguage === "en"
+                          {language === "en"
                             ? "News"
-                            : currentLanguage === "ar"
+                            : language === "ar"
                               ? "الأخبار"
-                              : currentLanguage === "fr"
+                              : language === "fr"
                                 ? "Nouvelles"
                                 : "News"}{" "}
                           {/* Default to English */}
@@ -985,22 +990,22 @@ const NavBar = () => {
                           className="hover:text-primary"
                           href="/post-management"
                         >
-                          {currentLanguage === "en"
+                          {language === "en"
                             ? "Post Management"
-                            : currentLanguage === "ar"
+                            : language === "ar"
                               ? "إدارة المشاركات"
-                              : currentLanguage === "fr"
+                              : language === "fr"
                                 ? "Gestion des publications"
                                 : "Post Management"}{" "}
                           {/* Default to English */}
                         </Link>
 
                         <Link className="hover:text-primary" href="/notifies">
-                          {currentLanguage === "en"
+                          {language === "en"
                             ? "Notifies"
-                            : currentLanguage === "ar"
+                            : language === "ar"
                               ? "الإشعارات"
-                              : currentLanguage === "fr"
+                              : language === "fr"
                                 ? "Notifications"
                                 : "Notifies"}{" "}
                           {/* Default to English */}

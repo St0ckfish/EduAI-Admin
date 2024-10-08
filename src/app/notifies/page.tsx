@@ -72,6 +72,7 @@ const Notifies = () => {
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
   );
+  const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   if (isLoading)
     return (
@@ -85,7 +86,15 @@ const Notifies = () => {
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className="mt-12 lg:ml-[290px]"
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[40px]"
+              : "lg:mr-[290px]"
+            : booleanValue
+              ? "lg:ml-[40px]"
+              : "lg:ml-[290px]"
+        } mt-12`}
       >
         <div className="flex justify-end">
           <Link

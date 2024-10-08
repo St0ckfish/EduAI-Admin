@@ -121,7 +121,16 @@ const Budget = () => {
 
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`${booleanValue ? "lg:ml-[120px]" : "lg:ml-[290px]"} mt-12 grid justify-center`}
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[120px]"
+              : "lg:mr-[290px]"
+            : booleanValue
+              ? "lg:ml-[120px]"
+              : "lg:ml-[290px]"
+        } mt-12 grid justify-center`}
+        
       >
         <div className="mb-5 flex justify-center gap-2 max-[840px]:grid">
           <div className="grid gap-16 max-[840px]:flex max-[840px]:gap-2">
