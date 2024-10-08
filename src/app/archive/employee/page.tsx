@@ -74,7 +74,7 @@ const ArchiveEmployee = () => {
       }).unwrap();
       toast.success(`Employee with ID ${id} unLocked successfully`);
       void refetch();
-    } catch (err) {
+    } catch {
       toast.error("Failed to unlock the Employee");
     }
   };

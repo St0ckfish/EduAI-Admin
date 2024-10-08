@@ -7,8 +7,11 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import { useGetAllTeachersQuery } from "@/features/User-Management/teacherApi";
 
 const AddExam = () => {
+  type Teacher = Record<string, any>;
+
   const breadcrumbs = [
     {
       nameEn: "Administration",
@@ -48,6 +51,11 @@ const AddExam = () => {
     formState: { errors },
   } = useForm();
   const [createExam, { isLoading }] = useCreateExamsMutation();
+  const { data,isLoading: isTeacher } = useGetAllTeachersQuery({
+    archived: "false",
+    page: 0,
+    size: 1000000,
+  });
 
   const onSubmit = async (data: any) => {
     try {
@@ -57,7 +65,12 @@ const AddExam = () => {
       toast.error("Failed to create Exam");
     }
   };
-
+  if (isTeacher)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
@@ -175,14 +188,22 @@ const AddExam = () => {
                     : currentLanguage === "fr"
                       ? "ID d'inscription au cours du professeur"
                       : "Teacher Course Registration ID"}{" "}
-                <input
+                <select
                   id="teacherCourseRegistrationId"
-                  {...register("teacherCourseRegistrationId", {
-                    required: true,
-                  })}
-                  type="number"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                />
+                  {...register("teacherCourseRegistrationId", { required: true })}
+                >
+                  <option selected value="">
+                    Select Teacher
+                  </option>
+                  {
+                    data?.data.content.map((teacher: Teacher) => (
+                      <option key={teacher.id} value={teacher.id}>
+                        {teacher.name}
+                      </option>
+                    ))
+                  }
+                </select>
                 {errors.teacherCourseRegistrationId && (
                   <span className="text-error">
                     {currentLanguage === "en"

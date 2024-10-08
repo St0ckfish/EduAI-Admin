@@ -8,6 +8,34 @@ import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 
 const AddClass = () => {
+  const studyLevels = {
+    "GRADE12": "الصف 12",
+    "GRADE9": "الصف 9",
+    "GRADE7": "الصف 7",
+    "GRADE8": "الصف 8",
+    "GRADE11": "الصف 11",
+    "GRADE10": "الصف 10",
+    "GRADE1": "الصف 1",
+    "GRADE2": "الصف 2",
+    "KG1": "روضة أطفال 1",
+    "GRADE5": "الصف 5",
+    "GRADE6": "الصف 6",
+    "GRADE3": "الصف 3",
+    "KG2": "روضة أطفال 2",
+    "GRADE4": "الصف 4"
+  };
+  const studyCategories = {
+    "KINDERGARTEN": "روضة أطفال",
+    "SECONDARY": "السنة الثانوية",
+    "PRIMARY": "السنة الابتدائية",
+    "PREPARATORY": "السنة الاعدادية"
+  };
+  const jobCategories = {
+    "EDUCATIONAL": "التعليمية",
+    "ADMINISTRATIVE": "إداري",
+    "SPECIALIZED": "متخصص",
+    "FACILITIES_SERVICES": "خدمة المرافق"
+  }
   const breadcrumbs = [
     {
       nameEn: "Dashboard",
@@ -43,7 +71,7 @@ const AddClass = () => {
     try {
       await createDriver(data).unwrap();
       toast.success("Class created successfully");
-    } catch (err) {
+    } catch {
       toast.error("Failed to create Class: you may enter data incorrectly ");
     }
   };
@@ -180,12 +208,27 @@ const AddClass = () => {
                   : currentLanguage === "fr"
                     ? "Type"
                     : "Type"}
-                <input
+                <select
                   id="type"
-                  type="text"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("type", { required: true })}
-                />
+                >
+                  <option selected value="">
+                    {currentLanguage === "en"
+                      ? "Select Job Category"
+                      : currentLanguage === "ar"
+                        ? "اختر فئة الوظيفة"
+                        : currentLanguage === "fr"
+                          ? "Sélectionner la catégorie d'emploi"
+                          : "Select Job Category"}
+                  </option>
+
+                  {Object.entries(jobCategories).map(([value, label]) => (
+                    <option key={value} value={value}>
+                      {label}
+                    </option>
+                  ))}
+                </select>
                 {errors.type && (
                   <span className="text-error">
                     {currentLanguage === "ar"
@@ -212,31 +255,6 @@ const AddClass = () => {
                   {...register("maxCapacity", { required: true })}
                 />
                 {errors.maxCapacity && (
-                  <span className="text-error">
-                    {currentLanguage === "ar"
-                      ? "هذا الحقل مطلوب"
-                      : currentLanguage === "fr"
-                        ? "Ce champ est requis"
-                        : "This field is required"}
-                  </span>
-                )}
-              </label>
-              <label
-                htmlFor="schoolId"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "ar"
-                  ? "معرف المدرسة"
-                  : currentLanguage === "fr"
-                    ? "ID de l'école"
-                    : "School Id"}
-                <input
-                  id="schoolId"
-                  type="number"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("schoolId", { required: true })}
-                />
-                {errors.schoolId && (
                   <span className="text-error">
                     {currentLanguage === "ar"
                       ? "هذا الحقل مطلوب"
@@ -305,12 +323,27 @@ const AddClass = () => {
                   : currentLanguage === "fr"
                     ? "Niveau d'étude de la salle"
                     : "Classroom Study Level"}
-                <input
+                <select
                   id="classroomStudyLevel"
-                  type="text"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("classroomStudyLevel", { required: true })}
-                />
+                >
+                  <option selected value="">
+                    {currentLanguage === "en"
+                      ? "Select Study Level"
+                      : currentLanguage === "ar"
+                        ? "اختر المستوى الدراسي"
+                        : currentLanguage === "fr"
+                          ? "Sélectionner le niveau d'étude"
+                          : "Select Study Level"}
+                  </option>
+
+                  {Object.entries(studyLevels).map(([value, label]) => (
+                    <option key={value} value={value}>
+                      {label}
+                    </option>
+                  ))}
+                </select>
                 {errors.classroomStudyLevel && (
                   <span className="text-error">
                     {currentLanguage === "ar"
@@ -330,12 +363,27 @@ const AddClass = () => {
                   : currentLanguage === "fr"
                     ? "Étape d'étude de la salle"
                     : "Classroom Study Stage"}
-                <input
+                <select
                   id="classroomStudyStage"
-                  type="text"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("classroomStudyStage", { required: true })}
-                />
+                >
+                  <option selected value="">
+                    {currentLanguage === "en"
+                      ? "Select Study Category"
+                      : currentLanguage === "ar"
+                        ? "اختر فئة الدراسة"
+                        : currentLanguage === "fr"
+                          ? "Sélectionner la catégorie d'étude"
+                          : "Select Study Category"}
+                  </option>
+
+                  {Object.entries(studyCategories).map(([value, label]) => (
+                    <option key={value} value={value}>
+                      {label}
+                    </option>
+                  ))}
+                </select>
                 {errors.classroomStudyStage && (
                   <span className="text-error">
                     {currentLanguage === "ar"
@@ -361,10 +409,10 @@ const AddClass = () => {
                       ? "Ajout en cours..."
                       : "Adding..."
                   : currentLanguage === "ar"
-                    ? "تعديل الفصل"
+                    ? "اضافة الفصل"
                     : currentLanguage === "fr"
-                      ? "Modifier la classe"
-                      : "Edit Class"}
+                      ? "ajouter la classe"
+                      : "Add Class"}
               </button>
             </div>
           </div>

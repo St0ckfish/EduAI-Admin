@@ -36,7 +36,7 @@ const Bus = () => {
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
   );
-  const { data, error, isLoading, refetch } = useGetAllBussQuery(null);
+  const { data, error, isLoading, refetch } = useGetAllBussQuery("1");
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const [search, setSearch] = useState("");
 

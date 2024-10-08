@@ -1,14 +1,18 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
+/* eslint-disable @next/next/no-img-element */
 import Spinner from "@/components/spinner";
-import { useGetAllEmployeePermissionsQuery } from "@/features/Organization-Setteings/employeePermissionApi";
+import {
+  useGetAllBussQuery,
+  useDeleteBussMutation,
+} from "@/features/Infrastructure/busApi";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
+import { toast } from "react-toastify";
 import BreadCrumbs from "@/components/BreadCrumbs";
 
-const EmployeePermission = () => {
+const Bus = () => {
   const breadcrumbs = [
     {
       nameEn: "Administration",
@@ -17,31 +21,58 @@ const EmployeePermission = () => {
       href: "/",
     },
     {
-      nameEn: "Organization Settings",
-      nameAr: "إعدادات المنظمة",
-      nameFr: "Paramètres org",
-      href: "/organization-setting",
+      nameEn: "Archive",
+      nameAr: "الأرشيف",
+      nameFr: "Archives",
+      href: "/archive",
     },
     {
-      nameEn: "Employee Permissions",
-      nameAr: "صلاحيات العامل",
-      nameFr: "Employee Permissions",
-      href: "/organization-setting/permissions/employee-permission",
+      nameEn: "Bus",
+      nameAr: "المكتبة",
+      nameFr: "Autobus",
+      href: "/archive/bus",
     },
   ];
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language,
   );
+  const { data, error, isLoading, refetch } = useGetAllBussQuery("0");
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-  type EmployeePermission = Record<string, any>;
   const [search, setSearch] = useState("");
-  const { data, error, isLoading } = useGetAllEmployeePermissionsQuery(null);
-  const [selectAll, setSelectAll] = useState(false);
 
   useEffect(() => {
     if (data) console.log("Response Data:", data);
     if (error) console.log("Error:", error);
   }, [data, error]);
+
+  const [deleteBuses] = useDeleteBussMutation();
+  type Bus = Record<string, any>;
+
+  const handleDelete = async (id: number) => {
+    console.log(id);
+    try {
+      await deleteBuses(id).unwrap();
+
+      toast.success(`Bus with ID ${id} Deleted successfully`);
+      void refetch();
+    } catch {
+      toast.error("Failed to Delete the Bus");
+    }
+  };
+
+  const formatTransactionDate = (dateString: string | number | Date) => {
+    if (!dateString) return "No transaction date";
+    const formatter = new Intl.DateTimeFormat("en-EG", {
+      timeZone: "Asia/Riyadh",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour12: false,
+    });
+    return formatter.format(new Date(dateString));
+  };
+
+  const [selectAll, setSelectAll] = useState(false);
 
   const handleSelectAll = () => {
     setSelectAll(!selectAll);
@@ -90,22 +121,14 @@ const EmployeePermission = () => {
         <Spinner />
       </div>
     );
+
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`${
-          currentLanguage === "ar"
-            ? booleanValue
-              ? "lg:mr-[100px]"
-              : "lg:mr-[270px]"
-            : booleanValue
-              ? "lg:ml-[100px]"
-              : "lg:ml-[270px]"
-        } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
+        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
-        
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">
             <label htmlFor="icon" className="sr-only">
@@ -134,7 +157,7 @@ const EmployeePermission = () => {
                 type="text"
                 id="icon"
                 name="icon"
-                className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-primary focus:ring-primary disabled:pointer-events-none disabled:opacity-50"
+                className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
                 placeholder={
                   currentLanguage === "en"
                     ? "Search"
@@ -147,80 +170,65 @@ const EmployeePermission = () => {
           </div>
           <div className="flex justify-center">
             <Link
-              href="/organization-setting/permissions/add/employee"
-              className="mb-5 mr-3 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+              href="/add-new-bus"
+              className="mb-5 mr-3 w-[210px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               {currentLanguage === "ar"
-                ? "+ إضافة صلاحيات الموظفين"
+                ? "+ إضافة حافلة جديدة"
                 : currentLanguage === "fr"
-                  ? "+ Ajouter des autorisations d'employé"
-                  : "+ Add Employee Permissions"}
+                  ? "+ Ajouter un nouveau bus"
+                  : "+ Add New Bus"}
             </Link>
           </div>
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
-          <table className="w-full overflow-x-auto text-left text-sm text-textSecondary rtl:text-right">
+          <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
             <thead className="bg-thead text-xs uppercase text-textPrimary">
               <tr>
                 <th scope="col" className="p-4">
                   <div className="flex items-center">
-                    {/* Add event listener for select all checkbox */}
                     <input
                       id="checkbox-all-search"
                       type="checkbox"
-                      className="-gray-800 h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-primary"
+                      className="-gray-800 h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500"
                       onChange={handleSelectAll}
                     />
                   </div>
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "ar"
-                    ? "الاسم"
+                    ? "رقم الحافلة"
                     : currentLanguage === "fr"
-                      ? "Nom"
-                      : "Name"}
+                      ? "Numéro de bus"
+                      : "Bus Number"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "ar"
-                    ? "معرف"
+                    ? "سعة الحافلة"
                     : currentLanguage === "fr"
-                      ? "id"
-                      : "id"}
+                      ? "Capacité du bus"
+                      : "Bus Capacity"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "ar"
-                    ? "إدارة أكاديمية كاملة"
+                    ? "رقم المدرسة"
                     : currentLanguage === "fr"
-                      ? "Académique complet"
-                      : "is Full Academic"}
+                      ? "ID de l'école"
+                      : "School Id"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "ar"
-                    ? "إدارة إدارية كاملة"
+                    ? "تاريخ الإنشاء"
                     : currentLanguage === "fr"
-                      ? "Administration complète"
-                      : "is Full Administration"}
+                      ? "Date de création"
+                      : "Created At"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "ar"
-                    ? "اتصالات كاملة"
+                    ? "تاريخ التحديث"
                     : currentLanguage === "fr"
-                      ? "Communication complète"
-                      : "is Full Communication"}
-                </th>
-                <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "ar"
-                    ? "عمليات كاملة"
-                    : currentLanguage === "fr"
-                      ? "Opérations complètes"
-                      : "is Full Operations"}
-                </th>
-                <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "ar"
-                    ? "عرض"
-                    : currentLanguage === "fr"
-                      ? "voir"
-                      : "view"}
+                      ? "Date de mise à jour"
+                      : "Updated At"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "ar"
@@ -229,20 +237,25 @@ const EmployeePermission = () => {
                       ? "Action"
                       : "Action"}
                 </th>
+                <th scope="col" className="whitespace-nowrap px-6 py-3">
+                  {currentLanguage === "ar"
+                    ? "تعديل"
+                    : currentLanguage === "fr"
+                      ? "Modifier"
+                      : "Edit"}
+                </th>
               </tr>
             </thead>
             <tbody>
               {data?.data.content
-                .filter((employeePermission: EmployeePermission) => {
+                .filter((bus: Bus) => {
                   return search.toLocaleLowerCase() === ""
-                    ? employeePermission
-                    : employeePermission.name
-                        .toLocaleLowerCase()
-                        .includes(search);
+                    ? bus
+                    : bus.name.toLocaleLowerCase().includes(search);
                 })
-                .map((employeePermission: EmployeePermission) => (
+                .map((bus: Bus, index: number) => (
                   <tr
-                    key={employeePermission.id}
+                    key={index}
                     className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary"
                   >
                     <td className="w-4 p-4">
@@ -254,53 +267,67 @@ const EmployeePermission = () => {
                         />
                       </div>
                     </td>
-                    <th scope="row" className="whitespace-nowrap px-6 py-4">
-                      <p> {employeePermission.name} </p>
+                    <th
+                      scope="row"
+                      className="flex items-center whitespace-nowrap px-6 py-4 font-medium text-secondary"
+                    >
+                      {bus.busNumber}
                     </th>
                     <td className="whitespace-nowrap px-6 py-4">
-                      {employeePermission.id}
+                      {bus.busCapacity}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
-                      {employeePermission.isFullAcademic ? "Yes" : "No"}
+                      {bus.schoolId}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
-                      {employeePermission.isFullAdministration ? "Yes" : "No"}
+                      {formatTransactionDate(bus.createdAt)}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
-                      {employeePermission.isFullCommunication ? "Yes" : "No"}
+                      {formatTransactionDate(bus.updatedAt)}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
-                      {employeePermission.isFullOperations ? "Yes" : "No"}
+                      <button
+                        onClick={() => handleDelete(bus.busId)}
+                        className="rounded-lg bg-error px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+                      >
+                        {currentLanguage === "ar"
+                          ? "حذف"
+                          : currentLanguage === "fr"
+                            ? "Supprimer"
+                            : "Delete"}
+                      </button>
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
                       <Link
-                        href={`/organization-setting/permissions/employee-permission/${employeePermission.id}`}
+                        href={`/edit-bus/${bus.busId}`}
                         className="font-medium text-blue-600 hover:underline"
                       >
                         {currentLanguage === "ar"
                           ? "تعديل"
                           : currentLanguage === "fr"
-                            ? "modifier"
-                            : "edit"}
+                            ? "Modifier"
+                            : "Edit"}
                       </Link>
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4">
-                      <button className="rounded-lg bg-error px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110">
-                        {currentLanguage === "ar"
-                          ? "حذف"
-                          : currentLanguage === "fr"
-                            ? "supprimer"
-                            : "Delete"}
-                      </button>
                     </td>
                   </tr>
                 ))}
             </tbody>
           </table>
+          {(data?.data.content.length == 0 || data == null) && (
+            <div className="flex w-full justify-center py-3 text-center text-[18px] font-semibold">
+              {currentLanguage === "en"
+                ? "There is No Data"
+                : currentLanguage === "ar"
+                  ? "لا توجد بيانات"
+                  : currentLanguage === "fr"
+                    ? "Il n'y a pas de données"
+                    : "There is No Data"}
+            </div>
+          )}
         </div>
       </div>
     </>
   );
 };
 
-export default EmployeePermission;
+export default Bus;

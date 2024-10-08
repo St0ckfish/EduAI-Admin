@@ -31,6 +31,12 @@ export const employeePermissionApi = createApi({
       query: () =>
         "/api/v1/management/permission/employee/all?size=1000000&page=0",
     }),
+    //
+    getAllCategories: builder.query({
+      query: () =>
+        "/api/v1/management/permission/employee/permission_categories",
+    }),
+    //
     getEmployeePermissionById: builder.query({
       query: id => `/api/v1/management/permission/employee/${id}`,
     }),
@@ -38,7 +44,7 @@ export const employeePermissionApi = createApi({
     updateEmployeePermissions: builder.mutation({
       query: ({ formData, id }) => ({
         url: `/api/v1/management/permission/employee/${id}`,
-        method: "PATCH",
+        method: "PUT",
         body: formData,
       }),
     }),
@@ -47,6 +53,7 @@ export const employeePermissionApi = createApi({
 
 export const {
   useGetAllEmployeePermissionsQuery,
+  useGetAllCategoriesQuery,
   useGetEmployeePermissionByIdQuery,
   useUpdateEmployeePermissionsMutation,
 } = employeePermissionApi;
