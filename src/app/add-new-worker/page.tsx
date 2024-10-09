@@ -284,27 +284,6 @@ const AddNewWorker = () => {
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("religion", { required: true })}
                 >
-                  <option value="">
-                    {currentLanguage === "en"
-                      ? "Select religion"
-                      : currentLanguage === "ar"
-                        ? "حدد الديانة"
-                        : "Sélectionner la religion"}
-                  </option>
-                  <option value="MUSLIM">
-                    {currentLanguage === "en"
-                      ? "Muslim"
-                      : currentLanguage === "ar"
-                        ? "مسلم"
-                        : "Musulman"}
-                  </option>
-                  <option value="CHRISTIAN">
-                    {currentLanguage === "en"
-                      ? "Christian"
-                      : currentLanguage === "ar"
-                        ? "مسيحي"
-                        : "Chrétien"}
-                  </option>
                   <option value="OTHERS">
                     {currentLanguage === "en"
                       ? "Others"

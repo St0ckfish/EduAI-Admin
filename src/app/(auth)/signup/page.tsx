@@ -580,27 +580,6 @@ const Signup = () => {
                       {...register("religion", { required: true })}
                       className={`rounded-xl border px-4 py-3 ${errors.religion ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                     >
-                      <option selected value="">
-                        {language === "ar"
-                          ? "اختر الدين"
-                          : language === "fr"
-                            ? "Sélectionnez la religion"
-                            : "Select religion"}
-                      </option>
-                      <option value="MUSLIM">
-                        {language === "ar"
-                          ? "مسلم"
-                          : language === "fr"
-                            ? "Musulman"
-                            : "Muslim"}
-                      </option>
-                      <option value="CHRISTIAN">
-                        {language === "ar"
-                          ? "مسيحي"
-                          : language === "fr"
-                            ? "Chrétien"
-                            : "Christian"}
-                      </option>
                       <option value="OTHERS">
                         {language === "ar"
                           ? "أخرى"
@@ -744,7 +723,7 @@ const Signup = () => {
                   >
                     <select
                       defaultValue=""
-                      id="religion"
+                      id="employeeType"
                       {...register("employeeType", { required: true })}
                       className={`rounded-xl border px-4 py-3 ${errors.employeeType ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                     >

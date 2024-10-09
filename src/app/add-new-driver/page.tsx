@@ -332,36 +332,6 @@ const AddNewDriver = () => {
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("religion", { required: true })}
                 >
-                  <option value="">
-                    {currentLanguage === "en"
-                      ? "Select religion"
-                      : currentLanguage === "ar"
-                        ? "اختر الدين"
-                        : currentLanguage === "fr"
-                          ? "Sélectionner la religion"
-                          : "Select religion"}{" "}
-                    {/* default */}
-                  </option>
-                  <option value="MUSLIM">
-                    {currentLanguage === "en"
-                      ? "Muslim"
-                      : currentLanguage === "ar"
-                        ? "مسلم"
-                        : currentLanguage === "fr"
-                          ? "Musulman"
-                          : "Muslim"}{" "}
-                    {/* default */}
-                  </option>
-                  <option value="CHRISTIAN">
-                    {currentLanguage === "en"
-                      ? "Christian"
-                      : currentLanguage === "ar"
-                        ? "مسيحي"
-                        : currentLanguage === "fr"
-                          ? "Chrétien"
-                          : "Christian"}{" "}
-                    {/* default */}
-                  </option>
                   <option value="OTHERS">
                     {currentLanguage === "en"
                       ? "Others"
