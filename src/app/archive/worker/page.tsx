@@ -34,9 +34,6 @@ const Worker = () => {
       href: "/archive/worker",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
 
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
@@ -120,12 +117,15 @@ const Worker = () => {
     };
   }, []);
 
-  if (isLoading)
+  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
       </div>
     );
+    
 
   return (
     <>

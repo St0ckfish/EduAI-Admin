@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
+import Spinner from "@/components/spinner";
 
 const AddClass = () => {
   const studyLevels = {
@@ -56,9 +57,7 @@ const AddClass = () => {
       href: "/classes/add-class",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const {
     register,
@@ -76,6 +75,15 @@ const AddClass = () => {
     }
   };
 
+  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
+
+  if (loading || isLoading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
+    
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />

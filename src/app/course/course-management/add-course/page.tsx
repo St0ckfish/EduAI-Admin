@@ -42,9 +42,7 @@ const AddCourse = () => {
     },
   ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const {
     register,
     handleSubmit,
@@ -84,13 +82,15 @@ const AddCourse = () => {
       toast.error("Failed to create Course");
     }
   };
+  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
 
-  if (CountryLoading || LevelLoading || RegLoading || LangLoading)
+  if (CountryLoading || LevelLoading || RegLoading || LangLoading || loading)
     return (
       <div className="grid h-screen grid-cols-2 items-center justify-center bg-bgPrimary duration-300 ease-in max-[1040px]:grid-cols-1">
         <Spinner />
       </div>
     );
+    
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />

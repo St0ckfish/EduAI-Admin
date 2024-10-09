@@ -32,15 +32,28 @@ const AddNote = () => {
       toast.error("Failed to send notification. Please try again.");
     }
   };
+  const booleanValue = useSelector((state: RootState) => state.boolean.value);
+  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
 
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
-
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
+    
   return (
     <div
       dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-      className="mr-3 mt-5 flex lg:ml-[270px]"
+      className={`${
+        currentLanguage === "ar"
+          ? booleanValue
+            ? "lg:mr-[100px]"
+            : "lg:mr-[270px]"
+          : booleanValue
+            ? "lg:ml-[100px]"
+            : "lg:ml-[270px]"
+      } mr-3 mt-5 flex`}
     >
       <div className="grid h-full w-full items-center gap-3 rounded-xl bg-bgPrimary p-5">
         <div className="mb-5 flex w-full justify-start">

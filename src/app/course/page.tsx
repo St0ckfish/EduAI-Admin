@@ -5,6 +5,7 @@ import Card from "@/components/card";
 import { FiBook } from "react-icons/fi";
 import { AiOutlineFileText } from "react-icons/ai";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import Spinner from "@/components/spinner";
 
 const Course = () => {
   const breadcrumbs = [
@@ -22,36 +23,35 @@ const Course = () => {
     },
   ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
 
+  
   const Courses = [
     {
       href: "/course/course-management",
       icon: <FiBook size={40} />,
       title:
-        currentLanguage === "en"
-          ? "Course"
-          : currentLanguage === "ar"
-            ? "الدورة"
-            : currentLanguage === "fr"
-              ? "Cours"
-              : "Course", // Default to English
+      currentLanguage === "en"
+      ? "Course"
+      : currentLanguage === "ar"
+      ? "الدورة"
+      : currentLanguage === "fr"
+      ? "Cours"
+      : "Course", // Default to English
       description:
-        currentLanguage === "en"
-          ? "All Courses in School"
-          : currentLanguage === "ar"
-            ? "جميع الدورات في المدرسة"
-            : currentLanguage === "fr"
-              ? "Tous les cours à l'école"
-              : "All Courses in School", // Default to English
+      currentLanguage === "en"
+      ? "All Courses in School"
+      : currentLanguage === "ar"
+      ? "جميع الدورات في المدرسة"
+      : currentLanguage === "fr"
+      ? "Tous les cours à l'école"
+      : "All Courses in School", // Default to English
     },
     {
       href: "/course/resource",
       icon: <AiOutlineFileText size={40} />,
       title:
-        currentLanguage === "en"
+      currentLanguage === "en"
           ? "Resource"
           : currentLanguage === "ar"
             ? "المصدر"
@@ -62,12 +62,18 @@ const Course = () => {
         currentLanguage === "en"
           ? "Create Course"
           : currentLanguage === "ar"
-            ? "إنشاء دورة"
+          ? "إنشاء دورة"
             : currentLanguage === "fr"
-              ? "Créer un cours"
+            ? "Créer un cours"
               : "Create Course", // Default to English
-    },
+            },
   ];
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
@@ -76,13 +82,13 @@ const Course = () => {
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         className={`${
           currentLanguage === "ar"
-            ? booleanValue
+          ? booleanValue
               ? "lg:mr-[40px]"
               : "lg:mr-[290px]"
             : booleanValue
-              ? "lg:ml-[40px]"
+            ? "lg:ml-[40px]"
               : "lg:ml-[290px]"
-        } mt-12 grid justify-center`}
+            } mt-12 grid justify-center`}
       >
         <div className="md:grid-cols2 grid grid-cols-2 gap-5 max-[577px]:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2">
           {Courses.map((item, index) => (
@@ -92,8 +98,8 @@ const Course = () => {
               icon={item.icon}
               title={item.title}
               description={item.description}
-            />
-          ))}
+              />
+            ))}
         </div>
       </div>
     </>

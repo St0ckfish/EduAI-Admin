@@ -44,9 +44,8 @@ const EditCourse = ({ params }: EditCourseProps) => {
       href: `/course/course-management/${params.courseId}`,
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+  
+  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const { data, error, isLoading } = useGetBusByIdQuery(params.courseId);
 
@@ -93,7 +92,8 @@ const EditCourse = ({ params }: EditCourseProps) => {
       );
     }
   };
-  if (isLoading)
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />

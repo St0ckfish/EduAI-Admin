@@ -77,10 +77,6 @@ const AddNewStudent = () => {
   } = useForm();
   const [createStudent, { isLoading }] = useCreateStudentsMutation();
 
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
-
   const onSubmit = async (data: any) => {
     const formData = new FormData();
     formData.append(
@@ -129,6 +125,15 @@ const AddNewStudent = () => {
     }
   };
 
+  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
+    
   if (nationalityLoading || parentLoading) {
     return (
       <div className="flex h-screen w-full items-center justify-center">

@@ -36,9 +36,7 @@ const ArchiveDriver = () => {
   ];
   const [currentPage, setCurrentPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const onPageChange = (page: SetStateAction<number>) => {
     setCurrentPage(page);
   };
@@ -117,12 +115,15 @@ const ArchiveDriver = () => {
     };
   }, []);
 
-  if (isLoading)
+  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
       </div>
     );
+    
 
   return (
     <>

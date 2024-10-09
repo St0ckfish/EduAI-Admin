@@ -17,7 +17,7 @@ import {
 import { useEffect } from "react";
 
 const ResetPassword = () => {
-  const { language, loading } = useSelector((state: RootState) => state.language);
+  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
 
   const dispatchLang = useDispatch();
   useEffect(() => {
@@ -44,9 +44,9 @@ const ResetPassword = () => {
     try {
       await resetPassword({ code, email, password }).unwrap();
       toast.success(
-        language === "ar"
+        currentLanguage === "ar"
           ? "تمت إعادة تعيين كلمة المرور بنجاح"
-          : language === "fr"
+          : currentLanguage === "fr"
             ? "Mot de passe réinitialisé avec succès"
             : "Password Reset successfully",
       );
@@ -75,11 +75,11 @@ const ResetPassword = () => {
               className="text-violet11 hover:bg-violet3 inline-flex h-[35px] w-[35px] items-center justify-center rounded-full bg-bgPrimary outline-none"
               aria-label="Customise options"
             >
-              {language === "en" ? (
+              {currentLanguage === "en" ? (
                 <img src="/images/en.png" alt="#" />
-              ) : language === "ar" ? (
+              ) : currentLanguage === "ar" ? (
                 <img src="/images/ar.png" alt="#" />
-              ) : language === "fr" ? (
+              ) : currentLanguage === "fr" ? (
                 <img src="/images/fr.png" alt="#" />
               ) : (
                 <img src="/images/fr.png" alt="#" />
@@ -96,11 +96,11 @@ const ResetPassword = () => {
                   onClick={() => handleLanguageChange("ar")}
                   className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
                 >
-                  {language === "en"
+                  {currentLanguage === "en"
                     ? "Arabic"
-                    : language === "ar"
+                    : currentLanguage === "ar"
                       ? "العربية"
-                      : language === "fr"
+                      : currentLanguage === "fr"
                         ? "Arabe"
                         : "Arabic"}
                 </button>
@@ -110,11 +110,11 @@ const ResetPassword = () => {
                   onClick={() => handleLanguageChange("en")}
                   className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
                 >
-                  {language === "en"
+                  {currentLanguage === "en"
                     ? "English"
-                    : language === "ar"
+                    : currentLanguage === "ar"
                       ? "الإنجليزية"
-                      : language === "fr"
+                      : currentLanguage === "fr"
                         ? "Anglais"
                         : "English"}
                 </button>
@@ -124,11 +124,11 @@ const ResetPassword = () => {
                   onClick={() => handleLanguageChange("fr")}
                   className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
                 >
-                  {language === "en"
+                  {currentLanguage === "en"
                     ? "French"
-                    : language === "ar"
+                    : currentLanguage === "ar"
                       ? "الفرنسية"
-                      : language === "fr"
+                      : currentLanguage === "fr"
                         ? "Français"
                         : "French"}
                 </button>
@@ -141,23 +141,23 @@ const ResetPassword = () => {
         <div className="gird items-center justify-center text-center">
           <div className="mb-10 grid">
             <h1 className="font-sans text-[28px] font-bold text-primary">
-              {language === "ar"
+              {currentLanguage === "ar"
                 ? "إعادة تعيين كلمة المرور"
-                : language === "fr"
+                : currentLanguage === "fr"
                   ? "Réinitialiser votre mot de passe"
                   : "Reset your password"}
             </h1>
             <p className="font-sans text-[20px] font-semibold text-secondary">
-              {language === "ar"
+              {currentLanguage === "ar"
                 ? "أدخل كلمة المرور الجديدة"
-                : language === "fr"
+                : currentLanguage === "fr"
                   ? "Entrez le nouveau mot de passe"
                   : "Enter new password"}
             </p>
           </div>
           <div className="grid items-center justify-center">
             <form
-              dir={language === "ar" ? "rtl" : "ltr"}
+              dir={currentLanguage === "ar" ? "rtl" : "ltr"}
               className="grid gap-10"
               onSubmit={handleSubmit(onSubmit)}
             >
@@ -165,18 +165,18 @@ const ResetPassword = () => {
                 htmlFor="password"
                 className="grid text-start font-sans text-[18px] font-semibold text-textSecondary"
               >
-                {language === "ar"
+                {currentLanguage === "ar"
                   ? "كلمة المرور الجديدة"
-                  : language === "fr"
+                  : currentLanguage === "fr"
                     ? "Nouveau mot de passe"
                     : "New password"}
                 <input
                   {...register("password", { required: true })}
                   id="password"
                   placeholder={
-                    language === "ar"
+                    currentLanguage === "ar"
                       ? "أدخل كلمة المرور الجديدة الخاصة بك"
-                      : language === "fr"
+                      : currentLanguage === "fr"
                         ? "Entrez votre nouveau mot de passe"
                         : "Enter your new password"
                   }
@@ -185,9 +185,9 @@ const ResetPassword = () => {
                 />
                 {errors.username && (
                   <span className="text-[13px] text-error">
-                    {language === "ar"
+                    {currentLanguage === "ar"
                       ? "البريد الإلكتروني مطلوب"
-                      : language === "fr"
+                      : currentLanguage === "fr"
                         ? "L'email est requis"
                         : "Email is Required"}
                   </span>
@@ -201,9 +201,9 @@ const ResetPassword = () => {
                     type="submit"
                     className="w-fit rounded-xl bg-primary p-5 px-4 py-2 text-[18px] font-bold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                   >
-                    {language === "ar"
+                    {currentLanguage === "ar"
                       ? "إعادة تعيين كلمة المرور"
-                      : language === "fr"
+                      : currentLanguage === "fr"
                         ? "Réinitialiser le mot de passe"
                         : "Reset password"}
                   </button>

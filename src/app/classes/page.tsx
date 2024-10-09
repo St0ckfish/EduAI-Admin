@@ -22,9 +22,7 @@ const Infrastructure = () => {
       href: "/classes",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   type Class = Record<string, any>;
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const { data, error, isLoading } = useGetAllClasssQuery(null);
@@ -35,12 +33,15 @@ const Infrastructure = () => {
     if (error) console.log("Error:", error);
   }, [data, error]);
 
-  if (isLoading)
+  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
       </div>
     );
+    
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />

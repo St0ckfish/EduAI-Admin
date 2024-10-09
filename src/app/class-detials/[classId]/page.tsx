@@ -6,6 +6,7 @@ import BreadCrumbs from "@/components/BreadCrumbs";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import { FaMedal, FaTrophy, FaAward } from "react-icons/fa";
+import Spinner from "@/components/spinner";
 
 interface ViewDriverProps {
   params: {
@@ -35,9 +36,15 @@ const classDetails: React.FC<ViewDriverProps> = ({ params }) => {
   ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
+    
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />

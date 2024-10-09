@@ -40,10 +40,8 @@ const Attendance = () => {
       href: "/attendances",
     },
   ];
+  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
 
   const { data: employeedata, isLoading: isLoadingE } =
     useGetEmployeeAttendenceQuery(null);
@@ -52,19 +50,19 @@ const Attendance = () => {
   const { data: driverAttend, isLoading: isAttend } =
     useGetDriversAttendQuery(null);
   const { data: teacherdata, isLoading: isLoadingT } =
-    useGetTeacherAttendenceQuery(null);
+  useGetTeacherAttendenceQuery(null);
   const { data: workerdata, isLoading: isLoadingW } =
-    useGetWorkerAttendenceQuery(null);
+  useGetWorkerAttendenceQuery(null);
   const { data: employeeCount, isLoading: isECount } =
-    useGetAllEmployeesQuery(null);
+  useGetAllEmployeesQuery(null);
   const { data: studentCount, isLoading: isSCount } =
     useGetAllStudentsQuery(null);
-  const { data: students, isLoading: isStudents } =
+    const { data: students, isLoading: isStudents } =
     useGetStudentAttendenceQuery(null);
-
-  const { data: teachers, isLoading: isTeacher } = useGetAllTeachersQuery(null);
-  const { data: workers, isLoading: isWorker } = useGetAllWorkersQuery(null);
-
+    
+    const { data: teachers, isLoading: isTeacher } = useGetAllTeachersQuery(null);
+    const { data: workers, isLoading: isWorker } = useGetAllWorkersQuery(null);
+    
   const UserManagments = [
     {
       href: "/driver-attendance",
@@ -137,7 +135,7 @@ const Attendance = () => {
       number: workerdata?.data,
     },
   ];
-
+    
   if (
     isLoadingE ||
     isLoadingT ||
@@ -148,7 +146,8 @@ const Attendance = () => {
     isSCount ||
     isStudents ||
     isTeacher ||
-    isWorker
+    isWorker ||
+    loading
   )
     return (
       <div className="flex h-screen w-full items-center justify-center">

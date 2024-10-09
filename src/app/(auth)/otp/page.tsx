@@ -20,7 +20,7 @@ import {
 } from "@/features/language/languageSlice";
 
 const OTP = () => {
-  const { language, loading } = useSelector((state: RootState) => state.language);
+  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
 
   const dispatchLang = useDispatch();
   useEffect(() => {
@@ -72,18 +72,18 @@ const OTP = () => {
       await sendOtp({ code, email }).unwrap();
       Cookie.set("otp", code);
       toast.success(
-        language === "ar"
+        currentLanguage === "ar"
           ? "تم التحقق من OTP بنجاح!"
-          : language === "fr"
+          : currentLanguage === "fr"
             ? "OTP vérifié avec succès !"
             : "OTP verified successfully!",
       );
       router.replace("/new-password");
     } catch (error) {
       toast.error(
-        language === "ar"
+        currentLanguage === "ar"
           ? "فشل في التحقق من OTP. يرجى المحاولة مرة أخرى."
-          : language === "fr"
+          : currentLanguage === "fr"
             ? "Échec de la vérification de l'OTP. Veuillez réessayer."
             : "Failed to verify OTP. Please try again.",
       );
@@ -94,9 +94,9 @@ const OTP = () => {
     const UserId = Cookie.get("userId");
     await selectAccount({ id: UserId, email: email }).unwrap();
     toast.success(
-      language === "ar"
+      currentLanguage === "ar"
         ? "تم إنشاء وإرسال بريد إعادة تعيين كلمة المرور بنجاح"
-        : language === "fr"
+        : currentLanguage === "fr"
           ? "Email de réinitialisation du mot de passe généré et envoyé avec succès"
           : "Reset password email generated and sent successfully",
     );
@@ -125,11 +125,11 @@ const OTP = () => {
               className="text-violet11 hover:bg-violet3 inline-flex h-[35px] w-[35px] items-center justify-center rounded-full bg-bgPrimary outline-none"
               aria-label="Customise options"
             >
-              {language === "en" ? (
+              {currentLanguage === "en" ? (
                 <img src="/images/en.png" alt="#" />
-              ) : language === "ar" ? (
+              ) : currentLanguage === "ar" ? (
                 <img src="/images/ar.png" alt="#" />
-              ) : language === "fr" ? (
+              ) : currentLanguage === "fr" ? (
                 <img src="/images/fr.png" alt="#" />
               ) : (
                 <img src="/images/fr.png" alt="#" />
@@ -146,11 +146,11 @@ const OTP = () => {
                   onClick={() => handleLanguageChange("ar")}
                   className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
                 >
-                  {language === "en"
+                  {currentLanguage === "en"
                     ? "Arabic"
-                    : language === "ar"
+                    : currentLanguage === "ar"
                       ? "العربية"
-                      : language === "fr"
+                      : currentLanguage === "fr"
                         ? "Arabe"
                         : "Arabic"}
                 </button>
@@ -160,11 +160,11 @@ const OTP = () => {
                   onClick={() => handleLanguageChange("en")}
                   className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
                 >
-                  {language === "en"
+                  {currentLanguage === "en"
                     ? "English"
-                    : language === "ar"
+                    : currentLanguage === "ar"
                       ? "الإنجليزية"
-                      : language === "fr"
+                      : currentLanguage === "fr"
                         ? "Anglais"
                         : "English"}
                 </button>
@@ -174,11 +174,11 @@ const OTP = () => {
                   onClick={() => handleLanguageChange("fr")}
                   className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
                 >
-                  {language === "en"
+                  {currentLanguage === "en"
                     ? "French"
-                    : language === "ar"
+                    : currentLanguage === "ar"
                       ? "الفرنسية"
-                      : language === "fr"
+                      : currentLanguage === "fr"
                         ? "Français"
                         : "French"}
                 </button>
@@ -191,23 +191,23 @@ const OTP = () => {
         <div className="grid items-center justify-center text-center">
           <div className="mb-10 grid">
             <h1 className="font-sans text-[28px] font-bold text-primary">
-              {language === "ar"
+              {currentLanguage === "ar"
                 ? "تحقق من بريدك الإلكتروني"
-                : language === "fr"
+                : currentLanguage === "fr"
                   ? "Vérifiez votre email"
                   : "Check your Email"}
             </h1>
             <p className="font-sans text-[20px] font-semibold text-secondary">
-              {language === "ar"
+              {currentLanguage === "ar"
                 ? `تم إرسال رمز التحقق إلى ${email}`
-                : language === "fr"
+                : currentLanguage === "fr"
                   ? `Le code OTP a été envoyé à ${email}`
                   : `OTP code has been sent to ${email}`}
             </p>
           </div>
           <div className="grid items-center justify-center">
             <form
-              dir={language === "ar" ? "rtl" : "ltr"}
+              dir={currentLanguage === "ar" ? "rtl" : "ltr"}
               id="otp-form"
               onSubmit={handleSubmit}
             >
@@ -234,9 +234,9 @@ const OTP = () => {
                     type="submit"
                     className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] font-bold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                   >
-                    {language === "ar"
+                    {currentLanguage === "ar"
                       ? "تحقق"
-                      : language === "fr"
+                      : currentLanguage === "fr"
                         ? "Vérifier"
                         : "Verify"}
                   </button>
@@ -249,9 +249,9 @@ const OTP = () => {
                     type="button"
                     className="w-[140px] rounded-xl border-2 border-primary px-4 py-2 text-[18px] font-bold text-primary duration-300 ease-in hover:shadow-xl"
                   >
-                    {language === "ar"
+                    {currentLanguage === "ar"
                       ? "أرسل مرة أخرى"
-                      : language === "fr"
+                      : currentLanguage === "fr"
                         ? "Envoyer à nouveau"
                         : "Send Again"}
                   </button>

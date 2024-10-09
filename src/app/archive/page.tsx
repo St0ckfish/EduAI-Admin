@@ -16,6 +16,7 @@ import { FaClipboardList } from "react-icons/fa"; // Grades
 import { FaBoxOpen } from "react-icons/fa"; // Resource
 import { FaMoneyBillAlt } from "react-icons/fa"; // Fees
 import BreadCrumbs from "@/components/BreadCrumbs";
+import Spinner from "@/components/spinner";
 
 const Archive = () => {
   const breadcrumbs = [
@@ -33,9 +34,6 @@ const Archive = () => {
     },
   ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
 
   const items = [
     { href: "/archive/driver", icon: <FaCar size={40} />, key: "Driver" },
@@ -79,6 +77,8 @@ const Archive = () => {
       key: "Fees",
     },
   ];
+
+  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
 
   const getTranslatedText = (key: string) => {
     switch (key) {
@@ -182,6 +182,13 @@ const Archive = () => {
         return key; // Fallback to key if not found
     }
   };
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
 
   return (
     <>

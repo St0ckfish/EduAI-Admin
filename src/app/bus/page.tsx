@@ -33,9 +33,7 @@ const Bus = () => {
       href: "/bus",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const { data, error, isLoading, refetch } = useGetAllBussQuery("1");
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const [search, setSearch] = useState("");
@@ -115,13 +113,15 @@ const Bus = () => {
     };
   }, []);
 
-  if (isLoading)
+  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
       </div>
     );
-
+    
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />

@@ -39,9 +39,7 @@ const EditClass: React.FC<ViewDriverProps> = ({ params }) => {
     },
   ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const {
     register,
     handleSubmit,
@@ -77,7 +75,9 @@ const EditClass: React.FC<ViewDriverProps> = ({ params }) => {
     }
   };
 
-  if (isgetting)
+  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
+
+  if (loading || isgetting)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />

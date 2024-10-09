@@ -33,9 +33,7 @@ const CourseManagement = () => {
       href: "/course/course-management",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState<number | boolean | null>(false);
@@ -55,7 +53,9 @@ const CourseManagement = () => {
     }
   };
 
-  if (isLoading)
+  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />

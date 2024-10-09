@@ -51,9 +51,6 @@ const AddNewParent = () => {
   const [createEmployee, { isLoading }] = useCreateParentsMutation();
   const { data: rigiond } = useGetAllReginionIDQuery(null);
 
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
   const onSubmit = async (data: any) => {
     const requestBody = {
       username: data.username,
@@ -83,12 +80,16 @@ const AddNewParent = () => {
     }
   };
 
-  if (nationalityLoading)
+  
+  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
+
+  if (loading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
       </div>
     );
+    
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
