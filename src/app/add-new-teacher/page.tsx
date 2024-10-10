@@ -341,24 +341,29 @@ const AddNewTeacher = () => {
                   : currentLanguage === "ar"
                     ? "معرف المنطقة"
                     : "ID de région"}
-                <select
+                                <select
                   defaultValue=""
                   id="regionId"
                   {...register("regionId", { required: true })}
-                  className={`border ${errors.regionId ? "border-warning" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-[18px] text-[#000000] outline-none max-[458px]:w-[350px]`}
+                  className={`border ${errors.regionId ? "border-borderPrimary" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-[18px] text-blackOrWhite outline-none max-[458px]:w-[350px]`}
                 >
                   <option value="">
                     {currentLanguage === "en"
                       ? "Select Region Id"
                       : currentLanguage === "ar"
                         ? "اختر معرف المنطقة"
-                        : "Sélectionner l'ID de région"}
+                        : currentLanguage === "fr"
+                          ? "Sélectionner l'ID de la région"
+                          : "Select Region Id"}{" "}
+                    {/* default */}
                   </option>
                   {rigiond &&
                     rigiond.data.map(
                       (
                         rigion: {
-                          id: string | number | readonly string[] | undefined;
+                          regionName: string;
+                          cityName: string;
+                          regionId: string | number | readonly string[] | undefined;
                           name:
                             | string
                             | number
@@ -376,8 +381,8 @@ const AddNewTeacher = () => {
                         },
                         index: React.Key | null | undefined,
                       ) => (
-                        <option key={index} value={rigion.id}>
-                          {rigion.name}
+                        <option key={index} value={rigion.regionId}>
+                          {rigion.cityName} <strong>{rigion.regionName}</strong>
                         </option>
                       ),
                     )}

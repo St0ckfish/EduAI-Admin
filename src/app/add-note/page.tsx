@@ -11,7 +11,7 @@ const AddNote = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [createNotification, { isLoading }] = useCreateNoteMutation();
-
+  const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (!title || !description) {
@@ -40,7 +40,7 @@ const AddNote = () => {
   return (
     <div
       dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-      className="mr-3 mt-5 flex lg:ml-[270px]"
+      className={`mr-3 mt-5 flex ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"}`}
     >
       <div className="grid h-full w-full items-center gap-3 rounded-xl bg-bgPrimary p-5">
         <div className="mb-5 flex w-full justify-start">

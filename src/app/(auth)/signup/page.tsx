@@ -303,7 +303,7 @@ const Signup = () => {
                       onChange={(e) => setUsername(e.target.value)}
                     />
                     {errors.username ? (
-                      <span className="text-warning mt-2">
+                      <span className="text-error mt-2">
                         {errors.username.message?.toString()}
                       </span>
                     ) : isValid && debouncedUsername ? (
@@ -315,15 +315,7 @@ const Signup = () => {
                             : "Username is available"}
                       </span>
                     ) : null}
-                    {errors.username && (
-                      <span className="text-[13px] text-error">
-                        {currentLanguage === "ar"
-                          ? "اسم المستخدم مطلوب"
-                          : currentLanguage === "fr"
-                            ? "Le nom d'utilisateur est requis"
-                            : "Username is Required"}
-                      </span>
-                    )}
+                    
                   </label>
                   <label
                     htmlFor="email"

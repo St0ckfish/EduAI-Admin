@@ -467,7 +467,9 @@ const AddNewDriver = () => {
                     rigiond.data.map(
                       (
                         rigion: {
-                          id: string | number | readonly string[] | undefined;
+                          regionName: string;
+                          cityName: string;
+                          regionId: string | number | readonly string[] | undefined;
                           name:
                             | string
                             | number
@@ -485,8 +487,8 @@ const AddNewDriver = () => {
                         },
                         index: React.Key | null | undefined,
                       ) => (
-                        <option key={index} value={rigion.id}>
-                          {rigion.name}
+                        <option key={index} value={rigion.regionId}>
+                          {rigion.cityName} <strong>{rigion.regionName}</strong>
                         </option>
                       ),
                     )}

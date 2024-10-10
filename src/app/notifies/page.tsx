@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 
 const Notifies = () => {
+  const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const breadcrumbs = [
     {
       nameEn: "Dashboard",
@@ -85,7 +86,7 @@ const Notifies = () => {
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className="mt-12 lg:ml-[290px]"
+        className={`mt-12 ${booleanValue ? "lg:ml-[120px]" : "lg:ml-[290px]"}`}
       >
         <div className="flex justify-end">
           <Link
