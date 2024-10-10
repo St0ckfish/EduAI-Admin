@@ -5,6 +5,7 @@ import Card from "@/components/card";
 import { FiBook } from "react-icons/fi";
 import { AiOutlineFileText } from "react-icons/ai";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import Spinner from "@/components/spinner";
 
 const Course = () => {
   const breadcrumbs = [
@@ -22,8 +23,8 @@ const Course = () => {
     },
   ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
   );
 
   const Courses = [
@@ -68,13 +69,27 @@ const Course = () => {
               : "Create Course", // Default to English
     },
   ];
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
 
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} mt-12 grid justify-center`}
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[40px]"
+              : "lg:mr-[290px]"
+            : booleanValue
+              ? "lg:ml-[40px]"
+              : "lg:ml-[290px]"
+        } mt-12 grid justify-center`}
       >
         <div className="md:grid-cols2 grid grid-cols-2 gap-5 max-[577px]:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2">
           {Courses.map((item, index) => (

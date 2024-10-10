@@ -37,9 +37,10 @@ const EditBus: React.FC<ViewBusProps> = ({ params }) => {
       href: `/edit-bus/${params.busId}`,
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
   );
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const { data, error, isLoading } = useGetBusByIdQuery(params.busId);
 
@@ -81,7 +82,8 @@ const EditBus: React.FC<ViewBusProps> = ({ params }) => {
       );
     }
   };
-  if (isLoading)
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -93,10 +95,18 @@ const EditBus: React.FC<ViewBusProps> = ({ params }) => {
 
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className="mr-[5px] mt-5 grid h-[850px] items-center justify-center lg:ml-[270px]"
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } mx-3 mt-[40px] grid h-[500px] items-center justify-center`}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="grid h-[900px] items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:h-[800px] xl:w-[1000px]">
+          <div className="grid h-[400px] items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:h-[500px] xl:w-[1000px]">
             <div className="flex items-center justify-start gap-2">
               <svg
                 className="h-6 w-6 font-bold text-secondary group-hover:text-hover"
@@ -187,13 +197,13 @@ const EditBus: React.FC<ViewBusProps> = ({ params }) => {
               ) : (
                 <button
                   type="submit"
-                  className="w-[140px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                  className="w-fit rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
                 >
                   {currentLanguage === "ar"
-                    ? "إضافة حافلة"
+                    ? "تعديل الحافلة"
                     : currentLanguage === "fr"
-                      ? "Ajouter un bus"
-                      : "Add Bus"}
+                      ? "Modifier l'autobus"
+                      : "Edit Bus"}
                 </button>
               )}
             </div>

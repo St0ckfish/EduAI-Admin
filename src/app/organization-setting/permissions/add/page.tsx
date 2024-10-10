@@ -3,11 +3,9 @@ import { RootState } from "@/GlobalRedux/store";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import Spinner from "@/components/spinner";
 
 const Permissions = () => {
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
   const breadcrumbs = [
     {
       nameEn: "Administration",
@@ -29,13 +27,30 @@ const Permissions = () => {
     },
   ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
 
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`justify-left flex flex-wrap gap-5 text-[20px] max-[725px]:text-[15px] ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mb-[20px] ml-4 mt-[50px] font-semibold`}
+        className={`justify-left flex flex-wrap gap-5 text-[20px] max-[725px]:text-[15px] ${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } mx-4 mb-[20px] mt-[50px] font-semibold`}
       >
         <Link
           href="/organization-setting/permissions/add"
@@ -56,12 +71,32 @@ const Permissions = () => {
         </Link>
       </div>
       <div
-        className={` ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mr-3`}
+        className={` ${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } mx-3`}
       >
         <div className="rounded-xl bg-bgPrimary pb-5">
           <div className="flex justify-between rounded-t-xl bg-thead px-10 py-4 text-[18px] font-semibold">
-            <p>Permission</p>
-            <p>Applicable For</p>
+            <p>
+              {currentLanguage === "ar"
+                ? "الصلاحية"
+                : currentLanguage === "fr"
+                  ? "Autorisation"
+                  : "Permission"}
+            </p>
+            <p>
+              {currentLanguage === "ar"
+                ? "ينطبق على"
+                : currentLanguage === "fr"
+                  ? "Applicable pour"
+                  : "Applicable For"}
+            </p>
           </div>
           <div className="flex justify-between px-10 py-8 max-[640px]:grid max-[640px]:justify-center max-[640px]:gap-10">
             <div className="grid gap-5 text-[18px] font-semibold">
@@ -88,7 +123,13 @@ const Permissions = () => {
                   type="checkbox"
                   className="-gray-800 h-5 w-5 rounded border-borderPrimary bg-bgPrimary text-primary focus:ring-2 focus:ring-hover"
                 />
-                <p>Administration</p>
+                <p>
+                  {currentLanguage === "ar"
+                    ? "الإدارة"
+                    : currentLanguage === "fr"
+                      ? "Administration"
+                      : "Administration"}
+                </p>
               </div>
               <div className="flex items-center gap-2">
                 <button>
@@ -113,7 +154,13 @@ const Permissions = () => {
                   type="checkbox"
                   className="-gray-800 h-5 w-5 rounded border-borderPrimary bg-bgPrimary text-primary focus:ring-2 focus:ring-hover"
                 />
-                <p>Academic</p>
+                <p>
+                  {currentLanguage === "ar"
+                    ? "الأكاديمي"
+                    : currentLanguage === "fr"
+                      ? "Académique"
+                      : "Academic"}
+                </p>
               </div>
               <div className="flex items-center gap-2">
                 <button>
@@ -138,7 +185,13 @@ const Permissions = () => {
                   type="checkbox"
                   className="-gray-800 h-5 w-5 rounded border-borderPrimary bg-bgPrimary text-primary focus:ring-2 focus:ring-hover"
                 />
-                <p>Operations</p>
+                <p>
+                  {currentLanguage === "ar"
+                    ? "العمليات"
+                    : currentLanguage === "fr"
+                      ? "Opérations"
+                      : "Operations"}
+                </p>
               </div>
               <div className="flex items-center gap-2">
                 <button>
@@ -163,11 +216,23 @@ const Permissions = () => {
                   type="checkbox"
                   className="-gray-800 h-5 w-5 rounded border-borderPrimary bg-bgPrimary text-primary focus:ring-2 focus:ring-hover"
                 />
-                <p>Communication</p>
+                <p>
+                  {currentLanguage === "ar"
+                    ? "الاتصالات"
+                    : currentLanguage === "fr"
+                      ? "Communication"
+                      : "Communication"}
+                </p>
               </div>
             </div>
             <div className="grid h-[90px] w-[300px] gap-5 font-semibold">
-              <p>Sections</p>
+              <p>
+                {currentLanguage === "ar"
+                  ? "الأقسام"
+                  : currentLanguage === "fr"
+                    ? "Sections"
+                    : "Sections"}
+              </p>
               <select
                 id="countries"
                 className="block w-full rounded-lg border border-borderPrimary bg-bgPrimary p-1.5 text-sm text-textSecondary outline-none focus:border-blue-500 focus:ring-blue-500"

@@ -40,9 +40,7 @@ const DriverAttendance = () => {
       href: "/driver-attendance",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   const handleClose = () => setIsSheetOpen(false);
@@ -199,19 +197,30 @@ const DriverAttendance = () => {
     setSelectedId(id);
   };
 
-  if (isLoading)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
       </div>
     );
-
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} relative mr-[5px] mt-10 h-screen bg-transparent sm:rounded-lg`}
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } relative mx-3 mt-10 h-screen bg-transparent sm:rounded-lg`}
       >
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">

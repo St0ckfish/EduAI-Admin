@@ -35,9 +35,7 @@ const AddLab = () => {
       href: "/infrastructure/lab/add-lab",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   const {
@@ -55,14 +53,30 @@ const AddLab = () => {
       toast.error("Failed to create Lab");
     }
   };
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={` ${
-          booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"
-        } mr-[5px] mt-[40px] grid h-[850px] items-center justify-center`}
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } mx-3 mt-[40px] grid h-[850px] items-center justify-center`}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:w-[1000px]">

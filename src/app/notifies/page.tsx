@@ -70,11 +70,12 @@ const Notifies = () => {
       toast.error("Failed to Delete Notification");
     }
   };
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
   );
 
-  if (isLoading)
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -86,12 +87,20 @@ const Notifies = () => {
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`mt-12 ${booleanValue ? "lg:ml-[120px]" : "lg:ml-[290px]"}`}
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[120px]"
+              : "lg:mr-[290px]"
+            : booleanValue
+              ? "lg:ml-[120px]"
+              : "lg:ml-[290px]"
+        } mt-12`}
       >
         <div className="flex justify-end">
           <Link
             href="/notifies/send-notifications"
-            className="mb-5 mr-3 flex items-center gap-2 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+            className="mx-3 mb-5 flex items-center gap-2 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
           >
             {" "}
             <svg
@@ -133,13 +142,13 @@ const Notifies = () => {
                 {notifi.picture == null ? (
                   <img
                     src="/images/userr.png"
-                    className="mr-2 h-[40px] w-[40px] rounded-full"
+                    className="mx-2 h-[40px] w-[40px] rounded-full"
                     alt="#"
                   />
                 ) : (
                   <img
                     src={notifi.picture}
-                    className="mr-2 h-[40px] w-[40px] rounded-full"
+                    className="mx-2 h-[40px] w-[40px] rounded-full"
                     alt="#"
                   />
                 )}

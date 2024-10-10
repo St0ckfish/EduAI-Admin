@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
+import Spinner from "@/components/spinner";
 const Medical = () => {
   const breadcrumbs = [
     {
@@ -34,9 +35,6 @@ const Medical = () => {
   ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
   const [selectAll, setSelectAll] = useState(false);
 
   const handleSelectAll = () => {
@@ -79,13 +77,31 @@ const Medical = () => {
       });
     };
   }, []);
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
 
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } relative mx-3 mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">
@@ -128,7 +144,7 @@ const Medical = () => {
           <div className="flex justify-center">
             <Link
               href="/"
-              className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+              className="mx-3 mb-5 w-fit whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
             >
               {currentLanguage === "ar"
                 ? "+ إضافة الفواتير"
@@ -267,7 +283,7 @@ const Medical = () => {
                 >
                   <img
                     src="/images/me.jpg"
-                    className="mr-2 h-[40px] w-[40px] rounded-full"
+                    className="mx-2 h-[40px] w-[40px] rounded-full"
                     alt="#"
                   />
                   Nahda
@@ -307,7 +323,7 @@ const Medical = () => {
                 >
                   <img
                     src="/images/me.jpg"
-                    className="mr-2 h-[40px] w-[40px] rounded-full"
+                    className="mx-2 h-[40px] w-[40px] rounded-full"
                     alt="#"
                   />
                   Nahda

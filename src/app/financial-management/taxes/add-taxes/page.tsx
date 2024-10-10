@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { AiOutlineSave } from "react-icons/ai"; // Save Icon
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { useCreateTaxesMutation } from "@/features/Financial/taxesApi";
+import Spinner from "@/components/spinner";
 
 const AddTaxes = () => {
   const taxTypes = [
@@ -80,10 +81,10 @@ const AddTaxes = () => {
       href: "/financial-management/taxes/add-taxes",
     },
   ];
-
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
   );
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   const {
@@ -137,12 +138,26 @@ const AddTaxes = () => {
     }
   };
 
+  if (loading || isLoading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-20`}
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } mt-20`}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid gap-3 rounded-xl bg-bgSecondary p-10">

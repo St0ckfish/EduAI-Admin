@@ -18,7 +18,7 @@ interface FormData {
 
 const Permissions = () => {
   const [openCategories, setOpenCategories] = useState<Record<string, boolean>>(
-    {}
+    {},
   );
   const { data: employees, isLoading: isEmployee } = useGetAllEmployeesQuery({
     archived: "false",
@@ -36,7 +36,7 @@ const Permissions = () => {
   };
 
   const toggleCategory = (category: string) => {
-    setOpenCategories((prevState) => ({
+    setOpenCategories(prevState => ({
       ...prevState,
       [category]: !prevState[category],
     }));
@@ -52,7 +52,7 @@ const Permissions = () => {
   const onSubmit = async () => {
     const data = getValues();
     const selectedPermissions = Object.keys(data.permissions).filter(
-      (key) => data.permissions[key]
+      key => data.permissions[key],
     );
     if (data.selectedEmployeeId) {
       await updateEmployeePermissions({
@@ -64,7 +64,7 @@ const Permissions = () => {
 
   const { data, isLoading } = useGetAllCategoriesQuery(null);
   const currentLanguage = useSelector(
-    (state: RootState) => state.language.language
+    (state: RootState) => state.language.language,
   );
   const breadcrumbs = [
     {
@@ -99,8 +99,14 @@ const Permissions = () => {
 
       <div
         className={` ${
-          booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"
-        } mr-3 mt-[70px]`}
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } mx-3 mt-[70px]`}
       >
         <div className="rounded-xl bg-bgPrimary pb-5">
           <div className="flex justify-between rounded-t-xl bg-thead px-10 py-4 text-[18px] font-semibold">
@@ -111,8 +117,10 @@ const Permissions = () => {
             <div className="grid gap-5 text-[18px] font-semibold">
               {data.data?.map((categoryData: any, index: number) => (
                 <div key={index}>
-                  <div className="flex items-center gap-2 mb-4">
-                    <button onClick={() => toggleCategory(categoryData.category)}>
+                  <div className="mb-4 flex items-center gap-2">
+                    <button
+                      onClick={() => toggleCategory(categoryData.category)}
+                    >
                       {!openCategories[categoryData.category] && (
                         <svg
                           className="h-6 w-6 text-secondary"
@@ -152,11 +160,13 @@ const Permissions = () => {
                       disabled={!watch("selectedEmployeeId")}
                       className="-gray-800 h-5 w-5 rounded border-borderPrimary bg-bgPrimary text-primary focus:ring-2 focus:ring-hover"
                       {...register(`permissions.${categoryData.category}`, {
-                        onChange: (e) => {
+                        onChange: e => {
                           const isChecked = e.target.checked;
-                          categoryData.Permissions.forEach((permission: string) => {
-                            setValue(`permissions.${permission}`, isChecked);
-                          });
+                          categoryData.Permissions.forEach(
+                            (permission: string) => {
+                              setValue(`permissions.${permission}`, isChecked);
+                            },
+                          );
                           setTimeout(() => {
                             onSubmit();
                           }, 0);
@@ -174,7 +184,10 @@ const Permissions = () => {
                     <div className="ml-10 grid gap-4">
                       {categoryData.Permissions.map(
                         (permission: any, permIndex: number) => (
-                          <div key={permIndex} className="flex items-center gap-2">
+                          <div
+                            key={permIndex}
+                            className="flex items-center gap-2"
+                          >
                             <input
                               id={`permission-${categoryData.category}-${permIndex}`}
                               type="checkbox"
@@ -195,7 +208,7 @@ const Permissions = () => {
                               {formatPermission(permission)}
                             </label>
                           </div>
-                        )
+                        ),
                       )}
                     </div>
                   )}
@@ -208,7 +221,7 @@ const Permissions = () => {
                 id="countries"
                 className="block w-full rounded-lg border border-borderPrimary bg-bgPrimary p-1.5 text-sm text-textSecondary outline-none focus:border-blue-500 focus:ring-blue-500"
                 {...register("selectedEmployeeId")}
-                onChange={(e) => {
+                onChange={e => {
                   setValue("selectedEmployeeId", e.target.value);
                   setTimeout(() => {
                     onSubmit();
@@ -219,8 +232,8 @@ const Permissions = () => {
                   {currentLanguage === "ar"
                     ? "اختر"
                     : currentLanguage === "fr"
-                    ? "Choisir"
-                    : "Choose"}
+                      ? "Choisir"
+                      : "Choose"}
                 </option>
                 {employees?.data.content.map((employee: any) => (
                   <option key={employee.id} value={employee.id}>

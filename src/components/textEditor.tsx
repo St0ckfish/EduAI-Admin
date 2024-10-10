@@ -27,8 +27,8 @@ const TextEditor = ({
   const editorRef = useRef<HTMLDivElement>(null);
   const [editorIsEmpty, setEditorIsEmpty] = useState(true);
   const { theme } = useTheme();
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+  const { language: currentLanguage } = useSelector(
+    (state: RootState) => state.language,
   );
 
   // State to keep track of formatting

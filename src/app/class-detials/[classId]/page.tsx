@@ -6,6 +6,7 @@ import BreadCrumbs from "@/components/BreadCrumbs";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import { FaMedal, FaTrophy, FaAward } from "react-icons/fa";
+import Spinner from "@/components/spinner";
 
 interface ViewDriverProps {
   params: {
@@ -35,15 +36,31 @@ const classDetails: React.FC<ViewDriverProps> = ({ params }) => {
   ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
   );
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
+
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-16 grid justify-center lg:ml-[290px] lg:mr-32`}
+        className={` ${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[120px]"
+              : "lg:mr-[290px]"
+            : booleanValue
+              ? "lg:ml-[110px]"
+              : "lg:ml-[290px]"
+        } mt-16 grid justify-center`}
       >
         <div className="mb-5 grid grid-cols-1 gap-4 xl:grid-cols-2">
           <div className="mb-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-2">
@@ -61,22 +78,22 @@ const classDetails: React.FC<ViewDriverProps> = ({ params }) => {
                     <img
                       src="/images/userr.png"
                       alt="user"
-                      className="-mr-[10px] w-[25px]"
+                      className="-mx-[10px] w-[25px]"
                     />
                     <img
                       src="/images/userr.png"
                       alt="user"
-                      className="-mr-[10px] w-[25px]"
+                      className="-mx-[10px] w-[25px]"
                     />
                     <img
                       src="/images/userr.png"
                       alt="user"
-                      className="-mr-[10px] w-[25px]"
+                      className="-mx-[10px] w-[25px]"
                     />
                     <img
                       src="/images/userr.png"
                       alt="user"
-                      className="-mr-[10px] w-[25px]"
+                      className="-mx-[10px] w-[25px]"
                     />
 
                     <p className="mx-4 text-primary">
@@ -109,22 +126,22 @@ const classDetails: React.FC<ViewDriverProps> = ({ params }) => {
                     <img
                       src="/images/userr.png"
                       alt="user"
-                      className="-mr-[10px] w-[25px]"
+                      className="-mx-[10px] w-[25px]"
                     />
                     <img
                       src="/images/userr.png"
                       alt="user"
-                      className="-mr-[10px] w-[25px]"
+                      className="-mx-[10px] w-[25px]"
                     />
                     <img
                       src="/images/userr.png"
                       alt="user"
-                      className="-mr-[10px] w-[25px]"
+                      className="-mx-[10px] w-[25px]"
                     />
                     <img
                       src="/images/userr.png"
                       alt="user"
-                      className="-mr-[10px] w-[25px]"
+                      className="-mx-[10px] w-[25px]"
                     />
 
                     <p className="mx-4 text-primary">
@@ -259,7 +276,7 @@ const classDetails: React.FC<ViewDriverProps> = ({ params }) => {
               </div>
             </div>
 
-            <div className="col-span-1 flex h-[270px] flex-col rounded-xl bg-bgPrimary pl-4 pt-2 shadow-xl sm:col-span-2 lg:col-span-2">
+            <div className="col-span-1 flex h-[270px] flex-col rounded-xl bg-bgPrimary px-4 pt-2 shadow-xl sm:col-span-2 lg:col-span-2">
               <p className="mt-1 text-lg font-bold text-textPrimary">
                 {currentLanguage === "ar"
                   ? "أفضل الطلاب في الفصل"

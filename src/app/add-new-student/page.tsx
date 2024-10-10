@@ -77,10 +77,6 @@ const AddNewStudent = () => {
   } = useForm();
   const [createStudent, { isLoading }] = useCreateStudentsMutation();
 
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
-
   const onSubmit = async (data: any) => {
     const formData = new FormData();
     formData.append(
@@ -129,6 +125,17 @@ const AddNewStudent = () => {
     }
   };
 
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
+
   if (nationalityLoading || parentLoading) {
     return (
       <div className="flex h-screen w-full items-center justify-center">
@@ -141,9 +148,15 @@ const AddNewStudent = () => {
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
-        className={`${
-          booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"
-        } mr-[5px] grid items-center justify-center`}
+        className={` ${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } mx-[10px] grid items-center justify-center`}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="my-10 grid items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:w-[1000px]">
@@ -315,19 +328,6 @@ const AddNewStudent = () => {
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("religion", { required: true })}
                 >
-                  <option value="">
-                    {currentLanguage === "en"
-                      ? "Select religion"
-                      : currentLanguage === "ar"
-                        ? "اختر الدين"
-                        : "Sélectionner la religion"}
-                  </option>
-                  <option value="MUSLIM">
-                    {currentLanguage === "en" ? "Muslim" : "مسلم"}
-                  </option>
-                  <option value="CHRISTIAN">
-                    {currentLanguage === "en" ? "Christian" : "مسيحي"}
-                  </option>
                   <option value="OTHERS">
                     {currentLanguage === "en" ? "Others" : "أخرى"}
                   </option>
@@ -545,18 +545,49 @@ const AddNewStudent = () => {
                 htmlFor="birthDate"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Birth Date" : "تاريخ الميلاد"}
+                {currentLanguage === "en"
+                  ? "Date Of Birth"
+                  : currentLanguage === "ar"
+                    ? "تاريخ الميلاد"
+                    : currentLanguage === "fr"
+                      ? "Date de naissance"
+                      : "Date Of Birth"}
                 <input
                   id="birthDate"
                   type="date"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("birthDate", { required: true })}
+                  {...register("birthDate", {
+                    required: true,
+                    validate: value => {
+                      const today = new Date();
+                      const birthDate = new Date(value);
+                      const age = today.getFullYear() - birthDate.getFullYear();
+                      const isOlderThanSix =
+                        age > 6 ||
+                        (age === 6 &&
+                          today >=
+                            new Date(
+                              birthDate.setFullYear(today.getFullYear()),
+                            ));
+                      return isOlderThanSix;
+                    },
+                  })}
                 />
                 {errors.birthDate && (
                   <span className="text-error">
                     {currentLanguage === "en"
-                      ? "This field is required"
-                      : "هذا الحقل مطلوب"}
+                      ? errors.birthDate.type === "validate"
+                        ? "The Student Must be older than 6"
+                        : "This field is required"
+                      : currentLanguage === "ar"
+                        ? errors.birthDate.type === "validate"
+                          ? "يجب أن يكون عمر الطالب أكبر من 6 سنوات"
+                          : "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? errors.birthDate.type === "validate"
+                            ? "L'étudiant doit avoir plus de 6 ans"
+                            : "Ce champ est requis"
+                          : "This field is required"}
                   </span>
                 )}
               </label>
@@ -642,11 +673,11 @@ const AddNewStudent = () => {
                 <input
                   id="studentIdPhoto"
                   type="file"
-                  className="opacity-0 cursor-pointer"
+                  className="cursor-pointer opacity-0"
                   {...register("studentIdPhoto")}
                   onChange={e => handleFileChange(e, setStudentIdPhoto)}
                 />
-                <span className="w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
+                <span className="-mt-8 w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
                   <div className="flex">
                     <FaCloudUploadAlt className="mx-2 mt-1" />
                     {studentIdPhoto
@@ -677,11 +708,11 @@ const AddNewStudent = () => {
                 <input
                   id="studentProfilePhoto"
                   type="file"
-                  className="opacity-0 cursor-pointer"
+                  className="cursor-pointer opacity-0"
                   {...register("studentProfilePhoto")}
                   onChange={e => handleFileChange(e, setStudentProfilePhoto)}
                 />
-                <span className="w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
+                <span className="-mt-8 w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
                   <div className="flex">
                     <FaCloudUploadAlt className="mx-2 mt-1" />
                     {studentProfilePhoto
@@ -710,13 +741,13 @@ const AddNewStudent = () => {
                 <input
                   id="studentCertificatesOfAchievement"
                   type="file"
-                  className="opacity-0 cursor-pointer"
+                  className="cursor-pointer opacity-0"
                   {...register("studentCertificatesOfAchievement")}
                   onChange={e =>
                     handleFileChange(e, setStudentCertificatesOfAchievement)
                   }
                 />
-                <span className="w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
+                <span className="-mt-8 w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
                   <div className="flex">
                     <FaCloudUploadAlt className="mx-2 mt-1" />
                     {studentCertificatesOfAchievement
@@ -737,7 +768,7 @@ const AddNewStudent = () => {
               <button
                 disabled={isLoading}
                 type="submit"
-                className="w-[180px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+                className="w-fit rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
               >
                 {isLoading
                   ? currentLanguage === "en"

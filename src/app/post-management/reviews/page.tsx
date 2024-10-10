@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import Soon from "@/components/soon";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import Spinner from "@/components/spinner";
 
 const Reviews = () => {
   const breadcrumbs = [
@@ -27,18 +28,32 @@ const Reviews = () => {
       href: "/post-management/reviews",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
 
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
   return (
     <>
       {/* <Soon /> */}
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } relative mx-3 mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
         <div className="justify-left mb-[40px] ml-4 mt-[20px] flex gap-5 text-[23px] font-semibold">
           <Link href="/post-management">
@@ -132,7 +147,7 @@ const Reviews = () => {
                     <div className="flex items-center gap-2 text-[15px] text-black">
                       <img
                         src="/images/me.jpg"
-                        className="mr-2 h-[40px] w-[40px] rounded-full"
+                        className="mx-2 h-[40px] w-[40px] rounded-full"
                         alt="#"
                       />
                       <span className="grid">
@@ -186,7 +201,7 @@ const Reviews = () => {
                     <div className="flex items-center gap-2 text-[15px] text-black">
                       <img
                         src="/images/me.jpg"
-                        className="mr-2 h-[40px] w-[40px] rounded-full"
+                        className="mx-2 h-[40px] w-[40px] rounded-full"
                         alt="#"
                       />
                       <span className="grid">
@@ -240,7 +255,7 @@ const Reviews = () => {
                     <div className="flex items-center gap-2 text-[15px] text-black">
                       <img
                         src="/images/me.jpg"
-                        className="mr-2 h-[40px] w-[40px] rounded-full"
+                        className="mx-2 h-[40px] w-[40px] rounded-full"
                         alt="#"
                       />
                       <span className="grid">

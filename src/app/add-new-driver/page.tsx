@@ -17,9 +17,6 @@ import BreadCrumbs from "@/components/BreadCrumbs";
 
 const AddNewDriver = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
 
   const { data: nationalityData, isLoading: nationalityLoading } =
     useGetAllNationalitysQuery(null);
@@ -71,7 +68,11 @@ const AddNewDriver = () => {
     },
   ];
 
-  if (nationalityLoading || isPosition)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -83,7 +84,15 @@ const AddNewDriver = () => {
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mr-[5px] grid h-[850px] items-center justify-center`}
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } mx-[5px] grid h-[850px] items-center justify-center`}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="my-10 grid items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:w-[1000px]">
@@ -324,36 +333,6 @@ const AddNewDriver = () => {
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("religion", { required: true })}
                 >
-                  <option value="">
-                    {currentLanguage === "en"
-                      ? "Select religion"
-                      : currentLanguage === "ar"
-                        ? "اختر الدين"
-                        : currentLanguage === "fr"
-                          ? "Sélectionner la religion"
-                          : "Select religion"}{" "}
-                    {/* default */}
-                  </option>
-                  <option value="MUSLIM">
-                    {currentLanguage === "en"
-                      ? "Muslim"
-                      : currentLanguage === "ar"
-                        ? "مسلم"
-                        : currentLanguage === "fr"
-                          ? "Musulman"
-                          : "Muslim"}{" "}
-                    {/* default */}
-                  </option>
-                  <option value="CHRISTIAN">
-                    {currentLanguage === "en"
-                      ? "Christian"
-                      : currentLanguage === "ar"
-                        ? "مسيحي"
-                        : currentLanguage === "fr"
-                          ? "Chrétien"
-                          : "Christian"}{" "}
-                    {/* default */}
-                  </option>
                   <option value="OTHERS">
                     {currentLanguage === "en"
                       ? "Others"
@@ -451,7 +430,7 @@ const AddNewDriver = () => {
                   defaultValue=""
                   id="regionId"
                   {...register("regionId", { required: true })}
-                  className={`border ${errors.regionId ? "border-borderPrimary" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-[18px] text-blackOrWhite outline-none max-[458px]:w-[350px]`}
+                  className={`h-full w-[400px] rounded-xl border border-borderPrimary px-4 py-3 text-[18px] text-blackOrWhite outline-none max-[458px]:w-[350px]`}
                 >
                   <option value="">
                     {currentLanguage === "en"
@@ -642,24 +621,47 @@ const AddNewDriver = () => {
                     ? "تاريخ الميلاد"
                     : currentLanguage === "fr"
                       ? "Date de naissance"
-                      : "Date Of Birth"}{" "}
-                {/* default */}
+                      : "Date Of Birth"}
                 <input
                   id="birthDate"
                   type="date"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("birthDate", { required: true })}
+                  {...register("birthDate", {
+                    required: true,
+                    validate: value => {
+                      const today = new Date();
+                      const birthDate = new Date(value);
+                      const age = today.getFullYear() - birthDate.getFullYear();
+                      const monthDiff = today.getMonth() - birthDate.getMonth();
+
+                      // Adjust age if the birth date hasn't been reached yet this year
+                      if (
+                        monthDiff < 0 ||
+                        (monthDiff === 0 &&
+                          today.getDate() < birthDate.getDate())
+                      ) {
+                        return age > 20;
+                      }
+
+                      return age >= 20;
+                    },
+                  })}
                 />
                 {errors.birthDate && (
                   <span className="text-error">
                     {currentLanguage === "en"
-                      ? "This field is required"
+                      ? errors.birthDate.type === "validate"
+                        ? "The Driver Must be older than 20"
+                        : "This field is required"
                       : currentLanguage === "ar"
-                        ? "هذا الحقل مطلوب"
+                        ? errors.birthDate.type === "validate"
+                          ? "يجب أن يكون عمر السائق أكبر من 20 عامًا"
+                          : "هذا الحقل مطلوب"
                         : currentLanguage === "fr"
-                          ? "Ce champ est requis"
-                          : "This field is required"}{" "}
-                    {/* default */}
+                          ? errors.birthDate.type === "validate"
+                            ? "Le chauffeur doit avoir plus de 20 ans"
+                            : "Ce champ est requis"
+                          : "This field is required"}
                   </span>
                 )}
               </label>
@@ -921,7 +923,7 @@ const AddNewDriver = () => {
               <button
                 disabled={isLoading}
                 type="submit"
-                className="w-[180px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+                className="w-fit rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
               >
                 {isLoading
                   ? currentLanguage === "en"

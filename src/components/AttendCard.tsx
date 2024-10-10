@@ -21,9 +21,10 @@ const AttendCard: React.FC<CardProps> = ({
   description,
   number,
 }) => {
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+  const { language: currentLanguage } = useSelector(
+    (state: RootState) => state.language,
   );
+
   return (
     <div className="grid h-[180px] w-[250px] items-center justify-center rounded-xl bg-bgPrimary px-3 py-2 shadow-lg">
       <Link

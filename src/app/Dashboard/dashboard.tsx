@@ -49,10 +49,6 @@ const eventSchema = z.object({
 });
 
 const Dashboard: React.FC = () => {
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
-
   const router = useRouter();
 
   const { data: events, isLoading: isEvents } = useGetEventsInMonthQuery(null);
@@ -210,6 +206,10 @@ const Dashboard: React.FC = () => {
   });
   type Meeting = Record<string, any>;
 
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
   if (
     isStudents ||
     isEmployee ||
@@ -218,7 +218,8 @@ const Dashboard: React.FC = () => {
     isEvents ||
     isMeeting ||
     isNotices ||
-    isExpenses
+    isExpenses ||
+    loading
   )
     return (
       <div className="flex h-screen w-full items-center justify-center">
@@ -372,10 +373,10 @@ const Dashboard: React.FC = () => {
                         : "There is No Data"}
                 </div>
               )}
-              <div className="flex justify-center items-end h-full">
+              <div className="flex h-full items-end justify-center">
                 <button
                   onClick={handleOpenModal}
-                  className="mr-3 w-[120px] whitespace-nowrap rounded-xl bg-primary px-1 py-1.5 text-[14px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                  className="mx-3 w-[120px] whitespace-nowrap rounded-xl bg-primary px-1 py-1.5 text-[14px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
                 >
                   {currentLanguage === "ar"
                     ? "+ حدث جديد"
@@ -386,7 +387,7 @@ const Dashboard: React.FC = () => {
               </div>
               <div
                 dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-                className="flex justify-end text-end w-full"
+                className="flex w-full justify-end text-end"
               >
                 <Link
                   href="/educational-affairs/events"
@@ -441,7 +442,7 @@ const Dashboard: React.FC = () => {
               </p>
               <Link
                 href="/add-note"
-                className="mb-5 mr-3 whitespace-nowrap rounded-xl h-[35px] bg-primary px-2 py-1 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+                className="mx-3 mb-5 h-[35px] whitespace-nowrap rounded-xl bg-primary px-2 py-1 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
               >
                 {currentLanguage === "en"
                   ? "+ Add Note"
@@ -652,7 +653,7 @@ const Dashboard: React.FC = () => {
           <div className="flex justify-between">
             <button
               type="submit"
-              className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+              className="mx-3 mb-5 w-fit whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               {currentLanguage === "ar"
                 ? "إضافة"
@@ -662,7 +663,7 @@ const Dashboard: React.FC = () => {
             </button>
             <button
               onClick={handleCloseModal}
-              className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-error px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-warning hover:shadow-xl"
+              className="mx-3 mb-5 w-fit whitespace-nowrap rounded-xl bg-error px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-warning hover:shadow-xl"
             >
               {currentLanguage === "ar"
                 ? "إلغاء"

@@ -28,14 +28,17 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Filter options based on the search term
-  const filteredOptions = options.filter((option) =>
-    option.label.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredOptions = options.filter(option =>
+    option.label.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
@@ -63,25 +66,25 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
                 (currentLanguage === "ar"
                   ? "ابحث عن مدرسة"
                   : currentLanguage === "fr"
-                  ? "Rechercher une école"
-                  : "Search and select a school")
+                    ? "Rechercher une école"
+                    : "Search and select a school")
               }
               value={searchTerm}
-              onChange={(e) => {
+              onChange={e => {
                 setSearchTerm(e.target.value);
                 setIsOpen(true); // Open dropdown
               }}
               onFocus={() => setIsOpen(true)}
-              className={`transition-all duration-200 ease-in-out focus:ring-2 focus:ring-primary focus:outline-none rounded-xl w-full p-3 border ${
+              className={`w-full rounded-xl border p-3 transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary ${
                 errors[name] ? "border-red-500" : "border-gray-300"
-              } bg-white dark:bg-bgSecondary dark:border-gray-600 shadow-sm text-gray-700 dark:text-gray-300`}
+              } bg-white text-gray-700 shadow-sm dark:border-gray-600 dark:bg-bgSecondary dark:text-gray-300`}
             />
 
             {/* Dropdown List */}
             {isOpen && (
-              <ul className="absolute z-10 w-full max-h-60 overflow-y-auto bg-white dark:bg-bgSecondary border border-gray-300 dark:border-gray-600 rounded-lg shadow-lg mt-1">
+              <ul className="absolute z-10 mt-1 max-h-60 w-full overflow-y-auto rounded-lg border border-gray-300 bg-white shadow-lg dark:border-gray-600 dark:bg-bgSecondary">
                 {filteredOptions.length > 0 ? (
-                  filteredOptions.map((option) => (
+                  filteredOptions.map(option => (
                     <li
                       key={option.value}
                       onClick={() => {
@@ -99,8 +102,8 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
                     {currentLanguage === "ar"
                       ? "لا توجد مدارس"
                       : currentLanguage === "fr"
-                      ? "Aucune école trouvée"
-                      : "No schools found"}
+                        ? "Aucune école trouvée"
+                        : "No schools found"}
                   </li>
                 )}
               </ul>
@@ -111,7 +114,7 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
 
       {/* Validation Error */}
       {errors[name] && (
-        <span className="text-sm text-red-500 mt-1 block">
+        <span className="mt-1 block text-sm text-red-500">
           {errors[name].message}
         </span>
       )}

@@ -9,12 +9,12 @@ import { RootState } from "@/GlobalRedux/store";
 import BreadCrumbs from "@/components/BreadCrumbs";
 
 interface ParamsType {
-  params:{
+  params: {
     examId: number;
-  }
+  };
 }
 
-const EditExam = ({params}: ParamsType) => {
+const EditExam = ({ params }: ParamsType) => {
   const breadcrumbs = [
     {
       nameEn: "Administration",
@@ -42,9 +42,7 @@ const EditExam = ({params}: ParamsType) => {
     },
   ];
 
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+  const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   const {
     register,
@@ -55,19 +53,38 @@ const EditExam = ({params}: ParamsType) => {
 
   const onSubmit = async (data: any) => {
     try {
-      await createExam({ formData:data, id: params.examId }).unwrap();
+      await createExam({ formData: data, id: params.examId }).unwrap();
       toast.success("Exam edited successfully");
     } catch {
       toast.error("Failed to edite Exam");
     }
   };
 
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
+
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className="mr-[5px] mt-[40px] grid h-[850px] items-center justify-center lg:ml-[270px]"
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } mx-3 mt-[40px] grid h-[850px] items-center justify-center`}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid h-[900px] items-center justify-center rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:h-[800px] xl:w-[1000px]">
@@ -161,35 +178,35 @@ const EditExam = ({params}: ParamsType) => {
                   </span>
                 )}
               </label>
-            <label
-              htmlFor="period"
-              className="grid font-sans text-[18px] font-semibold"
-            >
-              {currentLanguage === "en"
-                ? "Period"
-                : currentLanguage === "ar"
-                  ? "معرف نوع الامتحان"
-                  : currentLanguage === "fr"
-                    ? "ID du type d'examen"
-                    : "Exam Type ID"}{" "}
-              <input
-                id="period"
-                {...register("period", { required: true })}
-                type="text"
-                className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-              />
-              {errors.period && (
-                <span className="text-error">
-                  {currentLanguage === "en"
-                    ? "This field is required"
-                    : currentLanguage === "ar"
-                      ? "هذا الحقل مطلوب"
-                      : currentLanguage === "fr"
-                        ? "Ce champ est requis"
-                        : "This field is required"}{" "}
-                </span>
-              )}
-            </label>
+              <label
+                htmlFor="period"
+                className="grid font-sans text-[18px] font-semibold"
+              >
+                {currentLanguage === "en"
+                  ? "Period"
+                  : currentLanguage === "ar"
+                    ? "معرف نوع الامتحان"
+                    : currentLanguage === "fr"
+                      ? "ID du type d'examen"
+                      : "Exam Type ID"}{" "}
+                <input
+                  id="period"
+                  {...register("period", { required: true })}
+                  type="text"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                />
+                {errors.period && (
+                  <span className="text-error">
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                  </span>
+                )}
+              </label>
             </div>
 
             <div className="flex justify-center text-center">

@@ -33,9 +33,7 @@ const Achievement = () => {
       href: "/document-management/certificate/achievement",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   type Achievement = Record<string, any>;
   const [search, setSearch] = useState("");
@@ -100,18 +98,31 @@ const Achievement = () => {
     };
   }, []);
 
-  if (isLoading)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
       </div>
     );
+
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
+        className={` ${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } relative mx-3 mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
         <div className="justify-left mb-[80px] ml-4 mt-[50px] flex flex-wrap gap-5 text-[20px] font-semibold max-[725px]:text-[15px]">
           <Link href="/document-management/certificate">
@@ -188,7 +199,7 @@ const Achievement = () => {
           <div className="flex justify-center">
             <Link
               href="/document-management/certificate/add-new-achievement"
-              className="mb-5 mr-3 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+              className="mx-3 mb-5 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
             >
               {currentLanguage === "ar"
                 ? "+ إضافة إنجازات التخرج"

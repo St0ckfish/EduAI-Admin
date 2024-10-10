@@ -48,12 +48,14 @@ const Profile = () => {
       toast.error("Failed to Update User");
     }
   };
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value); // sidebar
 
-  if (userLoading)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading || userLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -64,7 +66,15 @@ const Profile = () => {
     <>
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={` ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-7`}
+        className={` ${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } mt-7`}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid h-full w-full rounded-xl bg-bgPrimary p-7">
@@ -90,7 +100,7 @@ const Profile = () => {
               <div className="text-semibold flex items-center gap-2 text-[15px] text-textPrimary">
                 <img
                   src="/images/userr.png"
-                  className="mr-2 h-[40px] w-[40px] rounded-full"
+                  className="mx-2 h-[40px] w-[40px] rounded-full"
                   alt="#"
                 />
                 <span className="grid font-semibold">

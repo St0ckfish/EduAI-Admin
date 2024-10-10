@@ -6,36 +6,37 @@ import { toast } from "react-toastify";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
+import Spinner from "@/components/spinner";
 
 const AddClass = () => {
   const studyLevels = {
-    "GRADE12": "الصف 12",
-    "GRADE9": "الصف 9",
-    "GRADE7": "الصف 7",
-    "GRADE8": "الصف 8",
-    "GRADE11": "الصف 11",
-    "GRADE10": "الصف 10",
-    "GRADE1": "الصف 1",
-    "GRADE2": "الصف 2",
-    "KG1": "روضة أطفال 1",
-    "GRADE5": "الصف 5",
-    "GRADE6": "الصف 6",
-    "GRADE3": "الصف 3",
-    "KG2": "روضة أطفال 2",
-    "GRADE4": "الصف 4"
+    GRADE12: "الصف 12",
+    GRADE9: "الصف 9",
+    GRADE7: "الصف 7",
+    GRADE8: "الصف 8",
+    GRADE11: "الصف 11",
+    GRADE10: "الصف 10",
+    GRADE1: "الصف 1",
+    GRADE2: "الصف 2",
+    KG1: "روضة أطفال 1",
+    GRADE5: "الصف 5",
+    GRADE6: "الصف 6",
+    GRADE3: "الصف 3",
+    KG2: "روضة أطفال 2",
+    GRADE4: "الصف 4",
   };
   const studyCategories = {
-    "KINDERGARTEN": "روضة أطفال",
-    "SECONDARY": "السنة الثانوية",
-    "PRIMARY": "السنة الابتدائية",
-    "PREPARATORY": "السنة الاعدادية"
+    KINDERGARTEN: "روضة أطفال",
+    SECONDARY: "السنة الثانوية",
+    PRIMARY: "السنة الابتدائية",
+    PREPARATORY: "السنة الاعدادية",
   };
   const jobCategories = {
-    "EDUCATIONAL": "التعليمية",
-    "ADMINISTRATIVE": "إداري",
-    "SPECIALIZED": "متخصص",
-    "FACILITIES_SERVICES": "خدمة المرافق"
-  }
+    EDUCATIONAL: "التعليمية",
+    ADMINISTRATIVE: "إداري",
+    SPECIALIZED: "متخصص",
+    FACILITIES_SERVICES: "خدمة المرافق",
+  };
   const breadcrumbs = [
     {
       nameEn: "Dashboard",
@@ -56,9 +57,8 @@ const AddClass = () => {
       href: "/classes/add-class",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
+  const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const {
     register,
     handleSubmit,
@@ -75,12 +75,31 @@ const AddClass = () => {
     }
   };
 
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading || isLoading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
+
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className="mr-[5px] grid h-[850px] items-center justify-center lg:ml-[270px]"
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } mx-3 grid h-[850px] items-center justify-center`}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="my-10 grid items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:w-[1000px]">
@@ -391,7 +410,7 @@ const AddClass = () => {
               <button
                 disabled={isLoading}
                 type="submit"
-                className="w-[180px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+                className="w-fit rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
               >
                 {isLoading
                   ? currentLanguage === "ar"

@@ -22,9 +22,7 @@ const Infrastructure = () => {
       href: "/classes",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   type Class = Record<string, any>;
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const { data, error, isLoading } = useGetAllClasssQuery(null);
@@ -35,18 +33,31 @@ const Infrastructure = () => {
     if (error) console.log("Error:", error);
   }, [data, error]);
 
-  if (isLoading)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
       </div>
     );
+
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`flex justify-between ${booleanValue ? "lg:ml-[150px]" : "lg:ml-[320px]"} mt-16 text-center max-[502px]:grid max-[502px]:justify-center lg:mr-[40px]`}
+        className={`flex justify-between ${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[150px]"
+              : "lg:mr-[320px]"
+            : booleanValue
+              ? "lg:ml-[150px]"
+              : "lg:ml-[320px]"
+        } mt-16 text-center max-[502px]:grid max-[502px]:justify-center lg:mr-[40px]`}
       >
         <div className="mb-3">
           <label htmlFor="icon" className="sr-only">
@@ -89,7 +100,7 @@ const Infrastructure = () => {
         <div className="flex justify-center">
           <Link
             href="/classes/add-class"
-            className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+            className="mx-3 mb-5 w-fit whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
           >
             {currentLanguage === "ar"
               ? "+ إضافة فصل"
@@ -100,7 +111,15 @@ const Infrastructure = () => {
         </div>
       </div>
       <div
-        className={`${booleanValue ? "lg:ml-[120px]" : "lg:ml-[290px]"} grid justify-center`}
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[120px]"
+              : "lg:mr-[290px]"
+            : booleanValue
+              ? "lg:ml-[120px]"
+              : "lg:ml-[290px]"
+        } grid justify-center`}
       >
         <div className="mt-5 grid grid-cols-1 justify-center gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6">
           {data?.data.content

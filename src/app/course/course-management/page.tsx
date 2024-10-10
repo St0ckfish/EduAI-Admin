@@ -33,9 +33,7 @@ const CourseManagement = () => {
       href: "/course/course-management",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState<number | boolean | null>(false);
@@ -55,7 +53,11 @@ const CourseManagement = () => {
     }
   };
 
-  if (isLoading)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -67,7 +69,15 @@ const CourseManagement = () => {
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`lg:ml-[290px] ${booleanValue ? "lg:ml-[120px]" : "lg:ml-[290px]"} mt-12`}
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[40px]"
+              : "lg:mr-[290px]"
+            : booleanValue
+              ? "lg:ml-[40px]"
+              : "lg:ml-[290px]"
+        } mt-12`}
       >
         <div className="flex w-full justify-between px-8 text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">
@@ -111,7 +121,7 @@ const CourseManagement = () => {
           <div className="flex justify-center">
             <Link
               href="/course/course-management/add-course"
-              className="mb-5 mr-3 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+              className="mx-3 mb-5 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               {currentLanguage === "ar"
                 ? "+ إضافة دورة جديدة"
@@ -244,7 +254,7 @@ const CourseManagement = () => {
                 <div className="flex items-center gap-2 font-semibold">
                   <img
                     src="/images/userr.png"
-                    className="mr-2 h-[40px] w-[40px] rounded-full"
+                    className="mx-2 h-[40px] w-[40px] rounded-full"
                     alt="#"
                   />
                   {course.eduSystemName}

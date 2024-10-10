@@ -3,6 +3,7 @@ import BreadCrumbs from "@/components/BreadCrumbs";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import Spinner from "@/components/spinner";
 
 const AddMaterial = () => {
   const breadcrumbs = [
@@ -36,16 +37,32 @@ const AddMaterial = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+
+  const booleanValue = useSelector((state: RootState) => state.boolean.value);
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
   );
 
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className="mr-[5px] mt-[40px] grid h-[500px] items-center justify-center lg:ml-[270px]"
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } mx-3 mt-[40px] grid h-[500px] items-center justify-center`}
       >
         <form>
           <div className="grid h-[400px] items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:h-[500px] xl:w-[1000px]">
@@ -190,7 +207,7 @@ const AddMaterial = () => {
             <div className="flex justify-center text-center">
               <button
                 type="submit"
-                className="w-fit rounded-xl bg-primary px-4 px-5 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+                className="w-fit rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
               >
                 {currentLanguage === "ar"
                   ? "حفظ"

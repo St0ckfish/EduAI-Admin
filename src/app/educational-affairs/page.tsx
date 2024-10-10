@@ -7,6 +7,7 @@ import { FaClipboardList } from "react-icons/fa"; // Exams Icon
 import { FaRegChartBar } from "react-icons/fa"; // Grades Icon
 import { BsCalendar } from "react-icons/bs"; // Schedule Icon
 import BreadCrumbs from "@/components/BreadCrumbs";
+import Spinner from "@/components/spinner";
 
 const EducationalAffairs = () => {
   const breadcrumbs = [
@@ -24,8 +25,8 @@ const EducationalAffairs = () => {
     },
   ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
   );
 
   const Educations = [
@@ -110,12 +111,28 @@ const EducationalAffairs = () => {
               : "All Schedules for both teachers and classes", // Default to English
     },
   ];
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
+
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} mt-12 grid justify-center`}
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[40px]"
+              : "lg:mr-[290px]"
+            : booleanValue
+              ? "lg:ml-[40px]"
+              : "lg:ml-[290px]"
+        } mt-12 grid justify-center`}
       >
         <div className="grid grid-cols-2 gap-5 max-[577px]:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4">
           {Educations.map((item, index) => (

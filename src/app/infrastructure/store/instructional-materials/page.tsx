@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"; // Import useState and useEffect ho
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
+import Spinner from "@/components/spinner";
 
 const instructionalMaterials = () => {
   const breadcrumbs = [
@@ -27,9 +28,6 @@ const instructionalMaterials = () => {
     },
   ];
 
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value); // sidebar
 
   const [selectAll, setSelectAll] = useState(false); // State to track whether select all checkbox is checked
@@ -80,14 +78,31 @@ const instructionalMaterials = () => {
     };
   }, []);
 
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
+
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         className={`${
-          booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"
-        } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } relative mx-3 mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
         <div className="flex h-[70px] items-center gap-7 overflow-auto rounded-t-xl px-3 font-semibold">
           <Link className="underline-offset-4" href="/infrastructure/store">
@@ -186,7 +201,7 @@ const instructionalMaterials = () => {
           <div className="flex justify-center">
             <Link
               href="/infrastructure/store/add-store"
-              className="mb-5 mr-3 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+              className="mx-3 mb-5 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               {currentLanguage === "ar"
                 ? "إضافة متجر"

@@ -6,6 +6,7 @@ import BreadCrumbs from "@/components/BreadCrumbs";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import { toast } from "react-toastify";
+import Spinner from "@/components/spinner";
 
 const Book = () => {
   const breadcrumbs = [
@@ -28,9 +29,6 @@ const Book = () => {
       href: "/book",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
 
   const booleanValue = useSelector((state: RootState) => state.boolean.value); // sidebar
 
@@ -88,14 +86,31 @@ const Book = () => {
     };
   }, []);
 
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
+
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         className={`${
-          booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"
-        } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } relative mx-3 mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
         <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
           <thead className="bg-thead text-xs uppercase text-textPrimary">

@@ -5,6 +5,7 @@ import { useState, useEffect } from "react"; // Import useState and useEffect ho
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
+import Spinner from "@/components/spinner";
 
 const Enrollment = () => {
   const breadcrumbs = [
@@ -28,9 +29,6 @@ const Enrollment = () => {
     },
   ];
 
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value); // sidebar
 
   const [selectAll, setSelectAll] = useState(false); // State to track whether select all checkbox is checked
@@ -80,6 +78,16 @@ const Enrollment = () => {
     };
   }, []);
 
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
   return (
     <>
       <Soon />
@@ -88,8 +96,14 @@ const Enrollment = () => {
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         className={`${
-          booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"
-        } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } relative mx-3 mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
         <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
           <thead className="bg-thead text-xs uppercase text-textPrimary">

@@ -3,17 +3,33 @@
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
+import Spinner from "@/components/spinner";
 
 const InfrastructureSearch = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
   );
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
 
   return (
     <>
       <div
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} mt-12`}
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[40px]"
+              : "lg:mr-[290px]"
+            : booleanValue
+              ? "lg:ml-[40px]"
+              : "lg:ml-[290px]"
+        } mt-12`}
       >
         <div className="flex h-full w-full justify-center overflow-auto p-2">
           <div className="grid h-full w-full overflow-auto rounded-xl bg-bgPrimary">

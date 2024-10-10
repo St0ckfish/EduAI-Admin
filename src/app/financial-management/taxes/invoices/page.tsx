@@ -36,11 +36,12 @@ const Invoices = () => {
       href: "/financial-management/taxes/invoices",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
   );
 
-  if (isLoading)
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -98,8 +99,14 @@ const Invoices = () => {
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         className={`${
-          booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"
-        } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } relative mx-3 mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
         <h1 className="mb-5 ml-8 text-[30px] font-bold">
           {currentLanguage === "ar"

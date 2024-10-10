@@ -41,9 +41,7 @@ const ViewDriver: React.FC<ViewDriverProps> = ({ params }) => {
       href: `/driver/view-driver/${params.driverId}`,
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   const { data, error, isLoading } = useGetDriverByIdQuery(params.driverId);
@@ -56,7 +54,11 @@ const ViewDriver: React.FC<ViewDriverProps> = ({ params }) => {
     }
   }, [data, error]);
 
-  if (isLoading)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -68,7 +70,15 @@ const ViewDriver: React.FC<ViewDriverProps> = ({ params }) => {
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} mt-[40px] grid py-4`}
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[40px]"
+              : "lg:mr-[290px]"
+            : booleanValue
+              ? "lg:ml-[40px]"
+              : "lg:ml-[290px]"
+        } mt-[40px] grid py-4`}
       >
         <div className="grid grid-cols-2 gap-7 pr-7 max-[1342px]:grid-cols-1 max-[1342px]:px-5">
           <DriverInfo data={data} />

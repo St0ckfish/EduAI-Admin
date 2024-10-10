@@ -12,10 +12,6 @@ import { RootState } from "@/GlobalRedux/store";
 
 const TeahcerSearch = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
-
   type Teacher = Record<string, any>;
   const { data, error, isLoading } = useGetAllTeachersQuery({
     archived: "false",
@@ -48,10 +44,28 @@ const TeahcerSearch = () => {
   const handleClick = (id: SetStateAction<null>) => {
     setSelectedId(id);
   };
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
   return (
     <>
       <div
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} mt-12`}
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[40px]"
+              : "lg:mr-[290px]"
+            : booleanValue
+              ? "lg:ml-[40px]"
+              : "lg:ml-[290px]"
+        } mt-12`}
       >
         <div className="flex h-full w-full justify-center overflow-auto p-2">
           <div className="grid h-full w-full overflow-auto rounded-xl bg-bgPrimary">
@@ -228,13 +242,13 @@ const TeahcerSearch = () => {
                                 {student.picture == null ? (
                                   <img
                                     src="/images/userr.png"
-                                    className="mr-2 h-[40px] w-[40px] rounded-full"
+                                    className="mx-2 h-[40px] w-[40px] rounded-full"
                                     alt="#"
                                   />
                                 ) : (
                                   <img
                                     src={student.picture}
-                                    className="mr-2 h-[40px] w-[40px] rounded-full"
+                                    className="mx-2 h-[40px] w-[40px] rounded-full"
                                     alt="#"
                                   />
                                 )}
@@ -281,13 +295,13 @@ const TeahcerSearch = () => {
                             {EmployeeQ?.data.picture == null ? (
                               <img
                                 src="/images/userr.png"
-                                className="mr-2 h-[120px] w-[120px] rounded-full"
+                                className="mx-2 h-[120px] w-[120px] rounded-full"
                                 alt="#"
                               />
                             ) : (
                               <img
                                 src={EmployeeQ?.data.picture}
-                                className="mr-2 h-[120px] w-[120px] rounded-full"
+                                className="mx-2 h-[120px] w-[120px] rounded-full"
                                 alt="#"
                               />
                             )}

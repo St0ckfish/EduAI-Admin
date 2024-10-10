@@ -36,9 +36,7 @@ const Bank = () => {
       href: "/financial-management/bank",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const [search, setSearch] = useState("");
   const [isModalOpen, setModalOpen] = useState(false);
@@ -134,7 +132,11 @@ const Bank = () => {
     if (error) console.log("Error:", error);
   }, [data, error]);
 
-  if (isLoading)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -146,7 +148,15 @@ const Bank = () => {
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-10`}
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } mt-10`}
       >
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">
@@ -190,7 +200,7 @@ const Bank = () => {
           <div className="flex justify-center">
             <button
               onClick={handleOpenModal}
-              className="mb-5 mr-3 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+              className="mx-3 mb-5 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               {currentLanguage === "en"
                 ? "+ New Bank Information"
@@ -603,7 +613,7 @@ const Bank = () => {
               ) : (
                 <button
                   type="submit"
-                  className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+                  className="mx-3 mb-5 w-fit whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                 >
                   {currentLanguage === "en"
                     ? "Add"
@@ -614,7 +624,7 @@ const Bank = () => {
               )}
               <button
                 onClick={handleCloseModal}
-                className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl border border-borderPrimary bg-error px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:shadow-xl"
+                className="mx-3 mb-5 w-fit whitespace-nowrap rounded-xl border border-borderPrimary bg-error px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:shadow-xl"
               >
                 {currentLanguage === "en"
                   ? "Cancel"
@@ -784,7 +794,7 @@ const Bank = () => {
               ) : (
                 <button
                   type="submit"
-                  className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+                  className="mx-3 mb-5 w-fit whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                 >
                   {currentLanguage === "ar"
                     ? "تعديل"
@@ -795,7 +805,7 @@ const Bank = () => {
               )}
               <button
                 onClick={handleCloseModal2}
-                className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl border bg-bgSecondary px-4 py-2 text-[18px] font-semibold text-black duration-300 ease-in hover:shadow-xl"
+                className="mx-3 mb-5 w-fit whitespace-nowrap rounded-xl border bg-bgSecondary px-4 py-2 text-[18px] font-semibold text-black duration-300 ease-in hover:shadow-xl"
               >
                 {currentLanguage === "ar"
                   ? "إلغاء"

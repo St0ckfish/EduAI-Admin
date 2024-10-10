@@ -64,9 +64,18 @@ const AddNewWorker = () => {
     }
   };
 
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+  const booleanValue = useSelector((state: RootState) => state.boolean.value);
+
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
   );
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
 
   if (nationalityLoading || isPosition)
     return (
@@ -80,7 +89,15 @@ const AddNewWorker = () => {
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className="mr-[5px] grid h-[850px] items-center justify-center lg:ml-[270px]"
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } mx-[10px] grid h-[850px] items-center justify-center`}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="my-10 grid items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:w-[1000px]">
@@ -275,27 +292,6 @@ const AddNewWorker = () => {
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("religion", { required: true })}
                 >
-                  <option value="">
-                    {currentLanguage === "en"
-                      ? "Select religion"
-                      : currentLanguage === "ar"
-                        ? "حدد الديانة"
-                        : "Sélectionner la religion"}
-                  </option>
-                  <option value="MUSLIM">
-                    {currentLanguage === "en"
-                      ? "Muslim"
-                      : currentLanguage === "ar"
-                        ? "مسلم"
-                        : "Musulman"}
-                  </option>
-                  <option value="CHRISTIAN">
-                    {currentLanguage === "en"
-                      ? "Christian"
-                      : currentLanguage === "ar"
-                        ? "مسيحي"
-                        : "Chrétien"}
-                  </option>
                   <option value="OTHERS">
                     {currentLanguage === "en"
                       ? "Others"
@@ -527,23 +523,53 @@ const AddNewWorker = () => {
                   ? "Date Of Birth"
                   : currentLanguage === "ar"
                     ? "تاريخ الميلاد"
-                    : "Date de naissance"}
+                    : currentLanguage === "fr"
+                      ? "Date de naissance"
+                      : "Date Of Birth"}
                 <input
                   id="birthDate"
                   type="date"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("birthDate", { required: true })}
+                  {...register("birthDate", {
+                    required: true,
+                    validate: value => {
+                      const today = new Date();
+                      const birthDate = new Date(value);
+                      const age = today.getFullYear() - birthDate.getFullYear();
+                      const monthDiff = today.getMonth() - birthDate.getMonth();
+
+                      // Adjust age if the birth date hasn't been reached yet this year
+                      if (
+                        monthDiff < 0 ||
+                        (monthDiff === 0 &&
+                          today.getDate() < birthDate.getDate())
+                      ) {
+                        return age > 20;
+                      }
+
+                      return age >= 20;
+                    },
+                  })}
                 />
                 {errors.birthDate && (
                   <span className="text-error">
                     {currentLanguage === "en"
-                      ? "This field is required"
+                      ? errors.birthDate.type === "validate"
+                        ? "The Worker Must be older than 20"
+                        : "This field is required"
                       : currentLanguage === "ar"
-                        ? "هذه الحقول مطلوبة"
-                        : "Ce champ est requis"}
+                        ? errors.birthDate.type === "validate"
+                          ? "يجب أن يكون عمر العامل أكبر من 20 عامًا"
+                          : "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? errors.birthDate.type === "validate"
+                            ? "L'ouvrier doit avoir plus de 20 ans"
+                            : "Ce champ est requis"
+                          : "This field is required"}
                   </span>
                 )}
               </label>
+
               <label
                 htmlFor="qualification"
                 className="mt-4 grid items-center font-sans text-[18px] font-semibold"
@@ -751,7 +777,7 @@ const AddNewWorker = () => {
               <button
                 disabled={isLoading}
                 type="submit"
-                className="w-[180px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+                className="w-fit rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
               >
                 {isLoading
                   ? currentLanguage === "en"

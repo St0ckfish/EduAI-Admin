@@ -42,9 +42,7 @@ const AddCourse = () => {
     },
   ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const {
     register,
     handleSubmit,
@@ -84,19 +82,31 @@ const AddCourse = () => {
       toast.error("Failed to create Course");
     }
   };
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
 
-  if (CountryLoading || LevelLoading || RegLoading || LangLoading)
+  if (CountryLoading || LevelLoading || RegLoading || LangLoading || loading)
     return (
       <div className="grid h-screen grid-cols-2 items-center justify-center bg-bgPrimary duration-300 ease-in max-[1040px]:grid-cols-1">
         <Spinner />
       </div>
     );
+
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className="mr-[5px] mt-[40px] grid h-[850px] items-center justify-center lg:ml-[270px]"
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } mx-3 mt-[40px] grid h-[850px] items-center justify-center`}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:w-[1000px]">

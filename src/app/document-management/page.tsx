@@ -9,6 +9,7 @@ import { BsPersonLinesFill } from "react-icons/bs"; // Enrollment
 import { FaRegCalendarCheck } from "react-icons/fa"; // Attendance
 import { MdDescription } from "react-icons/md"; // Other official documents
 import BreadCrumbs from "@/components/BreadCrumbs";
+import Spinner from "@/components/spinner";
 
 const DocumentManagement = () => {
   const breadcrumbs = [
@@ -26,8 +27,8 @@ const DocumentManagement = () => {
     },
   ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
   );
 
   const documents = [
@@ -133,12 +134,27 @@ const DocumentManagement = () => {
     },
   ];
 
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
+
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[290px]"} mt-12 grid justify-center`}
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[40px]"
+              : "lg:mr-[290px]"
+            : booleanValue
+              ? "lg:ml-[40px]"
+              : "lg:ml-[290px]"
+        } mt-12 grid justify-center`}
       >
         <div className="grid grid-cols-2 gap-5 max-[577px]:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4">
           {documents.map((item, index) => (

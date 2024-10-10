@@ -34,9 +34,6 @@ const Worker = () => {
       href: "/archive/worker",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
 
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
@@ -120,7 +117,11 @@ const Worker = () => {
     };
   }, []);
 
-  if (isLoading)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -132,7 +133,15 @@ const Worker = () => {
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} bg-transstudent relative mr-[5px] mt-10 h-screen overflow-x-auto sm:rounded-lg`}
+        className={` ${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } bg-transstudent relative mx-3 mt-10 h-screen overflow-x-auto sm:rounded-lg`}
       >
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">
@@ -176,7 +185,7 @@ const Worker = () => {
           <div className="flex justify-center">
             <Link
               href="/add-new-worker"
-              className="mb-5 mr-3 w-[190px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+              className="mx-3 mb-5 w-[190px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               {currentLanguage === "ar"
                 ? "+ إضافة عامل جديد"
@@ -304,13 +313,13 @@ const Worker = () => {
                         {worker.picture == null ? (
                           <img
                             src="/images/userr.png"
-                            className="mr-2 h-[40px] w-[40px] rounded-full"
+                            className="mx-2 h-[40px] w-[40px] rounded-full"
                             alt="#"
                           />
                         ) : (
                           <img
                             src={worker.picture}
-                            className="mr-2 h-[40px] w-[40px] rounded-full"
+                            className="mx-2 h-[40px] w-[40px] rounded-full"
                             alt="#"
                           />
                         )}

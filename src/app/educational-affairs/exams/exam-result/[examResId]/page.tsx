@@ -6,15 +6,18 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import { toast } from "react-toastify";
 import BreadCrumbs from "@/components/BreadCrumbs";
-import { useGetExamResByIdQuery, useDeleteExamResultMutation } from "@/features/Acadimic/examsApi";
+import {
+  useGetExamResByIdQuery,
+  useDeleteExamResultMutation,
+} from "@/features/Acadimic/examsApi";
 
 interface ParamsType {
-  params:{
-    examResId :number
-  }
+  params: {
+    examResId: number;
+  };
 }
 
-const ExamRes = ({params}:ParamsType) => {
+const ExamRes = ({ params }: ParamsType) => {
   const formatTransactionDate = (dateString: string | number | Date) => {
     if (!dateString) return "No transaction date";
     const formatter = new Intl.DateTimeFormat("en-EG", {
@@ -46,10 +49,10 @@ const ExamRes = ({params}:ParamsType) => {
       href: `/educational-affairs/exams/exam-result/${params.examResId}`,
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+
+  const { data, error, isLoading, refetch } = useGetExamResByIdQuery(
+    params.examResId,
   );
-  const { data, error, isLoading, refetch } = useGetExamResByIdQuery(params.examResId);
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const [search, setSearch] = useState("");
 
@@ -116,19 +119,30 @@ const ExamRes = ({params}:ParamsType) => {
     };
   }, []);
 
-  if (isLoading)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
       </div>
     );
-
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } relative mx-3 mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">
@@ -169,8 +183,7 @@ const ExamRes = ({params}:ParamsType) => {
               />
             </div>
           </div>
-          <div className="flex justify-center">
-          </div>
+          <div className="flex justify-center"></div>
         </div>
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
           <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
@@ -221,8 +234,7 @@ const ExamRes = ({params}:ParamsType) => {
                       ? "Date de mise à jour"
                       : "score Date"}
                 </th>
-                
-                
+
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "ar"
                     ? "الإجراء"
@@ -230,11 +242,11 @@ const ExamRes = ({params}:ParamsType) => {
                       ? "Action"
                       : "Action"}
                 </th>
-                
               </tr>
             </thead>
             <tbody>
-              {data?.filter((exam: Exam) => {
+              {data
+                ?.filter((exam: Exam) => {
                   return search.toLocaleLowerCase() === ""
                     ? exam
                     : exam.studentName.toLocaleLowerCase().includes(search);

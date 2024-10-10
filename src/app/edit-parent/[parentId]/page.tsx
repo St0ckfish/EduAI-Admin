@@ -43,9 +43,12 @@ const EditParent: React.FC<ViewParentProps> = ({ params }) => {
       href: `/edit-parent/${params.parentId}`,
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+  const booleanValue = useSelector((state: RootState) => state.boolean.value);
+
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
   );
+
   const { data, error, isLoading } = useGetDriversQuery(params.parentId);
   const [createDriver, { isLoading: isUpdating }] = useUpdateDriversMutation();
   const { data: rigiond } = useGetAllReginionIDQuery(null);
@@ -94,7 +97,7 @@ const EditParent: React.FC<ViewParentProps> = ({ params }) => {
     }
   };
 
-  if (isLoading)
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -106,7 +109,15 @@ const EditParent: React.FC<ViewParentProps> = ({ params }) => {
 
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className="mr-[5px] mt-5 grid h-[850px] items-center justify-center lg:ml-[270px]"
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } mx-3 mt-5 grid h-[850px] items-center justify-center`}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="my-10 grid items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:w-[1000px]">
@@ -252,27 +263,6 @@ const EditParent: React.FC<ViewParentProps> = ({ params }) => {
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("religion", { required: true })}
                 >
-                  <option selected value="">
-                    {currentLanguage === "ar"
-                      ? "اختر الدين"
-                      : currentLanguage === "fr"
-                        ? "Sélectionnez la religion"
-                        : "Select religion"}
-                  </option>
-                  <option value="MUSLIM">
-                    {currentLanguage === "ar"
-                      ? "مسلم"
-                      : currentLanguage === "fr"
-                        ? "Musulman"
-                        : "Muslim"}{" "}
-                  </option>
-                  <option value="CHRISTIAN">
-                    {currentLanguage === "ar"
-                      ? "مسيحي"
-                      : currentLanguage === "fr"
-                        ? "Chrétien"
-                        : "Christian"}{" "}
-                  </option>
                   <option value="OTHERS">
                     {currentLanguage === "ar"
                       ? "أخرى"
@@ -381,7 +371,7 @@ const EditParent: React.FC<ViewParentProps> = ({ params }) => {
                   defaultValue=""
                   id="regionId"
                   {...register("regionId", { required: true })}
-                  className={`border ${errors.regionId ? "border-[#d74f41]" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-[18px] text-[#000000] outline-none max-[458px]:w-[350px]`}
+                  className={`h-full w-[400px] rounded-xl border border-borderPrimary px-4 py-3 text-[18px] text-[#000000] outline-none max-[458px]:w-[350px]`}
                 >
                   <option selected value="">
                     {currentLanguage === "ar"
@@ -495,24 +485,53 @@ const EditParent: React.FC<ViewParentProps> = ({ params }) => {
                 htmlFor="birthDate"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "ar"
-                  ? "تاريخ الميلاد"
-                  : currentLanguage === "fr"
-                    ? "Date de naissance"
-                    : "Date Of Birth"}
+                {currentLanguage === "en"
+                  ? "Date Of Birth"
+                  : currentLanguage === "ar"
+                    ? "تاريخ الميلاد"
+                    : currentLanguage === "fr"
+                      ? "Date de naissance"
+                      : "Date Of Birth"}
                 <input
                   id="birthDate"
                   type="date"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("birthDate", { required: true })}
+                  {...register("birthDate", {
+                    required: true,
+                    validate: value => {
+                      const today = new Date();
+                      const birthDate = new Date(value);
+                      const age = today.getFullYear() - birthDate.getFullYear();
+                      const monthDiff = today.getMonth() - birthDate.getMonth();
+
+                      // Adjust age if the birth date hasn't been reached yet this year
+                      if (
+                        monthDiff < 0 ||
+                        (monthDiff === 0 &&
+                          today.getDate() < birthDate.getDate())
+                      ) {
+                        return age > 20;
+                      }
+
+                      return age >= 20;
+                    },
+                  })}
                 />
                 {errors.birthDate && (
                   <span className="text-error">
-                    {currentLanguage === "ar"
-                      ? "هذا الحقل مطلوب"
-                      : currentLanguage === "fr"
-                        ? "Ce champ est requis"
-                        : "This field is required"}
+                    {currentLanguage === "en"
+                      ? errors.birthDate.type === "validate"
+                        ? "The Parent Must be older than 20"
+                        : "This field is required"
+                      : currentLanguage === "ar"
+                        ? errors.birthDate.type === "validate"
+                          ? "يجب أن يكون عمر الوالد أكبر من 20 عامًا"
+                          : "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? errors.birthDate.type === "validate"
+                            ? "Le parent doit avoir plus de 20 ans"
+                            : "Ce champ est requis"
+                          : "This field is required"}
                   </span>
                 )}
               </label>
@@ -795,7 +814,7 @@ const EditParent: React.FC<ViewParentProps> = ({ params }) => {
                 <button
                   disabled={isLoading}
                   type="submit"
-                  className="w-[180px] rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+                  className="w-fit rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                 >
                   {currentLanguage === "ar"
                     ? "تعديل الوالدين"

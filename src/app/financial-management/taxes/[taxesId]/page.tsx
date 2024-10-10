@@ -95,10 +95,10 @@ const EditTaxes = ({ params }: TaxesId) => {
       href: `/financial-management/taxes/${params.taxesId}`,
     },
   ];
-
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
   );
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   const {
@@ -164,7 +164,7 @@ const EditTaxes = ({ params }: TaxesId) => {
     }
   };
 
-  if (isFetching) {
+  if (loading || isFetching) {
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -177,7 +177,15 @@ const EditTaxes = ({ params }: TaxesId) => {
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-20`}
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } mt-20`}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid gap-3 rounded-xl bg-bgSecondary p-10">

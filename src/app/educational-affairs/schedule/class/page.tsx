@@ -38,9 +38,7 @@ const ClassSchedule = () => {
       href: "/educational-affairs/schedule/class",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const [teacherId, setTeacherId] = useState(null);
 
@@ -52,11 +50,29 @@ const ClassSchedule = () => {
     skip: !teacherId,
   });
 
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />{" "}
       <div
-        className={` ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-7`}
+        className={` ${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } mt-7`}
       >
         <div className="my-12 mr-5 flex justify-between max-[540px]:my-1 max-[540px]:mr-0 max-[540px]:grid max-[540px]:justify-center">
           <div className="ml-2 flex items-center justify-start gap-3 text-xl font-semibold max-[540px]:mb-2 max-[540px]:ml-0 max-[540px]:justify-center">
@@ -91,7 +107,7 @@ const ClassSchedule = () => {
                     ? "Entrez l'ID de la classe"
                     : "Enter Class ID"
               }
-              className="mr-3 rounded border border-borderPrimary px-4 py-2 outline-none"
+              className="mx-3 rounded border border-borderPrimary px-4 py-2 outline-none"
             />
             <button
               type="submit"

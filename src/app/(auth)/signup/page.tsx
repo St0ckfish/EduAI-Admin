@@ -5,12 +5,11 @@
 import SearchableSelect from "@/components/select";
 import Spinner from "@/components/spinner";
 import { useGetAllSchoolsQuery } from "@/features/attendance/attendanceApi";
-import { setLanguage } from "@/features/language/languageSlice";
 import {
   useGetAllNationalitysQuery,
   useGetAllReginionIDQuery,
   useSignupApiDashboardMutation,
-  useGetValidUsernameQuery
+  useGetValidUsernameQuery,
 } from "@/features/signupApi";
 import { RootState } from "@/GlobalRedux/store";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,6 +20,10 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { z } from "zod";
+import {
+  initializeLanguage,
+  setLanguage,
+} from "@/features/language/languageSlice";
 
 // Define the validation schema using Zod
 const signupSchema = z.object({
@@ -44,10 +47,16 @@ const signupSchema = z.object({
 });
 
 const Signup = () => {
-  const [errorMessage, setErrorMessage] = useState<any[]>([]);
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
   );
+
+  const dispatchLang = useDispatch();
+  useEffect(() => {
+    dispatchLang(initializeLanguage());
+  }, [dispatchLang]);
+
+  const [errorMessage, setErrorMessage] = useState<any[]>([]);
   const dispatch2 = useDispatch();
   const handleLanguageChange = (language: any) => {
     dispatch2(setLanguage(language));
@@ -74,7 +83,8 @@ const Signup = () => {
     control,
     register,
     handleSubmit,
-    setError, clearErrors,
+    setError,
+    clearErrors,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(signupSchema),
@@ -124,9 +134,9 @@ const Signup = () => {
       console.error("Failed to create account:", err);
     }
   };
-  const [username, setUsername] = useState<string>('');
+  const [username, setUsername] = useState<string>("");
   const [debouncedUsername, setDebouncedUsername] = useState<string>(username);
-  const [isValid, setIsValid] = useState<boolean | null>(null); 
+  const [isValid, setIsValid] = useState<boolean | null>(null);
 
   // Debounce logic to delay API calls
   useEffect(() => {
@@ -145,17 +155,18 @@ const Signup = () => {
   });
   useEffect(() => {
     if (data && data.data) {
-      setError('username', {
-        type: 'manual',
-        message: currentLanguage === "ar" 
-          ? "اسم المستخدم غير متاح"
-          : currentLanguage === "fr"
-            ? "Nom d'utilisateur indisponible"
-            : "Username is not available",
+      setError("username", {
+        type: "manual",
+        message:
+          currentLanguage === "ar"
+            ? "اسم المستخدم غير متاح"
+            : currentLanguage === "fr"
+              ? "Nom d'utilisateur indisponible"
+              : "Username is not available",
       });
       setIsValid(false);
     } else if (data && !data.data) {
-      clearErrors('username');
+      clearErrors("username");
       setIsValid(true);
     }
   }, [data, setError, clearErrors, currentLanguage]);
@@ -172,9 +183,9 @@ const Signup = () => {
     }
   }, [currentLanguage, errors]);
 
-  if (nationalityLoading || isSchool)
+  if (loading)
     return (
-      <div className="grid h-screen grid-cols-2 items-center justify-center bg-white duration-300 ease-in max-[1040px]:grid-cols-1">
+      <div className="grid h-screen grid-cols-2 items-center justify-center bg-bgSecondary duration-300 ease-in max-[1040px]:grid-cols-1">
         <Spinner />
       </div>
     );
@@ -201,7 +212,7 @@ const Signup = () => {
           </DropdownMenu.Trigger>
           <DropdownMenu.Portal>
             <DropdownMenu.Content
-              className="data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade z-50 mr-2 mt-5 grid min-w-[150px] justify-center gap-5 rounded-md bg-bgPrimary p-[5px] font-semibold shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform]"
+              className="data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade z-50 mx-2 mt-5 grid min-w-[150px] justify-center gap-5 rounded-md bg-bgPrimary p-[5px] font-semibold shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform]"
               sideOffset={5}
             >
               <DropdownMenu.Item className="text-violet11 data-[disabled]:text-mauve8 data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1 group relative mt-2 flex h-[25px] select-none items-center rounded-[3px] px-[5px] text-[13px] leading-none outline-none data-[disabled]:pointer-events-none">
@@ -300,15 +311,15 @@ const Signup = () => {
                       className={`rounded-xl border px-4 py-3 ${errors.username ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                       type="text"
                       value={username}
-                      onChange={(e) => setUsername(e.target.value)}
+                      onChange={e => setUsername(e.target.value)}
                     />
                     {errors.username ? (
                       <span className="text-error mt-2">
                         {errors.username.message?.toString()}
                       </span>
                     ) : isValid && debouncedUsername ? (
-                      <span className="text-green-500 mt-2">
-                        {currentLanguage === "ar" 
+                      <span className="mt-2 text-green-500">
+                        {currentLanguage === "ar"
                           ? "اسم المستخدم متاح"
                           : currentLanguage === "fr"
                             ? "Nom d'utilisateur disponible"
@@ -563,27 +574,6 @@ const Signup = () => {
                       {...register("religion", { required: true })}
                       className={`rounded-xl border px-4 py-3 ${errors.religion ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                     >
-                      <option selected value="">
-                        {currentLanguage === "ar"
-                          ? "اختر الدين"
-                          : currentLanguage === "fr"
-                            ? "Sélectionnez la religion"
-                            : "Select religion"}
-                      </option>
-                      <option value="MUSLIM">
-                        {currentLanguage === "ar"
-                          ? "مسلم"
-                          : currentLanguage === "fr"
-                            ? "Musulman"
-                            : "Muslim"}
-                      </option>
-                      <option value="CHRISTIAN">
-                        {currentLanguage === "ar"
-                          ? "مسيحي"
-                          : currentLanguage === "fr"
-                            ? "Chrétien"
-                            : "Christian"}
-                      </option>
                       <option value="OTHERS">
                         {currentLanguage === "ar"
                           ? "أخرى"
@@ -727,16 +717,16 @@ const Signup = () => {
                   >
                     <select
                       defaultValue=""
-                      id="religion"
+                      id="employeeType"
                       {...register("employeeType", { required: true })}
                       className={`rounded-xl border px-4 py-3 ${errors.employeeType ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
                     >
                       <option selected value="">
                         {currentLanguage === "ar"
-                          ? "اختر نوع الموظف"
+                          ? "اختر الدين"
                           : currentLanguage === "fr"
-                            ? "Sélectionnez la Type d'employé"
-                            : "Select Employee Type"}
+                            ? "Sélectionnez la religion"
+                            : "Select religion"}
                       </option>
                       <option value="EMPLOYEE">
                         {currentLanguage === "ar"
@@ -782,10 +772,10 @@ const Signup = () => {
                     >
                       <option selected value="">
                         {currentLanguage === "ar"
-                          ? "اختر مؤهل"
+                          ? "اختر الدين"
                           : currentLanguage === "fr"
-                            ? "Sélectionnez la Qualification"
-                            : "Select Qualification"}
+                            ? "Sélectionnez la religion"
+                            : "Select religion"}
                       </option>
                       <option value="HIGH_SCHOOL_DIPLOMA">
                         {currentLanguage === "ar"
@@ -1000,14 +990,13 @@ const Signup = () => {
                     className="grid text-start font-sans text-[15px] font-semibold text-[#9a9a9a]"
                   >
                     <SearchableSelect
-        name="schoolId"
-        control={control}
-
-        errors={errors}
-        options={options}
-        currentLanguage="en"
-        placeholder="Select School"
-      />
+                      name="schoolId"
+                      control={control}
+                      errors={errors}
+                      options={options}
+                      currentLanguage={currentLanguage}
+                      placeholder="Select School"
+                    />
                   </label>
                   <label
                     htmlFor="about"

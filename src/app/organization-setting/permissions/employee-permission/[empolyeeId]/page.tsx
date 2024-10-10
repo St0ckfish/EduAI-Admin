@@ -2,6 +2,7 @@
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import Spinner from "@/components/spinner";
 
 interface employeeIdProps {
   params: {
@@ -11,9 +12,7 @@ interface employeeIdProps {
 
 const Permissions: React.FC<employeeIdProps> = ({ params }) => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const breadcrumbs = [
     {
       nameEn: "Administration",
@@ -34,18 +33,38 @@ const Permissions: React.FC<employeeIdProps> = ({ params }) => {
       href: "/organization-setting/permissions/employee-permission",
     },
     {
-      nameEn: `${params.empolyeeId}`,
-      nameAr: `${params.empolyeeId}`,
-      nameFr: `${params.empolyeeId}`,
+      nameEn: "Edit Employee Permission",
+      nameAr: "تعديل صلاحيات الموظف",
+      nameFr: "Modifier les autorisations de l'employé",
       href: `/organization-setting/permissions/employee-permission/${params.empolyeeId}`,
     },
   ];
+
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
+
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={` ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mr-3 mt-[40px]`}
+        className={` ${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } mx-3 mt-[40px]`}
       >
         <div className="rounded-xl bg-bgPrimary pb-5">
           <div className="flex justify-between rounded-t-xl bg-thead px-10 py-4 text-[18px] font-semibold">

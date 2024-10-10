@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import Soon from "@/components/soon";
 import Link from "next/link";
 import { useState, useEffect } from "react"; // Import useState and useEffect hooks
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
+import Spinner from "@/components/spinner";
 
 const Resource = () => {
   const breadcrumbs = [
@@ -30,9 +30,6 @@ const Resource = () => {
   ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
   const [selectAll, setSelectAll] = useState(false); // State to track whether select all checkbox is checked
 
   // Function to handle click on select all checkbox
@@ -80,13 +77,32 @@ const Resource = () => {
     };
   }, []);
 
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
+
   return (
     <>
       {/* <Soon /> */}
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
+        className={` ${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } relative mx-3 mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">
@@ -128,14 +144,14 @@ const Resource = () => {
           </div>
           <div className="flex justify-center">
             <Link
-              href="/"
-              className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+              href="/course/resource/add-resource"
+              className="mx-3 mb-5 w-fit whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               {currentLanguage === "ar"
-                ? "+ إضافة"
+                ? "إضافة مورد"
                 : currentLanguage === "fr"
-                  ? "+ Ajouter"
-                  : "+ Add"}
+                  ? "Ajouter une ressource"
+                  : "Add Resource"}
             </Link>
           </div>
         </div>
@@ -147,28 +163,28 @@ const Resource = () => {
                 ? "Ressources numériques"
                 : "Digital Resources"}
           </Link>
-          <Link href="/course/resource">
+          <Link href="/course/resource/equipment">
             {currentLanguage === "ar"
               ? "المعدات"
               : currentLanguage === "fr"
                 ? "Équipement"
                 : "Equipment"}
           </Link>
-          <Link href="/course/resource">
+          <Link href="/course/resource/facilities">
             {currentLanguage === "ar"
               ? "المرافق"
               : currentLanguage === "fr"
                 ? "Installations"
                 : "Facilities"}
           </Link>
-          <Link href="/course/resource">
+          <Link href="/course/resource/instructional-materials">
             {currentLanguage === "ar"
               ? "المواد التعليمية"
               : currentLanguage === "fr"
                 ? "Matériel pédagogique"
                 : "Instructional Materials"}
           </Link>
-          <Link href="/course/resource">
+          <Link href="/course/resource/textBooks">
             {currentLanguage === "ar"
               ? "الكتب الدراسية"
               : currentLanguage === "fr"
@@ -200,52 +216,45 @@ const Resource = () => {
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "ar"
-                    ? "الرقم"
+                    ? "الإجمالي"
                     : currentLanguage === "fr"
-                      ? "ID"
-                      : "ID"}
+                      ? "Nombre total"
+                      : "Total Number"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "ar"
-                    ? "الجنس"
+                    ? "عدد الإضافات الأخيرة"
                     : currentLanguage === "fr"
-                      ? "Genre"
-                      : "Gender"}
+                      ? "Nombre de la dernière addition"
+                      : "Number of latest addition"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "ar"
-                    ? "رقم التاكسي"
+                    ? "عدد السحوبات الأخيرة"
                     : currentLanguage === "fr"
-                      ? "Numéro de taxi"
-                      : "Taxi Number"}
+                      ? "Nombre du dernier retrait"
+                      : "Number of latest pulling"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "ar"
-                    ? "العنوان"
+                    ? "آخر تحديث"
                     : currentLanguage === "fr"
-                      ? "Adresse"
-                      : "Address"}
+                      ? "Dernière mise à jour"
+                      : "Last update"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "ar"
-                    ? "رقم الجوال"
+                    ? "الحالة"
                     : currentLanguage === "fr"
-                      ? "Mobile"
-                      : "Mobile"}
+                      ? "Statut"
+                      : "Status"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "ar"
-                    ? "عن"
+                    ? "تعديل"
                     : currentLanguage === "fr"
-                      ? "À propos"
-                      : "About"}
-                </th>
-                <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "ar"
-                    ? "عرض"
-                    : currentLanguage === "fr"
-                      ? "Voir"
-                      : "View"}
+                      ? "Modifier"
+                      : "Edit"}
                 </th>
               </tr>
             </thead>
@@ -266,7 +275,7 @@ const Resource = () => {
                 >
                   <img
                     src="/images/me.jpg"
-                    className="mr-2 h-[40px] w-[40px] rounded-full"
+                    className="mx-2 h-[40px] w-[40px] rounded-full"
                     alt="#"
                   />
                   Nahda
@@ -274,19 +283,18 @@ const Resource = () => {
                 <td className="whitespace-nowrap px-6 py-4">1321312</td>
                 <td className="whitespace-nowrap px-6 py-4">Male</td>
                 <td className="whitespace-nowrap px-6 py-4">5515151</td>
-                <td className="whitespace-nowrap px-6 py-4">sdfsdfsdfsdf</td>
                 <td className="whitespace-nowrap px-6 py-4">002050030</td>
                 <td className="whitespace-nowrap px-6 py-4">This is text</td>
                 <td className="whitespace-nowrap px-6 py-4">
                   <Link
-                    href="/driver/view-driver"
+                    href="/course/resource/edit-resource"
                     className="font-medium text-blue-600 hover:underline"
                   >
                     {currentLanguage === "ar"
-                      ? "عرض"
+                      ? "تعديل"
                       : currentLanguage === "fr"
-                        ? "Voir"
-                        : "View"}
+                        ? "Modifier"
+                        : "Edit"}
                   </Link>
                 </td>
               </tr>
@@ -306,7 +314,7 @@ const Resource = () => {
                 >
                   <img
                     src="/images/me.jpg"
-                    className="mr-2 h-[40px] w-[40px] rounded-full"
+                    className="mx-2 h-[40px] w-[40px] rounded-full"
                     alt="#"
                   />
                   Nahda
@@ -314,19 +322,18 @@ const Resource = () => {
                 <td className="whitespace-nowrap px-6 py-4">1321312</td>
                 <td className="whitespace-nowrap px-6 py-4">Male</td>
                 <td className="whitespace-nowrap px-6 py-4">5513131s</td>
-                <td className="whitespace-nowrap px-6 py-4">sdfs2df</td>
                 <td className="whitespace-nowrap px-6 py-4">00515</td>
                 <td className="whitespace-nowrap px-6 py-4">This is text</td>
                 <td className="whitespace-nowrap px-6 py-4">
                   <Link
-                    href="/driver/view-driver"
+                    href="/course/resource/edit-resource"
                     className="font-medium text-blue-600 hover:underline"
                   >
                     {currentLanguage === "ar"
-                      ? "عرض"
+                      ? "تعديل"
                       : currentLanguage === "fr"
-                        ? "Voir"
-                        : "View"}
+                        ? "Modifier"
+                        : "Edit"}
                   </Link>
                 </td>
               </tr>

@@ -32,15 +32,29 @@ const AddNote = () => {
       toast.error("Failed to send notification. Please try again.");
     }
   };
-
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
   );
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
 
   return (
     <div
       dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-      className={`mr-3 mt-5 flex ${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"}`}
+      className={`${
+        currentLanguage === "ar"
+          ? booleanValue
+            ? "lg:mr-[100px]"
+            : "lg:mr-[270px]"
+          : booleanValue
+            ? "lg:ml-[100px]"
+            : "lg:ml-[270px]"
+      } mx-3 mt-5 flex`}
     >
       <div className="grid h-full w-full items-center gap-3 rounded-xl bg-bgPrimary p-5">
         <div className="mb-5 flex w-full justify-start">
@@ -99,7 +113,7 @@ const AddNote = () => {
               ) : (
                 <button
                   type="submit"
-                  className="mb-5 mr-3 flex items-center gap-2 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+                  className="mx-3 mb-5 flex items-center gap-2 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                 >
                   <svg
                     className="h-7 w-7 text-white"

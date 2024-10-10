@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
+import Spinner from "@/components/spinner";
 const Other = () => {
   const breadcrumbs = [
     {
@@ -28,10 +29,6 @@ const Other = () => {
     },
   ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
 
   const [selectAll, setSelectAll] = useState(false);
 
@@ -76,13 +73,31 @@ const Other = () => {
     };
   }, []);
 
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
   return (
     <>
       {/* <Soon /> */}
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } relative mx-3 mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">
@@ -125,7 +140,7 @@ const Other = () => {
           <div className="flex justify-center">
             <Link
               href="/"
-              className="mb-5 mr-3 w-[180px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+              className="mx-3 mb-5 w-fit whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               {currentLanguage === "ar"
                 ? "+ أضف الفواتير"
@@ -264,7 +279,7 @@ const Other = () => {
                 >
                   <img
                     src="/images/me.jpg"
-                    className="mr-2 h-[40px] w-[40px] rounded-full"
+                    className="mx-2 h-[40px] w-[40px] rounded-full"
                     alt="#"
                   />
                   Nahda
@@ -304,7 +319,7 @@ const Other = () => {
                 >
                   <img
                     src="/images/me.jpg"
-                    className="mr-2 h-[40px] w-[40px] rounded-full"
+                    className="mx-2 h-[40px] w-[40px] rounded-full"
                     alt="#"
                   />
                   Nahda

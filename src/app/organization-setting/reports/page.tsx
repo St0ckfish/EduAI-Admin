@@ -34,9 +34,7 @@ const Report = () => {
     },
   ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const { data, error, isLoading, refetch } = useGetAllReportsQuery("REPORT");
   type Notifi = Record<string, any>;
 
@@ -57,18 +55,31 @@ const Report = () => {
     if (error) console.log("Error:", error);
   }, [data, error]);
 
-  if (isLoading)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
       </div>
     );
+
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} justify-left mb-4 ml-4 mt-2 mt-[20px] flex gap-5 text-[23px] font-semibold`}
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } justify-left mb-4 ml-4 mt-5 flex gap-5 text-[23px] font-semibold`}
       >
         <Link
           href="/organization-setting/reports"
@@ -89,7 +100,15 @@ const Report = () => {
         </Link>
       </div>
       <div
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } relative mx-3 mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
           <table className="w-full overflow-x-auto text-left text-sm text-textSecondary rtl:text-right">
@@ -107,13 +126,13 @@ const Report = () => {
                       {report.userPicture == null ? (
                         <img
                           src="/images/userr.png"
-                          className="mr-2 h-[40px] w-[40px] rounded-full"
+                          className="mx-2 h-[40px] w-[40px] rounded-full"
                           alt="#"
                         />
                       ) : (
                         <img
                           src={report.userPicture}
-                          className="mr-2 h-[40px] w-[40px] rounded-full"
+                          className="mx-2 h-[40px] w-[40px] rounded-full"
                           alt="#"
                         />
                       )}

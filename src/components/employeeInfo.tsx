@@ -5,9 +5,10 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 
 const EmployeeInfo = ({ data }: { data: any }) => {
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+  const { language: currentLanguage } = useSelector(
+    (state: RootState) => state.language,
   );
+
   return (
     <>
       <div className="grid h-[700px] rounded-xl bg-bgPrimary p-5">
@@ -40,13 +41,13 @@ const EmployeeInfo = ({ data }: { data: any }) => {
           {data.data.picture == null ? (
             <img
               src="/images/userr.png"
-              className="mr-2 h-[120px] w-[120px] rounded-full"
+              className="mx-2 h-[120px] w-[120px] rounded-full"
               alt="#"
             />
           ) : (
             <img
               src={data.data.picture}
-              className="mr-2 h-[120px] w-[120px] rounded-full"
+              className="mx-2 h-[120px] w-[120px] rounded-full"
               alt="#"
             />
           )}

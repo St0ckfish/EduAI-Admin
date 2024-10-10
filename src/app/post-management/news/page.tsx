@@ -48,9 +48,7 @@ const News = () => {
       href: "/post-management/news",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   type Post = Record<string, any>;
   const { data, error, isLoading, refetch } = useGetAllAllPostsQuery(null);
@@ -141,8 +139,11 @@ const News = () => {
     const date = new Date(dateString);
     return isNaN(date.getTime()) ? "Invalid date" : date.toLocaleString();
   };
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
 
-  if (isLoading)
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -154,7 +155,15 @@ const News = () => {
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`${booleanValue ? "lg:ml-[100px]" : "lg:ml-[270px]"} mt-[40px]`}
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } mt-[40px]`}
       >
         <div className="grid h-full w-full items-center justify-center gap-4 rounded-xl bg-bgSecondary p-9 max-[505px]:p-2">
           {data?.data.content.map((post: Post, index: number) => (
@@ -167,13 +176,13 @@ const News = () => {
                   {post.isPublisherPictureExists ? (
                     <img
                       src={post.publisherPicture}
-                      className="mr-2 h-[40px] w-[40px] rounded-full"
+                      className="mx-2 h-[40px] w-[40px] rounded-full"
                       alt="user"
                     />
                   ) : (
                     <img
                       src="/images/userr.png"
-                      className="mr-2 h-[40px] w-[40px] rounded-full"
+                      className="mx-2 h-[40px] w-[40px] rounded-full"
                       alt="user"
                     />
                   )}
@@ -294,8 +303,23 @@ const News = () => {
               </div>
               <div className="mb-3 mt-2 flex items-center justify-between font-semibold">
                 <div className="flex items-center">
-                  <FaThumbsUp size={20} className="mr-[10px] text-primary" />
-                  <p className="text-textSecondary">{post.likesCount}</p>
+                  {currentLanguage ? (
+                    <>
+                      <p className="text-textSecondary">{post.likesCount}</p>
+                      <FaThumbsUp
+                        size={20}
+                        className="mx-[10px] text-primary"
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <FaThumbsUp
+                        size={20}
+                        className="mx-[10px] text-primary"
+                      />
+                      <p className="text-textSecondary">{post.likesCount}</p>
+                    </>
+                  )}
                 </div>
                 <div className="flex justify-between gap-3">
                   <button
@@ -324,10 +348,10 @@ const News = () => {
                     {post.isLiked ? (
                       <FaThumbsUp
                         size={20}
-                        className="mr-[10px] text-primary"
+                        className="mx-[10px] text-primary"
                       />
                     ) : (
-                      <FaThumbsUp size={20} className="mr-[10px]" />
+                      <FaThumbsUp size={20} className="mx-[10px]" />
                     )}
                     {currentLanguage === "ar"
                       ? "إعجاب"

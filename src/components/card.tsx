@@ -20,8 +20,8 @@ const Card: React.FC<CardProps> = ({
   imgSrc,
   description,
 }) => {
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+  const { language: currentLanguage } = useSelector(
+    (state: RootState) => state.language,
   );
 
   return (

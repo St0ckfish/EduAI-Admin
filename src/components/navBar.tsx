@@ -2,6 +2,7 @@
 "use client";
 
 import Link from "next/link";
+import Spinner from "@/components/spinner";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toggle } from "@/features/boolyanSlice";
@@ -11,12 +12,25 @@ import { useRouter } from "next/navigation";
 // import Spinner from "./spinner";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useSelector } from "react-redux";
-import { setLanguage } from "@/features/language/languageSlice";
 import { RootState } from "@/GlobalRedux/store";
+import {
+  initializeLanguage,
+  setLanguage,
+} from "@/features/language/languageSlice";
 import { useTheme } from "next-themes";
 import { FiSun, FiMoon } from "react-icons/fi";
+import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 
 const NavBar = () => {
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  const dispatchLang = useDispatch();
+  useEffect(() => {
+    dispatchLang(initializeLanguage());
+  }, [dispatchLang]);
+
   const router = useRouter();
   const {
     data: userData,
@@ -125,19 +139,29 @@ const NavBar = () => {
     Cookie.remove("token");
   };
 
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+  const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   const handleLanguageChange = (language: any) => {
-    console.log(currentLanguage);
+    console.log(language);
     dispatch2(setLanguage(language));
   };
+
+  if (loading) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
+  }
+
   return (
     <>
       <header>
         <div>
-          <header className="sticky inset-x-0 top-0 z-[48] flex w-full flex-wrap border-b border-borderPrimary bg-bgPrimary py-2.5 text-sm dark:border-borderPrimary sm:flex-nowrap sm:justify-start sm:py-4 lg:ps-64">
+          <header
+            dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+            className={`${booleanValue ? "lg:ps-24" : "lg:ps-64"} sticky inset-x-0 top-0 z-[48] flex w-full flex-wrap border-b border-borderPrimary bg-bgPrimary py-2.5 text-sm dark:border-borderPrimary sm:flex-nowrap sm:justify-start sm:py-4`}
+          >
             <nav
               className="mx-auto flex w-full basis-full items-center px-4 sm:px-6"
               aria-label="Global"
@@ -275,7 +299,7 @@ const NavBar = () => {
                     </DropdownMenu.Trigger>
                     <DropdownMenu.Portal>
                       <DropdownMenu.Content
-                        className="data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade z-50 mr-2 mt-5 grid min-w-[150px] justify-center gap-5 rounded-md bg-bgPrimary p-[5px] font-semibold shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform]"
+                        className="data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade z-50 mx-2 mt-5 grid min-w-[150px] justify-center gap-5 rounded-md bg-bgPrimary p-[5px] font-semibold shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform]"
                         sideOffset={5}
                       >
                         <DropdownMenu.Item className="text-violet11 data-[disabled]:text-mauve8 data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1 group relative mt-2 flex h-[25px] select-none items-center rounded-[3px] px-[5px] text-[13px] leading-none outline-none data-[disabled]:pointer-events-none">
@@ -331,7 +355,7 @@ const NavBar = () => {
                           onClick={toggleProfile}
                           id="hs-dropdown-with-header"
                           type="button"
-                          className="border-bgSecondayr inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 rounded-full border text-sm font-semibold text-gray-800 outline-none hover:bg-gray-100 disabled:pointer-events-none disabled:opacity-50"
+                          className="border-bgSeconday inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 rounded-full border text-sm font-semibold text-gray-800 outline-none hover:bg-thead disabled:pointer-events-none disabled:opacity-50"
                         >
                           {userLoading ? (
                             <p>........</p>
@@ -357,7 +381,7 @@ const NavBar = () => {
 
                       {profile && (
                         <DropdownMenu.Content
-                          className="fixed right-[20px] top-[20px] min-w-60 rounded-lg bg-bgPrimary p-2 text-textPrimary shadow-md"
+                          className={` ${currentLanguage === "ar" ? "left-[20px]" : "right-[20px]"} fixed top-[20px] min-w-60 rounded-lg bg-bgPrimary p-2 text-textPrimary shadow-md`}
                           aria-labelledby="hs-dropdown-with-header"
                           align="end"
                           sideOffset={5}
@@ -432,26 +456,24 @@ const NavBar = () => {
               </div>
             </nav>
           </header>
-          <div className="sticky inset-x-0 top-0 z-20 border-y border-borderPrimary bg-bgPrimary px-4 sm:px-6 md:px-8 lg:hidden">
+          <div
+            dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+            className="sticky inset-x-0 top-0 z-20 border-y border-borderPrimary bg-bgPrimary px-4 sm:px-6 md:px-8 lg:hidden"
+          >
             <div className="flex items-center justify-between py-2">
               <ol className="ms-3 flex items-center whitespace-nowrap">
                 <li className="flex items-center text-sm text-textPrimary">
-                  Application Layout
-                  <svg
-                    className="mx-3 size-2.5 flex-shrink-0 overflow-visible text-gray-400"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M5 1L10.6869 7.16086C10.8637 7.35239 10.8637 7.64761 10.6869 7.83914L5 14"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                    />
-                  </svg>
+                  {currentLanguage === "ar"
+                    ? "تخطيط التطبيق"
+                    : currentLanguage === "fr"
+                      ? "Mise en page de l'application"
+                      : "Application Layout"}
+
+                  {currentLanguage === "ar" ? (
+                    <MdNavigateBefore size={25} className="text-gray-400" />
+                  ) : (
+                    <MdNavigateNext size={25} className="text-gray-400" />
+                  )}
                 </li>
               </ol>
 
@@ -485,6 +507,7 @@ const NavBar = () => {
           </div>
           {isOpen && (
             <div
+              dir={currentLanguage === "ar" ? "rtl" : "ltr"}
               id="application-sidebar"
               className={`hs-overlay hs-overlay-open:translate-x-0 transform transition-all duration-300 [--auto-close:lg] ${small ? "w-[90px]" : "w-[260px]"} drop-shadow-2xl lg:drop-shadow-none ${!isOpen ? "w-0" : ""} fixed inset-y-0 start-0 z-[60] border-e border-borderPrimary bg-bgPrimary duration-300 ease-in lg:bottom-0 lg:end-auto lg:block lg:translate-x-0`}
             >
@@ -498,14 +521,14 @@ const NavBar = () => {
                     />
                   ) : (
                     <img
-                      className="w-[150px] -translate-x-7 translate-y-3"
+                      className="-translate-7 w-[150px] translate-y-3"
                       src="/images/logo.png"
                       alt="Logo"
                     />
                   )}
                 </Link>
               </div>
-              <div className="mr-5 flex -translate-y-6 justify-end">
+              <div className="mx-5 flex -translate-y-6 justify-end">
                 {!small && (
                   <button
                     onClick={() => {
@@ -664,7 +687,7 @@ const NavBar = () => {
                     </button>
                     {isOpen2 && (
                       <ul
-                        className={`${small ? "hidden w-[180px] translate-x-5 whitespace-nowrap rounded-xl bg-bgPrimary p-2 group-hover:grid" : ""} ml-9 mt-2 grid gap-2 text-[14px] font-semibold`}
+                        className={`${small ? "hidden w-fit translate-x-5 whitespace-nowrap rounded-xl bg-bgPrimary p-2 group-hover:grid" : ""} mx-9 mt-2 grid gap-2 text-[14px] font-semibold`}
                       >
                         <Link
                           className="hover:text-primary"
@@ -807,7 +830,7 @@ const NavBar = () => {
                     </button>
                     {isOpen3 && (
                       <ul
-                        className={`${small ? "hidden w-[180px] translate-x-5 whitespace-nowrap rounded-xl bg-bgPrimary p-2 group-hover:grid" : ""} ml-9 mt-2 grid gap-2 text-[14px] font-semibold`}
+                        className={`${small ? "hidden w-fit translate-x-5 whitespace-nowrap rounded-xl bg-bgPrimary p-2 group-hover:grid" : ""} mx-9 mt-2 grid gap-2 text-[14px] font-semibold`}
                       >
                         <Link className="hover:text-primary" href="/course">
                           {currentLanguage === "en"
@@ -870,7 +893,7 @@ const NavBar = () => {
                     </button>
                     {isOpen4 && (
                       <ul
-                        className={`${small ? "hidden w-[180px] translate-x-5 whitespace-nowrap rounded-xl bg-bgPrimary p-2 group-hover:grid" : ""} ml-9 mt-2 grid gap-2 text-[14px] font-semibold`}
+                        className={`${small ? "hidden w-fit translate-x-5 whitespace-nowrap rounded-xl bg-bgPrimary p-2 group-hover:grid" : ""} mx-9 mt-2 grid gap-2 text-[14px] font-semibold`}
                       >
                         <Link
                           className="hover:text-primary"
@@ -934,7 +957,7 @@ const NavBar = () => {
                     </button>
                     {isOpen5 && (
                       <ul
-                        className={`${small ? "hidden w-[180px] translate-x-5 whitespace-nowrap rounded-xl bg-bgPrimary p-2 group-hover:grid" : ""} ml-9 mt-2 grid gap-2 text-[14px] font-semibold`}
+                        className={`${small ? "hidden w-fit translate-x-5 whitespace-nowrap rounded-xl bg-bgPrimary p-2 group-hover:grid" : ""} mx-9 mt-2 grid gap-2 text-[14px] font-semibold`}
                       >
                         <Link
                           className="hover:text-primary"
