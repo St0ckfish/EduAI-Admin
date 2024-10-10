@@ -376,7 +376,7 @@ const Dashboard: React.FC = () => {
               <div className="flex h-full items-end justify-center">
                 <button
                   onClick={handleOpenModal}
-                  className="mr-3 w-[120px] whitespace-nowrap rounded-xl bg-primary px-1 py-1.5 text-[14px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                  className="mx-3 w-[120px] whitespace-nowrap rounded-xl bg-primary px-1 py-1.5 text-[14px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
                 >
                   {currentLanguage === "ar"
                     ? "+ حدث جديد"
@@ -442,7 +442,7 @@ const Dashboard: React.FC = () => {
               </p>
               <Link
                 href="/add-note"
-                className="mb-5 mr-3 h-[35px] whitespace-nowrap rounded-xl bg-primary px-2 py-1 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+                className="mx-3 mb-5 h-[35px] whitespace-nowrap rounded-xl bg-primary px-2 py-1 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
               >
                 {currentLanguage === "en"
                   ? "+ Add Note"
@@ -652,7 +652,7 @@ const Dashboard: React.FC = () => {
           <div className="flex justify-between">
             <button
               type="submit"
-              className="mb-5 mr-3 w-fit whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+              className="mx-3 mb-5 w-fit whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               {currentLanguage === "ar"
                 ? "إضافة"
@@ -662,7 +662,7 @@ const Dashboard: React.FC = () => {
             </button>
             <button
               onClick={handleCloseModal}
-              className="mb-5 mr-3 w-fit whitespace-nowrap rounded-xl bg-error px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-warning hover:shadow-xl"
+              className="mx-3 mb-5 w-fit whitespace-nowrap rounded-xl bg-error px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-warning hover:shadow-xl"
             >
               {currentLanguage === "ar"
                 ? "إلغاء"

@@ -114,7 +114,7 @@ const Schedule = () => {
           >
             <input
               {...register("teacherId", { required: true })}
-              className="mr-3 rounded border border-borderPrimary px-4 py-2 outline-none"
+              className="mx-3 rounded border border-borderPrimary px-4 py-2 outline-none"
               placeholder={
                 currentLanguage === "ar"
                   ? "أدخل معرف المعلم"

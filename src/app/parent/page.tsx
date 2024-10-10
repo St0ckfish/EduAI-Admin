@@ -143,7 +143,7 @@ const Parent = () => {
             : booleanValue
               ? "lg:ml-[100px]"
               : "lg:ml-[270px]"
-        } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
+        } relative mx-3 mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">
@@ -187,7 +187,7 @@ const Parent = () => {
           <div className="flex justify-center">
             <Link
               href="/add-new-parent"
-              className="mb-5 mr-3 w-fit whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+              className="mx-3 mb-5 w-fit whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               {currentLanguage === "en"
                 ? "+ New Parent"
@@ -300,13 +300,13 @@ const Parent = () => {
                         {parent.picture == null ? (
                           <img
                             src="/images/userr.png"
-                            className="mr-2 h-[40px] w-[40px] rounded-full"
+                            className="mx-2 h-[40px] w-[40px] rounded-full"
                             alt="#"
                           />
                         ) : (
                           <img
                             src={parent.picture}
-                            className="mr-2 h-[40px] w-[40px] rounded-full"
+                            className="mx-2 h-[40px] w-[40px] rounded-full"
                             alt="#"
                           />
                         )}

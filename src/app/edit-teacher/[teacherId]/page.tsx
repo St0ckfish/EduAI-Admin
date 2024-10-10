@@ -33,6 +33,8 @@ const EditTeacher: React.FC<ViewTeacherProps> = ({ params }) => {
     (state: RootState) => state.language,
   );
 
+  const booleanValue = useSelector((state: RootState) => state.boolean.value);
+
   if (loading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
@@ -45,7 +47,15 @@ const EditTeacher: React.FC<ViewTeacherProps> = ({ params }) => {
 
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className="mr-[5px] mt-5 grid h-[850px] items-center justify-center lg:ml-[270px]"
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } mx-3 mt-5 grid h-[850px] items-center justify-center`}
       >
         <form>
           <div className="grid h-[900px] items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:h-[800px] xl:w-[1000px]">

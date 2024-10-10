@@ -108,7 +108,7 @@ const Report = () => {
             : booleanValue
               ? "lg:ml-[100px]"
               : "lg:ml-[270px]"
-        } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
+        } relative mx-3 mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
           <table className="w-full overflow-x-auto text-left text-sm text-textSecondary rtl:text-right">
@@ -126,13 +126,13 @@ const Report = () => {
                       {report.userPicture == null ? (
                         <img
                           src="/images/userr.png"
-                          className="mr-2 h-[40px] w-[40px] rounded-full"
+                          className="mx-2 h-[40px] w-[40px] rounded-full"
                           alt="#"
                         />
                       ) : (
                         <img
                           src={report.userPicture}
-                          className="mr-2 h-[40px] w-[40px] rounded-full"
+                          className="mx-2 h-[40px] w-[40px] rounded-full"
                           alt="#"
                         />
                       )}

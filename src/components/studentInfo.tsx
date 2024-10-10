@@ -40,13 +40,13 @@ const StudentInfo = ({ data }: { data: any }) => {
           {data.data.picture == null ? (
             <img
               src="/images/userr.png"
-              className="mr-2 h-[120px] w-[120px] rounded-full"
+              className="mx-2 h-[120px] w-[120px] rounded-full"
               alt="#"
             />
           ) : (
             <img
               src={data.data.picture}
-              className="mr-2 h-[120px] w-[120px] rounded-full"
+              className="mx-2 h-[120px] w-[120px] rounded-full"
               alt="#"
             />
           )}

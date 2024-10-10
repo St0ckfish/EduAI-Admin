@@ -105,7 +105,7 @@ const Attendance = () => {
             : booleanValue
               ? "lg:ml-[100px]"
               : "lg:ml-[270px]"
-        } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
+        } relative mx-3 mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
         <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
           <thead className="bg-thead text-xs uppercase text-textPrimary">

@@ -175,13 +175,13 @@ const News = () => {
                   {post.isPublisherPictureExists ? (
                     <img
                       src={post.publisherPicture}
-                      className="mr-2 h-[40px] w-[40px] rounded-full"
+                      className="mx-2 h-[40px] w-[40px] rounded-full"
                       alt="user"
                     />
                   ) : (
                     <img
                       src="/images/userr.png"
-                      className="mr-2 h-[40px] w-[40px] rounded-full"
+                      className="mx-2 h-[40px] w-[40px] rounded-full"
                       alt="user"
                     />
                   )}
@@ -302,8 +302,23 @@ const News = () => {
               </div>
               <div className="mb-3 mt-2 flex items-center justify-between font-semibold">
                 <div className="flex items-center">
-                  <FaThumbsUp size={20} className="mr-[10px] text-primary" />
-                  <p className="text-textSecondary">{post.likesCount}</p>
+                  {currentLanguage ? (
+                    <>
+                      <p className="text-textSecondary">{post.likesCount}</p>
+                      <FaThumbsUp
+                        size={20}
+                        className="mx-[10px] text-primary"
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <FaThumbsUp
+                        size={20}
+                        className="mx-[10px] text-primary"
+                      />
+                      <p className="text-textSecondary">{post.likesCount}</p>
+                    </>
+                  )}
                 </div>
                 <div className="flex justify-between gap-3">
                   <button
@@ -332,10 +347,10 @@ const News = () => {
                     {post.isLiked ? (
                       <FaThumbsUp
                         size={20}
-                        className="mr-[10px] text-primary"
+                        className="mx-[10px] text-primary"
                       />
                     ) : (
-                      <FaThumbsUp size={20} className="mr-[10px]" />
+                      <FaThumbsUp size={20} className="mx-[10px]" />
                     )}
                     {currentLanguage === "ar"
                       ? "إعجاب"

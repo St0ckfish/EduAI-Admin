@@ -62,7 +62,7 @@ const TimeTable = ({ scheduleData }: { scheduleData: any[] }) => {
     <div className="grid w-full overflow-x-auto">
       <div className="grid w-full overflow-x-auto">
         <div
-          className={`mr-3 rounded-xl bg-bgPrimary p-6 ${booleanValue ? "w-[1750px]" : "w-[1570px]"}`}
+          className={`mx-3 rounded-xl bg-bgPrimary p-6 ${booleanValue ? "w-[1750px]" : "w-[1570px]"}`}
         >
           {/* Day headers */}
           <div className="flex justify-between">

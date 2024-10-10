@@ -106,7 +106,7 @@ const Permissions = () => {
             : booleanValue
               ? "lg:ml-[100px]"
               : "lg:ml-[270px]"
-        } mr-3 mt-[70px]`}
+        } mx-3 mt-[70px]`}
       >
         <div className="rounded-xl bg-bgPrimary pb-5">
           <div className="flex justify-between rounded-t-xl bg-thead px-10 py-4 text-[18px] font-semibold">

@@ -191,7 +191,7 @@ const SendNotifications = () => {
                 ) : (
                   <button
                     type="submit"
-                    className="mb-5 mr-3 flex items-center gap-2 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+                    className="mx-3 mb-5 flex items-center gap-2 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                   >
                     <svg
                       className="h-7 w-7 text-white"

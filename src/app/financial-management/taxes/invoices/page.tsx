@@ -106,7 +106,7 @@ const Invoices = () => {
             : booleanValue
               ? "lg:ml-[100px]"
               : "lg:ml-[270px]"
-        } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
+        } relative mx-3 mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
         <h1 className="mb-5 ml-8 text-[30px] font-bold">
           {currentLanguage === "ar"

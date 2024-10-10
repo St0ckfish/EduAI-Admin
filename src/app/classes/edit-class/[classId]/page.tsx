@@ -99,7 +99,7 @@ const EditClass: React.FC<ViewDriverProps> = ({ params }) => {
             : booleanValue
               ? "lg:ml-[100px]"
               : "lg:ml-[270px]"
-        } mr-[5px] grid h-[850px] items-center justify-center`}
+        } mx-3 grid h-[850px] items-center justify-center`}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="my-10 grid items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:w-[1000px]">

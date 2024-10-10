@@ -154,7 +154,7 @@ const StudentAttendance = () => {
             : booleanValue
               ? "lg:ml-[100px]"
               : "lg:ml-[270px]"
-        } bg-transstudent relative mr-[5px] mt-10 h-screen overflow-x-auto sm:rounded-lg`}
+        } bg-transstudent relative mx-3 mt-10 h-screen overflow-x-auto sm:rounded-lg`}
       >
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">

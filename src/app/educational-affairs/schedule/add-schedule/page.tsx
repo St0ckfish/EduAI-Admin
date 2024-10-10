@@ -35,6 +35,7 @@ const AddSchedule = () => {
       href: "/educational-affairs/schedule/add-schedule",
     },
   ];
+  const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   const { register, handleSubmit, reset } = useForm();
 
@@ -74,7 +75,15 @@ const AddSchedule = () => {
       <form
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         onSubmit={handleSubmit(onSubmitCreateSchedule)}
-        className="mr-3 mt-5 space-y-4 lg:ml-[270px]"
+        className={`${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } mx-3 mt-5 space-y-4`}
       >
         <div>
           <label>

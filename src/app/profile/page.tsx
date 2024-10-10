@@ -100,7 +100,7 @@ const Profile = () => {
               <div className="text-semibold flex items-center gap-2 text-[15px] text-textPrimary">
                 <img
                   src="/images/userr.png"
-                  className="mr-2 h-[40px] w-[40px] rounded-full"
+                  className="mx-2 h-[40px] w-[40px] rounded-full"
                   alt="#"
                 />
                 <span className="grid font-semibold">

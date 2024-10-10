@@ -104,14 +104,14 @@ const Password = () => {
                   </label>
                 </div>
                 <div className="mt-7 flex justify-between">
-                  <button className="mb-5 mr-3 w-fit whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl">
+                  <button className="mx-3 mb-5 w-fit whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl">
                     {currentLanguage === "ar"
                       ? "حفظ"
                       : currentLanguage === "fr"
                         ? "Sauvegarder"
                         : "Save"}
                   </button>
-                  <button className="mb-5 mr-3 w-fit whitespace-nowrap rounded-xl border border-primary px-4 py-2 text-[18px] font-semibold text-primary duration-300 ease-in hover:shadow-xl">
+                  <button className="mx-3 mb-5 w-fit whitespace-nowrap rounded-xl border border-primary px-4 py-2 text-[18px] font-semibold text-primary duration-300 ease-in hover:shadow-xl">
                     {currentLanguage === "ar"
                       ? "إلغاء"
                       : currentLanguage === "fr"

@@ -107,7 +107,7 @@ const ClassSchedule = () => {
                     ? "Entrez l'ID de la classe"
                     : "Enter Class ID"
               }
-              className="mr-3 rounded border border-borderPrimary px-4 py-2 outline-none"
+              className="mx-3 rounded border border-borderPrimary px-4 py-2 outline-none"
             />
             <button
               type="submit"

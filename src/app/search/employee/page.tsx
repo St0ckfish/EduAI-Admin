@@ -243,13 +243,13 @@ const EmployeeSearch = () => {
                                 {student.picture == null ? (
                                   <img
                                     src="/images/userr.png"
-                                    className="mr-2 h-[40px] w-[40px] rounded-full"
+                                    className="mx-2 h-[40px] w-[40px] rounded-full"
                                     alt="#"
                                   />
                                 ) : (
                                   <img
                                     src={student.picture}
-                                    className="mr-2 h-[40px] w-[40px] rounded-full"
+                                    className="mx-2 h-[40px] w-[40px] rounded-full"
                                     alt="#"
                                   />
                                 )}
@@ -295,13 +295,13 @@ const EmployeeSearch = () => {
                           {EmployeeQ?.data.picture == null ? (
                             <img
                               src="/images/userr.png"
-                              className="mr-2 h-[120px] w-[120px] rounded-full"
+                              className="mx-2 h-[120px] w-[120px] rounded-full"
                               alt="#"
                             />
                           ) : (
                             <img
                               src={EmployeeQ?.data.picture}
-                              className="mr-2 h-[120px] w-[120px] rounded-full"
+                              className="mx-2 h-[120px] w-[120px] rounded-full"
                               alt="#"
                             />
                           )}

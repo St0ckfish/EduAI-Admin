@@ -56,7 +56,7 @@ const AddNewBook = () => {
             : booleanValue
               ? "lg:ml-[100px]"
               : "lg:ml-[270px]"
-        } mr-[5px] mt-[40px] grid h-[850px] items-center justify-center`}
+        } mx-[5px] mt-[40px] grid h-[850px] items-center justify-center`}
       >
         <form>
           <div className="grid h-[900px] items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:h-[800px] xl:w-[1000px]">
