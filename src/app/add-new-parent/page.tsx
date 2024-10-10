@@ -409,27 +409,51 @@ const AddNewParent = () => {
                     : currentLanguage === "fr"
                       ? "ID de la région"
                       : "RegionId"}
-                <select
+                                <select
                   defaultValue=""
                   id="regionId"
                   {...register("regionId", { required: true })}
-                  className="h-full w-[400px] rounded-xl border border-borderPrimary px-4 py-3 text-[18px] text-[#000000] outline-none max-[458px]:w-[350px]"
+                  className={`border ${errors.regionId ? "border-borderPrimary" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-[18px] text-blackOrWhite outline-none max-[458px]:w-[350px]`}
                 >
                   <option value="">
                     {currentLanguage === "en"
                       ? "Select Region Id"
                       : currentLanguage === "ar"
-                        ? "اختر رقم المنطقة"
+                        ? "اختر معرف المنطقة"
                         : currentLanguage === "fr"
                           ? "Sélectionner l'ID de la région"
-                          : "Select Region Id"}
+                          : "Select Region Id"}{" "}
+                    {/* default */}
                   </option>
                   {rigiond &&
-                    rigiond.data.map((region: any, index: number) => (
-                      <option key={index} value={region.id}>
-                        {region.name}
-                      </option>
-                    ))}
+                    rigiond.data.map(
+                      (
+                        rigion: {
+                          regionName: string;
+                          cityName: string;
+                          regionId: string | number | readonly string[] | undefined;
+                          name:
+                            | string
+                            | number
+                            | bigint
+                            | boolean
+                            | React.ReactElement<
+                                any,
+                                string | React.JSXElementConstructor<any>
+                              >
+                            | Iterable<React.ReactNode>
+                            | React.ReactPortal
+                            | Promise<React.AwaitedReactNode>
+                            | null
+                            | undefined;
+                        },
+                        index: React.Key | null | undefined,
+                      ) => (
+                        <option key={index} value={rigion.regionId}>
+                          {rigion.cityName} <strong>{rigion.regionName}</strong>
+                        </option>
+                      ),
+                    )}
                 </select>
                 {errors.regionId && (
                   <span className="text-error">

@@ -466,7 +466,7 @@ const TextEditor = ({
         <div
           ref={editorRef}
           contentEditable={true}
-          className="min-h-[200px] rounded-b-md border border-borderPrimary p-4 focus:outline-none"
+          className="min-h-[200px] rounded-b-md border border-borderPrimary p-4 focus:outline-none  cursor-text"
           style={{ whiteSpace: "pre-wrap" }}
           onInput={handleChange}
           suppressContentEditableWarning={true}

@@ -359,24 +359,29 @@ const AddNewWorker = () => {
                   : currentLanguage === "ar"
                     ? "رقم المنطقة"
                     : "Identifiant de région"}
-                <select
+                                <select
                   defaultValue=""
                   id="regionId"
                   {...register("regionId", { required: true })}
-                  className={`h-full w-[400px] rounded-xl border border-borderPrimary px-4 py-3 text-[18px] text-[#000000] outline-none max-[458px]:w-[350px]`}
+                  className={`border ${errors.regionId ? "border-borderPrimary" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-[18px] text-blackOrWhite outline-none max-[458px]:w-[350px]`}
                 >
                   <option value="">
                     {currentLanguage === "en"
                       ? "Select Region Id"
                       : currentLanguage === "ar"
-                        ? "اختر رقم المنطقة"
-                        : "Sélectionner l’identifiant de région"}
+                        ? "اختر معرف المنطقة"
+                        : currentLanguage === "fr"
+                          ? "Sélectionner l'ID de la région"
+                          : "Select Region Id"}{" "}
+                    {/* default */}
                   </option>
                   {rigiond &&
                     rigiond.data.map(
                       (
                         rigion: {
-                          id: string | number | readonly string[] | undefined;
+                          regionName: string;
+                          cityName: string;
+                          regionId: string | number | readonly string[] | undefined;
                           name:
                             | string
                             | number
@@ -394,8 +399,8 @@ const AddNewWorker = () => {
                         },
                         index: React.Key | null | undefined,
                       ) => (
-                        <option key={index} value={rigion.id}>
-                          {rigion.name}
+                        <option key={index} value={rigion.regionId}>
+                          {rigion.cityName} <strong>{rigion.regionName}</strong>
                         </option>
                       ),
                     )}

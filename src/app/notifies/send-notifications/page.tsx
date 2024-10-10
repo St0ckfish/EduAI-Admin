@@ -88,7 +88,7 @@ const SendNotifications = () => {
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
-      <div className="mt-12 flex gap-10 max-[1500px]:grid lg:ml-[290px]">
+      <div className={`mt-12 flex gap-10 max-[1500px]:grid ${booleanValue ? "lg:ml-[120px]" : "lg:ml-[290px]"}`}>
         <div className="grid h-full w-full items-center gap-3 rounded-xl bg-bgPrimary p-5">
           {roleOptions.map(role => (
             <label

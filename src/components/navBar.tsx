@@ -279,27 +279,7 @@ const NavBar = () => {
                       <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
                     </svg>
                   </Link>
-                  <Link
-                    href="/"
-                    type="button"
-                    className="inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-textPrimary hover:bg-bgSecondary disabled:pointer-events-none disabled:opacity-50"
-                    data-hs-offcanvas="#hs-offcanvas-right"
-                  >
-                    <svg
-                      className="size-4 flex-shrink-0"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-                    </svg>
-                  </Link>
+                  
                   <DropdownMenu.Root>
                     <DropdownMenu.Trigger asChild>
                       <button

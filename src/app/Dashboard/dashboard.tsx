@@ -521,6 +521,7 @@ const Dashboard: React.FC = () => {
           <div className="mb-4">
             <input
               type="number"
+              min={1}
               {...register("creatorId")}
               placeholder="Creator ID"
               className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-primary"

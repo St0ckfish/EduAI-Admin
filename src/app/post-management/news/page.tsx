@@ -56,7 +56,7 @@ const News = () => {
   const [putLike] = usePutPostLikeMutation();
 
   const [selectedId, setSelectedId] = useState(null);
-  const { data: Comments, isLoading: isComment } = useGetAllCommentsQuery(
+  const { data: Comments, isLoading: isComment, refetch: refetchComment } = useGetAllCommentsQuery(
     selectedId,
     {
       skip: !selectedId,
@@ -93,6 +93,7 @@ const News = () => {
   const onSubmit = (id: string) => async (data: any) => {
     try {
       await createSemester({ formData: data, id: id }).unwrap();
+      refetchComment();
       toast.success("Comment Added successfully");
     } catch (err) {
       toast.error("Failed to create Comment");

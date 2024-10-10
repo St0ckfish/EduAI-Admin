@@ -11,7 +11,7 @@ const AddNote = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [createNotification, { isLoading }] = useCreateNoteMutation();
-
+  const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (!title || !description) {
@@ -32,7 +32,6 @@ const AddNote = () => {
       toast.error("Failed to send notification. Please try again.");
     }
   };
-  const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const { language: currentLanguage, loading } = useSelector(
     (state: RootState) => state.language,
   );

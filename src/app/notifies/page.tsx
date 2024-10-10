@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 
 const Notifies = () => {
+  const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const breadcrumbs = [
     {
       nameEn: "Dashboard",
@@ -70,8 +71,6 @@ const Notifies = () => {
     }
   };
 
-  const booleanValue = useSelector((state: RootState) => state.boolean.value);
-
   const { language: currentLanguage, loading } = useSelector(
     (state: RootState) => state.language,
   );
@@ -91,10 +90,10 @@ const Notifies = () => {
         className={`${
           currentLanguage === "ar"
             ? booleanValue
-              ? "lg:mr-[40px]"
+              ? "lg:mr-[120px]"
               : "lg:mr-[290px]"
             : booleanValue
-              ? "lg:ml-[40px]"
+              ? "lg:ml-[120px]"
               : "lg:ml-[290px]"
         } mt-12`}
       >
