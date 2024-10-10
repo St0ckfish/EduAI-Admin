@@ -65,8 +65,10 @@ const AddNewWorker = () => {
   };
 
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-  
-  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
+
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
 
   if (loading)
     return (
@@ -74,7 +76,7 @@ const AddNewWorker = () => {
         <Spinner />
       </div>
     );
-    
+
   if (nationalityLoading || isPosition)
     return (
       <div className="flex h-screen w-full items-center justify-center">

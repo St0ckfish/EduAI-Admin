@@ -27,6 +27,7 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import Spinner from "@/components/spinner";
 
 // Common chart data
 const chartData = [
@@ -80,17 +81,26 @@ function InsightPage() {
       href: "/insight",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value); // sidebar
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
 
   if (!isMounted) return null;
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
 
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
-      <div className={`${
+      <div
+        className={`${
           currentLanguage === "ar"
             ? booleanValue
               ? "lg:mr-[100px]"
@@ -98,7 +108,8 @@ function InsightPage() {
             : booleanValue
               ? "lg:ml-[100px]"
               : "lg:ml-[270px]"
-        }`}>
+        }`}
+      >
         <div className="grid overflow-x-scroll">
           <div className="justify-left mb-5 ml-4 mt-10 flex gap-5 overflow-x-auto text-nowrap text-[20px] font-semibold">
             <Link href="/insight" className="text-blue-500 underline">

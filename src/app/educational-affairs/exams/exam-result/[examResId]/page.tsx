@@ -49,9 +49,7 @@ const ExamRes = ({ params }: ParamsType) => {
       href: `/educational-affairs/exams/exam-result/${params.examResId}`,
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const { data, error, isLoading, refetch } = useGetExamResByIdQuery(
     params.examResId,
   );
@@ -121,13 +119,16 @@ const ExamRes = ({ params }: ParamsType) => {
     };
   }, []);
 
-  if (isLoading)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
       </div>
     );
-
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />

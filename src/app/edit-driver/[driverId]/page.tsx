@@ -49,11 +49,12 @@ const EditDriver: React.FC<ViewDriverProps> = ({ params }) => {
       href: `/edit-driver/${params.driverId}`,
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
   );
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-  
+
   const { data, error, isLoading } = useGetDriversQuery(params.driverId);
   const [createDriver, { isLoading: isUpdating }] = useUpdateDriversMutation();
   const { data: rigiond } = useGetAllReginionIDQuery(null);
@@ -102,12 +103,13 @@ const EditDriver: React.FC<ViewDriverProps> = ({ params }) => {
     }
   };
 
-  if (isLoading)
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
       </div>
     );
+
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />

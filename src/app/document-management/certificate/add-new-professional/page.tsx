@@ -38,9 +38,7 @@ const AddNewProfessional = () => {
       href: "/document-management/certificate/add-new-professional",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const {
     register,
@@ -76,7 +74,16 @@ const AddNewProfessional = () => {
       toast.error("Failed to create Certificate");
     }
   };
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
 
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />

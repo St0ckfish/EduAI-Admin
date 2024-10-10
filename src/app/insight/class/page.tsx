@@ -1,13 +1,11 @@
 "use client";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import Spinner from "@/components/spinner";
 import { RootState } from "@/GlobalRedux/store";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 
 const Class = () => {
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value); // sidebar
 
   const breadcrumbs = [
@@ -24,10 +22,23 @@ const Class = () => {
       href: "/insight",
     },
   ];
+
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
+
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
-      <div className={`${
+      <div
+        className={`${
           currentLanguage === "ar"
             ? booleanValue
               ? "lg:mr-[100px]"
@@ -35,7 +46,8 @@ const Class = () => {
             : booleanValue
               ? "lg:ml-[100px]"
               : "lg:ml-[270px]"
-        }`}>
+        }`}
+      >
         <div className="grid overflow-x-auto">
           <div className="justify-left mb-5 ml-4 mt-10 flex gap-5 overflow-x-auto text-nowrap text-[20px] font-semibold">
             <Link href="/insight">

@@ -43,9 +43,10 @@ const EditWorker: React.FC<ViewWorkerProps> = ({ params }) => {
       href: `/edit-worker/${params.workerId}`,
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
   );
+
   const { data, error, isLoading } = useGetDriversQuery(params.workerId);
   const [createDriver, { isLoading: isUpdating }] = useUpdateDriversMutation();
   const { data: rigiond } = useGetAllReginionIDQuery(null);
@@ -94,7 +95,7 @@ const EditWorker: React.FC<ViewWorkerProps> = ({ params }) => {
     }
   };
 
-  if (isLoading)
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />

@@ -49,10 +49,6 @@ const eventSchema = z.object({
 });
 
 const Dashboard: React.FC = () => {
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
-
   const router = useRouter();
 
   const { data: events, isLoading: isEvents } = useGetEventsInMonthQuery(null);
@@ -210,6 +206,10 @@ const Dashboard: React.FC = () => {
   });
   type Meeting = Record<string, any>;
 
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
   if (
     isStudents ||
     isEmployee ||
@@ -218,7 +218,8 @@ const Dashboard: React.FC = () => {
     isEvents ||
     isMeeting ||
     isNotices ||
-    isExpenses
+    isExpenses ||
+    loading
   )
     return (
       <div className="flex h-screen w-full items-center justify-center">

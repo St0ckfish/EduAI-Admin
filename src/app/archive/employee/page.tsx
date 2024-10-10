@@ -117,7 +117,9 @@ const ArchiveEmployee = () => {
     };
   }, []);
 
-  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
 
   if (loading || isLoading)
     return (

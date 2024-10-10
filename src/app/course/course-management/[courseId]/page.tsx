@@ -44,8 +44,10 @@ const EditCourse = ({ params }: EditCourseProps) => {
       href: `/course/course-management/${params.courseId}`,
     },
   ];
-  
-  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
+
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const { data, error, isLoading } = useGetBusByIdQuery(params.courseId);
 

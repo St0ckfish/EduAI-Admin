@@ -115,7 +115,9 @@ const Teacher = () => {
     };
   }, []);
 
-  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
 
   if (loading || isLoading)
     return (
@@ -123,7 +125,7 @@ const Teacher = () => {
         <Spinner />
       </div>
     );
-    
+
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />

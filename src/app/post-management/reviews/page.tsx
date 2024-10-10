@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import Soon from "@/components/soon";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import Spinner from "@/components/spinner";
 
 const Reviews = () => {
   const breadcrumbs = [
@@ -27,11 +28,17 @@ const Reviews = () => {
       href: "/post-management/reviews",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
 
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
   return (
     <>
       {/* <Soon /> */}

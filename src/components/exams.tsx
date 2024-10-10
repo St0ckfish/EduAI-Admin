@@ -2,9 +2,10 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 
 const Exams = () => {
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+  const { language: currentLanguage } = useSelector(
+    (state: RootState) => state.language,
   );
+
   return (
     <>
       <div className="grid w-[500px] rounded-xl bg-bgPrimary p-5 max-[1342px]:w-full">

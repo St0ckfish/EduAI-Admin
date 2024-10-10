@@ -39,11 +39,7 @@ const AddExam = () => {
     },
   ];
 
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-
 
   const {
     register,
@@ -51,7 +47,7 @@ const AddExam = () => {
     formState: { errors },
   } = useForm();
   const [createExam, { isLoading }] = useCreateExamsMutation();
-  const { data,isLoading: isTeacher } = useGetAllTeachersQuery({
+  const { data, isLoading: isTeacher } = useGetAllTeachersQuery({
     archived: "false",
     page: 0,
     size: 1000000,
@@ -65,7 +61,11 @@ const AddExam = () => {
       toast.error("Failed to create Exam");
     }
   };
-  if (isTeacher)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading || isTeacher)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -76,7 +76,7 @@ const AddExam = () => {
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-          className={`${
+        className={`${
           currentLanguage === "ar"
             ? booleanValue
               ? "lg:mr-[100px]"
@@ -84,7 +84,8 @@ const AddExam = () => {
             : booleanValue
               ? "lg:ml-[100px]"
               : "lg:ml-[270px]"
-        } mr-[5px] grid h-[850px] mt-[40px] items-center justify-center`}      >
+        } mr-[5px] mt-[40px] grid h-[850px] items-center justify-center`}
+      >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid h-[900px] items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:h-[800px] xl:w-[1000px]">
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
@@ -191,18 +192,18 @@ const AddExam = () => {
                 <select
                   id="teacherCourseRegistrationId"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("teacherCourseRegistrationId", { required: true })}
+                  {...register("teacherCourseRegistrationId", {
+                    required: true,
+                  })}
                 >
                   <option selected value="">
                     Select Teacher
                   </option>
-                  {
-                    data?.data.content.map((teacher: Teacher) => (
-                      <option key={teacher.id} value={teacher.id}>
-                        {teacher.name}
-                      </option>
-                    ))
-                  }
+                  {data?.data.content.map((teacher: Teacher) => (
+                    <option key={teacher.id} value={teacher.id}>
+                      {teacher.name}
+                    </option>
+                  ))}
                 </select>
                 {errors.teacherCourseRegistrationId && (
                   <span className="text-error">

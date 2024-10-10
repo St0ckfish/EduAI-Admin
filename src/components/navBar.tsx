@@ -22,8 +22,10 @@ import { FiSun, FiMoon } from "react-icons/fi";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 
 const NavBar = () => {
-  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
-  
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
   const dispatchLang = useDispatch();
   useEffect(() => {
     dispatchLang(initializeLanguage());
@@ -151,7 +153,6 @@ const NavBar = () => {
       </div>
     );
   }
-
 
   return (
     <>

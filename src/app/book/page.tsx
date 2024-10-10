@@ -86,7 +86,9 @@ const Book = () => {
     };
   }, []);
 
-  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
 
   if (loading)
     return (
@@ -94,7 +96,6 @@ const Book = () => {
         <Spinner />
       </div>
     );
-    
 
   return (
     <>

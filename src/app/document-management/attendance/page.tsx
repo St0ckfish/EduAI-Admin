@@ -6,6 +6,7 @@ import { useState, useEffect } from "react"; // Import useState and useEffect ho
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
+import Spinner from "@/components/spinner";
 
 const Attendance = () => {
   const breadcrumbs = [
@@ -28,9 +29,7 @@ const Attendance = () => {
       href: "/document-management/attendance",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value); // sidebar
 
   const [selectAll, setSelectAll] = useState(false); // State to track whether select all checkbox is checked
@@ -79,6 +78,17 @@ const Attendance = () => {
       });
     };
   }, []);
+
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
 
   return (
     <>

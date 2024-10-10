@@ -32,9 +32,6 @@ const SendNotifications = () => {
       href: "/notifies/send-notifications",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -76,6 +73,17 @@ const SendNotifications = () => {
       toast.error("Failed to send notification. Please try again.");
     }
   };
+
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
 
   return (
     <>

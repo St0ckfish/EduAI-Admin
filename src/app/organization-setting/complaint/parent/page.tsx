@@ -38,9 +38,7 @@ const ComplaintParent = () => {
       href: "/organization-setting/complaint/parent",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   type Department = Record<string, any>;
   const [search, setSearch] = useState("");
@@ -109,7 +107,11 @@ const ComplaintParent = () => {
     };
   }, []);
 
-  if (isLoading)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />

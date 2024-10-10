@@ -44,10 +44,10 @@ const DepartmentId = ({ params }: EditDepartmentProps) => {
       href: `/organization-setting/department/${params.departmentId}`,
     },
   ];
-
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
   );
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const { data, error, isLoading } = useGetBusByIdQuery(params.departmentId);
 
@@ -97,7 +97,8 @@ const DepartmentId = ({ params }: EditDepartmentProps) => {
       );
     }
   };
-  if (isLoading)
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />

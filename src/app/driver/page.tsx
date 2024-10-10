@@ -51,10 +51,6 @@ const Driver = () => {
     },
   ];
 
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
-
   const [currentPage, setCurrentPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -135,7 +131,11 @@ const Driver = () => {
     };
   }, []);
 
-  if (isLoading)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />

@@ -44,9 +44,7 @@ const EditLab: React.FC<ViewEmployeeProps> = ({ params }) => {
       href: `/infrastructure/lab/${params.labId}`,
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   const [createDriver, { isLoading: isUpdating }] = useUpdateLabsMutation();
@@ -80,8 +78,11 @@ const EditLab: React.FC<ViewEmployeeProps> = ({ params }) => {
       toast.error("Failed to Update Driver");
     }
   };
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
 
-  if (isG || isUpdating)
+  if (loading || isG || isUpdating)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />

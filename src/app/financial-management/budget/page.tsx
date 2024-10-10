@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import { useTheme } from "next-themes";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import Spinner from "@/components/spinner";
 
 const ReactApexChart = dynamic(() => import("react-apexcharts"), {
   ssr: false,
@@ -111,10 +112,18 @@ const Budget = () => {
     },
   ];
 
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
+
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
@@ -130,7 +139,6 @@ const Budget = () => {
               ? "lg:ml-[120px]"
               : "lg:ml-[290px]"
         } mt-12 grid justify-center`}
-        
       >
         <div className="mb-5 flex justify-center gap-2 max-[840px]:grid">
           <div className="grid gap-16 max-[840px]:flex max-[840px]:gap-2">

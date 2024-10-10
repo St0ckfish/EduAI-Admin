@@ -40,9 +40,7 @@ const DriverAttendance = () => {
       href: "/driver-attendance",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   const handleClose = () => setIsSheetOpen(false);
@@ -199,13 +197,16 @@ const DriverAttendance = () => {
     setSelectedId(id);
   };
 
-  if (isLoading)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
       </div>
     );
-
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />

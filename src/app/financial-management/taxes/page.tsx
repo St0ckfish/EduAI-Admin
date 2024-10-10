@@ -33,9 +33,7 @@ const FeesManagement = () => {
       href: "/financial-management/taxes",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const [selectAll, setSelectAll] = useState(false);
   const { data, error, isLoading, refetch } = useGetAllTaxesQuery(null);
   useEffect(() => {
@@ -111,7 +109,11 @@ const FeesManagement = () => {
     return formatter.format(new Date(dateString));
   };
 
-  if (isLoading)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />

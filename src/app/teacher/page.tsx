@@ -35,10 +35,6 @@ const Teacher = () => {
     },
   ];
 
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
-
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   type Teacher = Record<string, any>;
@@ -121,13 +117,16 @@ const Teacher = () => {
     };
   }, []);
 
-  if (isLoading)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
       </div>
     );
-
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
@@ -185,7 +184,7 @@ const Teacher = () => {
           <div className="flex justify-center">
             <Link
               href="/add-new-teacher"
-              className="mb-5 mr-3 w-fit whitespace-nowrap rounded-xl bg-primary px-4 px-[10px] py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+              className="mb-5 mr-3 w-fit whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               {currentLanguage === "en"
                 ? "+ Add new Teacher"

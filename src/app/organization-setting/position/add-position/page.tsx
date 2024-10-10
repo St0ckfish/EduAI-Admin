@@ -37,9 +37,7 @@ const AddPosition = () => {
       href: "/organization-setting/position/add-position",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const { data: positionData, isLoading: isPosition } =
     useGetAllPositionsQuery(null);
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
@@ -58,7 +56,11 @@ const AddPosition = () => {
       toast.error("Failed to create Position");
     }
   };
-  if (isPosition)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading || isPosition)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />

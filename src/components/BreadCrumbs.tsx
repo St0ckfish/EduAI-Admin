@@ -19,9 +19,10 @@ interface BreadCrumbsProps {
 
 const BreadCrumbs: React.FC<BreadCrumbsProps> = ({ breadcrumbs }) => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+  const { language: currentLanguage } = useSelector(
+    (state: RootState) => state.language,
   );
+
   const pathname = usePathname();
 
   return (

@@ -14,6 +14,7 @@ import {
 } from "react-icons/fa"; // Semester, Annual Leave
 import { MdBusiness, MdWorkOutline } from "react-icons/md"; // Department, Position
 import BreadCrumbs from "@/components/BreadCrumbs";
+import Spinner from "@/components/spinner";
 
 const OrganizationSettings = () => {
   const breadcrumbs = [
@@ -31,8 +32,8 @@ const OrganizationSettings = () => {
     },
   ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
   );
 
   const settings = [
@@ -217,6 +218,13 @@ const OrganizationSettings = () => {
               : "All Annual Leave", // Default to English
     },
   ];
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />

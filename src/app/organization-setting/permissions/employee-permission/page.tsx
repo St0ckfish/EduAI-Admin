@@ -29,9 +29,7 @@ const EmployeePermission = () => {
       href: "/organization-setting/permissions/employee-permission",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   type EmployeePermission = Record<string, any>;
   const [search, setSearch] = useState("");
@@ -84,7 +82,11 @@ const EmployeePermission = () => {
     };
   }, []);
 
-  if (isLoading)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -105,7 +107,6 @@ const EmployeePermission = () => {
               : "lg:ml-[270px]"
         } relative mr-[5px] mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
-        
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">
             <label htmlFor="icon" className="sr-only">

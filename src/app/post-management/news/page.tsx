@@ -48,9 +48,7 @@ const News = () => {
       href: "/post-management/news",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   type Post = Record<string, any>;
   const { data, error, isLoading, refetch } = useGetAllAllPostsQuery(null);
@@ -140,8 +138,11 @@ const News = () => {
     const date = new Date(dateString);
     return isNaN(date.getTime()) ? "Invalid date" : date.toLocaleString();
   };
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
 
-  if (isLoading)
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />

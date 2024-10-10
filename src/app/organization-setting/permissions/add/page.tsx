@@ -3,11 +3,9 @@ import { RootState } from "@/GlobalRedux/store";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import Spinner from "@/components/spinner";
 
 const Permissions = () => {
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
   const breadcrumbs = [
     {
       nameEn: "Administration",
@@ -29,7 +27,16 @@ const Permissions = () => {
     },
   ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
 
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />

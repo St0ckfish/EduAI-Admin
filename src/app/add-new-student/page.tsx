@@ -125,7 +125,9 @@ const AddNewStudent = () => {
     }
   };
 
-  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
 
   if (loading)
     return (
@@ -133,7 +135,7 @@ const AddNewStudent = () => {
         <Spinner />
       </div>
     );
-    
+
   if (nationalityLoading || parentLoading) {
     return (
       <div className="flex h-screen w-full items-center justify-center">
@@ -326,7 +328,6 @@ const AddNewStudent = () => {
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("religion", { required: true })}
                 >
-                  
                   <option value="OTHERS">
                     {currentLanguage === "en" ? "Others" : "أخرى"}
                   </option>

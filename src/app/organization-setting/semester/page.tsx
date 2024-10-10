@@ -38,9 +38,7 @@ const Semester = () => {
   const [search, setSearch] = useState("");
   const { data, error, isLoading, refetch } = useGetAllSemestersQuery(null);
   const [selectAll, setSelectAll] = useState(false);
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   useEffect(() => {
     if (data) console.log("Response Data:", data);
     if (error) console.log("Error:", error);
@@ -100,7 +98,11 @@ const Semester = () => {
     };
   }, []);
 
-  if (isLoading)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />

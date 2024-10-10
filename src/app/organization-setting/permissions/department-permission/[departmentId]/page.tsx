@@ -2,6 +2,7 @@
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import Spinner from "@/components/spinner";
 
 interface departmentIdProps {
   params: {
@@ -11,9 +12,7 @@ interface departmentIdProps {
 
 const Permissions: React.FC<departmentIdProps> = ({ params }) => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const breadcrumbs = [
     {
       nameEn: "Administration",
@@ -34,12 +33,23 @@ const Permissions: React.FC<departmentIdProps> = ({ params }) => {
       href: "/organization-setting/permissions/department-permission",
     },
     {
-      nameEn: `${params.departmentId}`,
-      nameAr: `${params.departmentId}`,
-      nameFr: `${params.departmentId}`,
+      nameEn: "Edit Department Permission",
+      nameAr: "تعديل صلاحيات القسم",
+      nameFr: "Modifier les autorisations du département",
       href: `/organization-setting/permissions/department-permission/${params.departmentId}`,
     },
   ];
+
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />

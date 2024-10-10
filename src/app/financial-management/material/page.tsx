@@ -6,6 +6,7 @@ import BreadCrumbs from "@/components/BreadCrumbs";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import { toast } from "react-toastify";
+import Spinner from "@/components/spinner";
 
 const Material = () => {
   const breadcrumbs = [
@@ -28,9 +29,6 @@ const Material = () => {
       href: "/financial-management/material",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
 
   const booleanValue = useSelector((state: RootState) => state.boolean.value); // sidebar
 
@@ -88,6 +86,17 @@ const Material = () => {
       });
     };
   }, []);
+
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
 
   return (
     <>

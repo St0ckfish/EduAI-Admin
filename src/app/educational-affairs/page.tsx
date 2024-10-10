@@ -7,6 +7,7 @@ import { FaClipboardList } from "react-icons/fa"; // Exams Icon
 import { FaRegChartBar } from "react-icons/fa"; // Grades Icon
 import { BsCalendar } from "react-icons/bs"; // Schedule Icon
 import BreadCrumbs from "@/components/BreadCrumbs";
+import Spinner from "@/components/spinner";
 
 const EducationalAffairs = () => {
   const breadcrumbs = [
@@ -24,8 +25,8 @@ const EducationalAffairs = () => {
     },
   ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
   );
 
   const Educations = [
@@ -110,6 +111,14 @@ const EducationalAffairs = () => {
               : "All Schedules for both teachers and classes", // Default to English
     },
   ];
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
+
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />

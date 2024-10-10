@@ -13,9 +13,7 @@ interface ViewTeacherProps {
 }
 const ViewTeacher: React.FC<ViewTeacherProps> = ({ params }) => {
   const { data, error, isLoading } = useGetTeacherByIdQuery(params.teacherId);
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   useEffect(() => {
@@ -27,13 +25,16 @@ const ViewTeacher: React.FC<ViewTeacherProps> = ({ params }) => {
     }
   }, [data, error]);
 
-  if (isLoading)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
       </div>
     );
-
   return (
     <>
       <div
@@ -46,7 +47,8 @@ const ViewTeacher: React.FC<ViewTeacherProps> = ({ params }) => {
             : booleanValue
               ? "lg:ml-[40px]"
               : "lg:ml-[290px]"
-        } grid py-4`}      >
+        } grid py-4`}
+      >
         <div className="grid grid-cols-2 gap-7 pr-7 max-[1342px]:grid-cols-1 max-[1342px]:px-5">
           <TeacherInfo data={data} />
           <div className="grid h-[700px] items-center justify-center gap-10 rounded-xl bg-bgPrimary p-5">

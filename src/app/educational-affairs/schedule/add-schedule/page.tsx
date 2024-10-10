@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
+import Spinner from "@/components/spinner";
 const AddSchedule = () => {
   const breadcrumbs = [
     {
@@ -34,9 +35,7 @@ const AddSchedule = () => {
       href: "/educational-affairs/schedule/add-schedule",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const { register, handleSubmit, reset } = useForm();
 
   const [createSchedule, { isLoading: isCreating }] =
@@ -59,6 +58,16 @@ const AddSchedule = () => {
       console.error("Error creating schedule:", error);
     }
   };
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />

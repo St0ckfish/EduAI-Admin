@@ -75,10 +75,6 @@ const Student = () => {
     }
   };
 
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
-
   const handleSelectAll = () => {
     setSelectAll(!selectAll);
     const checkboxes = document.querySelectorAll<HTMLInputElement>(
@@ -120,7 +116,11 @@ const Student = () => {
     };
   }, []);
 
-  if (isLoading)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />

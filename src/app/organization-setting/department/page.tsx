@@ -33,9 +33,7 @@ const Department = () => {
       href: "/organization-setting/department",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   type Department = Record<string, any>;
   const [search, setSearch] = useState("");
@@ -101,7 +99,11 @@ const Department = () => {
     };
   }, []);
 
-  if (isLoading)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -165,7 +167,7 @@ const Department = () => {
           <div className="flex justify-center">
             <Link
               href="/organization-setting/department/add-department"
-              className="mb-5 mr-3 w-fit whitespace-nowrap rounded-xl bg-primary px-3 px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+              className="mb-5 mr-3 w-fit whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               {currentLanguage === "ar"
                 ? "+ إضافة قسم"

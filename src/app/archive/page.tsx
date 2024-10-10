@@ -78,7 +78,9 @@ const Archive = () => {
     },
   ];
 
-  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
 
   const getTranslatedText = (key: string) => {
     switch (key) {

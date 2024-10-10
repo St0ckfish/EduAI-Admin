@@ -33,9 +33,6 @@ const Certificate = () => {
       href: "/document-management/certificate",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
 
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   type Certificate = Record<string, any>;
@@ -100,13 +97,17 @@ const Certificate = () => {
       });
     };
   }, []);
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
 
-  if (isLoading)
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
       </div>
     );
+
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />

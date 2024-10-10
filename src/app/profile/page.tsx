@@ -48,12 +48,14 @@ const Profile = () => {
       toast.error("Failed to Update User");
     }
   };
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value); // sidebar
 
-  if (userLoading)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading || userLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />

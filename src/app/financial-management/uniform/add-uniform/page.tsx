@@ -3,6 +3,7 @@ import BreadCrumbs from "@/components/BreadCrumbs";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import Spinner from "@/components/spinner";
 
 const AddUniform = () => {
   const breadcrumbs = [
@@ -36,10 +37,18 @@ const AddUniform = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
 
   return (
     <>
@@ -54,7 +63,8 @@ const AddUniform = () => {
             : booleanValue
               ? "lg:ml-[100px]"
               : "lg:ml-[270px]"
-        } mr-[5px] grid mt-[40px] h-[500px] items-center justify-center`}       >
+        } mr-[5px] mt-[40px] grid h-[500px] items-center justify-center`}
+      >
         <form>
           <div className="grid h-[400px] items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:h-[500px] xl:w-[1000px]">
             <div className="flex items-center justify-start gap-2">

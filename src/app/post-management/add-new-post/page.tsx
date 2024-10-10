@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { AiOutlineSave } from "react-icons/ai"; // Save Icon
 import BreadCrumbs from "@/components/BreadCrumbs";
+import Spinner from "@/components/spinner";
 
 const AddNewPost = () => {
   const breadcrumbs = [
@@ -28,9 +29,7 @@ const AddNewPost = () => {
       href: "/post-management/add-new-post",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const {
     register,
@@ -67,6 +66,16 @@ const AddNewPost = () => {
       toast.error("Failed to create post");
     }
   };
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
 
   return (
     <>

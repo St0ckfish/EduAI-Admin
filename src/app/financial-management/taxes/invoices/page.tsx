@@ -36,11 +36,12 @@ const Invoices = () => {
       href: "/financial-management/taxes/invoices",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
   );
 
-  if (isLoading)
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />

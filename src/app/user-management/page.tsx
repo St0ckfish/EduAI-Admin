@@ -14,10 +14,11 @@ import {
   FaHardHat,
 } from "react-icons/fa";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import Spinner from "@/components/spinner";
 
 const UserManagment = () => {
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
   );
 
   const UserManagments = [
@@ -161,6 +162,12 @@ const UserManagment = () => {
 
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
@@ -174,8 +181,8 @@ const UserManagment = () => {
             : booleanValue
               ? "lg:ml-[40px]"
               : "lg:ml-[290px]"
-        } mt-12 grid justify-center`}  
-        >
+        } mt-12 grid justify-center`}
+      >
         <div className="grid grid-cols-2 gap-5 max-[577px]:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4">
           {UserManagments.map((item, index) => (
             <Card

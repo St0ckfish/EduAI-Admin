@@ -53,7 +53,9 @@ const CourseManagement = () => {
     }
   };
 
-  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
 
   if (loading || isLoading)
     return (
@@ -75,7 +77,7 @@ const CourseManagement = () => {
             : booleanValue
               ? "lg:ml-[40px]"
               : "lg:ml-[290px]"
-        } mt-12`}        
+        } mt-12`}
       >
         <div className="flex w-full justify-between px-8 text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">

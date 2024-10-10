@@ -42,11 +42,7 @@ const EditExam = ({ params }: ParamsType) => {
     },
   ];
 
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-
 
   const {
     register,
@@ -64,12 +60,23 @@ const EditExam = ({ params }: ParamsType) => {
     }
   };
 
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
+
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-          className={`${
+        className={`${
           currentLanguage === "ar"
             ? booleanValue
               ? "lg:mr-[100px]"
@@ -77,7 +84,8 @@ const EditExam = ({ params }: ParamsType) => {
             : booleanValue
               ? "lg:ml-[100px]"
               : "lg:ml-[270px]"
-        } mr-[5px] grid h-[850px] mt-[40px] items-center justify-center`}      >
+        } mr-[5px] mt-[40px] grid h-[850px] items-center justify-center`}
+      >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid h-[900px] items-center justify-center rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:h-[800px] xl:w-[1000px]">
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">

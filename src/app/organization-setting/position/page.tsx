@@ -33,9 +33,6 @@ const Position = () => {
       href: "/organization-setting/position",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
 
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   type Position = Record<string, any>;
@@ -114,7 +111,11 @@ const Position = () => {
     };
   }, []);
 
-  if (isLoading)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />

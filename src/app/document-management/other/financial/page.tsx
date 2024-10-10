@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
+import Spinner from "@/components/spinner";
 
 const Financial = () => {
   const breadcrumbs = [
@@ -35,9 +36,6 @@ const Financial = () => {
   ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
   const [selectAll, setSelectAll] = useState(false);
 
   const handleSelectAll = () => {
@@ -80,6 +78,16 @@ const Financial = () => {
       });
     };
   }, []);
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
 
   return (
     <>

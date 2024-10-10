@@ -13,11 +13,8 @@ interface ViewParentProps {
 }
 
 const ViewParent: React.FC<ViewParentProps> = ({ params }) => {
-  
   const { data, error, isLoading } = useGetParentByIdQuery(params.parentId);
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   useEffect(() => {
@@ -29,7 +26,11 @@ const ViewParent: React.FC<ViewParentProps> = ({ params }) => {
     }
   }, [data, error]);
 
-  if (isLoading)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -48,7 +49,8 @@ const ViewParent: React.FC<ViewParentProps> = ({ params }) => {
             : booleanValue
               ? "lg:ml-[40px]"
               : "lg:ml-[290px]"
-        } grid py-4`}      >
+        } grid py-4`}
+      >
         <div className="grid grid-cols-2 gap-7 pr-7 max-[1342px]:grid-cols-1 max-[1342px]:px-5">
           <ParentInfo data={data} />
           <div className="grid h-[400px] items-center justify-center gap-10 rounded-xl bg-bgPrimary p-5">

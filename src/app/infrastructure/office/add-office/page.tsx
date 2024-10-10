@@ -35,9 +35,7 @@ const AddOffice = () => {
       href: "/infrastructure/office/add-office",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   const {
@@ -55,6 +53,17 @@ const AddOffice = () => {
       toast.error("Failed to create Lab");
     }
   };
+
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />

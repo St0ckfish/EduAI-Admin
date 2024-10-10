@@ -33,9 +33,6 @@ const ProfessionalDevelopment = () => {
       href: "/document-management/certificate/professional-development",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
 
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   type Professional = Record<string, any>;
@@ -101,7 +98,11 @@ const ProfessionalDevelopment = () => {
     };
   }, []);
 
-  if (isLoading)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />

@@ -33,7 +33,9 @@ const Infrastructure = () => {
     if (error) console.log("Error:", error);
   }, [data, error]);
 
-  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
 
   if (loading || isLoading)
     return (
@@ -41,7 +43,7 @@ const Infrastructure = () => {
         <Spinner />
       </div>
     );
-    
+
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />

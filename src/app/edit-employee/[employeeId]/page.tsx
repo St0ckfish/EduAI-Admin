@@ -43,9 +43,10 @@ const EditEmployee: React.FC<ViewEmpolyeeProps> = ({ params }) => {
       href: `/edit-employee/${params.employeeId}`,
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
   );
+
   const { data, error, isLoading } = useGetDriversQuery(params.employeeId);
   const [createDriver, { isLoading: isUpdating }] = useUpdateDriversMutation();
   const { data: rigiond } = useGetAllReginionIDQuery(null);
@@ -94,7 +95,7 @@ const EditEmployee: React.FC<ViewEmpolyeeProps> = ({ params }) => {
     }
   };
 
-  if (isLoading)
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />

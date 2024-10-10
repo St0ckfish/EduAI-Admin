@@ -35,9 +35,6 @@ const WorkerAttendance = () => {
       href: "/worker-attendance",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   type Employee = Record<string, any>;
@@ -123,13 +120,16 @@ const WorkerAttendance = () => {
     if (error) console.log("Error:", error);
   }, [data, error]);
 
-  if (isLoading)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
       </div>
     );
-
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />

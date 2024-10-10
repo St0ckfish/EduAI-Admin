@@ -9,6 +9,7 @@ import { BsPersonLinesFill } from "react-icons/bs"; // Enrollment
 import { FaRegCalendarCheck } from "react-icons/fa"; // Attendance
 import { MdDescription } from "react-icons/md"; // Other official documents
 import BreadCrumbs from "@/components/BreadCrumbs";
+import Spinner from "@/components/spinner";
 
 const DocumentManagement = () => {
   const breadcrumbs = [
@@ -26,8 +27,8 @@ const DocumentManagement = () => {
     },
   ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
   );
 
   const documents = [
@@ -132,6 +133,13 @@ const DocumentManagement = () => {
               : "Some information about ID Cards, Medical Records, Disciplinary Records, Financial Aid Documents, Legal Documents", // Default to English
     },
   ];
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
 
   return (
     <>

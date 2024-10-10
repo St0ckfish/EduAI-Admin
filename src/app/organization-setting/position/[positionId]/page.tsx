@@ -41,9 +41,6 @@ const AddPosition = ({ params }: ParamsType) => {
     },
   ];
 
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   // Fetch position by ID
@@ -79,8 +76,11 @@ const AddPosition = ({ params }: ParamsType) => {
       toast.error("Failed to update position");
     }
   };
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
 
-  if (isPositionLoading || isAllPositionsLoading) {
+  if (loading || isPositionLoading || isAllPositionsLoading) {
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />

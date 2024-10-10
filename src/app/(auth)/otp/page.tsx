@@ -20,7 +20,9 @@ import {
 } from "@/features/language/languageSlice";
 
 const OTP = () => {
-  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
 
   const dispatchLang = useDispatch();
   useEffect(() => {

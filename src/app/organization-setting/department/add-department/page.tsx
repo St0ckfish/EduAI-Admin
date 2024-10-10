@@ -45,9 +45,7 @@ const AddDepartment = () => {
     formState: { errors },
   } = useForm();
   const [createDepartment, { isLoading }] = useCreateDepartmentsMutation();
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const onSubmit = async (formData: any) => {
     try {
       const processedData = {
@@ -63,13 +61,16 @@ const AddDepartment = () => {
     }
   };
 
-  if (isRoles)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading || isRoles)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
       </div>
     );
-
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />

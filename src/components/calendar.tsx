@@ -6,9 +6,10 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 
 const Calendar = () => {
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+  const { language: currentLanguage } = useSelector(
+    (state: RootState) => state.language,
   );
+
   const currentDate = new Date();
 
   // State for selected date

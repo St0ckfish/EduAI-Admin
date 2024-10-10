@@ -66,7 +66,9 @@ const AddNewTeacher = () => {
 
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
-  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
 
   if (loading || nationalityLoading || isPosition)
     return (

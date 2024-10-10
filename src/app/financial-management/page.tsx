@@ -12,6 +12,7 @@ import {
   FaSchool,
 } from "react-icons/fa";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import Spinner from "@/components/spinner";
 
 const FinancialManagement = () => {
   const breadcrumbs = [
@@ -30,8 +31,8 @@ const FinancialManagement = () => {
   ];
 
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
   );
 
   const financials = [
@@ -156,6 +157,13 @@ const FinancialManagement = () => {
               : "Demande de paiement, Paramètre", // Default to English
     },
   ];
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />

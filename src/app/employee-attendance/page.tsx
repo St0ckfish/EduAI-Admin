@@ -41,9 +41,7 @@ const EmployeeAttendance = () => {
       href: "/employee-attendance",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   const handleOpen = () => setIsSheetOpen(true);
@@ -201,13 +199,16 @@ const EmployeeAttendance = () => {
     setSelectedId(id);
   };
 
-  if (isLoading)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
       </div>
     );
-
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />

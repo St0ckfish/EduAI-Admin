@@ -12,9 +12,6 @@ import { RootState } from "@/GlobalRedux/store";
 
 const Search = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
   type Student = Record<string, any>;
   const { data, error, isLoading } = useGetAllStudentsQuery({
     archived: "false",
@@ -47,6 +44,18 @@ const Search = () => {
   const handleClick = (id: SetStateAction<null>) => {
     setSelectedId(id);
   };
+
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
+
   return (
     <>
       <div

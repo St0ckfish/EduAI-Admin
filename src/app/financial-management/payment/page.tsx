@@ -32,9 +32,7 @@ const Payment = () => {
       href: "/financial-management/payment",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const [selectAll, setSelectAll] = useState(false);
   const { data, error, isLoading, refetch } = useGetAllInvoicesQuery(null);
   useEffect(() => {
@@ -110,7 +108,11 @@ const Payment = () => {
     return formatter.format(new Date(dateString));
   };
 
-  if (isLoading)
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />

@@ -33,7 +33,9 @@ const AddNote = () => {
     }
   };
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
 
   if (loading)
     return (
@@ -41,7 +43,7 @@ const AddNote = () => {
         <Spinner />
       </div>
     );
-    
+
   return (
     <div
       dir={currentLanguage === "ar" ? "rtl" : "ltr"}

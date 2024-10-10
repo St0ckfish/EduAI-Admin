@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { toast } from "react-toastify";
+import Spinner from "@/components/spinner";
 
 const Scholarship = () => {
   const breadcrumbs = [
@@ -36,9 +37,7 @@ const Scholarship = () => {
     },
   ];
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const [selectAll, setSelectAll] = useState(false);
   const handleSelectAll = () => {
     setSelectAll(!selectAll);
@@ -87,6 +86,16 @@ const Scholarship = () => {
     };
   }, []);
 
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
   return (
     <>
       {/* <Soon /> */}
@@ -145,7 +154,7 @@ const Scholarship = () => {
           <div className="flex justify-center">
             <Link
               href="/"
-              className="mb-5 mr-3 w-fit whitespace-nowrap rounded-xl bg-primary px-4 px-[10px] py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+              className="mb-5 mr-3 w-fit whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               {currentLanguage === "en"
                 ? "+ Add Scholarship"

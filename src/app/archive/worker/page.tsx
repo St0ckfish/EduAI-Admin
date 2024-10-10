@@ -117,7 +117,9 @@ const Worker = () => {
     };
   }, []);
 
-  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
 
   if (loading || isLoading)
     return (
@@ -125,7 +127,6 @@ const Worker = () => {
         <Spinner />
       </div>
     );
-    
 
   return (
     <>

@@ -14,8 +14,9 @@ const languageSlice = createSlice({
       localStorage.setItem("language", action.payload);
       state.loading = false;
     },
-    initializeLanguage: (state) => {
-      const savedLanguage = typeof window !== "undefined" ? localStorage.getItem("language") : null;
+    initializeLanguage: state => {
+      const savedLanguage =
+        typeof window !== "undefined" ? localStorage.getItem("language") : null;
       if (savedLanguage) {
         state.language = savedLanguage;
       }

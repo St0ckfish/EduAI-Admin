@@ -17,7 +17,9 @@ import {
 import { useEffect } from "react";
 
 const ResetPassword = () => {
-  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
 
   const dispatchLang = useDispatch();
   useEffect(() => {

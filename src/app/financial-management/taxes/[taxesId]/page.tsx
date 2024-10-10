@@ -95,10 +95,10 @@ const EditTaxes = ({ params }: TaxesId) => {
       href: `/financial-management/taxes/${params.taxesId}`,
     },
   ];
-
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
   );
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   const {
@@ -164,7 +164,7 @@ const EditTaxes = ({ params }: TaxesId) => {
     }
   };
 
-  if (isFetching) {
+  if (loading || isFetching) {
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />

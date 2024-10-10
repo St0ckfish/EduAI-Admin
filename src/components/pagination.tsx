@@ -18,8 +18,8 @@ const Pagination: React.FC<PaginationProps> = ({
   totalPages,
 }) => {
   const numOfPages = totalPages;
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+  const { language: currentLanguage } = useSelector(
+    (state: RootState) => state.language,
   );
 
   const prevPage = () => {

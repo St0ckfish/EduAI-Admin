@@ -45,9 +45,9 @@ const EditPost = ({ params }: EditPostProps) => {
       href: "/post-management",
     },
     {
-      nameEn: `${params.postId}`,
-      nameAr: `${params.postId}`,
-      nameFr: `${params.postId}`,
+      nameEn: "Edit Post",
+      nameAr: "تعديل المنشور",
+      nameFr: "Modifier la publication",
       href: `/post-management/${params.postId}`,
     },
   ];

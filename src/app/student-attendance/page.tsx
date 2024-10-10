@@ -35,9 +35,6 @@ const StudentAttendance = () => {
       href: "/student-attendance",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   type Student = Record<string, any>;
@@ -134,14 +131,16 @@ const StudentAttendance = () => {
     setRowsPerPage(ele);
     setCurrentPage(0);
   };
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
 
-  if (isLoading)
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
       </div>
     );
-
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />

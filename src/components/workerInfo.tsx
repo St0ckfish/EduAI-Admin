@@ -5,9 +5,10 @@ import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 
 const WorkerInfo = ({ data }: { data: any }) => {
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
+  const { language: currentLanguage } = useSelector(
+    (state: RootState) => state.language,
   );
+
   return (
     <>
       <div className="grid rounded-xl bg-bgPrimary p-5">

@@ -10,33 +10,33 @@ import Spinner from "@/components/spinner";
 
 const AddClass = () => {
   const studyLevels = {
-    "GRADE12": "الصف 12",
-    "GRADE9": "الصف 9",
-    "GRADE7": "الصف 7",
-    "GRADE8": "الصف 8",
-    "GRADE11": "الصف 11",
-    "GRADE10": "الصف 10",
-    "GRADE1": "الصف 1",
-    "GRADE2": "الصف 2",
-    "KG1": "روضة أطفال 1",
-    "GRADE5": "الصف 5",
-    "GRADE6": "الصف 6",
-    "GRADE3": "الصف 3",
-    "KG2": "روضة أطفال 2",
-    "GRADE4": "الصف 4"
+    GRADE12: "الصف 12",
+    GRADE9: "الصف 9",
+    GRADE7: "الصف 7",
+    GRADE8: "الصف 8",
+    GRADE11: "الصف 11",
+    GRADE10: "الصف 10",
+    GRADE1: "الصف 1",
+    GRADE2: "الصف 2",
+    KG1: "روضة أطفال 1",
+    GRADE5: "الصف 5",
+    GRADE6: "الصف 6",
+    GRADE3: "الصف 3",
+    KG2: "روضة أطفال 2",
+    GRADE4: "الصف 4",
   };
   const studyCategories = {
-    "KINDERGARTEN": "روضة أطفال",
-    "SECONDARY": "السنة الثانوية",
-    "PRIMARY": "السنة الابتدائية",
-    "PREPARATORY": "السنة الاعدادية"
+    KINDERGARTEN: "روضة أطفال",
+    SECONDARY: "السنة الثانوية",
+    PRIMARY: "السنة الابتدائية",
+    PREPARATORY: "السنة الاعدادية",
   };
   const jobCategories = {
-    "EDUCATIONAL": "التعليمية",
-    "ADMINISTRATIVE": "إداري",
-    "SPECIALIZED": "متخصص",
-    "FACILITIES_SERVICES": "خدمة المرافق"
-  }
+    EDUCATIONAL: "التعليمية",
+    ADMINISTRATIVE: "إداري",
+    SPECIALIZED: "متخصص",
+    FACILITIES_SERVICES: "خدمة المرافق",
+  };
   const breadcrumbs = [
     {
       nameEn: "Dashboard",
@@ -75,7 +75,9 @@ const AddClass = () => {
     }
   };
 
-  const { language: currentLanguage, loading } = useSelector((state: RootState) => state.language);
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
 
   if (loading || isLoading)
     return (
@@ -83,7 +85,7 @@ const AddClass = () => {
         <Spinner />
       </div>
     );
-    
+
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />

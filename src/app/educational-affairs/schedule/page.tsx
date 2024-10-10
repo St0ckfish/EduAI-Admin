@@ -39,9 +39,7 @@ const Schedule = () => {
       href: "/educational-affairs/schedule",
     },
   ];
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language,
-  );
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const [teacherId, setTeacherId] = useState(null);
 
@@ -54,6 +52,16 @@ const Schedule = () => {
   const { data, isLoading } = useGetAllTeacherScheduleQuery(teacherId, {
     skip: !teacherId,
   });
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
 
   return (
     <>
