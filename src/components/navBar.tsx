@@ -687,7 +687,7 @@ const NavBar = () => {
                     </button>
                     {isOpen2 && (
                       <ul
-                        className={`${small ? "hidden w-fit translate-x-5 whitespace-nowrap rounded-xl bg-bgPrimary p-2 group-hover:grid" : ""} mx-9 mt-2 grid gap-2 text-[14px] font-semibold`}
+                        className={`${small ? "hidden w-fit translate-x-5 whitespace-nowrap text-nowrap rounded-xl bg-bgPrimary p-2 group-hover:grid" : ""} mx-9 mt-2 grid gap-2 text-[14px] font-semibold`}
                       >
                         <Link
                           className="hover:text-primary"
@@ -704,7 +704,7 @@ const NavBar = () => {
                         </Link>
 
                         <Link
-                          className="hover:text-primary"
+                          className="hover:text-primary whitespace-nowrap text-nowrap"
                           href="/financial-management"
                         >
                           {currentLanguage === "en"
@@ -732,7 +732,7 @@ const NavBar = () => {
                         </Link>
 
                         <Link
-                          className="hover:text-primary"
+                          className="hover:text-primary whitespace-nowrap text-nowrap"
                           href="/document-management"
                         >
                           {currentLanguage === "en"

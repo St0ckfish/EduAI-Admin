@@ -10,6 +10,7 @@ import Spinner from "@/components/spinner";
 import { useState } from "react";
 import { useGetAllEmployeesQuery } from "@/features/User-Management/employeeApi";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 interface FormData {
   selectedEmployeeId: string;
@@ -55,10 +56,16 @@ const Permissions = () => {
       key => data.permissions[key],
     );
     if (data.selectedEmployeeId) {
+      try {
       await updateEmployeePermissions({
         id: data.selectedEmployeeId,
         formData: { permissions: selectedPermissions },
       });
+        toast.success("Permission Submitted successfully!");
+    }catch{
+      toast.error("Error to submit Permission");
+
+    }
     }
   };
 
@@ -223,9 +230,7 @@ const Permissions = () => {
                 {...register("selectedEmployeeId")}
                 onChange={e => {
                   setValue("selectedEmployeeId", e.target.value);
-                  setTimeout(() => {
-                    onSubmit();
-                  }, 0);
+                  
                 }}
               >
                 <option value="">
