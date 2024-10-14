@@ -658,6 +658,37 @@ const NavBar = () => {
                       )}
                     </Link>
                   </li>
+                  <li>
+                    <Link
+                      className={`flex ${small ? "w-[40px]" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-[#526484] hover:bg-bgSecondary hover:text-[#3e5af0]`}
+                      href="/insight"
+                    >
+                      <svg
+                        className="h-6 w-6 font-sans font-bold text-[#526484] group-hover:text-[#3e5af0]"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                        />
+                      </svg>
+                      {!small && (
+                        <p>
+                          {currentLanguage === "en"
+                            ? "Insight"
+                            : currentLanguage === "ar"
+                              ? " بصيرة"
+                              : currentLanguage === "fr"
+                                ? "Aperçu"
+                                : "Insight"}
+                        </p>
+                      )}
+                    </Link>
+                  </li>
                   <li className="group relative">
                     <button
                       onClick={toggleNavbar2}
@@ -763,37 +794,6 @@ const NavBar = () => {
                         </Link>
                       </ul>
                     )}
-                  </li>
-                  <li>
-                    <Link
-                      className={`flex ${small ? "w-[40px]" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-[#526484] hover:bg-bgSecondary hover:text-[#3e5af0]`}
-                      href="/insight"
-                    >
-                      <svg
-                        className="h-6 w-6 font-sans font-bold text-[#526484] group-hover:text-[#3e5af0]"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                        />
-                      </svg>
-                      {!small && (
-                        <p>
-                          {currentLanguage === "en"
-                            ? "Insight"
-                            : currentLanguage === "ar"
-                              ? " بصيرة"
-                              : currentLanguage === "fr"
-                                ? "Aperçu"
-                                : "Insight"}
-                        </p>
-                      )}
-                    </Link>
                   </li>
                   <li className="group relative">
                     <button
@@ -1005,6 +1005,26 @@ const NavBar = () => {
                         </Link>
                       </ul>
                     )}
+                  </li>
+                  <li className="group relative translate-y-40">
+                    <a
+                    onClick={DeleteCookie}
+                    href="/login"
+                      className={`flex ${!small ? "w-full" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-secondary hover:bg-bgSecondary hover:text-primary`}
+                    >
+                      <svg className="h-6 w-6 font-sans font-bold text-secondary group-hover:text-primary"  width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />  <path d="M7 12h14l-3 -3m0 6l3 -3" /></svg>
+                      {!small && (
+                        <p>
+                          {currentLanguage === "en"
+                            ? "Logout"
+                            : currentLanguage === "ar"
+                              ? "تسجيل الخروج"
+                              : currentLanguage === "fr"
+                                ? "déconnexion"
+                                : "déconnexion"}
+                        </p>
+                      )}
+                    </a>
                   </li>
                 </ul>
               </nav>

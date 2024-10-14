@@ -1,3 +1,6 @@
+"use client"
+import { useGetInvoiceByIdQuery } from "@/features/Financial/feesApi";
+
 interface ViewInvoiceProps {
   params: {
     invoiceId: string;

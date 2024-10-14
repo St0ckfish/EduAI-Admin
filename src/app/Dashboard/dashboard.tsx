@@ -228,6 +228,11 @@ const Dashboard: React.FC = () => {
     );
 
   return (
+    <>
+      <div className="grid text-start">
+                        <h1 className="font-bold text-[28px] mb-2 font-sans text-[#041631] dark:text-white">Dashboard</h1>
+                        <p className="text-[#526484] font-sans text-[20px] max-[490px]:text-[18px]">Welcome to Learning Management Dashboard.</p>
+                    </div>
     <div className="mr-10 grid w-full justify-center overflow-x-auto p-6">
       <div className="grid overflow-x-auto">
         <div className="mb-6 flex w-full justify-evenly gap-4 whitespace-nowrap max-[812px]:justify-center max-[576px]:h-[120px]">
@@ -675,6 +680,7 @@ const Dashboard: React.FC = () => {
         </form>
       </Modal>
     </div>
+    </>
   );
 };
 
