@@ -59,6 +59,7 @@ const Bank = () => {
     register,
     handleSubmit,
     setValue,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -81,6 +82,7 @@ const Bank = () => {
 
   const handleCloseModal2 = () => {
     setModalOpen2(false);
+    reset();
   };
 
   const handleOpenModal = () => {
@@ -89,6 +91,7 @@ const Bank = () => {
 
   const handleCloseModal = () => {
     setModalOpen(false);
+    reset();
   };
   type Bank = Record<string, any>;
   const { data, error, isLoading, refetch } = useGetAllBankAcountsQuery(null);

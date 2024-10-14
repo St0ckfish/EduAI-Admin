@@ -25,7 +25,7 @@ import {
 
 import Link from "next/link";
 import { toast } from "react-toastify";
-import { useForm } from "react-hook-form";
+import { useForm, useFormContext } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useTheme } from "next-themes";
@@ -109,6 +109,7 @@ const Dashboard: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     resolver: zodResolver(eventSchema),
   });
@@ -121,6 +122,7 @@ const Dashboard: React.FC = () => {
 
   const handleCloseModal = () => {
     setModalOpen(false);
+    reset();
   };
 
   const [series, setSeries] = useState([
