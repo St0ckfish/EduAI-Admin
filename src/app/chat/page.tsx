@@ -48,7 +48,7 @@ const Chat = () => {
           <LoginForm onClose={handleCloseModal} />
         )}
       </Modal> */}
-      <div className="rounded-xl">
+      <div className="rounded-xl flex">
         <ChatPage />
       </div>
     </div>
