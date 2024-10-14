@@ -164,26 +164,6 @@ const Scholarship = () => {
             </Link>
           </div>
         </div>
-        <div className="justify-left mb-5 ml-4 flex gap-5 text-[23px] font-semibold">
-          <Link href="/fees-management">
-            {currentLanguage === "en"
-              ? "Invoices"
-              : currentLanguage === "ar"
-                ? "الفواتير"
-                : "Factures"}
-          </Link>
-          <Link
-            href="/financial-management/scholarship"
-            className="text-blue-500 underline"
-          >
-            {currentLanguage === "en"
-              ? "Scholarship"
-              : currentLanguage === "ar"
-                ? "منحة"
-                : "Bourse"}
-          </Link>
-        </div>
-
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
           <table className="text-bgSecondary0 w-full overflow-x-auto text-left text-sm rtl:text-right">
             <thead className="bg-thead text-xs uppercase text-textPrimary">

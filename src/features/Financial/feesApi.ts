@@ -31,6 +31,14 @@ export const feesApi = createApi({
       query: () => "/api/v1/invoice/all?size=10&page=0&getActive=1",
     }),
     //
+    getAllInvoicesItems: builder.query({
+      query: () => "/api/v1/public/enumeration/invoice-item-type",
+    }),
+    //
+    getAllCurrency: builder.query({
+      query: () => "/api/v1/public/enumeration/currency",
+    }),
+    //
     deleteInvoices: builder.mutation({
       query: id => ({
         url: `/api/v1/invoice/${id}`,
@@ -40,7 +48,7 @@ export const feesApi = createApi({
     //
     createInvoices: builder.mutation({
       query: formData => ({
-        url: `/api/v1/invoice/`,
+        url: `/api/v1/invoice?isForStudent=1`,
         method: "POST",
         body: formData,
       }),
@@ -66,4 +74,6 @@ export const {
   useCreateInvoicesMutation,
   useGetInvoiceByIdQuery,
   useUpdateInvoicesMutation,
+  useGetAllCurrencyQuery,
+  useGetAllInvoicesItemsQuery
 } = feesApi;

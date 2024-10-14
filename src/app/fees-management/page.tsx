@@ -91,10 +91,10 @@ const FeesManagement = () => {
     try {
       await deleteInvoice(id).unwrap();
 
-      toast.success(`Bus with ID ${id} Deleted successfully`);
+      toast.success(`Ivoice with ID ${id} Deleted successfully`);
       void refetch();
     } catch {
-      toast.error("Failed to Delete the Bus");
+      toast.error("Failed to Delete the Ivoice");
     }
   };
   const formatTransactionDate = (dateString: string | number | Date) => {
@@ -190,31 +190,7 @@ const FeesManagement = () => {
             </Link>
           </div>
         </div>
-        <div className="justify-left mb-5 ml-4 flex gap-5 text-[23px] font-semibold">
-          <Link
-            href="/financial-management"
-            className="text-blue-500 underline"
-          >
-            {currentLanguage === "en"
-              ? "Invoices"
-              : currentLanguage === "ar"
-                ? "الفواتير"
-                : currentLanguage === "fr"
-                  ? "Factures"
-                  : "Invoices"}{" "}
-            {/* Default to English */}
-          </Link>
-          <Link href="/fees-management/scholarship">
-            {currentLanguage === "en"
-              ? "Scholarship"
-              : currentLanguage === "ar"
-                ? "منحة دراسية"
-                : currentLanguage === "fr"
-                  ? "Bourse d'études"
-                  : "Scholarship"}{" "}
-            {/* Default to English */}
-          </Link>
-        </div>
+        
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
           <table className="w-full overflow-x-auto text-left text-sm text-textSecondary rtl:text-right">
             <thead className="bg-thead text-xs uppercase text-textPrimary">
