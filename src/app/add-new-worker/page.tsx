@@ -54,8 +54,9 @@ const AddNewWorker = () => {
   const { data: rigiond } = useGetAllReginionIDQuery(null);
 
   const onSubmit = async (data: any) => {
+    const formData = {...data, religion: "OTHERS"}
     try {
-      await createWorker(data).unwrap();
+      await createWorker(formData).unwrap();
       toast.success("Wroker created successfully");
     } catch {
       toast.error(
@@ -278,38 +279,7 @@ const AddNewWorker = () => {
                   </span>
                 )}
               </label>
-              <label
-                htmlFor="religion"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "en"
-                  ? "Religion"
-                  : currentLanguage === "ar"
-                    ? "الديانة"
-                    : "Religion"}
-                <select
-                  id="religion"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("religion", { required: true })}
-                >
-                  <option value="OTHERS">
-                    {currentLanguage === "en"
-                      ? "Others"
-                      : currentLanguage === "ar"
-                        ? "أخرى"
-                        : "Autres"}
-                  </option>
-                </select>
-                {errors.religion && (
-                  <span className="text-error">
-                    {currentLanguage === "en"
-                      ? "This field is required"
-                      : currentLanguage === "ar"
-                        ? "هذه الحقول مطلوبة"
-                        : "Ce champ est requis"}
-                  </span>
-                )}
-              </label>
+              
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
               <label

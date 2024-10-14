@@ -31,8 +31,9 @@ const AddNewDriver = () => {
   const { data: rigiond } = useGetAllReginionIDQuery(null);
 
   const onSubmit = async (data: any) => {
+    const formData = {...data, religion: "OTHERS"}
     try {
-      await createDriver(data).unwrap();
+      await createDriver(formData).unwrap();
       toast.success("Driver created successfully");
     } catch {
       toast.error(
@@ -72,7 +73,7 @@ const AddNewDriver = () => {
     (state: RootState) => state.language,
   );
 
-  if (loading)
+  if (loading || nationalityLoading || isPosition)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -315,50 +316,6 @@ const AddNewDriver = () => {
                   </span>
                 )}
               </label>
-
-              <label
-                htmlFor="religion"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "en"
-                  ? "Religion"
-                  : currentLanguage === "ar"
-                    ? "الدين"
-                    : currentLanguage === "fr"
-                      ? "Religion"
-                      : "Religion"}{" "}
-                {/* default */}
-                <select
-                  id="religion"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("religion", { required: true })}
-                >
-                  <option value="OTHERS">
-                    {currentLanguage === "en"
-                      ? "Others"
-                      : currentLanguage === "ar"
-                        ? "أخرى"
-                        : currentLanguage === "fr"
-                          ? "Autres"
-                          : "Others"}{" "}
-                    {/* default */}
-                  </option>
-                </select>
-                {errors.religion && (
-                  <span className="text-error">
-                    {currentLanguage === "en"
-                      ? "This field is required"
-                      : currentLanguage === "ar"
-                        ? "هذا الحقل مطلوب"
-                        : currentLanguage === "fr"
-                          ? "Ce champ est requis"
-                          : "This field is required"}{" "}
-                    {/* default */}
-                  </span>
-                )}
-              </label>
-            </div>
-            <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
               <label
                 htmlFor="nationality"
                 className="grid font-sans text-[18px] font-semibold"
@@ -413,6 +370,8 @@ const AddNewDriver = () => {
                   </span>
                 )}
               </label>
+            </div>
+            <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
 
               <label
                 htmlFor="regionId"
@@ -747,8 +706,6 @@ const AddNewDriver = () => {
                   </span>
                 )}
               </label>
-            </div>
-            <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
               <label
                 htmlFor="hireDate"
                 className="grid font-sans text-[18px] font-semibold"
@@ -780,6 +737,8 @@ const AddNewDriver = () => {
                   </span>
                 )}
               </label>
+            </div>
+            <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
               <label
                 htmlFor="number"
                 className="grid font-sans text-[18px] font-semibold"

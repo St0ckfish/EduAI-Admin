@@ -58,7 +58,7 @@ const AddNewParent = () => {
       password: data.password,
       nid: data.nid,
       gender: data.gender,
-      religion: data.religion,
+      religion: "OTHERS",
       nationality: data.nationality,
       regionId: data.regionId,
       name_en: data.name_en,
@@ -315,44 +315,7 @@ const AddNewParent = () => {
                   </span>
                 )}
               </label>
-              <label
-                htmlFor="religion"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "en"
-                  ? "Religion"
-                  : currentLanguage === "ar"
-                    ? "الدين"
-                    : currentLanguage === "fr"
-                      ? "Religion"
-                      : "Religion"}
-                <select
-                  id="religion"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("religion", { required: true })}
-                >
-                  <option value="OTHERS">
-                    {currentLanguage === "en"
-                      ? "Others"
-                      : currentLanguage === "ar"
-                        ? "أخرى"
-                        : currentLanguage === "fr"
-                          ? "Autres"
-                          : "Others"}
-                  </option>
-                </select>
-                {errors.religion && (
-                  <span className="text-error">
-                    {currentLanguage === "en"
-                      ? "This field is required"
-                      : currentLanguage === "ar"
-                        ? "هذا الحقل مطلوب"
-                        : currentLanguage === "fr"
-                          ? "Ce champ est requis"
-                          : "This field is required"}
-                  </span>
-                )}
-              </label>
+              
 
               <label
                 htmlFor="nationality"

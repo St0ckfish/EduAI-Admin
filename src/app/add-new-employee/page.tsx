@@ -54,8 +54,9 @@ const AddNewEmployee = () => {
   const { data: rigiond } = useGetAllReginionIDQuery(null);
 
   const onSubmit = async (data: any) => {
+    const formData = {...data, religion: "OTHERS"}
     try {
-      await createEmployee(data).unwrap();
+      await createEmployee(formData).unwrap();
       toast.success("Employee created successfully");
     } catch {
       toast.error("Failed to create employee: ");
@@ -269,39 +270,7 @@ const AddNewEmployee = () => {
                   </span>
                 )}
               </label>
-              <label
-                htmlFor="religion"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "ar"
-                  ? "الدين"
-                  : currentLanguage === "fr"
-                    ? "Religion"
-                    : "Religion"}
-
-                <select
-                  id="religion"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("religion", { required: true })}
-                >
-                  <option value="OTHERS">
-                    {currentLanguage === "ar"
-                      ? "أخرى"
-                      : currentLanguage === "fr"
-                        ? "Autres"
-                        : "Others"}
-                  </option>
-                </select>
-                {errors.religion && (
-                  <span className="text-error">
-                    {currentLanguage === "ar"
-                      ? "هذا الحقل مطلوب"
-                      : currentLanguage === "fr"
-                        ? "Ce champ est requis"
-                        : "This field is required"}
-                  </span>
-                )}
-              </label>
+              
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
               <label

@@ -88,7 +88,7 @@ const AddNewStudent = () => {
         password: data.password,
         nid: data.nid,
         gender: data.gender,
-        religion: data.religion,
+        religion: "OTHERS",
         nationality: data.nationality,
         regionId: data.regionId,
         name_en: data.name_en,
@@ -318,28 +318,7 @@ const AddNewStudent = () => {
               </label>
 
               {/* Religion */}
-              <label
-                htmlFor="religion"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "en" ? "Religion" : "الدين"}
-                <select
-                  id="religion"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("religion", { required: true })}
-                >
-                  <option value="OTHERS">
-                    {currentLanguage === "en" ? "Others" : "أخرى"}
-                  </option>
-                </select>
-                {errors.religion && (
-                  <span className="text-error">
-                    {currentLanguage === "en"
-                      ? "This field is required"
-                      : "هذا الحقل مطلوب"}
-                  </span>
-                )}
-              </label>
+              
 
               {/* Nationality */}
               <label
