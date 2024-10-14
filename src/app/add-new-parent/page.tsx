@@ -489,6 +489,35 @@ const AddNewParent = () => {
                 )}
               </label>
               <label
+                htmlFor="name_fr"
+                className="grid font-sans text-[18px] font-semibold"
+              >
+                {currentLanguage === "en"
+                  ? "Name FR"
+                  : currentLanguage === "ar"
+                    ? "الاسم الفرنسية"
+                    : currentLanguage === "fr"
+                      ? "Nom FR"
+                      : "Name FR"}
+                <input
+                  id="name_fr"
+                  type="text"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  {...register("name_fr", { required: true })}
+                />
+                {errors.name_ar && (
+                  <span className="text-error">
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}
+                  </span>
+                )}
+              </label>
+              <label
                 htmlFor="birthDate"
                 className="grid font-sans text-[18px] font-semibold"
               >
@@ -649,35 +678,6 @@ const AddNewParent = () => {
                   {...register("occupation_fr", { required: true })}
                 />
                 {errors.occupation_fr && (
-                  <span className="text-error">
-                    {currentLanguage === "en"
-                      ? "This field is required"
-                      : currentLanguage === "ar"
-                        ? "هذا الحقل مطلوب"
-                        : currentLanguage === "fr"
-                          ? "Ce champ est requis"
-                          : "This field is required"}
-                  </span>
-                )}
-              </label>
-              <label
-                htmlFor="birthDate"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "en"
-                  ? "Date Of Birth"
-                  : currentLanguage === "ar"
-                    ? "تاريخ الميلاد"
-                    : currentLanguage === "fr"
-                      ? "Date de naissance"
-                      : "Date Of Birth"}
-                <input
-                  id="birthDate"
-                  type="date"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("birthDate", { required: true })}
-                />
-                {errors.birthDate && (
                   <span className="text-error">
                     {currentLanguage === "en"
                       ? "This field is required"
