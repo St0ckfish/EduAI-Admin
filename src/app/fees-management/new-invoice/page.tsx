@@ -5,7 +5,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import Spinner from "@/components/spinner";
 import { toast } from "react-toastify";
-import { useCreateInvoicesMutation, useGetAllInvoicesItemsQuery } from "@/features/Financial/feesApi";
+import {
+  useCreateInvoicesMutation,
+  useGetAllInvoicesItemsQuery,
+} from "@/features/Financial/feesApi";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
@@ -14,7 +17,10 @@ import { useSelector } from "react-redux";
 const invoiceSchema = z.object({
   paidAmount: z.string().regex(/^\d+$/, "Paid amount must be a number"),
   discountAmount: z.string().regex(/^\d+$/, "Discount amount must be a number"),
-  billedToId: z.number().int().positive("Billed To ID must be a positive number"),
+  billedToId: z
+    .number()
+    .int()
+    .positive("Billed To ID must be a positive number"),
   invoiceItem: z.object({
     rate: z.number().nonnegative("Rate must be a non-negative number"),
     qty: z.number().nonnegative("Quantity must be a non-negative number"),
@@ -73,7 +79,8 @@ const NewInvoice = () => {
   });
 
   const [createInvoice, { isLoading }] = useCreateInvoicesMutation();
-  const { data: items, isLoading: isItemsLoading } = useGetAllInvoicesItemsQuery(null);
+  const { data: items, isLoading: isItemsLoading } =
+    useGetAllInvoicesItemsQuery(null);
 
   const onSubmit = async (data: any) => {
     try {
@@ -85,7 +92,7 @@ const NewInvoice = () => {
   };
 
   const { language: currentLanguage, loading } = useSelector(
-    (state: RootState) => state.language
+    (state: RootState) => state.language,
   );
 
   if (loading || isItemsLoading)
@@ -106,8 +113,8 @@ const NewInvoice = () => {
               ? "lg:mr-[100px]"
               : "lg:mr-[270px]"
             : booleanValue
-            ? "lg:ml-[100px]"
-            : "lg:ml-[270px]"
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
         } mx-3 mt-[40px] grid h-[850px] items-center justify-center`}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -117,18 +124,21 @@ const NewInvoice = () => {
                 {currentLanguage === "en"
                   ? "Invoice Information"
                   : currentLanguage === "ar"
-                  ? "معلومات الفاتورة"
-                  : "Informations sur la facture"}
+                    ? "معلومات الفاتورة"
+                    : "Informations sur la facture"}
               </h1>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
               {/* Paid Amount Field */}
-              <label htmlFor="paidAmount" className="grid font-sans text-[18px] font-semibold">
+              <label
+                htmlFor="paidAmount"
+                className="grid font-sans text-[18px] font-semibold"
+              >
                 {currentLanguage === "en"
                   ? "Paid Amount"
                   : currentLanguage === "ar"
-                  ? "المبلغ المدفوع"
-                  : "Montant payé"}
+                    ? "المبلغ المدفوع"
+                    : "Montant payé"}
                 <input
                   id="paidAmount"
                   {...register("paidAmount")}
@@ -136,17 +146,22 @@ const NewInvoice = () => {
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.paidAmount && (
-                  <span className="text-error">{errors.paidAmount.message}</span>
+                  <span className="text-error">
+                    {errors.paidAmount.message}
+                  </span>
                 )}
               </label>
 
               {/* Discount Amount Field */}
-              <label htmlFor="discountAmount" className="grid font-sans text-[18px] font-semibold">
+              <label
+                htmlFor="discountAmount"
+                className="grid font-sans text-[18px] font-semibold"
+              >
                 {currentLanguage === "en"
                   ? "Discount Amount"
                   : currentLanguage === "ar"
-                  ? "مقدار الخصم"
-                  : "Montant de la réduction"}
+                    ? "مقدار الخصم"
+                    : "Montant de la réduction"}
                 <input
                   id="discountAmount"
                   {...register("discountAmount")}
@@ -154,17 +169,22 @@ const NewInvoice = () => {
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.discountAmount && (
-                  <span className="text-error">{errors.discountAmount.message}</span>
+                  <span className="text-error">
+                    {errors.discountAmount.message}
+                  </span>
                 )}
               </label>
 
               {/* Billed To ID Field */}
-              <label htmlFor="billedToId" className="grid font-sans text-[18px] font-semibold">
+              <label
+                htmlFor="billedToId"
+                className="grid font-sans text-[18px] font-semibold"
+              >
                 {currentLanguage === "en"
                   ? "Billed To ID"
                   : currentLanguage === "ar"
-                  ? "رقم الفاتورة إلى"
-                  : "ID facturé à"}
+                    ? "رقم الفاتورة إلى"
+                    : "ID facturé à"}
                 <input
                   id="billedToId"
                   {...register("billedToId", { valueAsNumber: true })}
@@ -172,17 +192,22 @@ const NewInvoice = () => {
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.billedToId && (
-                  <span className="text-error">{errors.billedToId.message}</span>
+                  <span className="text-error">
+                    {errors.billedToId.message}
+                  </span>
                 )}
               </label>
 
               {/* Item Rate Field */}
-              <label htmlFor="rate" className="grid font-sans text-[18px] font-semibold">
+              <label
+                htmlFor="rate"
+                className="grid font-sans text-[18px] font-semibold"
+              >
                 {currentLanguage === "en"
                   ? "Item Rate"
                   : currentLanguage === "ar"
-                  ? "سعر العنصر"
-                  : "Tarif de l'article"}
+                    ? "سعر العنصر"
+                    : "Tarif de l'article"}
                 <input
                   id="rate"
                   {...register("invoiceItem.rate", { valueAsNumber: true })}
@@ -190,17 +215,22 @@ const NewInvoice = () => {
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.invoiceItem?.rate && (
-                  <span className="text-error">{errors.invoiceItem.rate.message}</span>
+                  <span className="text-error">
+                    {errors.invoiceItem.rate.message}
+                  </span>
                 )}
               </label>
 
               {/* Item Quantity Field */}
-              <label htmlFor="qty" className="grid font-sans text-[18px] font-semibold">
+              <label
+                htmlFor="qty"
+                className="grid font-sans text-[18px] font-semibold"
+              >
                 {currentLanguage === "en"
                   ? "Item Quantity"
                   : currentLanguage === "ar"
-                  ? "كمية العنصر"
-                  : "Quantité de l'article"}
+                    ? "كمية العنصر"
+                    : "Quantité de l'article"}
                 <input
                   id="qty"
                   {...register("invoiceItem.qty", { valueAsNumber: true })}
@@ -208,17 +238,22 @@ const NewInvoice = () => {
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.invoiceItem?.qty && (
-                  <span className="text-error">{errors.invoiceItem.qty.message}</span>
+                  <span className="text-error">
+                    {errors.invoiceItem.qty.message}
+                  </span>
                 )}
               </label>
 
               {/* Item Type Field */}
-              <label htmlFor="type" className="grid font-sans text-[18px] font-semibold">
+              <label
+                htmlFor="type"
+                className="grid font-sans text-[18px] font-semibold"
+              >
                 {currentLanguage === "en"
                   ? "Item Type"
                   : currentLanguage === "ar"
-                  ? "نوع العنصر"
-                  : "Type d'article"}
+                    ? "نوع العنصر"
+                    : "Type d'article"}
                 <select
                   id="type"
                   {...register("invoiceItem.type")}
@@ -228,8 +263,8 @@ const NewInvoice = () => {
                     {currentLanguage === "en"
                       ? "Select Item Type"
                       : currentLanguage === "ar"
-                      ? "اختر نوع العنصر"
-                      : "Sélectionner le type d'article"}
+                        ? "اختر نوع العنصر"
+                        : "Sélectionner le type d'article"}
                   </option>
                   {items &&
                     Object.entries(items.data).map(([key, value]) => (
@@ -239,7 +274,9 @@ const NewInvoice = () => {
                     ))}
                 </select>
                 {errors.invoiceItem?.type && (
-                  <span className="text-error">{(errors.invoiceItem?.type as any)?.message}</span>
+                  <span className="text-error">
+                    {(errors.invoiceItem?.type as any)?.message}
+                  </span>
                 )}
               </label>
             </div>
@@ -254,8 +291,8 @@ const NewInvoice = () => {
                   {currentLanguage === "en"
                     ? "Add Invoice"
                     : currentLanguage === "ar"
-                    ? "إضافة فاتورة"
-                    : "Ajouter une facture"}
+                      ? "إضافة فاتورة"
+                      : "Ajouter une facture"}
                 </button>
               )}
             </div>

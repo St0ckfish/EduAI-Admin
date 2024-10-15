@@ -3,7 +3,11 @@ import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import Spinner from "@/components/spinner";
-import { useGetAllCategoriesQuery, useGetEmployeePermissionByIdQuery, useUpdateEmployeePermissionsMutation } from "@/features/Organization-Setteings/employeePermissionApi";
+import {
+  useGetAllCategoriesQuery,
+  useGetEmployeePermissionByIdQuery,
+  useUpdateEmployeePermissionsMutation,
+} from "@/features/Organization-Setteings/employeePermissionApi";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -31,7 +35,9 @@ const Permissions: React.FC<employeeIdProps> = ({ params }) => {
       .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
   };
-  const { data: Employee, isLoading: isEmployee } = useGetEmployeeByIdQuery(params.empolyeeId);
+  const { data: Employee, isLoading: isEmployee } = useGetEmployeeByIdQuery(
+    params.empolyeeId,
+  );
   const { register, watch, setValue, getValues } = useForm<FormData>({
     defaultValues: {
       selectedEmployeeId: params.empolyeeId,
@@ -79,12 +85,10 @@ const Permissions: React.FC<employeeIdProps> = ({ params }) => {
 
   const selectedEmployeeId = watch("selectedEmployeeId");
 
-  const {
-    data: employeePermissionsData,
-    isLoading: isPermissionsLoading,
-  } = useGetEmployeePermissionByIdQuery(selectedEmployeeId, {
-    skip: !selectedEmployeeId,
-  });
+  const { data: employeePermissionsData, isLoading: isPermissionsLoading } =
+    useGetEmployeePermissionByIdQuery(selectedEmployeeId, {
+      skip: !selectedEmployeeId,
+    });
 
   useEffect(() => {
     if (data && employeePermissionsData) {
@@ -155,7 +159,7 @@ const Permissions: React.FC<employeeIdProps> = ({ params }) => {
           </div>
           <div className="flex justify-between px-10 py-8 max-[640px]:grid max-[640px]:justify-center max-[640px]:gap-10">
             <div className="grid gap-5 text-[18px] font-semibold">
-            {data.data?.map((categoryData: any, index: number) => (
+              {data.data?.map((categoryData: any, index: number) => (
                 <div key={index}>
                   <div className="mb-4 flex items-center gap-2">
                     <button
@@ -253,14 +257,10 @@ const Permissions: React.FC<employeeIdProps> = ({ params }) => {
                     </div>
                   )}
                 </div>
-              ))}              
+              ))}
             </div>
             <div>
-              <p className="font-semibold text-[22px]">
-                {
-                  Employee.data.name
-                }
-              </p>
+              <p className="text-[22px] font-semibold">{Employee.data.name}</p>
             </div>
           </div>
         </div>

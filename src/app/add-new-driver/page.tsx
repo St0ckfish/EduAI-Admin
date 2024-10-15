@@ -31,7 +31,7 @@ const AddNewDriver = () => {
   const { data: rigiond } = useGetAllReginionIDQuery(null);
 
   const onSubmit = async (data: any) => {
-    const formData = {...data, religion: "OTHERS"}
+    const formData = { ...data, religion: "OTHERS" };
     try {
       await createDriver(formData).unwrap();
       toast.success("Driver created successfully");
@@ -372,7 +372,6 @@ const AddNewDriver = () => {
               </label>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
-
               <label
                 htmlFor="regionId"
                 className="grid font-sans text-[18px] font-semibold"
@@ -407,7 +406,11 @@ const AddNewDriver = () => {
                         rigion: {
                           regionName: string;
                           cityName: string;
-                          regionId: string | number | readonly string[] | undefined;
+                          regionId:
+                            | string
+                            | number
+                            | readonly string[]
+                            | undefined;
                           name:
                             | string
                             | number

@@ -57,7 +57,6 @@ const AddExam = () => {
   const { data: courses, isLoading: isCourses } = useGetAllCoursesQuery(null);
   const { data: classes, isLoading: isClasses } = useGetAllClasssQuery(null);
 
-
   const onSubmit = async (data: any) => {
     try {
       await createExam(data).unwrap();
@@ -327,35 +326,35 @@ const AddExam = () => {
                   </span>
                 )}
               </label>
-            <label
-              htmlFor="examTypeId"
-              className="grid font-sans text-[18px] font-semibold"
-            >
-              {currentLanguage === "en"
-                ? "Exam Type ID"
-                : currentLanguage === "ar"
-                  ? "معرف نوع الامتحان"
-                  : currentLanguage === "fr"
-                    ? "ID du type d'examen"
-                    : "Exam Type ID"}{" "}
-              <input
-                id="examTypeId"
-                {...register("examTypeId", { required: true })}
-                type="number"
-                className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-              />
-              {errors.examTypeId && (
-                <span className="text-error">
-                  {currentLanguage === "en"
-                    ? "This field is required"
-                    : currentLanguage === "ar"
-                      ? "هذا الحقل مطلوب"
-                      : currentLanguage === "fr"
-                        ? "Ce champ est requis"
-                        : "This field is required"}{" "}
-                </span>
-              )}
-            </label>
+              <label
+                htmlFor="examTypeId"
+                className="grid font-sans text-[18px] font-semibold"
+              >
+                {currentLanguage === "en"
+                  ? "Exam Type ID"
+                  : currentLanguage === "ar"
+                    ? "معرف نوع الامتحان"
+                    : currentLanguage === "fr"
+                      ? "ID du type d'examen"
+                      : "Exam Type ID"}{" "}
+                <input
+                  id="examTypeId"
+                  {...register("examTypeId", { required: true })}
+                  type="number"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                />
+                {errors.examTypeId && (
+                  <span className="text-error">
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                  </span>
+                )}
+              </label>
             </div>
 
             <div className="flex justify-center text-center">

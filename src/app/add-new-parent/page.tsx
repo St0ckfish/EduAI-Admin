@@ -315,7 +315,6 @@ const AddNewParent = () => {
                   </span>
                 )}
               </label>
-              
 
               <label
                 htmlFor="nationality"
@@ -372,7 +371,7 @@ const AddNewParent = () => {
                     : currentLanguage === "fr"
                       ? "ID de la région"
                       : "RegionId"}
-                                <select
+                <select
                   defaultValue=""
                   id="regionId"
                   {...register("regionId", { required: true })}
@@ -394,7 +393,11 @@ const AddNewParent = () => {
                         rigion: {
                           regionName: string;
                           cityName: string;
-                          regionId: string | number | readonly string[] | undefined;
+                          regionId:
+                            | string
+                            | number
+                            | readonly string[]
+                            | undefined;
                           name:
                             | string
                             | number

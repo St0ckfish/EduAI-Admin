@@ -282,10 +282,21 @@ const NavBar = () => {
                     href="/chat"
                     className="inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-textPrimary hover:bg-bgSecondary disabled:pointer-events-none disabled:opacity-50"
                   >
-                    <svg className="h-5 w-5 text-black"  fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/></svg>
-
+                    <svg
+                      className="h-5 w-5 text-textPrimary"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"
+                      />
+                    </svg>
                   </Link>
-                  
+
                   <DropdownMenu.Root>
                     <DropdownMenu.Trigger asChild>
                       <button
@@ -741,7 +752,7 @@ const NavBar = () => {
                         </Link>
 
                         <Link
-                          className="hover:text-primary whitespace-nowrap text-nowrap"
+                          className="whitespace-nowrap text-nowrap hover:text-primary"
                           href="/financial-management"
                         >
                           {currentLanguage === "en"
@@ -769,7 +780,7 @@ const NavBar = () => {
                         </Link>
 
                         <Link
-                          className="hover:text-primary whitespace-nowrap text-nowrap"
+                          className="whitespace-nowrap text-nowrap hover:text-primary"
                           href="/document-management"
                         >
                           {currentLanguage === "en"
@@ -1008,11 +1019,26 @@ const NavBar = () => {
                   </li>
                   <li className="group relative translate-y-40">
                     <a
-                    onClick={DeleteCookie}
-                    href="/login"
+                      onClick={DeleteCookie}
+                      href="/login"
                       className={`flex ${!small ? "w-full" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-secondary hover:bg-bgSecondary hover:text-primary`}
                     >
-                      <svg className="h-6 w-6 font-sans font-bold text-secondary group-hover:text-primary"  width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />  <path d="M7 12h14l-3 -3m0 6l3 -3" /></svg>
+                      <svg
+                        className="h-6 w-6 font-sans font-bold text-secondary group-hover:text-primary"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        strokeWidth="2"
+                        stroke="currentColor"
+                        fill="none"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        {" "}
+                        <path stroke="none" d="M0 0h24v24H0z" />{" "}
+                        <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />{" "}
+                        <path d="M7 12h14l-3 -3m0 6l3 -3" />
+                      </svg>
                       {!small && (
                         <p>
                           {currentLanguage === "en"

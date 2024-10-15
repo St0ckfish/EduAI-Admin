@@ -54,7 +54,7 @@ const AddNewWorker = () => {
   const { data: rigiond } = useGetAllReginionIDQuery(null);
 
   const onSubmit = async (data: any) => {
-    const formData = {...data, religion: "OTHERS"}
+    const formData = { ...data, religion: "OTHERS" };
     try {
       await createWorker(formData).unwrap();
       toast.success("Wroker created successfully");
@@ -279,7 +279,6 @@ const AddNewWorker = () => {
                   </span>
                 )}
               </label>
-              
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
               <label
@@ -329,7 +328,7 @@ const AddNewWorker = () => {
                   : currentLanguage === "ar"
                     ? "رقم المنطقة"
                     : "Identifiant de région"}
-                                <select
+                <select
                   defaultValue=""
                   id="regionId"
                   {...register("regionId", { required: true })}
@@ -351,7 +350,11 @@ const AddNewWorker = () => {
                         rigion: {
                           regionName: string;
                           cityName: string;
-                          regionId: string | number | readonly string[] | undefined;
+                          regionId:
+                            | string
+                            | number
+                            | readonly string[]
+                            | undefined;
                           name:
                             | string
                             | number

@@ -32,7 +32,8 @@ export const courseApi = createApi({
     }),
     //
     getAllGrades: builder.query({
-      query: ({studentId, semesterId}) => `/api/v1/grade-report/student-report?studentId=${studentId}&semesterId=${semesterId}`,
+      query: ({ studentId, semesterId }) =>
+        `/api/v1/grade-report/student-report?studentId=${studentId}&semesterId=${semesterId}`,
     }),
     //
     deleteCourses: builder.mutation({
@@ -70,5 +71,5 @@ export const {
   useCreateCoursesMutation,
   useGetCourseByIdQuery,
   useUpdateCoursesMutation,
-  useGetAllGradesQuery
+  useGetAllGradesQuery,
 } = courseApi;

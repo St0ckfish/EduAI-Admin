@@ -54,7 +54,7 @@ const AddNewTeacher = () => {
   const { data: rigiond } = useGetAllReginionIDQuery(null);
 
   const onSubmit = async (data: any) => {
-    const formData = {...data, religion: "OTHERS"}
+    const formData = { ...data, religion: "OTHERS" };
     try {
       await createTeacher(formData).unwrap();
       toast.success("Teacher created successfully");
@@ -248,8 +248,6 @@ const AddNewTeacher = () => {
                   <span className="text-error">This field is required</span>
                 )}
               </label>
-
-              
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
               <label
@@ -300,7 +298,7 @@ const AddNewTeacher = () => {
                   : currentLanguage === "ar"
                     ? "معرف المنطقة"
                     : "ID de région"}
-                                <select
+                <select
                   defaultValue=""
                   id="regionId"
                   {...register("regionId", { required: true })}
@@ -322,7 +320,11 @@ const AddNewTeacher = () => {
                         rigion: {
                           regionName: string;
                           cityName: string;
-                          regionId: string | number | readonly string[] | undefined;
+                          regionId:
+                            | string
+                            | number
+                            | readonly string[]
+                            | undefined;
                           name:
                             | string
                             | number

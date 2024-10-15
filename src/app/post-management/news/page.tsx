@@ -56,12 +56,13 @@ const News = () => {
   const [putLike] = usePutPostLikeMutation();
 
   const [selectedId, setSelectedId] = useState(null);
-  const { data: Comments, isLoading: isComment, refetch: refetchComment } = useGetAllCommentsQuery(
-    selectedId,
-    {
-      skip: !selectedId,
-    },
-  );
+  const {
+    data: Comments,
+    isLoading: isComment,
+    refetch: refetchComment,
+  } = useGetAllCommentsQuery(selectedId, {
+    skip: !selectedId,
+  });
   const handleClick = (id: SetStateAction<null>) => {
     setSelectedId(id);
   };

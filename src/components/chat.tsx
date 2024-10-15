@@ -136,7 +136,7 @@ const ChatPage = () => {
       </div>
 
       {/* Input, Image Upload, and Send button */}
-      <div className="m-4 flex items-center justify-between gap-5 rounded-xl border border-gray-300 bg-white py-1 px-4">
+      <div className="m-4 flex items-center justify-between gap-5 rounded-xl border border-gray-300 bg-white px-4 py-1">
         <div className="grid items-center justify-center">
           <label className="relative inline-flex cursor-pointer items-center">
             <input

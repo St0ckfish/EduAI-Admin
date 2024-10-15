@@ -1,4 +1,4 @@
-"use client"; 
+"use client";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import BreadCrumbs from "@/components/BreadCrumbs";
@@ -73,12 +73,10 @@ const Permissions = () => {
 
   const { data, isLoading } = useGetAllCategoriesQuery(null);
 
-  const {
-    data: employeePermissionsData,
-    isLoading: isPermissionsLoading,
-  } = useGetEmployeePermissionByIdQuery(selectedEmployeeId, {
-    skip: !selectedEmployeeId,
-  });
+  const { data: employeePermissionsData, isLoading: isPermissionsLoading } =
+    useGetEmployeePermissionByIdQuery(selectedEmployeeId, {
+      skip: !selectedEmployeeId,
+    });
 
   useEffect(() => {
     if (data && employeePermissionsData) {
@@ -143,8 +141,8 @@ const Permissions = () => {
               ? "lg:mr-[100px]"
               : "lg:mr-[270px]"
             : booleanValue
-            ? "lg:ml-[100px]"
-            : "lg:ml-[270px]"
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
         } mx-3 mt-[70px]`}
       >
         <div className="rounded-xl bg-bgPrimary pb-5">
@@ -265,8 +263,8 @@ const Permissions = () => {
                   {currentLanguage === "ar"
                     ? "اختر"
                     : currentLanguage === "fr"
-                    ? "Choisir"
-                    : "Choose"}
+                      ? "Choisir"
+                      : "Choose"}
                 </option>
                 {employees?.data.content.map((employee: any) => (
                   <option key={employee.id} value={employee.id}>

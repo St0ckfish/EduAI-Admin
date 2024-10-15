@@ -314,7 +314,7 @@ const Signup = () => {
                       onChange={e => setUsername(e.target.value)}
                     />
                     {errors.username ? (
-                      <span className="text-error mt-2">
+                      <span className="mt-2 text-error">
                         {errors.username.message?.toString()}
                       </span>
                     ) : isValid && debouncedUsername ? (
@@ -326,7 +326,6 @@ const Signup = () => {
                             : "Username is available"}
                       </span>
                     ) : null}
-                    
                   </label>
                   <label
                     htmlFor="email"

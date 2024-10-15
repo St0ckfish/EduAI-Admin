@@ -54,7 +54,7 @@ const AddNewEmployee = () => {
   const { data: rigiond } = useGetAllReginionIDQuery(null);
 
   const onSubmit = async (data: any) => {
-    const formData = {...data, religion: "OTHERS"}
+    const formData = { ...data, religion: "OTHERS" };
     try {
       await createEmployee(formData).unwrap();
       toast.success("Employee created successfully");
@@ -270,7 +270,6 @@ const AddNewEmployee = () => {
                   </span>
                 )}
               </label>
-              
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
               <label
@@ -320,7 +319,7 @@ const AddNewEmployee = () => {
                   : currentLanguage === "fr"
                     ? "ID de la région"
                     : "RegionId"}
-                                <select
+                <select
                   defaultValue=""
                   id="regionId"
                   {...register("regionId", { required: true })}
@@ -342,7 +341,11 @@ const AddNewEmployee = () => {
                         rigion: {
                           regionName: string;
                           cityName: string;
-                          regionId: string | number | readonly string[] | undefined;
+                          regionId:
+                            | string
+                            | number
+                            | readonly string[]
+                            | undefined;
                           name:
                             | string
                             | number

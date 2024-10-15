@@ -75,5 +75,5 @@ export const {
   useGetInvoiceByIdQuery,
   useUpdateInvoicesMutation,
   useGetAllCurrencyQuery,
-  useGetAllInvoicesItemsQuery
+  useGetAllInvoicesItemsQuery,
 } = feesApi;

@@ -318,7 +318,6 @@ const AddNewStudent = () => {
               </label>
 
               {/* Religion */}
-              
 
               {/* Nationality */}
               <label
@@ -380,7 +379,11 @@ const AddNewStudent = () => {
                         rigion: {
                           regionName: string;
                           cityName: string;
-                          regionId: string | number | readonly string[] | undefined;
+                          regionId:
+                            | string
+                            | number
+                            | readonly string[]
+                            | undefined;
                           name:
                             | string
                             | number
