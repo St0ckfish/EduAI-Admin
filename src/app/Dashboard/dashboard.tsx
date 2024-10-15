@@ -1,35 +1,34 @@
 "use client";
 
-import dynamic from "next/dynamic";
+import { RootState } from "@/GlobalRedux/store";
 import Calendar from "@/components/calendar";
-import React, { useEffect, useState } from "react";
 import Modal from "@/components/model";
+import Spinner from "@/components/spinner";
 import {
-  useGetAllStudentsQuery,
   useGetAllEmployeesQuery,
+  useGetAllStudentsQuery,
   useGetAllTeachersQuery,
   useGetAllWorkersQuery,
   useGetEventsInMonthQuery,
-  useGetNoticesQuery,
   useGetExpensesQuery,
+  useGetNoticesQuery,
 } from "@/features/dashboard/dashboardApi";
-import { format, parseISO } from "date-fns";
-import Spinner from "@/components/spinner";
-import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
-import { RootState } from "@/GlobalRedux/store";
 import {
   useCreateEventsMutation,
   useGetAllEventsDashboardQuery,
 } from "@/features/events/eventsApi";
+import { format, parseISO } from "date-fns";
+import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
-import Link from "next/link";
-import { toast } from "react-toastify";
-import { useForm, useFormContext } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { useTheme } from "next-themes";
-import ExpirePage from "@/components/ExpirePage";
+import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { z } from "zod";
 
 const ReactApexChart = dynamic(() => import("react-apexcharts"), {
   ssr: false,
@@ -50,7 +49,7 @@ const eventSchema = z.object({
 
 const Dashboard: React.FC = () => {
   const router = useRouter();
-
+  const ID = useSelector((state: RootState) => state.user.id);
   const { data: events, isLoading: isEvents } = useGetEventsInMonthQuery(null);
   const currentYear = new Date().getFullYear();
   const start = format(new Date(currentYear, 0, 1), "yyyy-MM-dd");
@@ -151,7 +150,7 @@ const Dashboard: React.FC = () => {
       const formDataToSend = new FormData();
       // Create JSON object for request key
       const requestData = {
-        creatorId: formData.creatorId,
+        creatorId: ID,
         startTime: formData.startTime,
         endTime: formData.endTime,
         title_en: formData.title_en,
@@ -537,22 +536,6 @@ const Dashboard: React.FC = () => {
             className="grid grid-cols-2 gap-5"
             encType="multipart/form-data"
           >
-            {/* Creator ID */}
-            <div className="mb-4">
-              <input
-                type="number"
-                min={1}
-                {...register("creatorId")}
-                placeholder="Creator ID"
-                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-primary"
-              />
-              {errors.creatorId && (
-                <p className="text-error">
-                  {errors.creatorId.message as string}
-                </p>
-              )}
-            </div>
-
             {/* Start Time */}
             <div className="mb-4">
               <input

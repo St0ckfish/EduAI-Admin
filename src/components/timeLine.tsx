@@ -12,6 +12,7 @@ import {
   addDays,
   parseISO,
 } from "date-fns";
+import Link from "next/link";
 
 interface Meeting {
   id: number;
@@ -24,11 +25,15 @@ interface Meeting {
 
 interface TimelineProps {
   meetings: Meeting[];
+  handleDelete: (id: number) => void;
 }
 
-const Timeline: React.FC<TimelineProps> = ({ meetings }) => {
+const Timeline: React.FC<TimelineProps> = ({ meetings, handleDelete }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
-
+  const [open, setOpen] = useState<number | boolean | null>(false);
+  const toggleNavbar = (index: number) => {
+    setOpen(open === index ? null : index);
+  };
   const startOfCurrentMonth = startOfMonth(currentMonth);
   const endOfCurrentMonth = endOfMonth(currentMonth);
   const startOfFirstWeek = startOfWeek(startOfCurrentMonth, {
@@ -122,15 +127,13 @@ const Timeline: React.FC<TimelineProps> = ({ meetings }) => {
                       return (
                         <td
                           key={dayIndex}
-                          className={`ease h-40 w-40 cursor-pointer overflow-auto border border-borderPrimary p-1 transition duration-500 hover:bg-bgSecondary ${
-                            !isSameMonth(day, currentMonth)
+                          className={`ease h-40 w-40 cursor-pointer overflow-auto border border-borderPrimary p-1 transition duration-500 hover:bg-bgSecondary ${!isSameMonth(day, currentMonth)
                               ? "bg-bgSecondary"
                               : ""
-                          } ${
-                            isToday(day)
+                            } ${isToday(day)
                               ? "scale-90 bg-blue-300 shadow-2xl"
                               : ""
-                          }`}
+                            }`}
                         >
                           {day && (
                             <div className="mx-auto flex h-40 w-40 flex-col overflow-hidden">
@@ -148,11 +151,50 @@ const Timeline: React.FC<TimelineProps> = ({ meetings }) => {
                                         "yyyy-MM-dd",
                                       ) === format(day, "yyyy-MM-dd"),
                                   )
-                                  .map(meeting => (
+                                  .map((meeting, index) => (
                                     <div
                                       key={meeting.id}
                                       className="event mb-1 flex flex-col justify-center gap-1 rounded bg-primary px-3 py-1.5 text-center text-sm text-white"
                                     >
+                                      {/*  */}
+                                      <div className="flex items-start justify-end gap-2">
+                                          <div className="flex h-[35px] items-center gap-2 rounded-full bg-bgPrimary px-1 ">
+                                            <button onClick={() => handleDelete(meeting.id)}>
+                                              <svg
+                                                className="h-5 w-5 text-error"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor"
+                                              >
+                                                <path
+                                                  strokeLinecap="round"
+                                                  strokeLinejoin="round"
+                                                  strokeWidth="2"
+                                                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                                />
+                                              </svg>
+                                            </button>
+                                            <Link href={`/educational-affairs/events/${meeting.id}`}>
+                                              <svg
+                                                className="h-5 w-5 text-blue-500"
+                                                viewBox="0 0 24 24"
+                                                strokeWidth="2"
+                                                stroke="currentColor"
+                                                fill="none"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                              >
+                                                {" "}
+                                                <path stroke="none" d="M0 0h24v24H0z" />{" "}
+                                                <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />{" "}
+                                                <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />{" "}
+                                                <line x1="16" y1="5" x2="19" y2="8" />
+                                              </svg>
+                                            </Link>
+                                          </div>
+                                        
+                                      </div>
+                                      {/*  */}
                                       <span className="event-name text-[18px] font-semibold">
                                         {meeting.title}
                                       </span>

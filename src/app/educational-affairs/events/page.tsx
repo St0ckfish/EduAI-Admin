@@ -6,6 +6,7 @@ import Timeline from "@/components/timeLine";
 import {
   useGetAllEventsQuery,
   useCreateEventsMutation,
+  useDeleteEventsMutation
 } from "@/features/events/eventsApi";
 import { RootState } from "@/GlobalRedux/store";
 import { useEffect, useState } from "react";
@@ -71,13 +72,24 @@ const Events = () => {
   const handleCloseModal = () => {
     setModalOpen(false);
   };
+  const ID = useSelector((state: RootState) => state.user.id);
+  const [deleteEvent] = useDeleteEventsMutation();
 
+  const handleDelete = async (id: number) => {
+    try {
+      await deleteEvent(id).unwrap();
+      toast.success("Delete post Success");
+      void refetch();
+    } catch (err) {
+      toast.error("Can not Delete post");
+    }
+  };
   const onSubmit = async (formData: any) => {
     try {
       const formDataToSend = new FormData();
       // Create JSON object for request key
       const requestData = {
-        creatorId: formData.creatorId,
+        creatorId: ID,
         startTime: formData.startTime,
         endTime: formData.endTime,
         title_en: formData.title_en,
@@ -150,7 +162,7 @@ const Events = () => {
                 : "+ Add Event"}
           </button>
         </div>
-        <Timeline meetings={data?.data.content} />
+        <Timeline meetings={data?.data.content} handleDelete={handleDelete}/>
         <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
           <h2 className="mb-4 text-xl font-light text-textPrimary">
             {currentLanguage === "ar"
@@ -164,21 +176,6 @@ const Events = () => {
             className="grid grid-cols-2 gap-5"
             encType="multipart/form-data"
           >
-            {/* Creator ID */}
-            <div className="mb-4">
-              <input
-                type="number"
-                {...register("creatorId")}
-                placeholder="Creator ID"
-                className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 text-textSecondary shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              {errors.creatorId && (
-                <p className="text-error">
-                  {errors.creatorId.message as string}
-                </p>
-              )}
-            </div>
-
             {/* Start Time */}
             <div className="mb-4">
               <input

@@ -38,7 +38,7 @@ export const eventsApi = createApi({
     //
     deleteEvents: builder.mutation({
       query: id => ({
-        url: `/api/v1/bank-account/${id}`,
+        url: `/api/v1/event/${id}`,
         method: "DELETE",
       }),
     }),
@@ -52,12 +52,12 @@ export const eventsApi = createApi({
     }),
     //
     getEventById: builder.query({
-      query: id => `/api/v1/bank-account/${id}`,
+      query: id => `/api/v1/event/${id}`,
     }),
     //
     updateEvents: builder.mutation({
       query: ({ formData, id }) => ({
-        url: `/api/v1/bank-account/${id}`,
+        url: `/api/v1/event/${id}`,
         method: "PUT",
         body: formData,
       }),

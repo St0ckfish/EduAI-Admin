@@ -20,6 +20,7 @@ import {
 import { useTheme } from "next-themes";
 import { FiSun, FiMoon } from "react-icons/fi";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
+import { setUser } from "@/features/userSlice";
 
 const NavBar = () => {
   const { language: currentLanguage, loading } = useSelector(
@@ -38,6 +39,8 @@ const NavBar = () => {
     isLoading: userLoading,
   } = useGetAllCurrentUserQuery(null);
 
+  
+
   // Theme Changer
   const { theme, setTheme } = useTheme();
   const [isClient, setIsClient] = useState(false);
@@ -55,6 +58,15 @@ const NavBar = () => {
   }, [userData, userError, router]);
   const dispatch = useDispatch();
   const dispatch2 = useDispatch();
+
+  dispatch(
+    setUser({
+      name: userData?.data?.name,
+      email: userData?.data?.email,
+      id: userData?.data?.id,
+    }),
+  );
+  
   const [pathname, setPathname] = useState("");
   const [small, setSmall] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -201,41 +213,7 @@ const NavBar = () => {
                 </div>
 
                 <div className="hidden sm:block">
-                  <label htmlFor="icon" className="sr-only">
-                    Search
-                  </label>
-                  <div className="relative min-w-72 md:min-w-80">
-                    <div className="pointer-events-none absolute inset-y-0 start-0 z-20 flex items-center ps-4">
-                      <svg
-                        className="size-4 flex-shrink-0 text-gray-400"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <circle cx="11" cy="11" r="8" />
-                        <path d="m21 21-4.3-4.3" />
-                      </svg>
-                    </div>
-                    <input
-                      type="text"
-                      id="icon"
-                      name="icon"
-                      className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-primary focus:ring-primary disabled:pointer-events-none disabled:opacity-50"
-                      placeholder={
-                        currentLanguage === "en"
-                          ? "Search"
-                          : currentLanguage === "ar"
-                            ? "بحث"
-                            : "Recherche"
-                      }
-                    />
-                  </div>
+                  
                 </div>
 
                 <div className="flex flex-row items-center justify-end gap-2">
