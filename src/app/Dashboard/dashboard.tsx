@@ -244,7 +244,7 @@ const Dashboard: React.FC = () => {
         {currentLanguage === "en"
                   ? "Dashboard"
                   : currentLanguage === "ar"
-                    ? "لوحة التحكم"
+                    ? "لوحة التحكم" 
                     : currentLanguage === "fr"
                       ? "tableau de bord"
                       : "tableau de bord"}
