@@ -179,13 +179,13 @@ const NavBar = () => {
               aria-label="Global"
             >
               <div className="me-5 lg:me-0 lg:hidden">
-                <a
+                <Link
                   className="inline-block flex-none rounded-xl text-xl font-semibold focus:opacity-80 focus:outline-none"
-                  href="../templates/admin/index.html"
+                  href="/"
                   aria-label="Preline"
                 >
                   <img src="/images/logo.png" alt="#" />
-                </a>
+                </Link>
               </div>
 
               <div className="ms-auto flex w-full items-center justify-end sm:order-3 sm:justify-between sm:gap-x-3">
