@@ -180,6 +180,7 @@ const Dashboard: React.FC = () => {
   };
 
   const { theme } = useTheme();
+  const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
   const [options, setOptions] = useState({
     chart: {
@@ -230,12 +231,32 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
-      <div className="grid text-start">
+      <div dir={currentLanguage === "ar" ? "rtl" : "ltr"} className={`grid text-start ${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : ""
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : ""
+        }`}>
         <h1 className="mb-2 font-sans text-[28px] font-bold text-[#041631] dark:text-white">
-          Dashboard
+        {currentLanguage === "en"
+                  ? "Dashboard"
+                  : currentLanguage === "ar"
+                    ? "لوحة التحكم"
+                    : currentLanguage === "fr"
+                      ? "tableau de bord"
+                      : "tableau de bord"}
         </h1>
         <p className="font-sans text-[20px] text-[#526484] max-[490px]:text-[18px]">
-          Welcome to Learning Management Dashboard.
+        {currentLanguage === "en"
+                  ? "Welcome to Learning Management Dashboard."
+                  : currentLanguage === "ar"
+                    ? "مرحباً بكم في لوحة إدارة التعلم."
+                    : currentLanguage === "fr"
+                      ? "Bienvenue dans le tableau de bord de gestion de l'apprentissage."
+                      : "Bienvenue dans le tableau de bord de gestion de l'apprentissage."}
         </p>
       </div>
       <div className="mr-10 grid w-full justify-center overflow-x-auto p-6">
