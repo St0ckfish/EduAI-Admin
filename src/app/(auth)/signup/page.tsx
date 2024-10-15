@@ -479,36 +479,38 @@ const Signup = () => {
                             : "Select Region Id"}
                       </option>
                       {rigiond &&
-                        rigiond.data.map(
-                          (
-                            rigion: {
-                              id:
-                                | string
-                                | number
-                                | readonly string[]
-                                | undefined;
-                              name:
-                                | string
-                                | number
-                                | bigint
-                                | boolean
-                                | React.ReactElement<
-                                    any,
-                                    string | React.JSXElementConstructor<any>
-                                  >
-                                | Iterable<React.ReactNode>
-                                | React.ReactPortal
-                                | Promise<React.AwaitedReactNode>
-                                | null
-                                | undefined;
-                            },
-                            index: React.Key | null | undefined,
-                          ) => (
-                            <option key={index} value={rigion.id}>
-                              {rigion.name}
-                            </option>
-                          ),
-                        )}
+                    rigiond.data.map(
+                      (
+                        rigion: {
+                          regionName: string;
+                          cityName: string;
+                          regionId:
+                            | string
+                            | number
+                            | readonly string[]
+                            | undefined;
+                          name:
+                            | string
+                            | number
+                            | bigint
+                            | boolean
+                            | React.ReactElement<
+                                any,
+                                string | React.JSXElementConstructor<any>
+                              >
+                            | Iterable<React.ReactNode>
+                            | React.ReactPortal
+                            | Promise<React.AwaitedReactNode>
+                            | null
+                            | undefined;
+                        },
+                        index: React.Key | null | undefined,
+                      ) => (
+                        <option key={index} value={rigion.regionId}>
+                          {rigion.cityName} <strong>{rigion.regionName}</strong>
+                        </option>
+                      ),
+                    )}
                     </select>
                     {errors.regionId && (
                       <span className="text-[13px] text-error">

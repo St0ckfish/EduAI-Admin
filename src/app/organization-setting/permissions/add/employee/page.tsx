@@ -152,7 +152,7 @@ const Permissions = () => {
           </div>
           <div className="flex justify-between px-10 py-8 max-[640px]:grid max-[640px]:justify-center max-[640px]:gap-10">
             <div className="grid gap-5 text-[18px] font-semibold">
-              {data.data?.map((categoryData: any, index: number) => (
+              {data?.data?.map((categoryData: any, index: number) => (
                 <div key={index}>
                   <div className="mb-4 flex items-center gap-2">
                     <button
