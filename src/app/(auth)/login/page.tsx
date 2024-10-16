@@ -72,8 +72,6 @@ const Login = () => {
             ? "Échec de la connexion"
             : "Failed to login",
       );
-      console.error("Failed to login:", err);
-      console.error("Failed to login:", err.data.errorMessage);
       try {
         errorData = JSON.parse(err.data.errorMessage);
       } catch (e) {
