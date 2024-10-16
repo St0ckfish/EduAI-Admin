@@ -7,6 +7,7 @@ export async function middleware(req: NextRequest) {
     "/login",
     "/signup",
     "/forget-password",
+    "/confirm-account",
     "/new-password",
     "/choose-account",
     "/otp",
@@ -27,6 +28,6 @@ export async function middleware(req: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!api|_next/static|_next/image|static|public|images|choose-account|login|signup|otp|new-password|forget-password|favicon.ico).*)",
+    "/((?!api|_next/static|_next/image|static|public|images|choose-account|login|signup|otp|new-password|confirm-account|forget-password|favicon.ico).*)",
   ],
 };

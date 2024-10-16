@@ -119,7 +119,7 @@ const Signup = () => {
             ? "Compte créé avec succès"
             : "Account created successfully",
       );
-      router.replace("/login");
+      router.push("/confirm-account");
     } catch (err: any) {
       setErrorMessage(err.data.data);
       console.log(errorMessage);

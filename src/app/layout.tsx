@@ -21,6 +21,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
     pathname === "/new-password" ||
     pathname === "/forget-password" ||
     pathname === "/otp" ||
+    pathname === "/confirm-account" ||
     pathname === "/choose-account";
 
   useEffect(() => {

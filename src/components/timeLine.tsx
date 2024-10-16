@@ -158,10 +158,10 @@ const Timeline: React.FC<TimelineProps> = ({ meetings, handleDelete }) => {
                                     >
                                       {/*  */}
                                       <div className="flex items-start justify-end gap-2">
-                                          <div className="flex h-[35px] items-center gap-2 rounded-full bg-bgPrimary px-1 ">
+                                          <div className="flex h-[35px] items-center gap-2">
                                             <button onClick={() => handleDelete(meeting.id)}>
                                               <svg
-                                                className="h-5 w-5 text-error"
+                                                className="h-6 w-6 text-error"
                                                 fill="none"
                                                 viewBox="0 0 24 24"
                                                 stroke="currentColor"
@@ -176,7 +176,7 @@ const Timeline: React.FC<TimelineProps> = ({ meetings, handleDelete }) => {
                                             </button>
                                             <Link href={`/educational-affairs/events/${meeting.id}`}>
                                               <svg
-                                                className="h-5 w-5 text-blue-500"
+                                                className="h-6 w-6 text-white"
                                                 viewBox="0 0 24 24"
                                                 strokeWidth="2"
                                                 stroke="currentColor"

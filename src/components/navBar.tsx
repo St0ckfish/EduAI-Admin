@@ -9,7 +9,6 @@ import { toggle } from "@/features/boolyanSlice";
 import Cookie from "js-cookie";
 import { useGetAllCurrentUserQuery } from "@/features/dashboard/dashboardApi";
 import { useRouter } from "next/navigation";
-// import Spinner from "./spinner";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
@@ -994,41 +993,6 @@ const NavBar = () => {
                         </Link>
                       </ul>
                     )}
-                  </li>
-                  <li className="group relative translate-y-40">
-                    <a
-                      onClick={DeleteCookie}
-                      href="/login"
-                      className={`flex ${!small ? "w-full" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-secondary hover:bg-bgSecondary hover:text-primary`}
-                    >
-                      <svg
-                        className="h-6 w-6 font-sans font-bold text-secondary group-hover:text-primary"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        strokeWidth="2"
-                        stroke="currentColor"
-                        fill="none"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        {" "}
-                        <path stroke="none" d="M0 0h24v24H0z" />{" "}
-                        <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />{" "}
-                        <path d="M7 12h14l-3 -3m0 6l3 -3" />
-                      </svg>
-                      {!small && (
-                        <p>
-                          {currentLanguage === "en"
-                            ? "Logout"
-                            : currentLanguage === "ar"
-                              ? "تسجيل الخروج"
-                              : currentLanguage === "fr"
-                                ? "déconnexion"
-                                : "déconnexion"}
-                        </p>
-                      )}
-                    </a>
                   </li>
                 </ul>
               </nav>

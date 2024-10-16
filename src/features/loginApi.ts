@@ -28,9 +28,23 @@ export const loginApi = createApi({
       }),
     }),
     //
+    selectAccoutConfirm: builder.mutation({
+      query: ({ id, email }) => ({
+        url: `/api/v1/auth/email/send?user-id=${id}&email=${email}`,
+        method: "POST",
+      }),
+    }),
+    //
     sendOtp: builder.mutation({
       query: ({ code, email }) => ({
         url: `/api/v1/auth/password/validate-code?email=${email}&code=${code}`,
+        method: "POST",
+      }),
+    }),
+    //
+    sendOtpConfirm: builder.mutation({
+      query: ({ code, email }) => ({
+        url: `/api/v1/auth/email/confirm?email=${email}&code=${code}`,
         method: "POST",
       }),
     }),
@@ -50,4 +64,6 @@ export const {
   useSelectAccoutMutation,
   useSendOtpMutation,
   useResetPasswordMutation,
+  useSendOtpConfirmMutation,
+  useSelectAccoutConfirmMutation
 } = loginApi;
