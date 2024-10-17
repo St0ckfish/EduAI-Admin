@@ -79,6 +79,7 @@ const Signup = () => {
         label: `${school.name} - ${school.regionName}, ${school.cityName}, ${school.countryName}`,
       }),
     ) || [];
+  
   const {
     control,
     register,
@@ -98,6 +99,19 @@ const Signup = () => {
     isLoading: nationalityLoading,
   } = useGetAllNationalitysQuery(null);
   const { data: rigiond } = useGetAllReginionIDQuery(null);
+  const optionsRigon =
+    rigiond?.data?.map(
+      (rigion: {
+        cityName: any;
+        countryName: any;
+        regionName: any;
+        regionId: any;
+        name: any;
+      }) => ({
+        value: rigion.regionId,
+        label: `${rigion.regionName} - ${rigion.cityName}`,
+      }),
+    ) || [];
 
   useEffect(() => {
     if (nationalityData) {
@@ -465,62 +479,15 @@ const Signup = () => {
                     htmlFor="regionId"
                     className="grid text-start font-sans text-[15px] font-semibold text-[#9a9a9a]"
                   >
-                    <select
-                      defaultValue=""
-                      id="regionId"
-                      {...register("regionId", { required: true })}
-                      className={`rounded-xl border px-4 py-3 ${errors.regionId ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
-                    >
-                      <option selected value="">
-                        {currentLanguage === "ar"
-                          ? "اختر معرف المنطقة"
-                          : currentLanguage === "fr"
-                            ? "Sélectionnez l'ID de région"
-                            : "Select Region Id"}
-                      </option>
-                      {rigiond &&
-                    rigiond.data.map(
-                      (
-                        rigion: {
-                          regionName: string;
-                          cityName: string;
-                          regionId:
-                            | string
-                            | number
-                            | readonly string[]
-                            | undefined;
-                          name:
-                            | string
-                            | number
-                            | bigint
-                            | boolean
-                            | React.ReactElement<
-                                any,
-                                string | React.JSXElementConstructor<any>
-                              >
-                            | Iterable<React.ReactNode>
-                            | React.ReactPortal
-                            | Promise<React.AwaitedReactNode>
-                            | null
-                            | undefined;
-                        },
-                        index: React.Key | null | undefined,
-                      ) => (
-                        <option key={index} value={rigion.regionId}>
-                          {rigion.cityName} <strong>{rigion.regionName}</strong>
-                        </option>
-                      ),
-                    )}
-                    </select>
-                    {errors.regionId && (
-                      <span className="text-[13px] text-error">
-                        {currentLanguage === "ar"
-                          ? "معرف المنطقة مطلوب"
-                          : currentLanguage === "fr"
-                            ? "L'ID de région est requis"
-                            : "regionId is Required"}
-                      </span>
-                    )}
+
+                    <SearchableSelect
+                      name="regionId"
+                      control={control}
+                      errors={errors}
+                      options={optionsRigon}
+                      currentLanguage={currentLanguage}
+                      placeholder="Select Region"
+                    />
                   </label>
                   <label
                     htmlFor="gender"
@@ -724,10 +691,10 @@ const Signup = () => {
                     >
                       <option selected value="">
                         {currentLanguage === "ar"
-                          ? "اختر الدين"
+                          ? "اختر نوع الموظف"
                           : currentLanguage === "fr"
-                            ? "Sélectionnez la religion"
-                            : "Select religion"}
+                            ? "Sélectionnez la Type d'employé"
+                            : "Select employee Type"}
                       </option>
                       <option value="EMPLOYEE">
                         {currentLanguage === "ar"
