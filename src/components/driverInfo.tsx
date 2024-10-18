@@ -20,7 +20,7 @@ const DriverInfo = ({ data }: { data: any }) => {
                 ? "Informations sur le chauffeur"
                 : "Driver Information"}
           </h1>
-          <Link href={`/edit-driver/${data.data.id}`}>
+          <Link href={`/edit-driver/${data?.data.id}`}>
             <svg
               className="h-6 w-6 text-textPrimary"
               fill="none"
@@ -38,7 +38,7 @@ const DriverInfo = ({ data }: { data: any }) => {
         </div>
 
         <div className="grid items-center justify-center text-center">
-          {data.data.picture == null ? (
+          {data?.data.picture == null ? (
             <img
               src="/images/userr.png"
               className="mx-2 h-[120px] w-[120px] rounded-full"
@@ -46,16 +46,16 @@ const DriverInfo = ({ data }: { data: any }) => {
             />
           ) : (
             <img
-              src={data.data.picture}
+              src={data?.data.picture}
               className="mx-2 h-[120px] w-[120px] rounded-full"
               alt="#"
             />
           )}
           <h1 className="font-sans font-semibold text-textPrimary">
-            {data.data.name}
+            {data?.data.name}
           </h1>
           <p className="font-sans font-semibold text-textPrimary">
-            {data.data.id}
+            {data?.data.id}
           </p>
         </div>
 
@@ -76,7 +76,7 @@ const DriverInfo = ({ data }: { data: any }) => {
                   : "Email:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
-              {data.data.email}
+              {data?.data.email}
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
               {currentLanguage === "ar"
@@ -86,7 +86,7 @@ const DriverInfo = ({ data }: { data: any }) => {
                   : "Salary:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
-              {data.data.salary == null ? `Not specified` : data.data.salary}
+              {data?.data.salary == null ? `Not specified` : data?.data.salary}
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
               {currentLanguage === "ar"
@@ -96,7 +96,7 @@ const DriverInfo = ({ data }: { data: any }) => {
                   : "Age:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
-              {data.data.birthDate}
+              {data?.data.birthDate}
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
               {currentLanguage === "ar"
@@ -106,7 +106,7 @@ const DriverInfo = ({ data }: { data: any }) => {
                   : "Gender:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
-              {data.data.gender}
+              {data?.data.gender}
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
               {currentLanguage === "ar"
@@ -116,7 +116,7 @@ const DriverInfo = ({ data }: { data: any }) => {
                   : "Position:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
-              {data.data.role}
+              {data?.data.role}
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
               {currentLanguage === "ar"
@@ -126,7 +126,7 @@ const DriverInfo = ({ data }: { data: any }) => {
                   : "Religion:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
-              {data.data.religion}
+              {data?.data.religion}
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
               {currentLanguage === "ar"
@@ -136,7 +136,7 @@ const DriverInfo = ({ data }: { data: any }) => {
                   : "Address:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
-              {data.data.nationality}
+              {data?.data.nationality}
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
               {currentLanguage === "ar"
@@ -146,7 +146,7 @@ const DriverInfo = ({ data }: { data: any }) => {
                   : "Mobile:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
-              {data.data.phoneNumber}
+              {data?.data.phoneNumber}
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
               {currentLanguage === "ar"
@@ -156,7 +156,7 @@ const DriverInfo = ({ data }: { data: any }) => {
                   : "About:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
-              {data.data.about}
+              {data?.data.about}
             </p>
           </div>
         </div>

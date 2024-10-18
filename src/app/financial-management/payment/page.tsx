@@ -198,7 +198,7 @@ const Payment = () => {
                   : "Tuition"}{" "}
             {/* Default to English */}
           </Link>
-          <Link href="/fees-management/activity">
+          <Link href="/financial-management/activity">
             {currentLanguage === "en"
               ? "Activity"
               : currentLanguage === "ar"
@@ -208,7 +208,7 @@ const Payment = () => {
                   : "Activity"}{" "}
             {/* Default to English */}
           </Link>
-          <Link href="/fees-management/transport">
+          <Link href="/financial-management/transport">
             {currentLanguage === "en"
               ? "Transport"
               : currentLanguage === "ar"
@@ -218,7 +218,7 @@ const Payment = () => {
                   : "Transport"}{" "}
             {/* Default to English */}
           </Link>
-          <Link href="/fees-management/uniform">
+          <Link href="/financial-management/uniform">
             {currentLanguage === "en"
               ? "Uniform"
               : currentLanguage === "ar"
@@ -228,7 +228,7 @@ const Payment = () => {
                   : "Uniform"}{" "}
             {/* Default to English */}
           </Link>
-          <Link href="/fees-management/material">
+          <Link href="/financial-management/material">
             {currentLanguage === "en"
               ? "Material"
               : currentLanguage === "ar"

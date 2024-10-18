@@ -138,10 +138,10 @@ const ViewInvoice: React.FC<ViewInvoiceProps> = ({ params }) => {
     const invoiceData = `
       ${translations[currentLanguage].administration}
       ${translations[currentLanguage].feesManagement}
-      ${translations[currentLanguage].billedTo}: ${data.data.studentBasicInfo.name}
-      ${translations[currentLanguage].id}: ${data.data.studentBasicInfo.id}
-      ${translations[currentLanguage].email}: ${data.data.studentBasicInfo.email}
-      ${translations[currentLanguage].phone}: ${data.data.studentBasicInfo.phone == null ? "_" : data.data.studentBasicInfo.phone}
+      ${translations[currentLanguage].billedTo}: ${data.data.billedToBasicInfo?.name}
+      ${translations[currentLanguage].id}: ${data.data.billedToBasicInfo?.id}
+      ${translations[currentLanguage].email}: ${data.data.billedToBasicInfo?.email}
+      ${translations[currentLanguage].phone}: ${data.data.billedToBasicInfo.phone == null ? "_" : data.data.billedToBasicInfo.phone}
       ${translations[currentLanguage].invoiceDate}: ${formatTransactionDate(data.data.creationDate)}
       ${translations[currentLanguage].dueDate}: ${formatTransactionDate(data.data.dueDate)}
       ${translations[currentLanguage].status}: ${data.data.paymentStatus.toLowerCase().split("_").map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
@@ -216,7 +216,7 @@ const ViewInvoice: React.FC<ViewInvoiceProps> = ({ params }) => {
                   theme == "dark" ? "text-white" : "text-black"
                 }`}
               >
-                {data.data.studentBasicInfo.name}
+                {data.data.billedToBasicInfo?.name}
               </p>
             </h1>
             <h1 className="font-semibold text-secondary text-[20px] flex gap-1 items-center">
@@ -226,7 +226,7 @@ const ViewInvoice: React.FC<ViewInvoiceProps> = ({ params }) => {
                   theme == "dark" ? "text-white" : "text-black"
                 }`}
               >
-                {data.data.studentBasicInfo.id}
+                {data.data.billedToBasicInfo?.id}
               </p>
             </h1>
             <h1 className="font-semibold text-secondary text-[20px] flex gap-1 items-center">
@@ -236,7 +236,7 @@ const ViewInvoice: React.FC<ViewInvoiceProps> = ({ params }) => {
                   theme == "dark" ? "text-white" : "text-black"
                 }`}
               >
-                {data.data.studentBasicInfo.email}
+                {data.data.billedToBasicInfo?.email}
               </p>
             </h1>
             <h1 className="font-semibold text-secondary text-[20px] flex gap-1 items-center">
@@ -246,9 +246,9 @@ const ViewInvoice: React.FC<ViewInvoiceProps> = ({ params }) => {
                   theme == "dark" ? "text-white" : "text-black"
                 }`}
               >
-                {data.data.studentBasicInfo.phone == null
+                {data.data.billedToBasicInfo?.phone == null
                   ? "_"
-                  : data.data.studentBasicInfo.phone}
+                  : data.data.billedToBasicInfo?.phone}
               </p>
             </h1>
           </div>
