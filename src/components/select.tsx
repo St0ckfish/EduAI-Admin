@@ -100,10 +100,10 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
                 ) : (
                   <li className="p-2 text-gray-500 dark:text-gray-300">
                     {currentLanguage === "ar"
-                      ? "لا توجد مدارس"
+                      ? "لا توجد بيانات"
                       : currentLanguage === "fr"
-                        ? "Aucune école trouvée"
-                        : "No schools found"}
+                        ? "Aucune donnée trouvée"
+                        : "No data found"}
                   </li>
                 )}
               </ul>
