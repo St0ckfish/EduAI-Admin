@@ -8,8 +8,10 @@ import {
   addMessageListener,
 } from "@/components/cometchatUser";
 import { CometChat } from "@cometchat-pro/chat";
+import { useTheme } from "next-themes";
 
 const ChatPage = () => {
+  const { theme, setTheme } = useTheme();
   const [messages, setMessages] = useState<
     (CometChat.TextMessage | CometChat.MediaMessage)[]
   >([]);
@@ -100,7 +102,7 @@ const ChatPage = () => {
   }, [messages]);
 
   return (
-    <div className="mx-auto flex h-[700px] max-w-lg flex-col rounded-xl bg-white">
+    <div className="mx-auto flex h-[700px] w-full flex-col rounded-xl bg-bgPrimary">
       {/* Chat messages */}
       <div className="flex-1 overflow-y-auto rounded-xl bg-bgPrimary p-4">
         {messages.map((msg, idx) => {
@@ -109,7 +111,7 @@ const ChatPage = () => {
             return (
               <div
                 key={idx}
-                className={`mb-4 max-w-xs rounded-lg p-3 font-semibold ${isSender ? "mr-auto bg-[#5570f1] text-left text-white" : "ml-auto bg-[#ffead1] text-right"}`}
+                className={`mb-4 max-w-xs rounded-lg p-3 font-semibold ${isSender ? "mr-auto bg-[#5570f1] text-left" : "ml-auto bg-chat text-right text-black"}`}
               >
                 <p>{msg.getText()}</p>
               </div>
@@ -121,7 +123,7 @@ const ChatPage = () => {
             return (
               <div
                 key={idx}
-                className={`mb-4 max-w-xs rounded-lg p-3 ${isSender ? "mr-auto bg-[#5570f1] text-left" : "ml-auto bg-[#ffead1] text-right"}`}
+                className={`mb-4 max-w-xs rounded-lg p-3 ${isSender ? "mr-auto bg-[#5570f1] text-left" : "ml-auto bg-chat text-right"}`}
               >
                 <img
                   src={msg.getURL()}
@@ -136,7 +138,7 @@ const ChatPage = () => {
       </div>
 
       {/* Input, Image Upload, and Send button */}
-      <div className="m-4 flex items-center justify-between gap-5 rounded-xl border border-gray-300 bg-white px-4 py-1">
+      <div className="m-4 flex items-center justify-between gap-5 rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-1">
         <div className="grid items-center justify-center">
           <label className="relative inline-flex cursor-pointer items-center">
             <input
@@ -146,7 +148,7 @@ const ChatPage = () => {
               className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
             />
             <svg
-              className="h-6 w-6 cursor-pointer text-black"
+              className="h-6 w-6 cursor-pointer"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -174,7 +176,7 @@ const ChatPage = () => {
           onChange={e => setInput(e.target.value)}
         />
         <button
-          className="ml-4 flex items-center gap-3 rounded-lg bg-[#ffead1] px-2 py-1 font-semibold text-black hover:bg-[#f3d1a6]"
+          className="ml-4 flex items-center gap-3 rounded-lg bg-[#ffead1] px-2 py-1 font-semibold text-black hover:bg-[#dfbd90]"
           onClick={handleSendMessage}
         >
           Send

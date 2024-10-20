@@ -16,6 +16,7 @@ const config: Config = {
         primary: "var(--primary)",
         secondary: "#526484",
         bgPrimary: "var(--bg-primary)",
+        chat: "var(--chat)",
         bgSecondary: "var(--bg-secondary)",
         textPrimary: "var(--text-primary)",
         textSecondary: "var(--text-secondary)",

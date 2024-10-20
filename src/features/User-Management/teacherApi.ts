@@ -32,6 +32,11 @@ export const teacherApi = createApi({
         `/api/v1/management/teacher/all?size=${size}&page=${page}&archived=${archived}`,
     }),
     //
+    getAllTeachersChat: builder.query({
+      query: () =>
+        `/api/v1/chat-utils/teachers`,
+    }),
+    //
     deleteTeachers: builder.mutation({
       query: ({ id, lock }) => ({
         url: `/api/v1/management/teacher/account-lock/${id}?locked=${lock}`,
@@ -67,4 +72,5 @@ export const {
   useGetAllTeachersQuery,
   useGetTeacherByIdQuery,
   useUpdateTeachersMutation,
+  useGetAllTeachersChatQuery
 } = teacherApi;
