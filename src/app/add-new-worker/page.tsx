@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import Spinner from "@/components/spinner";
 import { useCreateWorkersMutation } from "@/features/User-Management/workerApi";
 import {
+  useGetAllCountryCodeQuery,
   useGetAllNationalitysQuery,
   useGetAllReginionIDQuery,
 } from "@/features/signupApi";
@@ -12,6 +13,7 @@ import BreadCrumbs from "@/components/BreadCrumbs";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import { useGetAllPositionsQuery } from "@/features/User-Management/driverApi";
+import SearchableSelect from "@/components/select";
 
 const AddNewWorker = () => {
   const { data: positionData, isLoading: isPosition } =
@@ -48,10 +50,26 @@ const AddNewWorker = () => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm();
   const [createWorker, { isLoading }] = useCreateWorkersMutation();
+  const { data: countryCode, isLoading: isCountryCode } =
+  useGetAllCountryCodeQuery(null);
   const { data: rigiond } = useGetAllReginionIDQuery(null);
+  const optionsRigon =
+  rigiond?.data?.map(
+    (rigion: {
+      cityName: any;
+      countryName: any;
+      regionName: any;
+      regionId: any;
+      name: any;
+    }) => ({
+      value: rigion.regionId,
+      label: `${rigion.regionName} - ${rigion.cityName}`,
+    }),
+  ) || [];
 
   const onSubmit = async (data: any) => {
     const formData = { ...data, religion: "OTHERS" };
@@ -141,7 +159,10 @@ const AddNewWorker = () => {
                   ? "Username"
                   : currentLanguage === "ar"
                     ? "اسم المستخدم"
-                    : "Nom d’utilisateur"}
+                    : currentLanguage === "fr"
+                      ? "Nom d'utilisateur"
+                      : "Username"}{" "}
+                {/* default */}
                 <input
                   id="username"
                   type="text"
@@ -153,8 +174,11 @@ const AddNewWorker = () => {
                     {currentLanguage === "en"
                       ? "This field is required"
                       : currentLanguage === "ar"
-                        ? "هذه الحقول مطلوبة"
-                        : "Ce champ est requis"}
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
@@ -166,7 +190,10 @@ const AddNewWorker = () => {
                   ? "Email"
                   : currentLanguage === "ar"
                     ? "البريد الإلكتروني"
-                    : "E-mail"}
+                    : currentLanguage === "fr"
+                      ? "E-mail"
+                      : "Email"}{" "}
+                {/* default */}
                 <input
                   id="email"
                   type="email"
@@ -178,8 +205,11 @@ const AddNewWorker = () => {
                     {currentLanguage === "en"
                       ? "This field is required"
                       : currentLanguage === "ar"
-                        ? "هذه الحقول مطلوبة"
-                        : "Ce champ est requis"}
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
@@ -191,7 +221,10 @@ const AddNewWorker = () => {
                   ? "Password"
                   : currentLanguage === "ar"
                     ? "كلمة المرور"
-                    : "Mot de passe"}
+                    : currentLanguage === "fr"
+                      ? "Mot de passe"
+                      : "Password"}{" "}
+                {/* default */}
                 <input
                   id="password"
                   type="password"
@@ -203,8 +236,11 @@ const AddNewWorker = () => {
                     {currentLanguage === "en"
                       ? "This field is required"
                       : currentLanguage === "ar"
-                        ? "هذه الحقول مطلوبة"
-                        : "Ce champ est requis"}
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
@@ -215,8 +251,11 @@ const AddNewWorker = () => {
                 {currentLanguage === "en"
                   ? "NID"
                   : currentLanguage === "ar"
-                    ? "رقم الهوية الوطنية"
-                    : "NID"}
+                    ? "الرقم الوطني"
+                    : currentLanguage === "fr"
+                      ? "NID"
+                      : "NID"}{" "}
+                {/* default */}
                 <input
                   id="nid"
                   type="number"
@@ -228,8 +267,11 @@ const AddNewWorker = () => {
                     {currentLanguage === "en"
                       ? "This field is required"
                       : currentLanguage === "ar"
-                        ? "هذه الحقول مطلوبة"
-                        : "Ce champ est requis"}
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
@@ -240,33 +282,45 @@ const AddNewWorker = () => {
                 {currentLanguage === "en"
                   ? "Gender"
                   : currentLanguage === "ar"
-                    ? "الجنس"
-                    : "Genre"}
+                    ? "النوع"
+                    : currentLanguage === "fr"
+                      ? "Genre"
+                      : "Gender"}{" "}
+                {/* default */}
                 <select
                   id="gender"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("gender", { required: true })}
                 >
-                  <option value="">
+                  <option selected value="">
                     {currentLanguage === "en"
                       ? "Select gender"
                       : currentLanguage === "ar"
-                        ? "حدد الجنس"
-                        : "Sélectionner le genre"}
+                        ? "اختر النوع"
+                        : currentLanguage === "fr"
+                          ? "Sélectionner le genre"
+                          : "Select gender"}{" "}
+                    {/* default */}
                   </option>
                   <option value="MALE">
                     {currentLanguage === "en"
                       ? "Male"
                       : currentLanguage === "ar"
                         ? "ذكر"
-                        : "Homme"}
+                        : currentLanguage === "fr"
+                          ? "Homme"
+                          : "Male"}{" "}
+                    {/* default */}
                   </option>
                   <option value="FEMALE">
                     {currentLanguage === "en"
                       ? "Female"
                       : currentLanguage === "ar"
                         ? "أنثى"
-                        : "Femme"}
+                        : currentLanguage === "fr"
+                          ? "Femme"
+                          : "Female"}{" "}
+                    {/* default */}
                   </option>
                 </select>
                 {errors.gender && (
@@ -274,13 +328,14 @@ const AddNewWorker = () => {
                     {currentLanguage === "en"
                       ? "This field is required"
                       : currentLanguage === "ar"
-                        ? "هذه الحقول مطلوبة"
-                        : "Ce champ est requis"}
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
-            </div>
-            <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
               <label
                 htmlFor="nationality"
                 className="grid font-sans text-[18px] font-semibold"
@@ -289,7 +344,10 @@ const AddNewWorker = () => {
                   ? "Your Nationality"
                   : currentLanguage === "ar"
                     ? "جنسيتك"
-                    : "Votre nationalité"}
+                    : currentLanguage === "fr"
+                      ? "Votre nationalité"
+                      : "Your Nationality"}{" "}
+                {/* default */}
                 <select
                   id="nationality"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
@@ -300,12 +358,22 @@ const AddNewWorker = () => {
                       ? "Select Nationality"
                       : currentLanguage === "ar"
                         ? "اختر الجنسية"
-                        : "Sélectionner la nationalité"}
+                        : currentLanguage === "fr"
+                          ? "Sélectionner la nationalité"
+                          : "Select Nationality"}{" "}
+                    {/* default */}
                   </option>
                   {nationalityData &&
                     Object.entries(nationalityData.data).map(([key, value]) => (
                       <option key={key} value={key}>
-                        {String(value)}
+                        {currentLanguage === "en"
+                          ? String(value)
+                          : currentLanguage === "ar"
+                            ? String(value)
+                            : currentLanguage === "fr"
+                              ? String(value)
+                              : String(value)}{" "}
+                        {/* default */}
                       </option>
                     ))}
                 </select>
@@ -314,80 +382,38 @@ const AddNewWorker = () => {
                     {currentLanguage === "en"
                       ? "This field is required"
                       : currentLanguage === "ar"
-                        ? "هذه الحقول مطلوبة"
-                        : "Ce champ est requis"}
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
+            </div>
+            <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
               <label
                 htmlFor="regionId"
                 className="grid font-sans text-[18px] font-semibold"
               >
                 {currentLanguage === "en"
-                  ? "RegionId"
+                  ? "Region Id"
                   : currentLanguage === "ar"
-                    ? "رقم المنطقة"
-                    : "Identifiant de région"}
-                <select
-                  defaultValue=""
-                  id="regionId"
-                  {...register("regionId", { required: true })}
-                  className={`border ${errors.regionId ? "border-borderPrimary" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-[18px] text-blackOrWhite outline-none max-[458px]:w-[350px]`}
-                >
-                  <option value="">
-                    {currentLanguage === "en"
-                      ? "Select Region Id"
-                      : currentLanguage === "ar"
-                        ? "اختر معرف المنطقة"
-                        : currentLanguage === "fr"
-                          ? "Sélectionner l'ID de la région"
-                          : "Select Region Id"}{" "}
-                    {/* default */}
-                  </option>
-                  {rigiond &&
-                    rigiond.data.map(
-                      (
-                        rigion: {
-                          regionName: string;
-                          cityName: string;
-                          regionId:
-                            | string
-                            | number
-                            | readonly string[]
-                            | undefined;
-                          name:
-                            | string
-                            | number
-                            | bigint
-                            | boolean
-                            | React.ReactElement<
-                                any,
-                                string | React.JSXElementConstructor<any>
-                              >
-                            | Iterable<React.ReactNode>
-                            | React.ReactPortal
-                            | Promise<React.AwaitedReactNode>
-                            | null
-                            | undefined;
-                        },
-                        index: React.Key | null | undefined,
-                      ) => (
-                        <option key={index} value={rigion.regionId}>
-                          {rigion.cityName} <strong>{rigion.regionName}</strong>
-                        </option>
-                      ),
-                    )}
-                </select>
-                {errors.regionId && (
-                  <span className="text-error">
-                    {currentLanguage === "en"
-                      ? "This field is required"
-                      : currentLanguage === "ar"
-                        ? "هذه الحقول مطلوبة"
-                        : "Ce champ est requis"}
-                  </span>
-                )}
+                    ? "معرف المنطقة"
+                    : currentLanguage === "fr"
+                      ? "ID de la région"
+                      : "Region Id"}{" "}
+                {/* default */}
+                <SearchableSelect
+                      name="regionId"
+                      control={control}
+                      errors={errors}
+                      options={optionsRigon}
+                      currentLanguage={currentLanguage}
+                      placeholder="Select Region"
+                    />
               </label>
+
               <label
                 htmlFor="name_en"
                 className="grid font-sans text-[18px] font-semibold"
@@ -396,7 +422,10 @@ const AddNewWorker = () => {
                   ? "Name (EN)"
                   : currentLanguage === "ar"
                     ? "الاسم (بالإنجليزية)"
-                    : "Nom (EN)"}
+                    : currentLanguage === "fr"
+                      ? "Nom (EN)"
+                      : "Name (EN)"}{" "}
+                {/* default */}
                 <input
                   id="name_en"
                   type="text"
@@ -408,8 +437,11 @@ const AddNewWorker = () => {
                     {currentLanguage === "en"
                       ? "This field is required"
                       : currentLanguage === "ar"
-                        ? "هذه الحقول مطلوبة"
-                        : "Ce champ est requis"}
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
@@ -421,7 +453,10 @@ const AddNewWorker = () => {
                   ? "Name (AR)"
                   : currentLanguage === "ar"
                     ? "الاسم (بالعربية)"
-                    : "Nom (AR)"}
+                    : currentLanguage === "fr"
+                      ? "Nom (AR)"
+                      : "Name (AR)"}{" "}
+                {/* default */}
                 <input
                   id="name_ar"
                   type="text"
@@ -433,8 +468,11 @@ const AddNewWorker = () => {
                     {currentLanguage === "en"
                       ? "This field is required"
                       : currentLanguage === "ar"
-                        ? "هذه الحقول مطلوبة"
-                        : "Ce champ est requis"}
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
@@ -446,7 +484,10 @@ const AddNewWorker = () => {
                   ? "Name (FR)"
                   : currentLanguage === "ar"
                     ? "الاسم (بالفرنسية)"
-                    : "Nom (FR)"}
+                    : currentLanguage === "fr"
+                      ? "Nom (FR)"
+                      : "Name (FR)"}{" "}
+                {/* default */}
                 <input
                   id="name_fr"
                   type="text"
@@ -458,11 +499,15 @@ const AddNewWorker = () => {
                     {currentLanguage === "en"
                       ? "This field is required"
                       : currentLanguage === "ar"
-                        ? "هذه الحقول مطلوبة"
-                        : "Ce champ est requis"}
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
+
               <label
                 htmlFor="about"
                 className="grid font-sans text-[18px] font-semibold"
@@ -470,8 +515,11 @@ const AddNewWorker = () => {
                 {currentLanguage === "en"
                   ? "About"
                   : currentLanguage === "ar"
-                    ? "حول"
-                    : "À propos"}
+                    ? "عن"
+                    : currentLanguage === "fr"
+                      ? "À propos"
+                      : "About"}{" "}
+                {/* default */}
                 <input
                   id="about"
                   type="text"
@@ -483,8 +531,11 @@ const AddNewWorker = () => {
                     {currentLanguage === "en"
                       ? "This field is required"
                       : currentLanguage === "ar"
-                        ? "هذه الحقول مطلوبة"
-                        : "Ce champ est requis"}
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
@@ -528,21 +579,20 @@ const AddNewWorker = () => {
                   <span className="text-error">
                     {currentLanguage === "en"
                       ? errors.birthDate.type === "validate"
-                        ? "The Worker Must be older than 20"
+                        ? "The Driver Must be older than 20"
                         : "This field is required"
                       : currentLanguage === "ar"
                         ? errors.birthDate.type === "validate"
-                          ? "يجب أن يكون عمر العامل أكبر من 20 عامًا"
+                          ? "يجب أن يكون عمر السائق أكبر من 20 عامًا"
                           : "هذا الحقل مطلوب"
                         : currentLanguage === "fr"
                           ? errors.birthDate.type === "validate"
-                            ? "L'ouvrier doit avoir plus de 20 ans"
+                            ? "Le chauffeur doit avoir plus de 20 ans"
                             : "Ce champ est requis"
                           : "This field is required"}
                   </span>
                 )}
               </label>
-
               <label
                 htmlFor="qualification"
                 className="mt-4 grid items-center font-sans text-[18px] font-semibold"
@@ -551,7 +601,10 @@ const AddNewWorker = () => {
                   ? "Qualification"
                   : currentLanguage === "ar"
                     ? "المؤهل"
-                    : "Qualification"}
+                    : currentLanguage === "fr"
+                      ? "Qualification"
+                      : "Qualification"}{" "}
+                {/* default */}
                 <select
                   defaultValue=""
                   id="qualification"
@@ -563,49 +616,65 @@ const AddNewWorker = () => {
                       ? "Select Qualification"
                       : currentLanguage === "ar"
                         ? "اختر المؤهل"
-                        : "Sélectionner la qualification"}
+                        : currentLanguage === "fr"
+                          ? "Sélectionner la qualification"
+                          : "Select Qualification"}{" "}
+                    {/* default */}
                   </option>
                   <option value="HIGH_SCHOOL_DIPLOMA">
                     {currentLanguage === "en"
                       ? "High School Diploma"
                       : currentLanguage === "ar"
                         ? "دبلوم المدرسة الثانوية"
-                        : "Diplôme de lycée"}
+                        : currentLanguage === "fr"
+                          ? "Diplôme de secondaire"
+                          : "High School Diploma"}{" "}
+                    {/* default */}
                   </option>
                   <option value="MASTER_DEGREE">
                     {currentLanguage === "en"
                       ? "Master Degree"
                       : currentLanguage === "ar"
                         ? "درجة الماجستير"
-                        : "Master"}
+                        : currentLanguage === "fr"
+                          ? "Master"
+                          : "Master Degree"}{" "}
+                    {/* default */}
                   </option>
                   <option value="BACHELOR_DEGREE">
                     {currentLanguage === "en"
                       ? "Bachelor Degree"
                       : currentLanguage === "ar"
                         ? "درجة البكالوريوس"
-                        : "Licence"}
+                        : currentLanguage === "fr"
+                          ? "Licence"
+                          : "Bachelor Degree"}{" "}
+                    {/* default */}
                   </option>
                   <option value="DOCTORATE_DEGREE">
                     {currentLanguage === "en"
                       ? "Doctorate Degree"
                       : currentLanguage === "ar"
                         ? "درجة الدكتوراه"
-                        : "Doctorat"}
+                        : currentLanguage === "fr"
+                          ? "Doctorat"
+                          : "Doctorate Degree"}{" "}
+                    {/* default */}
                   </option>
                 </select>
                 {errors.qualification && (
                   <span className="text-[18px] text-error">
                     {currentLanguage === "en"
-                      ? "Qualification is Required"
+                      ? "Qualification is required"
                       : currentLanguage === "ar"
                         ? "المؤهل مطلوب"
-                        : "La qualification est requise"}
+                        : currentLanguage === "fr"
+                          ? "La qualification est requise"
+                          : "Qualification is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
-            </div>
-            <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
               <label
                 htmlFor="hireDate"
                 className="grid font-sans text-[18px] font-semibold"
@@ -614,7 +683,10 @@ const AddNewWorker = () => {
                   ? "Hire Date"
                   : currentLanguage === "ar"
                     ? "تاريخ التوظيف"
-                    : "Date d'embauche"}
+                    : currentLanguage === "fr"
+                      ? "Date d'embauche"
+                      : "Hire Date"}{" "}
+                {/* default */}
                 <input
                   id="hireDate"
                   type="date"
@@ -626,11 +698,16 @@ const AddNewWorker = () => {
                     {currentLanguage === "en"
                       ? "This field is required"
                       : currentLanguage === "ar"
-                        ? "هذه الحقول مطلوبة"
-                        : "Ce champ est requis"}
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
+            </div>
+            <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
               <label
                 htmlFor="number"
                 className="grid font-sans text-[18px] font-semibold"
@@ -638,8 +715,11 @@ const AddNewWorker = () => {
                 {currentLanguage === "en"
                   ? "Mobile"
                   : currentLanguage === "ar"
-                    ? "رقم الهاتف"
-                    : "Mobile"}
+                    ? "الهاتف المحمول"
+                    : currentLanguage === "fr"
+                      ? "Mobile"
+                      : "Mobile"}{" "}
+                {/* default */}
                 <input
                   id="number"
                   type="number"
@@ -651,8 +731,11 @@ const AddNewWorker = () => {
                     {currentLanguage === "en"
                       ? "This field is required"
                       : currentLanguage === "ar"
-                        ? "هذه الحقول مطلوبة"
-                        : "Ce champ est requis"}
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
@@ -664,7 +747,16 @@ const AddNewWorker = () => {
                   ? "Position Id"
                   : currentLanguage === "ar"
                     ? "رقم الوظيفة"
-                    : "Identifiant du poste"}
+                    : currentLanguage === "fr"
+                      ? "ID de position"
+                      : "Position Id"}{" "}
+                {/* default */}
+                {/* <input
+                  id="positionId"
+                  type="number"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  {...register("positionId", { required: true })}
+                /> */}
                 <select
                   defaultValue=""
                   id="positionId"
@@ -715,8 +807,11 @@ const AddNewWorker = () => {
                     {currentLanguage === "en"
                       ? "This field is required"
                       : currentLanguage === "ar"
-                        ? "هذه الحقول مطلوبة"
-                        : "Ce champ est requis"}
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
@@ -728,7 +823,10 @@ const AddNewWorker = () => {
                   ? "Salary"
                   : currentLanguage === "ar"
                     ? "الراتب"
-                    : "Salaire"}
+                    : currentLanguage === "fr"
+                      ? "Salaire"
+                      : "Salary"}{" "}
+                {/* default */}
                 <input
                   id="salary"
                   type="number"
@@ -740,8 +838,65 @@ const AddNewWorker = () => {
                     {currentLanguage === "en"
                       ? "This field is required"
                       : currentLanguage === "ar"
-                        ? "هذه الحقول مطلوبة"
-                        : "Ce champ est requis"}
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
+                  </span>
+                )}
+              </label>
+              <label
+                htmlFor="countryCode"
+                className="grid font-sans text-[18px] font-semibold"
+              >
+                {currentLanguage === "en"
+                  ? "Your Country code"
+                  : currentLanguage === "ar"
+                    ? "رمز الدولة"
+                    : currentLanguage === "fr"
+                      ? "Votre Code du pays"
+                      : "Your Nationality"}{" "}
+                {/* default */}
+                <select
+                  id="countryCode"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  {...register("countryCode", { required: true })}
+                >
+                  <option value="">
+                    {currentLanguage === "en"
+                      ? "Select Country code"
+                      : currentLanguage === "ar"
+                        ? "اختر رمز الدولة"
+                        : currentLanguage === "fr"
+                          ? "Sélectionner la Code du pays"
+                          : "Select Nationality"}{" "}
+                    {/* default */}
+                  </option>
+                  {countryCode &&
+                    Object.entries(countryCode.data).map(([key, value]) => (
+                      <option key={key} value={key}>
+                        {currentLanguage === "en"
+                          ? String(value)
+                          : currentLanguage === "ar"
+                            ? String(value)
+                            : currentLanguage === "fr"
+                              ? String(value)
+                              : String(value)}{" "}
+                        {/* default */}
+                      </option>
+                    ))}
+                </select>
+                {errors.countryCode && (
+                  <span className="text-error">
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>

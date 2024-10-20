@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import Spinner from "@/components/spinner";
 import { useCreateTeachersMutation } from "@/features/User-Management/teacherApi";
 import {
+  useGetAllCountryCodeQuery,
   useGetAllNationalitysQuery,
   useGetAllReginionIDQuery,
 } from "@/features/signupApi";
@@ -12,6 +13,7 @@ import BreadCrumbs from "@/components/BreadCrumbs";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import { useGetAllPositionsQuery } from "@/features/User-Management/driverApi";
+import SearchableSelect from "@/components/select";
 
 const AddNewTeacher = () => {
   const { data: positionData, isLoading: isPosition } =
@@ -45,14 +47,29 @@ const AddNewTeacher = () => {
   ];
   const { data: nationalityData, isLoading: nationalityLoading } =
     useGetAllNationalitysQuery(null);
+    const { data: countryCode, isLoading: isCountryCode } =
+    useGetAllCountryCodeQuery(null);
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm();
   const [createTeacher, { isLoading }] = useCreateTeachersMutation();
   const { data: rigiond } = useGetAllReginionIDQuery(null);
-
+  const optionsRigon =
+  rigiond?.data?.map(
+    (rigion: {
+      cityName: any;
+      countryName: any;
+      regionName: any;
+      regionId: any;
+      name: any;
+    }) => ({
+      value: rigion.regionId,
+      label: `${rigion.regionName} - ${rigion.cityName}`,
+    }),
+  ) || [];
   const onSubmit = async (data: any) => {
     const formData = { ...data, religion: "OTHERS" };
     try {
@@ -248,6 +265,60 @@ const AddNewTeacher = () => {
                   <span className="text-error">This field is required</span>
                 )}
               </label>
+              <label
+                htmlFor="countryCode"
+                className="grid font-sans text-[18px] font-semibold"
+              >
+                {currentLanguage === "en"
+                  ? "Your Country code"
+                  : currentLanguage === "ar"
+                    ? "رمز الدولة"
+                    : currentLanguage === "fr"
+                      ? "Votre Code du pays"
+                      : "Your Nationality"}{" "}
+                {/* default */}
+                <select
+                  id="countryCode"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  {...register("countryCode", { required: true })}
+                >
+                  <option value="">
+                    {currentLanguage === "en"
+                      ? "Select Country code"
+                      : currentLanguage === "ar"
+                        ? "اختر رمز الدولة"
+                        : currentLanguage === "fr"
+                          ? "Sélectionner la Code du pays"
+                          : "Select Nationality"}{" "}
+                    {/* default */}
+                  </option>
+                  {countryCode &&
+                    Object.entries(countryCode.data).map(([key, value]) => (
+                      <option key={key} value={key}>
+                        {currentLanguage === "en"
+                          ? String(value)
+                          : currentLanguage === "ar"
+                            ? String(value)
+                            : currentLanguage === "fr"
+                              ? String(value)
+                              : String(value)}{" "}
+                        {/* default */}
+                      </option>
+                    ))}
+                </select>
+                {errors.countryCode && (
+                  <span className="text-error">
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
+                  </span>
+                )}
+              </label>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
               <label
@@ -298,65 +369,14 @@ const AddNewTeacher = () => {
                   : currentLanguage === "ar"
                     ? "معرف المنطقة"
                     : "ID de région"}
-                <select
-                  defaultValue=""
-                  id="regionId"
-                  {...register("regionId", { required: true })}
-                  className={`border ${errors.regionId ? "border-borderPrimary" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-[18px] text-blackOrWhite outline-none max-[458px]:w-[350px]`}
-                >
-                  <option value="">
-                    {currentLanguage === "en"
-                      ? "Select Region Id"
-                      : currentLanguage === "ar"
-                        ? "اختر معرف المنطقة"
-                        : currentLanguage === "fr"
-                          ? "Sélectionner l'ID de la région"
-                          : "Select Region Id"}{" "}
-                    {/* default */}
-                  </option>
-                  {rigiond &&
-                    rigiond.data.map(
-                      (
-                        rigion: {
-                          regionName: string;
-                          cityName: string;
-                          regionId:
-                            | string
-                            | number
-                            | readonly string[]
-                            | undefined;
-                          name:
-                            | string
-                            | number
-                            | bigint
-                            | boolean
-                            | React.ReactElement<
-                                any,
-                                string | React.JSXElementConstructor<any>
-                              >
-                            | Iterable<React.ReactNode>
-                            | React.ReactPortal
-                            | Promise<React.AwaitedReactNode>
-                            | null
-                            | undefined;
-                        },
-                        index: React.Key | null | undefined,
-                      ) => (
-                        <option key={index} value={rigion.regionId}>
-                          {rigion.cityName} <strong>{rigion.regionName}</strong>
-                        </option>
-                      ),
-                    )}
-                </select>
-                {errors.regionId && (
-                  <span className="text-error">
-                    {currentLanguage === "en"
-                      ? "This field is required"
-                      : currentLanguage === "ar"
-                        ? "هذا الحقل مطلوب"
-                        : "Ce champ est requis"}
-                  </span>
-                )}
+                    <SearchableSelect
+                      name="regionId"
+                      control={control}
+                      errors={errors}
+                      options={optionsRigon}
+                      currentLanguage={currentLanguage}
+                      placeholder="Select Region"
+                    />
               </label>
 
               <label

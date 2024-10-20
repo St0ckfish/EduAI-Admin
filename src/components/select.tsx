@@ -55,7 +55,7 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
       <Controller
         name={name}
         control={control}
-        rules={{ required: "School ID is required" }}
+        rules={{ required: "required" }}
         render={({ field }) => (
           <div className="relative">
             {/* Search Input */}

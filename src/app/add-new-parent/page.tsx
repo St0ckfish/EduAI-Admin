@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import Spinner from "@/components/spinner";
 import { useCreateParentsMutation } from "@/features/User-Management/parentApi";
 import {
+  useGetAllCountryCodeQuery,
   useGetAllNationalitysQuery,
   useGetAllReginionIDQuery,
 } from "@/features/signupApi";
@@ -11,6 +12,7 @@ import { toast } from "react-toastify";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import SearchableSelect from "@/components/select";
 
 const AddNewParent = () => {
   const breadcrumbs = [
@@ -46,10 +48,26 @@ const AddNewParent = () => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm();
   const [createEmployee, { isLoading }] = useCreateParentsMutation();
   const { data: rigiond } = useGetAllReginionIDQuery(null);
+  const optionsRigon =
+  rigiond?.data?.map(
+    (rigion: {
+      cityName: any;
+      countryName: any;
+      regionName: any;
+      regionId: any;
+      name: any;
+    }) => ({
+      value: rigion.regionId,
+      label: `${rigion.regionName} - ${rigion.cityName}`,
+    }),
+  ) || [];
+  const { data: countryCode, isLoading: isCountryCode } =
+  useGetAllCountryCodeQuery(null);
 
   const onSubmit = async (data: any) => {
     const requestBody = {
@@ -70,6 +88,7 @@ const AddNewParent = () => {
       occupation_fr: data.occupation_fr,
       birthDate: data.birthDate,
       number: data.number,
+      countryCode: data.countryCode,
     };
 
     try {
@@ -84,7 +103,7 @@ const AddNewParent = () => {
     (state: RootState) => state.language,
   );
 
-  if (loading)
+  if (loading || isCountryCode)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -371,67 +390,14 @@ const AddNewParent = () => {
                     : currentLanguage === "fr"
                       ? "ID de la région"
                       : "RegionId"}
-                <select
-                  defaultValue=""
-                  id="regionId"
-                  {...register("regionId", { required: true })}
-                  className={`border ${errors.regionId ? "border-borderPrimary" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-[18px] text-blackOrWhite outline-none max-[458px]:w-[350px]`}
-                >
-                  <option value="">
-                    {currentLanguage === "en"
-                      ? "Select Region Id"
-                      : currentLanguage === "ar"
-                        ? "اختر معرف المنطقة"
-                        : currentLanguage === "fr"
-                          ? "Sélectionner l'ID de la région"
-                          : "Select Region Id"}{" "}
-                    {/* default */}
-                  </option>
-                  {rigiond &&
-                    rigiond.data.map(
-                      (
-                        rigion: {
-                          regionName: string;
-                          cityName: string;
-                          regionId:
-                            | string
-                            | number
-                            | readonly string[]
-                            | undefined;
-                          name:
-                            | string
-                            | number
-                            | bigint
-                            | boolean
-                            | React.ReactElement<
-                                any,
-                                string | React.JSXElementConstructor<any>
-                              >
-                            | Iterable<React.ReactNode>
-                            | React.ReactPortal
-                            | Promise<React.AwaitedReactNode>
-                            | null
-                            | undefined;
-                        },
-                        index: React.Key | null | undefined,
-                      ) => (
-                        <option key={index} value={rigion.regionId}>
-                          {rigion.cityName} <strong>{rigion.regionName}</strong>
-                        </option>
-                      ),
-                    )}
-                </select>
-                {errors.regionId && (
-                  <span className="text-error">
-                    {currentLanguage === "en"
-                      ? "This field is required"
-                      : currentLanguage === "ar"
-                        ? "هذا الحقل مطلوب"
-                        : currentLanguage === "fr"
-                          ? "Ce champ est requis"
-                          : "This field is required"}
-                  </span>
-                )}
+                <SearchableSelect
+                      name="regionId"
+                      control={control}
+                      errors={errors}
+                      options={optionsRigon}
+                      currentLanguage={currentLanguage}
+                      placeholder="Select Region"
+                    />
               </label>
               <label
                 htmlFor="name_en"
@@ -718,6 +684,60 @@ const AddNewParent = () => {
                         : currentLanguage === "fr"
                           ? "Ce champ est requis"
                           : "This field is required"}
+                  </span>
+                )}
+              </label>
+              <label
+                htmlFor="countryCode"
+                className="grid font-sans text-[18px] font-semibold"
+              >
+                {currentLanguage === "en"
+                  ? "Your Country code"
+                  : currentLanguage === "ar"
+                    ? "رمز الدولة"
+                    : currentLanguage === "fr"
+                      ? "Votre Code du pays"
+                      : "Your Nationality"}{" "}
+                {/* default */}
+                <select
+                  id="countryCode"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                  {...register("countryCode", { required: true })}
+                >
+                  <option value="">
+                    {currentLanguage === "en"
+                      ? "Select Country code"
+                      : currentLanguage === "ar"
+                        ? "اختر رمز الدولة"
+                        : currentLanguage === "fr"
+                          ? "Sélectionner la Code du pays"
+                          : "Select Nationality"}{" "}
+                    {/* default */}
+                  </option>
+                  {countryCode &&
+                    Object.entries(countryCode.data).map(([key, value]) => (
+                      <option key={key} value={key}>
+                        {currentLanguage === "en"
+                          ? String(value)
+                          : currentLanguage === "ar"
+                            ? String(value)
+                            : currentLanguage === "fr"
+                              ? String(value)
+                              : String(value)}{" "}
+                        {/* default */}
+                      </option>
+                    ))}
+                </select>
+                {errors.countryCode && (
+                  <span className="text-error">
+                    {currentLanguage === "en"
+                      ? "This field is required"
+                      : currentLanguage === "ar"
+                        ? "هذا الحقل مطلوب"
+                        : currentLanguage === "fr"
+                          ? "Ce champ est requis"
+                          : "This field is required"}{" "}
+                    {/* default */}
                   </span>
                 )}
               </label>
