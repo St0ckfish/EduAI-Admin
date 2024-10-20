@@ -89,3 +89,34 @@ div.apexcharts-xaxistooltip.apexcharts-xaxistooltip-bottom.apexcharts-theme-ligh
 .css-1nmdiq5-menu div > div {
   background-color: var(--bg-primary) !important;
 }
+
+.editor-content ol {
+  list-style-type: decimal;
+  padding-left: 40px;
+  margin: 1em 0;
+}
+
+.editor-content ul {
+  list-style-type: disc;
+  padding-left: 40px;
+  margin: 1em 0;
+}
+
+.editor-content li {
+  margin-bottom: 0.5em;
+}
+
+.editor-content h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+.editor-content h2 {
+  font-size: 1.5em;
+  margin: 0.75em 0;
+}
+
+.editor-content h3 {
+  font-size: 1.17em;
+  margin: 0.83em 0;
+}

@@ -26,7 +26,7 @@ const Payment = () => {
       href: "/financial-management",
     },
     {
-      nameEn: "Pyment",
+      nameEn: "Payment",
       nameAr: "الدفع",
       nameFr: "Paiement",
       href: "/financial-management/payment",
