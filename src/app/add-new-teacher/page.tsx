@@ -14,6 +14,7 @@ import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import { useGetAllPositionsQuery } from "@/features/User-Management/driverApi";
 import SearchableSelect from "@/components/select";
+import PhoneNumberInput from "@/components/PhoneNumberInput";
 
 const AddNewTeacher = () => {
   const { data: positionData, isLoading: isPosition } =
@@ -265,60 +266,14 @@ const AddNewTeacher = () => {
                   <span className="text-error">This field is required</span>
                 )}
               </label>
-              <label
-                htmlFor="countryCode"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "en"
-                  ? "Your Country code"
-                  : currentLanguage === "ar"
-                    ? "رمز الدولة"
-                    : currentLanguage === "fr"
-                      ? "Votre Code du pays"
-                      : "Your Nationality"}{" "}
-                {/* default */}
-                <select
-                  id="countryCode"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("countryCode", { required: true })}
-                >
-                  <option value="">
-                    {currentLanguage === "en"
-                      ? "Select Country code"
-                      : currentLanguage === "ar"
-                        ? "اختر رمز الدولة"
-                        : currentLanguage === "fr"
-                          ? "Sélectionner la Code du pays"
-                          : "Select Nationality"}{" "}
-                    {/* default */}
-                  </option>
-                  {countryCode &&
-                    Object.entries(countryCode.data).map(([key, value]) => (
-                      <option key={key} value={key}>
-                        {currentLanguage === "en"
-                          ? String(value)
-                          : currentLanguage === "ar"
-                            ? String(value)
-                            : currentLanguage === "fr"
-                              ? String(value)
-                              : String(value)}{" "}
-                        {/* default */}
-                      </option>
-                    ))}
-                </select>
-                {errors.countryCode && (
-                  <span className="text-error">
-                    {currentLanguage === "en"
-                      ? "This field is required"
-                      : currentLanguage === "ar"
-                        ? "هذا الحقل مطلوب"
-                        : currentLanguage === "fr"
-                          ? "Ce champ est requis"
-                          : "This field is required"}{" "}
-                    {/* default */}
-                  </span>
-                )}
-              </label>
+              <PhoneNumberInput
+                countryCodeData={countryCode.data}
+                currentLanguage="en"
+                label="Your Phone Number"
+                register={register}
+                errors={errors}
+                control={control}
+              />
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
               <label
@@ -756,31 +711,7 @@ const AddNewTeacher = () => {
                 )}
               </label>
 
-              <label
-                htmlFor="number"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "en"
-                  ? "Mobile"
-                  : currentLanguage === "ar"
-                    ? "موبايل"
-                    : "Mobile"}
-                <input
-                  id="number"
-                  type="number"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("number", { required: true })}
-                />
-                {errors.number && (
-                  <span className="text-error">
-                    {currentLanguage === "en"
-                      ? "This field is required"
-                      : currentLanguage === "ar"
-                        ? "هذا الحقل مطلوب"
-                        : "Ce champ est requis"}
-                  </span>
-                )}
-              </label>
+              
 
               <label
                 htmlFor="positionId"
