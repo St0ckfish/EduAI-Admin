@@ -1,16 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Controller } from "react-hook-form";
 
-interface Option {
-  value: string | number;
-  label: string;
-}
-
 interface SearchableSelectProps {
   name: string;
   control: any;
   errors: Record<string, any>;
-  options: Option[];
+  options: any;
   currentLanguage: string;
   placeholder?: string;
 }
@@ -28,7 +23,7 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Filter options based on the search term
-  const filteredOptions = options.filter(option =>
+  const filteredOptions = options.filter((option: { label: string; }) =>
     option.label.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
@@ -75,7 +70,7 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
                 setIsOpen(true); // Open dropdown
               }}
               onFocus={() => setIsOpen(true)}
-              className={`w-full rounded-xl border p-3 transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary ${
+              className={`w-full rounded-xl border p-2 transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary ${
                 errors[name] ? "border-red-500" : "border-gray-300"
               } bg-white text-gray-700 shadow-sm dark:border-gray-600 dark:bg-bgSecondary dark:text-gray-300`}
             />
@@ -84,17 +79,17 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
             {isOpen && (
               <ul className="absolute z-10 mt-1 max-h-60 w-full overflow-y-auto rounded-lg border border-gray-300 bg-white shadow-lg dark:border-gray-600 dark:bg-bgSecondary">
                 {filteredOptions.length > 0 ? (
-                  filteredOptions.map(option => (
+                  filteredOptions.map((option: { value: React.Key | null | undefined; label: number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | Promise<React.AwaitedReactNode> | React.SetStateAction<string> | null | undefined; }) => (
                     <li
                       key={option.value}
                       onClick={() => {
-                        setSearchTerm(option.label); // Set display to the selected option
+                        setSearchTerm(String(option.label)); // Set display to the selected option
                         setIsOpen(false); // Close dropdown
                         field.onChange(String(option.value)); // Ensure the value passed is a string
                       }}
                       className="cursor-pointer p-2 hover:bg-gray-100 dark:hover:bg-gray-700"
                     >
-                      {option.label}
+                      {String(option.label)}
                     </li>
                   ))
                 ) : (
