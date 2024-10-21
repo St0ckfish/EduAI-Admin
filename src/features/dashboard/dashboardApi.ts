@@ -87,6 +87,13 @@ export const dashboardApi = createApi({
       }),
     }),
     //
+    deleteNote: builder.mutation({
+      query: (id) => ({
+        url: `/api/management/note/${id}`,
+        method: "DELETE",
+      }),
+    }),
+    //
     getExpenses: builder.query({
       query: ({ start, end }) =>
         `/api/v1/dashboard/school-finance?start-date=${start}&end-date=${end}`,
@@ -96,6 +103,7 @@ export const dashboardApi = createApi({
 
 export const {
   useGetAllCurrentUserQuery,
+  useDeleteNoteMutation,
   useCreateNoteMutation,
   useGetAllEmployeesQuery,
   useGetExpensesQuery,

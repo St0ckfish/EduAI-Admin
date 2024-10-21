@@ -12,6 +12,7 @@ import {
   useGetEventsInMonthQuery,
   useGetExpensesQuery,
   useGetNoticesQuery,
+  useDeleteNoteMutation,
 } from "@/features/dashboard/dashboardApi";
 import {
   useCreateEventsMutation,
@@ -80,7 +81,7 @@ const Dashboard: React.FC = () => {
   } = useGetAllWorkersQuery(null);
   const { data: mettings, isLoading: isMeeting } =
     useGetAllEventsDashboardQuery(null);
-  const { data: notices, isLoading: isNotices } = useGetNoticesQuery(null);
+  const { data: notices, isLoading: isNotices, refetch } = useGetNoticesQuery(null);
   const [createEvent] = useCreateEventsMutation();
   useEffect(() => {
     if (students || employees || teachers || workers || mettings) {
@@ -175,6 +176,17 @@ const Dashboard: React.FC = () => {
     } catch (error) {
       toast.error("Fiald Create Event");
       console.error("Failed to create event:", error);
+    }
+  };
+  const [deleteEvent] = useDeleteNoteMutation();
+
+  const handleDelete = async (id: number) => {
+    try {
+      await deleteEvent(id).unwrap();
+      toast.success("Delete note Success");
+      void refetch();
+    } catch (err) {
+      toast.error("Can not Delete note");
     }
   };
 
@@ -527,7 +539,22 @@ const Dashboard: React.FC = () => {
                       | undefined;
                   }) => (
                     <div key={note.id}>
-                      <h1 className="text-[18px] font-semibold text-primary">
+                      <h1 className="text-[18px] font-semibold text-primary flex items-center gap-2">
+                      <button onClick={() => typeof note.id === 'number' && handleDelete(note.id)}>
+                        <svg
+                          className="h-6 w-6 text-error"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                          />
+                        </svg>
+                      </button>
                         {note.title}
                       </h1>
                       <p
