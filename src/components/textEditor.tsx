@@ -10,12 +10,6 @@ import {
   FaListOl,
   FaListUl,
 } from 'react-icons/fa';
-import {
-  AiOutlineLink,
-  AiOutlinePicture,
-  AiOutlineCode,
-} from 'react-icons/ai';
-import { BsBlockquoteLeft } from 'react-icons/bs';
 import { useTheme } from 'next-themes';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/GlobalRedux/store';
@@ -49,13 +43,16 @@ const TextEditor = ({
     unorderedList: false,
   });
 
+  // State to track character count
+  const [characterCount, setCharacterCount] = useState(0);
+  const maxCharacters = 255;
+
   const handleChange = () => {
     if (editorRef.current) {
       const content = editorRef.current.innerHTML;
-      onChange(content);
-
-      // Check if content is empty
       const textContent = editorRef.current.textContent || '';
+      onChange(content);
+      setCharacterCount(textContent.length);
       setEditorIsEmpty(textContent.trim() === '');
     }
   };
@@ -195,8 +192,13 @@ const TextEditor = ({
   // Handle paste
   const handlePaste = (e: React.ClipboardEvent<HTMLDivElement>) => {
     e.preventDefault();
-    const text = e.clipboardData.getData('text/plain');
-    document.execCommand('insertText', false, text);
+    const pastedText = e.clipboardData.getData('text/plain');
+    const currentText = editorRef.current?.textContent || '';
+    const remainingChars = maxCharacters - currentText.length;
+    if (remainingChars > 0) {
+      const textToInsert = pastedText.substring(0, remainingChars);
+      document.execCommand('insertText', false, textToInsert);
+    }
   };
 
   const applyFormat = (command: string, value: any = null) => {
@@ -332,6 +334,7 @@ const TextEditor = ({
     if (editorRef.current && value !== editorRef.current.innerHTML) {
       editorRef.current.innerHTML = value;
       const textContent = editorRef.current.textContent || '';
+      setCharacterCount(textContent.length);
       setEditorIsEmpty(textContent.trim() === '');
     }
   }, [value]);
@@ -352,6 +355,25 @@ const TextEditor = ({
       document.removeEventListener('selectionchange', handleSelectionChange);
     };
   }, []);
+
+  // Handle before input to prevent exceeding character limit
+  const handleBeforeInput = (e: React.FormEvent<HTMLDivElement>) => {
+    const inputEvent = e.nativeEvent as InputEvent;
+    const inputType = inputEvent.inputType;
+    const inputData = inputEvent.data || '';
+    const currentText = editorRef.current?.textContent || '';
+    if (inputType === 'insertText' || inputType === 'insertCompositionText') {
+      const newLength = currentText.length + inputData.length;
+      if (newLength > maxCharacters) {
+        const allowedChars = maxCharacters - currentText.length;
+        if (allowedChars > 0) {
+          const textToInsert = inputData.substring(0, allowedChars);
+          document.execCommand('insertText', false, textToInsert);
+        }
+        e.preventDefault();
+      }
+    }
+  };
 
   return (
     <div className="mx-auto p-4">
@@ -530,6 +552,7 @@ const TextEditor = ({
           className={getButtonClassName(false)}
           aria-label="Insert link"
         >
+          {/* SVG icon here */}
           <svg className="h-7 w-7"  width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" /></svg>
         </button>
         <button
@@ -543,6 +566,7 @@ const TextEditor = ({
           className={getButtonClassName(false)}
           aria-label="Insert image"
         >
+          {/* SVG icon here */}
           <svg className="h-6 w-7"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round">  <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />  <circle cx="8.5" cy="8.5" r="1.5" />  <polyline points="21 15 16 10 5 21" /></svg>
         </button>
         {/* Code Block and Blockquote */}
@@ -552,6 +576,7 @@ const TextEditor = ({
           className={getButtonClassName(false)}
           aria-label="Insert code block"
         >
+          {/* SVG icon here */}
           <svg className="h-6 w-7"  width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <polyline points="7 8 3 12 7 16" />  <polyline points="17 8 21 12 17 16" />  <line x1="14" y1="4" x2="10" y2="20" /></svg>
         </button>
         {/* Font Color */}
@@ -567,11 +592,11 @@ const TextEditor = ({
           aria-label="Background color"
         />
       </div>
-      <div className="relative">
+      <div className="relative text-wrap">
         <div
           ref={editorRef}
           contentEditable={true}
-          className="editor-content min-h-[200px] cursor-text rounded-b-md border border-borderPrimary p-4 focus:outline-none"
+          className="editor-content min-h-[200px] cursor-text rounded-b-md border border-borderPrimary p-4 focus:outline-none "
           style={{ whiteSpace: 'pre-wrap' }}
           onInput={handleChange}
           onFocus={() => setEditorIsEmpty(false)}
@@ -580,6 +605,7 @@ const TextEditor = ({
             setEditorIsEmpty(textContent.trim() === '');
           }}
           onPaste={handlePaste}
+          onBeforeInput={handleBeforeInput}
           suppressContentEditableWarning={true}
         ></div>
         {editorIsEmpty && (
@@ -587,6 +613,9 @@ const TextEditor = ({
             {placeholder || 'Start typing...'}
           </div>
         )}
+        <div className="text-right mt-2">
+          {characterCount}/{maxCharacters}
+        </div>
       </div>
     </div>
   );
