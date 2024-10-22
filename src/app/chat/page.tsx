@@ -20,6 +20,10 @@ const Chat = () => {
   const [search, setSearch] = useState("");
   const [isModalOpen, setModalOpen] = useState(false);
   const [isRegisterForm, setIsRegisterForm] = useState(false); // التبديل بين تسجيل المستخدم وتسجيل الدخول
+  const [userId, setUserId] = useState("");
+  const handleClick = (id: string) => {
+    setUserId(id);
+  };
   const { language: currentLanguage, loading } = useSelector(
     (state: RootState) => state.language,
   );
@@ -113,6 +117,7 @@ const Chat = () => {
                     .map((teacher: any) => (
                       <div
                         key={teacher.id}
+                        onClick={() => handleClick("cometchat-uid-1")}
                         className="flex w-full cursor-pointer items-center border-b border-borderPrimary px-2 py-1 hover:bg-bgSecondary"
                       >
                         <div>
@@ -144,8 +149,13 @@ const Chat = () => {
           }
         </div>
         </div>
-        <div className="flex rounded-xl w-full">
-          <ChatPage />
+        <div className="flex rounded-xl w-full bg-bgPrimary">
+          {
+            userId == "" ? <div className="flex h-full w-full items-center justify-center">
+              <img src="/images/emptyState.png" alt="#" />
+            </div>:
+          <ChatPage userId={userId}/>
+        }
         </div>
       </div>
     </div>

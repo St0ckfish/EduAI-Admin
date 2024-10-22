@@ -43,6 +43,7 @@ const Search = () => {
   );
   const handleClick = (id: SetStateAction<null>) => {
     setSelectedId(id);
+    
   };
 
   const { language: currentLanguage, loading } = useSelector(

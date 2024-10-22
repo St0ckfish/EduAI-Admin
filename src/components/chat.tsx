@@ -10,7 +10,11 @@ import {
 import { CometChat } from "@cometchat-pro/chat";
 import { useTheme } from "next-themes";
 
-const ChatPage = () => {
+interface ChatPageProps {
+  userId: string;
+}
+
+const ChatPage = ({ userId }: ChatPageProps) => {
   const { theme, setTheme } = useTheme();
   const [messages, setMessages] = useState<
     (CometChat.TextMessage | CometChat.MediaMessage)[]
@@ -18,9 +22,11 @@ const ChatPage = () => {
   const [input, setInput] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
   const chatEndRef = useRef<HTMLDivElement | null>(null);
+  console.log(userId);
+
   // Function to fetch messages
   const fetchMessages = async () => {
-    const UID = "cometchat-uid-1"; // Replace with actual receiver UID
+    const UID = userId; // Use the current receiver UID
     const limit = 30; // Number of messages to fetch
     const messageRequest = new CometChat.MessagesRequestBuilder()
       .setUID(UID)
@@ -45,29 +51,43 @@ const ChatPage = () => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      loginUser("1");
+      loginUser("1"); // Assuming "1" is the logged-in user
+
+      // Clear previous messages
+      setMessages([]);
 
       // Fetch chat history
       fetchMessages();
 
-      // Add a message listener
-      addMessageListener("chat_listener", (message: any) => {
-        setMessages(prevMessages => [...prevMessages, message]);
-      });
-    }
+      const listenerID = `chat_listener_${userId}`;
 
-    return () => {
-      if (typeof window !== "undefined") {
+      // Remove any existing message listener
+      CometChat.removeMessageListener(listenerID);
+
+      // Add a message listener
+      addMessageListener(listenerID, (message: any) => {
+        // Only add messages relevant to the current chat
+        if (
+          (message.getSender().getUid() === userId &&
+            message.getReceiverType() === "user") ||
+          (message.getReceiverId() === userId &&
+            message.getReceiverType() === "user")
+        ) {
+          setMessages(prevMessages => [...prevMessages, message]);
+        }
+      });
+
+      return () => {
         // Clean up the listener
-        CometChat.removeMessageListener("chat_listener");
-      }
-    };
-  }, []);
+        CometChat.removeMessageListener(listenerID);
+      };
+    }
+  }, [userId]);
 
   const handleSendMessage = () => {
     if (input.trim() !== "") {
       // Send text message
-      sendMessage("cometchat-uid-1", input) // Replace with actual receiver ID
+      sendMessage(userId, input)
         .then(() => {
           setInput(""); // Clear input after sending
           fetchMessages(); // Refetch messages after sending a message
@@ -79,7 +99,7 @@ const ChatPage = () => {
 
     if (imageFile) {
       // Send image message
-      sendImageMessage("cometchat-uid-1", imageFile) // Replace with actual receiver ID
+      sendImageMessage(userId, imageFile)
         .then(() => {
           setImageFile(null); // Clear image after sending
           fetchMessages(); // Refetch messages after sending an image
@@ -106,12 +126,16 @@ const ChatPage = () => {
       {/* Chat messages */}
       <div className="flex-1 overflow-y-auto rounded-xl bg-bgPrimary p-4">
         {messages.map((msg, idx) => {
-          const isSender = msg.getSender()?.getUid() === "USER_ID";
+          const isSender = msg.getSender()?.getUid() === "1"; // "1" is the logged-in user ID
           if (msg instanceof CometChat.TextMessage) {
             return (
               <div
                 key={idx}
-                className={`mb-4 max-w-xs rounded-lg p-3 font-semibold ${isSender ? "mr-auto bg-[#5570f1] text-left" : "ml-auto bg-chat text-right text-black"}`}
+                className={`mb-4 max-w-xs rounded-lg p-3 font-semibold ${
+                  isSender
+                    ? "ml-auto bg-chat text-right text-black"
+                    : "mr-auto bg-[#5570f1] text-left text-white"
+                }`}
               >
                 <p>{msg.getText()}</p>
               </div>
@@ -123,7 +147,11 @@ const ChatPage = () => {
             return (
               <div
                 key={idx}
-                className={`mb-4 max-w-xs rounded-lg p-3 ${isSender ? "mr-auto bg-[#5570f1] text-left" : "ml-auto bg-chat text-right"}`}
+                className={`mb-4 max-w-xs rounded-lg p-3 ${
+                  isSender
+                    ? "ml-auto bg-chat text-right"
+                    : "mr-auto bg-[#5570f1] text-left"
+                }`}
               >
                 <img
                   src={msg.getURL()}
@@ -133,6 +161,7 @@ const ChatPage = () => {
               </div>
             );
           }
+          return null; // Add this line to handle other message types
         })}
         <div ref={chatEndRef}></div>
       </div>
