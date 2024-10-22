@@ -58,7 +58,8 @@ const Chat = () => {
               : "lg:ml-[270px]"
         } mt-10 mr-4`}>
       <div className="flex w-full rounded-lg p-4 justify-between gap-10 max-[1180px]:grid max-[1180px]:justify-center">
-        <div className="rounded-xl w-full bg-bgPrimary p-5">
+        <div className="rounded-xl w-full bg-bgPrimary p-5 h-[700px] overflow-y-auto">
+        <div className="flex-1 overflow-y-auto">
           {
             isLoading ? <Spinner /> :
               <>
@@ -141,6 +142,7 @@ const Chat = () => {
                 </div>
               </>
           }
+        </div>
         </div>
         <div className="flex rounded-xl w-full">
           <ChatPage />
