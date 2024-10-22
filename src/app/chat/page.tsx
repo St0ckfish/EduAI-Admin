@@ -17,11 +17,13 @@ const LoginForm = dynamic(() => import("@/components/loginChat"), {
 });
 
 const Chat = () => {
+  const [search, setSearch] = useState("");
   const [isModalOpen, setModalOpen] = useState(false);
   const [isRegisterForm, setIsRegisterForm] = useState(false); // التبديل بين تسجيل المستخدم وتسجيل الدخول
   const { language: currentLanguage, loading } = useSelector(
     (state: RootState) => state.language,
   );
+  const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const { data, isLoading } = useGetAllTeachersChatQuery(null);
   const handleCloseModal = () => {
     setModalOpen(false);
@@ -45,7 +47,16 @@ const Chat = () => {
     );
 
   return (
-    <div className="mt-10 lg:ml-[270px] mr-4">
+    <div dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+        className={` ${
+          currentLanguage === "ar"
+            ? booleanValue
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
+            : booleanValue
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
+        } mt-10 mr-4`}>
       <div className="flex w-full rounded-lg p-4 justify-between gap-10 max-[1180px]:grid max-[1180px]:justify-center">
         <div className="rounded-xl w-full bg-bgPrimary p-5">
           {
@@ -78,6 +89,7 @@ const Chat = () => {
                         </svg>
                       </div>
                       <input
+                      onChange={e => setSearch(e.target.value)}
                         type="text"
                         id="icon"
                         name="icon"
@@ -92,7 +104,12 @@ const Chat = () => {
                 </div>
                 <div className="mt-2 grid gap-2">
                   {
-                    data.data.content.map((teacher: any) => (
+                    data.data.content.filter((teacher: any) => {
+                      return search.toLocaleLowerCase() === ""
+                        ? teacher
+                        : teacher.name.toLocaleLowerCase().includes(search);
+                    })
+                    .map((teacher: any) => (
                       <div
                         key={teacher.id}
                         className="flex w-full cursor-pointer items-center border-b border-borderPrimary px-2 py-1 hover:bg-bgSecondary"
