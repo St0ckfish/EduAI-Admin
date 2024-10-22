@@ -22,7 +22,7 @@ const Chat = () => {
   const { language: currentLanguage, loading } = useSelector(
     (state: RootState) => state.language,
   );
-  const { data, error, isLoading, refetch } = useGetAllTeachersChatQuery(null);
+  const { data, isLoading } = useGetAllTeachersChatQuery(null);
   const handleCloseModal = () => {
     setModalOpen(false);
   };
@@ -46,13 +46,15 @@ const Chat = () => {
 
   return (
     <div className="mt-10 lg:ml-[270px] mr-4">
-      <div className="flex w-full rounded-lg p-4 justify-between gap-10">
+      <div className="flex w-full rounded-lg p-4 justify-between gap-10 max-[1180px]:grid max-[1180px]:justify-center">
         <div className="rounded-xl w-full bg-bgPrimary p-5">
           {
-            isLoading ? <Spinner /> : 
-          <><div className="flex justify-start text-start font-semibold text-[22px]">
-                <h1>Contacts</h1>
-              </div><div className="grid items-start mt-6">
+            isLoading ? <Spinner /> :
+              <>
+                <div className="flex justify-start text-start font-semibold text-[22px]">
+                  <h1>Contacts</h1>
+                </div>
+                <div className="grid items-start mt-6">
                   <div>
                     <label htmlFor="icon" className="sr-only">
                       Search
@@ -87,7 +89,40 @@ const Chat = () => {
                             : "Recherche"} />
                     </div>
                   </div>
-                </div></>
+                </div>
+                <div className="mt-2 grid gap-2">
+                  {
+                    data.data.content.map((teacher: any) => (
+                      <div
+                        key={teacher.id}
+                        className="flex w-full cursor-pointer items-center border-b border-borderPrimary px-2 py-1 hover:bg-bgSecondary"
+                      >
+                        <div>
+                          {!teacher.hasPhoto ? (
+                            <img
+                              src="/images/userr.png"
+                              className="mx-2 h-[40px] w-[40px] rounded-lg"
+                              alt="#"
+                            />
+                          ) : (
+                            <img
+                              src={teacher.photoLink}
+                              className="mx-2 h-[40px] w-[40px] rounded-lg"
+                              alt="#"
+                            />
+                          )}
+                        </div>
+                        <div className="grid gap-2">
+                          <p className="font-semibold">{teacher.name} <span className="text-secondary text-[15px]">({teacher.Role})</span></p>
+                          <p className="font-semibold text-secondary">
+                            ID: {teacher.id}
+                          </p>
+                        </div>
+                      </div>
+                    ))
+                  }
+                </div>
+              </>
           }
         </div>
         <div className="flex rounded-xl w-full">

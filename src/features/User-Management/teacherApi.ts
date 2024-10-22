@@ -34,7 +34,7 @@ export const teacherApi = createApi({
     //
     getAllTeachersChat: builder.query({
       query: () =>
-        `/api/v1/chat-utils/teachers`,
+        `/api/v1/shared/user/all?size=1000000&page=0`,
     }),
     //
     deleteTeachers: builder.mutation({
