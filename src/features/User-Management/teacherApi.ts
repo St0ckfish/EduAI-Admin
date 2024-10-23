@@ -56,10 +56,14 @@ export const teacherApi = createApi({
       query: id => `/api/v1/management/teacher/${id}`,
     }),
     //
+    getTeacherByIdUpdate: builder.query({
+      query: id => `/api/v1/management/teacher/${id}/update`,
+    }),
+    //
     updateTeachers: builder.mutation({
       query: ({ formData, id }) => ({
-        url: `cases/categories/${id}`,
-        method: "PATCH",
+        url: `/api/v1/management/teacher/${id}/update`,
+        method: "PUT",
         body: formData,
       }),
     }),
@@ -69,6 +73,7 @@ export const teacherApi = createApi({
 export const {
   useCreateTeachersMutation,
   useDeleteTeachersMutation,
+  useGetTeacherByIdUpdateQuery,
   useGetAllTeachersQuery,
   useGetTeacherByIdQuery,
   useUpdateTeachersMutation,
