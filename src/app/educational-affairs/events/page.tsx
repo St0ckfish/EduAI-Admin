@@ -6,7 +6,7 @@ import Timeline from "@/components/timeLine";
 import {
   useGetAllEventsQuery,
   useCreateEventsMutation,
-  useDeleteEventsMutation
+  useDeleteEventsMutation,
 } from "@/features/events/eventsApi";
 import { RootState } from "@/GlobalRedux/store";
 import { useEffect, useState } from "react";
@@ -17,18 +17,31 @@ import { z } from "zod";
 import { toast } from "react-toastify";
 import BreadCrumbs from "@/components/BreadCrumbs";
 
-const eventSchema = z.object({
-  creatorId: z.string().optional(),
-  startTime: z.string().min(1, "Start time is required"),
-  endTime: z.string().min(1, "End time is required"),
-  title_en: z.string().optional(),
-  title_ar: z.string().optional(),
-  title_fr: z.string().optional(),
-  description_en: z.string().optional(),
-  description_ar: z.string().optional(),
-  description_fr: z.string().optional(),
-  file: z.any().optional(), // Include file in schema to handle it
-});
+const eventSchema = z
+  .object({
+    creatorId: z.string().optional(),
+    startTime: z.string().nonempty({ message: "Start time is required" }),
+    endTime: z.string().nonempty({ message: "End time is required" }),
+    title_en: z.string().nonempty({ message: "Title in English is required" }),
+    title_ar: z.string().nonempty({ message: "Title in Arabic is required" }),
+    title_fr: z.string().nonempty({ message: "Title in French is required" }),
+    description_en: z
+      .string()
+      .nonempty({ message: "Description in English is required" }),
+    description_ar: z
+      .string()
+      .nonempty({ message: "Description in Arabic is required" }),
+    description_fr: z
+      .string()
+      .nonempty({ message: "Description in French is required" }),
+    file: z.any().refine((file) => file instanceof File, {
+      message: "File is required",
+    }),
+  })
+  .refine((data) => new Date(data.startTime) <= new Date(data.endTime), {
+    message: "Start Time must be before End Time",
+    path: ["startTime"],
+  });
 
 const Events = () => {
   const breadcrumbs = [
@@ -57,6 +70,10 @@ const Events = () => {
   const [createEvent] = useCreateEventsMutation();
   const [isModalOpen, setModalOpen] = useState(false);
 
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
   const {
     register,
     handleSubmit,
@@ -84,6 +101,7 @@ const Events = () => {
       toast.error("Can not Delete post");
     }
   };
+
   const onSubmit = async (formData: any) => {
     try {
       const formDataToSend = new FormData();
@@ -99,7 +117,6 @@ const Events = () => {
         description_ar: formData.description_ar,
         description_fr: formData.description_fr,
       };
-      toast.success("Event created success");
       // Append the JSON data as a string to FormData
       formDataToSend.append("request", JSON.stringify(requestData));
 
@@ -109,12 +126,24 @@ const Events = () => {
         formDataToSend.append("file", file); // Append the file correctly
       }
 
-      const result = await createEvent(formDataToSend).unwrap();
-      console.log("Event created:", result);
+      await createEvent(formDataToSend).unwrap();
+      toast.success(
+        currentLanguage === "ar"
+          ? "تم إنشاء الحدث بنجاح"
+          : currentLanguage === "fr"
+          ? "Événement créé avec succès"
+          : "Event created successfully",
+      );
       handleCloseModal();
-      refetch(); // Optionally refetch events
+      refetch();
     } catch (error) {
-      toast.error("Fiald Create Event");
+      toast.error(
+        currentLanguage === "ar"
+          ? "فشل إنشاء الحدث"
+          : currentLanguage === "fr"
+          ? "Échec de la création de l'événement"
+          : "Failed to create event",
+      );
       console.error("Failed to create event:", error);
     }
   };
@@ -124,9 +153,67 @@ const Events = () => {
     if (error) console.log("Error:", error);
   }, [data, error]);
 
-  const { language: currentLanguage, loading } = useSelector(
-    (state: RootState) => state.language,
-  );
+  // Function to get error message based on current language
+  const getErrorMessage = (message: string) => {
+    switch (message) {
+      case "Start time is required":
+        return currentLanguage === "ar"
+          ? "وقت البدء مطلوب"
+          : currentLanguage === "fr"
+          ? "L'heure de début est requise"
+          : "Start time is required";
+      case "End time is required":
+        return currentLanguage === "ar"
+          ? "وقت الانتهاء مطلوب"
+          : currentLanguage === "fr"
+          ? "L'heure de fin est requise"
+          : "End time is required";
+      case "Title in English is required":
+        return currentLanguage === "ar"
+          ? "العنوان بالإنجليزية مطلوب"
+          : currentLanguage === "fr"
+          ? "Le titre en anglais est requis"
+          : "Title in English is required";
+      case "Title in Arabic is required":
+        return currentLanguage === "ar"
+          ? "العنوان بالعربية مطلوب"
+          : currentLanguage === "fr"
+          ? "Le titre en arabe est requis"
+          : "Title in Arabic is required";
+      case "Title in French is required":
+        return currentLanguage === "ar"
+          ? "العنوان بالفرنسية مطلوب"
+          : currentLanguage === "fr"
+          ? "Le titre en français est requis"
+          : "Title in French is required";
+      case "Description in English is required":
+        return currentLanguage === "ar"
+          ? "الوصف بالإنجليزية مطلوب"
+          : currentLanguage === "fr"
+          ? "La description en anglais est requise"
+          : "Description in English is required";
+      case "Description in Arabic is required":
+        return currentLanguage === "ar"
+          ? "الوصف بالعربية مطلوب"
+          : currentLanguage === "fr"
+          ? "La description en arabe est requise"
+          : "Description in Arabic is required";
+      case "Description in French is required":
+        return currentLanguage === "ar"
+          ? "الوصف بالفرنسية مطلوب"
+          : currentLanguage === "fr"
+          ? "La description en français est requise"
+          : "Description in French is required";
+      case "Start Time must be before End Time":
+        return currentLanguage === "ar"
+          ? "يجب أن يكون وقت البدء قبل وقت الانتهاء"
+          : currentLanguage === "fr"
+          ? "L'heure de début doit être avant l'heure de fin"
+          : "Start Time must be before End Time";
+      default:
+        return message;
+    }
+  };
 
   if (loading || isLoading)
     return (
@@ -146,8 +233,8 @@ const Events = () => {
               ? "lg:mr-[100px]"
               : "lg:mr-[270px]"
             : booleanValue
-              ? "lg:ml-[100px]"
-              : "lg:ml-[270px]"
+            ? "lg:ml-[100px]"
+            : "lg:ml-[270px]"
         } mt-7`}
       >
         <div className="flex justify-end">
@@ -158,18 +245,18 @@ const Events = () => {
             {currentLanguage === "ar"
               ? "+ إضافة حدث"
               : currentLanguage === "fr"
-                ? "+ Ajouter un événement"
-                : "+ Add Event"}
+              ? "+ Ajouter un événement"
+              : "+ Add Event"}
           </button>
         </div>
-        <Timeline meetings={data?.data.content} handleDelete={handleDelete}/>
+        <Timeline meetings={data?.data.content} handleDelete={handleDelete} />
         <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
           <h2 className="mb-4 text-xl font-light text-textPrimary">
             {currentLanguage === "ar"
               ? "إنشاء حدث"
               : currentLanguage === "fr"
-                ? "Créer un événement"
-                : "Create Event"}
+              ? "Créer un événement"
+              : "Create Event"}
           </h2>
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -186,7 +273,7 @@ const Events = () => {
               />
               {errors.startTime && (
                 <p className="text-error">
-                  {errors.startTime.message as string}
+                  {getErrorMessage(errors.startTime.message?.toString() || "")}
                 </p>
               )}
             </div>
@@ -200,7 +287,9 @@ const Events = () => {
                 className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 text-textSecondary shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.endTime && (
-                <p className="text-error">{errors.endTime.message as string}</p>
+                <p className="text-error">
+                  {getErrorMessage(errors.endTime.message?.toString() || "")}
+                </p>
               )}
             </div>
 
@@ -214,7 +303,7 @@ const Events = () => {
               />
               {errors.title_en && (
                 <p className="text-error">
-                  {errors.title_en.message as string}
+                  {getErrorMessage(errors.title_en.message?.toString() || "")}
                 </p>
               )}
             </div>
@@ -229,7 +318,7 @@ const Events = () => {
               />
               {errors.title_ar && (
                 <p className="text-error">
-                  {errors.title_ar.message as string}
+                  {getErrorMessage(errors.title_ar.message?.toString() || "")}
                 </p>
               )}
             </div>
@@ -244,7 +333,7 @@ const Events = () => {
               />
               {errors.title_fr && (
                 <p className="text-error">
-                  {errors.title_fr.message as string}
+                  {getErrorMessage(errors.title_fr.message?.toString() || "")}
                 </p>
               )}
             </div>
@@ -258,7 +347,7 @@ const Events = () => {
               />
               {errors.description_en && (
                 <p className="text-error">
-                  {errors.description_en.message as string}
+                  {getErrorMessage(errors.description_en.message?.toString() || "")}
                 </p>
               )}
             </div>
@@ -272,7 +361,7 @@ const Events = () => {
               />
               {errors.description_ar && (
                 <p className="text-error">
-                  {errors.description_ar.message as string}
+                  {getErrorMessage(errors.description_ar.message?.toString() || "")}
                 </p>
               )}
             </div>
@@ -286,7 +375,7 @@ const Events = () => {
               />
               {errors.description_fr && (
                 <p className="text-error">
-                  {errors.description_fr.message as string}
+                  {getErrorMessage(errors.description_fr.message?.toString() || "")}
                 </p>
               )}
             </div>
@@ -299,7 +388,9 @@ const Events = () => {
                 className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 text-textSecondary shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.file && (
-                <p className="text-error">{errors.file.message as string}</p>
+                <p className="text-error">
+                  {getErrorMessage(errors.file.message?.toString() || "")}
+                </p>
               )}
             </div>
 
@@ -311,8 +402,8 @@ const Events = () => {
                 {currentLanguage === "ar"
                   ? "إضافة"
                   : currentLanguage === "fr"
-                    ? "Ajouter"
-                    : "Add"}
+                  ? "Ajouter"
+                  : "Add"}
               </button>
               <button
                 onClick={handleCloseModal}
@@ -321,8 +412,8 @@ const Events = () => {
                 {currentLanguage === "ar"
                   ? "إلغاء"
                   : currentLanguage === "fr"
-                    ? "Annuler"
-                    : "Cancel"}
+                  ? "Annuler"
+                  : "Cancel"}
               </button>
             </div>
           </form>

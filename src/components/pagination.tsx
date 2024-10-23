@@ -156,11 +156,18 @@ const Pagination: React.FC<PaginationProps> = ({
           value={elementsPerPage}
           onChange={e => onChangeElementsPerPage(Number(e.target.value))}
         >
-          {Array.from({ length: 12 }, (_, i) => i + 1).map(num => (
-            <option key={num} value={num}>
-              {num}
+            <option value="10">
+            10
             </option>
-          ))}
+            <option value="20">
+            20
+            </option>
+            <option value="50">
+            50
+            </option>
+            <option value="100">
+            100
+            </option>
         </select>
         <label
           htmlFor="elementsPerPage"

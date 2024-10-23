@@ -86,6 +86,7 @@ const News = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
   const [createSemester, { isLoading: isCreating }] =
@@ -95,6 +96,7 @@ const News = () => {
     try {
       await createSemester({ formData: data, id: id }).unwrap();
       refetchComment();
+      reset();
       toast.success("Comment Added successfully");
     } catch (err) {
       toast.error("Failed to create Comment");

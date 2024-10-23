@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useGetEventByIdQuery, useUpdateEventsMutation } from "@/features/events/eventsApi";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -7,13 +7,16 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type Props = {
- params:{
-  eventId: number;
- }
-}
-const UpdateEvent = ({params}: Props) => {
+  params: {
+    eventId: number;
+  };
+};
+
+const UpdateEvent = ({ params }: Props) => {
   const breadcrumbs = [
     {
       nameEn: "Administration",
@@ -28,20 +31,48 @@ const UpdateEvent = ({params}: Props) => {
       href: "/educational-affairs/events",
     },
     {
-      nameEn: `${params.eventId}`,
-      nameAr: `${params.eventId}`,
-      nameFr: `${params.eventId}`,
+      nameEn: `Update Event`,
+      nameAr: `événement de mise à jour`,
+      nameFr: `تعديل حدث`,
       href: `/educational-affairs/events/${params.eventId}`,
     },
   ];
 
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+
+  // Define the validation schema
+  const schema = z
+    .object({
+      title_en: z.string().nonempty({ message: "This field is required" }),
+      title_ar: z.string().nonempty({ message: "This field is required" }),
+      title_fr: z.string().nonempty({ message: "This field is required" }),
+      description_en: z.string().nonempty({ message: "This field is required" }),
+      description_ar: z.string().nonempty({ message: "This field is required" }),
+      description_fr: z.string().nonempty({ message: "This field is required" }),
+      startTime: z.string().nonempty({ message: "This field is required" }),
+      endTime: z.string().nonempty({ message: "This field is required" }),
+      active: z.enum(["0", "1"], {
+        errorMap: () => ({ message: "This field is required" }),
+      }),
+    })
+    .refine((data) => new Date(data.startTime) <= new Date(data.endTime), {
+      message: "Start Time must be before End Time",
+      path: ["startTime"],
+    });
+
+  type FormData = z.infer<typeof schema>;
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset
-  } = useForm();
+    reset,
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
+  });
 
   const [updateEvent, { isLoading }] = useUpdateEventsMutation();
   const { data: eventData, isLoading: isEventLoading } = useGetEventByIdQuery(params.eventId);
@@ -57,12 +88,12 @@ const UpdateEvent = ({params}: Props) => {
         description_fr: eventData.data.description,
         startTime: eventData.data.startDate,
         endTime: eventData.data.endDate,
-        active: eventData.data.isAttendee ? 1 : 0,
+        active: eventData.data.isAttendee ? "1" : "0",
       });
     }
   }, [eventData, reset]);
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: FormData) => {
     try {
       await updateEvent({ id: params.eventId, formData: data }).unwrap();
       toast.success("Event updated successfully");
@@ -71,9 +102,29 @@ const UpdateEvent = ({params}: Props) => {
     }
   };
 
-  const { language: currentLanguage, loading } = useSelector(
-    (state: RootState) => state.language,
-  );
+  // Function to get error message based on current language
+  const getErrorMessage = (message: string) => {
+    switch (message) {
+      case "This field is required":
+        return currentLanguage === "en"
+          ? "This field is required"
+          : currentLanguage === "ar"
+          ? "هذا الحقل مطلوب"
+          : currentLanguage === "fr"
+          ? "Ce champ est requis"
+          : "This field is required";
+      case "Start Time must be before End Time":
+        return currentLanguage === "en"
+          ? "Start Time must be before End Time"
+          : currentLanguage === "ar"
+          ? "وقت البدء يجب أن يكون قبل وقت الانتهاء"
+          : currentLanguage === "fr"
+          ? "L'heure de début doit être avant l'heure de fin"
+          : "Start Time must be before End Time";
+      default:
+        return message;
+    }
+  };
 
   if (loading || isEventLoading)
     return (
@@ -81,7 +132,7 @@ const UpdateEvent = ({params}: Props) => {
         <Spinner />
       </div>
     );
-  return ( 
+  return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
@@ -92,8 +143,8 @@ const UpdateEvent = ({params}: Props) => {
               ? "lg:mr-[100px]"
               : "lg:mr-[270px]"
             : booleanValue
-              ? "lg:ml-[100px]"
-              : "lg:ml-[270px]"
+            ? "lg:ml-[100px]"
+            : "lg:ml-[270px]"
         } mx-[5px] mt-[40px] grid h-[500px] items-center justify-center`}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -103,13 +154,14 @@ const UpdateEvent = ({params}: Props) => {
                 {currentLanguage === "en"
                   ? "Event Information"
                   : currentLanguage === "ar"
-                    ? "معلومات الحدث"
-                    : currentLanguage === "fr"
-                      ? "Informations sur l'événement"
-                      : "Event Information"} {/* default */}
+                  ? "معلومات الحدث"
+                  : currentLanguage === "fr"
+                  ? "Informations sur l'événement"
+                  : "Event Information"}
               </h1>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
+              {/* Title English */}
               <label
                 htmlFor="title_en"
                 className="grid font-sans text-[18px] font-semibold"
@@ -117,28 +169,23 @@ const UpdateEvent = ({params}: Props) => {
                 {currentLanguage === "en"
                   ? "Event Title (English)"
                   : currentLanguage === "ar"
-                    ? "عنوان الحدث (بالإنجليزية)"
-                    : currentLanguage === "fr"
-                      ? "Titre de l'événement (Anglais)"
-                      : "Event Title (English)"} {/* default */}
+                  ? "عنوان الحدث (بالإنجليزية)"
+                  : currentLanguage === "fr"
+                  ? "Titre de l'événement (Anglais)"
+                  : "Event Title (English)"}
                 <input
                   id="title_en"
-                  {...register("title_en", { required: true })}
+                  {...register("title_en")}
                   type="text"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.title_en && (
                   <span className="text-error">
-                    {currentLanguage === "en"
-                      ? "This field is required"
-                      : currentLanguage === "ar"
-                        ? "هذا الحقل مطلوب"
-                        : currentLanguage === "fr"
-                          ? "Ce champ est requis"
-                          : "This field is required"} {/* default */}
+                    {getErrorMessage(errors.title_en.message || "")}
                   </span>
                 )}
               </label>
+              {/* Title Arabic */}
               <label
                 htmlFor="title_ar"
                 className="grid font-sans text-[18px] font-semibold"
@@ -146,28 +193,23 @@ const UpdateEvent = ({params}: Props) => {
                 {currentLanguage === "en"
                   ? "Event Title (Arabic)"
                   : currentLanguage === "ar"
-                    ? "عنوان الحدث (بالعربية)"
-                    : currentLanguage === "fr"
-                      ? "Titre de l'événement (Arabe)"
-                      : "Event Title (Arabic)"} {/* default */}
+                  ? "عنوان الحدث (بالعربية)"
+                  : currentLanguage === "fr"
+                  ? "Titre de l'événement (Arabe)"
+                  : "Event Title (Arabic)"}
                 <input
                   id="title_ar"
-                  {...register("title_ar", { required: true })}
+                  {...register("title_ar")}
                   type="text"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.title_ar && (
                   <span className="text-error">
-                    {currentLanguage === "en"
-                      ? "This field is required"
-                      : currentLanguage === "ar"
-                        ? "هذا الحقل مطلوب"
-                        : currentLanguage === "fr"
-                          ? "Ce champ est requis"
-                          : "This field is required"} {/* default */}
+                    {getErrorMessage(errors.title_ar.message || "")}
                   </span>
                 )}
               </label>
+              {/* Title French */}
               <label
                 htmlFor="title_fr"
                 className="grid font-sans text-[18px] font-semibold"
@@ -175,28 +217,23 @@ const UpdateEvent = ({params}: Props) => {
                 {currentLanguage === "en"
                   ? "Event Title (French)"
                   : currentLanguage === "ar"
-                    ? "عنوان الحدث (بالفرنسية)"
-                    : currentLanguage === "fr"
-                      ? "Titre de l'événement (Français)"
-                      : "Event Title (French)"} {/* default */}
+                  ? "عنوان الحدث (بالفرنسية)"
+                  : currentLanguage === "fr"
+                  ? "Titre de l'événement (Français)"
+                  : "Event Title (French)"}
                 <input
                   id="title_fr"
-                  {...register("title_fr", { required: true })}
+                  {...register("title_fr")}
                   type="text"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.title_fr && (
                   <span className="text-error">
-                    {currentLanguage === "en"
-                      ? "This field is required"
-                      : currentLanguage === "ar"
-                        ? "هذا الحقل مطلوب"
-                        : currentLanguage === "fr"
-                          ? "Ce champ est requis"
-                          : "This field is required"} {/* default */}
+                    {getErrorMessage(errors.title_fr.message || "")}
                   </span>
                 )}
               </label>
+              {/* Description English */}
               <label
                 htmlFor="description_en"
                 className="grid font-sans text-[18px] font-semibold"
@@ -204,28 +241,23 @@ const UpdateEvent = ({params}: Props) => {
                 {currentLanguage === "en"
                   ? "Event Description (English)"
                   : currentLanguage === "ar"
-                    ? "وصف الحدث (بالإنجليزية)"
-                    : currentLanguage === "fr"
-                      ? "Description de l'événement (Anglais)"
-                      : "Event Description (English)"} {/* default */}
+                  ? "وصف الحدث (بالإنجليزية)"
+                  : currentLanguage === "fr"
+                  ? "Description de l'événement (Anglais)"
+                  : "Event Description (English)"}
                 <input
                   id="description_en"
-                  {...register("description_en", { required: true })}
+                  {...register("description_en")}
                   type="text"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.description_en && (
                   <span className="text-error">
-                    {currentLanguage === "en"
-                      ? "This field is required"
-                      : currentLanguage === "ar"
-                        ? "هذا الحقل مطلوب"
-                        : currentLanguage === "fr"
-                          ? "Ce champ est requis"
-                          : "This field is required"} {/* default */}
+                    {getErrorMessage(errors.description_en.message || "")}
                   </span>
                 )}
               </label>
+              {/* Description Arabic */}
               <label
                 htmlFor="description_ar"
                 className="grid font-sans text-[18px] font-semibold"
@@ -233,28 +265,23 @@ const UpdateEvent = ({params}: Props) => {
                 {currentLanguage === "en"
                   ? "Event Description (Arabic)"
                   : currentLanguage === "ar"
-                    ? "وصف الحدث (بالعربية)"
-                    : currentLanguage === "fr"
-                      ? "Description de l'événement (Arabe)"
-                      : "Event Description (Arabic)"} {/* default */}
+                  ? "وصف الحدث (بالعربية)"
+                  : currentLanguage === "fr"
+                  ? "Description de l'événement (Arabe)"
+                  : "Event Description (Arabic)"}
                 <input
                   id="description_ar"
-                  {...register("description_ar", { required: true })}
+                  {...register("description_ar")}
                   type="text"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.description_ar && (
                   <span className="text-error">
-                    {currentLanguage === "en"
-                      ? "This field is required"
-                      : currentLanguage === "ar"
-                        ? "هذا الحقل مطلوب"
-                        : currentLanguage === "fr"
-                          ? "Ce champ est requis"
-                          : "This field is required"} {/* default */}
+                    {getErrorMessage(errors.description_ar.message || "")}
                   </span>
                 )}
               </label>
+              {/* Description French */}
               <label
                 htmlFor="description_fr"
                 className="grid font-sans text-[18px] font-semibold"
@@ -262,28 +289,23 @@ const UpdateEvent = ({params}: Props) => {
                 {currentLanguage === "en"
                   ? "Event Description (French)"
                   : currentLanguage === "ar"
-                    ? "وصف الحدث (بالفرنسية)"
-                    : currentLanguage === "fr"
-                      ? "Description de l'événement (Français)"
-                      : "Event Description (French)"} {/* default */}
+                  ? "وصف الحدث (بالفرنسية)"
+                  : currentLanguage === "fr"
+                  ? "Description de l'événement (Français)"
+                  : "Event Description (French)"}
                 <input
                   id="description_fr"
-                  {...register("description_fr", { required: true })}
+                  {...register("description_fr")}
                   type="text"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.description_fr && (
                   <span className="text-error">
-                    {currentLanguage === "en"
-                      ? "This field is required"
-                      : currentLanguage === "ar"
-                        ? "هذا الحقل مطلوب"
-                        : currentLanguage === "fr"
-                          ? "Ce champ est requis"
-                          : "This field is required"} {/* default */}
+                    {getErrorMessage(errors.description_fr.message || "")}
                   </span>
                 )}
               </label>
+              {/* Start Time */}
               <label
                 htmlFor="startTime"
                 className="grid font-sans text-[18px] font-semibold"
@@ -291,28 +313,23 @@ const UpdateEvent = ({params}: Props) => {
                 {currentLanguage === "en"
                   ? "Start Time"
                   : currentLanguage === "ar"
-                    ? "وقت البدء"
-                    : currentLanguage === "fr"
-                      ? "Heure de début"
-                      : "Start Time"} {/* default */}
+                  ? "وقت البدء"
+                  : currentLanguage === "fr"
+                  ? "Heure de début"
+                  : "Start Time"}
                 <input
                   id="startTime"
-                  {...register("startTime", { required: true })}
+                  {...register("startTime")}
                   type="datetime-local"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.startTime && (
                   <span className="text-error">
-                    {currentLanguage === "en"
-                      ? "This field is required"
-                      : currentLanguage === "ar"
-                        ? "هذا الحقل مطلوب"
-                        : currentLanguage === "fr"
-                          ? "Ce champ est requis"
-                          : "This field is required"} {/* default */}
+                    {getErrorMessage(errors.startTime.message || "")}
                   </span>
                 )}
               </label>
+              {/* End Time */}
               <label
                 htmlFor="endTime"
                 className="grid font-sans text-[18px] font-semibold"
@@ -320,28 +337,23 @@ const UpdateEvent = ({params}: Props) => {
                 {currentLanguage === "en"
                   ? "End Time"
                   : currentLanguage === "ar"
-                    ? "وقت الانتهاء"
-                    : currentLanguage === "fr"
-                      ? "Heure de fin"
-                      : "End Time"} {/* default */}
+                  ? "وقت الانتهاء"
+                  : currentLanguage === "fr"
+                  ? "Heure de fin"
+                  : "End Time"}
                 <input
                   id="endTime"
-                  {...register("endTime", { required: true })}
+                  {...register("endTime")}
                   type="datetime-local"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.endTime && (
                   <span className="text-error">
-                    {currentLanguage === "en"
-                      ? "This field is required"
-                      : currentLanguage === "ar"
-                        ? "هذا الحقل مطلوب"
-                        : currentLanguage === "fr"
-                          ? "Ce champ est requis"
-                          : "This field is required"} {/* default */}
+                    {getErrorMessage(errors.endTime.message || "")}
                   </span>
                 )}
               </label>
+              {/* Active */}
               <label
                 htmlFor="active"
                 className="grid font-sans text-[18px] font-semibold"
@@ -349,27 +361,37 @@ const UpdateEvent = ({params}: Props) => {
                 {currentLanguage === "en"
                   ? "Active"
                   : currentLanguage === "ar"
-                    ? "نشط"
-                    : currentLanguage === "fr"
-                      ? "Actif"
-                      : "Active"} {/* default */}
+                  ? "نشط"
+                  : currentLanguage === "fr"
+                  ? "Actif"
+                  : "Active"}
                 <select
                   id="active"
-                  {...register("active", { required: true })}
+                  {...register("active")}
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 >
-                  <option value={1}>{currentLanguage === "en" ? "Yes" : currentLanguage === "ar" ? "نعم" : currentLanguage === "fr" ? "Oui" : "Yes"}</option>
-                  <option value={0}>{currentLanguage === "en" ? "No" : currentLanguage === "ar" ? "لا" : currentLanguage === "fr" ? "Non" : "No"}</option>
+                  <option value="1">
+                    {currentLanguage === "en"
+                      ? "Yes"
+                      : currentLanguage === "ar"
+                      ? "نعم"
+                      : currentLanguage === "fr"
+                      ? "Oui"
+                      : "Yes"}
+                  </option>
+                  <option value="0">
+                    {currentLanguage === "en"
+                      ? "No"
+                      : currentLanguage === "ar"
+                      ? "لا"
+                      : currentLanguage === "fr"
+                      ? "Non"
+                      : "No"}
+                  </option>
                 </select>
                 {errors.active && (
                   <span className="text-error">
-                    {currentLanguage === "en"
-                      ? "This field is required"
-                      : currentLanguage === "ar"
-                        ? "هذا الحقل مطلوب"
-                        : currentLanguage === "fr"
-                          ? "Ce champ est requis"
-                          : "This field is required"} {/* default */}
+                    {getErrorMessage(errors.active.message || "")}
                   </span>
                 )}
               </label>
@@ -385,10 +407,10 @@ const UpdateEvent = ({params}: Props) => {
                   {currentLanguage === "en"
                     ? "Update Event"
                     : currentLanguage === "ar"
-                      ? "تحديث الحدث"
-                      : currentLanguage === "fr"
-                        ? "Mettre à jour l'événement"
-                        : "Update Event"} {/* default */}
+                    ? "تحديث الحدث"
+                    : currentLanguage === "fr"
+                    ? "Mettre à jour l'événement"
+                    : "Update Event"}
                 </button>
               )}
             </div>
@@ -397,6 +419,6 @@ const UpdateEvent = ({params}: Props) => {
       </div>
     </>
   );
-}
+};
 
 export default UpdateEvent;
