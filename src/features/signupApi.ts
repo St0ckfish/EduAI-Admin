@@ -21,6 +21,10 @@ export const signupApi = createApi({
       query: () => "/api/v1/public/enumeration/country-code",
     }),
     //
+    getAllsubjects: builder.query({
+      query: () => "/api/v1/public/enumeration/subject",
+    }),
+    //
     getValidUsername: builder.query({
       query: username => `/api/v1/auth/exists-by-username?username=${username}`,
     }),
@@ -49,6 +53,7 @@ export const signupApi = createApi({
 
 export const {
   useSignupApiDashboardMutation,
+  useGetAllsubjectsQuery,
   useGetAllNationalitysQuery,
   useGetAllCountryCodeQuery,
   useGetAllRolesQuery,

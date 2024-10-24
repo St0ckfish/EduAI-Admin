@@ -1,12 +1,13 @@
 "use client";
 import React from "react";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import Spinner from "@/components/spinner";
 import { useCreateTeachersMutation } from "@/features/User-Management/teacherApi";
 import {
   useGetAllCountryCodeQuery,
   useGetAllNationalitysQuery,
   useGetAllReginionIDQuery,
+  useGetAllsubjectsQuery,
 } from "@/features/signupApi";
 import { toast } from "react-toastify";
 import BreadCrumbs from "@/components/BreadCrumbs";
@@ -15,6 +16,7 @@ import { useSelector } from "react-redux";
 import { useGetAllPositionsQuery } from "@/features/User-Management/driverApi";
 import SearchableSelect from "@/components/select";
 import PhoneNumberInput from "@/components/PhoneNumberInput";
+import MultiSelectComponent from "@/components/multiSelect";
 
 const AddNewTeacher = () => {
   const { data: positionData, isLoading: isPosition } =
@@ -48,40 +50,48 @@ const AddNewTeacher = () => {
   ];
   const { data: nationalityData, isLoading: nationalityLoading } =
     useGetAllNationalitysQuery(null);
-    const { data: countryCode, isLoading: isCountryCode } =
+  const { data: subjects, isLoading: subLoading } =
+    useGetAllsubjectsQuery(null);
+  const { data: countryCode, isLoading: isCountryCode } =
     useGetAllCountryCodeQuery(null);
   const {
     register,
     handleSubmit,
     control,
+    setValue,
     formState: { errors },
   } = useForm();
   const [createTeacher, { isLoading }] = useCreateTeachersMutation();
   const { data: rigiond } = useGetAllReginionIDQuery(null);
   const optionsRigon =
-  rigiond?.data?.map(
-    (rigion: {
-      cityName: any;
-      countryName: any;
-      regionName: any;
-      regionId: any;
-      name: any;
-    }) => ({
-      value: rigion.regionId,
-      label: `${rigion.regionName} - ${rigion.cityName}`,
-    }),
-  ) || [];
+    rigiond?.data?.map(
+      (rigion: {
+        cityName: any;
+        countryName: any;
+        regionName: any;
+        regionId: any;
+        name: any;
+      }) => ({
+        value: rigion.regionId,
+        label: `${rigion.regionName} - ${rigion.cityName}`,
+      }),
+    ) || [];
   const onSubmit = async (data: any) => {
-    const formData = { ...data, religion: "OTHERS" };
+    const formData = {
+      ...data,
+      religion: "OTHERS",
+      subjects: Array.isArray(data.subjects)
+        ? data.subjects
+        : [data.subjects],
+    };
     try {
       await createTeacher(formData).unwrap();
       toast.success("Teacher created successfully");
     } catch {
-      toast.error(
-        "Failed to create Teacher:  you may enter the passord incorrectly",
-      );
+      toast.error("Failed to create Teacher: you may have entered the password incorrectly");
     }
   };
+
 
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
@@ -89,7 +99,7 @@ const AddNewTeacher = () => {
     (state: RootState) => state.language,
   );
 
-  if (loading || nationalityLoading || isPosition)
+  if (loading || nationalityLoading || isPosition || subLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -101,16 +111,16 @@ const AddNewTeacher = () => {
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`${
-          currentLanguage === "ar"
+        className={`${currentLanguage === "ar"
             ? booleanValue
               ? "lg:mr-[100px]"
               : "lg:mr-[270px]"
             : booleanValue
               ? "lg:ml-[100px]"
               : "lg:ml-[270px]"
-        } mx-[10px] grid h-[850px] items-center justify-center`}
+          } mx-[10px] grid h-[850px] items-center justify-center`}
       >
+         <FormProvider {...{ register, handleSubmit, control, setValue, errors }}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="my-10 grid items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:w-[1000px]">
             <div className="flex items-center justify-start gap-2">
@@ -324,14 +334,14 @@ const AddNewTeacher = () => {
                   : currentLanguage === "ar"
                     ? "معرف المنطقة"
                     : "ID de région"}
-                    <SearchableSelect
-                      name="regionId"
-                      control={control}
-                      errors={errors}
-                      options={optionsRigon}
-                      currentLanguage={currentLanguage}
-                      placeholder="Select Region"
-                    />
+                <SearchableSelect
+                  name="regionId"
+                  control={control}
+                  errors={errors}
+                  options={optionsRigon}
+                  currentLanguage={currentLanguage}
+                  placeholder="Select Region"
+                />
               </label>
 
               <label
@@ -577,141 +587,7 @@ const AddNewTeacher = () => {
                 )}
               </label>
 
-              <label
-                htmlFor="subject"
-                className="mt-4 grid items-center font-sans text-[18px] font-semibold"
-              >
-                <select
-                  defaultValue=""
-                  id="subject"
-                  {...register("subject", { required: true })}
-                  className="h-[55px] w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                >
-                  <option value="">
-                    {currentLanguage === "en"
-                      ? "Select Subject"
-                      : currentLanguage === "ar"
-                        ? "اختر المادة"
-                        : "Sélectionner le sujet"}
-                  </option>
-                  <option value="ARABIC">
-                    {currentLanguage === "en"
-                      ? "Arabic"
-                      : currentLanguage === "ar"
-                        ? "عربي"
-                        : "Arabe"}
-                  </option>
-                  <option value="MUSIC">
-                    {currentLanguage === "en"
-                      ? "Music"
-                      : currentLanguage === "ar"
-                        ? "موسيقى"
-                        : "Musique"}
-                  </option>
-                  <option value="ART">
-                    {currentLanguage === "en"
-                      ? "Art"
-                      : currentLanguage === "ar"
-                        ? "فن"
-                        : "Art"}
-                  </option>
-                  <option value="FOREIGN_LANGUAGE">
-                    {currentLanguage === "en"
-                      ? "Foreign Language"
-                      : currentLanguage === "ar"
-                        ? "لغة أجنبية"
-                        : "Langue étrangère"}
-                  </option>
-                  <option value="ENGLISH">
-                    {currentLanguage === "en"
-                      ? "English"
-                      : currentLanguage === "ar"
-                        ? "إنجليزي"
-                        : "Anglais"}
-                  </option>
-                  <option value="SOCIAL_STUDIES">
-                    {currentLanguage === "en"
-                      ? "Social Studies"
-                      : currentLanguage === "ar"
-                        ? "دراسات اجتماعية"
-                        : "Études sociales"}
-                  </option>
-                  <option value="FRENCH">
-                    {currentLanguage === "en"
-                      ? "French"
-                      : currentLanguage === "ar"
-                        ? "فرنسي"
-                        : "Français"}
-                  </option>
-                  <option value="MATHEMATICS">
-                    {currentLanguage === "en"
-                      ? "Mathematics"
-                      : currentLanguage === "ar"
-                        ? "رياضيات"
-                        : "Mathématiques"}
-                  </option>
-                  <option value="COMPUTER_SCIENCE">
-                    {currentLanguage === "en"
-                      ? "Computer Science"
-                      : currentLanguage === "ar"
-                        ? "علوم الكمبيوتر"
-                        : "Informatique"}
-                  </option>
-                  <option value="CHEMISTRY">
-                    {currentLanguage === "en"
-                      ? "Chemistry"
-                      : currentLanguage === "ar"
-                        ? "كيمياء"
-                        : "Chimie"}
-                  </option>
-                  <option value="ECONOMICS">
-                    {currentLanguage === "en"
-                      ? "Economics"
-                      : currentLanguage === "ar"
-                        ? "اقتصاد"
-                        : "Économie"}
-                  </option>
-                  <option value="SCIENCE">
-                    {currentLanguage === "en"
-                      ? "Science"
-                      : currentLanguage === "ar"
-                        ? "علوم"
-                        : "Sciences"}
-                  </option>
-                  <option value="PHYSICS">
-                    {currentLanguage === "en"
-                      ? "Physics"
-                      : currentLanguage === "ar"
-                        ? "فيزياء"
-                        : "Physique"}
-                  </option>
-                  <option value="GEOGRAPHY">
-                    {currentLanguage === "en"
-                      ? "Geography"
-                      : currentLanguage === "ar"
-                        ? "جغرافيا"
-                        : "Géographie"}
-                  </option>
-                  <option value="HISTORY">
-                    {currentLanguage === "en"
-                      ? "History"
-                      : currentLanguage === "ar"
-                        ? "تاريخ"
-                        : "Histoire"}
-                  </option>
-                </select>
-                {errors.subject && (
-                  <span className="text-[18px] text-error">
-                    {currentLanguage === "en"
-                      ? "Subject is Required"
-                      : currentLanguage === "ar"
-                        ? "المادة مطلوبة"
-                        : "Le sujet est requis"}
-                  </span>
-                )}
-              </label>
-
-              
+              <MultiSelectComponent control={control} currentLanguage={currentLanguage} errors={errors} />
 
               <label
                 htmlFor="positionId"
@@ -745,19 +621,19 @@ const AddNewTeacher = () => {
                           title: string;
                           id: string | number | readonly string[] | undefined;
                           name:
-                            | string
-                            | number
-                            | bigint
-                            | boolean
-                            | React.ReactElement<
-                                any,
-                                string | React.JSXElementConstructor<any>
-                              >
-                            | Iterable<React.ReactNode>
-                            | React.ReactPortal
-                            | Promise<React.AwaitedReactNode>
-                            | null
-                            | undefined;
+                          | string
+                          | number
+                          | bigint
+                          | boolean
+                          | React.ReactElement<
+                            any,
+                            string | React.JSXElementConstructor<any>
+                          >
+                          | Iterable<React.ReactNode>
+                          | React.ReactPortal
+                          | Promise<React.AwaitedReactNode>
+                          | null
+                          | undefined;
                         },
                         index: React.Key | null | undefined,
                       ) => (
@@ -825,6 +701,7 @@ const AddNewTeacher = () => {
             </div>
           </div>
         </form>
+        </FormProvider>
       </div>
     </>
   );
