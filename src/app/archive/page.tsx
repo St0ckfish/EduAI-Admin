@@ -90,7 +90,7 @@ const Archive = () => {
           : currentLanguage === "ar"
             ? "السائق"
             : currentLanguage === "fr"
-              ? "Chauffeur"
+              ? "Chauffeurs"
               : "Driver";
       case "Employee":
         return currentLanguage === "en"
@@ -98,7 +98,7 @@ const Archive = () => {
           : currentLanguage === "ar"
             ? "الموظف"
             : currentLanguage === "fr"
-              ? "Employé"
+              ? "Employés"
               : "Employee";
       case "Parent":
         return currentLanguage === "en"
@@ -106,7 +106,7 @@ const Archive = () => {
           : currentLanguage === "ar"
             ? "ولي الأمر"
             : currentLanguage === "fr"
-              ? "Parent"
+              ? "Parents"
               : "Parent";
       case "Student":
         return currentLanguage === "en"
@@ -114,7 +114,7 @@ const Archive = () => {
           : currentLanguage === "ar"
             ? "الطالب"
             : currentLanguage === "fr"
-              ? "Étudiant"
+              ? "Étudiants"
               : "Student";
       case "Teacher":
         return currentLanguage === "en"
@@ -122,7 +122,7 @@ const Archive = () => {
           : currentLanguage === "ar"
             ? "المعلم"
             : currentLanguage === "fr"
-              ? "Enseignant"
+              ? "Enseignants"
               : "Teacher";
       case "Worker":
         return currentLanguage === "en"
@@ -130,7 +130,7 @@ const Archive = () => {
           : currentLanguage === "ar"
             ? "العامل"
             : currentLanguage === "fr"
-              ? "Travailleur"
+              ? "Travailleurs"
               : "Worker";
       case "Bus":
         return currentLanguage === "en"
@@ -170,7 +170,7 @@ const Archive = () => {
           : currentLanguage === "ar"
             ? "المصدر"
             : currentLanguage === "fr"
-              ? "Ressource"
+              ? "Salles / Ressources"
               : "Resource";
       case "Fees":
         return currentLanguage === "en"

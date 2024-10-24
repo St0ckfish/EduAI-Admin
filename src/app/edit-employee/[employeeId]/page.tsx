@@ -1,6 +1,7 @@
 "use client";
 import Spinner from "@/components/spinner";
 import {
+  useGetAllCountryCodeQuery,
   useGetAllNationalitysQuery,
   useGetAllReginionIDQuery,
 } from "@/features/signupApi";
@@ -15,6 +16,7 @@ import { toast } from "react-toastify";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import PhoneNumberInput from "@/components/PhoneNumberInput";
 
 interface ViewEmpolyeeProps {
   params: {
@@ -52,9 +54,12 @@ const EditEmployee: React.FC<ViewEmpolyeeProps> = ({ params }) => {
   const [createDriver, { isLoading: isUpdating }] = useUpdateDriversMutation();
   const { data: rigiond } = useGetAllReginionIDQuery(null);
   const { data: nationalityData } = useGetAllNationalitysQuery(null);
+  const { data: countryCode, isLoading: isCountryCode } =
+    useGetAllCountryCodeQuery(null);
   const {
     register,
     handleSubmit,
+    control,
     setValue,
     formState: { errors },
   } = useForm();
@@ -619,31 +624,14 @@ const EditEmployee: React.FC<ViewEmpolyeeProps> = ({ params }) => {
                   </span>
                 )}
               </label>
-              <label
-                htmlFor="number"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "ar"
-                  ? "الموبايل"
-                  : currentLanguage === "fr"
-                    ? "Mobile"
-                    : "Mobile"}
-                <input
-                  id="number"
-                  type="text"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("number", { required: true })}
-                />
-                {errors.number && (
-                  <span className="text-error">
-                    {currentLanguage === "ar"
-                      ? "هذا الحقل مطلوب"
-                      : currentLanguage === "fr"
-                        ? "Ce champ est requis"
-                        : "This field is required"}
-                  </span>
-                )}
-              </label>
+              <PhoneNumberInput
+              countryCodeData={countryCode.data}
+              currentLanguage="en"
+              label="Your Phone Number"
+              register={register}
+              errors={errors}
+              control={control}
+            />
               <label
                 htmlFor="positionId"
                 className="grid font-sans text-[18px] font-semibold"

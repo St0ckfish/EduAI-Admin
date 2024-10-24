@@ -84,7 +84,7 @@ const WorkerSearch = () => {
                   : currentLanguage === "ar"
                     ? "طالب"
                     : currentLanguage === "fr"
-                      ? "Étudiant"
+                      ? "Étudiants"
                       : "Student"}{" "}
                 {/* Default to English */}
               </Link>
@@ -97,7 +97,7 @@ const WorkerSearch = () => {
                   : currentLanguage === "ar"
                     ? "معلم"
                     : currentLanguage === "fr"
-                      ? "Enseignant"
+                      ? "Enseignants"
                       : "Teacher"}{" "}
                 {/* Default to English */}
               </Link>
@@ -110,7 +110,7 @@ const WorkerSearch = () => {
                   : currentLanguage === "ar"
                     ? "موظف"
                     : currentLanguage === "fr"
-                      ? "Employé"
+                      ? "Employés"
                       : "Employee"}{" "}
                 {/* Default to English */}
               </Link>
@@ -123,7 +123,7 @@ const WorkerSearch = () => {
                   : currentLanguage === "ar"
                     ? "عامل"
                     : currentLanguage === "fr"
-                      ? "Travailleur"
+                      ? "Travailleurs"
                       : "Worker"}{" "}
                 {/* Default to English */}
               </Link>

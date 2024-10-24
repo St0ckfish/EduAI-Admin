@@ -57,7 +57,7 @@ const Course = () => {
           : currentLanguage === "ar"
             ? "المصدر"
             : currentLanguage === "fr"
-              ? "Ressource"
+              ? "Ressources"
               : "Resource", // Default to English
       description:
         currentLanguage === "en"

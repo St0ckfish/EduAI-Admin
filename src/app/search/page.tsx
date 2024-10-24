@@ -98,7 +98,7 @@ const Search = () => {
                   : currentLanguage === "ar"
                     ? "معلم"
                     : currentLanguage === "fr"
-                      ? "Enseignant"
+                      ? "Enseignants"
                       : "Teacher"}{" "}
                 {/* Default to English */}
               </Link>
@@ -111,7 +111,7 @@ const Search = () => {
                   : currentLanguage === "ar"
                     ? "موظف"
                     : currentLanguage === "fr"
-                      ? "Employé"
+                      ? "Employés"
                       : "Employee"}{" "}
                 {/* Default to English */}
               </Link>
@@ -124,7 +124,7 @@ const Search = () => {
                   : currentLanguage === "ar"
                     ? "عامل"
                     : currentLanguage === "fr"
-                      ? "Travailleur"
+                      ? "Travailleurs"
                       : "Worker"}{" "}
                 {/* Default to English */}
               </Link>

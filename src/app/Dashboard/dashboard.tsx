@@ -266,7 +266,7 @@ const Dashboard: React.FC = () => {
                   : currentLanguage === "ar"
                     ? "مرحباً بكم في لوحة إدارة التعلم."
                     : currentLanguage === "fr"
-                      ? "Bienvenue dans le tableau de bord de gestion de l'apprentissage."
+                      ? "Bienvenue sur le tableau de bord pédagogique"
                       : "Bienvenue dans le tableau de bord de gestion de l'apprentissage."}
         </p>
       </div>
@@ -500,7 +500,7 @@ const Dashboard: React.FC = () => {
                     : currentLanguage === "ar"
                       ? "+  أضف ملاحظة"
                       : currentLanguage === "fr"
-                        ? "+ Ajouter une remarque"
+                        ? "+ Ajouter une note"
                         : "+ New Driver"}{" "}
                   {/* Default to English */}
                 </Link>

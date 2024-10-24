@@ -31,7 +31,7 @@ const UserManagment = () => {
           : currentLanguage === "ar"
             ? "سائق"
             : currentLanguage === "fr"
-              ? "Conducteurs"
+              ? "Chauffeurs"
               : "Driver",
       description:
         currentLanguage === "en"

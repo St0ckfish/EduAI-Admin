@@ -82,7 +82,7 @@ const TeahcerSearch = () => {
                   : currentLanguage === "ar"
                     ? "طالب"
                     : currentLanguage === "fr"
-                      ? "Étudiant"
+                      ? "Étudiants"
                       : "Student"}{" "}
                 {/* Default to English */}
               </Link>
@@ -95,7 +95,7 @@ const TeahcerSearch = () => {
                   : currentLanguage === "ar"
                     ? "معلم"
                     : currentLanguage === "fr"
-                      ? "Enseignant"
+                      ? "Enseignants"
                       : "Teacher"}{" "}
                 {/* Default to English */}
               </Link>
@@ -108,7 +108,7 @@ const TeahcerSearch = () => {
                   : currentLanguage === "ar"
                     ? "موظف"
                     : currentLanguage === "fr"
-                      ? "Employé"
+                      ? "Employés"
                       : "Employee"}{" "}
                 {/* Default to English */}
               </Link>
@@ -121,7 +121,7 @@ const TeahcerSearch = () => {
                   : currentLanguage === "ar"
                     ? "عامل"
                     : currentLanguage === "fr"
-                      ? "Travailleur"
+                      ? "Travailleurs"
                       : "Worker"}{" "}
                 {/* Default to English */}
               </Link>
