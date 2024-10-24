@@ -53,8 +53,8 @@ export const parentApi = createApi({
     //
     updateParents: builder.mutation({
       query: ({ formData, id }) => ({
-        url: `cases/categories/${id}`,
-        method: "PATCH",
+        url: `/api/v1/management/parent/${id}/update`,
+        method: "PUT",
         body: formData,
       }),
     }),

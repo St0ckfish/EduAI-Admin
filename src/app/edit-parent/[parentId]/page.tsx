@@ -1,13 +1,14 @@
 "use client";
 import Spinner from "@/components/spinner";
 import {
+  useGetAllCountryCodeQuery,
   useGetAllNationalitysQuery,
   useGetAllReginionIDQuery,
 } from "@/features/signupApi";
 import {
-  useGetDriversQuery,
-  useUpdateDriversMutation,
-} from "@/features/User-Management/driverApi";
+  useGetParentByIdQuery,
+  useUpdateParentsMutation,
+} from "@/features/User-Management/parentApi";
 import { useEffect } from "react";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -15,6 +16,8 @@ import { toast } from "react-toastify";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import PhoneNumberInput from "@/components/PhoneNumberInput";
+import SearchableSelect from "@/components/select";
 
 interface ViewParentProps {
   params: {
@@ -49,14 +52,30 @@ const EditParent: React.FC<ViewParentProps> = ({ params }) => {
     (state: RootState) => state.language,
   );
 
-  const { data, error, isLoading } = useGetDriversQuery(params.parentId);
-  const [createDriver, { isLoading: isUpdating }] = useUpdateDriversMutation();
+  const { data, error, isLoading } = useGetParentByIdQuery(params.parentId);
+  const [updateParent, { isLoading: isUpdating }] = useUpdateParentsMutation();
   const { data: rigiond } = useGetAllReginionIDQuery(null);
+  const optionsRigon =
+  rigiond?.data?.map(
+    (rigion: {
+      cityName: any;
+      countryName: any;
+      regionName: any;
+      regionId: any;
+      name: any;
+    }) => ({
+      value: rigion.regionId,
+      label: `${rigion.regionName} - ${rigion.cityName}`,
+    }),
+  ) || [];
+  const { data: countryCode, isLoading: isCountryCode } =
+  useGetAllCountryCodeQuery(null);
   const { data: nationalityData } = useGetAllNationalitysQuery(null);
   const {
     register,
     handleSubmit,
     setValue,
+    control,
     formState: { errors },
   } = useForm();
   useEffect(() => {
@@ -66,10 +85,10 @@ const EditParent: React.FC<ViewParentProps> = ({ params }) => {
       setValue("about", data.data.about);
       setValue("number", data.data.number);
       setValue("salary", data.data.salary);
-      setValue("name_en", data.data.name_en);
-      setValue("name_ar", data.data.name_ar);
-      setValue("name_fr", data.data.name_fr);
-      setValue("positionId", data.data.positionId);
+      setValue("name_en", data.data.name);
+      setValue("name_ar", "");
+      setValue("name_fr", "");
+      setValue("birthDate", data.data.birthDate);
     }
     if (error) {
       console.error("Error:", error);
@@ -77,8 +96,9 @@ const EditParent: React.FC<ViewParentProps> = ({ params }) => {
   }, [data, error]);
 
   const onSubmit = async (data: any) => {
+    const formData = {...data, religion: "OTHERS"}
     try {
-      await createDriver({ formData: data, id: params.parentId }).unwrap();
+      await updateParent({ formData: formData, id: params.parentId }).unwrap();
       toast.success(
         currentLanguage === "ar"
           ? "تم تحديث الوالدين بنجاح"
@@ -88,11 +108,7 @@ const EditParent: React.FC<ViewParentProps> = ({ params }) => {
       );
     } catch (err) {
       toast.error(
-        currentLanguage === "ar"
-          ? "فشل في تحديث الوالدين"
-          : currentLanguage === "fr"
-            ? "Échec de la mise à jour des parents"
-            : "Failed to Update Parent",
+        (err as { data: { message: string } }).data?.message
       );
     }
   };
@@ -105,729 +121,531 @@ const EditParent: React.FC<ViewParentProps> = ({ params }) => {
     );
   return (
     <>
-      <BreadCrumbs breadcrumbs={breadcrumbs} />
+    <BreadCrumbs breadcrumbs={breadcrumbs} />
 
-      <div
-        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`${
-          currentLanguage === "ar"
-            ? booleanValue
-              ? "lg:mr-[100px]"
-              : "lg:mr-[270px]"
-            : booleanValue
-              ? "lg:ml-[100px]"
-              : "lg:ml-[270px]"
-        } mx-3 mt-5 grid h-[850px] items-center justify-center`}
-      >
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="my-10 grid items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:w-[1000px]">
-            <div className="flex items-center justify-start gap-2">
-              <svg
-                className="h-6 w-6 font-bold text-secondary group-hover:text-hover"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                strokeWidth="2"
-                stroke="currentColor"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path stroke="none" d="M0 0h24v24H0z" />
-                <line x1="3" y1="21" x2="21" y2="21" />
-                <line x1="3" y1="10" x2="21" y2="10" />
-                <polyline points="5 6 12 3 19 6" />
-                <line x1="4" y1="10" x2="4" y2="21" />
-                <line x1="20" y1="10" x2="20" y2="21" />
-                <line x1="8" y1="14" x2="8" y2="17" />
-                <line x1="12" y1="14" x2="12" y2="17" />
-                <line x1="16" y1="14" x2="16" y2="17" />
-              </svg>
-              <h1 className="font-sans text-[22px] font-semibold">
-                {currentLanguage === "ar"
+    <div
+      dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+      className={`${
+        currentLanguage === "ar"
+          ? booleanValue
+            ? "lg:mr-[100px]"
+            : "lg:mr-[270px]"
+          : booleanValue
+            ? "lg:ml-[100px]"
+            : "lg:ml-[270px]"
+      } mx-[5px] grid items-center justify-center`}
+    >
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="my-10 grid items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:w-[1000px]">
+          <div className="flex items-center justify-start gap-2">
+            <svg
+              className="h-6 w-6 font-bold text-secondary group-hover:text-hover"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              strokeWidth="2"
+              stroke="currentColor"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" />
+              <line x1="3" y1="21" x2="21" y2="21" />
+              <line x1="3" y1="10" x2="21" y2="10" />
+              <polyline points="5 6 12 3 19 6" />
+              <line x1="4" y1="10" x2="4" y2="21" />
+              <line x1="20" y1="10" x2="20" y2="21" />
+              <line x1="8" y1="14" x2="8" y2="17" />
+              <line x1="12" y1="14" x2="12" y2="17" />
+              <line x1="16" y1="14" x2="16" y2="17" />
+            </svg>
+            <h1 className="font-sans text-[22px] font-semibold">
+              {currentLanguage === "en"
+                ? "Parent Information"
+                : currentLanguage === "ar"
                   ? "معلومات الوالدين"
                   : currentLanguage === "fr"
                     ? "Informations sur les parents"
                     : "Parent Information"}
-              </h1>
-            </div>
-            <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
-              <label
-                htmlFor="email"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "ar"
+            </h1>
+          </div>
+          <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
+            {/* Input fields for parent information */}
+            <label
+              htmlFor="email"
+              className="grid font-sans text-[18px] font-semibold"
+            >
+              {currentLanguage === "en"
+                ? "Email"
+                : currentLanguage === "ar"
                   ? "البريد الإلكتروني"
                   : currentLanguage === "fr"
-                    ? "Email"
+                    ? "E-mail"
                     : "Email"}
-                <input
-                  id="email"
-                  type="email"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("email", { required: true })}
-                />
-                {errors.email && (
-                  <span className="text-error">
-                    {currentLanguage === "ar"
+              <input
+                id="email"
+                type="email"
+                className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                {...register("email", { required: true })}
+              />
+              {errors.email && (
+                <span className="text-error">
+                  {currentLanguage === "en"
+                    ? "This field is required"
+                    : currentLanguage === "ar"
                       ? "هذا الحقل مطلوب"
                       : currentLanguage === "fr"
                         ? "Ce champ est requis"
                         : "This field is required"}
-                  </span>
-                )}
-              </label>
-              <label
-                htmlFor="nid"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "ar"
-                  ? "الرقم القومي"
+                </span>
+              )}
+            </label>
+            <label
+              htmlFor="nid"
+              className="grid font-sans text-[18px] font-semibold"
+            >
+              {currentLanguage === "en"
+                ? "NID"
+                : currentLanguage === "ar"
+                  ? "رقم الهوية"
                   : currentLanguage === "fr"
-                    ? "N° de pièce d'identité"
+                    ? "NID"
                     : "NID"}
-
-                <input
-                  id="nid"
-                  type="text"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("nid", { required: true })}
-                />
-                {errors.nid && (
-                  <span className="text-error">
-                    {currentLanguage === "ar"
+              <input
+                id="nid"
+                type="number"
+                className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                {...register("nid", { required: true })}
+              />
+              {errors.nid && (
+                <span className="text-error">
+                  {currentLanguage === "en"
+                    ? "This field is required"
+                    : currentLanguage === "ar"
                       ? "هذا الحقل مطلوب"
                       : currentLanguage === "fr"
                         ? "Ce champ est requis"
                         : "This field is required"}
-                  </span>
-                )}
-              </label>
-              <label
-                htmlFor="gender"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "ar"
+                </span>
+              )}
+            </label>
+            <label
+              htmlFor="gender"
+              className="grid font-sans text-[18px] font-semibold"
+            >
+              {currentLanguage === "en"
+                ? "Gender"
+                : currentLanguage === "ar"
                   ? "الجنس"
                   : currentLanguage === "fr"
-                    ? "Sexe"
+                    ? "Genre"
                     : "Gender"}
-                <select
-                  id="gender"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("gender", { required: true })}
-                >
-                  <option selected value="">
-                    {currentLanguage === "ar"
+              <select
+                id="gender"
+                className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                {...register("gender", { required: true })}
+              >
+                <option value="">
+                  {currentLanguage === "en"
+                    ? "Select gender"
+                    : currentLanguage === "ar"
                       ? "اختر الجنس"
                       : currentLanguage === "fr"
-                        ? "Sélectionnez le sexe"
+                        ? "Sélectionner le genre"
                         : "Select gender"}
-                  </option>
-                  <option value="MALE">
-                    {currentLanguage === "ar"
+                </option>
+                <option value="MALE">
+                  {currentLanguage === "en"
+                    ? "Male"
+                    : currentLanguage === "ar"
                       ? "ذكر"
                       : currentLanguage === "fr"
                         ? "Homme"
-                        : "Male"}{" "}
-                  </option>
-                  <option value="FEMALE">
-                    {currentLanguage === "ar"
+                        : "Male"}
+                </option>
+                <option value="FEMALE">
+                  {currentLanguage === "en"
+                    ? "Female"
+                    : currentLanguage === "ar"
                       ? "أنثى"
                       : currentLanguage === "fr"
                         ? "Femme"
-                        : "Female"}{" "}
-                  </option>
-                </select>
-                {errors.gender && (
-                  <span className="text-error">
-                    {currentLanguage === "ar"
+                        : "Female"}
+                </option>
+              </select>
+              {errors.gender && (
+                <span className="text-error">
+                  {currentLanguage === "en"
+                    ? "This field is required"
+                    : currentLanguage === "ar"
                       ? "هذا الحقل مطلوب"
                       : currentLanguage === "fr"
                         ? "Ce champ est requis"
                         : "This field is required"}
-                  </span>
-                )}
-              </label>
-              <label
-                htmlFor="religion"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "ar"
-                  ? "الدين"
+                </span>
+              )}
+            </label>
+
+            <label
+              htmlFor="nationality"
+              className="grid font-sans text-[18px] font-semibold"
+            >
+              {currentLanguage === "en"
+                ? "Your Nationality"
+                : currentLanguage === "ar"
+                  ? "جنسيتك"
                   : currentLanguage === "fr"
-                    ? "Religion"
-                    : "Religion"}
-                <select
-                  id="religion"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("religion", { required: true })}
-                >
-                  <option value="OTHERS">
-                    {currentLanguage === "ar"
-                      ? "أخرى"
+                    ? "Votre Nationalité"
+                    : "Your Nationality"}
+              <select
+                id="nationality"
+                className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                {...register("nationality", { required: true })}
+              >
+                <option value="">
+                  {currentLanguage === "en"
+                    ? "Select Nationality"
+                    : currentLanguage === "ar"
+                      ? "اختر الجنسية"
                       : currentLanguage === "fr"
-                        ? "Autres"
-                        : "Others"}{" "}
-                  </option>
-                </select>
-                {errors.religion && (
-                  <span className="text-error">
-                    {currentLanguage === "ar"
+                        ? "Sélectionner la nationalité"
+                        : "Select Nationality"}
+                </option>
+                {nationalityData &&
+                  Object.entries(nationalityData.data).map(([key, value]) => (
+                    <option key={key} value={key}>
+                      {String(value)}
+                    </option>
+                  ))}
+              </select>
+              {errors.nationality && (
+                <span className="text-error">
+                  {currentLanguage === "en"
+                    ? "This field is required"
+                    : currentLanguage === "ar"
                       ? "هذا الحقل مطلوب"
                       : currentLanguage === "fr"
                         ? "Ce champ est requis"
                         : "This field is required"}
-                  </span>
-                )}
-              </label>
-            </div>
-            <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
-              <label
-                htmlFor="name_en"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "ar"
-                  ? "الاسم (بالإنجليزية)"
-                  : currentLanguage === "fr"
-                    ? "Nom (EN)"
-                    : "Name (EN)"}
-                <input
-                  id="name_en"
-                  type="text"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("name_en", { required: true })}
-                />
-                {errors.name_en && (
-                  <span className="text-error">
-                    {currentLanguage === "ar"
-                      ? "هذا الحقل مطلوب"
-                      : currentLanguage === "fr"
-                        ? "Ce champ est requis"
-                        : "This field is required"}
-                  </span>
-                )}
-              </label>
-              <label
-                htmlFor="name_en"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "ar"
-                  ? "الاسم (بالعربية)"
-                  : currentLanguage === "fr"
-                    ? "Nom (AR)"
-                    : "Name (AR)"}
-                <input
-                  id="name_ar"
-                  type="text"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("name_ar", { required: true })}
-                />
-                {errors.name_ar && (
-                  <span className="text-error">
-                    {currentLanguage === "ar"
-                      ? "هذا الحقل مطلوب"
-                      : currentLanguage === "fr"
-                        ? "Ce champ est requis"
-                        : "This field is required"}
-                  </span>
-                )}
-              </label>
-              <label
-                htmlFor="name_fr"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "ar"
-                  ? "الاسم (بالفرنسية)"
-                  : currentLanguage === "fr"
-                    ? "Nom (FR)"
-                    : "Name (FR)"}
-                <input
-                  id="name_fr"
-                  type="text"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("name_fr", { required: true })}
-                />
-                {errors.name_fr && (
-                  <span className="text-error">
-                    {currentLanguage === "ar"
-                      ? "هذا الحقل مطلوب"
-                      : currentLanguage === "fr"
-                        ? "Ce champ est requis"
-                        : "This field is required"}
-                  </span>
-                )}
-              </label>
-              <label
-                htmlFor="regionId"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "ar"
-                  ? "معرف المنطقة"
+                </span>
+              )}
+            </label>
+            <label
+              htmlFor="regionId"
+              className="grid font-sans text-[18px] font-semibold"
+            >
+              {currentLanguage === "en"
+                ? "RegionId"
+                : currentLanguage === "ar"
+                  ? "رقم المنطقة"
                   : currentLanguage === "fr"
                     ? "ID de la région"
                     : "RegionId"}
-                <select
-                  defaultValue=""
-                  id="regionId"
-                  {...register("regionId", { required: true })}
-                  className={`h-full w-[400px] rounded-xl border border-borderPrimary px-4 py-3 text-[18px] text-[#000000] outline-none max-[458px]:w-[350px]`}
-                >
-                  <option selected value="">
-                    {currentLanguage === "ar"
-                      ? "اختر معرف المنطقة"
-                      : currentLanguage === "fr"
-                        ? "Sélectionnez l'ID de région"
-                        : "Select Region Id"}
-                  </option>
-                  {rigiond &&
-                    rigiond.data.map(
-                      (
-                        rigion: {
-                          id: string | number | readonly string[] | undefined;
-                          name:
-                            | string
-                            | number
-                            | bigint
-                            | boolean
-                            | React.ReactElement<
-                                any,
-                                string | React.JSXElementConstructor<any>
-                              >
-                            | Iterable<React.ReactNode>
-                            | React.ReactPortal
-                            | Promise<React.AwaitedReactNode>
-                            | null
-                            | undefined;
-                        },
-                        index: React.Key | null | undefined,
-                      ) => (
-                        <option key={index} value={rigion.id}>
-                          {rigion.name}
-                        </option>
-                      ),
-                    )}
-                </select>
-                {errors.regionId && (
-                  <span className="text-error">
-                    {currentLanguage === "ar"
-                      ? "هذا الحقل مطلوب"
-                      : currentLanguage === "fr"
-                        ? "Ce champ est requis"
-                        : "This field is required"}
-                  </span>
-                )}
-              </label>
-              <label
-                htmlFor="nationality"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "ar"
-                  ? "جنسيتك"
+              <SearchableSelect
+                    name="regionId"
+                    control={control}
+                    errors={errors}
+                    options={optionsRigon}
+                    currentLanguage={currentLanguage}
+                    placeholder="Select Region"
+                  />
+            </label>
+            <label
+              htmlFor="name_en"
+              className="grid font-sans text-[18px] font-semibold"
+            >
+              {currentLanguage === "en"
+                ? "Name EN"
+                : currentLanguage === "ar"
+                  ? "الاسم بالإنجليزية"
                   : currentLanguage === "fr"
-                    ? "Votre nationalité"
-                    : "Your Nationality"}
-                <select
-                  id="nationality"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("nationality", { required: true })}
-                >
-                  <option value="">
-                    {currentLanguage === "ar"
-                      ? "اختر الجنسية"
-                      : currentLanguage === "fr"
-                        ? "Sélectionnez la nationalité"
-                        : "Select Nationality"}
-                  </option>
-                  {nationalityData &&
-                    Object.entries(nationalityData.data).map(([key, value]) => (
-                      <option key={key} value={key}>
-                        {String(value)}
-                      </option>
-                    ))}
-                </select>
-                {errors.nationality && (
-                  <span className="text-error">
-                    {currentLanguage === "ar"
+                    ? "Nom EN"
+                    : "Name EN"}
+              <input
+                id="name_en"
+                type="text"
+                className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                {...register("name_en", { required: true })}
+              />
+              {errors.name_en && (
+                <span className="text-error">
+                  {currentLanguage === "en"
+                    ? "This field is required"
+                    : currentLanguage === "ar"
                       ? "هذا الحقل مطلوب"
                       : currentLanguage === "fr"
                         ? "Ce champ est requis"
                         : "This field is required"}
-                  </span>
-                )}
-              </label>
-              <label
-                htmlFor="about"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "ar"
-                  ? "حول"
+                </span>
+              )}
+            </label>
+            <label
+              htmlFor="name_ar"
+              className="grid font-sans text-[18px] font-semibold"
+            >
+              {currentLanguage === "en"
+                ? "Name AR"
+                : currentLanguage === "ar"
+                  ? "الاسم بالعربية"
+                  : currentLanguage === "fr"
+                    ? "Nom AR"
+                    : "Name AR"}
+              <input
+                id="name_ar"
+                type="text"
+                className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                {...register("name_ar", { required: true })}
+              />
+              {errors.name_ar && (
+                <span className="text-error">
+                  {currentLanguage === "en"
+                    ? "This field is required"
+                    : currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                </span>
+              )}
+            </label>
+            <label
+              htmlFor="name_fr"
+              className="grid font-sans text-[18px] font-semibold"
+            >
+              {currentLanguage === "en"
+                ? "Name FR"
+                : currentLanguage === "ar"
+                  ? "الاسم الفرنسية"
+                  : currentLanguage === "fr"
+                    ? "Nom FR"
+                    : "Name FR"}
+              <input
+                id="name_fr"
+                type="text"
+                className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                {...register("name_fr", { required: true })}
+              />
+              {errors.name_ar && (
+                <span className="text-error">
+                  {currentLanguage === "en"
+                    ? "This field is required"
+                    : currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                </span>
+              )}
+            </label>
+            <label
+              htmlFor="birthDate"
+              className="grid font-sans text-[18px] font-semibold"
+            >
+              {currentLanguage === "en"
+                ? "Date Of Birth"
+                : currentLanguage === "ar"
+                  ? "تاريخ الميلاد"
+                  : currentLanguage === "fr"
+                    ? "Date de naissance"
+                    : "Date Of Birth"}
+              <input
+                id="birthDate"
+                type="date"
+                className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                {...register("birthDate", {
+                  required: true,
+                  validate: value => {
+                    const today = new Date();
+                    const birthDate = new Date(value);
+                    const age = today.getFullYear() - birthDate.getFullYear();
+                    const monthDiff = today.getMonth() - birthDate.getMonth();
+
+                    // Adjust age if the birth date hasn't been reached yet this year
+                    if (
+                      monthDiff < 0 ||
+                      (monthDiff === 0 &&
+                        today.getDate() < birthDate.getDate())
+                    ) {
+                      return age > 20;
+                    }
+
+                    return age >= 20;
+                  },
+                })}
+              />
+              {errors.birthDate && (
+                <span className="text-error">
+                  {currentLanguage === "en"
+                    ? errors.birthDate.type === "validate"
+                      ? "The Parent Must be older than 20"
+                      : "This field is required"
+                    : currentLanguage === "ar"
+                      ? errors.birthDate.type === "validate"
+                        ? "يجب أن يكون عمر الوالد أكبر من 20 عامًا"
+                        : "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? errors.birthDate.type === "validate"
+                          ? "Le parent doit avoir plus de 20 ans"
+                          : "Ce champ est requis"
+                        : "This field is required"}
+                </span>
+              )}
+            </label>
+
+            <label
+              htmlFor="about"
+              className="grid font-sans text-[18px] font-semibold"
+            >
+              {currentLanguage === "en"
+                ? "About"
+                : currentLanguage === "ar"
+                  ? "عن"
                   : currentLanguage === "fr"
                     ? "À propos"
                     : "About"}
-                <input
-                  id="about"
-                  type="text"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("about", { required: true })}
-                />
-                {errors.about && (
-                  <span className="text-error">
-                    {currentLanguage === "ar"
+              <input
+                id="about"
+                type="text"
+                className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                {...register("about", { required: true })}
+              />
+              {errors.about && (
+                <span className="text-error">
+                  {currentLanguage === "en"
+                    ? "This field is required"
+                    : currentLanguage === "ar"
                       ? "هذا الحقل مطلوب"
                       : currentLanguage === "fr"
                         ? "Ce champ est requis"
                         : "This field is required"}
-                  </span>
-                )}
-              </label>
-              <label
-                htmlFor="birthDate"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "en"
-                  ? "Date Of Birth"
-                  : currentLanguage === "ar"
-                    ? "تاريخ الميلاد"
-                    : currentLanguage === "fr"
-                      ? "Date de naissance"
-                      : "Date Of Birth"}
-                <input
-                  id="birthDate"
-                  type="date"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("birthDate", {
-                    required: true,
-                    validate: value => {
-                      const today = new Date();
-                      const birthDate = new Date(value);
-                      const age = today.getFullYear() - birthDate.getFullYear();
-                      const monthDiff = today.getMonth() - birthDate.getMonth();
-
-                      // Adjust age if the birth date hasn't been reached yet this year
-                      if (
-                        monthDiff < 0 ||
-                        (monthDiff === 0 &&
-                          today.getDate() < birthDate.getDate())
-                      ) {
-                        return age > 20;
-                      }
-
-                      return age >= 20;
-                    },
-                  })}
-                />
-                {errors.birthDate && (
-                  <span className="text-error">
-                    {currentLanguage === "en"
-                      ? errors.birthDate.type === "validate"
-                        ? "The Parent Must be older than 20"
-                        : "This field is required"
-                      : currentLanguage === "ar"
-                        ? errors.birthDate.type === "validate"
-                          ? "يجب أن يكون عمر الوالد أكبر من 20 عامًا"
-                          : "هذا الحقل مطلوب"
-                        : currentLanguage === "fr"
-                          ? errors.birthDate.type === "validate"
-                            ? "Le parent doit avoir plus de 20 ans"
-                            : "Ce champ est requis"
-                          : "This field is required"}
-                  </span>
-                )}
-              </label>
-              <label
-                htmlFor="qualification"
-                className="grid items-center font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "ar"
-                  ? "اختر المؤهل"
-                  : currentLanguage === "fr"
-                    ? "Sélectionnez le diplôme"
-                    : "Select Qualification"}
-                <select
-                  defaultValue=""
-                  id="qualification"
-                  {...register("qualification", { required: true })}
-                  className="h-[55px] w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                >
-                  <option selected value="">
-                    {currentLanguage === "ar"
-                      ? "اختر المؤهل"
-                      : currentLanguage === "fr"
-                        ? "Sélectionnez le diplôme"
-                        : "Select qualification"}
-                  </option>
-                  <option value="HIGH_SCHOOL_DIPLOMA">
-                    {currentLanguage === "ar"
-                      ? "شهادة الثانوية العامة"
-                      : currentLanguage === "fr"
-                        ? "Diplôme de baccalauréat"
-                        : "High School Diploma"}
-                  </option>
-                  <option value="MASTER_DEGREE">
-                    {currentLanguage === "ar"
-                      ? "درجة الماجستير"
-                      : currentLanguage === "fr"
-                        ? "Master"
-                        : "Master Degree"}
-                  </option>
-                  <option value="BACHELOR_DEGREE">
-                    {currentLanguage === "ar"
-                      ? "درجة البكالوريوس"
-                      : currentLanguage === "fr"
-                        ? "Licence"
-                        : "Bachelor Degree"}
-                  </option>
-                  <option value="DOCTORATE_DEGREE">
-                    {currentLanguage === "ar"
-                      ? "درجة الدكتوراه"
-                      : currentLanguage === "fr"
-                        ? "Doctorat"
-                        : "Doctorate Degree"}
-                  </option>
-                </select>
-                {errors.qualification && (
-                  <span className="text-[18px] text-error">
-                    {currentLanguage === "ar"
-                      ? "المؤهل مطلوب"
-                      : currentLanguage === "fr"
-                        ? "La qualification est requise"
-                        : "Qualification is Required"}
-                  </span>
-                )}
-              </label>
-            </div>
-            <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
-              <label
-                htmlFor="hireDate"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "ar"
-                  ? "تاريخ التوظيف"
-                  : currentLanguage === "fr"
-                    ? "Date d'embauche"
-                    : "hireDate"}
-
-                <input
-                  id="hireDate"
-                  type="date"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("hireDate", { required: true })}
-                />
-                {errors.hireDate && (
-                  <span className="text-error">
-                    {currentLanguage === "ar"
-                      ? "هذا الحقل مطلوب"
-                      : currentLanguage === "fr"
-                        ? "Ce champ est requis"
-                        : "This field is required"}
-                  </span>
-                )}
-              </label>
-              <label
-                htmlFor="number"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "ar"
-                  ? "الموبايل"
-                  : currentLanguage === "fr"
-                    ? "Mobile"
-                    : "Mobile"}
-                <input
-                  id="number"
-                  type="text"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("number", { required: true })}
-                />
-                {errors.number && (
-                  <span className="text-error">
-                    {currentLanguage === "ar"
-                      ? "هذا الحقل مطلوب"
-                      : currentLanguage === "fr"
-                        ? "Ce champ est requis"
-                        : "This field is required"}
-                  </span>
-                )}
-              </label>
-              <label
-                htmlFor="positionId"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "ar"
-                  ? "معرف الوظيفة"
-                  : currentLanguage === "fr"
-                    ? "ID du poste"
-                    : "Position Id"}
-                <input
-                  id="positionId"
-                  type="number"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("positionId", { required: true })}
-                />
-                {errors.positionId && (
-                  <span className="text-error">
-                    {currentLanguage === "ar"
-                      ? "هذا الحقل مطلوب"
-                      : currentLanguage === "fr"
-                        ? "Ce champ est requis"
-                        : "This field is required"}
-                  </span>
-                )}
-              </label>
-              <label
-                htmlFor="employeeStatus"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "ar"
-                  ? "حالة الموظف"
-                  : currentLanguage === "fr"
-                    ? "Statut de l'employé"
-                    : "Employee Status"}
-                <select
-                  id="employeeStatus"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("employeeStatus", { required: true })}
-                >
-                  <option selected value="">
-                    {currentLanguage === "ar"
-                      ? "اختر حالة الموظف"
-                      : currentLanguage === "fr"
-                        ? "Sélectionnez le statut de l'employé"
-                        : "Select Employee Status"}
-                  </option>
-                  <option value="ACTIVE">
-                    {currentLanguage === "ar"
-                      ? "نشط"
-                      : currentLanguage === "fr"
-                        ? "Actif"
-                        : "Active"}
-                  </option>
-                  <option value="ON_BREAK">
-                    {currentLanguage === "ar"
-                      ? "استراحة"
-                      : currentLanguage === "fr"
-                        ? "En pause"
-                        : "On Break"}{" "}
-                  </option>
-                  <option value="STAY_OUT">
-                    {currentLanguage === "ar"
-                      ? "مغادر"
-                      : currentLanguage === "fr"
-                        ? "Absent"
-                        : "Stay Out"}
-                  </option>
-                </select>
-                {errors.employeeStatus && (
-                  <span className="text-error">
-                    {currentLanguage === "ar"
-                      ? "هذا الحقل مطلوب"
-                      : currentLanguage === "fr"
-                        ? "Ce champ est requis"
-                        : "This field is required"}
-                  </span>
-                )}
-              </label>
-              <label
-                htmlFor="employeeType"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "ar"
-                  ? "نوع الموظف"
-                  : currentLanguage === "fr"
-                    ? "Type d'employé"
-                    : "Employee Type"}
-                <select
-                  id="employeeType"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("employeeType", { required: true })}
-                >
-                  <option selected value="">
-                    {currentLanguage === "ar"
-                      ? "اختر نوع الموظف"
-                      : currentLanguage === "fr"
-                        ? "Sélectionnez le type d'employé"
-                        : "Select Employee Type"}
-                  </option>
-                  <option value="EMPLOYEE">
-                    {currentLanguage === "ar"
-                      ? "موظف"
-                      : currentLanguage === "fr"
-                        ? "EMPLOYÉ"
-                        : "EMPLOYEE"}
-                  </option>
-                  <option value="WORKER">
-                    {currentLanguage === "ar"
-                      ? "عامل"
-                      : currentLanguage === "fr"
-                        ? "TRAVAILLEUR"
-                        : "WORKER"}{" "}
-                  </option>
-                  <option value="DRIVER">
-                    {currentLanguage === "ar"
-                      ? "سائق"
-                      : currentLanguage === "fr"
-                        ? "CHAUFFEUR"
-                        : "DRIVER"}
-                  </option>
-                </select>
-                {errors.employeeType && (
-                  <span className="text-error">
-                    {currentLanguage === "ar"
-                      ? "هذا الحقل مطلوب"
-                      : currentLanguage === "fr"
-                        ? "Ce champ est requis"
-                        : "This field is required"}
-                  </span>
-                )}
-              </label>
-              <label
-                htmlFor="salary"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "ar"
-                  ? "الراتب"
-                  : currentLanguage === "fr"
-                    ? "Salaire"
-                    : "Salary"}
-
-                <input
-                  id="salary"
-                  type="number"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("salary", { required: true })}
-                />
-                {errors.salary && (
-                  <span className="text-error">
-                    {currentLanguage === "ar"
-                      ? "هذا الحقل مطلوب"
-                      : currentLanguage === "fr"
-                        ? "Ce champ est requis"
-                        : "This field is required"}
-                  </span>
-                )}
-              </label>
-            </div>
-            <div className="flex justify-center text-center">
-              {isUpdating ? (
-                <Spinner />
-              ) : (
-                <button
-                  disabled={isLoading}
-                  type="submit"
-                  className="w-fit rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
-                >
-                  {currentLanguage === "ar"
-                    ? "تعديل الوالدين"
-                    : currentLanguage === "fr"
-                      ? "Modifier les parents"
-                      : "Edit Parent"}
-                </button>
+                </span>
               )}
-            </div>
+            </label>
+            <label
+              htmlFor="occupation_en"
+              className="grid font-sans text-[18px] font-semibold"
+            >
+              {currentLanguage === "en"
+                ? "Occupation EN"
+                : currentLanguage === "ar"
+                  ? "الوظيفة بالإنجليزية"
+                  : currentLanguage === "fr"
+                    ? "Occupation EN"
+                    : "Occupation EN"}
+              <input
+                id="occupation_en"
+                type="text"
+                className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                {...register("occupation_en", { required: true })}
+              />
+              {errors.occupation_en && (
+                <span className="text-error">
+                  {currentLanguage === "en"
+                    ? "This field is required"
+                    : currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                </span>
+              )}
+            </label>
+
+            <label
+              htmlFor="occupation_ar"
+              className="grid font-sans text-[18px] font-semibold"
+            >
+              {currentLanguage === "en"
+                ? "Occupation AR"
+                : currentLanguage === "ar"
+                  ? "الوظيفة بالعربية"
+                  : currentLanguage === "fr"
+                    ? "Occupation AR"
+                    : "Occupation AR"}
+              <input
+                id="occupation_ar"
+                type="text"
+                className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                {...register("occupation_ar", { required: true })}
+              />
+              {errors.occupation_ar && (
+                <span className="text-error">
+                  {currentLanguage === "en"
+                    ? "This field is required"
+                    : currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                </span>
+              )}
+            </label>
+            <label
+              htmlFor="occupation_fr"
+              className="grid font-sans text-[18px] font-semibold"
+            >
+              {currentLanguage === "en"
+                ? "Occupation FR"
+                : currentLanguage === "ar"
+                  ? "الوظيفة بالفرنسية"
+                  : currentLanguage === "fr"
+                    ? "Occupation FR"
+                    : "Occupation FR"}
+              <input
+                id="occupation_fr"
+                type="text"
+                className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                {...register("occupation_fr", { required: true })}
+              />
+              {errors.occupation_fr && (
+                <span className="text-error">
+                  {currentLanguage === "en"
+                    ? "This field is required"
+                    : currentLanguage === "ar"
+                      ? "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Ce champ est requis"
+                        : "This field is required"}
+                </span>
+              )}
+            </label>
+            <PhoneNumberInput
+              countryCodeData={countryCode.data}
+              currentLanguage="en"
+              label="Your Phone Number"
+              register={register}
+              errors={errors}
+              control={control}
+            />
+            
           </div>
-        </form>
-      </div>
-    </>
+          <div className="flex justify-center text-center">
+            <button
+              disabled={isLoading}
+              type="submit"
+              className="w-fit rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+            >
+              {isLoading
+                ? currentLanguage === "en"
+                  ? "Adding..."
+                  : currentLanguage === "ar"
+                    ? "جارٍ الإضافة..."
+                    : currentLanguage === "fr"
+                      ? "Ajout en cours..."
+                      : "Adding..."
+                : currentLanguage === "en"
+                  ? "Update Parent"
+                  : currentLanguage === "ar"
+                    ? "تحديث ولي الأمر"
+                    : currentLanguage === "fr"
+                      ? "Modifier un parent"
+                      : "Add Parent"}{" "}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </>
   );
 };
 
