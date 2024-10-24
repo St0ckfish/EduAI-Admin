@@ -54,13 +54,30 @@ const AddNewTeacher = () => {
     useGetAllsubjectsQuery(null);
   const { data: countryCode, isLoading: isCountryCode } =
     useGetAllCountryCodeQuery(null);
-  const {
-    register,
-    handleSubmit,
-    control,
-    setValue,
-    formState: { errors },
-  } = useForm();
+    const formMethods = useForm({
+      defaultValues: {
+        username: "",
+        email: "",
+        password: "",
+        nid: "",
+        gender: "",
+        nationality: "",
+        name_en: "",
+        name_ar: "",
+        name_fr: "",
+        about: "",
+        birthDate: "",
+        qualification: "",
+        hireDate: "",
+        positionId: "",
+        salary: "",
+        subjects: [],
+      },
+    });
+  
+    // Destructure form methods
+    const { register, handleSubmit, control, setValue, formState: { errors } } = formMethods;
+  
   const [createTeacher, { isLoading }] = useCreateTeachersMutation();
   const { data: rigiond } = useGetAllReginionIDQuery(null);
   const optionsRigon =
@@ -120,7 +137,7 @@ const AddNewTeacher = () => {
               : "lg:ml-[270px]"
           } mx-[10px] grid h-[850px] items-center justify-center`}
       >
-         <FormProvider {...{ register, handleSubmit, control, setValue, errors }}>
+         <FormProvider {...formMethods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="my-10 grid items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:w-[1000px]">
             <div className="flex items-center justify-start gap-2">

@@ -65,30 +65,26 @@ const EditTeacher: React.FC<ViewTeacherProps> = ({ params }) => {
   const { data: countryCode, isLoading: isCountryCode } =
     useGetAllCountryCodeQuery(null);
 
-  const {
-    register,
-    handleSubmit,
-    control,
-    setValue,
-    formState: { isSubmitting },
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      email: "",
-      nid: "",
-      about: "",
-      gender: "",
-      nationality: "",
-      religion: "",
-      birthDate: "",
-      regionId: 0,
-      name_en: "",
-      name_ar: "",
-      name_fr: "",
-      number: "",
-      qualification: "",
-    },
-  });
+    const formMethods = useForm({
+      defaultValues: {
+        email: "",
+        nid: "",
+        about: "",
+        gender: "",
+        nationality: "",
+        religion: "",
+        birthDate: "",
+        regionId: 0,
+        name_en: "",
+        name_ar: "",
+        name_fr: "",
+        number: "",
+        qualification: "",
+      },
+    });
+  
+    const { register, handleSubmit, control, setValue, formState: { isSubmitting, errors } } = formMethods;
+  
 
   useEffect(() => {
     if (data && data.success) {
@@ -96,8 +92,8 @@ const EditTeacher: React.FC<ViewTeacherProps> = ({ params }) => {
       setValue("email", teacher.email || "");
       setValue("nid", teacher.nid || "");
       setValue("about", teacher.about || "");
-      setValue("gender", teacher.gender || "");
-      setValue("nationality", teacher.nationality || "");
+      setValue("gender", "");
+      setValue("nationality", "");
       setValue("religion", teacher.religion || "");
       setValue("birthDate", teacher.birthDate || "");
       setValue("regionId", teacher.regionId || 0);
@@ -131,7 +127,7 @@ const EditTeacher: React.FC<ViewTeacherProps> = ({ params }) => {
     }
   };
 
-  if (loading || isLoading || isUpdating || isSubmitting || nationalityLoading)
+  if (loading || isLoading || isSubmitting || nationalityLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -154,7 +150,7 @@ const EditTeacher: React.FC<ViewTeacherProps> = ({ params }) => {
             : "lg:ml-[270px]"
         } mx-3 mt-5 grid h-[850px] items-center justify-center`}
       >
-        <FormProvider {...{ register, handleSubmit, control, setValue, errors }}>
+        <FormProvider {...formMethods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="my-10 grid items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:w-[1000px]">
             <div className="flex items-center justify-start gap-2">
@@ -557,23 +553,21 @@ const EditTeacher: React.FC<ViewTeacherProps> = ({ params }) => {
               </label>
             </div>
             <div className="flex justify-center text-center">
-              <button
-                disabled={isLoading}
-                type="submit"
-                className="w-fit rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
-              >
-                {isLoading
-                  ? currentLanguage === "en"
-                    ? "Adding..."
-                    : currentLanguage === "ar"
-                      ? "جاري الإضافة..."
-                      : "Ajout en cours..."
-                  : currentLanguage === "en"
-                    ? "Add Teacher"
-                    : currentLanguage === "ar"
-                      ? "أضف معلم"
-                      : "Ajouter un enseignant"}{" "}
-              </button>
+              {isUpdating ? (
+                <Spinner />
+              ) : (
+                <button
+                  disabled={isLoading}
+                  type="submit"
+                  className="w-fit rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+                >
+                  {currentLanguage === "ar"
+                    ? "تعديل المعلم"
+                    : currentLanguage === "fr"
+                      ? "Modifier l'enseignant"
+                      : "Edit Teacher"}
+                </button>
+              )}
             </div>
           </div>
         </form>

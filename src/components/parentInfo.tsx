@@ -20,7 +20,7 @@ const ParentInfo = ({ data }: { data: any }) => {
                 ? "Informations sur le parent"
                 : "Parent Information"}
           </h1>
-          <Link href={`/parent`}>
+          <Link href={`/edit-parent/${data.data.id}`}>
             <svg
               className="h-6 w-6 text-textPrimary"
               fill="none"
