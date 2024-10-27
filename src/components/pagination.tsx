@@ -210,10 +210,9 @@ const Pagination: React.FC<PaginationProps> = ({
           </svg>
         </button>
         {renderPageButton()}
-
         <button
           style={{
-            visibility: currentPage === numOfPages - 1 ? "hidden" : "visible",
+            visibility: currentPage === numOfPages ? "hidden" : "visible",
             border: "none",
             cursor: "pointer",
           }}

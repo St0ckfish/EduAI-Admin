@@ -41,19 +41,19 @@ const TimePicker: React.FC = () => {
             value={hour.toString().padStart(2, "0")}
             onChange={e => handleHourChange(Number(e.target.value))}
             onWheel={e => handleScroll(e, "hour")}
-            className="bg-primary-dark w-20 rounded-lg rounded-md text-center text-3xl text-white focus:outline-none"
+            className="bg-primary-dark w-20 rounded-md text-center text-3xl focus:outline-none"
             min={1}
             max={12}
           />
         </div>
-        <span className="text-3xl text-white">:</span>
+        <span className="text-3xl ">:</span>
         <div className="flex flex-col items-center">
           <input
             type="number"
             value={minute.toString().padStart(2, "0")}
             onChange={e => handleMinuteChange(Number(e.target.value))}
             onWheel={e => handleScroll(e, "minute")}
-            className="bg-primary-dark w-20 rounded-lg rounded-md text-center text-3xl text-white focus:outline-none"
+            className="bg-primary-dark w-20 rounded-md text-center text-3xl focus:outline-none"
             min={0}
             max={59}
           />
@@ -61,7 +61,7 @@ const TimePicker: React.FC = () => {
         <div className="ml-6 flex flex-col space-y-2">
           <button
             onClick={toggleAMPM}
-            className={`rounded-md px-4 py-2 text-lg text-white ${
+            className={`rounded-md px-4 py-2 text-lg  ${
               isAM ? "bg-blue-500" : "bg-primary-dark hover:bg-gray-600"
             }`}
           >
@@ -69,7 +69,7 @@ const TimePicker: React.FC = () => {
           </button>
           <button
             onClick={toggleAMPM}
-            className={`rounded-md px-4 py-2 text-lg text-white ${
+            className={`rounded-md px-4 py-2 text-lg  ${
               !isAM ? "bg-blue-500" : "bg-primary-dark hover:bg-gray-600"
             }`}
           >
