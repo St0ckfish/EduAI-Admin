@@ -30,27 +30,6 @@ import BreadCrumbs from "@/components/BreadCrumbs";
 import Spinner from "@/components/spinner";
 
 // Common chart data
-const chartData = [
-  { month: "Primary school", desktop: 186, mobile: 80 },
-  { month: "Preparatory ", desktop: 305, mobile: 200 },
-  { month: "high school", desktop: 237, mobile: 120 },
-];
-
-const chartData2 = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-];
-
-const chartData3 = [
-  { name: "Ahmed Mohamed", attendance: 30, grade: 80 },
-  { name: "Ahmed Mohamed", attendance: 60, grade: 55 },
-  { name: "Ahmed Mohamed", attendance: 45, grade: 70 },
-  { name: "Ahmed Mohamed", attendance: 50, grade: 65 },
-];
 
 const chartConfig = {
   desktop: { label: "My school", color: "#e23670" },
@@ -63,6 +42,32 @@ const chartConfig2 = {
 };
 
 function InsightPage() {
+  const booleanValue = useSelector((state: RootState) => state.boolean.value); // sidebar
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
+  const chartData = [
+    { month: `${currentLanguage === "ar" ? "المدرسة الابتدائية" : currentLanguage === "fr" ? "École primaire" : "Primary school"}`, desktop: 186, mobile: 80 },
+    { month:  `${currentLanguage === "ar" ? "الثانوي الإعدادي" : currentLanguage === "fr" ? "Ecole secondaire préparatoire" : "Preparatory"}`, desktop: 305, mobile: 200 },
+    { month: `${currentLanguage === "ar" ? "الثانوي التأهيلي" : currentLanguage === "fr" ? "Diplôme secondaire" : "high school"}`, desktop: 237, mobile: 120 },
+  ];
+  
+  const chartData2 = [
+    { month: "January", desktop: 186, mobile: 80 },
+    { month: "February", desktop: 305, mobile: 200 },
+    { month: "March", desktop: 237, mobile: 120 },
+    { month: "April", desktop: 73, mobile: 190 },
+    { month: "May", desktop: 209, mobile: 130 },
+    { month: "June", desktop: 214, mobile: 140 },
+  ];
+  
+  const chartData3 = [
+    { name: "Ahmed Mohamed", attendance: 30, grade: 80 },
+    { name: "Ahmed Mohamed", attendance: 60, grade: 55 },
+    { name: "Ahmed Mohamed", attendance: 45, grade: 70 },
+    { name: "Ahmed Mohamed", attendance: 50, grade: 65 },
+  ];
+  
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
     setIsMounted(true);
@@ -70,22 +75,19 @@ function InsightPage() {
   const breadcrumbs = [
     {
       nameEn: "Ai Insights",
-      nameAr: "رؤى الذكاء الاصطناعي",
+      nameAr: "تحليلات الذكاء الاصطناعي",
       nameFr: "Perspectives de l'IA",
       href: "/",
     },
     {
       nameEn: "School Comparisons",
-      nameAr: "مقارنات المدارس",
+      nameAr: "مقارنات التقدم",
       nameFr: "Comparaisons des écoles",
       href: "/insight",
     },
   ];
 
-  const booleanValue = useSelector((state: RootState) => state.boolean.value); // sidebar
-  const { language: currentLanguage, loading } = useSelector(
-    (state: RootState) => state.language,
-  );
+
 
   if (!isMounted) return null;
 
@@ -110,13 +112,13 @@ function InsightPage() {
               : "lg:ml-[270px]"
         }`}
       >
-        <div className="grid overflow-x-scroll">
+        <div className="grid overflow-x-auto">
           <div className="justify-left mb-5 ml-4 mt-10 flex gap-5 overflow-x-auto text-nowrap text-[20px] font-semibold">
             <Link href="/insight" className="text-blue-500 underline">
               {currentLanguage === "en"
                 ? "Student Performance"
                 : currentLanguage === "ar"
-                  ? "أداء الطالب"
+                  ? "تقدم الطلاب"
                   : currentLanguage === "fr"
                     ? "Performance de l'étudiant"
                     : "Student Performance"}
@@ -125,7 +127,7 @@ function InsightPage() {
               {currentLanguage === "en"
                 ? "School Performance"
                 : currentLanguage === "ar"
-                  ? "أداء المدرسة"
+                  ? "تقدم المدرسة"
                   : currentLanguage === "fr"
                     ? "Performance de l'école"
                     : "School Performance"}
@@ -134,7 +136,7 @@ function InsightPage() {
               {currentLanguage === "en"
                 ? "Class Performance"
                 : currentLanguage === "ar"
-                  ? "أداء الفصل"
+                  ? "تقدم الفصل"
                   : currentLanguage === "fr"
                     ? "Performance de la classe"
                     : "Class Performance"}
@@ -143,7 +145,7 @@ function InsightPage() {
               {currentLanguage === "en"
                 ? "ML Exam Performance"
                 : currentLanguage === "ar"
-                  ? "أداء اختبار تعلم الآلة"
+                  ? "ML التقدم في امتحان تعلم الالة"
                   : currentLanguage === "fr"
                     ? "Performance de l'examen ML"
                     : "ML Exam Performance"}
@@ -152,12 +154,12 @@ function InsightPage() {
         </div>
         <div className="mt-5 flex flex-wrap justify-evenly gap-5 overflow-x-auto">
           {/* Student Performance Bar Chart */}
-          <div className="flex items-center justify-center">
-            <Card className="w-[850px] bg-bgPrimary max-[1170px]:w-[550px] max-[605px]:w-[450px]">
+          <div className="flex items-center justify-center overflow-x-auto">
+            <Card className="w-[850px] bg-bgPrimary max-[1170px]:w-[550px] max-[605px]:w-[450px] overflow-x-auto">
               <CardHeader>
                 <CardTitle>
                   {currentLanguage === "ar"
-                    ? "أداء الطلاب"
+                    ? "تقدم الطلاب"
                     : currentLanguage === "fr"
                       ? "Performance des étudiants"
                       : "Student Performance"}
@@ -198,7 +200,7 @@ function InsightPage() {
               <CardHeader>
                 <CardTitle>
                   {currentLanguage === "ar"
-                    ? "تحسين حضور الطلاب"
+                    ? "مواظبة التلاميذ"
                     : currentLanguage === "fr"
                       ? "Améliorer la présence des étudiants"
                       : "Improving Student Attendance"}
@@ -239,11 +241,11 @@ function InsightPage() {
             </Card>
 
             {/* Low Achievers Bar Chart */}
-            <Card className="w-[550px] overflow-x-auto bg-bgPrimary max-[605px]:w-[450px]">
+            <Card className="w-[550px] overflow-x-auto bg-bgPrimary max-[605px]:w-[450px] text-nowrap whitespace-nowrap">
               <CardHeader>
                 <CardTitle>
                   {currentLanguage === "ar"
-                    ? "المحققون الضعيفون"
+                    ? "الطلاب المتعثرون"
                     : currentLanguage === "fr"
                       ? "Faibles réalisateurs"
                       : "Low Achievers"}
@@ -251,7 +253,7 @@ function InsightPage() {
               </CardHeader>
               <CardContent>
                 <BarChart
-                  className="font-semibold"
+                  className="font-semibold text-nowrap whitespace-nowrap"
                   width={400}
                   height={300}
                   data={chartData3}
@@ -265,14 +267,14 @@ function InsightPage() {
                   <Bar
                     dataKey="attendance"
                     fill="#e23670"
-                    name="(AVG) Attendances"
+                    name={`${currentLanguage === "ar" ? "الحضور (متوسط)" : currentLanguage === "fr" ? "(AVG) Présences" : "(AVG) Attendances"}`}
                     barSize={17}
                     radius={10}
                   />
                   <Bar
                     dataKey="grade"
                     fill="#2560d4"
-                    name="(AVG) Grade"
+                    name={`${currentLanguage === "ar" ? "النقاط (متوسط)" : currentLanguage === "fr" ? "(AVG) Note" : "(AVG) Grade"}`}
                     barSize={17}
                     radius={10}
                   />

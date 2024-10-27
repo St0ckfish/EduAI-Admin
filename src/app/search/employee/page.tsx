@@ -79,9 +79,9 @@ const EmployeeSearch = () => {
                 href="/search"
               >
                 {currentLanguage === "en"
-                  ? "Student"
+                  ? "Students"
                   : currentLanguage === "ar"
-                    ? "طالب"
+                    ? "طلاب"
                     : currentLanguage === "fr"
                       ? "Étudiants"
                       : "Student"}{" "}
@@ -92,9 +92,9 @@ const EmployeeSearch = () => {
                 href="/search/teacher"
               >
                 {currentLanguage === "en"
-                  ? "Teacher"
+                  ? "Teachers"
                   : currentLanguage === "ar"
-                    ? "معلم"
+                    ? "عمال"
                     : currentLanguage === "fr"
                       ? "Enseignants"
                       : "Teacher"}{" "}
@@ -105,9 +105,9 @@ const EmployeeSearch = () => {
                 href="/search/employee"
               >
                 {currentLanguage === "en"
-                  ? "Employee"
+                  ? "Employees"
                   : currentLanguage === "ar"
-                    ? "موظف"
+                    ? "موظفون"
                     : currentLanguage === "fr"
                       ? "Employés"
                       : "Employee"}{" "}
@@ -118,9 +118,9 @@ const EmployeeSearch = () => {
                 href="/search/worker"
               >
                 {currentLanguage === "en"
-                  ? "Worker"
+                  ? "Workers"
                   : currentLanguage === "ar"
-                    ? "عامل"
+                    ? "عمال"
                     : currentLanguage === "fr"
                       ? "Travailleurs"
                       : "Worker"}{" "}

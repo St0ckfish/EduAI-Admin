@@ -29,7 +29,7 @@ const UserManagment = () => {
         currentLanguage === "en"
           ? "Driver"
           : currentLanguage === "ar"
-            ? "سائق"
+            ? "السائقون"
             : currentLanguage === "fr"
               ? "Chauffeurs"
               : "Driver",
@@ -49,7 +49,7 @@ const UserManagment = () => {
         currentLanguage === "en"
           ? "Employee"
           : currentLanguage === "ar"
-            ? "موظف"
+            ? "الموظفون"
             : currentLanguage === "fr"
               ? "Employés"
               : "Employee",
@@ -70,7 +70,7 @@ const UserManagment = () => {
         currentLanguage === "en"
           ? "Parent"
           : currentLanguage === "ar"
-            ? "ولي الأمر"
+            ? "الآباء"
             : currentLanguage === "fr"
               ? "Parents"
               : "Parent",
@@ -90,7 +90,7 @@ const UserManagment = () => {
         currentLanguage === "en"
           ? "Student"
           : currentLanguage === "ar"
-            ? "طالب"
+            ? "الطلاب"
             : currentLanguage === "fr"
               ? "Étudiants"
               : "Student",
@@ -110,7 +110,7 @@ const UserManagment = () => {
         currentLanguage === "en"
           ? "Teacher"
           : currentLanguage === "ar"
-            ? "معلم"
+            ? "المعلمون"
             : currentLanguage === "fr"
               ? "Enseignants"
               : "Teacher",
@@ -130,7 +130,7 @@ const UserManagment = () => {
         currentLanguage === "en"
           ? "Worker"
           : currentLanguage === "ar"
-            ? "عامل"
+            ? "العمال"
             : currentLanguage === "fr"
               ? "Travailleurs"
               : "Worker",

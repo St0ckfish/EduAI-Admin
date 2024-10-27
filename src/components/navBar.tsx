@@ -283,7 +283,7 @@ const NavBar = () => {
                         {currentLanguage === "en" ? (
                           <img src="/images/en.png" alt="#" />
                         ) : currentLanguage === "ar" ? (
-                          <img src="/images/ar.png" alt="#" />
+                          <img src="/images/morocco.png" alt="#" />
                         ) : currentLanguage === "fr" ? (
                           <img src="/images/fr.png" alt="#" />
                         ) : (
@@ -669,7 +669,7 @@ const NavBar = () => {
                           {currentLanguage === "en"
                             ? "Insight"
                             : currentLanguage === "ar"
-                              ? " بصيرة"
+                              ? " نظرة"
                               : currentLanguage === "fr"
                                 ? "Aperçu"
                                 : "Insight"}

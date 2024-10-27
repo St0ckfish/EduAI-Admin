@@ -88,7 +88,7 @@ const Archive = () => {
         return currentLanguage === "en"
           ? "Driver"
           : currentLanguage === "ar"
-            ? "السائق"
+            ? "السائقون"
             : currentLanguage === "fr"
               ? "Chauffeurs"
               : "Driver";
@@ -96,7 +96,7 @@ const Archive = () => {
         return currentLanguage === "en"
           ? "Employee"
           : currentLanguage === "ar"
-            ? "الموظف"
+            ? "الموظفون"
             : currentLanguage === "fr"
               ? "Employés"
               : "Employee";
@@ -104,7 +104,7 @@ const Archive = () => {
         return currentLanguage === "en"
           ? "Parent"
           : currentLanguage === "ar"
-            ? "ولي الأمر"
+            ? "الاباء"
             : currentLanguage === "fr"
               ? "Parents"
               : "Parent";
@@ -112,7 +112,7 @@ const Archive = () => {
         return currentLanguage === "en"
           ? "Student"
           : currentLanguage === "ar"
-            ? "الطالب"
+            ? "الطلاب"
             : currentLanguage === "fr"
               ? "Étudiants"
               : "Student";
@@ -120,7 +120,7 @@ const Archive = () => {
         return currentLanguage === "en"
           ? "Teacher"
           : currentLanguage === "ar"
-            ? "المعلم"
+            ? "المعلمون"
             : currentLanguage === "fr"
               ? "Enseignants"
               : "Teacher";
@@ -128,7 +128,7 @@ const Archive = () => {
         return currentLanguage === "en"
           ? "Worker"
           : currentLanguage === "ar"
-            ? "العامل"
+            ? "العمال"
             : currentLanguage === "fr"
               ? "Travailleurs"
               : "Worker";
@@ -136,7 +136,7 @@ const Archive = () => {
         return currentLanguage === "en"
           ? "Bus"
           : currentLanguage === "ar"
-            ? "الحافلة"
+            ? "الحافلات"
             : currentLanguage === "fr"
               ? "Autobus"
               : "Bus";
@@ -144,7 +144,7 @@ const Archive = () => {
         return currentLanguage === "en"
           ? "Library"
           : currentLanguage === "ar"
-            ? "المكتبة"
+            ? "المكتبات"
             : currentLanguage === "fr"
               ? "Bibliothèque"
               : "Library";
@@ -152,7 +152,7 @@ const Archive = () => {
         return currentLanguage === "en"
           ? "Room"
           : currentLanguage === "ar"
-            ? "الغرفة"
+            ? "القاعات"
             : currentLanguage === "fr"
               ? "Chambre"
               : "Room";
@@ -160,7 +160,7 @@ const Archive = () => {
         return currentLanguage === "en"
           ? "Grades"
           : currentLanguage === "ar"
-            ? "الدرجات"
+            ? "النقاط"
             : currentLanguage === "fr"
               ? "Notes"
               : "Grades";
@@ -168,7 +168,7 @@ const Archive = () => {
         return currentLanguage === "en"
           ? "Resource"
           : currentLanguage === "ar"
-            ? "المصدر"
+            ? "المصادر"
             : currentLanguage === "fr"
               ? "Salles / Ressources"
               : "Resource";

@@ -78,9 +78,9 @@ const TeahcerSearch = () => {
                 href="/search"
               >
                 {currentLanguage === "en"
-                  ? "Student"
+                  ? "Students"
                   : currentLanguage === "ar"
-                    ? "طالب"
+                    ? "طلاب"
                     : currentLanguage === "fr"
                       ? "Étudiants"
                       : "Student"}{" "}
@@ -91,9 +91,9 @@ const TeahcerSearch = () => {
                 href="/search/teacher"
               >
                 {currentLanguage === "en"
-                  ? "Teacher"
+                  ? "Teachers"
                   : currentLanguage === "ar"
-                    ? "معلم"
+                    ? "معلمون"
                     : currentLanguage === "fr"
                       ? "Enseignants"
                       : "Teacher"}{" "}
@@ -104,9 +104,9 @@ const TeahcerSearch = () => {
                 href="/search/employee"
               >
                 {currentLanguage === "en"
-                  ? "Employee"
+                  ? "Employees"
                   : currentLanguage === "ar"
-                    ? "موظف"
+                    ? "موظفون"
                     : currentLanguage === "fr"
                       ? "Employés"
                       : "Employee"}{" "}
@@ -117,9 +117,9 @@ const TeahcerSearch = () => {
                 href="/search/worker"
               >
                 {currentLanguage === "en"
-                  ? "Worker"
+                  ? "Workers"
                   : currentLanguage === "ar"
-                    ? "عامل"
+                    ? "عمال"
                     : currentLanguage === "fr"
                       ? "Travailleurs"
                       : "Worker"}{" "}

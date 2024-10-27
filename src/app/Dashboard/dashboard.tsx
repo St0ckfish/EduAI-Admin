@@ -54,7 +54,9 @@ const Dashboard: React.FC = () => {
   const currentYear = new Date().getFullYear();
   const start = format(new Date(currentYear, 0, 1), "yyyy-MM-dd");
   const end = format(new Date(currentYear, 11, 30), "yyyy-MM-dd");
-
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
   const { data: expenses, isLoading: isExpenses } = useGetExpensesQuery({
     start: start,
     end: end,
@@ -138,12 +140,12 @@ const Dashboard: React.FC = () => {
 
       // Update the series with the new data
       setSeries([
-        { name: "Income", data: incomeData },
-        { name: "Expense", data: expenseData },
+        { name:  `${currentLanguage === "ar" ? "المداخل" : currentLanguage === "fr" ? "revenu" : "Income"}`, data: incomeData },
+        { name: `${currentLanguage === "ar" ? "المصاريف" : currentLanguage === "fr" ? "Dépenses" : "Expense"}`, data: expenseData },
       ]);
       setCategories(semesterNames);
     }
-  }, [expenses]);
+  }, [expenses, currentLanguage]);
 
   const onSubmit = async (formData: any) => {
     try {
@@ -219,9 +221,7 @@ const Dashboard: React.FC = () => {
   });
   type Meeting = Record<string, any>;
 
-  const { language: currentLanguage, loading } = useSelector(
-    (state: RootState) => state.language,
-  );
+
 
   if (
     isStudents ||
@@ -278,7 +278,11 @@ const Dashboard: React.FC = () => {
               className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]"
             >
               <p className="text-[12px] text-textSecondary">
-                {students?.message}{" "}
+              {currentLanguage === "ar"
+                  ? "عدد الطلاب"
+                  : currentLanguage === "fr"
+                    ? "Nombre d'étudiants"
+                    : "Students count"}
               </p>
               <h1 className="text-[17px] font-semibold">{students?.data} 🧑‍🎓</h1>
             </div>
@@ -287,7 +291,11 @@ const Dashboard: React.FC = () => {
               className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]"
             >
               <p className="text-[12px] text-textSecondary">
-                {employees?.message}
+                {currentLanguage === "ar"
+                  ? "عدد الموظفين"
+                  : currentLanguage === "fr"
+                    ? "Nombre d'employés"
+                    : "Employees count"}
               </p>
               <h1 className="text-[17px] font-semibold">
                 {employees?.data} 👨‍💼
@@ -298,7 +306,11 @@ const Dashboard: React.FC = () => {
               className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]"
             >
               <p className="text-[12px] text-textSecondary">
-                {teachers?.message}
+                {currentLanguage === "ar"
+                  ? "عدد المدرسين"
+                  : currentLanguage === "fr"
+                    ? "Nombre d'enseignants"
+                    : "Teachers count"}
               </p>
               <h1 className="text-[17px] font-semibold">{teachers?.data} 👨‍🏫</h1>
             </div>
@@ -307,7 +319,11 @@ const Dashboard: React.FC = () => {
               className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]"
             >
               <p className="text-[12px] text-textSecondary">
-                {workers?.message}
+                {currentLanguage === "ar"
+                  ? "عدد العمال"
+                  : currentLanguage === "fr"
+                    ? "Nombre de travailleurs"
+                    : "Workers count"}
               </p>
               <h1 className="text-[17px] font-semibold">{workers?.data} 🧑‍🏭</h1>
             </div>
@@ -427,10 +443,10 @@ const Dashboard: React.FC = () => {
                 <div className="flex h-full items-end justify-center">
                   <button
                     onClick={handleOpenModal}
-                    className="mx-3 w-[120px] whitespace-nowrap rounded-xl bg-primary px-1 py-1.5 text-[14px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
+                    className="mx-3 whitespace-nowrap rounded-xl bg-primary px-1 py-1.5 text-[14px] font-semibold text-white duration-300 ease-in hover:bg-[#4a5cc5] hover:shadow-xl"
                   >
                     {currentLanguage === "ar"
-                      ? "+ حدث جديد"
+                      ? "+ فعالية جديدة"
                       : currentLanguage === "fr"
                         ? "+ Nouvel événement"
                         : "+ New Event"}
@@ -445,7 +461,7 @@ const Dashboard: React.FC = () => {
                     className="font-semibold text-primary underline"
                   >
                     {currentLanguage === "ar"
-                      ? "المزيد من الأحداث"
+                      ? "المزيد من الفعاليات"
                       : currentLanguage === "fr"
                         ? "Plus d'événements"
                         : "More Events"}
@@ -498,7 +514,7 @@ const Dashboard: React.FC = () => {
                   {currentLanguage === "en"
                     ? "+ Add Note"
                     : currentLanguage === "ar"
-                      ? "+  أضف ملاحظة"
+                      ? "+  أضف تعليق"
                       : currentLanguage === "fr"
                         ? "+ Ajouter une note"
                         : "+ New Driver"}{" "}

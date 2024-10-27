@@ -42,9 +42,9 @@ const InfrastructureSearch = () => {
                 href="/search"
               >
                 {currentLanguage === "en"
-                  ? "Student"
+                  ? "Students"
                   : currentLanguage === "ar"
-                    ? "طالب"
+                    ? "طلاب"
                     : currentLanguage === "fr"
                       ? "Étudiants"
                       : "Student"}{" "}
@@ -55,9 +55,9 @@ const InfrastructureSearch = () => {
                 href="/search/teacher"
               >
                 {currentLanguage === "en"
-                  ? "Teacher"
+                  ? "Teachers"
                   : currentLanguage === "ar"
-                    ? "معلم"
+                    ? "معلمون"
                     : currentLanguage === "fr"
                       ? "Enseignants"
                       : "Teacher"}{" "}
@@ -68,9 +68,9 @@ const InfrastructureSearch = () => {
                 href="/search/employee"
               >
                 {currentLanguage === "en"
-                  ? "Employee"
+                  ? "Employees"
                   : currentLanguage === "ar"
-                    ? "موظف"
+                    ? "موظفون"
                     : currentLanguage === "fr"
                       ? "Employés"
                       : "Employee"}{" "}
@@ -81,9 +81,9 @@ const InfrastructureSearch = () => {
                 href="/search/worker"
               >
                 {currentLanguage === "en"
-                  ? "Worker"
+                  ? "Workers"
                   : currentLanguage === "ar"
-                    ? "عامل"
+                    ? "عمال"
                     : currentLanguage === "fr"
                       ? "Travailleurs"
                       : "Worker"}{" "}
