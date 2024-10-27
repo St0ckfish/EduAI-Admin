@@ -36,7 +36,7 @@ const Attendance = () => {
     {
       nameEn: "Attendances",
       nameAr: "الحضور",
-      nameFr: "Présences",
+      nameFr: "Assiduité",
       href: "/attendances",
     },
   ];
@@ -71,12 +71,12 @@ const Attendance = () => {
       icon: <FaUserTie size={30} />,
       title:
         currentLanguage === "en"
-          ? "Driver"
+          ? "Drivers"
           : currentLanguage === "ar"
-            ? "السائق"
+            ? "السائقون"
             : currentLanguage === "fr"
-              ? "Chauffeur"
-              : "Driver", // Default to English
+              ? "Chauffeurs"
+              : "Drivers", // Default to English
       description: driverCount?.data,
       number: driverAttend?.data,
     },
@@ -85,12 +85,12 @@ const Attendance = () => {
       icon: <FaBriefcase size={30} />,
       title:
         currentLanguage === "en"
-          ? "Employee"
+          ? "Employees"
           : currentLanguage === "ar"
-            ? "الموظف"
+            ? "الموظفون"
             : currentLanguage === "fr"
-              ? "Employé"
-              : "Employee", // Default to English
+              ? "Employés"
+              : "Employees", // Default to English
       description: employeeCount?.data, // Default to English
       number: employeedata?.data,
     },
@@ -99,12 +99,12 @@ const Attendance = () => {
       icon: <FaUserGraduate size={30} />,
       title:
         currentLanguage === "en"
-          ? "Student"
+          ? "Students"
           : currentLanguage === "ar"
-            ? "الطالب"
+            ? "الطلاب"
             : currentLanguage === "fr"
-              ? "Étudiant"
-              : "Student", // Default to English
+              ? "Étudiants"
+              : "Students", // Default to English
       description: studentCount?.data, // Default to English
       number: students?.data,
     },
@@ -113,12 +113,12 @@ const Attendance = () => {
       icon: <FaChalkboardTeacher size={30} />,
       title:
         currentLanguage === "en"
-          ? "Teacher"
+          ? "Teachers"
           : currentLanguage === "ar"
-            ? "المعلم"
+            ? "المعلمين"
             : currentLanguage === "fr"
-              ? "Enseignant"
-              : "Teacher", // Default to English
+              ? "Enseignants"
+              : "Teachers", // Default to English
       description: teachers?.data, // Default to English
       number: teacherdata?.data,
     },
@@ -127,11 +127,11 @@ const Attendance = () => {
       icon: <FaHardHat size={30} />,
       title:
         currentLanguage === "en"
-          ? "Worker"
+          ? "Workers"
           : currentLanguage === "ar"
-            ? "العامل"
+            ? "العمال"
             : currentLanguage === "fr"
-              ? "Travailleur"
+              ? "Travailleurs"
               : "Worker", // Default to English
       description: workers?.data, // Default to English
       number: workerdata?.data,

@@ -844,7 +844,7 @@ const NavBar = () => {
                           {currentLanguage === "en"
                             ? "Educational Affairs"
                             : currentLanguage === "ar"
-                              ? "الشؤون التعليمية"
+                              ? "الشؤون البيداغوجية"
                               : currentLanguage === "fr"
                                 ? "Gestion pédagogique"
                                 : "Educational Affairs"}{" "}
@@ -912,7 +912,7 @@ const NavBar = () => {
                             : currentLanguage === "ar"
                               ? "الحضور / الإجازة"
                               : currentLanguage === "fr"
-                                ? "Présence/Absence"
+                                ? "Assiduité"
                                 : "Attendance/Leave"}{" "}
                           {/* Default to English */}
                         </Link>
@@ -962,7 +962,7 @@ const NavBar = () => {
                             : currentLanguage === "ar"
                               ? "الأخبار"
                               : currentLanguage === "fr"
-                                ? "Nouvelles"
+                                ? "Actualités"
                                 : "News"}{" "}
                           {/* Default to English */}
                         </Link>

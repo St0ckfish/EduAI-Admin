@@ -202,7 +202,7 @@ function InsightPage() {
                   {currentLanguage === "ar"
                     ? "مواظبة التلاميذ"
                     : currentLanguage === "fr"
-                      ? "Améliorer la présence des étudiants"
+                      ? "Assiduité des élèves"
                       : "Improving Student Attendance"}
                 </CardTitle>
               </CardHeader>
@@ -248,7 +248,7 @@ function InsightPage() {
                     ? "الطلاب المتعثرون"
                     : currentLanguage === "fr"
                       ? "Faibles réalisateurs"
-                      : "Low Achievers"}
+                      : "Élèves en difficulté"}
                 </CardTitle>
               </CardHeader>
               <CardContent>

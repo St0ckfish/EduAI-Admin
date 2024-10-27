@@ -65,7 +65,7 @@ const Infrastructure = () => {
           : currentLanguage === "ar"
             ? "الفصل"
             : currentLanguage === "fr"
-              ? "Classe"
+              ? "Classes"
               : "Class", // Default to English
       description:
         currentLanguage === "en"
@@ -105,7 +105,7 @@ const Infrastructure = () => {
           : currentLanguage === "ar"
             ? "الغرفة"
             : currentLanguage === "fr"
-              ? "Chambre"
+              ? "Salles"
               : "Room", // Default to English
       description:
         currentLanguage === "en"
@@ -165,7 +165,7 @@ const Infrastructure = () => {
           : currentLanguage === "ar"
             ? "المكتب"
             : currentLanguage === "fr"
-              ? "Bureau"
+              ? "Bureaux"
               : "Office", // Default to English
       description:
         currentLanguage === "en"

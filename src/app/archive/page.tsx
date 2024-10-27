@@ -218,12 +218,12 @@ const Archive = () => {
                 href={item.href}
                 className="grid items-center justify-center text-center"
               >
+                <div className="flex justify-center">
                 <div className="grid h-[87px] w-[87px] items-center justify-center rounded-full bg-bgSecondary">
                   {item.icon}
                 </div>
-                <p className="mt-2 text-[22px] font-semibold">
-                  {getTranslatedText(item.key)}
-                </p>
+              </div>
+              <p className="mt-2 text-[22px] font-semibold">{getTranslatedText(item.key)}</p>
               </Link>
             </div>
           ))}
