@@ -58,8 +58,9 @@ const calculateHeight = (
 
 const TimeTable = ({ scheduleData }: { scheduleData: any[] }) => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
+  const { language: currentLanguage } = useSelector((state: RootState) => state.language);
   return (
-    <div className="grid w-full overflow-x-auto">
+    <div dir={currentLanguage === "ar" ? "rtl" : "ltr"} className="grid w-full overflow-x-auto">
       <div className="grid w-full overflow-x-auto">
         <div
           className={`mx-3 rounded-xl bg-bgPrimary p-6 ${booleanValue ? "w-[1750px]" : "w-[1570px]"}`}

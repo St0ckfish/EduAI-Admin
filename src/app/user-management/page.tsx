@@ -27,7 +27,7 @@ const UserManagment = () => {
       icon: <FaCar size={40} />,
       title:
         currentLanguage === "en"
-          ? "Driver"
+          ? "Drivers"
           : currentLanguage === "ar"
             ? "السائقون"
             : currentLanguage === "fr"
@@ -47,7 +47,7 @@ const UserManagment = () => {
       icon: <FaBriefcase size={40} />,
       title:
         currentLanguage === "en"
-          ? "Employee"
+          ? "Employees"
           : currentLanguage === "ar"
             ? "الموظفون"
             : currentLanguage === "fr"
@@ -68,7 +68,7 @@ const UserManagment = () => {
 
       title:
         currentLanguage === "en"
-          ? "Parent"
+          ? "Parents"
           : currentLanguage === "ar"
             ? "الآباء"
             : currentLanguage === "fr"
@@ -88,7 +88,7 @@ const UserManagment = () => {
       icon: <FaUserGraduate size={40} />,
       title:
         currentLanguage === "en"
-          ? "Student"
+          ? "Students"
           : currentLanguage === "ar"
             ? "الطلاب"
             : currentLanguage === "fr"
@@ -108,7 +108,7 @@ const UserManagment = () => {
       icon: <FaChalkboardTeacher size={40} />,
       title:
         currentLanguage === "en"
-          ? "Teacher"
+          ? "Teachers"
           : currentLanguage === "ar"
             ? "المعلمون"
             : currentLanguage === "fr"
@@ -128,7 +128,7 @@ const UserManagment = () => {
       icon: <FaHardHat size={40} />,
       title:
         currentLanguage === "en"
-          ? "Worker"
+          ? "Workers"
           : currentLanguage === "ar"
             ? "العمال"
             : currentLanguage === "fr"

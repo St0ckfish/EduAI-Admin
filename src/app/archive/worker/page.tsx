@@ -185,7 +185,7 @@ const Worker = () => {
           <div className="flex justify-center">
             <Link
               href="/add-new-worker"
-              className="mx-3 mb-5 w-[190px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+              className="mx-3 mb-5 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               {currentLanguage === "ar"
                 ? "+ إضافة عامل جديد"

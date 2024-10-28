@@ -8,6 +8,9 @@ import BreadCrumbs from "@/components/BreadCrumbs";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import Spinner from "@/components/spinner";
+import { useGetAllClasssQuery } from "@/features/Infrastructure/classApi";
+import { useGetAllTeachersQuery } from "@/features/User-Management/teacherApi";
+import { useGetAllCoursesQuery } from "@/features/Acadimic/courseApi";
 const AddSchedule = () => {
   const breadcrumbs = [
     {
@@ -41,7 +44,13 @@ const AddSchedule = () => {
 
   const [createSchedule, { isLoading: isCreating }] =
     useCreateSchedualMutation();
-
+    const { data: classes, isLoading: isClassing } = useGetAllClasssQuery(null);
+    const { data: teachers, isLoading: isTeacher } = useGetAllTeachersQuery({
+      archived: "false",
+      page: 0,
+      size: 1000000,
+    });
+    const { data: courses, isLoading } = useGetAllCoursesQuery(null);
   const onSubmitCreateSchedule: SubmitHandler<FieldValues> = async data => {
     try {
       await createSchedule({
@@ -54,16 +63,15 @@ const AddSchedule = () => {
       }).unwrap();
       toast.success("Schedule Created Successfully");
       reset();
-    } catch (error) {
-      toast.error("Error creating schedule");
-      console.error("Error creating schedule:", error);
+    } catch (error :any) {
+      toast.error(`${error.data.message}`);
     }
   };
   const { language: currentLanguage, loading } = useSelector(
     (state: RootState) => state.language,
   );
 
-  if (loading)
+  if (loading || isClassing || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -93,17 +101,18 @@ const AddSchedule = () => {
                 ? "ID de la classe"
                 : "Classroom ID"}
           </label>
-          <input
-            {...register("classroomId", { required: true })}
-            placeholder={
-              currentLanguage === "ar"
-                ? "أدخل معرف الفصل"
-                : currentLanguage === "fr"
-                  ? "Entrez l'ID de la classe"
-                  : "Enter Classroom ID"
-            }
-            className="w-full rounded border border-borderPrimary px-4 py-2"
-          />
+          <select
+              id="classroomId"
+              className="w-full rounded border border-borderPrimary px-4 py-2 bg-bgPrimary"
+              {...register("classroomId", { required: true })}
+            >
+              <option value="">Select Class</option>
+              {classes?.data.content.map((teacher: any) => (
+                <option key={teacher.roomId} value={teacher.roomId}>
+                  {teacher.classroomName}
+                </option>
+              ))}
+            </select>
         </div>
         <div>
           <label>
@@ -113,17 +122,18 @@ const AddSchedule = () => {
                 ? "ID de l'enseignant"
                 : "Teacher ID"}
           </label>
-          <input
-            {...register("teacherId", { required: true })}
-            placeholder={
-              currentLanguage === "ar"
-                ? "أدخل معرف المعلم"
-                : currentLanguage === "fr"
-                  ? "Entrez l'ID de l'enseignant"
-                  : "Enter Teacher ID"
-            }
-            className="w-full rounded border border-borderPrimary px-4 py-2"
-          />
+          <select
+              id="teacherCourseRegistrationId"
+              className="w-full rounded border border-borderPrimary px-4 py-2 bg-bgPrimary"
+              {...register("teacherId", { required: true })}
+            >
+              <option value="">Select Teacher</option>
+              {teachers?.data.content.map((teacher: any) => (
+                <option key={teacher.id} value={teacher.id}>
+                  {teacher.name}
+                </option>
+              ))}
+            </select>
         </div>
         <div>
           <label>
@@ -133,17 +143,18 @@ const AddSchedule = () => {
                 ? "ID du cours"
                 : "Course ID"}
           </label>
-          <input
-            {...register("courseId", { required: true })}
-            placeholder={
-              currentLanguage === "ar"
-                ? "أدخل معرف الدورة"
-                : currentLanguage === "fr"
-                  ? "Entrez l'ID du cours"
-                  : "Enter Course ID"
-            }
-            className="w-full rounded border border-borderPrimary px-4 py-2"
-          />
+          <select
+             id="courseId" 
+              className="w-full rounded border border-borderPrimary px-4 py-2  bg-bgPrimary"
+              {...register("courseId", { required: true })}
+            >
+              <option value="">Select Course</option>
+              {courses?.data.content.map((teacher: any) => (
+                <option key={teacher.id} value={teacher.id}>
+                  {teacher.name}
+                </option>
+              ))}
+            </select>
         </div>
         <div>
           <label>
@@ -153,17 +164,17 @@ const AddSchedule = () => {
                 ? "Jour"
                 : "Day"}
           </label>
-          <input
-            {...register("day", { required: true })}
-            placeholder={
-              currentLanguage === "ar"
-                ? "أدخل اليوم"
-                : currentLanguage === "fr"
-                  ? "Entrez le jour"
-                  : "Enter Day"
-            }
-            className="w-full rounded border border-borderPrimary px-4 py-2"
-          />
+          <select id="week" 
+              className="w-full rounded border border-borderPrimary px-4 py-2  bg-bgPrimary" {...register("day", { required: true })}>
+            <option value="">Select day</option>
+            <option value="SUNDAY">Sunday</option>
+            <option value="MONDAY">Monday</option>
+            <option value="TUESDAY">Tuesday</option>
+            <option value="WEDNESDAY">Wednesday</option>
+            <option value="THURSDAY">Thursday</option>
+            <option value="FRIDAY">Friday</option>
+            <option value="SATURDAY">Saturday</option>
+          </select>
         </div>
         <div>
           <label>
@@ -176,7 +187,7 @@ const AddSchedule = () => {
           <input
             {...register("startTime", { required: true })}
             placeholder="HH:mm:ss"
-            className="w-full rounded border border-borderPrimary px-4 py-2"
+            className="w-full rounded border border-borderPrimary px-4 py-2 bg-bgPrimary"
             type="time"
           />
         </div>
@@ -191,7 +202,7 @@ const AddSchedule = () => {
           <input
             {...register("endTime", { required: true })}
             placeholder="HH:mm:ss"
-            className="w-full rounded border border-borderPrimary px-4 py-2"
+            className="w-full rounded border border-borderPrimary px-4 py-2  bg-bgPrimary"
             type="time"
           />
         </div>

@@ -10,6 +10,7 @@ import { SubmitHandler } from "react-hook-form";
 import Spinner from "@/components/spinner";
 import Link from "next/link";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import { useGetAllClasssQuery } from "@/features/Infrastructure/classApi";
 
 const ClassSchedule = () => {
   const breadcrumbs = [
@@ -42,19 +43,18 @@ const ClassSchedule = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const [teacherId, setTeacherId] = useState(null);
 
-  const { register, handleSubmit } = useForm();
-  const onSubmit: SubmitHandler<FieldValues> = data => {
-    setTeacherId(data.teacherId);
-  };
-  const { data, isLoading } = useGetAllClassScheduleQuery(teacherId, {
-    skip: !teacherId,
+  const { register, watch } = useForm();
+  const selectedTeacherId = watch("teacherId");
+  const { data, isLoading } = useGetAllClassScheduleQuery(selectedTeacherId, {
+    skip: !selectedTeacherId,
   });
+  const { data: classes, isLoading: isClassing } = useGetAllClasssQuery(null);
 
   const { language: currentLanguage, loading } = useSelector(
     (state: RootState) => state.language,
   );
 
-  if (loading)
+  if (loading || isClassing)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -94,32 +94,18 @@ const ClassSchedule = () => {
                   : "Class"}
             </Link>
           </div>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="justify-center gap-3 max-[540px]:grid"
-          >
-            <input
+            <select
+              id="teacherCourseRegistrationId"
+              className="mx-3 rounded-lg border border-borderPrimary px-4 py-2 outline-none bg-bgPrimary shadow-sm"
               {...register("teacherId", { required: true })}
-              placeholder={
-                currentLanguage === "ar"
-                  ? "أدخل معرف الصف"
-                  : currentLanguage === "fr"
-                    ? "Entrez l'ID de la classe"
-                    : "Enter Class ID"
-              }
-              className="mx-3 rounded border border-borderPrimary px-4 py-2 outline-none"
-            />
-            <button
-              type="submit"
-              className="rounded bg-blue-500 px-4 py-2 text-white"
             >
-              {currentLanguage === "ar"
-                ? "تحميل الجدول"
-                : currentLanguage === "fr"
-                  ? "Charger l'emploi du temps"
-                  : "Load Schedule"}
-            </button>
-          </form>
+              <option value="">Select Class</option>
+              {classes?.data.content.map((teacher: any) => (
+                <option key={teacher.roomId} value={teacher.roomId}>
+                  {teacher.classroomName}
+                </option>
+              ))}
+            </select>
         </div>
         {isLoading && <Spinner />}
         <TimeTable
