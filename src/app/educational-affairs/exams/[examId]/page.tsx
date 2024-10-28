@@ -22,16 +22,16 @@ const EditExam = ({ params }: ParamsType) => {
 
   const breadcrumbs = [
     {
-      nameEn: "Administration",
+      nameEn: "Academic",
       nameAr: "الإدارة",
       nameFr: "Administration",
       href: "/",
     },
     {
-      nameEn: "Infrastructure",
+      nameEn: "Educational Affairs",
       nameAr: "الدورات والموارد",
       nameFr: "Cours et Ressources",
-      href: "/infrastructure",
+      href: "/educational-affairs",
     },
     {
       nameEn: "Exams",
@@ -66,8 +66,8 @@ const EditExam = ({ params }: ParamsType) => {
     try {
       await createExam({ formData: data, id: params.examId }).unwrap();
       toast.success("Exam edited successfully");
-    } catch {
-      toast.error("Failed to edite Exam");
+    } catch(error: any) {
+      toast.error(`${error.data.message}`);
     }
   };
 

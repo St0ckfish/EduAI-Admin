@@ -106,7 +106,7 @@ const classDetails: React.FC<ViewDriverProps> = ({ params }) => {
                   </div>
                 </div>
                 <img
-                  src="/images/avatar.png"
+                  src="/images/userr.png"
                   alt="user"
                   className="h-[40px] w-[40px]"
                 />
@@ -154,7 +154,7 @@ const classDetails: React.FC<ViewDriverProps> = ({ params }) => {
                   </div>
                 </div>
                 <img
-                  src="/images/studentphoto.png"
+                  src="/images/userr.png"
                   alt="user"
                   className="h-[40px] w-[40px]"
                 />

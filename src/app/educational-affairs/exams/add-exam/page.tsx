@@ -16,22 +16,22 @@ const AddExam = () => {
 
   const breadcrumbs = [
     {
-      nameEn: "Administration",
+      nameEn: "Academic",
       nameAr: "الإدارة",
       nameFr: "Administration",
       href: "/",
     },
     {
-      nameEn: "Infrastructure",
+      nameEn: "Educational Affairs",
       nameAr: "الدورات والموارد",
       nameFr: "Cours et Ressources",
-      href: "/infrastructure",
+      href: "/educational-affairs",
     },
     {
       nameEn: "Exams",
       nameAr: "الامتحانات",
       nameFr: "Examens",
-      href: "/exams",
+      href: "/educational-affairs/exams",
     },
     {
       nameEn: "Add New Exam",
@@ -61,8 +61,8 @@ const AddExam = () => {
     try {
       await createExam(data).unwrap();
       toast.success("Exam created successfully");
-    } catch {
-      toast.error("Failed to create Exam");
+    } catch(error: any) {
+      toast.error(`${error.data.message}`);
     }
   };
   const { language: currentLanguage, loading } = useSelector(

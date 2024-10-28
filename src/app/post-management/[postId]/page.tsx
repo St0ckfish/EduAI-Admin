@@ -7,9 +7,10 @@ import {
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Spinner from "@/components/spinner";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import { toast } from "react-toastify";
 
 interface EditPostProps {
   params: {
@@ -27,7 +28,7 @@ interface TextFormData {
 }
 
 interface FileFormData {
-  file: FileList;
+  files: FileList;
 }
 
 const EditPost = ({ params }: EditPostProps) => {
@@ -67,8 +68,9 @@ const EditPost = ({ params }: EditPostProps) => {
     handleSubmit: handleSubmitFile,
     formState: { errors: fileErrors },
   } = useForm<FileFormData>();
-  const [updatePost] = useUpdatePostsMutation();
-  const [updatePostFiles] = useUpdatePostsFilesMutation();
+  const [updatePost, { isLoading: isUpdatePost }] = useUpdatePostsMutation();
+  const [updatePostFiles, { isLoading: isUpdateFile }] = useUpdatePostsFilesMutation();
+  const [fileName, setFileName] = useState(""); // State to hold the selected file name
 
   useEffect(() => {
     if (post) {
@@ -81,22 +83,24 @@ const EditPost = ({ params }: EditPostProps) => {
     }
   }, [post, setValue]);
 
-  const onSubmitText: SubmitHandler<TextFormData> = async data => {
+  const onSubmitText: SubmitHandler<TextFormData> = async (data) => {
     try {
       await updatePost({ formData: data, id: params.postId }).unwrap();
-      // Handle successful post update (e.g., show a success message or redirect)
-    } catch (err) {
-      console.error("Failed to update post", err);
+      toast.success("Post data edited successfully");
+    } catch (err: any) {
+      toast.error(`${err.data.message}`);
     }
   };
 
-  const onSubmitFile: SubmitHandler<FileFormData> = async data => {
-    const fileData = { file: data.file[0] };
+  const onSubmitFile: SubmitHandler<FileFormData> = async (data) => {
+    const formData = new FormData();
+    formData.append("files", data.files[0]); // Append the selected file to FormData
     try {
-      await updatePostFiles({ formData: fileData, id: params.postId }).unwrap();
-      // Handle successful file update (e.g., show a success message or redirect)
-    } catch (err) {
+      await updatePostFiles({ formData, id: params.postId }).unwrap();
+      toast.success("Post file edited successfully");
+    } catch (err: any) {
       console.error("Failed to update files", err);
+      toast.error(`${err.data.message}`);
     }
   };
 
@@ -118,8 +122,8 @@ const EditPost = ({ params }: EditPostProps) => {
               ? "lg:mr-[100px]"
               : "lg:mr-[270px]"
             : booleanValue
-              ? "lg:ml-[100px]"
-              : "lg:ml-[270px]"
+            ? "lg:ml-[100px]"
+            : "lg:ml-[270px]"
         } mt-20`}
       >
         <form onSubmit={handleSubmit(onSubmitText)}>
@@ -133,26 +137,29 @@ const EditPost = ({ params }: EditPostProps) => {
                       ? "Titre"
                       : "Title"}
                 </h1>
+                {
+                !isUpdatePost ?
                 <button className="flex gap-2" type="submit">
-                  <svg
-                    className="h-6 w-6 text-[#09244b]"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+                <svg
+                  className="h-6 w-6 text-[#09244b]"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   >
-                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
-                    <polyline points="17 21 17 13 7 13 7 21" />
-                    <polyline points="7 3 7 8 15 8" />
-                  </svg>
-                  {currentLanguage === "ar"
-                    ? "تعديل"
-                    : currentLanguage === "fr"
-                      ? "Modifier"
-                      : "Edit"}
-                </button>
+                  <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                  <polyline points="17 21 17 13 7 13 7 21" />
+                  <polyline points="7 3 7 8 15 8" />
+                </svg>
+                {currentLanguage === "ar"
+                  ? "تعديل"
+                  : currentLanguage === "fr"
+                    ? "Modifier"
+                    : "Edit"}
+              </button> : <Spinner/>
+                  }
               </div>
               <div className="grid grid-cols-2 gap-3 font-semibold max-[614px]:grid-cols-1">
                 <label className="grid">
@@ -353,29 +360,33 @@ const EditPost = ({ params }: EditPostProps) => {
                 {currentLanguage === "ar"
                   ? "الصور أو مقاطع الفيديو"
                   : currentLanguage === "fr"
-                    ? "Images ou vidéos"
-                    : "Images or Videos"}
+                  ? "Images ou vidéos"
+                  : "Images or Videos"}
               </h1>
-              <button className="flex gap-2" type="submit">
-                <svg
-                  className="h-6 w-6 text-[#09244b]"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
-                  <polyline points="17 21 17 13 7 13 7 21" />
-                  <polyline points="7 3 7 8 15 8" />
-                </svg>
-                {currentLanguage === "ar"
-                  ? "تعديل"
-                  : currentLanguage === "fr"
+              {!isUpdateFile ? (
+                <button className="flex gap-2" type="submit">
+                  <svg
+                    className="h-6 w-6 text-[#09244b]"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                    <polyline points="17 21 17 13 7 13 7 21" />
+                    <polyline points="7 3 7 8 15 8" />
+                  </svg>
+                  {currentLanguage === "ar"
+                    ? "تعديل"
+                    : currentLanguage === "fr"
                     ? "Modifier"
                     : "Edit"}
-              </button>
+                </button>
+              ) : (
+                <Spinner />
+              )}
             </div>
             <div className="flex justify-center gap-3 font-semibold">
               <div className="flex w-full items-center justify-center">
@@ -403,26 +414,47 @@ const EditPost = ({ params }: EditPostProps) => {
                       {currentLanguage === "ar"
                         ? "انقر للرفع أو اسحب وأفلت"
                         : currentLanguage === "fr"
-                          ? "Cliquez pour télécharger ou glissez-déposez"
-                          : "Click to upload or drag and drop"}
+                        ? "Cliquez pour télécharger ou glissez-déposez"
+                        : "Click to upload or drag and drop"}
                     </p>
                     <p className="text-xs text-textSecondary">
                       {currentLanguage === "ar"
                         ? "SVG، PNG، JPG أو GIF (الحد الأقصى. 800x400 بكسل)"
                         : currentLanguage === "fr"
-                          ? "SVG, PNG, JPG ou GIF (MAX. 800x400px)"
-                          : "SVG, PNG, JPG or GIF (MAX. 800x400px)"}
+                        ? "SVG, PNG, JPG ou GIF (MAX. 800x400px)"
+                        : "SVG, PNG, JPG or GIF (MAX. 800x400px)"}
                     </p>
+                    {/* Display the selected file name */}
+                    {fileName && (
+                      <div className="mt-2 text-textSecondary">
+                        {currentLanguage === "ar"
+                          ? `الملف المختار: ${fileName}`
+                          : currentLanguage === "fr"
+                          ? `Fichier sélectionné: ${fileName}`
+                          : `Selected file: ${fileName}`}
+                      </div>
+                    )}
+                    {fileErrors.files && (
+                  <span className="text-error">{fileErrors.files.message}</span>
+                )}
                   </div>
                   <input
                     id="dropzone-file"
                     type="file"
-                    {...registerFile("file", { required: "File is required" })}
-                    className="hidden"
+                    {...registerFile("files", { required: "File is required" })}
+                    className="opacity-0"
+                    onChange={(e) => {
+                      const fileList = e.target.files;
+                      if (fileList && fileList.length > 0) {
+                        setFileName(fileList[0].name); // Update the state with the selected file name
+                      } else {
+                        setFileName(""); // Reset if no file is selected
+                      }
+                    }}
                   />
                 </label>
-                {fileErrors.file && (
-                  <span className="text-error">{fileErrors.file.message}</span>
+                {fileErrors.files && (
+                  <span className="text-error">{fileErrors.files.message}</span>
                 )}
               </div>
             </div>

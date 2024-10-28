@@ -70,7 +70,7 @@ export const postApi = createApi({
     updatePostsFiles: builder.mutation({
       query: ({ formData, id }) => ({
         url: `/api/v1/management/post/${id}/files`,
-        method: "PATCH",
+        method: "PUT",
         body: formData,
       }),
     }),
