@@ -59,10 +59,18 @@ export const employeeApi = createApi({
       query: id => `/api/v1/management/employee/${id}`,
     }),
     //
-    updateEmployees: builder.mutation({
-      query: ({ formData, id }) => ({
-        url: `cases/categories/${id}`,
-        method: "PATCH",
+    updatePassword: builder.mutation({
+      query: (formData) => ({
+        url: `/api/v1/my-account/password/change`,
+        method: "POST",
+        body: formData,
+      }),
+    }),
+    //
+    updatePicture: builder.mutation({
+      query: (formData) => ({
+        url: `/api/v1/my-account/picture`,
+        method: "PUT",
         body: formData,
       }),
     }),
@@ -75,5 +83,6 @@ export const {
   useUpdateCurrentUserMutation,
   useCreateEmployeesMutation,
   useGetEmployeeByIdQuery,
-  useUpdateEmployeesMutation,
+  useUpdatePasswordMutation,
+  useUpdatePictureMutation,
 } = employeeApi;

@@ -486,7 +486,7 @@ const AddNewStudent = () => {
                 htmlFor="about"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "About" : "نبذة"}
+                {currentLanguage === "en" ? "About" : currentLanguage === "ar" ? "نبذة" : "À propos"}
                 <textarea
                   id="about"
                   className="h-[100px] w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"

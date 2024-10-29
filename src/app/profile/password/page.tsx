@@ -4,12 +4,30 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import Spinner from "@/components/spinner";
+import { useUpdatePasswordMutation } from "@/features/User-Management/employeeApi";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 const Password = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value); // sidebar
   const { language: currentLanguage, loading } = useSelector(
     (state: RootState) => state.language,
   );
-
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    control,
+    formState: { errors },
+  } = useForm();
+  const [UpdateUser, { isLoading }] = useUpdatePasswordMutation();
+  const onSubmit = async (data: any) => {
+    try {
+      await UpdateUser(data).unwrap();
+      toast.success("User Updated successfully");
+    } catch (err) {
+      toast.error("Failed to Update User");
+    }
+  };
   if (loading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
@@ -54,10 +72,11 @@ const Password = () => {
           </div>
           <div className="text-semibold mt-5 flex h-full w-full rounded-xl border-2 border-borderPrimary p-5">
             <div className="grid w-full gap-2">
+              <form onSubmit={handleSubmit(onSubmit)}>
               <div className="grid justify-center">
                 <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
                   <label
-                    htmlFor="name"
+                    htmlFor="password"
                     className="grid font-sans text-[18px] font-semibold"
                   >
                     {currentLanguage === "ar"
@@ -67,59 +86,47 @@ const Password = () => {
                         : "Current Password"}
 
                     <input
-                      id="name"
-                      type="text"
-                      className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                    {...register("password")}
+                    id="password"
+                    type="password"
+                    className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                     />
                   </label>
                   <label
-                    htmlFor="about"
+                    htmlFor="newPassword"
                     className="grid font-sans text-[18px] font-semibold"
-                  >
+                    >
                     {currentLanguage === "ar"
                       ? "كلمة مرور جديدة"
                       : currentLanguage === "fr"
-                        ? "Nouveau mot de passe"
-                        : "New Password"}
+                      ? "Nouveau mot de passe"
+                      : "New Password"}
                     <input
-                      id="about"
-                      type="text"
-                      className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                    />
-                  </label>
-                  <label
-                    htmlFor="code"
-                    className="grid font-sans text-[18px] font-semibold"
-                  >
-                    {currentLanguage === "ar"
-                      ? "تأكيد كلمة المرور"
-                      : currentLanguage === "fr"
-                        ? "Confirmer le mot de passe"
-                        : "Confirm Password"}
-                    <input
-                      id="code"
-                      type="text"
+                      {...register("newPassword")}
+                      id="newPassword"
+                      type="password"
                       className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                     />
                   </label>
                 </div>
                 <div className="mt-7 flex justify-between">
-                  <button className="mx-3 mb-5 w-fit whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl">
+                  <button type="submit" className="mx-3 mb-5 w-fit whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl">
                     {currentLanguage === "ar"
                       ? "حفظ"
                       : currentLanguage === "fr"
                         ? "Sauvegarder"
                         : "Save"}
                   </button>
-                  <button className="mx-3 mb-5 w-fit whitespace-nowrap rounded-xl border border-primary px-4 py-2 text-[18px] font-semibold text-primary duration-300 ease-in hover:shadow-xl">
+                  <Link href="/" className="mx-3 mb-5 w-fit whitespace-nowrap rounded-xl border border-primary px-4 py-2 text-[18px] font-semibold text-primary duration-300 ease-in hover:shadow-xl">
                     {currentLanguage === "ar"
                       ? "إلغاء"
                       : currentLanguage === "fr"
                         ? "Annuler"
                         : "Cancel"}
-                  </button>
+                  </Link>
                 </div>
               </div>
+              </form>
             </div>
           </div>
         </div>

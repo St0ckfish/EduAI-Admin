@@ -749,7 +749,7 @@ const NavBar = () => {
                           {currentLanguage === "en"
                             ? "Organization Settings"
                             : currentLanguage === "ar"
-                              ? "إعدادات المنظمة"
+                              ? "إعدادات المؤسسة"
                               : currentLanguage === "fr"
                                 ? "Paramètres org."
                                 : "Organization Setting"}{" "}
