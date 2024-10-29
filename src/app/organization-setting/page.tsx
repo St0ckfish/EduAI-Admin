@@ -166,7 +166,7 @@ const OrganizationSettings = () => {
           : currentLanguage === "ar"
             ? "شكوى "
             : currentLanguage === "fr"
-              ? "Plainte"
+              ? "Réclamationss"
               : "Plainte", // Default to English
       description:
         currentLanguage === "en"

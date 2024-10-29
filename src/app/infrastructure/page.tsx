@@ -24,9 +24,9 @@ const Infrastructure = () => {
       href: "/",
     },
     {
-      nameEn: "Infrastructure",
+      nameEn: "Infrastructures",
       nameAr: "البنية التحتية",
-      nameFr: "Infrastructure",
+      nameFr: "Infrastructures",
       href: "/infrastructure",
     },
   ];
@@ -45,7 +45,7 @@ const Infrastructure = () => {
           : currentLanguage === "ar"
             ? "الحافلة"
             : currentLanguage === "fr"
-              ? "Autobus"
+              ? "Bus Scolaire"
               : "Bus", // Default to English
       description:
         currentLanguage === "en"

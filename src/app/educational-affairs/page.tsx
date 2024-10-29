@@ -20,7 +20,7 @@ const EducationalAffairs = () => {
     {
       nameEn: "Educational Affairs",
       nameAr: "الشئون التعليمية",
-      nameFr: "Affaires éducatives",
+      nameFr: "Gestion pédagogique",
       href: "/educational-affairs",
     },
   ];

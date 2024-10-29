@@ -458,6 +458,15 @@ const EditPost = ({ params }: EditPostProps) => {
                 )}
               </div>
             </div>
+            <div className="flex flex-wrap gap-2">
+              {
+                post.data.attachments.map((img:any)=>(
+                  <div className="grid gap-2 justify-center">
+                    <img src={img.viewLink} alt="#" className="w-[120px] h-[120px] rounded-lg mt-10" />
+                  </div>
+                ))
+              }
+            </div>
           </div>
         </form>
       </div>

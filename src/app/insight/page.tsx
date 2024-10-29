@@ -48,8 +48,8 @@ function InsightPage() {
   );
   const chartData = [
     { month: `${currentLanguage === "ar" ? "المدرسة الابتدائية" : currentLanguage === "fr" ? "École primaire" : "Primary school"}`, desktop: 186, mobile: 80 },
-    { month:  `${currentLanguage === "ar" ? "الثانوي الإعدادي" : currentLanguage === "fr" ? "Ecole secondaire préparatoire" : "Preparatory"}`, desktop: 305, mobile: 200 },
-    { month: `${currentLanguage === "ar" ? "الثانوي التأهيلي" : currentLanguage === "fr" ? "Diplôme secondaire" : "high school"}`, desktop: 237, mobile: 120 },
+    { month:  `${currentLanguage === "ar" ? "الثانوي الإعدادي" : currentLanguage === "fr" ? "Collège" : "Preparatory"}`, desktop: 305, mobile: 200 },
+    { month: `${currentLanguage === "ar" ? "الثانوي التأهيلي" : currentLanguage === "fr" ? "Lycée" : "high school"}`, desktop: 237, mobile: 120 },
   ];
   
   const chartData2 = [
@@ -76,13 +76,13 @@ function InsightPage() {
     {
       nameEn: "Ai Insights",
       nameAr: "تحليلات الذكاء الاصطناعي",
-      nameFr: "Perspectives de l'IA",
+      nameFr: "Analyses IA",
       href: "/",
     },
     {
       nameEn: "School Comparisons",
       nameAr: "مقارنات التقدم",
-      nameFr: "Comparaisons des écoles",
+      nameFr: "Comparaisons des progrès",
       href: "/insight",
     },
   ];
@@ -120,7 +120,7 @@ function InsightPage() {
                 : currentLanguage === "ar"
                   ? "تقدم الطلاب"
                   : currentLanguage === "fr"
-                    ? "Performance de l'étudiant"
+                    ? "Progression des étudiants"
                     : "Student Performance"}
             </Link>
             <Link href="/insight/school">
@@ -129,7 +129,7 @@ function InsightPage() {
                 : currentLanguage === "ar"
                   ? "تقدم المدرسة"
                   : currentLanguage === "fr"
-                    ? "Performance de l'école"
+                    ? "Progression de l'école"
                     : "School Performance"}
             </Link>
             <Link href="/insight/class">
@@ -138,7 +138,7 @@ function InsightPage() {
                 : currentLanguage === "ar"
                   ? "تقدم الفصل"
                   : currentLanguage === "fr"
-                    ? "Performance de la classe"
+                    ? "Progression de la classe"
                     : "Class Performance"}
             </Link>
             <Link href="/insight/ml-exam">
@@ -147,7 +147,7 @@ function InsightPage() {
                 : currentLanguage === "ar"
                   ? "ML التقدم في امتحان تعلم الالة"
                   : currentLanguage === "fr"
-                    ? "Performance de l'examen ML"
+                    ? "Progression à l'examen de ML"
                     : "ML Exam Performance"}
             </Link>
           </div>
@@ -161,7 +161,7 @@ function InsightPage() {
                   {currentLanguage === "ar"
                     ? "تقدم الطلاب"
                     : currentLanguage === "fr"
-                      ? "Performance des étudiants"
+                      ? "Progression des étudiants"
                       : "Student Performance"}
                 </CardTitle>
               </CardHeader>
@@ -247,8 +247,8 @@ function InsightPage() {
                   {currentLanguage === "ar"
                     ? "الطلاب المتعثرون"
                     : currentLanguage === "fr"
-                      ? "Faibles réalisateurs"
-                      : "Élèves en difficulté"}
+                      ? "Élèves en difficulté"
+                      : "Struggling Students"}
                 </CardTitle>
               </CardHeader>
               <CardContent>

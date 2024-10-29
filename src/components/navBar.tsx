@@ -894,12 +894,12 @@ const NavBar = () => {
                           href="/infrastructure"
                         >
                           {currentLanguage === "en"
-                            ? "Infrastructure"
+                            ? "Infrastructures"
                             : currentLanguage === "ar"
                               ? "البنية التحتية"
                               : currentLanguage === "fr"
-                                ? "Infrastructure"
-                                : "Infrastructure"}{" "}
+                                ? "Infrastructures"
+                                : "Infrastructures"}{" "}
                           {/* Default to English */}
                         </Link>
 

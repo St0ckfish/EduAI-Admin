@@ -154,7 +154,7 @@ const Archive = () => {
           : currentLanguage === "ar"
             ? "القاعات"
             : currentLanguage === "fr"
-              ? "Chambre"
+              ? "Salles"
               : "Room";
       case "Grades":
         return currentLanguage === "en"
@@ -171,7 +171,7 @@ const Archive = () => {
             ? "المصادر"
             : currentLanguage === "fr"
               ? "Salles / Ressources"
-              : "Resource";
+              : "Ressources";
       case "Fees":
         return currentLanguage === "en"
           ? "Fees"

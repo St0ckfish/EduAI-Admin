@@ -85,7 +85,7 @@ const Search = () => {
                   : currentLanguage === "ar"
                     ? "طلاب"
                     : currentLanguage === "fr"
-                      ? "Étudiant"
+                      ? "Etudiants"
                       : "Student"}{" "}
                 {/* Default to English */}
               </Link>
