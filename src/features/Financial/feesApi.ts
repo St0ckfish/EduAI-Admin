@@ -31,6 +31,10 @@ export const feesApi = createApi({
       query: () => "/api/v1/invoice/all?size=10&page=0&getActive=1",
     }),
     //
+    getAllScholarship: builder.query({
+      query: () => "/api/v1/scholarship/all",
+    }),
+    //
     getAllInvoicesItems: builder.query({
       query: () => "/api/v1/public/enumeration/invoice-item-type",
     }),
@@ -46,9 +50,24 @@ export const feesApi = createApi({
       }),
     }),
     //
+    deleteScholarship: builder.mutation({
+      query: id => ({
+        url: `/api/v1/scholarship?scholarshipId=${id}`,
+        method: "DELETE",
+      }),
+    }),
+    //
     createInvoices: builder.mutation({
       query: formData => ({
         url: `/api/v1/invoice?isForStudent=1`,
+        method: "POST",
+        body: formData,
+      }),
+    }),
+    //
+    createScholarship: builder.mutation({
+      query: formData => ({
+        url: `/api/v1/scholarship`,
         method: "POST",
         body: formData,
       }),
@@ -70,7 +89,10 @@ export const feesApi = createApi({
 
 export const {
   useGetAllInvoicesQuery,
+  useCreateScholarshipMutation,
   useDeleteInvoicesMutation,
+  useDeleteScholarshipMutation,
+  useGetAllScholarshipQuery,
   useCreateInvoicesMutation,
   useGetInvoiceByIdQuery,
   useUpdateInvoicesMutation,

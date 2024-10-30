@@ -35,11 +35,7 @@ const FeesManagement = () => {
   ];
 
   const [selectAll, setSelectAll] = useState(false);
-  const { data, error, isLoading, refetch } = useGetAllInvoicesQuery(null);
-  useEffect(() => {
-    if (data) console.log("Response Data:", data);
-    if (error) console.log("Error:", error);
-  }, [data, error]);
+  const { data, isLoading, refetch } = useGetAllInvoicesQuery(null);
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   type Invoice = Record<string, any>;
   const [search, setSearch] = useState("");
