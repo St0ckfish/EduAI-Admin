@@ -1,5 +1,8 @@
 "use client";
-import { useGetEventByIdQuery, useUpdateEventsMutation } from "@/features/events/eventsApi";
+import {
+  useGetEventByIdQuery,
+  useUpdateEventsMutation,
+} from "@/features/events/eventsApi";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Spinner from "@/components/spinner";
@@ -49,16 +52,22 @@ const UpdateEvent = ({ params }: Props) => {
       title_en: z.string().nonempty({ message: "This field is required" }),
       title_ar: z.string().nonempty({ message: "This field is required" }),
       title_fr: z.string().nonempty({ message: "This field is required" }),
-      description_en: z.string().nonempty({ message: "This field is required" }),
-      description_ar: z.string().nonempty({ message: "This field is required" }),
-      description_fr: z.string().nonempty({ message: "This field is required" }),
+      description_en: z
+        .string()
+        .nonempty({ message: "This field is required" }),
+      description_ar: z
+        .string()
+        .nonempty({ message: "This field is required" }),
+      description_fr: z
+        .string()
+        .nonempty({ message: "This field is required" }),
       startTime: z.string().nonempty({ message: "This field is required" }),
       endTime: z.string().nonempty({ message: "This field is required" }),
       active: z.enum(["0", "1"], {
         errorMap: () => ({ message: "This field is required" }),
       }),
     })
-    .refine((data) => new Date(data.startTime) <= new Date(data.endTime), {
+    .refine(data => new Date(data.startTime) <= new Date(data.endTime), {
       message: "Start Time must be before End Time",
       path: ["startTime"],
     });
@@ -75,7 +84,9 @@ const UpdateEvent = ({ params }: Props) => {
   });
 
   const [updateEvent, { isLoading }] = useUpdateEventsMutation();
-  const { data: eventData, isLoading: isEventLoading } = useGetEventByIdQuery(params.eventId);
+  const { data: eventData, isLoading: isEventLoading } = useGetEventByIdQuery(
+    params.eventId,
+  );
 
   useEffect(() => {
     if (eventData && eventData.data) {
@@ -109,18 +120,18 @@ const UpdateEvent = ({ params }: Props) => {
         return currentLanguage === "en"
           ? "This field is required"
           : currentLanguage === "ar"
-          ? "هذا الحقل مطلوب"
-          : currentLanguage === "fr"
-          ? "Ce champ est requis"
-          : "This field is required";
+            ? "هذا الحقل مطلوب"
+            : currentLanguage === "fr"
+              ? "Ce champ est requis"
+              : "This field is required";
       case "Start Time must be before End Time":
         return currentLanguage === "en"
           ? "Start Time must be before End Time"
           : currentLanguage === "ar"
-          ? "وقت البدء يجب أن يكون قبل وقت الانتهاء"
-          : currentLanguage === "fr"
-          ? "L'heure de début doit être avant l'heure de fin"
-          : "Start Time must be before End Time";
+            ? "وقت البدء يجب أن يكون قبل وقت الانتهاء"
+            : currentLanguage === "fr"
+              ? "L'heure de début doit être avant l'heure de fin"
+              : "Start Time must be before End Time";
       default:
         return message;
     }
@@ -143,8 +154,8 @@ const UpdateEvent = ({ params }: Props) => {
               ? "lg:mr-[100px]"
               : "lg:mr-[270px]"
             : booleanValue
-            ? "lg:ml-[100px]"
-            : "lg:ml-[270px]"
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
         } mx-[5px] mt-[40px] grid h-[500px] items-center justify-center`}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -154,10 +165,10 @@ const UpdateEvent = ({ params }: Props) => {
                 {currentLanguage === "en"
                   ? "Event Information"
                   : currentLanguage === "ar"
-                  ? "معلومات الحدث"
-                  : currentLanguage === "fr"
-                  ? "Informations sur l'événement"
-                  : "Event Information"}
+                    ? "معلومات الحدث"
+                    : currentLanguage === "fr"
+                      ? "Informations sur l'événement"
+                      : "Event Information"}
               </h1>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
@@ -169,10 +180,10 @@ const UpdateEvent = ({ params }: Props) => {
                 {currentLanguage === "en"
                   ? "Event Title (English)"
                   : currentLanguage === "ar"
-                  ? "عنوان الحدث (بالإنجليزية)"
-                  : currentLanguage === "fr"
-                  ? "Titre de l'événement (Anglais)"
-                  : "Event Title (English)"}
+                    ? "عنوان الحدث (بالإنجليزية)"
+                    : currentLanguage === "fr"
+                      ? "Titre de l'événement (Anglais)"
+                      : "Event Title (English)"}
                 <input
                   id="title_en"
                   {...register("title_en")}
@@ -193,10 +204,10 @@ const UpdateEvent = ({ params }: Props) => {
                 {currentLanguage === "en"
                   ? "Event Title (Arabic)"
                   : currentLanguage === "ar"
-                  ? "عنوان الحدث (بالعربية)"
-                  : currentLanguage === "fr"
-                  ? "Titre de l'événement (Arabe)"
-                  : "Event Title (Arabic)"}
+                    ? "عنوان الحدث (بالعربية)"
+                    : currentLanguage === "fr"
+                      ? "Titre de l'événement (Arabe)"
+                      : "Event Title (Arabic)"}
                 <input
                   id="title_ar"
                   {...register("title_ar")}
@@ -217,10 +228,10 @@ const UpdateEvent = ({ params }: Props) => {
                 {currentLanguage === "en"
                   ? "Event Title (French)"
                   : currentLanguage === "ar"
-                  ? "عنوان الحدث (بالفرنسية)"
-                  : currentLanguage === "fr"
-                  ? "Titre de l'événement (Français)"
-                  : "Event Title (French)"}
+                    ? "عنوان الحدث (بالفرنسية)"
+                    : currentLanguage === "fr"
+                      ? "Titre de l'événement (Français)"
+                      : "Event Title (French)"}
                 <input
                   id="title_fr"
                   {...register("title_fr")}
@@ -241,10 +252,10 @@ const UpdateEvent = ({ params }: Props) => {
                 {currentLanguage === "en"
                   ? "Event Description (English)"
                   : currentLanguage === "ar"
-                  ? "وصف الحدث (بالإنجليزية)"
-                  : currentLanguage === "fr"
-                  ? "Description de l'événement (Anglais)"
-                  : "Event Description (English)"}
+                    ? "وصف الحدث (بالإنجليزية)"
+                    : currentLanguage === "fr"
+                      ? "Description de l'événement (Anglais)"
+                      : "Event Description (English)"}
                 <input
                   id="description_en"
                   {...register("description_en")}
@@ -265,10 +276,10 @@ const UpdateEvent = ({ params }: Props) => {
                 {currentLanguage === "en"
                   ? "Event Description (Arabic)"
                   : currentLanguage === "ar"
-                  ? "وصف الحدث (بالعربية)"
-                  : currentLanguage === "fr"
-                  ? "Description de l'événement (Arabe)"
-                  : "Event Description (Arabic)"}
+                    ? "وصف الحدث (بالعربية)"
+                    : currentLanguage === "fr"
+                      ? "Description de l'événement (Arabe)"
+                      : "Event Description (Arabic)"}
                 <input
                   id="description_ar"
                   {...register("description_ar")}
@@ -289,10 +300,10 @@ const UpdateEvent = ({ params }: Props) => {
                 {currentLanguage === "en"
                   ? "Event Description (French)"
                   : currentLanguage === "ar"
-                  ? "وصف الحدث (بالفرنسية)"
-                  : currentLanguage === "fr"
-                  ? "Description de l'événement (Français)"
-                  : "Event Description (French)"}
+                    ? "وصف الحدث (بالفرنسية)"
+                    : currentLanguage === "fr"
+                      ? "Description de l'événement (Français)"
+                      : "Event Description (French)"}
                 <input
                   id="description_fr"
                   {...register("description_fr")}
@@ -313,10 +324,10 @@ const UpdateEvent = ({ params }: Props) => {
                 {currentLanguage === "en"
                   ? "Start Time"
                   : currentLanguage === "ar"
-                  ? "وقت البدء"
-                  : currentLanguage === "fr"
-                  ? "Heure de début"
-                  : "Start Time"}
+                    ? "وقت البدء"
+                    : currentLanguage === "fr"
+                      ? "Heure de début"
+                      : "Start Time"}
                 <input
                   id="startTime"
                   {...register("startTime")}
@@ -337,10 +348,10 @@ const UpdateEvent = ({ params }: Props) => {
                 {currentLanguage === "en"
                   ? "End Time"
                   : currentLanguage === "ar"
-                  ? "وقت الانتهاء"
-                  : currentLanguage === "fr"
-                  ? "Heure de fin"
-                  : "End Time"}
+                    ? "وقت الانتهاء"
+                    : currentLanguage === "fr"
+                      ? "Heure de fin"
+                      : "End Time"}
                 <input
                   id="endTime"
                   {...register("endTime")}
@@ -361,10 +372,10 @@ const UpdateEvent = ({ params }: Props) => {
                 {currentLanguage === "en"
                   ? "Active"
                   : currentLanguage === "ar"
-                  ? "نشط"
-                  : currentLanguage === "fr"
-                  ? "Actif"
-                  : "Active"}
+                    ? "نشط"
+                    : currentLanguage === "fr"
+                      ? "Actif"
+                      : "Active"}
                 <select
                   id="active"
                   {...register("active")}
@@ -374,19 +385,19 @@ const UpdateEvent = ({ params }: Props) => {
                     {currentLanguage === "en"
                       ? "Yes"
                       : currentLanguage === "ar"
-                      ? "نعم"
-                      : currentLanguage === "fr"
-                      ? "Oui"
-                      : "Yes"}
+                        ? "نعم"
+                        : currentLanguage === "fr"
+                          ? "Oui"
+                          : "Yes"}
                   </option>
                   <option value="0">
                     {currentLanguage === "en"
                       ? "No"
                       : currentLanguage === "ar"
-                      ? "لا"
-                      : currentLanguage === "fr"
-                      ? "Non"
-                      : "No"}
+                        ? "لا"
+                        : currentLanguage === "fr"
+                          ? "Non"
+                          : "No"}
                   </option>
                 </select>
                 {errors.active && (
@@ -407,10 +418,10 @@ const UpdateEvent = ({ params }: Props) => {
                   {currentLanguage === "en"
                     ? "Update Event"
                     : currentLanguage === "ar"
-                    ? "تحديث الحدث"
-                    : currentLanguage === "fr"
-                    ? "Mettre à jour l'événement"
-                    : "Update Event"}
+                      ? "تحديث الحدث"
+                      : currentLanguage === "fr"
+                        ? "Mettre à jour l'événement"
+                        : "Update Event"}
                 </button>
               )}
             </div>

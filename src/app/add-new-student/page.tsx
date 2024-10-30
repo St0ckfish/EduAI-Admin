@@ -70,28 +70,28 @@ const AddNewStudent = () => {
     useGetAllNationalitysQuery(null);
   const { data: regionData } = useGetAllReginionIDQuery(null);
   const optionsRigon =
-  regionData?.data?.map(
-    (rigion: {
-      cityName: any;
-      countryName: any;
-      regionName: any;
-      regionId: any;
-      name: any;
-    }) => ({
-      value: rigion.regionId,
-      label: `${rigion.regionName} - ${rigion.cityName}`,
-    }),
-  ) || [];
+    regionData?.data?.map(
+      (rigion: {
+        cityName: any;
+        countryName: any;
+        regionName: any;
+        regionId: any;
+        name: any;
+      }) => ({
+        value: rigion.regionId,
+        label: `${rigion.regionName} - ${rigion.cityName}`,
+      }),
+    ) || [];
   const { data: parentData, isLoading: parentLoading } = useGetAllParentsQuery({
     archived: "false",
     page: 0,
     size: 1000000,
   });
   const { data: countryCode, isLoading: isCountryCode } =
-  useGetAllCountryCodeQuery(null);
+    useGetAllCountryCodeQuery(null);
   const { data: LevelData, isLoading: LevelLoading } =
     useGetAllLevelsQuery(null);
-    const { data: LangData, isLoading: LangLoading } =
+  const { data: LangData, isLoading: LangLoading } =
     useGetAllLanguagesQuery(null);
   const {
     register,
@@ -230,7 +230,11 @@ const AddNewStudent = () => {
                 htmlFor="username"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Username" : currentLanguage === "ar" ? "اسم المستخدم" : "Nom d'utilisateur"}
+                {currentLanguage === "en"
+                  ? "Username"
+                  : currentLanguage === "ar"
+                    ? "اسم المستخدم"
+                    : "Nom d'utilisateur"}
                 <input
                   id="username"
                   type="text"
@@ -251,7 +255,7 @@ const AddNewStudent = () => {
                 htmlFor="email"
                 className="grid font-sans text-[18px] font-semibold"
               >
-               {currentLanguage === "ar"
+                {currentLanguage === "ar"
                   ? "البريد الإلكتروني"
                   : currentLanguage === "fr"
                     ? "Email"
@@ -377,7 +381,7 @@ const AddNewStudent = () => {
                   {...register("nationality", { required: true })}
                 >
                   <option value="">
-                  {currentLanguage === "ar"
+                    {currentLanguage === "ar"
                       ? "اختر الجنسية"
                       : currentLanguage === "fr"
                         ? "Sélectionner la nationalité"
@@ -413,13 +417,13 @@ const AddNewStudent = () => {
                       : "Region Id"}{" "}
                 {/* default */}
                 <SearchableSelect
-                      name="regionId"
-                      control={control}
-                      errors={errors}
-                      options={optionsRigon}
-                      currentLanguage={currentLanguage}
-                      placeholder="Select Region"
-                    />
+                  name="regionId"
+                  control={control}
+                  errors={errors}
+                  options={optionsRigon}
+                  currentLanguage={currentLanguage}
+                  placeholder="Select Region"
+                />
               </label>
 
               {/* Name (English) */}
@@ -502,7 +506,11 @@ const AddNewStudent = () => {
                 htmlFor="about"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "About" : currentLanguage === "ar" ? "نبذة" : "À propos"}
+                {currentLanguage === "en"
+                  ? "About"
+                  : currentLanguage === "ar"
+                    ? "نبذة"
+                    : "À propos"}
                 <textarea
                   id="about"
                   className="h-[100px] w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
@@ -667,7 +675,9 @@ const AddNewStudent = () => {
               >
                 {currentLanguage === "en"
                   ? "Educational System"
-                  : currentLanguage === "ar" ? "النظام التعليمي" : "Système éducatif"}
+                  : currentLanguage === "ar"
+                    ? "النظام التعليمي"
+                    : "Système éducatif"}
                 <input
                   type="text"
                   id="eduSystemId"

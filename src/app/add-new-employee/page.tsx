@@ -46,8 +46,8 @@ const AddNewEmployee = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const { data: nationalityData, isLoading: nationalityLoading } =
     useGetAllNationalitysQuery(null);
-    const { data: countryCode, isLoading: isCountryCode } =
-  useGetAllCountryCodeQuery(null);
+  const { data: countryCode, isLoading: isCountryCode } =
+    useGetAllCountryCodeQuery(null);
   const { data: positionData, isLoading: isPosition } =
     useGetAllPositionsQuery(null);
   const {
@@ -59,18 +59,18 @@ const AddNewEmployee = () => {
   const [createEmployee, { isLoading }] = useCreateEmployeesMutation();
   const { data: rigiond } = useGetAllReginionIDQuery(null);
   const optionsRigon =
-  rigiond?.data?.map(
-    (rigion: {
-      cityName: any;
-      countryName: any;
-      regionName: any;
-      regionId: any;
-      name: any;
-    }) => ({
-      value: rigion.regionId,
-      label: `${rigion.regionName} - ${rigion.cityName}`,
-    }),
-  ) || [];
+    rigiond?.data?.map(
+      (rigion: {
+        cityName: any;
+        countryName: any;
+        regionName: any;
+        regionId: any;
+        name: any;
+      }) => ({
+        value: rigion.regionId,
+        label: `${rigion.regionName} - ${rigion.cityName}`,
+      }),
+    ) || [];
   const onSubmit = async (data: any) => {
     const formData = { ...data, religion: "OTHERS" };
     try {
@@ -341,13 +341,13 @@ const AddNewEmployee = () => {
                       : "Region Id"}{" "}
                 {/* default */}
                 <SearchableSelect
-                      name="regionId"
-                      control={control}
-                      errors={errors}
-                      options={optionsRigon}
-                      currentLanguage={currentLanguage}
-                      placeholder="Select Region"
-                    />
+                  name="regionId"
+                  control={control}
+                  errors={errors}
+                  options={optionsRigon}
+                  currentLanguage={currentLanguage}
+                  placeholder="Select Region"
+                />
               </label>
               <label
                 htmlFor="name_en"
@@ -589,7 +589,7 @@ const AddNewEmployee = () => {
               </label>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
-            <PhoneNumberInput
+              <PhoneNumberInput
                 countryCodeData={countryCode.data}
                 currentLanguage="en"
                 label="Your Phone Number"
@@ -686,7 +686,6 @@ const AddNewEmployee = () => {
                   </span>
                 )}
               </label>
-              
             </div>
             <div className="flex justify-center text-center">
               <button

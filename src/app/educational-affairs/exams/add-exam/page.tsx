@@ -61,7 +61,7 @@ const AddExam = () => {
     try {
       await createExam(data).unwrap();
       toast.success("Exam created successfully");
-    } catch(error: any) {
+    } catch (error: any) {
       toast.error(`${error.data.message}`);
     }
   };

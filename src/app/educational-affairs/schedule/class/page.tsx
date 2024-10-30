@@ -94,18 +94,18 @@ const ClassSchedule = () => {
                   : "Class"}
             </Link>
           </div>
-            <select
-              id="teacherCourseRegistrationId"
-              className="mx-3 rounded-lg border border-borderPrimary px-4 py-2 outline-none bg-bgPrimary shadow-sm"
-              {...register("teacherId", { required: true })}
-            >
-              <option value="">Select Class</option>
-              {classes?.data.content.map((teacher: any) => (
-                <option key={teacher.roomId} value={teacher.roomId}>
-                  {teacher.classroomName}
-                </option>
-              ))}
-            </select>
+          <select
+            id="teacherCourseRegistrationId"
+            className="mx-3 rounded-lg border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-sm outline-none"
+            {...register("teacherId", { required: true })}
+          >
+            <option value="">Select Class</option>
+            {classes?.data.content.map((teacher: any) => (
+              <option key={teacher.roomId} value={teacher.roomId}>
+                {teacher.classroomName}
+              </option>
+            ))}
+          </select>
         </div>
         {isLoading && <Spinner />}
         <TimeTable

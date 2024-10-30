@@ -88,7 +88,7 @@ export const dashboardApi = createApi({
     }),
     //
     deleteNote: builder.mutation({
-      query: (id) => ({
+      query: id => ({
         url: `/api/management/note/${id}`,
         method: "DELETE",
       }),

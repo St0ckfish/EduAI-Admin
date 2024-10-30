@@ -34,11 +34,11 @@ const eventSchema = z
     description_fr: z
       .string()
       .nonempty({ message: "Description in French is required" }),
-    file: z.any().refine((file) => file instanceof File, {
+    file: z.any().refine(file => file instanceof File, {
       message: "File is required",
     }),
   })
-  .refine((data) => new Date(data.startTime) <= new Date(data.endTime), {
+  .refine(data => new Date(data.startTime) <= new Date(data.endTime), {
     message: "Start Time must be before End Time",
     path: ["startTime"],
   });
@@ -131,8 +131,8 @@ const Events = () => {
         currentLanguage === "ar"
           ? "تم إنشاء الحدث بنجاح"
           : currentLanguage === "fr"
-          ? "Événement créé avec succès"
-          : "Event created successfully",
+            ? "Événement créé avec succès"
+            : "Event created successfully",
       );
       handleCloseModal();
       refetch();
@@ -141,8 +141,8 @@ const Events = () => {
         currentLanguage === "ar"
           ? "فشل إنشاء الحدث"
           : currentLanguage === "fr"
-          ? "Échec de la création de l'événement"
-          : "Failed to create event",
+            ? "Échec de la création de l'événement"
+            : "Failed to create event",
       );
       console.error("Failed to create event:", error);
     }
@@ -160,56 +160,56 @@ const Events = () => {
         return currentLanguage === "ar"
           ? "وقت البدء مطلوب"
           : currentLanguage === "fr"
-          ? "L'heure de début est requise"
-          : "Start time is required";
+            ? "L'heure de début est requise"
+            : "Start time is required";
       case "End time is required":
         return currentLanguage === "ar"
           ? "وقت الانتهاء مطلوب"
           : currentLanguage === "fr"
-          ? "L'heure de fin est requise"
-          : "End time is required";
+            ? "L'heure de fin est requise"
+            : "End time is required";
       case "Title in English is required":
         return currentLanguage === "ar"
           ? "العنوان بالإنجليزية مطلوب"
           : currentLanguage === "fr"
-          ? "Le titre en anglais est requis"
-          : "Title in English is required";
+            ? "Le titre en anglais est requis"
+            : "Title in English is required";
       case "Title in Arabic is required":
         return currentLanguage === "ar"
           ? "العنوان بالعربية مطلوب"
           : currentLanguage === "fr"
-          ? "Le titre en arabe est requis"
-          : "Title in Arabic is required";
+            ? "Le titre en arabe est requis"
+            : "Title in Arabic is required";
       case "Title in French is required":
         return currentLanguage === "ar"
           ? "العنوان بالفرنسية مطلوب"
           : currentLanguage === "fr"
-          ? "Le titre en français est requis"
-          : "Title in French is required";
+            ? "Le titre en français est requis"
+            : "Title in French is required";
       case "Description in English is required":
         return currentLanguage === "ar"
           ? "الوصف بالإنجليزية مطلوب"
           : currentLanguage === "fr"
-          ? "La description en anglais est requise"
-          : "Description in English is required";
+            ? "La description en anglais est requise"
+            : "Description in English is required";
       case "Description in Arabic is required":
         return currentLanguage === "ar"
           ? "الوصف بالعربية مطلوب"
           : currentLanguage === "fr"
-          ? "La description en arabe est requise"
-          : "Description in Arabic is required";
+            ? "La description en arabe est requise"
+            : "Description in Arabic is required";
       case "Description in French is required":
         return currentLanguage === "ar"
           ? "الوصف بالفرنسية مطلوب"
           : currentLanguage === "fr"
-          ? "La description en français est requise"
-          : "Description in French is required";
+            ? "La description en français est requise"
+            : "Description in French is required";
       case "Start Time must be before End Time":
         return currentLanguage === "ar"
           ? "يجب أن يكون وقت البدء قبل وقت الانتهاء"
           : currentLanguage === "fr"
-          ? "L'heure de début doit être avant l'heure de fin"
-          : "Start Time must be before End Time";
+            ? "L'heure de début doit être avant l'heure de fin"
+            : "Start Time must be before End Time";
       default:
         return message;
     }
@@ -233,8 +233,8 @@ const Events = () => {
               ? "lg:mr-[100px]"
               : "lg:mr-[270px]"
             : booleanValue
-            ? "lg:ml-[100px]"
-            : "lg:ml-[270px]"
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
         } mt-7`}
       >
         <div className="flex justify-end">
@@ -245,8 +245,8 @@ const Events = () => {
             {currentLanguage === "ar"
               ? "+ إضافة حدث"
               : currentLanguage === "fr"
-              ? "+ Ajouter un événement"
-              : "+ Add Event"}
+                ? "+ Ajouter un événement"
+                : "+ Add Event"}
           </button>
         </div>
         <Timeline meetings={data?.data.content} handleDelete={handleDelete} />
@@ -255,8 +255,8 @@ const Events = () => {
             {currentLanguage === "ar"
               ? "إنشاء حدث"
               : currentLanguage === "fr"
-              ? "Créer un événement"
-              : "Create Event"}
+                ? "Créer un événement"
+                : "Create Event"}
           </h2>
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -347,7 +347,9 @@ const Events = () => {
               />
               {errors.description_en && (
                 <p className="text-error">
-                  {getErrorMessage(errors.description_en.message?.toString() || "")}
+                  {getErrorMessage(
+                    errors.description_en.message?.toString() || "",
+                  )}
                 </p>
               )}
             </div>
@@ -361,7 +363,9 @@ const Events = () => {
               />
               {errors.description_ar && (
                 <p className="text-error">
-                  {getErrorMessage(errors.description_ar.message?.toString() || "")}
+                  {getErrorMessage(
+                    errors.description_ar.message?.toString() || "",
+                  )}
                 </p>
               )}
             </div>
@@ -375,7 +379,9 @@ const Events = () => {
               />
               {errors.description_fr && (
                 <p className="text-error">
-                  {getErrorMessage(errors.description_fr.message?.toString() || "")}
+                  {getErrorMessage(
+                    errors.description_fr.message?.toString() || "",
+                  )}
                 </p>
               )}
             </div>
@@ -402,8 +408,8 @@ const Events = () => {
                 {currentLanguage === "ar"
                   ? "إضافة"
                   : currentLanguage === "fr"
-                  ? "Ajouter"
-                  : "Add"}
+                    ? "Ajouter"
+                    : "Add"}
               </button>
               <button
                 onClick={handleCloseModal}
@@ -412,8 +418,8 @@ const Events = () => {
                 {currentLanguage === "ar"
                   ? "إلغاء"
                   : currentLanguage === "fr"
-                  ? "Annuler"
-                  : "Cancel"}
+                    ? "Annuler"
+                    : "Cancel"}
               </button>
             </div>
           </form>

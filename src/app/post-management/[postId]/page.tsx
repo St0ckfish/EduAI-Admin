@@ -69,7 +69,8 @@ const EditPost = ({ params }: EditPostProps) => {
     formState: { errors: fileErrors },
   } = useForm<FileFormData>();
   const [updatePost, { isLoading: isUpdatePost }] = useUpdatePostsMutation();
-  const [updatePostFiles, { isLoading: isUpdateFile }] = useUpdatePostsFilesMutation();
+  const [updatePostFiles, { isLoading: isUpdateFile }] =
+    useUpdatePostsFilesMutation();
   const [fileName, setFileName] = useState(""); // State to hold the selected file name
 
   useEffect(() => {
@@ -83,7 +84,7 @@ const EditPost = ({ params }: EditPostProps) => {
     }
   }, [post, setValue]);
 
-  const onSubmitText: SubmitHandler<TextFormData> = async (data) => {
+  const onSubmitText: SubmitHandler<TextFormData> = async data => {
     try {
       await updatePost({ formData: data, id: params.postId }).unwrap();
       toast.success("Post data edited successfully");
@@ -92,7 +93,7 @@ const EditPost = ({ params }: EditPostProps) => {
     }
   };
 
-  const onSubmitFile: SubmitHandler<FileFormData> = async (data) => {
+  const onSubmitFile: SubmitHandler<FileFormData> = async data => {
     const formData = new FormData();
     formData.append("files", data.files[0]); // Append the selected file to FormData
     try {
@@ -122,8 +123,8 @@ const EditPost = ({ params }: EditPostProps) => {
               ? "lg:mr-[100px]"
               : "lg:mr-[270px]"
             : booleanValue
-            ? "lg:ml-[100px]"
-            : "lg:ml-[270px]"
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
         } mt-20`}
       >
         <form onSubmit={handleSubmit(onSubmitText)}>
@@ -137,29 +138,30 @@ const EditPost = ({ params }: EditPostProps) => {
                       ? "Titre"
                       : "Title"}
                 </h1>
-                {
-                !isUpdatePost ?
-                <button className="flex gap-2" type="submit">
-                <svg
-                  className="h-6 w-6 text-[#09244b]"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  >
-                  <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
-                  <polyline points="17 21 17 13 7 13 7 21" />
-                  <polyline points="7 3 7 8 15 8" />
-                </svg>
-                {currentLanguage === "ar"
-                  ? "تعديل"
-                  : currentLanguage === "fr"
-                    ? "Modifier"
-                    : "Edit"}
-              </button> : <Spinner/>
-                  }
+                {!isUpdatePost ? (
+                  <button className="flex gap-2" type="submit">
+                    <svg
+                      className="h-6 w-6 text-[#09244b]"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                      <polyline points="17 21 17 13 7 13 7 21" />
+                      <polyline points="7 3 7 8 15 8" />
+                    </svg>
+                    {currentLanguage === "ar"
+                      ? "تعديل"
+                      : currentLanguage === "fr"
+                        ? "Modifier"
+                        : "Edit"}
+                  </button>
+                ) : (
+                  <Spinner />
+                )}
               </div>
               <div className="grid grid-cols-2 gap-3 font-semibold max-[614px]:grid-cols-1">
                 <label className="grid">
@@ -360,8 +362,8 @@ const EditPost = ({ params }: EditPostProps) => {
                 {currentLanguage === "ar"
                   ? "الصور أو مقاطع الفيديو"
                   : currentLanguage === "fr"
-                  ? "Images ou vidéos"
-                  : "Images or Videos"}
+                    ? "Images ou vidéos"
+                    : "Images or Videos"}
               </h1>
               {!isUpdateFile ? (
                 <button className="flex gap-2" type="submit">
@@ -381,8 +383,8 @@ const EditPost = ({ params }: EditPostProps) => {
                   {currentLanguage === "ar"
                     ? "تعديل"
                     : currentLanguage === "fr"
-                    ? "Modifier"
-                    : "Edit"}
+                      ? "Modifier"
+                      : "Edit"}
                 </button>
               ) : (
                 <Spinner />
@@ -414,15 +416,15 @@ const EditPost = ({ params }: EditPostProps) => {
                       {currentLanguage === "ar"
                         ? "انقر للرفع أو اسحب وأفلت"
                         : currentLanguage === "fr"
-                        ? "Cliquez pour télécharger ou glissez-déposez"
-                        : "Click to upload or drag and drop"}
+                          ? "Cliquez pour télécharger ou glissez-déposez"
+                          : "Click to upload or drag and drop"}
                     </p>
                     <p className="text-xs text-textSecondary">
                       {currentLanguage === "ar"
                         ? "SVG، PNG، JPG أو GIF (الحد الأقصى. 800x400 بكسل)"
                         : currentLanguage === "fr"
-                        ? "SVG, PNG, JPG ou GIF (MAX. 800x400px)"
-                        : "SVG, PNG, JPG or GIF (MAX. 800x400px)"}
+                          ? "SVG, PNG, JPG ou GIF (MAX. 800x400px)"
+                          : "SVG, PNG, JPG or GIF (MAX. 800x400px)"}
                     </p>
                     {/* Display the selected file name */}
                     {fileName && (
@@ -430,20 +432,22 @@ const EditPost = ({ params }: EditPostProps) => {
                         {currentLanguage === "ar"
                           ? `الملف المختار: ${fileName}`
                           : currentLanguage === "fr"
-                          ? `Fichier sélectionné: ${fileName}`
-                          : `Selected file: ${fileName}`}
+                            ? `Fichier sélectionné: ${fileName}`
+                            : `Selected file: ${fileName}`}
                       </div>
                     )}
                     {fileErrors.files && (
-                  <span className="text-error">{fileErrors.files.message}</span>
-                )}
+                      <span className="text-error">
+                        {fileErrors.files.message}
+                      </span>
+                    )}
                   </div>
                   <input
                     id="dropzone-file"
                     type="file"
                     {...registerFile("files", { required: "File is required" })}
                     className="opacity-0"
-                    onChange={(e) => {
+                    onChange={e => {
                       const fileList = e.target.files;
                       if (fileList && fileList.length > 0) {
                         setFileName(fileList[0].name); // Update the state with the selected file name
@@ -459,13 +463,15 @@ const EditPost = ({ params }: EditPostProps) => {
               </div>
             </div>
             <div className="flex flex-wrap gap-2">
-              {
-                post.data.attachments.map((img:any)=>(
-                  <div className="grid gap-2 justify-center">
-                    <img src={img.viewLink} alt="#" className="w-[120px] h-[120px] rounded-lg mt-10" />
-                  </div>
-                ))
-              }
+              {post.data.attachments.map((img: any) => (
+                <div className="grid justify-center gap-2">
+                  <img
+                    src={img.viewLink}
+                    alt="#"
+                    className="mt-10 h-[120px] w-[120px] rounded-lg"
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </form>

@@ -73,59 +73,65 @@ const Password = () => {
           <div className="text-semibold mt-5 flex h-full w-full rounded-xl border-2 border-borderPrimary p-5">
             <div className="grid w-full gap-2">
               <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="grid justify-center">
-                <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
-                  <label
-                    htmlFor="password"
-                    className="grid font-sans text-[18px] font-semibold"
-                  >
-                    {currentLanguage === "ar"
-                      ? "كلمة المرور الحالية"
-                      : currentLanguage === "fr"
-                        ? "Mot de passe actuel"
-                        : "Current Password"}
-
-                    <input
-                    {...register("password")}
-                    id="password"
-                    type="password"
-                    className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                    />
-                  </label>
-                  <label
-                    htmlFor="newPassword"
-                    className="grid font-sans text-[18px] font-semibold"
+                <div className="grid justify-center">
+                  <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
+                    <label
+                      htmlFor="password"
+                      className="grid font-sans text-[18px] font-semibold"
                     >
-                    {currentLanguage === "ar"
-                      ? "كلمة مرور جديدة"
-                      : currentLanguage === "fr"
-                      ? "Nouveau mot de passe"
-                      : "New Password"}
-                    <input
-                      {...register("newPassword")}
-                      id="newPassword"
-                      type="password"
-                      className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                    />
-                  </label>
+                      {currentLanguage === "ar"
+                        ? "كلمة المرور الحالية"
+                        : currentLanguage === "fr"
+                          ? "Mot de passe actuel"
+                          : "Current Password"}
+
+                      <input
+                        {...register("password")}
+                        id="password"
+                        type="password"
+                        className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                      />
+                    </label>
+                    <label
+                      htmlFor="newPassword"
+                      className="grid font-sans text-[18px] font-semibold"
+                    >
+                      {currentLanguage === "ar"
+                        ? "كلمة مرور جديدة"
+                        : currentLanguage === "fr"
+                          ? "Nouveau mot de passe"
+                          : "New Password"}
+                      <input
+                        {...register("newPassword")}
+                        id="newPassword"
+                        type="password"
+                        className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                      />
+                    </label>
+                  </div>
+                  <div className="mt-7 flex justify-between">
+                    <button
+                      type="submit"
+                      className="mx-3 mb-5 w-fit whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+                    >
+                      {currentLanguage === "ar"
+                        ? "حفظ"
+                        : currentLanguage === "fr"
+                          ? "Sauvegarder"
+                          : "Save"}
+                    </button>
+                    <Link
+                      href="/"
+                      className="mx-3 mb-5 w-fit whitespace-nowrap rounded-xl border border-primary px-4 py-2 text-[18px] font-semibold text-primary duration-300 ease-in hover:shadow-xl"
+                    >
+                      {currentLanguage === "ar"
+                        ? "إلغاء"
+                        : currentLanguage === "fr"
+                          ? "Annuler"
+                          : "Cancel"}
+                    </Link>
+                  </div>
                 </div>
-                <div className="mt-7 flex justify-between">
-                  <button type="submit" className="mx-3 mb-5 w-fit whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl">
-                    {currentLanguage === "ar"
-                      ? "حفظ"
-                      : currentLanguage === "fr"
-                        ? "Sauvegarder"
-                        : "Save"}
-                  </button>
-                  <Link href="/" className="mx-3 mb-5 w-fit whitespace-nowrap rounded-xl border border-primary px-4 py-2 text-[18px] font-semibold text-primary duration-300 ease-in hover:shadow-xl">
-                    {currentLanguage === "ar"
-                      ? "إلغاء"
-                      : currentLanguage === "fr"
-                        ? "Annuler"
-                        : "Cancel"}
-                  </Link>
-                </div>
-              </div>
               </form>
             </div>
           </div>

@@ -38,8 +38,6 @@ const NavBar = () => {
     isLoading: userLoading,
   } = useGetAllCurrentUserQuery(null);
 
-  
-
   // Theme Changer
   const { theme, setTheme } = useTheme();
   const [isClient, setIsClient] = useState(false);
@@ -65,7 +63,7 @@ const NavBar = () => {
       id: userData?.data?.id,
     }),
   );
-  
+
   const [pathname, setPathname] = useState("");
   const [small, setSmall] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -211,9 +209,7 @@ const NavBar = () => {
                   </button>
                 </div>
 
-                <div className="hidden sm:block">
-                  
-                </div>
+                <div className="hidden sm:block"></div>
 
                 <div className="flex flex-row items-center justify-end gap-2">
                   {isClient && (

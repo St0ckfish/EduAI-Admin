@@ -51,26 +51,29 @@ const Chat = () => {
     );
 
   return (
-    <div dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={` ${
-          currentLanguage === "ar"
-            ? booleanValue
-              ? "lg:mr-[100px]"
-              : "lg:mr-[270px]"
-            : booleanValue
-              ? "lg:ml-[100px]"
-              : "lg:ml-[270px]"
-        } mt-10 mr-4`}>
-      <div className="flex w-full rounded-lg p-4 justify-between gap-10 max-[1180px]:grid max-[1180px]:justify-center">
-        <div className="rounded-xl w-full bg-bgPrimary p-5 h-[700px] overflow-y-auto">
-        <div className="flex-1 overflow-y-auto">
-          {
-            isLoading ? <Spinner /> :
+    <div
+      dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+      className={` ${
+        currentLanguage === "ar"
+          ? booleanValue
+            ? "lg:mr-[100px]"
+            : "lg:mr-[270px]"
+          : booleanValue
+            ? "lg:ml-[100px]"
+            : "lg:ml-[270px]"
+      } mr-4 mt-10`}
+    >
+      <div className="flex w-full justify-between gap-10 rounded-lg p-4 max-[1180px]:grid max-[1180px]:justify-center">
+        <div className="h-[700px] w-full overflow-y-auto rounded-xl bg-bgPrimary p-5">
+          <div className="flex-1 overflow-y-auto">
+            {isLoading ? (
+              <Spinner />
+            ) : (
               <>
-                <div className="flex justify-start text-start font-semibold text-[22px]">
+                <div className="flex justify-start text-start text-[22px] font-semibold">
                   <h1>Contacts</h1>
                 </div>
-                <div className="grid items-start mt-6">
+                <div className="mt-6 grid items-start">
                   <div>
                     <label htmlFor="icon" className="sr-only">
                       Search
@@ -94,22 +97,25 @@ const Chat = () => {
                         </svg>
                       </div>
                       <input
-                      onChange={e => setSearch(e.target.value)}
+                        onChange={e => setSearch(e.target.value)}
                         type="text"
                         id="icon"
                         name="icon"
                         className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-primary focus:ring-primary disabled:pointer-events-none disabled:opacity-50"
-                        placeholder={currentLanguage === "en"
-                          ? "Search"
-                          : currentLanguage === "ar"
-                            ? "بحث"
-                            : "Recherche"} />
+                        placeholder={
+                          currentLanguage === "en"
+                            ? "Search"
+                            : currentLanguage === "ar"
+                              ? "بحث"
+                              : "Recherche"
+                        }
+                      />
                     </div>
                   </div>
                 </div>
                 <div className="mt-2 grid gap-2">
-                  {
-                    data.data.content.filter((teacher: any) => {
+                  {data.data.content
+                    .filter((teacher: any) => {
                       return search.toLocaleLowerCase() === ""
                         ? teacher
                         : teacher.name.toLocaleLowerCase().includes(search);
@@ -136,31 +142,37 @@ const Chat = () => {
                           )}
                         </div>
                         <div className="grid gap-2">
-                          <p className="font-semibold">{teacher.name} <span className="text-secondary text-[15px]">({teacher.Role})</span></p>
+                          <p className="font-semibold">
+                            {teacher.name}{" "}
+                            <span className="text-[15px] text-secondary">
+                              ({teacher.Role})
+                            </span>
+                          </p>
                           <p className="font-semibold text-secondary">
                             ID: {teacher.id}
                           </p>
                         </div>
                       </div>
-                    ))
-                  }
+                    ))}
                 </div>
               </>
-          }
+            )}
+          </div>
         </div>
-        </div>
-        <div className="flex rounded-xl w-full bg-bgPrimary">
-          {
-            userId == "" ? <div className="flex h-full w-full items-center justify-center">
+        <div className="flex w-full rounded-xl bg-bgPrimary">
+          {userId == "" ? (
+            <div className="flex h-full w-full items-center justify-center">
               <img src="/images/emptyState.png" alt="#" />
-            </div>:
-          <ChatPage userId={userId}/>
-        }
+            </div>
+          ) : (
+            <ChatPage userId={userId} />
+          )}
         </div>
       </div>
     </div>
   );
-  {/* <button onClick={handleOpenRegister} className="mr-4 bg-blue-500 text-white p-2 rounded">
+  {
+    /* <button onClick={handleOpenRegister} className="mr-4 bg-blue-500 text-white p-2 rounded">
     Register
   </button>
   <button
@@ -175,7 +187,8 @@ const Chat = () => {
     ) : (
       <LoginForm onClose={handleCloseModal} />
     )}
-  </Modal> */}
+  </Modal> */
+  }
 };
 
 export default Chat;

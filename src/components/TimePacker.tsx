@@ -46,7 +46,7 @@ const TimePicker: React.FC = () => {
             max={12}
           />
         </div>
-        <span className="text-3xl ">:</span>
+        <span className="text-3xl">:</span>
         <div className="flex flex-col items-center">
           <input
             type="number"
@@ -61,7 +61,7 @@ const TimePicker: React.FC = () => {
         <div className="ml-6 flex flex-col space-y-2">
           <button
             onClick={toggleAMPM}
-            className={`rounded-md px-4 py-2 text-lg  ${
+            className={`rounded-md px-4 py-2 text-lg ${
               isAM ? "bg-blue-500" : "bg-primary-dark hover:bg-gray-600"
             }`}
           >
@@ -69,7 +69,7 @@ const TimePicker: React.FC = () => {
           </button>
           <button
             onClick={toggleAMPM}
-            className={`rounded-md px-4 py-2 text-lg  ${
+            className={`rounded-md px-4 py-2 text-lg ${
               !isAM ? "bg-blue-500" : "bg-primary-dark hover:bg-gray-600"
             }`}
           >

@@ -58,9 +58,14 @@ const calculateHeight = (
 
 const TimeTable = ({ scheduleData }: { scheduleData: any[] }) => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-  const { language: currentLanguage } = useSelector((state: RootState) => state.language);
+  const { language: currentLanguage } = useSelector(
+    (state: RootState) => state.language,
+  );
   return (
-    <div dir={currentLanguage === "ar" ? "rtl" : "ltr"} className="grid w-full overflow-x-auto mb-20">
+    <div
+      dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+      className="mb-20 grid w-full overflow-x-auto"
+    >
       <div className="grid w-full overflow-x-auto">
         <div
           className={`mx-3 rounded-xl bg-bgPrimary p-6 ${booleanValue ? "w-[1750px]" : "w-[1570px]"}`}
@@ -120,7 +125,7 @@ const TimeTable = ({ scheduleData }: { scheduleData: any[] }) => {
                     return (
                       <div
                         key={idx}
-                        className="border-borderPrimary-4 absolute left-0 right-0 mx-2 rounded-lg border-l border-primary bg-thead p-4 text-primary overflow-auto"
+                        className="border-borderPrimary-4 absolute left-0 right-0 mx-2 overflow-auto rounded-lg border-l border-primary bg-thead p-4 text-primary"
                         style={{ top: `${top}%`, height: `${height}%` }}
                       >
                         <div className="font-bold">{event.courseName}</div>

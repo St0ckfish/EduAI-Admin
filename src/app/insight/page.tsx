@@ -47,11 +47,23 @@ function InsightPage() {
     (state: RootState) => state.language,
   );
   const chartData = [
-    { month: `${currentLanguage === "ar" ? "المدرسة الابتدائية" : currentLanguage === "fr" ? "École primaire" : "Primary school"}`, desktop: 186, mobile: 80 },
-    { month:  `${currentLanguage === "ar" ? "الثانوي الإعدادي" : currentLanguage === "fr" ? "Collège" : "Preparatory"}`, desktop: 305, mobile: 200 },
-    { month: `${currentLanguage === "ar" ? "الثانوي التأهيلي" : currentLanguage === "fr" ? "Lycée" : "high school"}`, desktop: 237, mobile: 120 },
+    {
+      month: `${currentLanguage === "ar" ? "المدرسة الابتدائية" : currentLanguage === "fr" ? "École primaire" : "Primary school"}`,
+      desktop: 186,
+      mobile: 80,
+    },
+    {
+      month: `${currentLanguage === "ar" ? "الثانوي الإعدادي" : currentLanguage === "fr" ? "Collège" : "Preparatory"}`,
+      desktop: 305,
+      mobile: 200,
+    },
+    {
+      month: `${currentLanguage === "ar" ? "الثانوي التأهيلي" : currentLanguage === "fr" ? "Lycée" : "high school"}`,
+      desktop: 237,
+      mobile: 120,
+    },
   ];
-  
+
   const chartData2 = [
     { month: "January", desktop: 186, mobile: 80 },
     { month: "February", desktop: 305, mobile: 200 },
@@ -60,14 +72,14 @@ function InsightPage() {
     { month: "May", desktop: 209, mobile: 130 },
     { month: "June", desktop: 214, mobile: 140 },
   ];
-  
+
   const chartData3 = [
     { name: "Ahmed Mohamed", attendance: 30, grade: 80 },
     { name: "Ahmed Mohamed", attendance: 60, grade: 55 },
     { name: "Ahmed Mohamed", attendance: 45, grade: 70 },
     { name: "Ahmed Mohamed", attendance: 50, grade: 65 },
   ];
-  
+
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
     setIsMounted(true);
@@ -86,8 +98,6 @@ function InsightPage() {
       href: "/insight",
     },
   ];
-
-
 
   if (!isMounted) return null;
 
@@ -155,7 +165,7 @@ function InsightPage() {
         <div className="mt-5 flex flex-wrap justify-evenly gap-5 overflow-x-auto">
           {/* Student Performance Bar Chart */}
           <div className="flex items-center justify-center overflow-x-auto">
-            <Card className="w-[850px] bg-bgPrimary max-[1170px]:w-[550px] max-[605px]:w-[450px] overflow-x-auto">
+            <Card className="w-[850px] overflow-x-auto bg-bgPrimary max-[1170px]:w-[550px] max-[605px]:w-[450px]">
               <CardHeader>
                 <CardTitle>
                   {currentLanguage === "ar"
@@ -241,7 +251,7 @@ function InsightPage() {
             </Card>
 
             {/* Low Achievers Bar Chart */}
-            <Card className="w-[550px] overflow-x-auto bg-bgPrimary max-[605px]:w-[450px] text-nowrap whitespace-nowrap">
+            <Card className="w-[550px] overflow-x-auto whitespace-nowrap text-nowrap bg-bgPrimary max-[605px]:w-[450px]">
               <CardHeader>
                 <CardTitle>
                   {currentLanguage === "ar"
@@ -253,7 +263,7 @@ function InsightPage() {
               </CardHeader>
               <CardContent>
                 <BarChart
-                  className="font-semibold text-nowrap whitespace-nowrap"
+                  className="whitespace-nowrap text-nowrap font-semibold"
                   width={400}
                   height={300}
                   data={chartData3}

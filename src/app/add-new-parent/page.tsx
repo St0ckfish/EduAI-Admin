@@ -55,20 +55,20 @@ const AddNewParent = () => {
   const [createEmployee, { isLoading }] = useCreateParentsMutation();
   const { data: rigiond } = useGetAllReginionIDQuery(null);
   const optionsRigon =
-  rigiond?.data?.map(
-    (rigion: {
-      cityName: any;
-      countryName: any;
-      regionName: any;
-      regionId: any;
-      name: any;
-    }) => ({
-      value: rigion.regionId,
-      label: `${rigion.regionName} - ${rigion.cityName}`,
-    }),
-  ) || [];
+    rigiond?.data?.map(
+      (rigion: {
+        cityName: any;
+        countryName: any;
+        regionName: any;
+        regionId: any;
+        name: any;
+      }) => ({
+        value: rigion.regionId,
+        label: `${rigion.regionName} - ${rigion.cityName}`,
+      }),
+    ) || [];
   const { data: countryCode, isLoading: isCountryCode } =
-  useGetAllCountryCodeQuery(null);
+    useGetAllCountryCodeQuery(null);
 
   const onSubmit = async (data: any) => {
     const requestBody = {
@@ -392,13 +392,13 @@ const AddNewParent = () => {
                       ? "ID de la région"
                       : "RegionId"}
                 <SearchableSelect
-                      name="regionId"
-                      control={control}
-                      errors={errors}
-                      options={optionsRigon}
-                      currentLanguage={currentLanguage}
-                      placeholder="Select Region"
-                    />
+                  name="regionId"
+                  control={control}
+                  errors={errors}
+                  options={optionsRigon}
+                  currentLanguage={currentLanguage}
+                  placeholder="Select Region"
+                />
               </label>
               <label
                 htmlFor="name_en"
@@ -667,7 +667,6 @@ const AddNewParent = () => {
                 errors={errors}
                 control={control}
               />
-              
             </div>
             <div className="flex justify-center text-center">
               <button

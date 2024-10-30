@@ -625,13 +625,13 @@ const EditEmployee: React.FC<ViewEmpolyeeProps> = ({ params }) => {
                 )}
               </label>
               <PhoneNumberInput
-              countryCodeData={countryCode.data}
-              currentLanguage="en"
-              label="Your Phone Number"
-              register={register}
-              errors={errors}
-              control={control}
-            />
+                countryCodeData={countryCode.data}
+                currentLanguage="en"
+                label="Your Phone Number"
+                register={register}
+                errors={errors}
+                control={control}
+              />
               <label
                 htmlFor="positionId"
                 className="grid font-sans text-[18px] font-semibold"

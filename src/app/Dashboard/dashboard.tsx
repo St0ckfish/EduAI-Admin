@@ -83,7 +83,11 @@ const Dashboard: React.FC = () => {
   } = useGetAllWorkersQuery(null);
   const { data: mettings, isLoading: isMeeting } =
     useGetAllEventsDashboardQuery(null);
-  const { data: notices, isLoading: isNotices, refetch } = useGetNoticesQuery(null);
+  const {
+    data: notices,
+    isLoading: isNotices,
+    refetch,
+  } = useGetNoticesQuery(null);
   const [createEvent] = useCreateEventsMutation();
   useEffect(() => {
     if (students || employees || teachers || workers || mettings) {
@@ -140,8 +144,14 @@ const Dashboard: React.FC = () => {
 
       // Update the series with the new data
       setSeries([
-        { name:  `${currentLanguage === "ar" ? "المداخل" : currentLanguage === "fr" ? "revenu" : "Income"}`, data: incomeData },
-        { name: `${currentLanguage === "ar" ? "المصاريف" : currentLanguage === "fr" ? "Dépenses" : "Expense"}`, data: expenseData },
+        {
+          name: `${currentLanguage === "ar" ? "المداخل" : currentLanguage === "fr" ? "revenu" : "Income"}`,
+          data: incomeData,
+        },
+        {
+          name: `${currentLanguage === "ar" ? "المصاريف" : currentLanguage === "fr" ? "Dépenses" : "Expense"}`,
+          data: expenseData,
+        },
       ]);
       setCategories(semesterNames);
     }
@@ -221,8 +231,6 @@ const Dashboard: React.FC = () => {
   });
   type Meeting = Record<string, any>;
 
-
-
   if (
     isStudents ||
     isEmployee ||
@@ -242,7 +250,9 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
-      <div dir={currentLanguage === "ar" ? "rtl" : "ltr"} className={`grid text-start ${
+      <div
+        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+        className={`grid text-start ${
           currentLanguage === "ar"
             ? booleanValue
               ? "lg:mr-[100px]"
@@ -250,24 +260,25 @@ const Dashboard: React.FC = () => {
             : booleanValue
               ? "lg:ml-[100px]"
               : ""
-        }`}>
+        }`}
+      >
         <h1 className="mb-2 font-sans text-[28px] font-bold text-[#041631] dark:text-white">
-        {currentLanguage === "en"
-                  ? "Dashboard"
-                  : currentLanguage === "ar"
-                    ? "لوحة التحكم"
-                    : currentLanguage === "fr"
-                      ? "tableau de bord"
-                      : "tableau de bord"}
+          {currentLanguage === "en"
+            ? "Dashboard"
+            : currentLanguage === "ar"
+              ? "لوحة التحكم"
+              : currentLanguage === "fr"
+                ? "tableau de bord"
+                : "tableau de bord"}
         </h1>
         <p className="font-sans text-[20px] text-[#526484] max-[490px]:text-[18px]">
-        {currentLanguage === "en"
-                  ? "Welcome to Learning Management Dashboard."
-                  : currentLanguage === "ar"
-                    ? "مرحباً بكم في لوحة إدارة التعلم."
-                    : currentLanguage === "fr"
-                      ? "Bienvenue sur le tableau de bord pédagogique"
-                      : "Bienvenue dans le tableau de bord de gestion de l'apprentissage."}
+          {currentLanguage === "en"
+            ? "Welcome to Learning Management Dashboard."
+            : currentLanguage === "ar"
+              ? "مرحباً بكم في لوحة إدارة التعلم."
+              : currentLanguage === "fr"
+                ? "Bienvenue sur le tableau de bord pédagogique"
+                : "Bienvenue dans le tableau de bord de gestion de l'apprentissage."}
         </p>
       </div>
       <div className="mr-10 grid w-full justify-center overflow-x-auto p-6">
@@ -278,7 +289,7 @@ const Dashboard: React.FC = () => {
               className="h-[80px] w-[201px] items-center justify-center rounded-xl bg-bgPrimary p-2 shadow-xl max-[576px]:h-[100px]"
             >
               <p className="text-[12px] text-textSecondary">
-              {currentLanguage === "ar"
+                {currentLanguage === "ar"
                   ? "عدد الطلاب"
                   : currentLanguage === "fr"
                     ? "Nombre d'étudiants"
@@ -555,22 +566,26 @@ const Dashboard: React.FC = () => {
                       | undefined;
                   }) => (
                     <div key={note.id}>
-                      <h1 className="text-[18px] font-semibold text-primary flex items-center gap-2">
-                      <button onClick={() => typeof note.id === 'number' && handleDelete(note.id)}>
-                        <svg
-                          className="h-6 w-6 text-error"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
+                      <h1 className="flex items-center gap-2 text-[18px] font-semibold text-primary">
+                        <button
+                          onClick={() =>
+                            typeof note.id === "number" && handleDelete(note.id)
+                          }
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                          />
-                        </svg>
-                      </button>
+                          <svg
+                            className="h-6 w-6 text-error"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                            />
+                          </svg>
+                        </button>
                         {note.title}
                       </h1>
                       <p

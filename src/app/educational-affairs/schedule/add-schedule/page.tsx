@@ -24,7 +24,7 @@ const scheduleSchema = z
     endTime: z.string().nonempty("End Time is required"),
   })
   .refine(
-    (data) => {
+    data => {
       const startTime = parseTime(data.startTime);
       const minTime = parseTime("07:00");
       const maxTime = parseTime("16:00");
@@ -33,10 +33,10 @@ const scheduleSchema = z
     {
       message: "Start Time must be between 7:00 AM and 4:00 PM",
       path: ["startTime"],
-    }
+    },
   )
   .refine(
-    (data) => {
+    data => {
       const endTime = parseTime(data.endTime);
       const minTime = parseTime("07:00");
       const maxTime = parseTime("16:00");
@@ -45,10 +45,10 @@ const scheduleSchema = z
     {
       message: "End Time must be between 7:00 AM and 4:00 PM",
       path: ["endTime"],
-    }
+    },
   )
   .refine(
-    (data) => {
+    data => {
       const startTime = parseTime(data.startTime);
       const endTime = parseTime(data.endTime);
       return endTime > startTime;
@@ -56,7 +56,7 @@ const scheduleSchema = z
     {
       message: "End Time must be after Start Time",
       path: ["endTime"],
-    }
+    },
   );
 
 function parseTime(timeStr: string) {
@@ -94,7 +94,7 @@ const AddSchedule = () => {
 
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const { language: currentLanguage, loading } = useSelector(
-    (state: RootState) => state.language
+    (state: RootState) => state.language,
   );
 
   const {
@@ -116,7 +116,7 @@ const AddSchedule = () => {
   });
   const { data: courses, isLoading } = useGetAllCoursesQuery(null);
 
-  const onSubmitCreateSchedule: SubmitHandler<FieldValues> = async (data) => {
+  const onSubmitCreateSchedule: SubmitHandler<FieldValues> = async data => {
     try {
       await createSchedule({
         classroomId: data.classroomId,
@@ -152,8 +152,8 @@ const AddSchedule = () => {
               ? "lg:mr-[100px]"
               : "lg:mr-[270px]"
             : booleanValue
-            ? "lg:ml-[100px]"
-            : "lg:ml-[270px]"
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
         } mx-3 mt-5 space-y-4`}
       >
         <div>
@@ -161,20 +161,20 @@ const AddSchedule = () => {
             {currentLanguage === "ar"
               ? "معرف الفصل"
               : currentLanguage === "fr"
-              ? "ID de la classe"
-              : "Classroom ID"}
+                ? "ID de la classe"
+                : "Classroom ID"}
           </label>
           <select
             id="classroomId"
-            className="w-full rounded border border-borderPrimary px-4 py-2 bg-bgPrimary"
+            className="w-full rounded border border-borderPrimary bg-bgPrimary px-4 py-2"
             {...register("classroomId")}
           >
             <option value="">
               {currentLanguage === "ar"
                 ? "اختر الفصل"
                 : currentLanguage === "fr"
-                ? "Sélectionner la classe"
-                : "Select Class"}
+                  ? "Sélectionner la classe"
+                  : "Select Class"}
             </option>
             {classes?.data.content.map((teacher: any) => (
               <option key={teacher.roomId} value={teacher.roomId}>
@@ -183,7 +183,9 @@ const AddSchedule = () => {
             ))}
           </select>
           {errors.classroomId && (
-            <p className="text-red-500">{errors.classroomId.message?.toString()}</p>
+            <p className="text-red-500">
+              {errors.classroomId.message?.toString()}
+            </p>
           )}
         </div>
         <div>
@@ -191,20 +193,20 @@ const AddSchedule = () => {
             {currentLanguage === "ar"
               ? "معرف المعلم"
               : currentLanguage === "fr"
-              ? "ID de l'enseignant"
-              : "Teacher ID"}
+                ? "ID de l'enseignant"
+                : "Teacher ID"}
           </label>
           <select
             id="teacherId"
-            className="w-full rounded border border-borderPrimary px-4 py-2 bg-bgPrimary"
+            className="w-full rounded border border-borderPrimary bg-bgPrimary px-4 py-2"
             {...register("teacherId")}
           >
             <option value="">
               {currentLanguage === "ar"
                 ? "اختر المعلم"
                 : currentLanguage === "fr"
-                ? "Sélectionner l'enseignant"
-                : "Select Teacher"}
+                  ? "Sélectionner l'enseignant"
+                  : "Select Teacher"}
             </option>
             {teachers?.data.content.map((teacher: any) => (
               <option key={teacher.id} value={teacher.id}>
@@ -213,7 +215,9 @@ const AddSchedule = () => {
             ))}
           </select>
           {errors.teacherId && (
-            <p className="text-red-500">{errors.teacherId.message?.toString()}</p>
+            <p className="text-red-500">
+              {errors.teacherId.message?.toString()}
+            </p>
           )}
         </div>
         <div>
@@ -221,20 +225,20 @@ const AddSchedule = () => {
             {currentLanguage === "ar"
               ? "معرف الدورة"
               : currentLanguage === "fr"
-              ? "ID du cours"
-              : "Course ID"}
+                ? "ID du cours"
+                : "Course ID"}
           </label>
           <select
             id="courseId"
-            className="w-full rounded border border-borderPrimary px-4 py-2  bg-bgPrimary"
+            className="w-full rounded border border-borderPrimary bg-bgPrimary px-4 py-2"
             {...register("courseId")}
           >
             <option value="">
               {currentLanguage === "ar"
                 ? "اختر الدورة"
                 : currentLanguage === "fr"
-                ? "Sélectionner le cours"
-                : "Select Course"}
+                  ? "Sélectionner le cours"
+                  : "Select Course"}
             </option>
             {courses?.data.content.map((course: any) => (
               <option key={course.id} value={course.id}>
@@ -243,7 +247,9 @@ const AddSchedule = () => {
             ))}
           </select>
           {errors.courseId && (
-            <p className="text-red-500">{errors.courseId.message?.toString()}</p>
+            <p className="text-red-500">
+              {errors.courseId.message?.toString()}
+            </p>
           )}
         </div>
         <div>
@@ -251,69 +257,69 @@ const AddSchedule = () => {
             {currentLanguage === "ar"
               ? "اليوم"
               : currentLanguage === "fr"
-              ? "Jour"
-              : "Day"}
+                ? "Jour"
+                : "Day"}
           </label>
           <select
             id="day"
-            className="w-full rounded border border-borderPrimary px-4 py-2  bg-bgPrimary"
+            className="w-full rounded border border-borderPrimary bg-bgPrimary px-4 py-2"
             {...register("day")}
           >
             <option value="">
               {currentLanguage === "ar"
                 ? "اختر اليوم"
                 : currentLanguage === "fr"
-                ? "Sélectionner le jour"
-                : "Select Day"}
+                  ? "Sélectionner le jour"
+                  : "Select Day"}
             </option>
             <option value="SUNDAY">
               {currentLanguage === "ar"
                 ? "الأحد"
                 : currentLanguage === "fr"
-                ? "Dimanche"
-                : "Sunday"}
+                  ? "Dimanche"
+                  : "Sunday"}
             </option>
             <option value="MONDAY">
               {currentLanguage === "ar"
                 ? "الإثنين"
                 : currentLanguage === "fr"
-                ? "Lundi"
-                : "Monday"}
+                  ? "Lundi"
+                  : "Monday"}
             </option>
             <option value="TUESDAY">
               {currentLanguage === "ar"
                 ? "الثلاثاء"
                 : currentLanguage === "fr"
-                ? "Mardi"
-                : "Tuesday"}
+                  ? "Mardi"
+                  : "Tuesday"}
             </option>
             <option value="WEDNESDAY">
               {currentLanguage === "ar"
                 ? "الأربعاء"
                 : currentLanguage === "fr"
-                ? "Mercredi"
-                : "Wednesday"}
+                  ? "Mercredi"
+                  : "Wednesday"}
             </option>
             <option value="THURSDAY">
               {currentLanguage === "ar"
                 ? "الخميس"
                 : currentLanguage === "fr"
-                ? "Jeudi"
-                : "Thursday"}
+                  ? "Jeudi"
+                  : "Thursday"}
             </option>
             <option value="FRIDAY">
               {currentLanguage === "ar"
                 ? "الجمعة"
                 : currentLanguage === "fr"
-                ? "Vendredi"
-                : "Friday"}
+                  ? "Vendredi"
+                  : "Friday"}
             </option>
             <option value="SATURDAY">
               {currentLanguage === "ar"
                 ? "السبت"
                 : currentLanguage === "fr"
-                ? "Samedi"
-                : "Saturday"}
+                  ? "Samedi"
+                  : "Saturday"}
             </option>
           </select>
           {errors.day && (
@@ -325,17 +331,19 @@ const AddSchedule = () => {
             {currentLanguage === "ar"
               ? "وقت البدء"
               : currentLanguage === "fr"
-              ? "Heure de début"
-              : "Start Time"}
+                ? "Heure de début"
+                : "Start Time"}
           </label>
           <input
             {...register("startTime")}
             placeholder="HH:mm"
-            className="w-full rounded border border-borderPrimary px-4 py-2 bg-bgPrimary"
+            className="w-full rounded border border-borderPrimary bg-bgPrimary px-4 py-2"
             type="time"
           />
           {errors.startTime && (
-            <p className="text-red-500">{errors.startTime.message?.toString()}</p>
+            <p className="text-red-500">
+              {errors.startTime.message?.toString()}
+            </p>
           )}
         </div>
         <div>
@@ -343,13 +351,13 @@ const AddSchedule = () => {
             {currentLanguage === "ar"
               ? "وقت الانتهاء"
               : currentLanguage === "fr"
-              ? "Heure de fin"
-              : "End Time"}
+                ? "Heure de fin"
+                : "End Time"}
           </label>
           <input
             {...register("endTime")}
             placeholder="HH:mm"
-            className="w-full rounded border border-borderPrimary px-4 py-2  bg-bgPrimary"
+            className="w-full rounded border border-borderPrimary bg-bgPrimary px-4 py-2"
             type="time"
           />
           {errors.endTime && (
@@ -374,13 +382,13 @@ const AddSchedule = () => {
               ? currentLanguage === "ar"
                 ? "جاري الإرسال..."
                 : currentLanguage === "fr"
-                ? "Soumission en cours..."
-                : "Submitting..."
+                  ? "Soumission en cours..."
+                  : "Submitting..."
               : currentLanguage === "ar"
-              ? "إرسال"
-              : currentLanguage === "fr"
-              ? "Soumettre"
-              : "Submit"}
+                ? "إرسال"
+                : currentLanguage === "fr"
+                  ? "Soumettre"
+                  : "Submit"}
           </button>
         </div>
       </form>

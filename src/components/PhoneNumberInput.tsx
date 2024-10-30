@@ -49,10 +49,12 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
     return translations[key][currentLanguage] || translations[key]["en"];
   };
 
-  const countryOptions = Object.entries(countryCodeData).map(([key, value]) => ({
-    value: key,
-    label: `+${key} (${value})`,
-  }));
+  const countryOptions = Object.entries(countryCodeData).map(
+    ([key, value]) => ({
+      value: key,
+      label: `+${key} (${value})`,
+    }),
+  );
 
   return (
     <label
@@ -61,7 +63,7 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
     >
       {label || getTranslation("phoneNumber")}
       <div className="flex w-[400px] max-w-full items-center gap-2 rounded-xl border border-borderPrimary px-4 py-2">
-        <div className="w-[150px] ">
+        <div className="w-[150px]">
           <SearchableSelect
             name="countryCode"
             control={control}

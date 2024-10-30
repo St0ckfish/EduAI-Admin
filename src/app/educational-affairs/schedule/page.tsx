@@ -49,7 +49,7 @@ const Schedule = () => {
   });
 
   const { language: currentLanguage, loading } = useSelector(
-    (state: RootState) => state.language
+    (state: RootState) => state.language,
   );
 
   if (loading || isTeacher)
@@ -70,8 +70,8 @@ const Schedule = () => {
               ? "lg:mr-[100px]"
               : "lg:mr-[270px]"
             : booleanValue
-            ? "lg:ml-[100px]"
-            : "lg:ml-[270px]"
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
         } mt-7`}
       >
         <div className="my-12 mr-5 flex justify-between max-[540px]:my-1 max-[540px]:mr-0 max-[540px]:grid max-[540px]:justify-center">
@@ -83,8 +83,8 @@ const Schedule = () => {
               {currentLanguage === "ar"
                 ? "إضافة حدث"
                 : currentLanguage === "fr"
-                ? "Ajouter un événement"
-                : "Add Event"}
+                  ? "Ajouter un événement"
+                  : "Add Event"}
             </Link>
             <Link
               className="text-primary underline"
@@ -93,21 +93,21 @@ const Schedule = () => {
               {currentLanguage === "ar"
                 ? "معلم"
                 : currentLanguage === "fr"
-                ? "Enseignant"
-                : "Teacher"}
+                  ? "Enseignant"
+                  : "Teacher"}
             </Link>
             <Link href="/educational-affairs/schedule/class">
               {currentLanguage === "ar"
                 ? "الصف"
                 : currentLanguage === "fr"
-                ? "Classe"
-                : "Class"}
+                  ? "Classe"
+                  : "Class"}
             </Link>
           </div>
           <div className="justify-center gap-3 max-[540px]:grid">
             <select
               id="teacherCourseRegistrationId"
-              className="mx-3 rounded-lg border border-borderPrimary px-4 py-2 outline-none bg-bgPrimary shadow-sm"
+              className="mx-3 rounded-lg border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-sm outline-none"
               {...register("teacherId", { required: true })}
             >
               <option value="">Select Teacher</option>

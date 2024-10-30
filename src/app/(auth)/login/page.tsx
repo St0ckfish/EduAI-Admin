@@ -1,7 +1,10 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
 import { useForm } from "react-hook-form";
-import { useLoginDashboardMutation, useSelectAccoutConfirmMutation } from "@/features/loginApi";
+import {
+  useLoginDashboardMutation,
+  useSelectAccoutConfirmMutation,
+} from "@/features/loginApi";
 import { useRouter } from "next/navigation";
 import Cookie from "js-cookie";
 import { toast } from "react-toastify";
@@ -47,7 +50,7 @@ const Login = () => {
   let errorData: ErrorMessage = {
     message: "",
     email: "",
-    userId: ""
+    userId: "",
   };
   const [selectAccount] = useSelectAccoutConfirmMutation();
 
@@ -64,7 +67,7 @@ const Login = () => {
             : "Login success",
       );
       router.replace("/");
-    } catch (err:any) {
+    } catch (err: any) {
       toast.error(
         currentLanguage === "ar"
           ? "فشل في تسجيل الدخول"
@@ -75,30 +78,32 @@ const Login = () => {
       try {
         errorData = JSON.parse(err.data.errorMessage);
       } catch (e) {
-        console.error('Failed to parse errorMessage:', e);
+        console.error("Failed to parse errorMessage:", e);
       }
       console.error("new", errorData);
     }
-    if(errorData.message === "The account is not activated yet."){
+    if (errorData.message === "The account is not activated yet.") {
       dispatch2(
         setUser({
           email: errorData?.email,
           id: errorData?.userId,
         }),
       );
-        await selectAccount({ id: errorData?.userId, email:errorData?.email  }).unwrap();
-        toast.success(
-          currentLanguage === "ar"
-            ? "تم إنشاء وإرسال بريد إعادة تعيين كلمة المرور بنجاح"
-            : currentLanguage === "fr"
-              ? "Email de réinitialisation du mot de passe généré et envoyé avec succès"
-              : "Reset password email generated and sent successfully",
-        );
-  
+      await selectAccount({
+        id: errorData?.userId,
+        email: errorData?.email,
+      }).unwrap();
+      toast.success(
+        currentLanguage === "ar"
+          ? "تم إنشاء وإرسال بريد إعادة تعيين كلمة المرور بنجاح"
+          : currentLanguage === "fr"
+            ? "Email de réinitialisation du mot de passe généré et envoyé avec succès"
+            : "Reset password email generated and sent successfully",
+      );
+
       router.push("/confirm-account");
     }
   };
-
 
   if (loading) {
     return (

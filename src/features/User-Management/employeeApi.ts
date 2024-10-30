@@ -60,7 +60,7 @@ export const employeeApi = createApi({
     }),
     //
     updatePassword: builder.mutation({
-      query: (formData) => ({
+      query: formData => ({
         url: `/api/v1/my-account/password/change`,
         method: "POST",
         body: formData,
@@ -68,7 +68,7 @@ export const employeeApi = createApi({
     }),
     //
     updatePicture: builder.mutation({
-      query: (formData) => ({
+      query: formData => ({
         url: `/api/v1/my-account/picture`,
         method: "PUT",
         body: formData,

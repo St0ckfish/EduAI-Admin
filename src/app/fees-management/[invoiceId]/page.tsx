@@ -96,11 +96,11 @@ const ViewInvoice: React.FC<ViewInvoiceProps> = ({ params }) => {
 
   const { theme } = useTheme();
   const { language: currentLanguage, loading } = useSelector(
-    (state: RootState) => state.language
+    (state: RootState) => state.language,
   );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const { data, isLoading: isItemsLoading } = useGetInvoiceByIdQuery(
-    params.invoiceId
+    params.invoiceId,
   );
 
   if (loading || isItemsLoading)
@@ -144,7 +144,11 @@ const ViewInvoice: React.FC<ViewInvoiceProps> = ({ params }) => {
       ${translations[currentLanguage].phone}: ${data.data.billedToBasicInfo.phone == null ? "_" : data.data.billedToBasicInfo.phone}
       ${translations[currentLanguage].invoiceDate}: ${formatTransactionDate(data.data.creationDate)}
       ${translations[currentLanguage].dueDate}: ${formatTransactionDate(data.data.dueDate)}
-      ${translations[currentLanguage].status}: ${data.data.paymentStatus.toLowerCase().split("_").map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
+      ${translations[currentLanguage].status}: ${data.data.paymentStatus
+        .toLowerCase()
+        .split("_")
+        .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ")}
       ${translations[currentLanguage].totalAmount}: ${data.data.totalAmount}
       ${translations[currentLanguage].paidAmount}: ${data.data.paidAmount}
       ${translations[currentLanguage].discountAmount}: ${data.data.discountAmount}
@@ -172,8 +176,8 @@ const ViewInvoice: React.FC<ViewInvoiceProps> = ({ params }) => {
               ? "lg:mr-[100px]"
               : "lg:mr-[270px]"
             : booleanValue
-            ? "lg:ml-[100px]"
-            : "lg:ml-[270px]"
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
         } mt-4 rounded-xl bg-bgPrimary px-8 py-4`}
       >
         <div className="flex w-full justify-between">
@@ -199,17 +203,17 @@ const ViewInvoice: React.FC<ViewInvoiceProps> = ({ params }) => {
               strokeLinejoin="round"
             >
               {" "}
-              <path stroke="none" d="M0 0h24v24H0z" /> {" "}
-              <line x1="12" y1="5" x2="12" y2="19" /> {" "}
-              <line x1="16" y1="15" x2="12" y2="19" /> {" "}
+              <path stroke="none" d="M0 0h24v24H0z" />{" "}
+              <line x1="12" y1="5" x2="12" y2="19" />{" "}
+              <line x1="16" y1="15" x2="12" y2="19" />{" "}
               <line x1="8" y1="15" x2="12" y2="19" />
             </svg>
             {translations[currentLanguage].export}
           </button>
         </div>
-        <div className="flex justify-between mt-10 max-[1235px]:grid">
+        <div className="mt-10 flex justify-between max-[1235px]:grid">
           <div className="grid gap-2">
-            <h1 className="font-semibold text-secondary text-[20px] flex gap-1 items-center">
+            <h1 className="flex items-center gap-1 text-[20px] font-semibold text-secondary">
               {translations[currentLanguage].billedTo}:{" "}
               <p
                 className={`text-[17px] ${
@@ -219,7 +223,7 @@ const ViewInvoice: React.FC<ViewInvoiceProps> = ({ params }) => {
                 {data.data.billedToBasicInfo?.name}
               </p>
             </h1>
-            <h1 className="font-semibold text-secondary text-[20px] flex gap-1 items-center">
+            <h1 className="flex items-center gap-1 text-[20px] font-semibold text-secondary">
               {translations[currentLanguage].id}:{" "}
               <p
                 className={`text-[17px] ${
@@ -229,7 +233,7 @@ const ViewInvoice: React.FC<ViewInvoiceProps> = ({ params }) => {
                 {data.data.billedToBasicInfo?.id}
               </p>
             </h1>
-            <h1 className="font-semibold text-secondary text-[20px] flex gap-1 items-center">
+            <h1 className="flex items-center gap-1 text-[20px] font-semibold text-secondary">
               {translations[currentLanguage].email}:{" "}
               <p
                 className={`text-[17px] ${
@@ -239,7 +243,7 @@ const ViewInvoice: React.FC<ViewInvoiceProps> = ({ params }) => {
                 {data.data.billedToBasicInfo?.email}
               </p>
             </h1>
-            <h1 className="font-semibold text-secondary text-[20px] flex gap-1 items-center">
+            <h1 className="flex items-center gap-1 text-[20px] font-semibold text-secondary">
               {translations[currentLanguage].phone}:{" "}
               <p
                 className={`text-[17px] ${
@@ -253,7 +257,7 @@ const ViewInvoice: React.FC<ViewInvoiceProps> = ({ params }) => {
             </h1>
           </div>
           <div className="grid gap-2">
-            <h1 className="font-semibold text-secondary text-[20px] flex gap-1 items-center">
+            <h1 className="flex items-center gap-1 text-[20px] font-semibold text-secondary">
               {translations[currentLanguage].invoiceDate}:{" "}
               <p
                 className={`text-[17px] ${
@@ -263,7 +267,7 @@ const ViewInvoice: React.FC<ViewInvoiceProps> = ({ params }) => {
                 {formatTransactionDate(data.data.creationDate)}
               </p>
             </h1>
-            <h1 className="font-semibold text-secondary text-[20px] flex gap-1 items-center">
+            <h1 className="flex items-center gap-1 text-[20px] font-semibold text-secondary">
               {translations[currentLanguage].dueDate}:{" "}
               <p
                 className={`text-[17px] ${
@@ -273,7 +277,7 @@ const ViewInvoice: React.FC<ViewInvoiceProps> = ({ params }) => {
                 {formatTransactionDate(data.data.dueDate)}
               </p>
             </h1>
-            <h1 className="font-semibold text-secondary text-[20px] flex gap-1 items-center">
+            <h1 className="flex items-center gap-1 text-[20px] font-semibold text-secondary">
               {translations[currentLanguage].status}:{" "}
               <p
                 className={`text-[17px] ${
@@ -283,15 +287,16 @@ const ViewInvoice: React.FC<ViewInvoiceProps> = ({ params }) => {
                 {data.data.paymentStatus
                   .toLowerCase()
                   .split("_")
-                  .map((word: string) =>
-                    word.charAt(0).toUpperCase() + word.slice(1)
+                  .map(
+                    (word: string) =>
+                      word.charAt(0).toUpperCase() + word.slice(1),
                   )
                   .join(" ")}
               </p>
             </h1>
           </div>
           <div className="grid gap-2">
-            <h1 className="font-semibold text-secondary text-[20px] flex gap-1 items-center">
+            <h1 className="flex items-center gap-1 text-[20px] font-semibold text-secondary">
               {translations[currentLanguage].totalAmount}:{" "}
               <p
                 className={`text-[17px] ${
@@ -303,8 +308,8 @@ const ViewInvoice: React.FC<ViewInvoiceProps> = ({ params }) => {
             </h1>
           </div>
         </div>
-        <div className="grid gap-2 mt-10">
-          <h1 className="font-semibold text-secondary text-[25px]">
+        <div className="mt-10 grid gap-2">
+          <h1 className="text-[25px] font-semibold text-secondary">
             {translations[currentLanguage].lineItem}
           </h1>
           <div className="relative overflow-auto sm:rounded-lg">
@@ -348,8 +353,8 @@ const ViewInvoice: React.FC<ViewInvoiceProps> = ({ params }) => {
           </div>
         </div>
         <div className="flex w-full justify-end">
-          <div className="grid mt-14 rounded-xl border border-borderPrimary p-3">
-            <p className="font-semibold text-secondary border-b border-borderPrimary text-[18px] flex gap-1 items-center">
+          <div className="mt-14 grid rounded-xl border border-borderPrimary p-3">
+            <p className="flex items-center gap-1 border-b border-borderPrimary text-[18px] font-semibold text-secondary">
               {translations[currentLanguage].paidAmount}:{" "}
               <p
                 className={`text-[18px] ${
@@ -359,7 +364,7 @@ const ViewInvoice: React.FC<ViewInvoiceProps> = ({ params }) => {
                 {data.data.paidAmount}
               </p>
             </p>
-            <p className="font-semibold text-secondary border-b border-borderPrimary text-[18px] flex gap-1 items-center">
+            <p className="flex items-center gap-1 border-b border-borderPrimary text-[18px] font-semibold text-secondary">
               {translations[currentLanguage].discountAmount}:{" "}
               <p
                 className={`text-[18px] ${
@@ -369,7 +374,7 @@ const ViewInvoice: React.FC<ViewInvoiceProps> = ({ params }) => {
                 {data.data.discountAmount}
               </p>
             </p>
-            <p className="font-semibold text-secondary border-b border-borderPrimary text-[18px] flex gap-1 items-center">
+            <p className="flex items-center gap-1 border-b border-borderPrimary text-[18px] font-semibold text-secondary">
               {translations[currentLanguage].taxAmount}:{" "}
               <p
                 className={`text-[18px] ${
@@ -379,7 +384,7 @@ const ViewInvoice: React.FC<ViewInvoiceProps> = ({ params }) => {
                 {data.data.taxAmount}
               </p>
             </p>
-            <p className="font-semibold text-secondary text-[18px] flex gap-1 items-center">
+            <p className="flex items-center gap-1 text-[18px] font-semibold text-secondary">
               {translations[currentLanguage].dueAmount}:{" "}
               <p
                 className={`text-[18px] ${

@@ -24,7 +24,7 @@ const AddNewDriver = () => {
   const { data: nationalityData, isLoading: nationalityLoading } =
     useGetAllNationalitysQuery(null);
   const { data: countryCode, isLoading: isCountryCode } =
-  useGetAllCountryCodeQuery(null);
+    useGetAllCountryCodeQuery(null);
   const { data: positionData, isLoading: isPosition } =
     useGetAllPositionsQuery(null);
   const {
@@ -36,18 +36,18 @@ const AddNewDriver = () => {
   const [createDriver, { isLoading }] = useCreateDriversMutation();
   const { data: rigiond } = useGetAllReginionIDQuery(null);
   const optionsRigon =
-  rigiond?.data?.map(
-    (rigion: {
-      cityName: any;
-      countryName: any;
-      regionName: any;
-      regionId: any;
-      name: any;
-    }) => ({
-      value: rigion.regionId,
-      label: `${rigion.regionName} - ${rigion.cityName}`,
-    }),
-  ) || [];
+    rigiond?.data?.map(
+      (rigion: {
+        cityName: any;
+        countryName: any;
+        regionName: any;
+        regionId: any;
+        name: any;
+      }) => ({
+        value: rigion.regionId,
+        label: `${rigion.regionName} - ${rigion.cityName}`,
+      }),
+    ) || [];
   const onSubmit = async (data: any) => {
     const formData = { ...data, religion: "OTHERS" };
     try {
@@ -403,13 +403,13 @@ const AddNewDriver = () => {
                       : "Region Id"}{" "}
                 {/* default */}
                 <SearchableSelect
-                      name="regionId"
-                      control={control}
-                      errors={errors}
-                      options={optionsRigon}
-                      currentLanguage={currentLanguage}
-                      placeholder="Select Region"
-                    />
+                  name="regionId"
+                  control={control}
+                  errors={errors}
+                  options={optionsRigon}
+                  currentLanguage={currentLanguage}
+                  placeholder="Select Region"
+                />
               </label>
 
               <label
@@ -706,7 +706,7 @@ const AddNewDriver = () => {
               </label>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
-            <PhoneNumberInput
+              <PhoneNumberInput
                 countryCodeData={countryCode.data}
                 currentLanguage="en"
                 label="Your Phone Number"
@@ -820,7 +820,7 @@ const AddNewDriver = () => {
                     {/* default */}
                   </span>
                 )}
-              </label>              
+              </label>
             </div>
             <div className="flex justify-center text-center">
               <button

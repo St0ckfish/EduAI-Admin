@@ -79,7 +79,7 @@ const Signup = () => {
         label: `${school.name} - ${school.regionName}, ${school.cityName}, ${school.countryName}`,
       }),
     ) || [];
-  
+
   const {
     control,
     register,
@@ -479,7 +479,6 @@ const Signup = () => {
                     htmlFor="regionId"
                     className="grid text-start font-sans text-[15px] font-semibold text-[#9a9a9a]"
                   >
-
                     <SearchableSelect
                       name="regionId"
                       control={control}

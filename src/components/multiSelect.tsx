@@ -10,25 +10,151 @@ interface MultiSelectComponentProps {
   rules?: object;
 }
 
-const MultiSelectComponent = ({ control, currentLanguage, errors, name = "subjects", rules = { required: true } }: MultiSelectComponentProps) => {
+const MultiSelectComponent = ({
+  control,
+  currentLanguage,
+  errors,
+  name = "subjects",
+  rules = { required: true },
+}: MultiSelectComponentProps) => {
   const { setValue } = useFormContext();
 
   const subjectsOptions = [
-    { value: "ARABIC", label: currentLanguage === "en" ? "Arabic" : currentLanguage === "ar" ? "عربي" : "Arabe" },
-    { value: "MUSIC", label: currentLanguage === "en" ? "Music" : currentLanguage === "ar" ? "موسيقى" : "Musique" },
-    { value: "ART", label: currentLanguage === "en" ? "Art" : currentLanguage === "ar" ? "فن" : "Art" },
-    { value: "FOREIGN_LANGUAGE", label: currentLanguage === "en" ? "Foreign Language" : currentLanguage === "ar" ? "لغة أجنبية" : "Langue étrangère" },
-    { value: "ENGLISH", label: currentLanguage === "en" ? "English" : currentLanguage === "ar" ? "إنجليزي" : "Anglais" },
-    { value: "SOCIAL_STUDIES", label: currentLanguage === "en" ? "Social Studies" : currentLanguage === "ar" ? "دراسات اجتماعية" : "Études sociales" },
-    { value: "FRENCH", label: currentLanguage === "en" ? "French" : currentLanguage === "ar" ? "فرنسي" : "Français" },
-    { value: "MATHEMATICS", label: currentLanguage === "en" ? "Mathematics" : currentLanguage === "ar" ? "رياضيات" : "Mathématiques" },
-    { value: "COMPUTER_SCIENCE", label: currentLanguage === "en" ? "Computer Science" : currentLanguage === "ar" ? "علوم الكمبيوتر" : "Informatique" },
-    { value: "CHEMISTRY", label: currentLanguage === "en" ? "Chemistry" : currentLanguage === "ar" ? "كيمياء" : "Chimie" },
-    { value: "ECONOMICS", label: currentLanguage === "en" ? "Economics" : currentLanguage === "ar" ? "اقتصاد" : "Économie" },
-    { value: "SCIENCE", label: currentLanguage === "en" ? "Science" : currentLanguage === "ar" ? "علوم" : "Sciences" },
-    { value: "PHYSICS", label: currentLanguage === "en" ? "Physics" : currentLanguage === "ar" ? "فيزياء" : "Physique" },
-    { value: "GEOGRAPHY", label: currentLanguage === "en" ? "Geography" : currentLanguage === "ar" ? "جغرافيا" : "Géographie" },
-    { value: "HISTORY", label: currentLanguage === "en" ? "History" : currentLanguage === "ar" ? "تاريخ" : "Histoire" },
+    {
+      value: "ARABIC",
+      label:
+        currentLanguage === "en"
+          ? "Arabic"
+          : currentLanguage === "ar"
+            ? "عربي"
+            : "Arabe",
+    },
+    {
+      value: "MUSIC",
+      label:
+        currentLanguage === "en"
+          ? "Music"
+          : currentLanguage === "ar"
+            ? "موسيقى"
+            : "Musique",
+    },
+    {
+      value: "ART",
+      label:
+        currentLanguage === "en"
+          ? "Art"
+          : currentLanguage === "ar"
+            ? "فن"
+            : "Art",
+    },
+    {
+      value: "FOREIGN_LANGUAGE",
+      label:
+        currentLanguage === "en"
+          ? "Foreign Language"
+          : currentLanguage === "ar"
+            ? "لغة أجنبية"
+            : "Langue étrangère",
+    },
+    {
+      value: "ENGLISH",
+      label:
+        currentLanguage === "en"
+          ? "English"
+          : currentLanguage === "ar"
+            ? "إنجليزي"
+            : "Anglais",
+    },
+    {
+      value: "SOCIAL_STUDIES",
+      label:
+        currentLanguage === "en"
+          ? "Social Studies"
+          : currentLanguage === "ar"
+            ? "دراسات اجتماعية"
+            : "Études sociales",
+    },
+    {
+      value: "FRENCH",
+      label:
+        currentLanguage === "en"
+          ? "French"
+          : currentLanguage === "ar"
+            ? "فرنسي"
+            : "Français",
+    },
+    {
+      value: "MATHEMATICS",
+      label:
+        currentLanguage === "en"
+          ? "Mathematics"
+          : currentLanguage === "ar"
+            ? "رياضيات"
+            : "Mathématiques",
+    },
+    {
+      value: "COMPUTER_SCIENCE",
+      label:
+        currentLanguage === "en"
+          ? "Computer Science"
+          : currentLanguage === "ar"
+            ? "علوم الكمبيوتر"
+            : "Informatique",
+    },
+    {
+      value: "CHEMISTRY",
+      label:
+        currentLanguage === "en"
+          ? "Chemistry"
+          : currentLanguage === "ar"
+            ? "كيمياء"
+            : "Chimie",
+    },
+    {
+      value: "ECONOMICS",
+      label:
+        currentLanguage === "en"
+          ? "Economics"
+          : currentLanguage === "ar"
+            ? "اقتصاد"
+            : "Économie",
+    },
+    {
+      value: "SCIENCE",
+      label:
+        currentLanguage === "en"
+          ? "Science"
+          : currentLanguage === "ar"
+            ? "علوم"
+            : "Sciences",
+    },
+    {
+      value: "PHYSICS",
+      label:
+        currentLanguage === "en"
+          ? "Physics"
+          : currentLanguage === "ar"
+            ? "فيزياء"
+            : "Physique",
+    },
+    {
+      value: "GEOGRAPHY",
+      label:
+        currentLanguage === "en"
+          ? "Geography"
+          : currentLanguage === "ar"
+            ? "جغرافيا"
+            : "Géographie",
+    },
+    {
+      value: "HISTORY",
+      label:
+        currentLanguage === "en"
+          ? "History"
+          : currentLanguage === "ar"
+            ? "تاريخ"
+            : "Histoire",
+    },
   ];
 
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
@@ -36,15 +162,15 @@ const MultiSelectComponent = ({ control, currentLanguage, errors, name = "subjec
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleCheckboxChange = (value: string) => {
-    setSelectedOptions((prevSelected) =>
+    setSelectedOptions(prevSelected =>
       prevSelected.includes(value)
-        ? prevSelected.filter((option) => option !== value)
-        : [...prevSelected, value]
+        ? prevSelected.filter(option => option !== value)
+        : [...prevSelected, value],
     );
   };
 
   const toggleDropdown = () => {
-    setIsDropdownOpen((prev) => !prev);
+    setIsDropdownOpen(prev => !prev);
   };
 
   const closeDropdown = () => {
@@ -53,7 +179,10 @@ const MultiSelectComponent = ({ control, currentLanguage, errors, name = "subjec
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         closeDropdown();
       }
     };
@@ -77,35 +206,45 @@ const MultiSelectComponent = ({ control, currentLanguage, errors, name = "subjec
   return (
     <div className="mt-4 grid items-start font-sans text-[18px] font-semibold">
       <label>
-        {currentLanguage === "en" ? "Subjects" : currentLanguage === "ar" ? "المواد" : "Matières"}
+        {currentLanguage === "en"
+          ? "Subjects"
+          : currentLanguage === "ar"
+            ? "المواد"
+            : "Matières"}
       </label>
       <div className="relative max-w-[400px]" ref={dropdownRef}>
         <div
-          className="border flex justify-between border-borderPrimary rounded-xl text-clip overflow-hidden p-4 mt-2 cursor-pointer"
+          className="mt-2 flex cursor-pointer justify-between overflow-hidden text-clip rounded-xl border border-borderPrimary p-4"
           onClick={toggleDropdown}
         >
           {selectedOptions.length > 0
             ? subjectsOptions
-                .filter((option) => selectedOptions.includes(option.value))
-                .map((option) => option.label)
+                .filter(option => selectedOptions.includes(option.value))
+                .map(option => option.label)
                 .join(", ")
             : currentLanguage === "en"
-            ? "Select Subjects"
-            : currentLanguage === "ar"
-            ? "اختر المواد"
-            : "Sélectionnez les matières"}
+              ? "Select Subjects"
+              : currentLanguage === "ar"
+                ? "اختر المواد"
+                : "Sélectionnez les matières"}
           <div>
-            <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg
+              className="h-6 w-6"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <polyline points="6 9 12 15 18 9" />
             </svg>
           </div>
         </div>
         {isDropdownOpen && (
-          <div
-            className="absolute z-10 bg-bgPrimary border border-borderPrimary rounded-xl p-4 mt-2 w-full max-h-[200px] overflow-y-auto"
-          >
-            {subjectsOptions.map((option) => (
-              <div key={option.value} className="flex items-center mb-2">
+          <div className="absolute z-10 mt-2 max-h-[200px] w-full overflow-y-auto rounded-xl border border-borderPrimary bg-bgPrimary p-4">
+            {subjectsOptions.map(option => (
+              <div key={option.value} className="mb-2 flex items-center">
                 <input
                   type="checkbox"
                   value={option.value}
@@ -127,11 +266,7 @@ const MultiSelectComponent = ({ control, currentLanguage, errors, name = "subjec
         control={control}
         rules={rules}
         render={({ field }) => (
-          <input
-            type="hidden"
-            {...field}
-            value={selectedOptions}
-          />
+          <input type="hidden" {...field} value={selectedOptions} />
         )}
       />
       {errors[name] && (
@@ -139,8 +274,8 @@ const MultiSelectComponent = ({ control, currentLanguage, errors, name = "subjec
           {currentLanguage === "en"
             ? "At least one subject is required"
             : currentLanguage === "ar"
-            ? "يجب اختيار مادة واحدة على الأقل"
-            : "Au moins un sujet est requis"}
+              ? "يجب اختيار مادة واحدة على الأقل"
+              : "Au moins un sujet est requis"}
         </span>
       )}
     </div>

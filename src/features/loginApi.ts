@@ -65,5 +65,5 @@ export const {
   useSendOtpMutation,
   useResetPasswordMutation,
   useSendOtpConfirmMutation,
-  useSelectAccoutConfirmMutation
+  useSelectAccoutConfirmMutation,
 } = loginApi;
