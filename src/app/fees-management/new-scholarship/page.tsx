@@ -11,6 +11,7 @@ import {
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
+import { useGetAllStudentsQuery } from "@/features/User-Management/studentApi";
 
 // Define a Zod schema that matches your API's expected data structure
 const scholarshipSchema = z.object({
@@ -66,7 +67,11 @@ const NewScholarship = () => {
   });
 
   const [createScholarship, { isLoading }] = useCreateScholarshipMutation();
-
+  const { data: students, isLoading: isStudents } = useGetAllStudentsQuery({
+    archived: "false",
+    page: 0,
+    size: 1000000,
+  });
   const onSubmit = async (data: any) => {
     const formData = new FormData();
     formData.append("request", JSON.stringify({
@@ -136,18 +141,43 @@ const NewScholarship = () => {
                   : currentLanguage === "ar"
                   ? "رقم الطالب"
                   : "ID de l'étudiant"}
-                <input
-                  id="studentId"
+
+<select                   id="studentId"
                   {...register("studentId")}
-                  type="text"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                />
+            className="h-full w-[400px] rounded-xl border px-4 py-3 text-[18px] text-black outline-none max-[458px]:w-[350px]"
+          >
+            <option value="">
+              {currentLanguage === "en"
+                ? "Select Student"
+                : currentLanguage === "ar"
+                  ? "اختر الطالب"
+                  : "Sélectionner Étudiant"}
+            </option>
+            {students?.data.content.map(
+              (student: {
+                id: string | null | undefined;
+                name:
+                  | string
+                  | number
+                  | bigint
+                  | boolean
+                  | null
+                  | undefined;
+              }) => (
+                <option key={student.id} value={student.id ?? ""}>
+                  {student.name}
+                </option>
+              ),
+            )}
+          </select>
                 {errors.studentId && (
                   <span className="text-error">
                     {errors.studentId.message}
                   </span>
                 )}
               </label>
+
+              
 
               {/* Scholarship Name Field */}
               <label
@@ -182,12 +212,26 @@ const NewScholarship = () => {
                   : currentLanguage === "ar"
                   ? "نوع المنحة"
                   : "Type de bourse"}
-                <input
+
+<select
                   id="scholarshipType"
-                  {...register("scholarshipType")}
-                  type="text"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                />
+                  {...register("scholarshipType", { required: true })}
+                >
+                  <option value="">
+                    {currentLanguage === "en"
+                      ? "Scholarship Type"
+                      : currentLanguage === "ar"
+                        ? "اختر نوع المنحة"
+                        : "Type de bourse"}
+                  </option>
+                  <option value="PARTIAL">
+                    {currentLanguage === "en" ? "Partial" : "جزئي"}
+                  </option>
+                  <option value="FULL">
+                    {currentLanguage === "en" ? "Full" : "كامل"}
+                  </option>
+                </select>
                 {errors.scholarshipType && (
                   <span className="text-error">
                     {errors.scholarshipType.message}
@@ -243,62 +287,63 @@ const NewScholarship = () => {
                 )}
               </label>
               <div className="grid font-sans text-[18px] font-semibold">
-                {currentLanguage === "en"
-                  ? "Paid Invoices"
-                  : currentLanguage === "ar"
-                  ? "الفواتير المدفوعة"
-                  : "Factures payées"}
-                <div className="grid grid-cols-4 gap-4">
-                  <label className="flex gap-2">
-                    <input
-                      type="checkbox"
-                      value="TUITION"
-                      {...register("paidInvoices")}
-                    />
-                    {currentLanguage === "en" ? "Tuition" : "الرسوم الدراسية"}
-                  </label>
-                  <label className="flex gap-2">
-                    <input
-                      type="checkbox"
-                      value="UNIFORM"
-                      {...register("paidInvoices")}
-                    />
-                    {currentLanguage === "en" ? "Uniform" : "الزي الدراسي"}
-                  </label>
-                  <label className="flex gap-2">
-                    <input
-                      type="checkbox"
-                      value="ACTIVITY"
-                      {...register("paidInvoices")}
-                    />
-                    {currentLanguage === "en" ? "Activity" : "الحضور"}
-                  </label>
-                  <label className="flex gap-2">
-                    <input
-                      type="checkbox"
-                      value="MATERIAL"
-                      {...register("paidInvoices")}
-                    />
-                    {currentLanguage === "en" ? "Mterial" : "الحضور"}
-                  </label>
-                  <label className="flex gap-2">
-                    <input
-                      type="checkbox"
-                      value="UNIFORM"
-                      {...register("paidInvoices")}
-                    />
-                    {currentLanguage === "en" ? "Uniform" : "الرسوم الدراسية"}
-                  </label>
-                  <label className="flex gap-2">
-                    <input
-                      type="checkbox"
-                      value="TRANSPORT"
-                      {...register("paidInvoices")}
-                    />
-                    {currentLanguage === "en" ? "Transport" : "النقل"}
-                  </label>
-                </div>
-              </div>
+  {currentLanguage === "en"
+    ? "Paid Invoices"
+    : currentLanguage === "ar"
+    ? "الفواتير المدفوعة"
+    : "Factures payées"}
+  <div className="grid grid-cols-4 gap-4">
+    <label className="flex gap-2">
+      <input type="checkbox" value="TUITION" {...register("paidInvoices")} />
+      {currentLanguage === "en"
+        ? "Tuition"
+        : currentLanguage === "ar"
+        ? "الرسوم الدراسية"
+        : "Frais de scolarité"}
+    </label>
+    <label className="flex gap-2">
+      <input type="checkbox" value="UNIFORM" {...register("paidInvoices")} />
+      {currentLanguage === "en"
+        ? "Uniform"
+        : currentLanguage === "ar"
+        ? "الزي الدراسي"
+        : "Uniforme"}
+    </label>
+    <label className="flex gap-2">
+      <input type="checkbox" value="ACTIVITY" {...register("paidInvoices")} />
+      {currentLanguage === "en"
+        ? "Activity"
+        : currentLanguage === "ar"
+        ? "الحضور"
+        : "Activité"}
+    </label>
+    <label className="flex gap-2">
+      <input type="checkbox" value="MATERIAL" {...register("paidInvoices")} />
+      {currentLanguage === "en"
+        ? "Material"
+        : currentLanguage === "ar"
+        ? "المواد الدراسية"
+        : "Matériel"}
+    </label>
+    <label className="flex gap-2">
+      <input type="checkbox" value="UNIFORM" {...register("paidInvoices")} />
+      {currentLanguage === "en"
+        ? "Uniform"
+        : currentLanguage === "ar"
+        ? "الرسوم الدراسية"
+        : "Uniforme"}
+    </label>
+    <label className="flex gap-2">
+      <input type="checkbox" value="TRANSPORT" {...register("paidInvoices")} />
+      {currentLanguage === "en"
+        ? "Transport"
+        : currentLanguage === "ar"
+        ? "النقل"
+        : "Transport"}
+    </label>
+  </div>
+</div>
+
 
               {/* File Upload Field */}
               <label
