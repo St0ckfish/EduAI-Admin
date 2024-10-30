@@ -221,7 +221,7 @@ const AddNewEmployee = () => {
                 className="grid font-sans text-[18px] font-semibold"
               >
                 {currentLanguage === "ar"
-                  ? "الرقم الوطني"
+                  ? "الرقم الهوية"
                   : currentLanguage === "fr"
                     ? "NID"
                     : "NID"}

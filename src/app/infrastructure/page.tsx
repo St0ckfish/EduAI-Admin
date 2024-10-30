@@ -43,7 +43,7 @@ const Infrastructure = () => {
         currentLanguage === "en"
           ? "Bus"
           : currentLanguage === "ar"
-            ? "الحافلة"
+            ? "النقل المدرسي"
             : currentLanguage === "fr"
               ? "Bus Scolaire"
               : "Bus", // Default to English
@@ -103,7 +103,7 @@ const Infrastructure = () => {
         currentLanguage === "en"
           ? "Room"
           : currentLanguage === "ar"
-            ? "الغرفة"
+            ? "القاعات"
             : currentLanguage === "fr"
               ? "Salles"
               : "Room", // Default to English
@@ -111,7 +111,7 @@ const Infrastructure = () => {
         currentLanguage === "en"
           ? "Number of class room, add new class room and edit a class room"
           : currentLanguage === "ar"
-            ? "عدد الغرف الصفية، إضافة غرفة صفية جديدة وتعديل غرفة صفية"
+            ? "عدد القاعات الدراسية، إضافة قاعة دراسية جديدة وتعديل قاعة دراسية"
             : currentLanguage === "fr"
               ? "Nombre de salles de classe, ajouter une nouvelle salle de classe et modifier une salle de classe"
               : "Number of class room, add new class room and edit a class room", // Default to English

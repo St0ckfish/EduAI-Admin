@@ -24,7 +24,7 @@ const Rooms = () => {
     },
     {
       nameEn: "room",
-      nameAr: "الغرفة",
+      nameAr: "القاعات",
       nameFr: "Chambre",
       href: "/rooms",
     },

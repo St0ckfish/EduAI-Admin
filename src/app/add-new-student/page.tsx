@@ -5,6 +5,9 @@ import Spinner from "@/components/spinner";
 import { useCreateStudentsMutation } from "@/features/User-Management/studentApi";
 import { useGetAllParentsQuery } from "@/features/User-Management/parentApi";
 import {
+  useGetAllCountryCodeQuery,
+  useGetAllLanguagesQuery,
+  useGetAllLevelsQuery,
   useGetAllNationalitysQuery,
   useGetAllReginionIDQuery,
 } from "@/features/signupApi";
@@ -14,6 +17,8 @@ import { useSelector } from "react-redux";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { useState } from "react";
+import PhoneNumberInput from "@/components/PhoneNumberInput";
+import SearchableSelect from "@/components/select";
 
 const AddNewStudent = () => {
   const breadcrumbs = [
@@ -64,15 +69,34 @@ const AddNewStudent = () => {
   const { data: nationalityData, isLoading: nationalityLoading } =
     useGetAllNationalitysQuery(null);
   const { data: regionData } = useGetAllReginionIDQuery(null);
+  const optionsRigon =
+  regionData?.data?.map(
+    (rigion: {
+      cityName: any;
+      countryName: any;
+      regionName: any;
+      regionId: any;
+      name: any;
+    }) => ({
+      value: rigion.regionId,
+      label: `${rigion.regionName} - ${rigion.cityName}`,
+    }),
+  ) || [];
   const { data: parentData, isLoading: parentLoading } = useGetAllParentsQuery({
     archived: "false",
     page: 0,
     size: 1000000,
   });
-
+  const { data: countryCode, isLoading: isCountryCode } =
+  useGetAllCountryCodeQuery(null);
+  const { data: LevelData, isLoading: LevelLoading } =
+    useGetAllLevelsQuery(null);
+    const { data: LangData, isLoading: LangLoading } =
+    useGetAllLanguagesQuery(null);
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm();
   const [createStudent, { isLoading }] = useCreateStudentsMutation();
@@ -97,9 +121,11 @@ const AddNewStudent = () => {
         about: data.about,
         number: data.number,
         birthDate: data.birthDate,
-        relationshipToStudent: data.relationshipToStudent,
+        relationshipToStudent: "FATHER",
         studyLevel: data.studyLevel,
         eduSystemId: data.eduSystemId,
+        language: data.language,
+        skipFees: true,
       }),
     );
 
@@ -129,7 +155,7 @@ const AddNewStudent = () => {
     (state: RootState) => state.language,
   );
 
-  if (loading)
+  if (loading || isCountryCode || LevelLoading || LangLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -204,7 +230,7 @@ const AddNewStudent = () => {
                 htmlFor="username"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Username" : "اسم المستخدم"}
+                {currentLanguage === "en" ? "Username" : currentLanguage === "ar" ? "اسم المستخدم" : "Nom d'utilisateur"}
                 <input
                   id="username"
                   type="text"
@@ -225,7 +251,11 @@ const AddNewStudent = () => {
                 htmlFor="email"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Email" : "البريد الإلكتروني"}
+               {currentLanguage === "ar"
+                  ? "البريد الإلكتروني"
+                  : currentLanguage === "fr"
+                    ? "Email"
+                    : "Email"}
                 <input
                   id="email"
                   type="email"
@@ -246,7 +276,11 @@ const AddNewStudent = () => {
                 htmlFor="password"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Password" : "كلمة المرور"}
+                {currentLanguage === "ar"
+                  ? "كلمة المرور"
+                  : currentLanguage === "fr"
+                    ? "Mot de passe"
+                    : "Password"}
                 <input
                   id="password"
                   type="password"
@@ -267,7 +301,11 @@ const AddNewStudent = () => {
                 htmlFor="nid"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "National ID" : "رقم الهوية"}
+                {currentLanguage === "ar"
+                  ? "الرقم الهوية"
+                  : currentLanguage === "fr"
+                    ? "NID"
+                    : "NID"}
                 <input
                   id="nid"
                   type="number"
@@ -288,7 +326,11 @@ const AddNewStudent = () => {
                 htmlFor="gender"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Gender" : "الجنس"}
+                {currentLanguage === "ar"
+                  ? "الجنس"
+                  : currentLanguage === "fr"
+                    ? "Sexe"
+                    : "Gender"}
                 <select
                   id="gender"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
@@ -324,16 +366,22 @@ const AddNewStudent = () => {
                 htmlFor="nationality"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Nationality" : "الجنسية"}
+                {currentLanguage === "ar"
+                  ? "جنسيتك"
+                  : currentLanguage === "fr"
+                    ? "Votre nationalité"
+                    : "Your Nationality"}
                 <select
                   id="nationality"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("nationality", { required: true })}
                 >
                   <option value="">
-                    {currentLanguage === "en"
-                      ? "Select Nationality"
-                      : "اختر الجنسية"}
+                  {currentLanguage === "ar"
+                      ? "اختر الجنسية"
+                      : currentLanguage === "fr"
+                        ? "Sélectionner la nationalité"
+                        : "Select Nationality"}
                   </option>
                   {nationalityData &&
                     Object.entries(nationalityData.data).map(([key, value]) => (
@@ -356,64 +404,22 @@ const AddNewStudent = () => {
                 htmlFor="regionId"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Region" : "المنطقة"}
-                <select
-                  defaultValue=""
-                  id="regionId"
-                  {...register("regionId", { required: true })}
-                  className={`border ${errors.regionId ? "border-borderPrimary" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-[18px] text-blackOrWhite outline-none max-[458px]:w-[350px]`}
-                >
-                  <option value="">
-                    {currentLanguage === "en"
-                      ? "Select Region Id"
-                      : currentLanguage === "ar"
-                        ? "اختر معرف المنطقة"
-                        : currentLanguage === "fr"
-                          ? "Sélectionner l'ID de la région"
-                          : "Select Region Id"}{" "}
-                    {/* default */}
-                  </option>
-                  {regionData &&
-                    regionData.data.map(
-                      (
-                        rigion: {
-                          regionName: string;
-                          cityName: string;
-                          regionId:
-                            | string
-                            | number
-                            | readonly string[]
-                            | undefined;
-                          name:
-                            | string
-                            | number
-                            | bigint
-                            | boolean
-                            | React.ReactElement<
-                                any,
-                                string | React.JSXElementConstructor<any>
-                              >
-                            | Iterable<React.ReactNode>
-                            | React.ReactPortal
-                            | Promise<React.AwaitedReactNode>
-                            | null
-                            | undefined;
-                        },
-                        index: React.Key | null | undefined,
-                      ) => (
-                        <option key={index} value={rigion.regionId}>
-                          {rigion.cityName} <strong>{rigion.regionName}</strong>
-                        </option>
-                      ),
-                    )}
-                </select>
-                {errors.regionId && (
-                  <span className="text-error">
-                    {currentLanguage === "en"
-                      ? "This field is required"
-                      : "هذا الحقل مطلوب"}
-                  </span>
-                )}
+                {currentLanguage === "en"
+                  ? "Region Id"
+                  : currentLanguage === "ar"
+                    ? "معرف المنطقة"
+                    : currentLanguage === "fr"
+                      ? "ID de la région"
+                      : "Region Id"}{" "}
+                {/* default */}
+                <SearchableSelect
+                      name="regionId"
+                      control={control}
+                      errors={errors}
+                      options={optionsRigon}
+                      currentLanguage={currentLanguage}
+                      placeholder="Select Region"
+                    />
               </label>
 
               {/* Name (English) */}
@@ -421,9 +427,11 @@ const AddNewStudent = () => {
                 htmlFor="name_en"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en"
-                  ? "Name (English)"
-                  : "الاسم (إنجليزي)"}
+                {currentLanguage === "ar"
+                  ? "الاسم (إنجليزي)"
+                  : currentLanguage === "fr"
+                    ? "Nom (EN)"
+                    : "Name (EN)"}
                 <input
                   id="name_en"
                   type="text"
@@ -444,7 +452,11 @@ const AddNewStudent = () => {
                 htmlFor="name_ar"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Name (Arabic)" : "الاسم (عربي)"}
+                {currentLanguage === "ar"
+                  ? "الاسم (عربي)"
+                  : currentLanguage === "fr"
+                    ? "Nom (AR)"
+                    : "Name (AR)"}
                 <input
                   id="name_ar"
                   type="text"
@@ -465,7 +477,11 @@ const AddNewStudent = () => {
                 htmlFor="name_fr"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "en" ? "Name (French)" : "الاسم (فرنسي)"}
+                {currentLanguage === "ar"
+                  ? "الاسم (فرنسي)"
+                  : currentLanguage === "fr"
+                    ? "Nom (FR)"
+                    : "Name (FR)"}
                 <input
                   id="name_fr"
                   type="text"
@@ -493,27 +509,6 @@ const AddNewStudent = () => {
                   {...register("about")}
                 />
                 {errors.about && (
-                  <span className="text-error">
-                    {currentLanguage === "en"
-                      ? "This field is required"
-                      : "هذا الحقل مطلوب"}
-                  </span>
-                )}
-              </label>
-
-              {/* Phone Number */}
-              <label
-                htmlFor="number"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "en" ? "Phone Number" : "رقم الهاتف"}
-                <input
-                  id="number"
-                  type="tel"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("number", { required: true })}
-                />
-                {errors.number && (
                   <span className="text-error">
                     {currentLanguage === "en"
                       ? "This field is required"
@@ -574,49 +569,96 @@ const AddNewStudent = () => {
                 )}
               </label>
 
-              {/* Relationship to Student */}
+              {/* Study Level */}
+
               <label
-                htmlFor="relationshipToStudent"
-                className="grid font-sans text-[18px] font-semibold"
+                htmlFor="studyLevel"
+                className="grid text-start font-sans text-[15px] font-semibold text-blackOrWhite"
               >
-                {currentLanguage === "en"
-                  ? "Relationship to Student"
-                  : "العلاقة بالطالب"}
-                <input
-                  id="relationshipToStudent"
-                  type="text"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("relationshipToStudent", { required: true })}
-                />
-                {errors.relationshipToStudent && (
-                  <span className="text-error">
-                    {currentLanguage === "en"
-                      ? "This field is required"
-                      : "هذا الحقل مطلوب"}
+                {currentLanguage === "ar"
+                  ? "مستوى الدراسة"
+                  : currentLanguage === "fr"
+                    ? "Niveau d'étude"
+                    : "Study Level"}
+                <select
+                  defaultValue=""
+                  id="studyLevel"
+                  {...register("studyLevel", { required: true })}
+                  className={`border ${errors.studyLevel ? "border-warning" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-sm text-blackOrWhite outline-none max-[458px]:w-[350px]`}
+                >
+                  <option selected value="">
+                    {currentLanguage === "ar"
+                      ? "اختر مستوى الدراسة"
+                      : currentLanguage === "fr"
+                        ? "Sélectionner le niveau d'étude"
+                        : "Select Study Level"}
+                  </option>
+                  {LevelData &&
+                    Object.entries(LevelData.data).map(([key, value]) => (
+                      <option key={String(value)} value={key}>
+                        {String(value)}
+                      </option>
+                    ))}
+                </select>
+                {errors.studyLevel && (
+                  <span className="text-[13px] text-error">
+                    {currentLanguage === "ar"
+                      ? "مستوى الدراسة مطلوب"
+                      : currentLanguage === "fr"
+                        ? "Le niveau d'études est requis"
+                        : "Study Level is Required"}
                   </span>
                 )}
               </label>
 
-              {/* Study Level */}
               <label
-                htmlFor="studyLevel"
-                className="grid font-sans text-[18px] font-semibold"
+                htmlFor="language"
+                className="grid text-start font-sans text-[15px] font-semibold text-blackOrWhite"
               >
-                {currentLanguage === "en" ? "Study Level" : "مستوى الدراسة"}
-                <input
-                  id="studyLevel"
-                  type="text"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("studyLevel", { required: true })}
-                />
-                {errors.studyLevel && (
-                  <span className="text-error">
-                    {currentLanguage === "en"
-                      ? "This field is required"
-                      : "هذا الحقل مطلوب"}
+                {currentLanguage === "ar"
+                  ? "اللغة"
+                  : currentLanguage === "fr"
+                    ? "Langue"
+                    : "Language"}
+                <select
+                  defaultValue=""
+                  id="language"
+                  {...register("language", { required: true })}
+                  className={`border ${errors.language ? "border-warning" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-sm text-blackOrWhite outline-none max-[458px]:w-[350px]`}
+                >
+                  <option selected value="">
+                    {currentLanguage === "ar"
+                      ? "اختر اللغة"
+                      : currentLanguage === "fr"
+                        ? "Sélectionner la langue"
+                        : "Select Language"}{" "}
+                  </option>
+                  {LangData &&
+                    Object.entries(LangData.data).map(([key, value]) => (
+                      <option key={String(value)} value={key}>
+                        {String(value)}
+                      </option>
+                    ))}
+                </select>
+                {errors.language && (
+                  <span className="text-[13px] text-error">
+                    {currentLanguage === "ar"
+                      ? "اللغة مطلوبة"
+                      : currentLanguage === "fr"
+                        ? "La langue est requise"
+                        : "Language is Required"}
                   </span>
                 )}
               </label>
+
+              <PhoneNumberInput
+                countryCodeData={countryCode.data}
+                currentLanguage="en"
+                label="Your Phone Number"
+                register={register}
+                errors={errors}
+                control={control}
+              />
 
               {/* Educational System */}
               <label
@@ -625,7 +667,7 @@ const AddNewStudent = () => {
               >
                 {currentLanguage === "en"
                   ? "Educational System"
-                  : "النظام التعليمي"}
+                  : currentLanguage === "ar" ? "النظام التعليمي" : "Système éducatif"}
                 <input
                   type="text"
                   id="eduSystemId"

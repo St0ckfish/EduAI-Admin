@@ -196,7 +196,7 @@ const Profile = () => {
                       onClick={handleIMG(onSubmitPicture)}
                       className="flex gap-1 rounded-full border border-borderPrimary px-3 py-1 font-semibold text-textPrimary"
                     >
-                      {isPicture
+                      {isPicture 
                         ? currentLanguage === "ar"
                           ? "جاري الحفظ..."
                           : currentLanguage === "fr"
