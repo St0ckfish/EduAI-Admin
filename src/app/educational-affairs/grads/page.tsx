@@ -1,23 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
+import { RootState } from "@/GlobalRedux/store";
+import BreadCrumbs from "@/components/BreadCrumbs";
+import Spinner from "@/components/spinner";
+import { useGetAllGradesQuery } from "@/features/Acadimic/courseApi";
+import { useGetAllSemestersQuery } from "@/features/Organization-Setteings/semesterApi";
+import { useGetAllStudentsQuery } from "@/features/User-Management/studentApi";
 import {
-  useState,
-  useEffect,
   AwaitedReactNode,
   JSXElementConstructor,
   Key,
   ReactElement,
   ReactNode,
   ReactPortal,
+  useState
 } from "react";
-import { skipToken } from "@reduxjs/toolkit/query/react";
-import BreadCrumbs from "@/components/BreadCrumbs";
-import Spinner from "@/components/spinner";
 import { useSelector } from "react-redux";
-import { RootState } from "@/GlobalRedux/store";
-import { useGetAllGradesQuery } from "@/features/Acadimic/courseApi";
-import { useGetAllStudentsQuery } from "@/features/User-Management/studentApi";
-import { useGetAllSemestersQuery } from "@/features/Organization-Setteings/semesterApi";
 
 const Grads = () => {
   const breadcrumbs = [

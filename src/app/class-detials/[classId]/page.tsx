@@ -1,18 +1,18 @@
 "use client";
 
-import Calendar from "@/components/calendar";
-import CircleProgress from "@/components/circleProgress";
 import BreadCrumbs from "@/components/BreadCrumbs";
-import { RootState } from "@/GlobalRedux/store";
-import { useSelector } from "react-redux";
-import { FaMedal, FaTrophy, FaAward } from "react-icons/fa";
 import Spinner from "@/components/spinner";
+import { useGetClassByIdQuery } from "@/features/Infrastructure/classApi";
+import { RootState } from "@/GlobalRedux/store";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 interface ViewDriverProps {
   params: {
     classId: string;
   };
 }
+
 const classDetails: React.FC<ViewDriverProps> = ({ params }) => {
   const breadcrumbs = [
     {
@@ -29,18 +29,120 @@ const classDetails: React.FC<ViewDriverProps> = ({ params }) => {
     },
     {
       nameEn: `Class details`,
-      nameAr: `إضافة فصل`,
-      nameFr: `Ajouter une classe`,
-      href: `/class-detials/${params.classId}`,
+      nameAr: `تفاصيل الفصل`,
+      nameFr: `Détails de la classe`,
+      href: `/class-details/${params.classId}`,
     },
   ];
-  const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
+  const tableHeaders: { [key: string]: { en: string; ar: string; fr: string } } = {
+    buildingNumber: {
+      en: "Building Number",
+      ar: "رقم المبنى",
+      fr: "Numéro de bâtiment",
+    },
+    roomNumber: {
+      en: "Room Number",
+      ar: "رقم الغرفة",
+      fr: "Numéro de chambre",
+    },
+    floorNumber: {
+      en: "Floor Number",
+      ar: "رقم الطابق",
+      fr: "Numéro d'étage",
+    },
+    type: {
+      en: "Type",
+      ar: "النوع",
+      fr: "Type",
+    },
+    status: {
+      en: "Status",
+      ar: "الحالة",
+      fr: "Statut",
+    },
+    category: {
+      en: "Category",
+      ar: "الفئة",
+      fr: "Catégorie",
+    },
+    maxCapacity: {
+      en: "Max Capacity",
+      ar: "الطاقة القصوى",
+      fr: "Capacité maximale",
+    },
+    classroomName: {
+      en: "Classroom Name",
+      ar: "اسم الفصل",
+      fr: "Nom de la classe",
+    },
+    classroomNumber: {
+      en: "Classroom Number",
+      ar: "رقم الفصل",
+      fr: "Numéro de classe",
+    },
+    studyLevel: {
+      en: "Study Level",
+      ar: "مستوى الدراسة",
+      fr: "Niveau d'étude",
+    },
+    studyStage: {
+      en: "Study Stage",
+      ar: "مرحلة الدراسة",
+      fr: "Étape d'étude",
+    },
+  };
+
+  const booleanValue = useSelector((state: RootState) => state.boolean.value);
+  const [selectAll, setSelectAll] = useState(false);
+
+  const handleSelectAll = () => {
+    setSelectAll(!selectAll);
+    const checkboxes = document.querySelectorAll<HTMLInputElement>(
+      'input[type="checkbox"]:not(#checkbox-all-search)'
+    );
+    checkboxes.forEach((checkbox) => {
+      checkbox.checked = !selectAll;
+    });
+  };
+
+  useEffect(() => {
+    const handleOtherCheckboxes = () => {
+      const allCheckboxes = document.querySelectorAll<HTMLInputElement>(
+        'input[type="checkbox"]:not(#checkbox-all-search)'
+      );
+      const allChecked = Array.from(allCheckboxes).every(
+        (checkbox) => checkbox.checked
+      );
+      const selectAllCheckbox = document.getElementById(
+        "checkbox-all-search"
+      ) as HTMLInputElement | null;
+      if (selectAllCheckbox) {
+        selectAllCheckbox.checked = allChecked;
+        setSelectAll(allChecked);
+      }
+    };
+
+    const otherCheckboxes = document.querySelectorAll<HTMLInputElement>(
+      'input[type="checkbox"]:not(#checkbox-all-search)'
+    );
+    otherCheckboxes.forEach((checkbox) => {
+      checkbox.addEventListener("change", handleOtherCheckboxes);
+    });
+
+    return () => {
+      otherCheckboxes.forEach((checkbox) => {
+        checkbox.removeEventListener("change", handleOtherCheckboxes);
+      });
+    };
+  }, []);
+
+  const { data, isLoading } = useGetClassByIdQuery(params.classId);
   const { language: currentLanguage, loading } = useSelector(
-    (state: RootState) => state.language,
+    (state: RootState) => state.language
   );
 
-  if (loading)
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -52,363 +154,102 @@ const classDetails: React.FC<ViewDriverProps> = ({ params }) => {
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={` ${
+        className={`${
           currentLanguage === "ar"
             ? booleanValue
-              ? "lg:mr-[120px]"
-              : "lg:mr-[290px]"
+              ? "lg:mr-[100px]"
+              : "lg:mr-[270px]"
             : booleanValue
-              ? "lg:ml-[110px]"
-              : "lg:ml-[290px]"
-        } mt-16 grid justify-center`}
+            ? "lg:ml-[100px]"
+            : "lg:ml-[270px]"
+        } relative mx-3 mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
-        <div className="mb-5 grid grid-cols-1 gap-4 xl:grid-cols-2">
-          <div className="mb-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-2">
-            <div className="flex h-[125px] w-full items-center justify-center rounded-xl bg-bgPrimary p-4 shadow-xl">
-              <div className="flex justify-between">
-                <div>
-                  <p className="mb-4">
-                    {currentLanguage === "ar"
-                      ? "الطلاب"
-                      : currentLanguage === "fr"
-                        ? "Étudiants"
-                        : "Students"}
-                  </p>
-                  <div className="flex justify-between">
-                    <img
-                      src="/images/userr.png"
-                      alt="user"
-                      className="-mx-[10px] w-[25px]"
-                    />
-                    <img
-                      src="/images/userr.png"
-                      alt="user"
-                      className="-mx-[10px] w-[25px]"
-                    />
-                    <img
-                      src="/images/userr.png"
-                      alt="user"
-                      className="-mx-[10px] w-[25px]"
-                    />
-                    <img
-                      src="/images/userr.png"
-                      alt="user"
-                      className="-mx-[10px] w-[25px]"
-                    />
-
-                    <p className="mx-4 text-primary">
-                      {currentLanguage === "ar"
-                        ? "25 المزيد"
-                        : currentLanguage === "fr"
-                          ? "25 de plus"
-                          : "25 More"}
-                    </p>
-                  </div>
-                </div>
-                <img
-                  src="/images/userr.png"
-                  alt="user"
-                  className="h-[40px] w-[40px]"
-                />
-              </div>
-            </div>
-            <div className="flex h-[125px] w-full items-center justify-center rounded-xl bg-bgPrimary p-4 shadow-xl">
-              <div className="flex justify-between">
-                <div>
-                  <p className="mb-4">
-                    {currentLanguage === "ar"
-                      ? "المعلمين"
-                      : currentLanguage === "fr"
-                        ? "Enseignants"
-                        : "Teachers"}
-                  </p>
-                  <div className="flex justify-between">
-                    <img
-                      src="/images/userr.png"
-                      alt="user"
-                      className="-mx-[10px] w-[25px]"
-                    />
-                    <img
-                      src="/images/userr.png"
-                      alt="user"
-                      className="-mx-[10px] w-[25px]"
-                    />
-                    <img
-                      src="/images/userr.png"
-                      alt="user"
-                      className="-mx-[10px] w-[25px]"
-                    />
-                    <img
-                      src="/images/userr.png"
-                      alt="user"
-                      className="-mx-[10px] w-[25px]"
-                    />
-
-                    <p className="mx-4 text-primary">
-                      {currentLanguage === "ar"
-                        ? "4 المزيد"
-                        : currentLanguage === "fr"
-                          ? "4 de plus"
-                          : "4 More"}
-                    </p>
-                  </div>
-                </div>
-                <img
-                  src="/images/userr.png"
-                  alt="user"
-                  className="h-[40px] w-[40px]"
-                />
-              </div>
-            </div>
-
-            <div className="flex h-[350px] w-full items-center justify-center rounded-xl bg-bgPrimary p-4 pb-8 pt-8 shadow-xl">
-              <div className="flex flex-col items-start justify-center">
-                <p className="mt-5 text-lg font-bold text-textPrimary">
-                  {currentLanguage === "ar"
-                    ? "الحضور"
-                    : currentLanguage === "fr"
-                      ? "Présence"
-                      : "Attendance"}
-                </p>
-                <CircleProgress percentage={75} />
-                <div className="mb-5 flex gap-5">
+        <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
+          <div className="flex justify-center"></div>
+        </div>
+        <div className="relative overflow-auto shadow-md sm:rounded-lg">
+          <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
+            <thead className="bg-thead text-xs uppercase text-textPrimary">
+              <tr>
+                <th scope="col" className="p-4">
                   <div className="flex items-center">
-                    <span className="h-2 w-2 rounded-full bg-primary"></span>
-                    <p className="mx-2">
-                      {currentLanguage === "ar"
-                        ? "حاضر"
-                        : currentLanguage === "fr"
-                          ? "Présent"
-                          : "Present"}
-                    </p>
+                    <input
+                      id="checkbox-all-search"
+                      type="checkbox"
+                      className="-gray-800 h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500"
+                      onChange={handleSelectAll}
+                    />
                   </div>
+                </th>
+                {Object.keys(tableHeaders).map((key) => (
+                  <th
+                    key={key}
+                    scope="col"
+                    className="whitespace-nowrap px-6 py-3"
+                  >
+                    {tableHeaders[key][currentLanguage as keyof typeof tableHeaders[typeof key]]}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary">
+                <td className="w-4 p-4">
                   <div className="flex items-center">
-                    <span className="h-2 w-2 rounded-full bg-secondary"></span>
-                    <p className="mx-2">
-                      {currentLanguage === "ar"
-                        ? "غائب"
-                        : currentLanguage === "fr"
-                          ? "Absent"
-                          : "Absent"}
-                    </p>
+                    <input
+                      id="checkbox-table-search-1"
+                      type="checkbox"
+                      className="h-4 w-4 rounded border-borderPrimary bg-bgPrimary text-primary focus:ring-2 focus:ring-hover"
+                    />
                   </div>
-                </div>
-              </div>
+                </td>
+                <td className="whitespace-nowrap px-6 py-4">
+                  {data.data.buildingNumber}
+                </td>
+                <td className="whitespace-nowrap px-6 py-4">
+                  {data.data.roomNumber}
+                </td>
+                <td className="whitespace-nowrap px-6 py-4">
+                  {data.data.floorNumber}
+                </td>
+                <td className="whitespace-nowrap px-6 py-4">
+                  {data.data.type}
+                </td>
+                <td className="whitespace-nowrap px-6 py-4">
+                  {data.data.status}
+                </td>
+                <td className="whitespace-nowrap px-6 py-4">
+                  {data.data.category}
+                </td>
+                <td className="whitespace-nowrap px-6 py-4">
+                  {data.data.maxCapacity}
+                </td>
+                <td className="whitespace-nowrap px-6 py-4">
+                  {data.data.classroomName}
+                </td>
+                <td className="whitespace-nowrap px-6 py-4">
+                  {data.data.classroomNumber}
+                </td>
+                <td className="whitespace-nowrap px-6 py-4">
+                  {data.data.studyLevel}
+                </td>
+                <td className="whitespace-nowrap px-6 py-4">
+                  {data.data.studyStage}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          {(data?.length === 0 || data == null) && (
+            <div className="flex w-full justify-center py-3 text-center text-[18px] font-semibold">
+              {currentLanguage === "en"
+                ? "There is No Data"
+                : currentLanguage === "ar"
+                ? "لا توجد بيانات"
+                : currentLanguage === "fr"
+                ? "Il n'y a pas de données"
+                : "There is No Data"}
             </div>
-            <div className="flex h-[350px] w-full items-center justify-center rounded-xl bg-bgPrimary p-4 pb-8 pt-8">
-              <div className="flex flex-col items-start">
-                <p className="mt-5 text-lg font-bold text-textPrimary">
-                  {currentLanguage === "ar"
-                    ? "اختبارات اليوم"
-                    : currentLanguage === "fr"
-                      ? "Les quiz du jour"
-                      : "Today's Quizzes"}
-                </p>
-                <div className="schedule-item flex rounded-lg p-4">
-                  <div className="flex items-center">
-                    <div className="number-circle mx-4 flex h-12 w-12 items-center justify-center rounded-full bg-[rgba(37,99,235,0.3)] text-3xl font-bold text-primary">
-                      1
-                    </div>
-                  </div>
-                  <div className="item-details">
-                    <p className="text-lg font-medium text-blackOrWhite">
-                      {currentLanguage === "ar"
-                        ? "الرياضيات"
-                        : currentLanguage === "fr"
-                          ? "Mathématiques"
-                          : "Math"}
-                    </p>
-                    <p className="text-secondary">
-                      {currentLanguage === "ar"
-                        ? "٠١٢:٣٠ م - ١:٠٠ م"
-                        : currentLanguage === "fr"
-                          ? "12h30 - 13h00"
-                          : "12:30 pm - 1:00 pm"}
-                    </p>
-                  </div>
-                </div>
-                <div className="schedule-item flex rounded-lg p-4">
-                  <div className="flex items-center">
-                    <div className="number-circle mx-4 flex h-12 w-12 items-center justify-center rounded-full bg-[rgba(26,200,119,0.3)] text-3xl font-bold text-success">
-                      2
-                    </div>
-                  </div>
-                  <div className="item-details">
-                    <p className="text-lg font-medium text-blackOrWhite">
-                      {currentLanguage === "ar"
-                        ? "الإنجليزية"
-                        : currentLanguage === "fr"
-                          ? "Anglais"
-                          : "English"}
-                    </p>
-                    <p className="text-secondary">
-                      {currentLanguage === "ar"
-                        ? "٠١٢:٣٠ م - ١:٠٠ م"
-                        : currentLanguage === "fr"
-                          ? "12h30 - 13h00"
-                          : "12:30 pm - 1:00 pm"}
-                    </p>
-                  </div>
-                </div>
-                <div className="schedule-item flex rounded-lg p-4">
-                  <div className="flex items-center">
-                    <div className="number-circle mx-4 flex h-12 w-12 items-center justify-center rounded-full bg-[rgba(248,155,34,0.3)] text-3xl font-bold text-warning">
-                      3
-                    </div>
-                  </div>
-                  <div className="item-details">
-                    <p className="text-lg font-medium text-blackOrWhite">
-                      {currentLanguage === "ar"
-                        ? "العربية"
-                        : currentLanguage === "fr"
-                          ? "Arabe"
-                          : "Arabic"}
-                    </p>
-                    <p className="text-secondary">
-                      {currentLanguage === "ar"
-                        ? "٠١٢:٣٠ م - ١:٠٠ م"
-                        : currentLanguage === "fr"
-                          ? "12h30 - 13h00"
-                          : "12:30 pm - 1:00 pm"}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="col-span-1 flex h-[270px] flex-col rounded-xl bg-bgPrimary px-4 pt-2 shadow-xl sm:col-span-2 lg:col-span-2">
-              <p className="mt-1 text-lg font-bold text-textPrimary">
-                {currentLanguage === "ar"
-                  ? "أفضل الطلاب في الفصل"
-                  : currentLanguage === "fr"
-                    ? "Les meilleurs élèves de la classe"
-                    : "Class Toppers"}
-              </p>
-
-              <div className="profile-card mt-3">
-                <div className="mx-4 flex justify-between">
-                  <div>
-                    <div className="flex gap-2">
-                      <img
-                        src="/images/userr.png"
-                        alt="profile photo"
-                        className="mt-1 h-[40px] w-[40px] rounded-full"
-                      />
-                      <div className="flex flex-col">
-                        <div className="flex gap-2">
-                          <h3 className="text-lg">
-                            {currentLanguage === "ar"
-                              ? "الاسم الكامل"
-                              : currentLanguage === "fr"
-                                ? "Nom complet"
-                                : "Full Name"}
-                          </h3>
-                          <FaTrophy
-                            style={{ color: "gold" }}
-                            size={20}
-                            className="mt-1"
-                          />
-                        </div>
-                        <p className="text-textSecondary">
-                          {currentLanguage === "ar"
-                            ? "سنة واحدة"
-                            : currentLanguage === "fr"
-                              ? "Un an"
-                              : "One year"}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <p className="text-textSecondary">95%</p>
-                </div>
-              </div>
-              <div className="profile-card my-3">
-                <div className="mx-4 flex justify-between">
-                  <div>
-                    <div className="flex gap-2">
-                      <img
-                        src="/images/userr.png"
-                        alt="profile photo"
-                        className="mt-1 h-[40px] w-[40px] rounded-full"
-                      />
-                      <div className="flex flex-col">
-                        <div className="flex gap-2">
-                          <h3 className="text-lg">
-                            {currentLanguage === "ar"
-                              ? "الاسم الكامل"
-                              : currentLanguage === "fr"
-                                ? "Nom complet"
-                                : "Full Name"}
-                          </h3>
-                          <FaMedal
-                            style={{ color: "silver" }}
-                            size={20}
-                            className="mt-1"
-                          />
-                        </div>
-                        <p className="text-textSecondary">
-                          {currentLanguage === "ar"
-                            ? "سنة واحدة"
-                            : currentLanguage === "fr"
-                              ? "Un an"
-                              : "One year"}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <p className="text-textSecondary">93%</p>
-                </div>
-              </div>
-              <div className="profile-card my-3">
-                <div className="mx-4 flex justify-between">
-                  <div>
-                    <div className="flex gap-2">
-                      <img
-                        src="/images/userr.png"
-                        alt="profile photo"
-                        className="mt-1 h-[40px] w-[40px] rounded-full"
-                      />
-                      <div className="flex flex-col">
-                        <div className="flex gap-2">
-                          <h3 className="text-lg">
-                            {currentLanguage === "ar"
-                              ? "الاسم الكامل"
-                              : currentLanguage === "fr"
-                                ? "Nom complet"
-                                : "Full Name"}
-                          </h3>
-                          <FaAward
-                            style={{ color: "bronze" }}
-                            size={20}
-                            className="mt-1"
-                          />
-                        </div>
-                        <p className="text-textSecondary">
-                          {currentLanguage === "ar"
-                            ? "سنة واحدة"
-                            : currentLanguage === "fr"
-                              ? "Un an"
-                              : "One year"}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <p className="text-textSecondary">90%</p>
-                </div>
-              </div>
-            </div>
-            {/* <div className="flex flex-col h-[270px] rounded-xl bg-bgPrimary p-4 shadow-xl col-span-1 sm:col-span-2 lg:col-span-2">
-              
-              <div className="flex justify-between">
-                <div>div</div>
-              <p>text</p>
-              </div>
-            </div> */}
-          </div>
-
-          <div className="flex justify-center">
-            <Calendar />
-          </div>
+          )}
         </div>
       </div>
     </>
