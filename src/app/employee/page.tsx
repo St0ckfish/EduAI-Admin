@@ -339,7 +339,8 @@ const Employee = () => {
                     <td className="whitespace-nowrap px-6 py-4">
                       <button
                         onClick={() => handleDelete(employee.id)}
-                        className="rounded-lg bg-error px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+                        disabled={employee.role === "Admin"}
+                        className={`rounded-lg px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out ${employee.role === "Admin" ? "cursor-not-allowed bg-red-800" : "hover:-translate-y-1 hover:scale-110 bg-error"}`}
                       >
                         {currentLanguage === "en"
                           ? "Lock"

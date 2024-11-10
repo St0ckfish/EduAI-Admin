@@ -37,6 +37,7 @@ import { scheduleApi } from "@/features/Acadimic/scheduleApi";
 import { complainApi } from "@/features/Organization-Setteings/complainApi";
 import { taxesApi } from "@/features/Financial/taxesApi";
 import { paymentDueDateApi } from "@/features/Financial/paymentDueDateApi";
+import { chatApi } from "@/features/chat/chatApi";
 
 export const store = configureStore({
   reducer: {
@@ -48,6 +49,7 @@ export const store = configureStore({
     [signupApi.reducerPath]: signupApi.reducer,
     [notificationsApi.reducerPath]: notificationsApi.reducer,
     [employeeApi.reducerPath]: employeeApi.reducer,
+    [chatApi.reducerPath]: chatApi.reducer,
     [dashboardApi.reducerPath]: dashboardApi.reducer,
     [examsApi.reducerPath]: examsApi.reducer,
     [paymentDueDateApi.reducerPath]: paymentDueDateApi.reducer,
@@ -93,6 +95,7 @@ export const store = configureStore({
       .concat(notificationsApi.middleware)
       .concat(examsApi.middleware)
       .concat(reportApi.middleware)
+      .concat(chatApi.middleware)
       .concat(officeApi.middleware)
       .concat(participationApi.middleware)
       .concat(professionalApi.middleware)

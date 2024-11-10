@@ -1,25 +1,14 @@
 "use client";
 import dynamic from "next/dynamic";
-import Modal from "@/components/model"; // تأكد من أن مكون Modal يعمل بشكل صحيح
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
-import { useGetAllTeachersChatQuery } from "@/features/User-Management/teacherApi";
+import { useGetAllChatsQuery } from "@/features/chat/chatApi";
 import Spinner from "@/components/spinner";
 
-// تعطيل SSR لمكونات ChatPage, RegisterForm و LoginForm
 const ChatPage = dynamic(() => import("@/components/chat"), { ssr: false });
-const RegisterForm = dynamic(() => import("@/components/registerChat"), {
-  ssr: false,
-});
-const LoginForm = dynamic(() => import("@/components/loginChat"), {
-  ssr: false,
-});
-
 const Chat = () => {
   const [search, setSearch] = useState("");
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [isRegisterForm, setIsRegisterForm] = useState(false); // التبديل بين تسجيل المستخدم وتسجيل الدخول
   const [userId, setUserId] = useState("");
   const handleClick = (id: string) => {
     setUserId(id);
@@ -28,20 +17,7 @@ const Chat = () => {
     (state: RootState) => state.language,
   );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-  const { data, isLoading } = useGetAllTeachersChatQuery(null);
-  const handleCloseModal = () => {
-    setModalOpen(false);
-  };
-
-  const handleOpenRegister = () => {
-    setIsRegisterForm(true);
-    setModalOpen(true);
-  };
-
-  const handleOpenLogin = () => {
-    setIsRegisterForm(false);
-    setModalOpen(true);
-  };
+  const { data, isLoading } = useGetAllChatsQuery(null);
 
   if (isLoading)
     return (
@@ -61,7 +37,7 @@ const Chat = () => {
           : booleanValue
             ? "lg:ml-[100px]"
             : "lg:ml-[270px]"
-      } mr-4 mt-10`}
+      }  mt-10`}
     >
       <div className="flex w-full justify-between gap-10 rounded-lg p-4 max-[1180px]:grid max-[1180px]:justify-center">
         <div className="h-[700px] w-full overflow-y-auto rounded-xl bg-bgPrimary p-5">
@@ -114,20 +90,20 @@ const Chat = () => {
                   </div>
                 </div>
                 <div className="mt-2 grid gap-2">
-                  {data.data.content
-                    .filter((teacher: any) => {
+                  {data?.data?.content
+                    .filter((chat: any) => {
                       return search.toLocaleLowerCase() === ""
-                        ? teacher
-                        : teacher.name.toLocaleLowerCase().includes(search);
+                        ? chat
+                        : chat.name.toLocaleLowerCase().includes(search);
                     })
-                    .map((teacher: any) => (
+                    .map((chat: any) => (
                       <div
-                        key={teacher.id}
-                        onClick={() => handleClick("cometchat-uid-1")}
+                        key={chat.id}
+                        onClick={() => handleClick(chat.chatId)}
                         className="flex w-full cursor-pointer items-center border-b border-borderPrimary px-2 py-1 hover:bg-bgSecondary"
                       >
-                        <div>
-                          {!teacher.hasPhoto ? (
+                        <div className={`${chat.numberOfNewMessages > 0 ? "w-[150px]" : ""}`}>
+                          {!chat.targetUser.hasPhoto ? (
                             <img
                               src="/images/userr.png"
                               className="mx-2 h-[40px] w-[40px] rounded-lg"
@@ -135,23 +111,30 @@ const Chat = () => {
                             />
                           ) : (
                             <img
-                              src={teacher.photoLink}
+                              src={chat.targetUser.photoLink}
                               className="mx-2 h-[40px] w-[40px] rounded-lg"
                               alt="#"
                             />
                           )}
                         </div>
-                        <div className="grid gap-2">
-                          <p className="font-semibold">
-                            {teacher.name}{" "}
+                        <div className="grid gap-2 w-full">
+                          <p className="font-semibold ">
+                            {chat.targetUser.name}{" "}
                             <span className="text-[15px] text-secondary">
-                              ({teacher.Role})
+                              ({chat.targetUser.Role})
                             </span>
                           </p>
                           <p className="font-semibold text-secondary">
-                            ID: {teacher.id}
+                            {chat.lastMessage}
                           </p>
                         </div>
+                        {
+                          chat.numberOfNewMessages > 0 &&(
+                        <div className="flex justify-end items-center text-center w-full text-end text-white">
+                          <p className="px-2 rounded-full bg-primary">{chat.numberOfNewMessages}</p>
+                        </div>
+                          )
+                        }
                       </div>
                     ))}
                 </div>

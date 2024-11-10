@@ -9,6 +9,7 @@ import {
 } from "@/components/cometchatUser";
 import { CometChat } from "@cometchat-pro/chat";
 import { useTheme } from "next-themes";
+import { useGetChatMessagesQuery } from "@/features/chat/chatApi";
 
 interface ChatPageProps {
   userId: string;
@@ -24,7 +25,6 @@ const ChatPage = ({ userId }: ChatPageProps) => {
   const chatEndRef = useRef<HTMLDivElement | null>(null);
   console.log(userId);
 
-  // Function to fetch messages
   const fetchMessages = async () => {
     const UID = userId; // Use the current receiver UID
     const limit = 30; // Number of messages to fetch
