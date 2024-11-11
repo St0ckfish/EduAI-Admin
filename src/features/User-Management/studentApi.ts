@@ -53,8 +53,8 @@ export const studentApi = createApi({
     //
     updateStudents: builder.mutation({
       query: ({ formData, id }) => ({
-        url: `cases/categories/${id}`,
-        method: "PATCH",
+        url: `/api/v1/management/student/${id}/update`,
+        method: "PUT",
         body: formData,
       }),
     }),

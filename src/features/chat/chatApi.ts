@@ -32,32 +32,15 @@ export const chatApi = createApi({
         `/api/v1/chat/all`,
     }),
     //
-    getAllStudentsAttend: builder.query({
-      query: ({ size, page }) =>
-        `/api/v1/student-attendance/all?date=&size=${size}&page=${page}`,
-    }),
-    //
-    getAllSchools: builder.query({
-      query: () => `/api/v1/public/school/basic-info?name&size=1000000&page=0`,
-    }),
-    //
-    getDriversCount: builder.query({
-      query: () => `/api/v1/dashboard/drivers-count`,
-    }),
-    //
-    getDriversAttend: builder.query({
-      query: () => `/api/v1/dashboard/drivers-attendance?status=PRESENT`,
-    }),
-    //
     getChatMessages: builder.query({
       query: id => ({
         url: `/api/v1/messages/messagesInChat/${id}`,
       }),
     }),
     //
-    createAttendance: builder.mutation({
+    sendMessage: builder.mutation({
       query: formData => ({
-        url: `/api/v1/employee-attendance`,
+        url: `/api/v1/messages/new`,
         method: "POST",
         body: formData,
       }),
@@ -87,12 +70,8 @@ export const chatApi = createApi({
 
 export const {
   useGetAllChatsQuery,
-  useGetAllSchoolsQuery,
-  useGetAllStudentsAttendQuery,
-  useGetDriversCountQuery,
-  useGetDriversAttendQuery,
   useGetChatMessagesQuery,
-  useCreateAttendanceMutation,
+  useSendMessageMutation,
   useGetBusByIdQuery,
   useUpdateAttendanceMutation,
   useUpdateStudentAttendanceMutation,

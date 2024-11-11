@@ -19,7 +19,7 @@ const StudentInfo = ({ data }: { data: any }) => {
                 ? "Informations sur l'élève"
                 : "Student Information"}
           </h1>
-          <Link href="/student">
+          <Link href={`/edit-student/${data.data.id}`}>
             <svg
               className="h-6 w-6 text-textPrimary"
               fill="none"

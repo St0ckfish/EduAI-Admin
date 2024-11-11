@@ -94,7 +94,7 @@ const Chat = () => {
                     .filter((chat: any) => {
                       return search.toLocaleLowerCase() === ""
                         ? chat
-                        : chat.name.toLocaleLowerCase().includes(search);
+                        : chat.targetUser.name.toLocaleLowerCase().includes(search);
                     })
                     .map((chat: any) => (
                       <div

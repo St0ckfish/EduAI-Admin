@@ -1,118 +1,185 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { useEffect, useState, useRef } from "react";
 import {
-  loginUser,
-  sendMessage,
-  sendImageMessage,
-  addMessageListener,
-} from "@/components/cometchatUser";
-import { CometChat } from "@cometchat-pro/chat";
-import { useTheme } from "next-themes";
+  useEffect,
+  useState,
+  useRef,
+  Key,
+  ReactElement,
+  JSXElementConstructor,
+  ReactNode,
+  ReactPortal,
+} from "react";
 import { useGetChatMessagesQuery } from "@/features/chat/chatApi";
+import { toast } from "react-toastify";
+import { Client } from "@stomp/stompjs";
+import Cookies from "js-cookie";
+import axios from "axios";
+
+interface Message {
+  chatId: number | string;
+  messageId: number;
+  attachmentId: number | null;
+  isMyMessage: boolean;
+  sender: {
+    id: number;
+    name: string;
+    Role: string;
+    hasPhoto: boolean;
+    photoLink: string | null;
+  };
+  recipient: {
+    id: number;
+    name: string;
+    Role: string;
+    hasPhoto: boolean;
+    photoLink: string | null;
+  };
+  messageContent: string;
+  viewLink: string | null;
+  downloadLink: string | null;
+  isMessage: boolean;
+  isVideo: boolean;
+  isAudio: boolean;
+  isFile: boolean;
+  isImage: boolean;
+  creationDate: string;
+  seenTime: string | null;
+}
 
 interface ChatPageProps {
-  userId: string;
+  userId: string | null;
 }
 
 const ChatPage = ({ userId }: ChatPageProps) => {
-  const { theme, setTheme } = useTheme();
-  const [messages, setMessages] = useState<
-    (CometChat.TextMessage | CometChat.MediaMessage)[]
-  >([]);
+  const chatEndRef = useRef<HTMLDivElement | null>(null);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const chatEndRef = useRef<HTMLDivElement | null>(null);
-  console.log(userId);
 
-  const fetchMessages = async () => {
-    const UID = userId; // Use the current receiver UID
-    const limit = 30; // Number of messages to fetch
-    const messageRequest = new CometChat.MessagesRequestBuilder()
-      .setUID(UID)
-      .setLimit(limit)
-      .build();
-
-    messageRequest.fetchPrevious().then(
-      (fetchedMessages: CometChat.BaseMessage[]) => {
-        // Filter messages to only include TextMessage and MediaMessage
-        const filteredMessages = fetchedMessages.filter(
-          (msg): msg is CometChat.TextMessage | CometChat.MediaMessage =>
-            msg instanceof CometChat.TextMessage ||
-            msg instanceof CometChat.MediaMessage,
-        );
-        setMessages(filteredMessages);
-      },
-      error => {
-        console.error("Message fetching failed with error:", error);
-      },
-    );
-  };
+  const token = Cookies.get("token");
+  const { data: messagesData, isLoading, error } = useGetChatMessagesQuery(
+    userId!,
+    {
+      skip: userId === null,
+    },
+  );
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      loginUser("1"); // Assuming "1" is the logged-in user
+    if (messagesData) {
+      setMessages(messagesData);
+    }
+  }, [messagesData]);
 
-      // Clear previous messages
-      setMessages([]);
+  const stompClientRef = useRef<Client | null>(null);
 
-      // Fetch chat history
-      fetchMessages();
+  useEffect(() => {
+    if (!token || !userId) {
+      console.error("Token or userId is missing.");
+      return;
+    }
 
-      const listenerID = `chat_listener_${userId}`;
-
-      // Remove any existing message listener
-      CometChat.removeMessageListener(listenerID);
-
-      // Add a message listener
-      addMessageListener(listenerID, (message: any) => {
-        // Only add messages relevant to the current chat
-        if (
-          (message.getSender().getUid() === userId &&
-            message.getReceiverType() === "user") ||
-          (message.getReceiverId() === userId &&
-            message.getReceiverType() === "user")
-        ) {
-          setMessages(prevMessages => [...prevMessages, message]);
-        }
+    const stompClient = new Client({
+      brokerURL: `ws://eduai.vitaparapharma.com/ws?token=${token}`,
+      debug: function(str) {
+        console.log(str);
+    },
+      reconnectDelay: 5000,
+      heartbeatIncoming: 4000,
+      heartbeatOutgoing: 4000,
+    });
+    
+    stompClient.onConnect = () => {
+      console.log("Connected");
+    
+      stompClient.subscribe(`/chat/${userId}`, (message) => {
+        const newMessage: Message = JSON.parse(message.body);
+        setMessages((prevMessages) => [...prevMessages, newMessage]);
       });
+    };
+    
+    stompClient.onStompError = (frame) => {
+      console.error("Broker reported error: " + frame.headers["message"]);
+      console.error("Additional details: " + frame.body);
+    };
+    
+    stompClient.onWebSocketError = (event) => {
+      console.error('WebSocket error:', event);
+    };
+    
+    stompClient.onWebSocketClose = (event) => {
+      console.error('WebSocket closed:', event);
+    };
 
-      return () => {
-        // Clean up the listener
-        CometChat.removeMessageListener(listenerID);
-      };
-    }
-  }, [userId]);
+    stompClient.activate();
+    stompClientRef.current = stompClient;
 
-  const handleSendMessage = () => {
-    if (input.trim() !== "") {
-      // Send text message
-      sendMessage(userId, input)
-        .then(() => {
-          setInput(""); // Clear input after sending
-          fetchMessages(); // Refetch messages after sending a message
-        })
-        .catch(error => {
-          console.error("Message sending failed with error:", error);
-        });
-    }
-
-    if (imageFile) {
-      // Send image message
-      sendImageMessage(userId, imageFile)
-        .then(() => {
-          setImageFile(null); // Clear image after sending
-          fetchMessages(); // Refetch messages after sending an image
-        })
-        .catch(error => {
-          console.error("Image sending failed with error:", error);
-        });
-    }
-  };
+    return () => {
+      stompClient.deactivate();
+      stompClientRef.current = null;
+    };
+  }, [token, userId]);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       setImageFile(event.target.files[0]);
+    }
+  };
+
+  const handleSendMessage = async () => {
+    if (!input.trim() && !imageFile) {
+      return;
+    }
+
+    if (!stompClientRef.current || !stompClientRef.current.connected) {
+      console.error("STOMP client is not connected.");
+      return;
+    }
+
+    let imageUrl = null;
+
+    // If an image file is selected, upload it first
+    if (imageFile) {
+      try {
+        const formData = new FormData();
+        formData.append("file", imageFile);
+
+        // Send a POST request to upload the image
+        const response = await axios.post(
+          `/api/chat/${userId}/upload-image`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+
+        imageUrl = response.data.imageUrl;
+      } catch (error) {
+        console.error("Error uploading image:", error);
+        toast.error("Failed to upload image");
+        return;
+      }
+    }
+
+    const messageBody = JSON.stringify({
+      chatId: userId,
+      content: input.trim(),
+      imageUrl: imageUrl,
+    });
+
+    try {
+      stompClientRef.current.publish({
+        destination: "/app/sendMessage",
+        body: messageBody,
+      });
+      console.log("Message published successfully");
+      setInput("");
+      setImageFile(null);
+    } catch (error) {
+      console.error("Error during publish:", error);
     }
   };
 
@@ -125,9 +192,11 @@ const ChatPage = ({ userId }: ChatPageProps) => {
     <div className="mx-auto flex h-[700px] w-full flex-col rounded-xl bg-bgPrimary">
       {/* Chat messages */}
       <div className="flex-1 overflow-y-auto rounded-xl bg-bgPrimary p-4">
-        {messages.map((msg, idx) => {
-          const isSender = msg.getSender()?.getUid() === "1"; // "1" is the logged-in user ID
-          if (msg instanceof CometChat.TextMessage) {
+        {isLoading && <p></p>}
+        {error && <p>Error loading messages</p>}
+        {messages.map((msg: Message, idx: Key | null | undefined) => {
+          const isSender = msg.isMyMessage;
+          if (msg.isMessage) {
             return (
               <div
                 key={idx}
@@ -137,13 +206,10 @@ const ChatPage = ({ userId }: ChatPageProps) => {
                     : "mr-auto bg-[#5570f1] text-left text-white"
                 }`}
               >
-                <p>{msg.getText()}</p>
+                <p>{msg.messageContent}</p>
               </div>
             );
-          } else if (
-            msg instanceof CometChat.MediaMessage &&
-            msg.getType() === "image"
-          ) {
+          } else if (msg.isImage) {
             return (
               <div
                 key={idx}
@@ -154,14 +220,14 @@ const ChatPage = ({ userId }: ChatPageProps) => {
                 }`}
               >
                 <img
-                  src={msg.getURL()}
+                  src={msg.viewLink || msg.downloadLink || ""}
                   alt="sent image"
                   className="h-auto w-full rounded-lg"
                 />
               </div>
             );
           }
-          return null; // Add this line to handle other message types
+          return null; // Handle other message types if necessary
         })}
         <div ref={chatEndRef}></div>
       </div>
@@ -202,7 +268,7 @@ const ChatPage = ({ userId }: ChatPageProps) => {
           className="flex-1 rounded-lg p-2 focus:outline-none"
           value={input}
           placeholder="Type your message..."
-          onChange={e => setInput(e.target.value)}
+          onChange={(e) => setInput(e.target.value)}
         />
         <button
           className="ml-4 flex items-center gap-3 rounded-lg bg-[#ffead1] px-2 py-1 font-semibold text-black hover:bg-[#dfbd90]"
