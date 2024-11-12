@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: admin
-        image: expotechx/admin:dc1b8
+        image: expotechx/admin:a9eee
         ports:
         - containerPort: 3000
         resources:
