@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ReactNode, useEffect } from "react";
+import React, { ReactNode } from "react";
 import "./globals.css";
 import NavBar from "./../components/navBar";
 import { Providers } from "@/GlobalRedux/provider";
@@ -23,14 +23,6 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
     pathname === "/otp" ||
     pathname === "/confirm-account" ||
     pathname === "/choose-account";
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      import("@/components/cometchat").then(({ initCometChat }) => {
-        initCometChat();
-      });
-    }
-  }, []);
 
   return (
     <html lang="ar" suppressHydrationWarning>

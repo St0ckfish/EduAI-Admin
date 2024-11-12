@@ -1,20 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import {
-  useEffect,
-  useState,
-  useRef,
-  Key,
-  ReactElement,
-  JSXElementConstructor,
-  ReactNode,
-  ReactPortal,
-} from "react";
 import { useGetChatMessagesQuery } from "@/features/chat/chatApi";
-import { toast } from "react-toastify";
 import { Client } from "@stomp/stompjs";
-import Cookies from "js-cookie";
 import axios from "axios";
+import Cookies from "js-cookie";
+import { Key, useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
 
 interface Message {
   chatId: number | string;
@@ -49,9 +40,10 @@ interface Message {
 
 interface ChatPageProps {
   userId: string | null;
+  regetusers: any;
 }
 
-const ChatPage = ({ userId }: ChatPageProps) => {
+const ChatPage = ({ userId, regetusers }: ChatPageProps) => {
   const chatEndRef = useRef<HTMLDivElement | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -80,35 +72,35 @@ const ChatPage = ({ userId }: ChatPageProps) => {
     }
 
     const stompClient = new Client({
-      brokerURL: `ws://eduai.vitaparapharma.com/ws?token=${token}`,
-      debug: function(str) {
+      brokerURL: `wss://eduai.vitaparapharma.com/ws?token=${token}`,
+      debug: function (str) {
         console.log(str);
-    },
+      },
       reconnectDelay: 5000,
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
     });
-    
+
     stompClient.onConnect = () => {
       console.log("Connected");
-    
+
       stompClient.subscribe(`/chat/${userId}`, (message) => {
         const newMessage: Message = JSON.parse(message.body);
         setMessages((prevMessages) => [...prevMessages, newMessage]);
       });
     };
-    
+
     stompClient.onStompError = (frame) => {
       console.error("Broker reported error: " + frame.headers["message"]);
       console.error("Additional details: " + frame.body);
     };
-    
+
     stompClient.onWebSocketError = (event) => {
-      console.error('WebSocket error:', event);
+      console.error("WebSocket error:", event);
     };
-    
+
     stompClient.onWebSocketClose = (event) => {
-      console.error('WebSocket closed:', event);
+      console.error("WebSocket closed:", event);
     };
 
     stompClient.activate();
@@ -146,7 +138,7 @@ const ChatPage = ({ userId }: ChatPageProps) => {
 
         // Send a POST request to upload the image
         const response = await axios.post(
-          `/api/chat/${userId}/upload-image`,
+          `/api/v1/messages/${userId}/files`,
           formData,
           {
             headers: {
@@ -175,6 +167,42 @@ const ChatPage = ({ userId }: ChatPageProps) => {
         destination: "/app/sendMessage",
         body: messageBody,
       });
+
+      // Update messages state directly instead of using refetch()
+      const newMessage: Message = {
+        chatId: userId!,
+        messageId: Date.now(), // Temporary ID
+        attachmentId: null,
+        isMyMessage: true,
+        sender: {
+          id: 0, // Replace with actual sender ID
+          name: "You", // Replace with actual sender name
+          Role: "User", // Replace with actual sender role
+          hasPhoto: false,
+          photoLink: null,
+        },
+        recipient: {
+          id: parseInt(userId!),
+          name: "Recipient", // Replace with actual recipient name
+          Role: "User", // Replace with actual recipient role
+          hasPhoto: false,
+          photoLink: null,
+        },
+        messageContent: input.trim(),
+        viewLink: imageUrl || null,
+        downloadLink: imageUrl || null,
+        isMessage: !!input.trim(),
+        isVideo: false,
+        isAudio: false,
+        isFile: false,
+        isImage: !!imageUrl,
+        creationDate: new Date().toISOString(),
+        seenTime: null,
+      };
+
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
+
+      regetusers();
       console.log("Message published successfully");
       setInput("");
       setImageFile(null);
@@ -185,7 +213,7 @@ const ChatPage = ({ userId }: ChatPageProps) => {
 
   // Scroll to the latest message
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    chatEndRef.current?.scrollIntoView({ behavior: "auto" });
   }, [messages]);
 
   return (

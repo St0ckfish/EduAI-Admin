@@ -3,13 +3,57 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
-import { useGetAllChatsQuery } from "@/features/chat/chatApi";
+import { useGetAllChatsQuery, useCreateNewChatMutation } from "@/features/chat/chatApi";
 import Spinner from "@/components/spinner";
+import Modal from "@/components/model";
+import SearchableSelect from "@/components/select";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { useGetAllUsersChatQuery } from "@/features/User-Management/teacherApi";
 
 const ChatPage = dynamic(() => import("@/components/chat"), { ssr: false });
 const Chat = () => {
   const [search, setSearch] = useState("");
   const [userId, setUserId] = useState("");
+  const [createChat] = useCreateNewChatMutation();
+  const { data: users, isLoading: isGetting } = useGetAllUsersChatQuery(null);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const optionsRigon =
+  users?.data?.content.map(
+      (user: {
+        Role: any;
+        id: any;
+        name: any;
+      }) => ({
+        value: user.id,
+        label: `${user.name} - ${user.Role}`,
+      }),
+    ) || [];
+    const { data, isLoading, refetch: regetusers } = useGetAllChatsQuery(null);
+  const onSubmit = async (data: any) => {
+    try {
+      await createChat(data).unwrap();
+      setModalOpen(false);
+      regetusers();
+      toast.success("Chat created successfully");
+    } catch {
+      toast.error(
+        "Failed to create Chat",
+      );
+    }
+  };
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
   const handleClick = (id: string) => {
     setUserId(id);
   };
@@ -17,7 +61,6 @@ const Chat = () => {
     (state: RootState) => state.language,
   );
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-  const { data, isLoading } = useGetAllChatsQuery(null);
 
   if (isLoading)
     return (
@@ -46,8 +89,13 @@ const Chat = () => {
               <Spinner />
             ) : (
               <>
-                <div className="flex justify-start text-start text-[22px] font-semibold">
+                <div className="flex justify-between text-start text-[22px] font-semibold">
                   <h1>Contacts</h1>
+                  <button onClick={handleOpenModal}>
+                    <svg className="h-8 w-8"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                  </button>
                 </div>
                 <div className="mt-6 grid items-start">
                   <div>
@@ -148,30 +196,61 @@ const Chat = () => {
               <img src="/images/emptyState.png" alt="#" />
             </div>
           ) : (
-            <ChatPage userId={userId} />
+            <ChatPage userId={userId} regetusers={regetusers}/>
           )}
         </div>
       </div>
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+          {
+            isGetting ? <Spinner/> : 
+        <form onSubmit={handleSubmit(onSubmit)}>
+        <label
+                htmlFor="targetUserId"
+                className="grid font-sans text-[18px] font-semibold"
+              >
+                {currentLanguage === "en"
+                  ? "New Chat"
+                  : currentLanguage === "ar"
+                    ? "محادثة جديدة"
+                    : currentLanguage === "fr"
+                      ? "Nouveau chat"
+                      : "Nouveau chat"}{" "}
+                {/* default */}
+                <SearchableSelect
+                  name="targetUserId"
+                  control={control}
+                  errors={errors}
+                  options={optionsRigon}
+                  currentLanguage={currentLanguage}
+                  placeholder="Select Chat"
+                />
+              </label>
+              <button
+                disabled={isLoading}
+                type="submit"
+                className="w-fit rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl mt-5"
+              >
+                {isLoading
+                  ? currentLanguage === "en"
+                    ? "Adding..."
+                    : currentLanguage === "ar"
+                      ? "يتم الإضافة..."
+                      : currentLanguage === "fr"
+                        ? "Ajout en cours..."
+                        : "Adding..." // default
+                  : currentLanguage === "en"
+                    ? "Add Chat"
+                    : currentLanguage === "ar"
+                      ? "إضافة دردشة"
+                      : currentLanguage === "fr"
+                        ? "Ajouter un Chat"
+                        : "Add Driver"}
+              </button>
+        </form>
+          }
+      </Modal>
     </div>
   );
-  {
-    /* <button onClick={handleOpenRegister} className="mr-4 bg-blue-500 text-white p-2 rounded">
-    Register
-  </button>
-  <button
-    onClick={handleOpenLogin}
-    className="rounded bg-green-500 p-2 text-white"
-  >
-    Login
-  </button>
-  <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-    {isRegisterForm ? (
-      <RegisterForm onClose={handleCloseModal} />
-    ) : (
-      <LoginForm onClose={handleCloseModal} />
-    )}
-  </Modal> */
-  }
 };
 
 export default Chat;

@@ -46,6 +46,14 @@ export const chatApi = createApi({
       }),
     }),
     //
+    CreateNewChat: builder.mutation({
+      query: formData => ({
+        url: `/api/v1/chat/new`,
+        method: "POST",
+        body: formData,
+      }),
+    }),
+    //
     getBusById: builder.query({
       query: id => `/api/v1/bus/${id}`,
     }),
@@ -71,6 +79,7 @@ export const chatApi = createApi({
 export const {
   useGetAllChatsQuery,
   useGetChatMessagesQuery,
+  useCreateNewChatMutation,
   useSendMessageMutation,
   useGetBusByIdQuery,
   useUpdateAttendanceMutation,

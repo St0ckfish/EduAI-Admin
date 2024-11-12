@@ -32,7 +32,7 @@ export const teacherApi = createApi({
         `/api/v1/management/teacher/all?size=${size}&page=${page}&archived=${archived}`,
     }),
     //
-    getAllTeachersChat: builder.query({
+    getAllUsersChat: builder.query({
       query: () => `/api/v1/shared/user/all?size=1000000&page=0`,
     }),
     //
@@ -76,5 +76,5 @@ export const {
   useGetAllTeachersQuery,
   useGetTeacherByIdQuery,
   useUpdateTeachersMutation,
-  useGetAllTeachersChatQuery,
+  useGetAllUsersChatQuery,
 } = teacherApi;
