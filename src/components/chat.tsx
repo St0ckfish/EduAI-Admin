@@ -1,6 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import { useGetChatMessagesQuery } from "@/features/chat/chatApi";
+// Removed the top-level import of Client
+// import { Client } from "@stomp/stompjs";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { Key, useEffect, useRef, useState } from "react";
@@ -62,7 +64,6 @@ const ChatPage = ({ userId, regetusers }: ChatPageProps) => {
     }
   }, [messagesData]);
 
-  // Adjusted the type to any to accommodate dynamic import
   const stompClientRef = useRef<any>(null);
 
   useEffect(() => {
@@ -72,43 +73,49 @@ const ChatPage = ({ userId, regetusers }: ChatPageProps) => {
     }
 
     const connectStompClient = async () => {
-      // Dynamically import Client from @stomp/stompjs
-      const { Client } = await import("@stomp/stompjs");
+      try {
+        const StompJs = await import("@stomp/stompjs");
 
-      const stompClient = new Client({
-        brokerURL: `wss://eduai.vitaparapharma.com/ws?token=${token}`,
-        debug: function (str) {
-          console.log(str);
-        },
-        reconnectDelay: 5000,
-        heartbeatIncoming: 4000,
-        heartbeatOutgoing: 4000,
-      });
+        // Access the Client class
+        const { Client } = StompJs;
 
-      stompClient.onConnect = () => {
-        console.log("Connected");
-
-        stompClient.subscribe(`/chat/${userId}`, (message) => {
-          const newMessage: Message = JSON.parse(message.body);
-          setMessages((prevMessages) => [...prevMessages, newMessage]);
+        const stompClient = new Client({
+          brokerURL: `wss://eduai.vitaparapharma.com/ws?token=${token}`,
+          debug: function (str) {
+            console.log(str);
+          },
+          reconnectDelay: 5000,
+          heartbeatIncoming: 4000,
+          heartbeatOutgoing: 4000,
         });
-      };
 
-      stompClient.onStompError = (frame) => {
-        console.error("Broker reported error: " + frame.headers["message"]);
-        console.error("Additional details: " + frame.body);
-      };
+        stompClient.onConnect = () => {
+          console.log("Connected");
 
-      stompClient.onWebSocketError = (event) => {
-        console.error("WebSocket error:", event);
-      };
+          stompClient.subscribe(`/chat/${userId}`, (message) => {
+            const newMessage: Message = JSON.parse(message.body);
+            setMessages((prevMessages) => [...prevMessages, newMessage]);
+          });
+        };
 
-      stompClient.onWebSocketClose = (event) => {
-        console.error("WebSocket closed:", event);
-      };
+        stompClient.onStompError = (frame) => {
+          console.error("Broker reported error: " + frame.headers["message"]);
+          console.error("Additional details: " + frame.body);
+        };
 
-      stompClient.activate();
-      stompClientRef.current = stompClient;
+        stompClient.onWebSocketError = (event) => {
+          console.error("WebSocket error:", event);
+        };
+
+        stompClient.onWebSocketClose = (event) => {
+          console.error("WebSocket closed:", event);
+        };
+
+        stompClient.activate();
+        stompClientRef.current = stompClient;
+      } catch (error) {
+        console.error("Error importing StompJs:", error);
+      }
     };
 
     connectStompClient();
@@ -229,7 +236,7 @@ const ChatPage = ({ userId, regetusers }: ChatPageProps) => {
     <div className="mx-auto flex h-[700px] w-full flex-col rounded-xl bg-bgPrimary">
       {/* Chat messages */}
       <div className="flex-1 overflow-y-auto rounded-xl bg-bgPrimary p-4">
-        {isLoading && <p></p>}
+        {isLoading && <p>Loading messages...</p>}
         {error && <p>Error loading messages</p>}
         {messages.map((msg: Message, idx: Key | null | undefined) => {
           const isSender = msg.isMyMessage;
