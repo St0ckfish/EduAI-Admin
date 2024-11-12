@@ -9,10 +9,9 @@ import Modal from "@/components/model";
 import SearchableSelect from "@/components/select";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import ChatPage from "@/components/chat";
 import { useGetAllUsersChatQuery } from "@/features/User-Management/teacherApi";
 
-
+const ChatPage = dynamic(() => import("@/components/chat"), { ssr: false });
 const Chat = () => {
   const [search, setSearch] = useState("");
   const [userId, setUserId] = useState("");
