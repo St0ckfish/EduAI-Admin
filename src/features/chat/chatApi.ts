@@ -58,11 +58,10 @@ export const chatApi = createApi({
       query: id => `/api/v1/bus/${id}`,
     }),
     //
-    updateAttendance: builder.mutation({
-      query: ({ formData, id }) => ({
-        url: `/api/v1/employee-attendance/${id}`,
-        method: "PUT",
-        body: formData,
+    deleteChat: builder.mutation({
+      query: ( id ) => ({
+        url: `/api/v1/chat/${id}`,
+        method: "DELETE",
       }),
     }),
     //
@@ -82,6 +81,6 @@ export const {
   useCreateNewChatMutation,
   useSendMessageMutation,
   useGetBusByIdQuery,
-  useUpdateAttendanceMutation,
+  useDeleteChatMutation,
   useUpdateStudentAttendanceMutation,
 } = chatApi;

@@ -3,15 +3,16 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
-import { useGetAllChatsQuery, useCreateNewChatMutation } from "@/features/chat/chatApi";
+import { useGetAllChatsQuery, useCreateNewChatMutation, useDeleteChatMutation } from "@/features/chat/chatApi";
 import Spinner from "@/components/spinner";
 import Modal from "@/components/model";
 import SearchableSelect from "@/components/select";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import ChatPage from "@/components/chat";
 import { useGetAllUsersChatQuery } from "@/features/User-Management/teacherApi";
 
-const ChatPage = dynamic(() => import("@/components/chat"), { ssr: false });
+
 const Chat = () => {
   const [search, setSearch] = useState("");
   const [userId, setUserId] = useState("");
@@ -30,6 +31,17 @@ const Chat = () => {
       }),
     ) || [];
     const { data, isLoading, refetch: regetusers } = useGetAllChatsQuery(null);
+    const [deleteChat] = useDeleteChatMutation();
+
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteChat(id).unwrap();
+      toast.success(`Chat with ID ${id} Deleted successfully`);
+      regetusers();
+    } catch (err) {
+      toast.error("Failed to Delete the Chat");
+    }
+  };
   const onSubmit = async (data: any) => {
     try {
       await createChat(data).unwrap();
@@ -147,10 +159,10 @@ const Chat = () => {
                     .map((chat: any) => (
                       <div
                         key={chat.id}
-                        onClick={() => handleClick(chat.chatId)}
+                        onClick={() => {handleClick(chat.chatId)}}
                         className="flex w-full cursor-pointer items-center border-b border-borderPrimary px-2 py-1 hover:bg-bgSecondary"
                       >
-                        <div className={`${chat.numberOfNewMessages > 0 ? "w-[150px]" : ""}`}>
+                        <div className={`${chat.numberOfNewMessages > 0 ? "w-[150px]" : "w-[150px]"}`}>
                           {!chat.targetUser.hasPhoto ? (
                             <img
                               src="/images/userr.png"
@@ -176,13 +188,28 @@ const Chat = () => {
                             {chat.lastMessage}
                           </p>
                         </div>
+                        <div className="grid justify-end items-center gap-4 text-center w-full text-end text-white">
+                          <button onClick={()=>handleDelete(chat.chatId)}>
+                            <svg
+                              className="h-6 w-6 text-error"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                              />
+                            </svg>
+                          </button>
                         {
                           chat.numberOfNewMessages > 0 &&(
-                        <div className="flex justify-end items-center text-center w-full text-end text-white">
                           <p className="px-2 rounded-full bg-primary">{chat.numberOfNewMessages}</p>
-                        </div>
                           )
                         }
+                        </div>
                       </div>
                     ))}
                 </div>
