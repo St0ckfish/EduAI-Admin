@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import { useGetChatMessagesQuery } from "@/features/chat/chatApi";
-import { Client } from "@stomp/stompjs";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { Key, useEffect, useRef, useState } from "react";
@@ -54,7 +53,7 @@ const ChatPage = ({ userId, regetusers }: ChatPageProps) => {
     userId!,
     {
       skip: userId === null,
-    },
+    }
   );
 
   useEffect(() => {
@@ -63,7 +62,8 @@ const ChatPage = ({ userId, regetusers }: ChatPageProps) => {
     }
   }, [messagesData]);
 
-  const stompClientRef = useRef<Client | null>(null);
+  // Adjusted the type to any to accommodate dynamic import
+  const stompClientRef = useRef<any>(null);
 
   useEffect(() => {
     if (!token || !userId) {
@@ -71,44 +71,53 @@ const ChatPage = ({ userId, regetusers }: ChatPageProps) => {
       return;
     }
 
-    const stompClient = new Client({
-      brokerURL: `wss://eduai.vitaparapharma.com/ws?token=${token}`,
-      debug: function (str) {
-        console.log(str);
-      },
-      reconnectDelay: 5000,
-      heartbeatIncoming: 4000,
-      heartbeatOutgoing: 4000,
-    });
+    const connectStompClient = async () => {
+      // Dynamically import Client from @stomp/stompjs
+      const { Client } = await import("@stomp/stompjs");
 
-    stompClient.onConnect = () => {
-      console.log("Connected");
-
-      stompClient.subscribe(`/chat/${userId}`, (message) => {
-        const newMessage: Message = JSON.parse(message.body);
-        setMessages((prevMessages) => [...prevMessages, newMessage]);
+      const stompClient = new Client({
+        brokerURL: `wss://eduai.vitaparapharma.com/ws?token=${token}`,
+        debug: function (str) {
+          console.log(str);
+        },
+        reconnectDelay: 5000,
+        heartbeatIncoming: 4000,
+        heartbeatOutgoing: 4000,
       });
+
+      stompClient.onConnect = () => {
+        console.log("Connected");
+
+        stompClient.subscribe(`/chat/${userId}`, (message) => {
+          const newMessage: Message = JSON.parse(message.body);
+          setMessages((prevMessages) => [...prevMessages, newMessage]);
+        });
+      };
+
+      stompClient.onStompError = (frame) => {
+        console.error("Broker reported error: " + frame.headers["message"]);
+        console.error("Additional details: " + frame.body);
+      };
+
+      stompClient.onWebSocketError = (event) => {
+        console.error("WebSocket error:", event);
+      };
+
+      stompClient.onWebSocketClose = (event) => {
+        console.error("WebSocket closed:", event);
+      };
+
+      stompClient.activate();
+      stompClientRef.current = stompClient;
     };
 
-    stompClient.onStompError = (frame) => {
-      console.error("Broker reported error: " + frame.headers["message"]);
-      console.error("Additional details: " + frame.body);
-    };
-
-    stompClient.onWebSocketError = (event) => {
-      console.error("WebSocket error:", event);
-    };
-
-    stompClient.onWebSocketClose = (event) => {
-      console.error("WebSocket closed:", event);
-    };
-
-    stompClient.activate();
-    stompClientRef.current = stompClient;
+    connectStompClient();
 
     return () => {
-      stompClient.deactivate();
-      stompClientRef.current = null;
+      if (stompClientRef.current) {
+        stompClientRef.current.deactivate();
+        stompClientRef.current = null;
+      }
     };
   }, [token, userId]);
 
@@ -145,7 +154,7 @@ const ChatPage = ({ userId, regetusers }: ChatPageProps) => {
               "Content-Type": "multipart/form-data",
               Authorization: `Bearer ${token}`,
             },
-          },
+          }
         );
 
         imageUrl = response.data.imageUrl;
