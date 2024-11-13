@@ -31,6 +31,14 @@ export const semesterApi = createApi({
       query: () => "/api/v1/management/semester/all?size=1000000&page=0",
     }),
     //
+    getAllSemestersByYear: builder.query({
+      query: (year) => `/api/v1/student-study/Semesters?academicYearId=${year}`,
+    }),
+    //
+    getAllAcadimicYear: builder.query({
+      query: () => "/api/v1/student-study/Academic-YEAR",
+    }),
+    //
     deleteSemesters: builder.mutation({
       query: id => ({
         url: `/api/v1/management/semester/${id}`,
@@ -62,6 +70,8 @@ export const semesterApi = createApi({
 
 export const {
   useGetAllSemestersQuery,
+  useGetAllAcadimicYearQuery,
+  useGetAllSemestersByYearQuery,
   useDeleteSemestersMutation,
   useCreateSemestersMutation,
   useGetSemesterByIdQuery,
