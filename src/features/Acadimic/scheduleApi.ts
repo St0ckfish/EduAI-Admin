@@ -39,7 +39,7 @@ export const scheduleApi = createApi({
     //
     deleteSchedual: builder.mutation({
       query: id => ({
-        url: `/api/v1/schedule${id}`,
+        url: `/api/v1/schedule/${id}`,
         method: "DELETE",
       }),
     }),
@@ -56,6 +56,10 @@ export const scheduleApi = createApi({
       query: id => `/api/v1/management/course/${id}`,
     }),
     //
+    getSchedualById: builder.query({
+      query: id => `/api/v1/schedule/${id}`,
+    }),
+    //
     updateSchedual: builder.mutation({
       query: ({ formData, id }) => ({
         url: `/api/v1/schedule/${id}`,
@@ -69,6 +73,7 @@ export const scheduleApi = createApi({
 export const {
   useGetAllTeacherScheduleQuery,
   useGetAllClassScheduleQuery,
+  useGetSchedualByIdQuery,
   useDeleteSchedualMutation,
   useCreateSchedualMutation,
   useUpdateSchedualMutation,

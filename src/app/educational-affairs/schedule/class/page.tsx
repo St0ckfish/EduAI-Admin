@@ -1,7 +1,7 @@
 "use client";
 
 import { FieldValues, useForm } from "react-hook-form";
-import { useGetAllClassScheduleQuery } from "@/features/Acadimic/scheduleApi";
+import { useDeleteSchedualMutation, useGetAllClassScheduleQuery } from "@/features/Acadimic/scheduleApi";
 import { RootState } from "@/GlobalRedux/store";
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -11,6 +11,7 @@ import Spinner from "@/components/spinner";
 import Link from "next/link";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { useGetAllClasssQuery } from "@/features/Infrastructure/classApi";
+import { toast } from "react-toastify";
 
 const ClassSchedule = () => {
   const breadcrumbs = [
@@ -45,10 +46,21 @@ const ClassSchedule = () => {
 
   const { register, watch } = useForm();
   const selectedTeacherId = watch("teacherId");
-  const { data, isLoading } = useGetAllClassScheduleQuery(selectedTeacherId, {
+  const { data, isLoading, refetch } = useGetAllClassScheduleQuery(selectedTeacherId, {
     skip: !selectedTeacherId,
   });
   const { data: classes, isLoading: isClassing } = useGetAllClasssQuery(null);
+
+  const [deleteEvent] = useDeleteSchedualMutation();
+  const handleDelete = async (id: number) => {
+    try {
+      await deleteEvent(id).unwrap();
+      toast.success("Delete post Success");
+      void refetch();
+    } catch (err) {
+      toast.error("Can not Delete post");
+    }
+  };
 
   const { language: currentLanguage, loading } = useSelector(
     (state: RootState) => state.language,
@@ -109,6 +121,7 @@ const ClassSchedule = () => {
         </div>
         {isLoading && <Spinner />}
         <TimeTable
+        handleDelete={handleDelete}
           scheduleData={data?.data?.content ? data?.data?.content : []}
         />
       </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { useGetAllTeacherScheduleQuery } from "@/features/Acadimic/scheduleApi";
+import { useGetAllTeacherScheduleQuery, useDeleteSchedualMutation } from "@/features/Acadimic/scheduleApi";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import TimeTable from "@/components/TimeTable";
@@ -9,6 +9,7 @@ import Spinner from "@/components/spinner";
 import Link from "next/link";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { useGetAllTeachersQuery } from "@/features/User-Management/teacherApi";
+import { toast } from "react-toastify";
 
 const Schedule = () => {
   const breadcrumbs = [
@@ -38,9 +39,19 @@ const Schedule = () => {
 
   const selectedTeacherId = watch("teacherId");
 
-  const { data, isLoading } = useGetAllTeacherScheduleQuery(selectedTeacherId, {
+  const { data, isLoading, refetch } = useGetAllTeacherScheduleQuery(selectedTeacherId, {
     skip: !selectedTeacherId,
   });
+  const [deleteEvent] = useDeleteSchedualMutation();
+  const handleDelete = async (id: number) => {
+    try {
+      await deleteEvent(id).unwrap();
+      toast.success("Delete post Success");
+      void refetch();
+    } catch (err) {
+      toast.error("Can not Delete post");
+    }
+  };
 
   const { data: teachers, isLoading: isTeacher } = useGetAllTeachersQuery({
     archived: "false",
@@ -121,6 +132,7 @@ const Schedule = () => {
         </div>
         {isLoading && <Spinner />}
         <TimeTable
+          handleDelete={handleDelete}
           scheduleData={data?.data?.content ? data?.data?.content : []}
         />
       </div>

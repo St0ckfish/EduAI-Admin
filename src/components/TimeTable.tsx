@@ -1,5 +1,6 @@
 "use client";
 import { RootState } from "@/GlobalRedux/store";
+import Link from "next/link";
 import React from "react";
 import { useSelector } from "react-redux";
 
@@ -16,8 +17,8 @@ const staticDays = [
 const timeToPosition = (time: {
   split: (arg0: string) => {
     (): any;
-    new (): any;
-    map: { (arg0: NumberConstructor): [any, any]; new (): any };
+    new(): any;
+    map: { (arg0: NumberConstructor): [any, any]; new(): any };
   };
 }) => {
   const [hour, minute] = time.split(":").map(Number);
@@ -33,15 +34,15 @@ const calculateHeight = (
   startTime: {
     split: (arg0: string) => {
       (): any;
-      new (): any;
-      map: { (arg0: NumberConstructor): [any, any]; new (): any };
+      new(): any;
+      map: { (arg0: NumberConstructor): [any, any]; new(): any };
     };
   },
   endTime: {
     split: (arg0: string) => {
       (): any;
-      new (): any;
-      map: { (arg0: NumberConstructor): [any, any]; new (): any };
+      new(): any;
+      map: { (arg0: NumberConstructor): [any, any]; new(): any };
     };
   },
 ) => {
@@ -56,7 +57,7 @@ const calculateHeight = (
   return (durationInMinutes / 540) * 100;
 };
 
-const TimeTable = ({ scheduleData }: { scheduleData: any[] }) => {
+const TimeTable = ({ scheduleData, handleDelete }: { scheduleData: any[], handleDelete: (id: number) => void; }) => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const { language: currentLanguage } = useSelector(
     (state: RootState) => state.language,
@@ -128,6 +129,56 @@ const TimeTable = ({ scheduleData }: { scheduleData: any[] }) => {
                         className="border-borderPrimary-4 absolute left-0 right-0 mx-2 overflow-auto rounded-lg border-l border-primary bg-thead p-4 text-primary"
                         style={{ top: `${top}%`, height: `${height}%` }}
                       >
+                        <div className="flex items-start justify-end gap-2 relative">
+                          <div className="flex items-center gap-2 absolute -top-2 -right-2">
+                            <button
+                            onClick={() =>
+                              handleDelete(event.id)
+                            }
+                            >
+                              <svg
+                                className="h-6 w-6 text-error"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
+                                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                />
+                              </svg>
+                            </button>
+                            <Link
+                              href={`/educational-affairs/schedule/${event.id}`}
+                            >
+                              <svg
+                                className="h-6 w-6 "
+                                viewBox="0 0 24 24"
+                                strokeWidth="2"
+                                stroke="currentColor"
+                                fill="none"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              >
+                                {" "}
+                                <path
+                                  stroke="none"
+                                  d="M0 0h24v24H0z"
+                                />{" "}
+                                <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />{" "}
+                                <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />{" "}
+                                <line
+                                  x1="16"
+                                  y1="5"
+                                  x2="19"
+                                  y2="8"
+                                />
+                              </svg>
+                            </Link>
+                          </div>
+                        </div>
                         <div className="font-bold">{event.courseName}</div>
                         <div className="text-sm">{`${event.startTime} - ${event.endTime}`}</div>
                         <div className="text-xs">{event.classroomName}</div>
