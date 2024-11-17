@@ -1,6 +1,6 @@
 "use client";
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import { useGetAllChatsQuery, useCreateNewChatMutation, useDeleteChatMutation } from "@/features/chat/chatApi";
@@ -15,22 +15,30 @@ const ChatPage = dynamic(() => import("@/components/chat"), { ssr: false });
 const Chat = () => {
   const [search, setSearch] = useState("");
   const [userId, setUserId] = useState("");
+  const [userName, setUserNane] = useState("")
   const [createChat] = useCreateNewChatMutation();
   const { data: users, isLoading: isGetting } = useGetAllUsersChatQuery(null);
   const [isModalOpen, setModalOpen] = useState(false);
   const optionsRigon =
   users?.data?.content.map(
-      (user: {
-        Role: any;
-        id: any;
-        name: any;
-      }) => ({
-        value: user.id,
-        label: `${user.name} - ${user.Role}`,
-      }),
+    (user: {
+      Role: any;
+      id: any;
+      name: any;
+    }) => ({
+      value: user.id,
+      label: `${user.name} - ${user.Role}`,
+    }),
     ) || [];
     const { data, isLoading, refetch: regetusers } = useGetAllChatsQuery(null);
     const [deleteChat] = useDeleteChatMutation();
+    useEffect(() => {
+      if(data){
+        data.data.content.map((chat: any)=>(
+          setUserNane(chat.targetUser.name)
+        ))
+      }
+    }, [])
 
   const handleDelete = async (id: string) => {
     try {
@@ -176,14 +184,15 @@ const Chat = () => {
                             />
                           )}
                         </div>
-                        <div className="grid gap-2 w-full">
+                        <div className="grid gap-2 w-full break-words">
                           <p className="font-semibold ">
-                            {chat.targetUser.name}{" "}
+                            {chat.targetUser.name}
+                            
                             <span className="text-[15px] text-secondary">
                               ({chat.targetUser.Role})
                             </span>
                           </p>
-                          <p className="font-semibold text-secondary">
+                          <p className="font-semibold text-secondary break-words w-[400px] mt-2">
                             {chat.lastMessage}
                           </p>
                         </div>
@@ -222,7 +231,7 @@ const Chat = () => {
               <img src="/images/emptyState.png" alt="#" />
             </div>
           ) : (
-            <ChatPage userId={userId} regetusers={regetusers}/>
+            <ChatPage userId={userId} regetusers={regetusers} userName={userName}/>
           )}
         </div>
       </div>

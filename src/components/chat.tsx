@@ -1,10 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import { useGetChatMessagesQuery } from "@/features/chat/chatApi";
+import { RootState } from "@/GlobalRedux/store";
 import { Client } from "@stomp/stompjs";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { Key, useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 interface Message {
@@ -41,9 +43,10 @@ interface Message {
 interface ChatPageProps {
   userId: string | null;
   regetusers: any;
+  userName: string;
 }
 
-const ChatPage = ({ userId, regetusers }: ChatPageProps) => {
+const ChatPage = ({ userId, regetusers, userName }: ChatPageProps) => {
   const chatEndRef = useRef<HTMLDivElement | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -56,6 +59,7 @@ const ChatPage = ({ userId, regetusers }: ChatPageProps) => {
       skip: userId === null,
     },
   );
+  const Name = useSelector((state: RootState) => state.user.name);
 
   useEffect(() => {
     if (messagesData) {
@@ -219,7 +223,7 @@ const ChatPage = ({ userId, regetusers }: ChatPageProps) => {
   return (
     <div className="mx-auto flex h-[700px] w-full flex-col rounded-xl bg-bgPrimary">
       {/* Chat messages */}
-      <div className="flex-1 overflow-y-auto rounded-xl bg-bgPrimary p-4">
+      <div className="flex-1 overflow-y-auto break-words rounded-xl bg-bgPrimary p-4">
         {isLoading && <p></p>}
         {error && <p>Error loading messages</p>}
         {messages.map((msg: Message, idx: Key | null | undefined) => {
@@ -228,13 +232,16 @@ const ChatPage = ({ userId, regetusers }: ChatPageProps) => {
             return (
               <div
                 key={idx}
-                className={`mb-4 max-w-xs rounded-lg p-3 font-semibold ${
+                className={`mb-4 grid w-[320px] rounded-lg p-3 font-semibold text-balance break-words ${
                   isSender
-                    ? "ml-auto bg-chat text-right text-black"
-                    : "mr-auto bg-[#5570f1] text-left text-white"
+                  ? "ml-auto bg-chat text-right text-black"
+                  : "mr-auto bg-[#5570f1] text-left text-white"
                 }`}
-              >
-                <p>{msg.messageContent}</p>
+                >
+                <p className="font-light text-secondary">{
+              isSender ? `${Name}` : `${userName}`
+              }</p>
+                <p className="break-words w-[300px]">{msg.messageContent}</p>
               </div>
             );
           } else if (msg.isImage) {
