@@ -33,7 +33,6 @@ const signupSchema = z.object({
   nid: z.string().nonempty("NID is required"),
   regionId: z.string().nonempty("Region ID is required"),
   gender: z.string().nonempty("Gender is required"),
-  religion: z.string().nonempty("Religion is required"),
   number: z.string().nonempty("Number is required"),
   nationality: z.string().nonempty("Nationality is required"),
   employeeType: z.string().nonempty("Employee type is required"),
@@ -123,8 +122,9 @@ const Signup = () => {
   }, [nationalityData, nationalityError]);
 
   const onSubmit = async (data: any) => {
+    const formData = {...data, religion: "OTHERS"}
     try {
-      const result = await loginDashboard(data).unwrap();
+      const result = await loginDashboard(formData).unwrap();
       console.log("Account created successfully:", result);
       toast.success(
         currentLanguage === "ar"
@@ -477,7 +477,7 @@ const Signup = () => {
                 <div className="grid grid-cols-1 gap-3">
                   <label
                     htmlFor="regionId"
-                    className="grid text-start font-sans text-[15px] font-semibold text-[#9a9a9a]"
+                    className="grid text-start font-sans text-[15px] font-semibold text-[#9a9a9a] w-[400px] max-[458px]:w-[350px]"
                   >
                     <SearchableSelect
                       name="regionId"
@@ -528,34 +528,6 @@ const Signup = () => {
                           : currentLanguage === "fr"
                             ? "Le sexe est requis"
                             : "Gender is Required"}
-                      </span>
-                    )}
-                  </label>
-                  <label
-                    htmlFor="religion"
-                    className="grid text-start font-sans text-[15px] font-semibold text-[#9a9a9a]"
-                  >
-                    <select
-                      defaultValue=""
-                      id="religion"
-                      {...register("religion", { required: true })}
-                      className={`rounded-xl border px-4 py-3 ${errors.religion ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
-                    >
-                      <option value="OTHERS">
-                        {currentLanguage === "ar"
-                          ? "أخرى"
-                          : currentLanguage === "fr"
-                            ? "Autres"
-                            : "Others"}
-                      </option>
-                    </select>
-                    {errors.religion && (
-                      <span className="text-[13px] text-error">
-                        {currentLanguage === "ar"
-                          ? "الدين مطلوب"
-                          : currentLanguage === "fr"
-                            ? "La religion est requise"
-                            : "Religion is Required"}
                       </span>
                     )}
                   </label>
@@ -954,7 +926,7 @@ const Signup = () => {
                   </label>
                   <label
                     htmlFor="schoolId"
-                    className="grid text-start font-sans text-[15px] font-semibold text-[#9a9a9a]"
+                    className="grid text-start font-sans text-[15px] font-semibold text-[#9a9a9a] w-[400px] max-[458px]:w-[350px]"
                   >
                     <SearchableSelect
                       name="schoolId"
