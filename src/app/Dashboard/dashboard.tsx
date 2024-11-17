@@ -172,7 +172,7 @@ const Dashboard: React.FC = () => {
         description_ar: formData.description_ar,
         description_fr: formData.description_fr,
       };
-      toast.success("Event created success");
+      
       // Append the JSON data as a string to FormData
       formDataToSend.append("request", JSON.stringify(requestData));
 
@@ -184,6 +184,7 @@ const Dashboard: React.FC = () => {
 
       const result = await createEvent(formDataToSend).unwrap();
       console.log("Event created:", result);
+      toast.success("Event created success");
       handleCloseModal();
     } catch (error) {
       toast.error("Fiald Create Event");
