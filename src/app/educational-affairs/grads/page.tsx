@@ -93,7 +93,7 @@ const Grads = () => {
           <select
             value={selectedStudent}
             onChange={(e) => setSelectedStudent(e.target.value)}
-            className="h-full w-[400px] rounded-xl border px-4 py-3 text-[18px] text-black outline-none max-[458px]:w-[350px]"
+            className="h-full w-[400px] rounded-xl border px-4 py-3 text-[18px] text-textSecondary bg-bgPrimary outline-none max-[458px]:w-[350px]"
           >
             <option value="">
               {currentLanguage === "en"
@@ -117,7 +117,7 @@ const Grads = () => {
               setSemesterSelectTouched(false);
               setSelectedSemester(""); // Reset selected semester when academic year changes
             }}
-            className="h-full w-[400px] rounded-xl border px-4 py-3 text-[18px] text-black outline-none max-[458px]:w-[350px]"
+            className="h-full w-[400px] rounded-xl border px-4 py-3 text-[18px] text-textSecondary bg-bgPrimary outline-none max-[458px]:w-[350px]"
           >
             <option value="">
               {currentLanguage === "en"
@@ -137,7 +137,7 @@ const Grads = () => {
           <select
             value={selectedSemester}
             onChange={(e) => setSelectedSemester(e.target.value)}
-            className="h-full w-[400px] rounded-xl border px-4 py-3 text-[18px] text-black outline-none max-[458px]:w-[350px]"
+            className="h-full w-[400px] rounded-xl border px-4 py-3 text-[18px] text-textSecondary bg-bgPrimary outline-none max-[458px]:w-[350px]"
             disabled={!selectedAcademicYear}
             onFocus={() => {
               if (!selectedAcademicYear) {

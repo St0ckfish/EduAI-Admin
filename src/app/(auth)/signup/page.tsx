@@ -37,7 +37,25 @@ const signupSchema = z.object({
   nationality: z.string().nonempty("Nationality is required"),
   employeeType: z.string().nonempty("Employee type is required"),
   qualification: z.string().nonempty("Qualification is required"),
-  birthDate: z.string().nonempty("Birthdate is required"),
+  birthDate: z
+    .string()
+    .nonempty("Birthdate is required")
+    .refine((val) => {
+      const birthDate = new Date(val);
+      if (isNaN(birthDate.getTime())) return false; // Invalid date
+      const today = new Date();
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDifference = today.getMonth() - birthDate.getMonth();
+      if (
+        monthDifference < 0 ||
+        (monthDifference === 0 && today.getDate() < birthDate.getDate())
+      ) {
+        age--;
+      }
+      return age >= 20;
+    }, {
+      message: "You must be at least 20 years old",
+    }),
   name_en: z.string().nonempty("English name is required"),
   name_ar: z.string().nonempty("Arabic name is required"),
   name_fr: z.string().nonempty("French name is required"),
@@ -711,7 +729,7 @@ const Signup = () => {
                     >
                       <option selected value="">
                         {currentLanguage === "ar"
-                          ? "اختر الدين"
+                          ? "اختر شهادة"
                           : currentLanguage === "fr"
                             ? "Sélectionnez la religion"
                             : "Select religion"}
@@ -756,37 +774,48 @@ const Signup = () => {
                     )}
                   </label>
                   <label
-                    htmlFor="birthDate"
-                    className="grid text-start font-sans text-[15px] font-semibold text-[#9a9a9a]"
-                  >
-                    {currentLanguage === "ar"
-                      ? "تاريخ الميلاد"
-                      : currentLanguage === "fr"
-                        ? "Date de naissance"
-                        : "Birthday"}
-                    <input
-                      id="birthDate"
-                      {...register("birthDate", { required: true })}
-                      placeholder={
-                        currentLanguage === "ar"
-                          ? "رقم الهوية الوطنية"
-                          : currentLanguage === "fr"
-                            ? "N° de pièce d'identité"
-                            : "NID"
-                      }
-                      className={`rounded-xl border px-4 py-3 ${errors.birthDate ? "border-warning" : "border-borderPrimary"} w-[400px] outline-none max-[458px]:w-[350px]`}
-                      type="date"
-                    />
-                    {errors.birthDate && (
-                      <span className="text-[13px] text-error">
-                        {currentLanguage === "ar"
-                          ? "تاريخ الميلاد مطلوب"
-                          : currentLanguage === "fr"
-                            ? "La date de naissance est requise"
-                            : "birthDate is Required"}
-                      </span>
-                    )}
-                  </label>
+  htmlFor="birthDate"
+  className="grid text-start font-sans text-[15px] font-semibold text-[#9a9a9a]"
+>
+  {currentLanguage === "ar"
+    ? "تاريخ الميلاد"
+    : currentLanguage === "fr"
+    ? "Date de naissance"
+    : "Birthday"}
+  <input
+    id="birthDate"
+    {...register("birthDate", { required: true })}
+    placeholder={
+      currentLanguage === "ar"
+        ? "تاريخ الميلاد"
+        : currentLanguage === "fr"
+        ? "Date de naissance"
+        : "Birthdate"
+    }
+    className={`rounded-xl border px-4 py-3 ${
+      errors.birthDate ? "border-warning" : "border-borderPrimary"
+    } w-[400px] outline-none max-[458px]:w-[350px]`}
+    type="date"
+  />
+  {errors.birthDate && (
+    <span className="text-[13px] text-error">
+      {errors.birthDate.message?.toString() === "Birthdate is required"
+        ? currentLanguage === "ar"
+          ? "تاريخ الميلاد مطلوب"
+          : currentLanguage === "fr"
+          ? "La date de naissance est requise"
+          : "Birthdate is required"
+        : errors.birthDate.message === "You must be at least 20 years old"
+        ? currentLanguage === "ar"
+          ? "يجب أن يكون عمرك 20 عامًا على الأقل"
+          : currentLanguage === "fr"
+          ? "Vous devez avoir au moins 20 ans"
+          : "You must be at least 20 years old"
+        : errors.birthDate.message?.toString() }
+    </span>
+  )}
+</label>
+
                   <div
                     dir="ltr"
                     className="mt-12 flex w-full justify-end gap-3"

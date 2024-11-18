@@ -238,7 +238,7 @@ const ChatPage = ({ userId, regetusers, userName }: ChatPageProps) => {
                   : "mr-auto bg-[#5570f1] text-left text-white"
                 }`}
                 >
-                <p className="font-light text-secondary">{
+                <p className="font-light text-gray-800">{
               isSender ? `${Name}` : `${userName}`
               }</p>
                 <p className="break-words w-[300px]">{msg.messageContent}</p>

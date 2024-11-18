@@ -288,7 +288,7 @@ const Position = () => {
                           />
                         )}
                       </div>
-                      <p> {Position.title} </p>
+                      <p className="text-textSecondary"> {Position.title} </p>
                     </th>
                     <td className="whitespace-nowrap px-6 py-4">
                       {Position.id}

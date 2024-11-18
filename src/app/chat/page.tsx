@@ -32,13 +32,8 @@ const Chat = () => {
     ) || [];
     const { data, isLoading, refetch: regetusers } = useGetAllChatsQuery(null);
     const [deleteChat] = useDeleteChatMutation();
-    useEffect(() => {
-      if(data){
-        data.data.content.map((chat: any)=>(
-          setUserNane(chat.targetUser.name)
-        ))
-      }
-    }, [])
+    
+console.log(userName);
 
   const handleDelete = async (id: string) => {
     try {
@@ -166,10 +161,10 @@ const Chat = () => {
                     .map((chat: any) => (
                       <div
                         key={chat.id}
-                        onClick={() => {handleClick(chat.chatId)}}
+                        onClick={() => {handleClick(chat.chatId); setUserNane(chat.targetUser.name)}}
                         className="flex w-full cursor-pointer items-center border-b border-borderPrimary px-2 py-1 hover:bg-bgSecondary"
                       >
-                        <div className={`${chat.numberOfNewMessages > 0 ? "w-[150px]" : "w-[150px]"}`}>
+                        <div className={`${chat.numberOfNewMessages > 0 ? "w-[150px]" : "w-[200px]"}`}>
                           {!chat.targetUser.hasPhoto ? (
                             <img
                               src="/images/userr.png"
