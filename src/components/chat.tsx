@@ -2,32 +2,58 @@
 import { useGetChatMessagesQuery } from "@/features/chat/chatApi";
 import { RootState } from "@/GlobalRedux/store";
 import { Client, IMessage } from "@stomp/stompjs";
-import axios from "axios";
 import Cookies from "js-cookie";
-import { Key, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 interface Message {
   chatId: number | string;
-  id: number;
+  id: number | string;
   content: string;
   creationTime: Date;
   creatorName: string;
+  imageUrl?: string;
 }
 
 interface ChatPageProps {
   userId: string | null;
   regetusers: () => void;
-  userName: string; // Name of the user you're chatting with
+  userName: string;
 }
 
 const ChatPage = ({ userId, regetusers, userName }: ChatPageProps) => {
+
+  function extractDayNameMonthName(datetimeString: string): string {
+    const date = new Date(datetimeString);
+
+    // Arrays of day and month names
+    const dayNames = [
+        'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
+    ];
+    const monthNames = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+
+    // Extracting day name and month name
+    const dayName = dayNames[date.getDay()];
+    const monthName = monthNames[date.getMonth()];
+
+    // Extracting day of the month
+    const day = String(date.getDate()).padStart(2, '0');
+
+    // Extracting time part from the datetime string
+    const timePart = datetimeString.split('T')[1].split('.')[0]; // Handles possible milliseconds
+
+    // Constructing the result string
+    return `${dayName}, ${monthName} ${day} ${timePart}`;
+}
+
   const chatEndRef = useRef<HTMLDivElement | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [isUploading, setIsUploading] = useState(false);
 
   const token = Cookies.get("token");
   const { data: messagesData, isLoading, error } = useGetChatMessagesQuery(
@@ -79,7 +105,19 @@ const ChatPage = ({ userId, regetusers, userName }: ChatPageProps) => {
       stompClient.subscribe(`/direct-chat/${userId}`, (message: IMessage) => {
         try {
           const newMessage: Message = JSON.parse(message.body);
-          setMessages((prevMessages) => [...prevMessages, newMessage]);
+          
+          // Add message using functional update to ensure no duplicates
+          setMessages((prevMessages) => {
+            // Check if message already exists by its unique identifier
+            const messageExists = prevMessages.some(
+              (msg) => msg.id === newMessage.id
+            );
+            
+            // Only add if not already in the list
+            return messageExists 
+              ? prevMessages 
+              : [...prevMessages, newMessage];
+          });
         } catch (parseError) {
           console.error("Error parsing incoming message:", parseError);
         }
@@ -147,28 +185,18 @@ const ChatPage = ({ userId, regetusers, userName }: ChatPageProps) => {
     }
 
     // Prepare message payload
-    const messageBody = JSON.stringify({
+    const messagePayload = {
       chatId: userId,
       content: input.trim(),
-    });
+      ...(imageFile ? { imageUrl: URL.createObjectURL(imageFile) } : {})
+    };
 
     try {
       // Publish message via WebSocket
       stompClientRef.current.publish({
         destination: "/app/sendMessage",
-        body: messageBody,
+        body: JSON.stringify(messagePayload),
       });
-
-      // Optimistically update messages
-      const newMessage: Message = {
-        chatId: userId!,
-        content: input.trim(),
-        id: Date.now(),
-        creationTime: new Date(),
-        creatorName: currentUserName,
-      };
-
-
 
       // Trigger users refresh
       regetusers();
@@ -197,17 +225,25 @@ const ChatPage = ({ userId, regetusers, userName }: ChatPageProps) => {
         {error && <p>Error loading messages</p>}
         {messages.map((msg, idx) => (
           <div
-            key={idx}
+            key={`${msg.id}-${idx}`}
             className={`mb-4 grid w-[320px] rounded-lg p-3 font-semibold text-balance break-words ${
               msg.creatorName !== currentUserName
                 ? "mr-auto bg-[#5570f1] text-left text-white"
                 : "ml-auto bg-chat text-right text-black"
             }`}
           >
-            <p className="font-light text-gray-800">{
-              msg.creatorName !== currentUserName ? `${userName}` : `${currentUserName}`
-              }</p>
+            <p className="font-light text-gray-800">
+              {msg.creatorName !== currentUserName ? `${userName}` : `${currentUserName}`}
+            </p>
             <p className="break-words w-[300px]">{msg.content}</p>
+            <p className="break-words text-sm text-start font-light text-gray-800">{extractDayNameMonthName(msg.creationTime)}</p>
+            {msg.imageUrl && (
+              <img 
+                src={msg.imageUrl} 
+                alt="Attached" 
+                className="mt-2 max-w-full rounded-lg" 
+              />
+            )}
           </div>
         ))}
         <div ref={chatEndRef}></div>
@@ -250,6 +286,11 @@ const ChatPage = ({ userId, regetusers, userName }: ChatPageProps) => {
           value={input}
           placeholder="Type your message..."
           onChange={(e) => setInput(e.target.value)}
+          onKeyPress={(e) => {
+            if (e.key === 'Enter') {
+              handleSendMessage();
+            }
+          }}
         />
         <button
           className="ml-4 flex items-center gap-3 rounded-lg bg-[#ffead1] px-2 py-1 font-semibold text-black hover:bg-[#dfbd90]"
