@@ -1,8 +1,7 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 import { useGetChatMessagesQuery } from "@/features/chat/chatApi";
 import { RootState } from "@/GlobalRedux/store";
-import { Client } from "@stomp/stompjs";
+import { Client, IMessage } from "@stomp/stompjs";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { Key, useEffect, useRef, useState } from "react";
@@ -11,39 +10,16 @@ import { toast } from "react-toastify";
 
 interface Message {
   chatId: number | string;
-  messageId: number;
-  attachmentId: number | null;
-  isMyMessage: boolean;
-  sender: {
-    id: number;
-    name: string;
-    Role: string;
-    hasPhoto: boolean;
-    photoLink: string | null;
-  };
-  recipient: {
-    id: number;
-    name: string;
-    Role: string;
-    hasPhoto: boolean;
-    photoLink: string | null;
-  };
-  messageContent: string;
-  viewLink: string | null;
-  downloadLink: string | null;
-  isMessage: boolean;
-  isVideo: boolean;
-  isAudio: boolean;
-  isFile: boolean;
-  isImage: boolean;
-  creationDate: string;
-  seenTime: string | null;
+  id: number;
+  content: string;
+  creationTime: Date;
+  creatorName: string;
 }
 
 interface ChatPageProps {
   userId: string | null;
-  regetusers: any;
-  userName: string;
+  regetusers: () => void;
+  userName: string; // Name of the user you're chatting with
 }
 
 const ChatPage = ({ userId, regetusers, userName }: ChatPageProps) => {
@@ -51,219 +27,189 @@ const ChatPage = ({ userId, regetusers, userName }: ChatPageProps) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   const token = Cookies.get("token");
   const { data: messagesData, isLoading, error } = useGetChatMessagesQuery(
     userId!,
     {
       skip: userId === null,
-    },
+    }
   );
-  const Name = useSelector((state: RootState) => state.user.name);
 
+  // Get current user's username from Redux store
+  const currentUserName = useSelector(
+    (state: RootState) => state.user.name || "Unknown User"
+  );
+
+  // WebSocket connection reference
+  const stompClientRef = useRef<Client | null>(null);
+
+  // Initialize messages from fetched data
   useEffect(() => {
     if (messagesData) {
       setMessages(messagesData);
     }
   }, [messagesData]);
 
-  const stompClientRef = useRef<Client | null>(null);
-
+  // Establish WebSocket connection
   useEffect(() => {
+    // Validate token and userId before connection
     if (!token || !userId) {
-      console.error("Token or userId is missing.");
+      toast.error("Authentication required to start chat");
       return;
     }
 
+    // Create STOMP client
     const stompClient = new Client({
       brokerURL: `wss://eduai.vitaparapharma.com/ws?token=${token}`,
       debug: function (str) {
-        console.log(str);
+        console.log("[STOMP Debug]", str);
       },
       reconnectDelay: 5000,
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
     });
 
+    // Connection success handler
     stompClient.onConnect = () => {
-      console.log("Connected");
+      console.log("WebSocket Connected Successfully");
 
-      stompClient.subscribe(`/chat/${userId}`, (message) => {
-        const newMessage: Message = JSON.parse(message.body);
-        setMessages((prevMessages) => [...prevMessages, newMessage]);
+      // Subscribe to user-specific chat channel
+      stompClient.subscribe(`/direct-chat/${userId}`, (message: IMessage) => {
+        try {
+          const newMessage: Message = JSON.parse(message.body);
+          setMessages((prevMessages) => [...prevMessages, newMessage]);
+        } catch (parseError) {
+          console.error("Error parsing incoming message:", parseError);
+        }
       });
     };
 
+    // Error handling
     stompClient.onStompError = (frame) => {
-      console.error("Broker reported error: " + frame.headers["message"]);
-      console.error("Additional details: " + frame.body);
+      console.error("Broker reported error:", frame.headers["message"]);
+      console.error("Details:", frame.body);
+      toast.error("Chat connection error");
     };
 
     stompClient.onWebSocketError = (event) => {
-      console.error("WebSocket error:", event);
+      console.error("WebSocket connection error:", event);
+      toast.error("Unable to establish chat connection");
     };
 
-    stompClient.onWebSocketClose = (event) => {
-      console.error("WebSocket closed:", event);
-    };
-
+    // Activate the connection
     stompClient.activate();
     stompClientRef.current = stompClient;
 
+    // Cleanup on component unmount
     return () => {
       stompClient.deactivate();
       stompClientRef.current = null;
     };
   }, [token, userId]);
 
+  // Image file handler
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
-      setImageFile(event.target.files[0]);
+      const file = event.target.files[0];
+
+      // Optional: Add file size and type validation
+      const maxSize = 5 * 1024 * 1024; // 5MB
+      const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
+
+      if (file.size > maxSize) {
+        toast.error("File too large. Max 5MB allowed.");
+        return;
+      }
+
+      if (!allowedTypes.includes(file.type)) {
+        toast.error("Unsupported file type. Use JPEG, PNG, or GIF.");
+        return;
+      }
+
+      setImageFile(file);
     }
   };
 
+  // Message sending handler
   const handleSendMessage = async () => {
+    // Validate message or image
     if (!input.trim() && !imageFile) {
+      toast.error("Cannot send empty message");
       return;
     }
 
+    // Check WebSocket connection
     if (!stompClientRef.current || !stompClientRef.current.connected) {
-      console.error("STOMP client is not connected.");
+      toast.error("Chat connection lost. Please reconnect.");
       return;
     }
 
-    let imageUrl = null;
-
-    // If an image file is selected, upload it first
-    if (imageFile) {
-      try {
-        const formData = new FormData();
-        formData.append("file", imageFile);
-
-        // Send a POST request to upload the image
-        const response = await axios.post(
-          `/api/v1/messages/${userId}/files`,
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        );
-
-        imageUrl = response.data.imageUrl;
-      } catch (error) {
-        console.error("Error uploading image:", error);
-        toast.error("Failed to upload image");
-        return;
-      }
-    }
-
+    // Prepare message payload
     const messageBody = JSON.stringify({
       chatId: userId,
       content: input.trim(),
-      imageUrl: imageUrl,
     });
 
     try {
+      // Publish message via WebSocket
       stompClientRef.current.publish({
         destination: "/app/sendMessage",
         body: messageBody,
       });
 
-      // Update messages state directly instead of using refetch()
+      // Optimistically update messages
       const newMessage: Message = {
         chatId: userId!,
-        messageId: Date.now(), // Temporary ID
-        attachmentId: null,
-        isMyMessage: true,
-        sender: {
-          id: 0, // Replace with actual sender ID
-          name: "You", // Replace with actual sender name
-          Role: "User", // Replace with actual sender role
-          hasPhoto: false,
-          photoLink: null,
-        },
-        recipient: {
-          id: parseInt(userId!),
-          name: "Recipient", // Replace with actual recipient name
-          Role: "User", // Replace with actual recipient role
-          hasPhoto: false,
-          photoLink: null,
-        },
-        messageContent: input.trim(),
-        viewLink: imageUrl || null,
-        downloadLink: imageUrl || null,
-        isMessage: !!input.trim(),
-        isVideo: false,
-        isAudio: false,
-        isFile: false,
-        isImage: !!imageUrl,
-        creationDate: new Date().toISOString(),
-        seenTime: null,
+        content: input.trim(),
+        id: Date.now(),
+        creationTime: new Date(),
+        creatorName: currentUserName,
       };
 
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
 
+
+      // Trigger users refresh
       regetusers();
-      console.log("Message published successfully");
+
+      // Reset input states
       setInput("");
       setImageFile(null);
+
+      console.log("Message sent successfully");
     } catch (error) {
-      console.error("Error during publish:", error);
+      console.error("Message sending failed:", error);
+      toast.error("Failed to send message");
     }
   };
 
-  // Scroll to the latest message
+  // Auto-scroll to latest message
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "auto" });
   }, [messages]);
 
   return (
     <div className="mx-auto flex h-[700px] w-full flex-col rounded-xl bg-bgPrimary">
-      {/* Chat messages */}
+      {/* Chat messages area */}
       <div className="flex-1 overflow-y-auto break-words rounded-xl bg-bgPrimary p-4">
         {isLoading && <p></p>}
         {error && <p>Error loading messages</p>}
-        {messages.map((msg: Message, idx: Key | null | undefined) => {
-          const isSender = msg.isMyMessage;
-          if (msg.isMessage) {
-            return (
-              <div
-                key={idx}
-                className={`mb-4 grid w-[320px] rounded-lg p-3 font-semibold text-balance break-words ${
-                  isSender
-                  ? "ml-auto bg-chat text-right text-black"
-                  : "mr-auto bg-[#5570f1] text-left text-white"
-                }`}
-                >
-                <p className="font-light text-gray-800">{
-              isSender ? `${Name}` : `${userName}`
+        {messages.map((msg, idx) => (
+          <div
+            key={idx}
+            className={`mb-4 grid w-[320px] rounded-lg p-3 font-semibold text-balance break-words ${
+              msg.creatorName !== currentUserName
+                ? "mr-auto bg-[#5570f1] text-left text-white"
+                : "ml-auto bg-chat text-right text-black"
+            }`}
+          >
+            <p className="font-light text-gray-800">{
+              msg.creatorName !== currentUserName ? `${userName}` : `${currentUserName}`
               }</p>
-                <p className="break-words w-[300px]">{msg.messageContent}</p>
-              </div>
-            );
-          } else if (msg.isImage) {
-            return (
-              <div
-                key={idx}
-                className={`mb-4 max-w-xs rounded-lg p-3 ${
-                  isSender
-                    ? "ml-auto bg-chat text-right"
-                    : "mr-auto bg-[#5570f1] text-left"
-                }`}
-              >
-                <img
-                  src={msg.viewLink || msg.downloadLink || ""}
-                  alt="sent image"
-                  className="h-auto w-full rounded-lg"
-                />
-              </div>
-            );
-          }
-          return null; // Handle other message types if necessary
-        })}
+            <p className="break-words w-[300px]">{msg.content}</p>
+          </div>
+        ))}
         <div ref={chatEndRef}></div>
       </div>
 
