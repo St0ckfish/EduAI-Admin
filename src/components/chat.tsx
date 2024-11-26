@@ -11,7 +11,7 @@ interface Message {
   chatId: number | string;
   id: number | string;
   content: string;
-  creationTime: Date;
+  creationTime: string;
   creatorName: string;
   imageUrl?: string;
 }
