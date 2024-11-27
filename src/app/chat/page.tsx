@@ -161,7 +161,7 @@ console.log(userName);
                     .map((chat: any) => (
                       <div
                         key={chat.id}
-                        onClick={() => {handleClick(chat.chatId); setUserNane(chat.targetUser.name)}}
+                        onClick={() => {handleClick(chat.chatId); setUserNane(chat.targetUser.name); regetusers();}}
                         className="flex w-full cursor-pointer items-center border-b border-borderPrimary px-2 py-1 hover:bg-bgSecondary"
                       >
                         <div className={`${chat.numberOfNewMessages > 0 ? "w-[150px]" : "w-[200px]"}`}>
