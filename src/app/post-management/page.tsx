@@ -1,12 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import Spinner from "@/components/spinner";
-import { useGetAllPostsQuery } from "@/features/communication/postApi";
+import { useDeletePostsMutation, useGetAllPostsQuery } from "@/features/communication/postApi";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import { toast } from "react-toastify";
 
 const PostManagment = () => {
   const breadcrumbs = [
@@ -27,7 +28,7 @@ const PostManagment = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const [search, setSearch] = useState("");
   type Post = Record<string, any>;
-  const { data, error, isLoading } = useGetAllPostsQuery(null);
+  const { data, error, isLoading, refetch } = useGetAllPostsQuery(null);
   const [selectAll, setSelectAll] = useState(false);
 
   useEffect(() => {
@@ -43,6 +44,16 @@ const PostManagment = () => {
     checkboxes.forEach(checkbox => {
       checkbox.checked = !selectAll;
     });
+  };
+  const [deletePosts] = useDeletePostsMutation();
+  const handleDelete = async (id: string) => {
+    try {
+      await deletePosts(id).unwrap();
+      toast.success("Delete post Success");
+      void refetch();
+    } catch (err) {
+      toast.error("Can not Delete post");
+    }
   };
 
   useEffect(() => {
@@ -280,7 +291,7 @@ const PostManagment = () => {
                       </Link>
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
-                      <button className="rounded-lg bg-error px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110">
+                      <button onClick={() => handleDelete(post.id)} className="rounded-lg bg-error px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110">
                         {currentLanguage === "ar"
                           ? "حذف"
                           : currentLanguage === "fr"

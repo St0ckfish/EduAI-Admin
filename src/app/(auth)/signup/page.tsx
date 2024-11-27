@@ -156,8 +156,7 @@ const Signup = () => {
       setErrorMessage(err.data.data);
       console.log(errorMessage);
 
-      toast.error(
-        (err as any).data?.message || currentLanguage === "ar"
+      toast.error(currentLanguage === "ar"
           ? "فشل في إنشاء الحساب"
           : currentLanguage === "fr"
             ? "Échec de la création du compte"

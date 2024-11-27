@@ -34,9 +34,7 @@ const eventSchema = z
     description_fr: z
       .string()
       .nonempty({ message: "Description in French is required" }),
-    file: z.any().refine(file => file instanceof File, {
-      message: "File is required",
-    }),
+    file: z.any().optional(),
   })
   .refine(data => new Date(data.startTime) <= new Date(data.endTime), {
     message: "Start Time must be before End Time",

@@ -44,7 +44,7 @@ const eventSchema = z.object({
   description_en: z.string().optional(),
   description_ar: z.string().optional(),
   description_fr: z.string().optional(),
-  file: z.any().optional(), // Include file in schema to handle it
+  file: z.any().optional(),
 });
 
 const Dashboard: React.FC = () => {
@@ -737,9 +737,6 @@ const Dashboard: React.FC = () => {
                 {...register("file")}
                 className="w-full rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
-              {errors.file && (
-                <p className="text-error">{errors.file.message as string}</p>
-              )}
             </div>
 
             <div className="flex justify-between">

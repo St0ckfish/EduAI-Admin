@@ -28,6 +28,12 @@ const UpdateEvent = ({ params }: Props) => {
       href: "/",
     },
     {
+      nameEn: "Educational Affairs",
+      nameAr: "الشئون التعليمية",
+      nameFr: "Affaires éducatives",
+      href: "/educational-affairs",
+    },
+    {
       nameEn: "Events",
       nameAr: "الاحداث",
       nameFr: "événements",

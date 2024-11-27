@@ -23,10 +23,10 @@ const FeesSearch = () => {
         className={`${
           currentLanguage === "ar"
             ? booleanValue
-              ? "lg:mr-[40px]"
+              ? "lg:mr-[90px]"
               : "lg:mr-[290px]"
             : booleanValue
-              ? "lg:ml-[40px]"
+              ? "lg:ml-[90px]"
               : "lg:ml-[290px]"
         } mt-12`}
       >
