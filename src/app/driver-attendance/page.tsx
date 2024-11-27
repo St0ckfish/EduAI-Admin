@@ -22,9 +22,9 @@ import BreadCrumbs from "@/components/BreadCrumbs";
 const DriverAttendance = () => {
   const breadcrumbs = [
     {
-      nameEn: "Dashboard",
-      nameAr: "لوحة القيادة",
-      nameFr: "Tableau de bord",
+      nameEn: "Operation",
+      nameAr: "عملية",
+      nameFr: "Opération",
       href: "/",
     },
     {
