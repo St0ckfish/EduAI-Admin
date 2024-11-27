@@ -148,23 +148,13 @@ const TeacherInfo = ({ data }: { data: any }) => {
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
               {currentLanguage === "ar"
-                ? "الدين:"
-                : currentLanguage === "fr"
-                  ? "Religion :"
-                  : "Religion:"}
-            </h3>
-            <p className="font-sans font-semibold text-textPrimary">
-              {data.data.religion}
-            </p>
-            <h3 className="font-sans font-semibold text-textSecondary">
-              {currentLanguage === "ar"
                 ? "العنوان:"
                 : currentLanguage === "fr"
                   ? "Adresse :"
                   : "Address:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
-              13,street, Zamalk,Cairo
+              {data.data.address}
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
               {currentLanguage === "ar"
@@ -189,6 +179,11 @@ const TeacherInfo = ({ data }: { data: any }) => {
           </p>
           <p className="mb-5 font-sans text-[16px] font-semibold text-textSecondary">
             {data.data.about}
+          </p>
+          <p className="mb-5 font-sans text-[16px] font-semibold text-textSecondary">
+            {data.data.subjects.map((sub: string) => (
+              <p key={sub}>{sub}</p>
+            ))}
           </p>
         </div>
       </div>

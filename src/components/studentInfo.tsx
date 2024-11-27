@@ -133,45 +133,7 @@ const StudentInfo = ({ data }: { data: any }) => {
                   : "Date Of Birth:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
-              02/05/2012
-            </p>
-            <h3 className="font-sans font-semibold text-textSecondary">
-              {currentLanguage === "ar"
-                ? "الدين:"
-                : currentLanguage === "fr"
-                  ? "Religion :"
-                  : "Religion:"}
-            </h3>
-            <p className="font-sans font-semibold text-textPrimary">Islam</p>
-            <h3 className="font-sans font-semibold text-textSecondary">
-              {currentLanguage === "ar"
-                ? "العنوان:"
-                : currentLanguage === "fr"
-                  ? "Adresse :"
-                  : "Address:"}
-            </h3>
-            <p className="font-sans font-semibold text-textPrimary">
-              13,street, Zamalk,Cairo
-            </p>
-            <h3 className="font-sans font-semibold text-textSecondary">
-              {currentLanguage === "ar"
-                ? "البريد الإلكتروني:"
-                : currentLanguage === "fr"
-                  ? "Email :"
-                  : "Email:"}
-            </h3>
-            <p className="font-sans font-semibold text-textPrimary">
-              Ahmed.M.Sayed@gmail.com
-            </p>
-            <h3 className="font-sans font-semibold text-textSecondary">
-              {currentLanguage === "ar"
-                ? "الهاتف المحمول:"
-                : currentLanguage === "fr"
-                  ? "Mobile :"
-                  : "Mobile:"}
-            </h3>
-            <p className="font-sans font-semibold text-textPrimary">
-              01220145607
+            {data.data.birthday}
             </p>
           </div>
         </div>
