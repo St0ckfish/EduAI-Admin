@@ -474,61 +474,61 @@ const AddNewTeacher = () => {
                 </label>
 
                 <label
-                  htmlFor="birthDate"
-                  className="grid font-sans text-[18px] font-semibold"
-                >
+              htmlFor="birthDate"
+              className="grid font-sans text-[18px] font-semibold"
+            >
+              {currentLanguage === "en"
+                ? "Date Of Birth"
+                : currentLanguage === "ar"
+                  ? "تاريخ الميلاد"
+                  : currentLanguage === "fr"
+                    ? "Date de naissance"
+                    : "Date Of Birth"}
+              <input
+                id="birthDate"
+                type="date"
+                className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                {...register("birthDate", {
+                  required: true,
+                  validate: value => {
+                    const today = new Date();
+                    const birthDate = new Date(value);
+                    const age =
+                      today.getFullYear() - birthDate.getFullYear();
+                    const monthDiff =
+                      today.getMonth() - birthDate.getMonth();
+
+                    // Adjust age if the birth date hasn't been reached yet this year
+                    if (
+                      monthDiff < 0 ||
+                      (monthDiff === 0 &&
+                        today.getDate() < birthDate.getDate())
+                    ) {
+                      return age > 21;
+                    }
+
+                    return age >= 21;
+                  },
+                })}
+              />
+              {errors.birthDate && (
+                <span className="text-error">
                   {currentLanguage === "en"
-                    ? "Date Of Birth"
+                    ? errors.birthDate.type === "validate"
+                      ? "The Teacher Must be older than 21"
+                      : "This field is required"
                     : currentLanguage === "ar"
-                      ? "تاريخ الميلاد"
+                      ? errors.birthDate.type === "validate"
+                        ? "يجب أن يكون عمر المعلم أكبر من 21 عامًا"
+                        : "هذا الحقل مطلوب"
                       : currentLanguage === "fr"
-                        ? "Date de naissance"
-                        : "Date Of Birth"}
-                  <input
-                    id="birthDate"
-                    type="date"
-                    className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                    {...register("birthDate", {
-                      required: true,
-                      validate: value => {
-                        const today = new Date();
-                        const birthDate = new Date(value);
-                        const age =
-                          today.getFullYear() - birthDate.getFullYear();
-                        const monthDiff =
-                          today.getMonth() - birthDate.getMonth();
-
-                        // Adjust age if the birth date hasn't been reached yet this year
-                        if (
-                          monthDiff < 0 ||
-                          (monthDiff === 0 &&
-                            today.getDate() < birthDate.getDate())
-                        ) {
-                          return age > 20;
-                        }
-
-                        return age >= 20;
-                      },
-                    })}
-                  />
-                  {errors.birthDate && (
-                    <span className="text-error">
-                      {currentLanguage === "en"
                         ? errors.birthDate.type === "validate"
-                          ? "The Teacher Must be older than 20"
-                          : "This field is required"
-                        : currentLanguage === "ar"
-                          ? errors.birthDate.type === "validate"
-                            ? "يجب أن يكون عمر المعلم أكبر من 20 عامًا"
-                            : "هذا الحقل مطلوب"
-                          : currentLanguage === "fr"
-                            ? errors.birthDate.type === "validate"
-                              ? "L'enseignant doit avoir plus de 20 ans"
-                              : "Ce champ est requis"
-                            : "This field is required"}
-                    </span>
-                  )}
-                </label>
+                          ? "L'enseignant doit avoir plus de 21 ans"
+                          : "Ce champ est requis"
+                        : "This field is required"}
+                </span>
+              )}
+            </label>
 
                 <label
                   htmlFor="qualification"
