@@ -55,6 +55,10 @@ export const teacherApi = createApi({
       query: id => `/api/v1/management/teacher/${id}`,
     }),
     //
+    getTeacherClass: builder.query({
+      query: id => `/api/v1/management/teacher/today-classes/${id}`,
+    }),
+    //
     getTeacherByIdUpdate: builder.query({
       query: id => `/api/v1/management/teacher/${id}/update`,
     }),
@@ -75,6 +79,7 @@ export const {
   useGetTeacherByIdUpdateQuery,
   useGetAllTeachersQuery,
   useGetTeacherByIdQuery,
+  useGetTeacherClassQuery,
   useUpdateTeachersMutation,
   useGetAllUsersChatQuery,
 } = teacherApi;
