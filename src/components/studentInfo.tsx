@@ -77,16 +77,6 @@ const StudentInfo = ({ data }: { data: any }) => {
           <div className="grid w-[400px] grid-cols-2 max-[485px]:w-[240px]">
             <h3 className="font-sans font-semibold text-textSecondary">
               {currentLanguage === "ar"
-                ? "تاريخ الميلاد:"
-                : currentLanguage === "fr"
-                  ? "Date de naissance :"
-                  : "Date Of Birth:"}
-            </h3>
-            <p className="font-sans font-semibold text-textPrimary">
-              {data.data.birthDate}
-            </p>
-            <h3 className="font-sans font-semibold text-textSecondary">
-              {currentLanguage === "ar"
                 ? "البريد الإلكتروني:"
                 : currentLanguage === "fr"
                   ? "Email :"
