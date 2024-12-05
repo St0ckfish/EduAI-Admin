@@ -223,11 +223,11 @@ const PostManagment = () => {
                       : "Image"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
-                  {currentLanguage === "ar"
-                    ? "المشاهدة"
+                {currentLanguage === "ar"
+                    ? "تحرير"
                     : currentLanguage === "fr"
-                      ? "Vue"
-                      : "View"}
+                      ? "Modifier"
+                      : "Edit"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "ar"
