@@ -112,7 +112,7 @@ const PostManagment = () => {
               : "lg:ml-[270px]"
         } relative mx-3 mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
-        <div className="justify-left mb-[80px] ml-4 mt-[20px] flex gap-5 text-[23px] font-semibold">
+        {/* <div className="justify-left mb-[80px] ml-4 mt-[20px] flex gap-5 text-[23px] font-semibold">
           <Link href="/post-management" className="text-blue-500 underline">
             {currentLanguage === "ar"
               ? "منشور"
@@ -127,7 +127,7 @@ const PostManagment = () => {
                 ? "Avis"
                 : "Reviews"}
           </Link>
-        </div>
+        </div> */}
         <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
           <div className="mb-3">
             <label htmlFor="icon" className="sr-only">
