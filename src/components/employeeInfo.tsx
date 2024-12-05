@@ -87,10 +87,10 @@ const EmployeeInfo = ({ data }: { data: any }) => {
             </p>
             <h3 className="font-sans font-semibold text-textSecondary">
               {currentLanguage === "ar"
-                ? "العمر:"
+                ? "يوم الميلاد:"
                 : currentLanguage === "fr"
-                  ? "Âge :"
-                  : "Age:"}
+                  ? "Date de naissance :"
+                  : "BirthDate:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
               {data.data.birthDate}
