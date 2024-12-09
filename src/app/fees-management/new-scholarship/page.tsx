@@ -165,7 +165,7 @@ const NewScholarship = () => {
                   | undefined;
               }) => (
                 <option key={student.id} value={student.id ?? ""}>
-                  {student.name}
+                  {String(student.name)}
                 </option>
               ),
             )}

@@ -255,7 +255,9 @@ const EmployeeSearch = () => {
                                 )}
                               </div>
                               <div className="grid gap-2">
-                                <p className="font-semibold">{student.name}</p>
+                                <p className="font-semibold">
+                                  {String(student.name)}
+                                </p>
                                 <p className="font-semibold text-secondary">
                                   ID: {student.id}
                                 </p>

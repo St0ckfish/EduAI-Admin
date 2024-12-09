@@ -98,7 +98,7 @@ const Grads = () => {
             </option>
             {students?.data.content.map((student:any) => (
               <option key={student.id} value={student.id ?? ""}>
-                {student.name}
+                {String(student.name)}
               </option>
             ))}
           </select>
