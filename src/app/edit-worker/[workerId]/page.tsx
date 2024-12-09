@@ -422,7 +422,6 @@ const EditWorker: React.FC<ViewWorkerProps> = ({ params }) => {
                               >
                             | Iterable<React.ReactNode>
                             | React.ReactPortal
-                            | Promise<React.AwaitedReactNode>
                             | null
                             | undefined;
                         },

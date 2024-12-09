@@ -91,7 +91,6 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
                             string | React.JSXElementConstructor<any>
                           >
                         | Iterable<React.ReactNode>
-                        | Promise<React.AwaitedReactNode>
                         | React.SetStateAction<string>
                         | null
                         | undefined;

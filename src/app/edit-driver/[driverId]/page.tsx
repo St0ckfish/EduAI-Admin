@@ -407,7 +407,6 @@ const EditDriver: React.FC<ViewDriverProps> = ({ params }) => {
                               >
                             | Iterable<React.ReactNode>
                             | React.ReactPortal
-                            | Promise<React.AwaitedReactNode>
                             | null
                             | undefined;
                         },

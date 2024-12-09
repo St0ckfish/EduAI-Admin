@@ -639,7 +639,6 @@ const AddNewEmployee = () => {
                               >
                             | Iterable<React.ReactNode>
                             | React.ReactPortal
-                            | Promise<React.AwaitedReactNode>
                             | null
                             | undefined;
                         },
