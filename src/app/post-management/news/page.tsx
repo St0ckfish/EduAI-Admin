@@ -445,7 +445,7 @@ const News = () => {
                             <h1 className="font-semibold text-gray-400">
                               {comment.creatorName}:
                             </h1>
-                            <p className="font-semibold">{comment.comment}</p>
+                            <p className="font-semibold">{String(comment.comment)}</p>
                           </div>
                         ),
                       )}
