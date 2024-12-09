@@ -13,7 +13,6 @@ import {
   useState,
   useEffect,
   SetStateAction,
-  AwaitedReactNode,
   JSXElementConstructor,
   ReactElement,
   ReactNode,
@@ -437,7 +436,6 @@ const News = () => {
                                 >
                               | Iterable<ReactNode>
                               | ReactPortal
-                              | Promise<AwaitedReactNode>
                               | null
                               | undefined;
                           },

@@ -10,12 +10,6 @@ import {
 } from "@/features/Organization-Setteings/semesterApi";
 import { useGetAllStudentsQuery } from "@/features/User-Management/studentApi";
 import {
-  AwaitedReactNode,
-  JSXElementConstructor,
-  Key,
-  ReactElement,
-  ReactNode,
-  ReactPortal,
   useState,
 } from "react";
 import { useSelector } from "react-redux";
