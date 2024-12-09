@@ -405,7 +405,7 @@ const EditEmployee: React.FC<ViewEmpolyeeProps> = ({ params }) => {
                         index: React.Key | null | undefined,
                       ) => (
                         <option key={index} value={rigion.id}>
-                          {rigion.name}
+                          {String(rigion.name)}
                         </option>
                       ),
                     )}
