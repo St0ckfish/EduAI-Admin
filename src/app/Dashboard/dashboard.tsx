@@ -585,7 +585,7 @@ const Dashboard: React.FC = () => {
                             />
                           </svg>
                         </button>
-                        {note.title}
+                        {String(note.title)}
                       </h1>
                       <p
                         className="text-textSecondary"
