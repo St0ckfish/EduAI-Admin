@@ -81,8 +81,10 @@ const AddNewTeacher = () => {
     handleSubmit,
     control,
     setValue,
+    watch,
     formState: { errors },
   } = formMethods;
+  const birthDate = watch("birthDate");
 
   const [createTeacher, { isLoading }] = useCreateTeachersMutation();
   const { data: rigiond } = useGetAllReginionIDQuery(null);
@@ -588,31 +590,47 @@ const AddNewTeacher = () => {
                 </label>
               </div>
               <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
-                <label
-                  htmlFor="hireDate"
-                  className="grid font-sans text-[18px] font-semibold"
-                >
+              <label
+              htmlFor="hireDate"
+              className="grid font-sans text-[18px] font-semibold"
+            >
+              {currentLanguage === "en"
+                ? "Hire Date"
+                : currentLanguage === "ar"
+                  ? "تاريخ التوظيف"
+                  : "Date d'embauche"}
+              <input
+                id="hireDate"
+                type="date"
+                className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                {...register("hireDate", { 
+                  required: true,
+                  validate: (value) => {
+                    if (!birthDate) return true; // Skip validation if birth date not set
+                    const hireDate = new Date(value);
+                    const birthDateObj = new Date(birthDate);
+                    return hireDate > birthDateObj;
+                  }
+                })}
+              />
+              {errors.hireDate && (
+                <span className="text-error">
                   {currentLanguage === "en"
-                    ? "Hire Date"
+                    ? errors.hireDate.type === "validate"
+                      ? "Hire date must be after date of birth"
+                      : "This field is required"
                     : currentLanguage === "ar"
-                      ? "تاريخ التوظيف"
-                      : "Date d'embauche"}
-                  <input
-                    id="hireDate"
-                    type="date"
-                    className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                    {...register("hireDate", { required: true })}
-                  />
-                  {errors.hireDate && (
-                    <span className="text-error">
-                      {currentLanguage === "en"
-                        ? "This field is required"
-                        : currentLanguage === "ar"
-                          ? "هذا الحقل مطلوب"
-                          : "Ce champ est requis"}
-                    </span>
-                  )}
-                </label>
+                      ? errors.hireDate.type === "validate"
+                        ? "يجب أن يكون تاريخ التوظيف بعد تاريخ الميلاد"
+                        : "هذا الحقل مطلوب"
+                      : currentLanguage === "fr"
+                        ? errors.hireDate.type === "validate"
+                          ? "La date d'embauche doit être postérieure à la date de naissance"
+                          : "Ce champ est requis"
+                        : "This field is required"}
+                </span>
+              )}
+            </label>
 
                 <MultiSelectComponent
                   control={control}
