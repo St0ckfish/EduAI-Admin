@@ -548,7 +548,6 @@ const Dashboard: React.FC = () => {
                         >
                       | Iterable<React.ReactNode>
                       | React.ReactPortal
-                      | Promise<React.AwaitedReactNode>
                       | null
                       | undefined;
                     description:
@@ -562,7 +561,6 @@ const Dashboard: React.FC = () => {
                         >
                       | Iterable<React.ReactNode>
                       | React.ReactPortal
-                      | Promise<React.AwaitedReactNode>
                       | null
                       | undefined;
                   }) => (
