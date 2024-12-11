@@ -74,8 +74,9 @@ const UpdateEvent = ({ params }: Props) => {
   useEffect(() => {
     if (eventData && eventData.data) {
       reset({
-        startTime: eventData.data.startDate,
-        endTime: eventData.data.endDate,
+        startTime: eventData.data.startTime,
+        endTime: eventData.data.endTime,
+        day: eventData.data.day,
       });
     }
   }, [eventData, reset]);

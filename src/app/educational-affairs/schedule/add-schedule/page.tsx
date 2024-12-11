@@ -13,6 +13,8 @@ import Spinner from "@/components/spinner";
 import { useGetAllClasssQuery } from "@/features/Infrastructure/classApi";
 import { useGetAllTeachersQuery } from "@/features/User-Management/teacherApi";
 import { useGetAllCoursesQuery } from "@/features/Acadimic/courseApi";
+import SearchableSelect from "@/components/select";
+import Box from "@/components/Box";
 
 const scheduleSchema = z
   .object({
@@ -99,6 +101,7 @@ const AddSchedule = () => {
 
   const {
     register,
+    control,
     handleSubmit,
     reset,
     formState: { errors },
@@ -116,6 +119,13 @@ const AddSchedule = () => {
   });
   const { data: courses, isLoading } = useGetAllCoursesQuery(null);
 
+  const optionsRigon =
+  courses?.data?.content.map(
+      (rigion: any) => ({
+        value: rigion.id,
+        label: `${rigion.name} - ${rigion.description} - ${rigion.level} - ${rigion.code}`,
+      }),
+    ) || [];
   const onSubmitCreateSchedule: SubmitHandler<FieldValues> = async data => {
     try {
       await createSchedule({
@@ -156,6 +166,7 @@ const AddSchedule = () => {
               : "lg:ml-[270px]"
         } mx-3 mt-5 space-y-4`}
       >
+        <Box>
         <div>
           <label>
             {currentLanguage === "ar"
@@ -166,7 +177,7 @@ const AddSchedule = () => {
           </label>
           <select
             id="classroomId"
-            className="w-full rounded border border-borderPrimary bg-bgPrimary px-4 py-2"
+            className="w-full rounded-xl outline-none border border-borderPrimary bg-bgPrimary px-4 py-2"
             {...register("classroomId")}
           >
             <option value="">
@@ -198,7 +209,7 @@ const AddSchedule = () => {
           </label>
           <select
             id="teacherId"
-            className="w-full rounded border border-borderPrimary bg-bgPrimary px-4 py-2"
+            className="w-full rounded-xl outline-none border border-borderPrimary bg-bgPrimary px-4 py-2"
             {...register("teacherId")}
           >
             <option value="">
@@ -221,36 +232,24 @@ const AddSchedule = () => {
           )}
         </div>
         <div>
-          <label>
-            {currentLanguage === "ar"
+        <label
+          htmlFor="regionId"
+          className="grid text-start font-sans text-[15px] font-semibold text-[#9a9a9a] w-full"
+        >
+          {currentLanguage === "ar"
               ? "معرف الدورة"
               : currentLanguage === "fr"
                 ? "ID du cours"
                 : "Course ID"}
-          </label>
-          <select
-            id="courseId"
-            className="w-full rounded border border-borderPrimary bg-bgPrimary px-4 py-2"
-            {...register("courseId")}
-          >
-            <option value="">
-              {currentLanguage === "ar"
-                ? "اختر الدورة"
-                : currentLanguage === "fr"
-                  ? "Sélectionner le cours"
-                  : "Select Course"}
-            </option>
-            {courses?.data.content.map((course: any) => (
-              <option key={course.id} value={course.id}>
-                {course.name}
-              </option>
-            ))}
-          </select>
-          {errors.courseId && (
-            <p className="text-red-500">
-              {errors.courseId.message?.toString()}
-            </p>
-          )}
+          <SearchableSelect
+            name="courseId"
+            control={control}
+            errors={errors}
+            options={optionsRigon}
+            currentLanguage={currentLanguage}
+            placeholder="Select courseId"
+          />
+        </label>
         </div>
         <div>
           <label>
@@ -262,7 +261,7 @@ const AddSchedule = () => {
           </label>
           <select
             id="day"
-            className="w-full rounded border border-borderPrimary bg-bgPrimary px-4 py-2"
+            className="w-full rounded-xl outline-none border border-borderPrimary bg-bgPrimary px-4 py-2"
             {...register("day")}
           >
             <option value="">
@@ -337,7 +336,7 @@ const AddSchedule = () => {
           <input
             {...register("startTime")}
             placeholder="HH:mm"
-            className="w-full rounded border border-borderPrimary bg-bgPrimary px-4 py-2"
+            className="w-full rounded-xl outline-none border border-borderPrimary bg-bgPrimary px-4 py-2"
             type="time"
           />
           {errors.startTime && (
@@ -357,7 +356,7 @@ const AddSchedule = () => {
           <input
             {...register("endTime")}
             placeholder="HH:mm"
-            className="w-full rounded border border-borderPrimary bg-bgPrimary px-4 py-2"
+            className="w-full rounded-xl outline-none border border-borderPrimary bg-bgPrimary px-4 py-2"
             type="time"
           />
           {errors.endTime && (
@@ -373,7 +372,7 @@ const AddSchedule = () => {
         <div className="flex justify-end">
           <button
             type="submit"
-            className={`rounded bg-blue-500 px-4 py-2 text-white ${
+            className={`rounded bg-blue-500 px-4 mt-5 py-2 text-white ${
               isCreating ? "opacity-50" : ""
             }`}
             disabled={isCreating}
@@ -391,6 +390,7 @@ const AddSchedule = () => {
                   : "Submit"}
           </button>
         </div>
+        </Box>
       </form>
     </>
   );
