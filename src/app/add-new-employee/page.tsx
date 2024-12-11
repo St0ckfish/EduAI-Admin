@@ -229,7 +229,7 @@ const AddNewEmployee = () => {
                   id="nid"
                   type="number"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("nid", { required: true })}
+                  {...register("nid")}
                 />
                 {errors.nid && (
                   <span className="text-error">
@@ -437,7 +437,7 @@ const AddNewEmployee = () => {
                   id="about"
                   type="text"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("about", { required: true })}
+                  {...register("about")}
                 />
                 {errors.about && (
                   <span className="text-error">
@@ -609,7 +609,7 @@ const AddNewEmployee = () => {
                 <select
                   defaultValue=""
                   id="positionId"
-                  {...register("positionId", { required: true })}
+                  {...register("positionId")}
                   className={`border ${errors.positionId ? "border-borderPrimary" : "border-borderPrimary"} h-full w-[400px] rounded-xl px-4 py-3 text-[18px] text-blackOrWhite outline-none max-[458px]:w-[350px]`}
                 >
                   <option value="">

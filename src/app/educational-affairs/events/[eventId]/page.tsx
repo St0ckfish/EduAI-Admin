@@ -22,9 +22,9 @@ type Props = {
 const UpdateEvent = ({ params }: Props) => {
   const breadcrumbs = [
     {
-      nameEn: "Administration",
-      nameAr: "الإدارة",
-      nameFr: "Administration",
+      nameEn: "Academic",
+      nameAr: "أكاديمي",
+      nameFr: "Académique",
       href: "/",
     },
     {
