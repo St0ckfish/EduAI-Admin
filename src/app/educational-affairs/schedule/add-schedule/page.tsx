@@ -5,6 +5,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCreateSchedualMutation } from "@/features/Acadimic/scheduleApi";
 import { SubmitHandler } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { RootState } from "@/GlobalRedux/store";
@@ -98,7 +99,7 @@ const AddSchedule = () => {
   const { language: currentLanguage, loading } = useSelector(
     (state: RootState) => state.language,
   );
-
+  const router = useRouter();
   const {
     register,
     control,
@@ -137,6 +138,7 @@ const AddSchedule = () => {
         endTime: data.endTime,
       }).unwrap();
       toast.success("Schedule Created Successfully");
+      router.push("/educational-affairs/schedule/");
       reset();
     } catch (error: any) {
       toast.error(`${error.data.message}`);
