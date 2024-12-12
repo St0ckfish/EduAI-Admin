@@ -217,19 +217,6 @@ console.log(userName);
                           <Modal 
   isOpen={isModalOpen2} 
   onClose={handleCloseModal2}
-  className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
-  overlayClassName="fixed inset-0 bg-black bg-opacity-50"
-  style={{
-    content: {
-      position: 'relative',
-      inset: 'auto',
-      padding: '0',
-      borderRadius: '0.75rem',
-      maxWidth: '400px',
-      width: '90%',
-      boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
-    }
-  }}
 >
   <div className=" p-6 rounded-lg text-center">
     <h2 className="text-xl font-bold text-gray-800 mb-4">
