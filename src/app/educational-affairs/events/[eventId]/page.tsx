@@ -69,9 +69,7 @@ const UpdateEvent = ({ params }: Props) => {
         .nonempty({ message: "This field is required" }),
       startTime: z.string().nonempty({ message: "This field is required" }),
       endTime: z.string().nonempty({ message: "This field is required" }),
-      active: z.enum(["0", "1"], {
-        errorMap: () => ({ message: "This field is required" }),
-      }),
+      active: z.number().int().min(0).max(1),
     })
     .refine(data => new Date(data.startTime) <= new Date(data.endTime), {
       message: "Start Time must be before End Time",
@@ -105,7 +103,7 @@ const UpdateEvent = ({ params }: Props) => {
         description_fr: eventData.data.description,
         startTime: eventData.data.startDate,
         endTime: eventData.data.endDate,
-        active: eventData.data.isAttendee ? "1" : "0",
+        active: eventData.data.isAttendee ? 1 : 0,
       });
     }
   }, [eventData, reset]);
@@ -384,7 +382,9 @@ const UpdateEvent = ({ params }: Props) => {
                       : "Active"}
                 <select
                   id="active"
-                  {...register("active")}
+                  {...register("active", { 
+                    setValueAs: (value) => Number(value) // Convert to number
+                  })}
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 >
                   <option value="1">

@@ -19,6 +19,7 @@ const Chat = () => {
   const [createChat] = useCreateNewChatMutation();
   const { data: users, isLoading: isGetting } = useGetAllUsersChatQuery(null);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isModalOpen2, setModalOpen2] = useState(false);
   const optionsRigon =
   users?.data?.content.map(
     (user: {
@@ -59,6 +60,9 @@ console.log(userName);
   const handleOpenModal = () => {
     setModalOpen(true);
   };
+  const handleOpenModal2 = () => {
+    setModalOpen2(true);
+  };
   const {
     register,
     control,
@@ -67,6 +71,9 @@ console.log(userName);
   } = useForm();
   const handleCloseModal = () => {
     setModalOpen(false);
+  };
+  const handleCloseModal2 = () => {
+    setModalOpen2(false);
   };
   const handleClick = (id: string) => {
     setUserId(id);
@@ -192,7 +199,7 @@ console.log(userName);
                           </p>
                         </div>
                         <div className="grid justify-end items-center gap-4 text-center w-full text-end text-white">
-                          <button onClick={()=>handleDelete(chat.chatId)}>
+                          <button onClick={handleOpenModal2} >
                             <svg
                               className="h-6 w-6 text-error"
                               fill="none"
@@ -207,6 +214,36 @@ console.log(userName);
                               />
                             </svg>
                           </button>
+                          <Modal 
+  isOpen={isModalOpen2} 
+  onClose={handleCloseModal2}
+>
+  <div className=" p-6 rounded-lg text-center">
+    <h2 className="text-xl font-bold text-gray-800 mb-4">
+      Are You Sure to Delete This Chat?
+    </h2>
+    
+    <div className="flex justify-center space-x-4">
+      <button 
+        onClick={() => {handleDelete(chat.chatId); handleCloseModal2()}}
+        className="px-4 py-2 bg-red-500 text-white font-semibold rounded-md 
+        hover:bg-red-600 transition-colors duration-300 
+        focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+      >
+        Yes
+      </button>
+      
+      <button 
+        onClick={handleCloseModal2}
+        className="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-md 
+        hover:bg-gray-300 transition-colors duration-300 
+        focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50"
+      >
+        No
+      </button>
+    </div>
+  </div>
+</Modal>
                         {
                           chat.numberOfNewMessages > 0 &&(
                           <p className="px-2 rounded-full bg-primary">{chat.numberOfNewMessages}</p>
@@ -230,6 +267,7 @@ console.log(userName);
           )}
         </div>
       </div>
+
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
           {
             isGetting ? <Spinner/> : 
