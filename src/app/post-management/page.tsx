@@ -184,16 +184,6 @@ const PostManagment = () => {
           <table className="w-full overflow-x-auto text-left text-sm text-textSecondary rtl:text-right">
             <thead className="bg-thead text-xs uppercase text-textPrimary">
               <tr>
-                <th scope="col" className="p-4">
-                  <div className="flex items-center">
-                    <input
-                      id="checkbox-all-search"
-                      type="checkbox"
-                      className="-gray-800 h-4 w-4 rounded border border-borderPrimary bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500"
-                      onChange={handleSelectAll}
-                    />
-                  </div>
-                </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "ar"
                     ? "العنوان"
@@ -250,15 +240,6 @@ const PostManagment = () => {
                     key={post.id}
                     className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary"
                   >
-                    <td className="w-4 p-4">
-                      <div className="flex items-center">
-                        <input
-                          id="checkbox-table-search-1"
-                          type="checkbox"
-                          className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500"
-                        />
-                      </div>
-                    </td>
                     <th scope="row" className="whitespace-nowrap px-6 py-4">
                       <p> {post.title_en} </p>
                     </th>
