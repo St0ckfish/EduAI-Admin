@@ -172,7 +172,7 @@ const Dashboard: React.FC = () => {
         description_ar: formData.description_ar,
         description_fr: formData.description_fr,
       };
-      
+
       // Append the JSON data as a string to FormData
       formDataToSend.append("request", JSON.stringify(requestData));
 
@@ -395,6 +395,17 @@ const Dashboard: React.FC = () => {
           <div className="flex justify-center">
             <div className="grid overflow-x-auto rounded-2xl">
               <div className="grid w-[550px] items-center justify-center overflow-x-auto rounded-2xl bg-bgPrimary p-2 shadow-xl max-[1536px]:h-[450px] max-[1536px]:w-[850px]">
+              <div
+                dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+                >
+                <h1 className="text-xl font-bold">
+                  {currentLanguage === "ar"
+                    ? "الفعاليات القادمة"
+                    : currentLanguage === "fr"
+                      ? "Événements à venir"
+                      : "Upcoming Events"}
+                </h1>
+              </div>
                 {mettings?.data.content.map((meeting: Meeting) => (
                   <div
                     dir={currentLanguage === "ar" ? "rtl" : "ltr"}
@@ -486,7 +497,26 @@ const Dashboard: React.FC = () => {
 
         <div className="mb-6 grid w-full grid-cols-1 justify-between gap-10 overflow-x-auto 2xl:flex">
           <div className="grid overflow-x-auto rounded-2xl">
-            <div className="flex w-[850px] justify-center overflow-x-auto rounded-2xl bg-bgPrimary shadow-xl max-[1536px]:w-full">
+            <div className="flex w-[850px] flex-col items-center justify-center overflow-x-auto rounded-2xl bg-bgPrimary shadow-xl max-[1536px]:w-full">
+              <div
+                dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+                className="mt-4 flex w-full flex-col items-start px-4"
+              >
+                <p className="text-xl font-bold text-textPrimary">
+                  {currentLanguage === "ar"
+                    ? "تقويم الفعاليات المدرسية"
+                    : currentLanguage === "fr"
+                      ? "Calendrier des événements scolaires"
+                      : "School Events Calendar"}
+                </p>
+                <p className="text-lg font-semibold text-secondary">
+                  {currentLanguage === "ar"
+                    ? "لديك 250 طالبًا"
+                    : currentLanguage === "fr"
+                      ? "Vous avez 250 étudiants"
+                      : "You have 250 students"}
+                </p>
+              </div>
               <Calendar />
               {/* 
             <div className="mt-4 grid grid-cols-2">

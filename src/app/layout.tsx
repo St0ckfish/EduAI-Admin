@@ -41,7 +41,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
       </head>
       <body className="bg-bgSecondary">
         <Providers>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
             {!isLoginPage && <NavBar />}
             <Notification />
             {children}
