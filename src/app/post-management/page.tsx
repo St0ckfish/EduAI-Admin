@@ -30,6 +30,21 @@ const PostManagment = () => {
   type Post = Record<string, any>;
   const { data, error, isLoading, refetch } = useGetAllPostsQuery(null);
   const [selectAll, setSelectAll] = useState(false);
+  const [filteredCount, setFilteredCount] = useState(0);
+  const [filteredData, setFilteredData] = useState<Post[]>([]);
+
+  useEffect(() => {
+    if (!data?.data.content) return;
+
+    const filtered = data.data.content.filter((post: Post) => {
+      return search.toLocaleLowerCase() === ""
+        ? post
+        : post.title_en.toLocaleLowerCase().includes(search);
+    });
+
+    setFilteredData(filtered); 
+    setFilteredCount(filtered.length); 
+  }, [search, data?.data.content]); 
 
   useEffect(() => {
     if (data) console.log("Response Data:", data);
@@ -133,6 +148,7 @@ const PostManagment = () => {
             <label htmlFor="icon" className="sr-only">
               Search
             </label>
+            <div className="flex gap-1">
             <div className="relative min-w-72 md:min-w-80">
               <div className="pointer-events-none absolute inset-y-0 start-0 z-20 flex items-center ps-4">
                 <svg
@@ -165,6 +181,15 @@ const PostManagment = () => {
                       : "Recherche"
                 }
               />
+            </div>
+            <div
+                className="w-fit bg-bgPrimary flex justify-start items-center rounded-lg font-bold border-2 border-borderPrimary px-4 p-2 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
+                >
+              {filteredCount} 
+              <span className="text-primary ml-1 font-bold">
+              result(s)
+              </span>
+            </div>
             </div>
           </div>
           <div className="flex justify-center">
@@ -229,13 +254,7 @@ const PostManagment = () => {
               </tr>
             </thead>
             <tbody>
-              {data?.data.content
-                .filter((post: Post) => {
-                  return search.toLocaleLowerCase() === ""
-                    ? post
-                    : post.title_en.toLocaleLowerCase().includes(search);
-                })
-                .map((post: Post) => (
+              {filteredData?.map((post: Post) => (
                   <tr
                     key={post.id}
                     className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary"
