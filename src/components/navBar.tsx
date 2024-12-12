@@ -20,12 +20,13 @@ import { useTheme } from "next-themes";
 import { FiSun, FiMoon } from "react-icons/fi";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import { setUser } from "@/features/userSlice";
+import { useGetSchoolLogoQuery } from "@/features/events/eventsApi";
 
 const NavBar = () => {
   const { language: currentLanguage, loading } = useSelector(
     (state: RootState) => state.language,
   );
-
+  const {data, isLoading} = useGetSchoolLogoQuery(null);
   const dispatchLang = useDispatch();
   useEffect(() => {
     dispatchLang(initializeLanguage());
@@ -118,6 +119,8 @@ const NavBar = () => {
         : { width: undefined, height: undefined },
     );
 
+    
+
     useEffect(() => {
       if (!isClient) {
         return;
@@ -175,13 +178,15 @@ const NavBar = () => {
               className="mx-auto flex w-full basis-full items-center px-4 sm:px-6"
               aria-label="Global"
             >
-              <div className="me-5 lg:me-0 lg:hidden">
+              <div className="max-[1024px]:hidden">
                 <Link
                   className="inline-block flex-none rounded-xl text-xl font-semibold focus:opacity-80 focus:outline-none"
                   href="/"
                   aria-label="Preline"
                 >
-                  <img src="/images/logo.png" alt="#" />
+                  {isLoading ? <p></p> :
+                  <img src={data?.data?.logoLink} alt="#" className="h-[70px] w-[100px]" />
+                   }
                 </Link>
               </div>
 
