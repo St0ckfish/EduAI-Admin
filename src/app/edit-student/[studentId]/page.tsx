@@ -3,14 +3,15 @@ import { RootState } from "@/GlobalRedux/store";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import SearchableSelect from "@/components/select";
 import Spinner from "@/components/spinner";
-import { useUpdateStudentsMutation } from "@/features/User-Management/studentApi";
+import { useUpdateStudentsMutation, useGetStudentByIdUpdateQuery } from "@/features/User-Management/studentApi";
 import {
   useGetAllNationalitysQuery,
   useGetAllReginionIDQuery
 } from "@/features/signupApi";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 interface Params {
   studentId: string;
@@ -37,11 +38,13 @@ const EditStudent = ({ params }: { params: Params }) => {
       href: `/edit-student/${params.studentId}`,
     },
   ];
+
+  const {data, isLoading: isStudent} = useGetStudentByIdUpdateQuery(params.studentId)
+
   const { language: currentLanguage, loading } = useSelector(
     (state: RootState) => state.language,
   );
-  const { data: nationalityData } =
-    useGetAllNationalitysQuery(null);
+  const { data: nationalityData } = useGetAllNationalitysQuery(null);
 
   const { data: regionData } = useGetAllReginionIDQuery(null);
   const optionsRigon =
@@ -62,11 +65,33 @@ const EditStudent = ({ params }: { params: Params }) => {
     register,
     handleSubmit,
     control,
+    setValue,
     formState: { errors },
   } = useForm();
 
+  // Pre-fill form fields when data is loaded
+  useEffect(() => {
+    if (data?.data) {
+      const studentData = data.data;
+      
+      // Set each form field with the corresponding value
+      setValue('email', studentData.email);
+      setValue('nid', studentData.nid);
+      setValue('about', studentData.about);
+      setValue('gender', studentData.gender);
+      setValue('nationality', studentData.nationality);
+      setValue('birthDate', studentData.birthDate);
+      setValue('regionId', studentData.regionId);
+      setValue('graduated', studentData.graduated.toString());
+      setValue('name_en', studentData.name_en);
+      setValue('name_ar', studentData.name_ar);
+      setValue('name_fr', studentData.name_fr);
+    }
+  }, [data, setValue]);
+
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const [updateSudent, { isLoading }] = useUpdateStudentsMutation();
+  
   const onSubmit = async (data: any) => {
     const formData = { ...data, religion: "OTHERS" }
     try {
@@ -77,7 +102,7 @@ const EditStudent = ({ params }: { params: Params }) => {
     }
   };
 
-  if (loading)
+  if (loading || isStudent)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />

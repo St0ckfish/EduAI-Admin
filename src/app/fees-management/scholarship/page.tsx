@@ -272,7 +272,7 @@ const Scholarship = () => {
                     <td className="whitespace-nowrap px-6 py-4">{invoice.scholarshipType}</td>
                     <td className="whitespace-nowrap px-6 py-4">{invoice.startDate}</td>
                     <td className="whitespace-nowrap px-6 py-4">{invoice.expirationDate}</td>
-                    <td className="whitespace-nowrap px-6 py-4">
+                    <td className="whitespace-nowrap px-6 py-4 flex items-center gap-2">
                     <button
                           onClick={() => handleDelete(invoice.id)}
                         >
@@ -290,6 +290,16 @@ const Scholarship = () => {
                             />
                           </svg>
                         </button>
+                        <Link
+                        href={`/fees-management/scholarship/${invoice.id}`}
+                        className="font-medium text-blue-600 hover:underline"
+                      >
+                        {currentLanguage === "ar"
+                          ? "تعديل"
+                          : currentLanguage === "fr"
+                            ? "Modifier"
+                            : "Edit"}
+                      </Link>
                     </td>
                   </tr>
                 ))}
