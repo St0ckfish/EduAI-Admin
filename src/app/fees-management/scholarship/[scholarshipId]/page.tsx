@@ -93,7 +93,7 @@ const EditScholarship = ({params}: {params:{ scholarshipId: number }}) => {
     try {
       await updateScholarship({
         id: params.scholarshipId,
-        body: {
+        formData: {
           studentId: data.studentId,
           scholarshipName: data.scholarshipName,
           scholarshipType: data.scholarshipType,
