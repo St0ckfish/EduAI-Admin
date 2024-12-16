@@ -240,7 +240,7 @@ const UpdateEvent = ({ params }: Props) => {
                 <input
                   id="startTime"
                   {...register("startTime")}
-                  type="datetime-local"
+                  type="time"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.startTime && (
@@ -264,7 +264,7 @@ const UpdateEvent = ({ params }: Props) => {
                 <input
                   id="endTime"
                   {...register("endTime")}
-                  type="datetime-local"
+                  type="time"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.endTime && (
