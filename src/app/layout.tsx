@@ -37,7 +37,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
       <head>
         <title>Edu AI-Admin</title>
         <meta name="description" content="Edu AI-Admin" />
-        <link rel="icon" type="image/x-icon" href="/images/Login.png" />
+        <link rel="icon" type="image/x-icon" href="/images/webicon.png" />
       </head>
       <body className="bg-bgSecondary">
         <Providers>

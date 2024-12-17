@@ -23,6 +23,9 @@ const scholarshipSchema = z.object({
   startDate: z.string().nonempty("Start Date is required"),
   expirationDate: z.string().nonempty("Expiration Date is required"),
   file: z.any().optional(),
+}).refine((data) => new Date(data.expirationDate) >= new Date(data.startDate), {
+  message: "Expiration date must be on or after the start date",
+  path: ["expirationDate"], // This will attach the error to the expirationDate field
 });
 
 const EditScholarship = ({params}: {params:{ scholarshipId: number }}) => {
@@ -278,26 +281,26 @@ const EditScholarship = ({params}: {params:{ scholarshipId: number }}) => {
 
               {/* Expiration Date Field */}
               <label
-                htmlFor="expirationDate"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "en"
-                  ? "Expiration Date"
-                  : currentLanguage === "ar"
-                  ? "تاريخ الانتهاء"
-                  : "Date d'expiration"}
-                <input
-                  id="expirationDate"
-                  {...register("expirationDate")}
-                  type="date"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                />
-                {errors.expirationDate && (
-                  <span className="text-error">
-                    {errors.expirationDate.message}
-                  </span>
-                )}
-              </label>
+              htmlFor="expirationDate"
+              className="grid font-sans text-[18px] font-semibold"
+            >
+              {currentLanguage === "en"
+                ? "Expiration Date"
+                : currentLanguage === "ar"
+                ? "تاريخ الانتهاء"
+                : "Date d'expiration"}
+              <input
+                id="expirationDate"
+                {...register("expirationDate")}
+                type="date"
+                className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+              />
+              {errors.expirationDate && (
+                <span className="text-error">
+                  {errors.expirationDate.message}
+                </span>
+              )}
+            </label>
 
               {/* Paid Invoices Checkboxes */}
               <div className="grid font-sans text-[18px] font-semibold">
