@@ -185,7 +185,7 @@ const NavBar = () => {
                   aria-label="Preline"
                 >
                   {isLoading ? <p></p> :
-                  <img src={data?.data?.logoLink} alt="#" className="h-[70px] w-[100px]" />
+                  <img src={data?.data?.logoLink} alt="#" className="h-[60px] w-[100px]" />
                    }
                 </Link>
               </div>

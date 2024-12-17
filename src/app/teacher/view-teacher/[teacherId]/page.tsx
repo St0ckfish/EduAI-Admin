@@ -90,20 +90,20 @@ const ViewTeacher: React.FC<ViewTeacherProps> = ({ params }) => {
                 </thead>
                 <tbody>
                   {
-                    Classes.data.map((classItem: any) => (
+                    Classes?.data?.map((classItem: any) => (
                       <tr className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary">
                         <th
                           scope="row"
                           className="whitespace-nowrap px-6 py-4 font-medium text-textSecondary"
                         >
-                          {classItem.courseName}
+                          {classItem?.courseName}
                         </th>
-                        <td className="whitespace-nowrap px-6 py-4">{classItem.classroomName}</td>
+                        <td className="whitespace-nowrap px-6 py-4">{classItem?.classroomName}</td>
                         <td className="whitespace-nowrap px-6 py-4">
-                        {classItem.startTime}
+                        {classItem?.startTime}
                         </td>
-                        <td className="whitespace-nowrap px-6 py-4">{classItem.endTime}</td>
-                        <td className="whitespace-nowrap px-6 py-4">{classItem.day}</td>
+                        <td className="whitespace-nowrap px-6 py-4">{classItem?.endTime}</td>
+                        <td className="whitespace-nowrap px-6 py-4">{classItem?.day}</td>
                       </tr>
                     ))
                   }
