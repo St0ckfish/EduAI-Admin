@@ -82,7 +82,8 @@ const Dashboard: React.FC = () => {
     isLoading: isWorker,
   } = useGetAllWorkersQuery(null);
   const { data: mettings, isLoading: isMeeting } =
-    useGetAllEventsDashboardQuery(null);
+  useGetAllEventsDashboardQuery(null);
+  console.log("👾 ~ mettings:", mettings)
   const {
     data: notices,
     isLoading: isNotices,
@@ -453,14 +454,14 @@ const Dashboard: React.FC = () => {
                   </div>
                 ))}
                 {(mettings?.data.content.length == 0 || mettings == null) && (
-                  <div className="flex w-full justify-center py-3 text-center text-[18px] font-semibold">
+                  <div className="flex w-full text-secondary justify-center py-3 text-center text-[18px] font-semibold">
                     {currentLanguage === "en"
-                      ? "There is No Data"
+                      ? "No Events Found"
                       : currentLanguage === "ar"
-                        ? "لا توجد بيانات"
+                        ? "لم يتم العثور على أحداث"
                         : currentLanguage === "fr"
-                          ? "Il n'y a pas de données"
-                          : "There is No Data"}
+                          ? "Aucun événement trouvé"
+                          : "No Events Found"}
                   </div>
                 )}
                 <div className="flex h-full items-end justify-center">
@@ -518,20 +519,6 @@ const Dashboard: React.FC = () => {
                 </p>
               </div>
               <Calendar />
-              {/* 
-            <div className="mt-4 grid grid-cols-2">
-          <p className="font-sans font-semibold text-textPrimary">Tuesday:</p>
-          <p className="font-sans font-semibold text-textSecondary">
-            On Tuesday he comes to school and reads carefully. His activity is
-            so good.
-          </p>
-          <p className="font-sans font-semibold text-textPrimary">Homework:</p>
-          <p className="font-sans font-semibold text-textSecondary">
-            He completed his homework. <br /> He is the most active student of
-            the class.
-          </p>
-        </div>
-             */}
             </div>
           </div>
           <div

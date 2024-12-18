@@ -3,11 +3,12 @@ import { RootState } from "@/GlobalRedux/store";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import SearchableSelect from "@/components/select";
 import Spinner from "@/components/spinner";
-import { useUpdateStudentsMutation } from "@/features/User-Management/studentApi";
+import { useGetStudentByIdQuery, useGetStudentUpdateByIdQuery, useUpdateStudentsMutation } from "@/features/User-Management/studentApi";
 import {
   useGetAllNationalitysQuery,
   useGetAllReginionIDQuery
 } from "@/features/signupApi";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -37,6 +38,55 @@ const EditStudent = ({ params }: { params: Params }) => {
       href: `/edit-student/${params.studentId}`,
     },
   ];
+
+  const { data: studentDataUpdate } = useGetStudentUpdateByIdQuery(params.studentId);
+  const { data: studentData } = useGetStudentByIdQuery(params.studentId);
+  const [email, setEmail] = useState<string | null>(null);
+  const [nid, setNid] = useState<string | null>(null);
+  const [name_en, setName_en] = useState<string | null>(null);
+  const [name_ar, setName_ar] = useState<string | null>(null);
+  const [name_fr, setName_fr] = useState<string | null>(null);
+  const [gender, setGender] = useState<string | null>(null);
+  const [isGraduated, setIsGraduated] = useState<boolean | null>(null);
+  const [about, setAbout] = useState<string | null>(null);
+  const [dateOfBirth, setDateOfBirth] = useState<string | null>(null);
+  const [nationality, setNationality] = useState<string | null>(null);
+  const [regionId, setRegionId] = useState<number | null>(null);
+  
+  console.log("👾 ~ EditStudent ~ studentDataUpdate:", studentDataUpdate)
+  useEffect(() => {
+    if (studentDataUpdate?.data) {
+      const {
+        email,
+        nid,
+        about,
+        gender,
+        nationality,
+        religion,
+        birthDate,
+        regionId,
+        graduated,
+        name_en,
+        name_ar,
+        name_fr,
+      } = studentDataUpdate.data;
+
+      setEmail(email || null);
+      setNid(nid || null);
+      setAbout(about || null);
+      setGender(gender || null);
+      setNationality(nationality || null);
+      setDateOfBirth(birthDate || null);
+      setRegionId(regionId || null);
+      setIsGraduated(graduated || null);
+      setName_en(name_en || null);
+      setName_ar(name_ar || null);
+      setName_fr(name_fr || null);
+    }
+  }, [studentDataUpdate]);
+  
+  console.log("👾 ~ EditStudent ~ studentDataUpdate:", studentDataUpdate)
+
   const { language: currentLanguage, loading } = useSelector(
     (state: RootState) => state.language,
   );
@@ -114,6 +164,7 @@ const EditStudent = ({ params }: { params: Params }) => {
                 <input
                   id="email"
                   type="email"
+                  value={email || ""}
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("email", { required: true })}
                 />
@@ -139,6 +190,7 @@ const EditStudent = ({ params }: { params: Params }) => {
                 <input
                   id="nid"
                   type="number"
+                  value={nid || ""}
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("nid", { required: true })}
                 />
@@ -163,6 +215,7 @@ const EditStudent = ({ params }: { params: Params }) => {
                     : "Gender"}
                 <select
                   id="gender"
+                  value={gender || ""}
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("gender", { required: true })}
                 >
@@ -193,12 +246,13 @@ const EditStudent = ({ params }: { params: Params }) => {
                 className="grid font-sans text-[18px] font-semibold"
               >
                 {currentLanguage === "ar"
-                  ? "الجنس"
+                  ? "خريج"
                   : currentLanguage === "fr"
-                    ? "Sexe"
-                    : "Gender"}
+                    ? "Diplômé"
+                    : "Graduate"}
                 <select
                   id="graduated"
+                  // value={isGraduated || ""}
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("graduated", { required: true })}
                 >
@@ -236,6 +290,7 @@ const EditStudent = ({ params }: { params: Params }) => {
                     ? "Votre nationalité"
                     : "Your Nationality"}
                 <select
+                  value={nationality || ""}
                   id="nationality"
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("nationality", { required: true })}
@@ -299,6 +354,7 @@ const EditStudent = ({ params }: { params: Params }) => {
                 <input
                   id="name_en"
                   type="text"
+                  value={name_en || ""}
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("name_en", { required: true })}
                 />
@@ -324,6 +380,7 @@ const EditStudent = ({ params }: { params: Params }) => {
                 <input
                   id="name_ar"
                   type="text"
+                  value={name_ar || ""}
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("name_ar", { required: true })}
                 />
@@ -349,6 +406,7 @@ const EditStudent = ({ params }: { params: Params }) => {
                 <input
                   id="name_fr"
                   type="text"
+                  value={name_fr || ""}
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("name_fr", { required: true })}
                 />
@@ -373,6 +431,7 @@ const EditStudent = ({ params }: { params: Params }) => {
                     : "À propos"}
                 <textarea
                   id="about"
+                  value={about || ""}
                   className="h-[100px] w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("about")}
                 />
@@ -400,6 +459,7 @@ const EditStudent = ({ params }: { params: Params }) => {
                 <input
                   id="birthDate"
                   type="date"
+                  value={dateOfBirth || ""}
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("birthDate", {
                     required: true,
