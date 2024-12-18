@@ -123,7 +123,7 @@ const StudentInfo = ({ data }: { data: any }) => {
                   : "Date Of Birth:"}
             </h3>
             <p className="font-sans font-semibold text-textPrimary">
-            {data.data.birthday}
+              {data.data.birthday}
             </p>
           </div>
         </div>

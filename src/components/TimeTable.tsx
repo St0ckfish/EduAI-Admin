@@ -17,8 +17,8 @@ const staticDays = [
 const timeToPosition = (time: {
   split: (arg0: string) => {
     (): any;
-    new(): any;
-    map: { (arg0: NumberConstructor): [any, any]; new(): any };
+    new (): any;
+    map: { (arg0: NumberConstructor): [any, any]; new (): any };
   };
 }) => {
   const [hour, minute] = time.split(":").map(Number);
@@ -34,15 +34,15 @@ const calculateHeight = (
   startTime: {
     split: (arg0: string) => {
       (): any;
-      new(): any;
-      map: { (arg0: NumberConstructor): [any, any]; new(): any };
+      new (): any;
+      map: { (arg0: NumberConstructor): [any, any]; new (): any };
     };
   },
   endTime: {
     split: (arg0: string) => {
       (): any;
-      new(): any;
-      map: { (arg0: NumberConstructor): [any, any]; new(): any };
+      new (): any;
+      map: { (arg0: NumberConstructor): [any, any]; new (): any };
     };
   },
 ) => {
@@ -57,7 +57,13 @@ const calculateHeight = (
   return (durationInMinutes / 540) * 100;
 };
 
-const TimeTable = ({ scheduleData, handleDelete }: { scheduleData: any[], handleDelete: (id: number) => void; }) => {
+const TimeTable = ({
+  scheduleData,
+  handleDelete,
+}: {
+  scheduleData: any[];
+  handleDelete: (id: number) => void;
+}) => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const { language: currentLanguage } = useSelector(
     (state: RootState) => state.language,
@@ -73,11 +79,11 @@ const TimeTable = ({ scheduleData, handleDelete }: { scheduleData: any[], handle
       if (dropdownOpenId !== null) {
         const dropdownRef = dropdownRefs.current[dropdownOpenId];
         const buttonRef = buttonRefs.current[dropdownOpenId];
-        
+
         if (
-          dropdownRef && 
-          buttonRef && 
-          !dropdownRef.contains(event.target as Node) && 
+          dropdownRef &&
+          buttonRef &&
+          !dropdownRef.contains(event.target as Node) &&
           !buttonRef.contains(event.target as Node)
         ) {
           setDropdownOpenId(null);
@@ -86,11 +92,11 @@ const TimeTable = ({ scheduleData, handleDelete }: { scheduleData: any[], handle
     };
 
     // Add event listener
-    document.addEventListener('mousedown', handleClickOutside);
-    
+    document.addEventListener("mousedown", handleClickOutside);
+
     // Cleanup event listener
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [dropdownOpenId]);
 
@@ -162,14 +168,16 @@ const TimeTable = ({ scheduleData, handleDelete }: { scheduleData: any[], handle
                     return (
                       <React.Fragment key={event.id}>
                         <div
-                          className="border-borderPrimary-4 absolute left-0 right-0 mx-2 overflow-auto rounded-lg border-l border-primary bg-thead p-4 text-primary shadow-lg "
+                          className="border-borderPrimary-4 absolute left-0 right-0 mx-2 overflow-auto rounded-lg border-l border-primary bg-thead p-4 text-primary shadow-lg"
                           style={{ top: `${top}%`, height: `${height}%` }}
                         >
-                          <div className="flex items-start justify-end gap-2 relative">
-                            <div className="flex items-center gap-2 absolute -top-2 -right-2">
+                          <div className="relative flex items-start justify-end gap-2">
+                            <div className="absolute -right-2 -top-2 flex items-center gap-2">
                               <div className="">
-                                <button 
-                                  ref={(el) => { buttonRefs.current[event.id] = el }}
+                                <button
+                                  ref={el => {
+                                    buttonRefs.current[event.id] = el;
+                                  }}
                                   onClick={() => toggleDropdown(event.id)}
                                 >
                                   <svg
@@ -194,10 +202,12 @@ const TimeTable = ({ scheduleData, handleDelete }: { scheduleData: any[], handle
                           <div className="text-xs">{event.classroomName}</div>
                         </div>
                         {dropdownOpenId === event.id && (
-                          <div 
-                            ref={(el) => { dropdownRefs.current[event.id] = el }}
-                            className="z-10 w-32 rounded-md bg-bgPrimary shadow-lg absolute left-0 right-0" 
-                            style={{ top: `${top-5}%` }}
+                          <div
+                            ref={el => {
+                              dropdownRefs.current[event.id] = el;
+                            }}
+                            className="absolute left-0 right-0 z-10 w-32 rounded-md bg-bgPrimary shadow-lg"
+                            style={{ top: `${top - 5}%` }}
                           >
                             <button
                               onClick={() => handleDelete(event.id)}
@@ -207,7 +217,7 @@ const TimeTable = ({ scheduleData, handleDelete }: { scheduleData: any[], handle
                             </button>
                             <Link
                               href={`/educational-affairs/schedule/${event.id}`}
-                              className="block w-full px-4 py-2 text-left "
+                              className="block w-full px-4 py-2 text-left"
                             >
                               Edit
                             </Link>

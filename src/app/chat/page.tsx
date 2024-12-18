@@ -3,7 +3,11 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
-import { useGetAllChatsQuery, useCreateNewChatMutation, useDeleteChatMutation } from "@/features/chat/chatApi";
+import {
+  useGetAllChatsQuery,
+  useCreateNewChatMutation,
+  useDeleteChatMutation,
+} from "@/features/chat/chatApi";
 import Spinner from "@/components/spinner";
 import Modal from "@/components/model";
 import SearchableSelect from "@/components/select";
@@ -15,26 +19,20 @@ const ChatPage = dynamic(() => import("@/components/chat"), { ssr: false });
 const Chat = () => {
   const [search, setSearch] = useState("");
   const [userId, setUserId] = useState("");
-  const [userName, setUserNane] = useState("")
+  const [userName, setUserNane] = useState("");
   const [createChat] = useCreateNewChatMutation();
   const { data: users, isLoading: isGetting } = useGetAllUsersChatQuery(null);
   const [isModalOpen, setModalOpen] = useState(false);
   const [isModalOpen2, setModalOpen2] = useState(false);
   const optionsRigon =
-  users?.data?.content.map(
-    (user: {
-      Role: any;
-      id: any;
-      name: any;
-    }) => ({
+    users?.data?.content.map((user: { Role: any; id: any; name: any }) => ({
       value: user.id,
       label: `${user.name} - ${user.Role}`,
-    }),
-    ) || [];
-    const { data, isLoading, refetch: regetusers } = useGetAllChatsQuery(null);
-    const [deleteChat] = useDeleteChatMutation();
-    
-console.log(userName);
+    })) || [];
+  const { data, isLoading, refetch: regetusers } = useGetAllChatsQuery(null);
+  const [deleteChat] = useDeleteChatMutation();
+
+  console.log(userName);
 
   const handleDelete = async (id: string) => {
     try {
@@ -52,9 +50,7 @@ console.log(userName);
       regetusers();
       toast.success("Chat created successfully");
     } catch {
-      toast.error(
-        "Failed to create Chat",
-      );
+      toast.error("Failed to create Chat");
     }
   };
   const handleOpenModal = () => {
@@ -101,7 +97,7 @@ console.log(userName);
           : booleanValue
             ? "lg:ml-[100px]"
             : "lg:ml-[270px]"
-      }  mt-10`}
+      } mt-10`}
     >
       <div className="flex w-full justify-between gap-10 rounded-lg p-4 max-[1180px]:grid max-[1180px]:justify-center">
         <div className="h-[700px] w-full overflow-y-auto rounded-xl bg-bgPrimary p-5">
@@ -113,8 +109,18 @@ console.log(userName);
                 <div className="flex justify-between text-start text-[22px] font-semibold">
                   <h1>Contacts</h1>
                   <button onClick={handleOpenModal}>
-                    <svg className="h-8 w-8"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    <svg
+                      className="h-8 w-8"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
                     </svg>
                   </button>
                 </div>
@@ -163,15 +169,23 @@ console.log(userName);
                     .filter((chat: any) => {
                       return search.toLocaleLowerCase() === ""
                         ? chat
-                        : chat.targetUser.name.toLocaleLowerCase().includes(search);
+                        : chat.targetUser.name
+                            .toLocaleLowerCase()
+                            .includes(search);
                     })
                     .map((chat: any) => (
                       <div
                         key={chat.id}
-                        onClick={() => {handleClick(chat.chatId); setUserNane(chat.targetUser.name); regetusers();}}
+                        onClick={() => {
+                          handleClick(chat.chatId);
+                          setUserNane(chat.targetUser.name);
+                          regetusers();
+                        }}
                         className="flex w-full cursor-pointer items-center border-b border-borderPrimary px-2 py-1 hover:bg-bgSecondary"
                       >
-                        <div className={`${chat.numberOfNewMessages > 0 ? "w-[150px]" : "w-[200px]"}`}>
+                        <div
+                          className={`${chat.numberOfNewMessages > 0 ? "w-[150px]" : "w-[200px]"}`}
+                        >
                           {!chat.targetUser.hasPhoto ? (
                             <img
                               src="/images/userr.png"
@@ -186,20 +200,20 @@ console.log(userName);
                             />
                           )}
                         </div>
-                        <div className="grid gap-2 w-full break-words">
-                          <p className="font-semibold ">
+                        <div className="grid w-full gap-2 break-words">
+                          <p className="font-semibold">
                             {chat.targetUser.name}
-                            
+
                             <span className="text-[15px] text-secondary">
                               ({chat.targetUser.Role})
                             </span>
                           </p>
-                          <p className="font-semibold text-secondary break-words w-[400px] mt-2">
+                          <p className="mt-2 w-[400px] break-words font-semibold text-secondary">
                             {chat.lastMessage}
                           </p>
                         </div>
-                        <div className="grid justify-end items-center gap-4 text-center w-full text-end text-white">
-                          <button onClick={handleOpenModal2} >
+                        <div className="grid w-full items-center justify-end gap-4 text-center text-end text-white">
+                          <button onClick={handleOpenModal2}>
                             <svg
                               className="h-6 w-6 text-error"
                               fill="none"
@@ -214,41 +228,40 @@ console.log(userName);
                               />
                             </svg>
                           </button>
-                          <Modal 
-  isOpen={isModalOpen2} 
-  onClose={handleCloseModal2}
->
-  <div className=" p-6 rounded-lg text-center">
-    <h2 className="text-xl font-bold text-gray-800 mb-4">
-      Are You Sure to Delete This Chat?
-    </h2>
-    
-    <div className="flex justify-center space-x-4">
-      <button 
-        onClick={() => {handleDelete(chat.chatId); handleCloseModal2()}}
-        className="px-4 py-2 bg-red-500 text-white font-semibold rounded-md 
-        hover:bg-red-600 transition-colors duration-300 
-        focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
-      >
-        Yes
-      </button>
-      
-      <button 
-        onClick={handleCloseModal2}
-        className="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-md 
-        hover:bg-gray-300 transition-colors duration-300 
-        focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50"
-      >
-        No
-      </button>
-    </div>
-  </div>
-</Modal>
-                        {
-                          chat.numberOfNewMessages > 0 &&(
-                          <p className="px-2 rounded-full bg-primary">{chat.numberOfNewMessages}</p>
-                          )
-                        }
+                          <Modal
+                            isOpen={isModalOpen2}
+                            onClose={handleCloseModal2}
+                          >
+                            <div className="rounded-lg p-6 text-center">
+                              <h2 className="mb-4 text-xl font-bold text-gray-800">
+                                Are You Sure to Delete This Chat?
+                              </h2>
+
+                              <div className="flex justify-center space-x-4">
+                                <button
+                                  onClick={() => {
+                                    handleDelete(chat.chatId);
+                                    handleCloseModal2();
+                                  }}
+                                  className="rounded-md bg-red-500 px-4 py-2 font-semibold text-white transition-colors duration-300 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+                                >
+                                  Yes
+                                </button>
+
+                                <button
+                                  onClick={handleCloseModal2}
+                                  className="rounded-md bg-gray-200 px-4 py-2 font-semibold text-gray-700 transition-colors duration-300 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50"
+                                >
+                                  No
+                                </button>
+                              </div>
+                            </div>
+                          </Modal>
+                          {chat.numberOfNewMessages > 0 && (
+                            <p className="rounded-full bg-primary px-2">
+                              {chat.numberOfNewMessages}
+                            </p>
+                          )}
                         </div>
                       </div>
                     ))}
@@ -263,59 +276,64 @@ console.log(userName);
               <img src="/images/emptyState.png" alt="#" />
             </div>
           ) : (
-            <ChatPage userId={userId} regetusers={regetusers} userName={userName}/>
+            <ChatPage
+              userId={userId}
+              regetusers={regetusers}
+              userName={userName}
+            />
           )}
         </div>
       </div>
 
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-          {
-            isGetting ? <Spinner/> : 
-        <form onSubmit={handleSubmit(onSubmit)}>
-        <label
-                htmlFor="targetUserId"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "en"
-                  ? "New Chat"
+        {isGetting ? (
+          <Spinner />
+        ) : (
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <label
+              htmlFor="targetUserId"
+              className="grid font-sans text-[18px] font-semibold"
+            >
+              {currentLanguage === "en"
+                ? "New Chat"
+                : currentLanguage === "ar"
+                  ? "محادثة جديدة"
+                  : currentLanguage === "fr"
+                    ? "Nouveau chat"
+                    : "Nouveau chat"}{" "}
+              {/* default */}
+              <SearchableSelect
+                name="targetUserId"
+                control={control}
+                errors={errors}
+                options={optionsRigon}
+                currentLanguage={currentLanguage}
+                placeholder="Select Chat"
+              />
+            </label>
+            <button
+              disabled={isLoading}
+              type="submit"
+              className="mt-5 w-fit rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+            >
+              {isLoading
+                ? currentLanguage === "en"
+                  ? "Adding..."
                   : currentLanguage === "ar"
-                    ? "محادثة جديدة"
+                    ? "يتم الإضافة..."
                     : currentLanguage === "fr"
-                      ? "Nouveau chat"
-                      : "Nouveau chat"}{" "}
-                {/* default */}
-                <SearchableSelect
-                  name="targetUserId"
-                  control={control}
-                  errors={errors}
-                  options={optionsRigon}
-                  currentLanguage={currentLanguage}
-                  placeholder="Select Chat"
-                />
-              </label>
-              <button
-                disabled={isLoading}
-                type="submit"
-                className="w-fit rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl mt-5"
-              >
-                {isLoading
-                  ? currentLanguage === "en"
-                    ? "Adding..."
-                    : currentLanguage === "ar"
-                      ? "يتم الإضافة..."
-                      : currentLanguage === "fr"
-                        ? "Ajout en cours..."
-                        : "Adding..." // default
-                  : currentLanguage === "en"
-                    ? "Add Chat"
-                    : currentLanguage === "ar"
-                      ? "إضافة دردشة"
-                      : currentLanguage === "fr"
-                        ? "Ajouter un Chat"
-                        : "Add Driver"}
-              </button>
-        </form>
-          }
+                      ? "Ajout en cours..."
+                      : "Adding..." // default
+                : currentLanguage === "en"
+                  ? "Add Chat"
+                  : currentLanguage === "ar"
+                    ? "إضافة دردشة"
+                    : currentLanguage === "fr"
+                      ? "Ajouter un Chat"
+                      : "Add Driver"}
+            </button>
+          </form>
+        )}
       </Modal>
     </div>
   );

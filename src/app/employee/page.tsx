@@ -340,7 +340,7 @@ const Employee = () => {
                       <button
                         onClick={() => handleDelete(employee.id)}
                         disabled={employee.role === "Admin"}
-                        className={`rounded-lg px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out ${employee.role === "Admin" ? "cursor-not-allowed bg-red-800" : "hover:-translate-y-1 hover:scale-110 bg-error"}`}
+                        className={`rounded-lg px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out ${employee.role === "Admin" ? "cursor-not-allowed bg-red-800" : "bg-error hover:-translate-y-1 hover:scale-110"}`}
                       >
                         {currentLanguage === "en"
                           ? "Lock"

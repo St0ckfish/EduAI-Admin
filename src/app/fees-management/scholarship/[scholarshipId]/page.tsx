@@ -7,7 +7,7 @@ import Spinner from "@/components/spinner";
 import { toast } from "react-toastify";
 import {
   useUpdateScholarshipMutation,
-  useGetScholarshipByIdQuery
+  useGetScholarshipByIdQuery,
 } from "@/features/Financial/feesApi";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { RootState } from "@/GlobalRedux/store";
@@ -15,20 +15,22 @@ import { useSelector } from "react-redux";
 import { useGetAllStudentsQuery } from "@/features/User-Management/studentApi";
 
 // Define a Zod schema that matches your API's expected data structure
-const scholarshipSchema = z.object({
-  studentId: z.string().nonempty("Student ID is required"),
-  scholarshipName: z.string().nonempty("Scholarship Name is required"),
-  scholarshipType: z.string().nonempty("Scholarship Type is required"),
-  paidInvoices: z.array(z.string()),
-  startDate: z.string().nonempty("Start Date is required"),
-  expirationDate: z.string().nonempty("Expiration Date is required"),
-  file: z.any().optional(),
-}).refine((data) => new Date(data.expirationDate) >= new Date(data.startDate), {
-  message: "Expiration date must be on or after the start date",
-  path: ["expirationDate"], // This will attach the error to the expirationDate field
-});
+const scholarshipSchema = z
+  .object({
+    studentId: z.string().nonempty("Student ID is required"),
+    scholarshipName: z.string().nonempty("Scholarship Name is required"),
+    scholarshipType: z.string().nonempty("Scholarship Type is required"),
+    paidInvoices: z.array(z.string()),
+    startDate: z.string().nonempty("Start Date is required"),
+    expirationDate: z.string().nonempty("Expiration Date is required"),
+    file: z.any().optional(),
+  })
+  .refine(data => new Date(data.expirationDate) >= new Date(data.startDate), {
+    message: "Expiration date must be on or after the start date",
+    path: ["expirationDate"], // This will attach the error to the expirationDate field
+  });
 
-const EditScholarship = ({params}: {params:{ scholarshipId: number }}) => {
+const EditScholarship = ({ params }: { params: { scholarshipId: number } }) => {
   const breadcrumbs = [
     {
       nameEn: "Administration",
@@ -51,8 +53,9 @@ const EditScholarship = ({params}: {params:{ scholarshipId: number }}) => {
   ];
 
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
-  const { data: scholarship, isLoading: isScholarshipLoading } = useGetScholarshipByIdQuery(params.scholarshipId);
-  
+  const { data: scholarship, isLoading: isScholarshipLoading } =
+    useGetScholarshipByIdQuery(params.scholarshipId);
+
   const {
     register,
     handleSubmit,
@@ -72,11 +75,12 @@ const EditScholarship = ({params}: {params:{ scholarshipId: number }}) => {
   });
 
   const [updateScholarship, { isLoading }] = useUpdateScholarshipMutation();
-  const { data: students, isLoading: isStudentsLoading } = useGetAllStudentsQuery({
-    archived: "false",
-    page: 0,
-    size: 1000000,
-  });
+  const { data: students, isLoading: isStudentsLoading } =
+    useGetAllStudentsQuery({
+      archived: "false",
+      page: 0,
+      size: 1000000,
+    });
 
   // Pre-fill form when scholarship data is loaded
   useEffect(() => {
@@ -103,7 +107,7 @@ const EditScholarship = ({params}: {params:{ scholarshipId: number }}) => {
           paidInvoices: data.paidInvoices,
           startDate: data.startDate,
           expirationDate: data.expirationDate,
-        }
+        },
       }).unwrap();
       toast.success("Scholarship updated successfully");
     } catch (err) {
@@ -133,8 +137,8 @@ const EditScholarship = ({params}: {params:{ scholarshipId: number }}) => {
               ? "lg:mr-[100px]"
               : "lg:mr-[270px]"
             : booleanValue
-            ? "lg:ml-[100px]"
-            : "lg:ml-[270px]"
+              ? "lg:ml-[100px]"
+              : "lg:ml-[270px]"
         } mx-3 mt-[40px] grid h-[850px] items-center justify-center`}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -144,8 +148,8 @@ const EditScholarship = ({params}: {params:{ scholarshipId: number }}) => {
                 {currentLanguage === "en"
                   ? "Scholarship Information"
                   : currentLanguage === "ar"
-                  ? "معلومات المنحة الدراسية"
-                  : "Informations sur la bourse"}
+                    ? "معلومات المنحة الدراسية"
+                    : "Informations sur la bourse"}
               </h1>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
@@ -157,10 +161,10 @@ const EditScholarship = ({params}: {params:{ scholarshipId: number }}) => {
                 {currentLanguage === "en"
                   ? "Student ID"
                   : currentLanguage === "ar"
-                  ? "رقم الطالب"
-                  : "ID de l'étudiant"}
+                    ? "رقم الطالب"
+                    : "ID de l'étudiant"}
 
-                <select                   
+                <select
                   id="studentId"
                   {...register("studentId")}
                   className="h-full w-[400px] rounded-xl border px-4 py-3 text-[18px] text-black outline-none max-[458px]:w-[350px]"
@@ -190,9 +194,7 @@ const EditScholarship = ({params}: {params:{ scholarshipId: number }}) => {
                   )}
                 </select>
                 {errors.studentId && (
-                  <span className="text-error">
-                    {errors.studentId.message}
-                  </span>
+                  <span className="text-error">{errors.studentId.message}</span>
                 )}
               </label>
 
@@ -204,8 +206,8 @@ const EditScholarship = ({params}: {params:{ scholarshipId: number }}) => {
                 {currentLanguage === "en"
                   ? "Scholarship Name"
                   : currentLanguage === "ar"
-                  ? "اسم المنحة"
-                  : "Nom de la bourse"}
+                    ? "اسم المنحة"
+                    : "Nom de la bourse"}
                 <input
                   id="scholarshipName"
                   {...register("scholarshipName")}
@@ -227,8 +229,8 @@ const EditScholarship = ({params}: {params:{ scholarshipId: number }}) => {
                 {currentLanguage === "en"
                   ? "Scholarship Type"
                   : currentLanguage === "ar"
-                  ? "نوع المنحة"
-                  : "Type de bourse"}
+                    ? "نوع المنحة"
+                    : "Type de bourse"}
 
                 <select
                   id="scholarshipType"
@@ -264,8 +266,8 @@ const EditScholarship = ({params}: {params:{ scholarshipId: number }}) => {
                 {currentLanguage === "en"
                   ? "Start Date"
                   : currentLanguage === "ar"
-                  ? "تاريخ البدء"
-                  : "Date de début"}
+                    ? "تاريخ البدء"
+                    : "Date de début"}
                 <input
                   id="startDate"
                   {...register("startDate")}
@@ -273,82 +275,100 @@ const EditScholarship = ({params}: {params:{ scholarshipId: number }}) => {
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 />
                 {errors.startDate && (
-                  <span className="text-error">
-                    {errors.startDate.message}
-                  </span>
+                  <span className="text-error">{errors.startDate.message}</span>
                 )}
               </label>
 
               {/* Expiration Date Field */}
               <label
-              htmlFor="expirationDate"
-              className="grid font-sans text-[18px] font-semibold"
-            >
-              {currentLanguage === "en"
-                ? "Expiration Date"
-                : currentLanguage === "ar"
-                ? "تاريخ الانتهاء"
-                : "Date d'expiration"}
-              <input
-                id="expirationDate"
-                {...register("expirationDate")}
-                type="date"
-                className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-              />
-              {errors.expirationDate && (
-                <span className="text-error">
-                  {errors.expirationDate.message}
-                </span>
-              )}
-            </label>
+                htmlFor="expirationDate"
+                className="grid font-sans text-[18px] font-semibold"
+              >
+                {currentLanguage === "en"
+                  ? "Expiration Date"
+                  : currentLanguage === "ar"
+                    ? "تاريخ الانتهاء"
+                    : "Date d'expiration"}
+                <input
+                  id="expirationDate"
+                  {...register("expirationDate")}
+                  type="date"
+                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+                />
+                {errors.expirationDate && (
+                  <span className="text-error">
+                    {errors.expirationDate.message}
+                  </span>
+                )}
+              </label>
 
               {/* Paid Invoices Checkboxes */}
               <div className="grid font-sans text-[18px] font-semibold">
                 {currentLanguage === "en"
                   ? "Paid Invoices"
                   : currentLanguage === "ar"
-                  ? "الفواتير المدفوعة"
-                  : "Factures payées"}
+                    ? "الفواتير المدفوعة"
+                    : "Factures payées"}
                 <div className="grid grid-cols-4 gap-4">
                   <label className="flex gap-2">
-                    <input type="checkbox" value="TUITION" {...register("paidInvoices")} />
+                    <input
+                      type="checkbox"
+                      value="TUITION"
+                      {...register("paidInvoices")}
+                    />
                     {currentLanguage === "en"
                       ? "Tuition"
                       : currentLanguage === "ar"
-                      ? "الرسوم الدراسية"
-                      : "Frais de scolarité"}
+                        ? "الرسوم الدراسية"
+                        : "Frais de scolarité"}
                   </label>
                   <label className="flex gap-2">
-                    <input type="checkbox" value="UNIFORM" {...register("paidInvoices")} />
+                    <input
+                      type="checkbox"
+                      value="UNIFORM"
+                      {...register("paidInvoices")}
+                    />
                     {currentLanguage === "en"
                       ? "Uniform"
                       : currentLanguage === "ar"
-                      ? "الزي الدراسي"
-                      : "Uniforme"}
+                        ? "الزي الدراسي"
+                        : "Uniforme"}
                   </label>
                   <label className="flex gap-2">
-                    <input type="checkbox" value="ACTIVITY" {...register("paidInvoices")} />
+                    <input
+                      type="checkbox"
+                      value="ACTIVITY"
+                      {...register("paidInvoices")}
+                    />
                     {currentLanguage === "en"
                       ? "Activity"
                       : currentLanguage === "ar"
-                      ? "الحضور"
-                      : "Activité"}
+                        ? "الحضور"
+                        : "Activité"}
                   </label>
                   <label className="flex gap-2">
-                    <input type="checkbox" value="MATERIAL" {...register("paidInvoices")} />
+                    <input
+                      type="checkbox"
+                      value="MATERIAL"
+                      {...register("paidInvoices")}
+                    />
                     {currentLanguage === "en"
                       ? "Material"
                       : currentLanguage === "ar"
-                      ? "المواد الدراسية"
-                      : "Matériel"}
+                        ? "المواد الدراسية"
+                        : "Matériel"}
                   </label>
                   <label className="flex gap-2">
-                    <input type="checkbox" value="TRANSPORT" {...register("paidInvoices")} />
+                    <input
+                      type="checkbox"
+                      value="TRANSPORT"
+                      {...register("paidInvoices")}
+                    />
                     {currentLanguage === "en"
                       ? "Transport"
                       : currentLanguage === "ar"
-                      ? "النقل"
-                      : "Transport"}
+                        ? "النقل"
+                        : "Transport"}
                   </label>
                 </div>
               </div>
@@ -364,8 +384,8 @@ const EditScholarship = ({params}: {params:{ scholarshipId: number }}) => {
                   {currentLanguage === "en"
                     ? "Update Scholarship"
                     : currentLanguage === "ar"
-                    ? "تحديث المنحة الدراسية"
-                    : "Mettre à jour la bourse"}
+                      ? "تحديث المنحة الدراسية"
+                      : "Mettre à jour la bourse"}
                 </button>
               )}
             </div>

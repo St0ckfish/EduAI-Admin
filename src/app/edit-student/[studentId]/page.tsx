@@ -3,10 +3,13 @@ import { RootState } from "@/GlobalRedux/store";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import SearchableSelect from "@/components/select";
 import Spinner from "@/components/spinner";
-import { useUpdateStudentsMutation, useGetStudentByIdUpdateQuery } from "@/features/User-Management/studentApi";
+import {
+  useUpdateStudentsMutation,
+  useGetStudentByIdUpdateQuery,
+} from "@/features/User-Management/studentApi";
 import {
   useGetAllNationalitysQuery,
-  useGetAllReginionIDQuery
+  useGetAllReginionIDQuery,
 } from "@/features/signupApi";
 import { useForm, Controller } from "react-hook-form";
 import { useSelector } from "react-redux";
@@ -39,7 +42,9 @@ const EditStudent = ({ params }: { params: Params }) => {
     },
   ];
 
-  const {data, isLoading: isStudent} = useGetStudentByIdUpdateQuery(params.studentId)
+  const { data, isLoading: isStudent } = useGetStudentByIdUpdateQuery(
+    params.studentId,
+  );
 
   const { language: currentLanguage, loading } = useSelector(
     (state: RootState) => state.language,
@@ -73,27 +78,27 @@ const EditStudent = ({ params }: { params: Params }) => {
   useEffect(() => {
     if (data?.data) {
       const studentData = data.data;
-      
+
       // Set each form field with the corresponding value
-      setValue('email', studentData.email);
-      setValue('nid', studentData.nid);
-      setValue('about', studentData.about);
-      setValue('gender', studentData.gender);
-      setValue('nationality', studentData.nationality);
-      setValue('birthDate', studentData.birthDate);
-      setValue('regionId', studentData.regionId);
-      setValue('graduated', studentData.graduated.toString());
-      setValue('name_en', studentData.name_en);
-      setValue('name_ar', studentData.name_ar);
-      setValue('name_fr', studentData.name_fr);
+      setValue("email", studentData.email);
+      setValue("nid", studentData.nid);
+      setValue("about", studentData.about);
+      setValue("gender", studentData.gender);
+      setValue("nationality", studentData.nationality);
+      setValue("birthDate", studentData.birthDate);
+      setValue("regionId", studentData.regionId);
+      setValue("graduated", studentData.graduated.toString());
+      setValue("name_en", studentData.name_en);
+      setValue("name_ar", studentData.name_ar);
+      setValue("name_fr", studentData.name_fr);
     }
   }, [data, setValue]);
 
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const [updateSudent, { isLoading }] = useUpdateStudentsMutation();
-  
+
   const onSubmit = async (data: any) => {
-    const formData = { ...data, religion: "OTHERS" }
+    const formData = { ...data, religion: "OTHERS" };
     try {
       await updateSudent({ id: params.studentId, formData: formData }).unwrap();
       toast.success("Student Updated successfully");
@@ -114,14 +119,15 @@ const EditStudent = ({ params }: { params: Params }) => {
 
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`${currentLanguage === "ar"
+        className={`${
+          currentLanguage === "ar"
             ? booleanValue
               ? "lg:mr-[100px]"
               : "lg:mr-[270px]"
             : booleanValue
               ? "lg:ml-[100px]"
               : "lg:ml-[270px]"
-          } mx-3 mt-5 grid h-[850px] items-center justify-center`}
+        } mx-3 mt-5 grid h-[850px] items-center justify-center`}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="my-10 grid items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:w-[1000px]">
@@ -436,9 +442,9 @@ const EditStudent = ({ params }: { params: Params }) => {
                         age > 6 ||
                         (age === 6 &&
                           today >=
-                          new Date(
-                            birthDate.setFullYear(today.getFullYear()),
-                          ));
+                            new Date(
+                              birthDate.setFullYear(today.getFullYear()),
+                            ));
                       return isOlderThanSix;
                     },
                   })}

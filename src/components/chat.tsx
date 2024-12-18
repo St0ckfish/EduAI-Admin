@@ -23,17 +23,32 @@ interface ChatPageProps {
 }
 
 const ChatPage = ({ userId, regetusers, userName }: ChatPageProps) => {
-
   function extractDayNameMonthName(datetimeString: string): string {
     const date = new Date(datetimeString);
 
     // Arrays of day and month names
     const dayNames = [
-        'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
     ];
     const monthNames = [
-        'January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November', 'December'
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
     ];
 
     // Extracting day name and month name
@@ -41,14 +56,14 @@ const ChatPage = ({ userId, regetusers, userName }: ChatPageProps) => {
     const monthName = monthNames[date.getMonth()];
 
     // Extracting day of the month
-    const day = String(date.getDate()).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, "0");
 
     // Extracting time part from the datetime string
-    const timePart = datetimeString.split('T')[1].split('.')[0]; // Handles possible milliseconds
+    const timePart = datetimeString.split("T")[1].split(".")[0]; // Handles possible milliseconds
 
     // Constructing the result string
     return `${dayName}, ${monthName} ${day} ${timePart}`;
-}
+  }
 
   const chatEndRef = useRef<HTMLDivElement | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -56,16 +71,17 @@ const ChatPage = ({ userId, regetusers, userName }: ChatPageProps) => {
   const [imageFile, setImageFile] = useState<File | null>(null);
 
   const token = Cookies.get("token");
-  const { data: messagesData, isLoading, error } = useGetChatMessagesQuery(
-    userId!,
-    {
-      skip: userId === null,
-    }
-  );
+  const {
+    data: messagesData,
+    isLoading,
+    error,
+  } = useGetChatMessagesQuery(userId!, {
+    skip: userId === null,
+  });
 
   // Get current user's username from Redux store
   const currentUserName = useSelector(
-    (state: RootState) => state.user.name || "Unknown User"
+    (state: RootState) => state.user.name || "Unknown User",
   );
 
   // WebSocket connection reference
@@ -105,18 +121,16 @@ const ChatPage = ({ userId, regetusers, userName }: ChatPageProps) => {
       stompClient.subscribe(`/direct-chat/${userId}`, (message: IMessage) => {
         try {
           const newMessage: Message = JSON.parse(message.body);
-          
+
           // Add message using functional update to ensure no duplicates
-          setMessages((prevMessages) => {
+          setMessages(prevMessages => {
             // Check if message already exists by its unique identifier
             const messageExists = prevMessages.some(
-              (msg) => msg.id === newMessage.id
+              msg => msg.id === newMessage.id,
             );
-            
+
             // Only add if not already in the list
-            return messageExists 
-              ? prevMessages 
-              : [...prevMessages, newMessage];
+            return messageExists ? prevMessages : [...prevMessages, newMessage];
           });
         } catch (parseError) {
           console.error("Error parsing incoming message:", parseError);
@@ -125,13 +139,13 @@ const ChatPage = ({ userId, regetusers, userName }: ChatPageProps) => {
     };
 
     // Error handling
-    stompClient.onStompError = (frame) => {
+    stompClient.onStompError = frame => {
       console.error("Broker reported error:", frame.headers["message"]);
       console.error("Details:", frame.body);
       toast.error("Chat connection error");
     };
 
-    stompClient.onWebSocketError = (event) => {
+    stompClient.onWebSocketError = event => {
       console.error("WebSocket connection error:", event);
       toast.error("Unable to establish chat connection");
     };
@@ -188,7 +202,7 @@ const ChatPage = ({ userId, regetusers, userName }: ChatPageProps) => {
     const messagePayload = {
       chatId: userId,
       content: input.trim(),
-      ...(imageFile ? { imageUrl: URL.createObjectURL(imageFile) } : {})
+      ...(imageFile ? { imageUrl: URL.createObjectURL(imageFile) } : {}),
     };
 
     try {
@@ -226,22 +240,26 @@ const ChatPage = ({ userId, regetusers, userName }: ChatPageProps) => {
         {messages.map((msg, idx) => (
           <div
             key={`${msg.id}-${idx}`}
-            className={`mb-4 grid w-[320px] rounded-lg p-3 font-semibold text-balance break-words ${
+            className={`mb-4 grid w-[320px] text-balance break-words rounded-lg p-3 font-semibold ${
               msg.creatorName !== currentUserName
                 ? "mr-auto bg-[#5570f1] text-left text-white"
                 : "ml-auto bg-chat text-right text-black"
             }`}
           >
             <p className="font-light text-gray-800">
-              {msg.creatorName !== currentUserName ? `${userName}` : `${currentUserName}`}
+              {msg.creatorName !== currentUserName
+                ? `${userName}`
+                : `${currentUserName}`}
             </p>
-            <p className="break-words w-[300px]">{msg.content}</p>
-            <p className="break-words text-sm text-start font-light text-gray-800">{extractDayNameMonthName(msg.creationTime)}</p>
+            <p className="w-[300px] break-words">{msg.content}</p>
+            <p className="break-words text-start text-sm font-light text-gray-800">
+              {extractDayNameMonthName(msg.creationTime)}
+            </p>
             {msg.imageUrl && (
-              <img 
-                src={msg.imageUrl} 
-                alt="Attached" 
-                className="mt-2 max-w-full rounded-lg" 
+              <img
+                src={msg.imageUrl}
+                alt="Attached"
+                className="mt-2 max-w-full rounded-lg"
               />
             )}
           </div>
@@ -285,9 +303,9 @@ const ChatPage = ({ userId, regetusers, userName }: ChatPageProps) => {
           className="flex-1 rounded-lg p-2 focus:outline-none"
           value={input}
           placeholder="Type your message..."
-          onChange={(e) => setInput(e.target.value)}
-          onKeyPress={(e) => {
-            if (e.key === 'Enter') {
+          onChange={e => setInput(e.target.value)}
+          onKeyPress={e => {
+            if (e.key === "Enter") {
               handleSendMessage();
             }
           }}

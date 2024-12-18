@@ -382,8 +382,8 @@ const UpdateEvent = ({ params }: Props) => {
                       : "Active"}
                 <select
                   id="active"
-                  {...register("active", { 
-                    setValueAs: (value) => Number(value) // Convert to number
+                  {...register("active", {
+                    setValueAs: value => Number(value), // Convert to number
                   })}
                   className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                 >

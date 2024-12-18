@@ -103,7 +103,10 @@ const EditDriver: React.FC<ViewDriverProps> = ({ params }) => {
       setValue("birthDate", data.data.birthDate || undefined);
       setValue("salary", data.data.salary || 0);
       setValue("employeeStatus", data.data.enabled ? "ACTIVE" : "ON_BREAK");
-      setValue("employeeType", data.data.role === "Employee" ? "EMPLOYEE" : "DRIVER");
+      setValue(
+        "employeeType",
+        data.data.role === "Employee" ? "EMPLOYEE" : "DRIVER",
+      );
     }
     if (error) {
       console.error("Error:", error);
@@ -111,7 +114,7 @@ const EditDriver: React.FC<ViewDriverProps> = ({ params }) => {
   }, [data, error]);
 
   const onSubmit = async (data: any) => {
-    const formData = {...data, religion: "OTHERS"}
+    const formData = { ...data, religion: "OTHERS" };
     try {
       await createDriver({ formData: formData, id: params.driverId }).unwrap();
       toast.success(

@@ -26,7 +26,7 @@ const NavBar = () => {
   const { language: currentLanguage, loading } = useSelector(
     (state: RootState) => state.language,
   );
-  const {data, isLoading} = useGetSchoolLogoQuery(null);
+  const { data, isLoading } = useGetSchoolLogoQuery(null);
   const dispatchLang = useDispatch();
   useEffect(() => {
     dispatchLang(initializeLanguage());
@@ -119,8 +119,6 @@ const NavBar = () => {
         : { width: undefined, height: undefined },
     );
 
-    
-
     useEffect(() => {
       if (!isClient) {
         return;
@@ -184,9 +182,15 @@ const NavBar = () => {
                   href="/"
                   aria-label="Preline"
                 >
-                  {isLoading ? <p></p> :
-                  <img src={data?.data?.logoLink} alt="#" className="h-[60px] w-[100px]" />
-                   }
+                  {isLoading ? (
+                    <p></p>
+                  ) : (
+                    <img
+                      src={data?.data?.logoLink}
+                      alt="#"
+                      className="h-[60px] w-[100px]"
+                    />
+                  )}
                 </Link>
               </div>
 

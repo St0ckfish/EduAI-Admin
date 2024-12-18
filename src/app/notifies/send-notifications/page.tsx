@@ -41,9 +41,9 @@ const SendNotifications = () => {
   const roleOptions = [
     "SUPER_ADMIN",
     "ADMIN",
-    "TEACHER", 
-    "STUDENT", 
-    "PARENT", 
+    "TEACHER",
+    "STUDENT",
+    "PARENT",
     "EMPLOYEE",
   ];
 
@@ -62,7 +62,7 @@ const SendNotifications = () => {
   const handleAllRolesChange = () => {
     const newIsAllRolesChecked = !isAllRolesChecked;
     setIsAllRolesChecked(newIsAllRolesChecked);
-    
+
     if (newIsAllRolesChecked) {
       // Select all roles
       setRoles([...roleOptions]);
@@ -127,7 +127,7 @@ const SendNotifications = () => {
                 ? "Tous les rôles"
                 : "All Roles"}
           </label>
-          
+
           {roleOptions.map(role => (
             <label
               key={role}

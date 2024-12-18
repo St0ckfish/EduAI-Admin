@@ -123,46 +123,45 @@ const CourseManagement = () => {
           </div>
         </div>
         <div className="grid gap-3 p-3 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-        {data?.data.content
-  .filter((course: Course) => {
-    // Convert both search term and course name to lowercase for case-insensitive comparison
-    const searchTerm = search.toLowerCase();
-    const courseName = course.name.toLowerCase();
-    
-    // Return all courses if search is empty, otherwise check if course name includes search term
-    return search.trim() === "" 
-      ? course 
-      : courseName.includes(searchTerm);
-  })
-  .map((course: Course, index: number) => (
-    <div
-      key={course.id}
-      className="grid gap-2 rounded-lg bg-bgPrimary p-2"
-    >
-      <div className="grid h-[220px] rounded-xl bg-[#f4bd0e] p-2 text-[25px] font-bold text-textPrimary">
-        <div className="flex justify-end text-end">
-        </div>
-        <div className="items-staet mb-6 flex justify-center text-center">
-          <h1>{course.name}</h1>
-        </div>
-      </div>
-      <div className="grid gap-2 font-semibold">
-        <h1>{course.level}</h1>
-        <h1>{course.code}</h1>
-        <p className="text-[12px] text-secondary">
-          {course.description}{" "}
-        </p>
-      </div>
-      <div className="flex items-center gap-2 font-semibold">
-        <img
-          src="/images/userr.png"
-          className="mx-2 h-[40px] w-[40px] rounded-full"
-          alt="#"
-        />
-        {course.eduSystemName}
-      </div>
-    </div>
-  ))}
+          {data?.data.content
+            .filter((course: Course) => {
+              // Convert both search term and course name to lowercase for case-insensitive comparison
+              const searchTerm = search.toLowerCase();
+              const courseName = course.name.toLowerCase();
+
+              // Return all courses if search is empty, otherwise check if course name includes search term
+              return search.trim() === ""
+                ? course
+                : courseName.includes(searchTerm);
+            })
+            .map((course: Course, index: number) => (
+              <div
+                key={course.id}
+                className="grid gap-2 rounded-lg bg-bgPrimary p-2"
+              >
+                <div className="grid h-[220px] rounded-xl bg-[#f4bd0e] p-2 text-[25px] font-bold text-textPrimary">
+                  <div className="flex justify-end text-end"></div>
+                  <div className="items-staet mb-6 flex justify-center text-center">
+                    <h1>{course.name}</h1>
+                  </div>
+                </div>
+                <div className="grid gap-2 font-semibold">
+                  <h1>{course.level}</h1>
+                  <h1>{course.code}</h1>
+                  <p className="text-[12px] text-secondary">
+                    {course.description}{" "}
+                  </p>
+                </div>
+                <div className="flex items-center gap-2 font-semibold">
+                  <img
+                    src="/images/userr.png"
+                    className="mx-2 h-[40px] w-[40px] rounded-full"
+                    alt="#"
+                  />
+                  {course.eduSystemName}
+                </div>
+              </div>
+            ))}
         </div>
       </div>
     </>
