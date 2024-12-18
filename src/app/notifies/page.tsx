@@ -13,8 +13,13 @@ import BreadCrumbs from "@/components/BreadCrumbs";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import Pagination from "@/components/pagination";
+import { useNotificationsSocket } from "@/hooks/useGetAllNotifications";
+
 
 const Notifies = () => {
+  const userId = useSelector((state: RootState) => state.user.id);
+  const { notifications: socketNotifications, isConnected } = useNotificationsSocket(userId);
+  
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const breadcrumbs = [
     {
@@ -30,6 +35,7 @@ const Notifies = () => {
       href: "/notifies",
     },
   ];
+  
   const formatTransactionDate = (dateString: string | number | Date) => {
     if (!dateString) return "No transaction date";
     const formatter = new Intl.DateTimeFormat("en-EG", {
@@ -41,37 +47,47 @@ const Notifies = () => {
     });
     return formatter.format(new Date(dateString));
   };
+  
   const [currentPage, setCurrentPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const { data, error, isLoading, refetch } = useGetAllNotificationsQuery({ 
+  
+  const { 
+    data, 
+    error, 
+    isLoading, 
+    refetch 
+  } = useGetAllNotificationsQuery({ 
     page: currentPage,
     size: rowsPerPage,
   });
-    const onPageChange = (page: SetStateAction<number>) => {
-      setCurrentPage(page);
-    };
-    const onElementChange = (ele: SetStateAction<number>) => {
-      setRowsPerPage(ele);
-      setCurrentPage(0);
-    };
-  type Notifi = Record<string, any>;
-  useEffect(() => {
-    if (data) console.log("Response Data:", data);
-    if (error) console.log("Error:", error);
-  }, [data, error]);
+
+  // Combine fetched and socket notifications
+  const combinedNotifications = [
+    ...(socketNotifications || []),
+    ...(data?.data.content || [])
+  ];
+
+  const onPageChange = (page: SetStateAction<number>) => {
+    setCurrentPage(page);
+  };
+  
+  const onElementChange = (ele: SetStateAction<number>) => {
+    setRowsPerPage(ele);
+    setCurrentPage(0);
+  };
 
   const [readNotifi] = usePutNotifiReadMutation();
+  const [deleteNotifi] = useDeleteNotificationMutation();
 
   const handleRead = async (id: string) => {
     try {
       await readNotifi(id).unwrap();
-      toast.success(`Notification readed`);
+      toast.success(`Notification read`);
       void refetch();
     } catch (err) {
       toast.error("Failed to Read Notification");
     }
   };
-  const [deleteNotifi] = useDeleteNotificationMutation();
 
   const handleDelete = async (id: string) => {
     try {
@@ -114,7 +130,6 @@ const Notifies = () => {
             href="/notifies/send-notifications"
             className="mx-3 mb-5 flex items-center gap-2 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
           >
-            {" "}
             <svg
               className="h-7 w-7 text-white"
               viewBox="0 0 24 24"
@@ -124,7 +139,6 @@ const Notifies = () => {
               strokeLinecap="round"
               strokeLinejoin="round"
             >
-              {" "}
               <polygon points="3 11 22 2 13 21 11 13 3 11" />
             </svg>
             {currentLanguage === "ar"
@@ -145,9 +159,9 @@ const Notifies = () => {
             </h1>
           </div>
 
-          {data?.data.content.map((notifi: Notifi, index: number) => (
+          {combinedNotifications.map((notifi: any, index: number) => (
             <div
-              key={index}
+              key={`${notifi.id}-${index}`}
               className={`flex gap-2 ${notifi.read ? "bg-bgPrimary" : "bg-thead"} h-full w-[1000px] rounded-lg p-3 shadow-xl max-[1340px]:w-[700px] max-[1040px]:w-[500px] max-[550px]:w-[300px]`}
             >
               <div>
@@ -237,7 +251,6 @@ const Notifies = () => {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     >
-                      {" "}
                       <path stroke="none" d="M0 0h24v24H0z" />{" "}
                       <line x1="18" y1="6" x2="6" y2="18" />{" "}
                       <line x1="6" y1="6" x2="18" y2="18" />
@@ -248,12 +261,12 @@ const Notifies = () => {
             </div>
           ))}
           <div className="relative overflow-auto">
-          <Pagination
-            totalPages={data?.data.totalPagesCount}
-            elementsPerPage={rowsPerPage}
-            onChangeElementsPerPage={onElementChange}
-            currentPage={currentPage}
-            onChangePage={onPageChange}
+            <Pagination
+              totalPages={data?.data.totalPagesCount}
+              elementsPerPage={rowsPerPage}
+              onChangeElementsPerPage={onElementChange}
+              currentPage={currentPage}
+              onChangePage={onPageChange}
           />
         </div>
         </div>

@@ -56,10 +56,6 @@ const Student = () => {
     setCurrentPage(0);
   };
 
-  useEffect(() => {
-    if (data) console.log("Response Data:", data);
-    if (error) console.log("Error:", error);
-  }, [data, error]);
   const [deleteStudents] = useDeleteStudentsMutation();
 
   const handleDelete = async (id: string) => {

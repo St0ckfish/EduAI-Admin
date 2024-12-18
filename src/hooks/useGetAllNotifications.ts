@@ -3,23 +3,37 @@ import { Client, IMessage } from '@stomp/stompjs';
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 
-interface NotificationsHookResult {
-  notificationsCount: number;
-  isConnected: boolean;
+interface Notification {
+  id: string;
+  title: string;
+  description: string;
+  timestamp: string;
+  read: boolean;
+  picture?: string;
 }
 
-export const useNotificationsWebSocket = (userId: string | null): NotificationsHookResult => {
-  const [notificationsCount, setNotificationsCount] = useState<number>(0);
+interface NotificationsSocketHookResult {
+  notifications: Notification[];
+  isConnected: boolean;
+  resetNotifications: () => void;
+}
+
+export const useNotificationsSocket = (userId: string | null) => {
+  const [notifications, setNotifications] = useState<Notification[]>([]);
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const stompClientRef = useRef<Client | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const previousCountRef = useRef<number>(0);
 
-  // Preload the notification sound
+  // Preload notification sound
   useEffect(() => {
-    audioRef.current = new Audio('/sounds/notifi.mp3'); // Ensure this path is correct in your public folder
+    audioRef.current = new Audio('/notifi.mp3');
     audioRef.current.preload = 'auto';
   }, []);
+
+  // Reset notifications method
+  const resetNotifications = () => {
+    setNotifications([]);
+  };
 
   useEffect(() => {
     // Validate token and userId before connection
@@ -44,30 +58,30 @@ export const useNotificationsWebSocket = (userId: string | null): NotificationsH
       console.log('WebSocket Notifications Connected Successfully');
       setIsConnected(true);
 
-      // Subscribe to user-specific notifications count channel
-      stompClient.subscribe(`/user/${userId}/notifications-count`, (message: IMessage) => {
+      // Subscribe to user-specific notifications channel
+      stompClient.subscribe(`/user/${userId}/notifications`, (message: IMessage) => {
         try {
-          // Parse the notification count from the message
-          const count = parseInt(message.body, 10);
+          // Parse the notification from the message
+          const newNotification: Notification = JSON.parse(message.body);
           
-          // Check if count has increased
-          if (count > previousCountRef.current) {
-            // Play notification sound
-            if (audioRef.current) {
-              audioRef.current.play().catch(error => {
-                console.error('Error playing notification sound:', error);
-              });
-            }
+          // Play notification sound
+          if (audioRef.current) {
+            audioRef.current.play().catch(error => {
+              console.error('Error playing notification sound:', error);
+            });
           }
 
-          // Update notifications count, ensuring it's not negative
-          setNotificationsCount(Math.max(0, count));
-          
-          // Update previous count reference
-          previousCountRef.current = count;
+          // Update notifications state
+          setNotifications(prevNotifications => {
+            // Check if notification already exists to prevent duplicates
+            const exists = prevNotifications.some(n => n.id === newNotification.id);
+            return exists 
+              ? prevNotifications 
+              : [newNotification, ...prevNotifications];
+          });
         } catch (parseError) {
-          console.error('Error parsing notifications count:', parseError);
-          toast.error('Failed to process notifications');
+          console.error('Error parsing notification:', parseError);
+          toast.error('Failed to process notification');
         }
       });
     };
@@ -99,7 +113,8 @@ export const useNotificationsWebSocket = (userId: string | null): NotificationsH
   }, [userId]);
 
   return {
-    notificationsCount,
-    isConnected
+    notifications,
+    isConnected,
+    resetNotifications
   };
 };
