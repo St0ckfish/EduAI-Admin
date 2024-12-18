@@ -7,11 +7,12 @@ import {
   useDeleteNotificationMutation,
 } from "@/features/communication/notficationsApi";
 import Spinner from "@/components/spinner";
-import { useEffect } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
+import Pagination from "@/components/pagination";
 
 const Notifies = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
@@ -40,8 +41,19 @@ const Notifies = () => {
     });
     return formatter.format(new Date(dateString));
   };
-
-  const { data, error, isLoading, refetch } = useGetAllNotificationsQuery(null);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const { data, error, isLoading, refetch } = useGetAllNotificationsQuery({ 
+    page: currentPage,
+    size: rowsPerPage,
+  });
+    const onPageChange = (page: SetStateAction<number>) => {
+      setCurrentPage(page);
+    };
+    const onElementChange = (ele: SetStateAction<number>) => {
+      setRowsPerPage(ele);
+      setCurrentPage(0);
+    };
   type Notifi = Record<string, any>;
   useEffect(() => {
     if (data) console.log("Response Data:", data);
@@ -235,6 +247,15 @@ const Notifies = () => {
               </div>
             </div>
           ))}
+          <div className="relative overflow-auto">
+          <Pagination
+            totalPages={data?.data.totalPagesCount}
+            elementsPerPage={rowsPerPage}
+            onChangeElementsPerPage={onElementChange}
+            currentPage={currentPage}
+            onChangePage={onPageChange}
+          />
+        </div>
         </div>
       </div>
     </>

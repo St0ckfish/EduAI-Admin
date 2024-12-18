@@ -1,19 +1,19 @@
 "use client";
-import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
-import {
-  useGetAllChatsQuery,
-  useCreateNewChatMutation,
-  useDeleteChatMutation,
-} from "@/features/chat/chatApi";
-import Spinner from "@/components/spinner";
 import Modal from "@/components/model";
 import SearchableSelect from "@/components/select";
-import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
+import Spinner from "@/components/spinner";
 import { useGetAllUsersChatQuery } from "@/features/User-Management/teacherApi";
+import {
+  useCreateNewChatMutation,
+  useDeleteChatMutation,
+  useGetAllChatsQuery,
+} from "@/features/chat/chatApi";
+import dynamic from "next/dynamic";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const ChatPage = dynamic(() => import("@/components/chat"), { ssr: false });
 const Chat = () => {

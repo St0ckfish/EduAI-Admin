@@ -21,6 +21,7 @@ import { FiSun, FiMoon } from "react-icons/fi";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import { setUser } from "@/features/userSlice";
 import { useGetSchoolLogoQuery } from "@/features/events/eventsApi";
+import { useNotificationsWebSocket } from "@/hooks/useNotifications";
 
 const NavBar = () => {
   const { language: currentLanguage, loading } = useSelector(
@@ -64,6 +65,11 @@ const NavBar = () => {
       id: userData?.data?.id,
     }),
   );
+
+  const userId = useSelector((state: RootState) => state.user?.id) || null;
+console.log(userId);
+
+  const { notificationsCount, isConnected } = useNotificationsWebSocket(userId);
 
   const [pathname, setPathname] = useState("");
   const [small, setSmall] = useState(false);
@@ -242,7 +248,7 @@ const NavBar = () => {
                   )}
                   <Link
                     href="/notifies"
-                    className="inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-textPrimary hover:bg-bgSecondary disabled:pointer-events-none disabled:opacity-50"
+                    className="relative inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-textPrimary hover:bg-bgSecondary disabled:pointer-events-none disabled:opacity-50"
                   >
                     <svg
                       className="size-4 flex-shrink-0"
@@ -259,6 +265,13 @@ const NavBar = () => {
                       <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
                       <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
                     </svg>
+                    {isConnected && (
+        <div className="absolute top-4 left-5 bg-sky-500 text-white w-4 h-4 rounded-full flex justify-center items-center text-center text-sm">
+          {notificationsCount > 0 && (
+            <span>{notificationsCount}</span>
+          )}
+        </div>
+      )}
                   </Link>
                   <Link
                     href="/chat"
