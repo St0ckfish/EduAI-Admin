@@ -108,9 +108,7 @@ const EditDriver: React.FC<ViewDriverProps> = ({ params }) => {
         data.data.role === "Employee" ? "EMPLOYEE" : "DRIVER",
       );
     }
-    if (error) {
-      console.error("Error:", error);
-    }
+
   }, [data, error]);
 
   const onSubmit = async (data: any) => {

@@ -90,26 +90,7 @@ const Dashboard: React.FC = () => {
     refetch,
   } = useGetNoticesQuery(null);
   const [createEvent] = useCreateEventsMutation();
-  useEffect(() => {
-    if (students || employees || teachers || workers || mettings) {
-      console.log(teachers);
-      console.log(employees);
-      console.log(students);
-      console.log(workers);
-      console.log(mettings);
-    }
-  }, [
-    router,
-    students,
-    employees,
-    teachers,
-    workers,
-    err1,
-    err2,
-    err3,
-    err4,
-    mettings,
-  ]);
+  
 
   const {
     register,
@@ -184,12 +165,10 @@ const Dashboard: React.FC = () => {
       }
 
       const result = await createEvent(formDataToSend).unwrap();
-      console.log("Event created:", result);
       toast.success("Event created success");
       handleCloseModal();
     } catch (error) {
       toast.error("Fiald Create Event");
-      console.error("Failed to create event:", error);
     }
   };
   const [deleteEvent] = useDeleteNoteMutation();

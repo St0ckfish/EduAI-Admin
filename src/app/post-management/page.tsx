@@ -49,10 +49,7 @@ const PostManagment = () => {
     setFilteredCount(filtered.length);
   }, [search, data?.data.content]);
 
-  useEffect(() => {
-    if (data) console.log("Response Data:", data);
-    if (error) console.log("Error:", error);
-  }, [data, error]);
+
 
   const handleSelectAll = () => {
     setSelectAll(!selectAll);

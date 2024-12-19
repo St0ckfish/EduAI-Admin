@@ -48,7 +48,7 @@ const Chat = () => {
   const { data, isLoading, refetch: regetusers } = useGetAllChatsQuery(null);
   const [deleteChat] = useDeleteChatMutation();
 
-  console.log(userName);
+
 
   const handleDelete = async (id: string) => {
     try {

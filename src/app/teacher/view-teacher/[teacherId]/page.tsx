@@ -22,14 +22,6 @@ const ViewTeacher: React.FC<ViewTeacherProps> = ({ params }) => {
 
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
 
-  useEffect(() => {
-    if (data) {
-      console.log(data);
-    }
-    if (error) {
-      console.error("Error:", error);
-    }
-  }, [data, error]);
 
   const { language: currentLanguage, loading } = useSelector(
     (state: RootState) => state.language,

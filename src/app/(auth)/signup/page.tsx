@@ -135,10 +135,8 @@ const Signup = () => {
 
   useEffect(() => {
     if (nationalityData) {
-      console.log("Response Data:", nationalityData);
     }
     if (nationalityError) {
-      console.log("Error:", nationalityError);
     }
   }, [nationalityData, nationalityError]);
 
@@ -146,7 +144,6 @@ const Signup = () => {
     const formData = { ...data, religion: "OTHERS" };
     try {
       const result = await loginDashboard(formData).unwrap();
-      console.log("Account created successfully:", result);
       toast.success(
         currentLanguage === "ar"
           ? "تم إنشاء الحساب بنجاح"
@@ -157,7 +154,6 @@ const Signup = () => {
       router.push("/confirm-account");
     } catch (err: any) {
       setErrorMessage(err.data.data);
-      console.log(errorMessage);
 
       toast.error(
         currentLanguage === "ar"
@@ -166,7 +162,6 @@ const Signup = () => {
             ? "Échec de la création du compte"
             : "Failed to create account",
       );
-      console.error("Failed to create account:", err);
     }
   };
   const [username, setUsername] = useState<string>("");
