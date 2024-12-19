@@ -7,7 +7,6 @@ import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { MessageBubble } from "./MessageBubble";
-import Link from "next/link";
 
 interface Message {
   chatId: number | string;
@@ -18,7 +17,7 @@ interface Message {
   imageUrl?: string;
 }
 
-// Emoji Picker Component
+
 const EmojiPicker = ({ onEmojiSelect, onClose }: { onEmojiSelect: (emoji: string) => void; onClose: () => void }) => {
   const emojis = [
     "😊", "😂", "🥰", "😍", "😎", "😢", "😭", "😤", "😡",
@@ -33,9 +32,7 @@ const EmojiPicker = ({ onEmojiSelect, onClose }: { onEmojiSelect: (emoji: string
         {emojis.map((emoji, index) => (
           <button
             key={index}
-            onClick={() => {
-              onEmojiSelect(emoji);
-            }}
+            onClick={() => onEmojiSelect(emoji)} // Removed onClose call here
             className="text-2xl hover:bg-gray-100 dark:hover:bg-gray-700 p-1 rounded"
           >
             {emoji}
@@ -45,8 +42,7 @@ const EmojiPicker = ({ onEmojiSelect, onClose }: { onEmojiSelect: (emoji: string
     </div>
   );
 };
-
-// Date separator component remains the same
+// Date separator component
 const DateSeparator = ({ date }: { date: string }) => (
   <div className="my-4 flex items-center">
     <div className="flex-1 border-t border-gray-300"></div>
@@ -69,6 +65,19 @@ const ChatPage = ({ userId, regetusers, userName }: ChatPageProps) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
+const handleEmojiSelect = (emoji: string) => {
+    setInput(prev => prev + emoji);
+  };
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (showEmojiPicker && !(event.target as Element).closest('.emoji-picker-container')) {
+        setShowEmojiPicker(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showEmojiPicker]);
   const token = Cookies.get("token");
   const { data: messagesData, isLoading, error } = useGetChatMessagesQuery(userId!, {
     skip: userId === null,
@@ -102,19 +111,12 @@ const ChatPage = ({ userId, regetusers, userName }: ChatPageProps) => {
     return groups;
   };
 
-  // Handle emoji selection
-  const handleEmojiSelect = (emoji: string) => {
-    setInput(prev => prev + emoji);
-  };
-
-  // Previous useEffects remain the same
   useEffect(() => {
     if (messagesData) {
       setMessages(messagesData);
     }
   }, [messagesData]);
 
-  // WebSocket connection useEffect remains the same...
   useEffect(() => {
     if (!token || !userId) {
       toast.error("Authentication required to start chat");
@@ -131,7 +133,32 @@ const ChatPage = ({ userId, regetusers, userName }: ChatPageProps) => {
       heartbeatOutgoing: 4000,
     });
 
-    // ... rest of the WebSocket setup remains the same
+    stompClient.onConnect = () => {
+      console.log("WebSocket Connected Successfully");
+      stompClient.subscribe(`/direct-chat/${userId}`, (message: IMessage) => {
+        try {
+          const newMessage: Message = JSON.parse(message.body);
+          setMessages(prevMessages => {
+            const messageExists = prevMessages.some(msg => msg.id === newMessage.id);
+            return messageExists ? prevMessages : [...prevMessages, newMessage];
+          });
+        } catch (parseError) {
+          console.error("Error parsing incoming message:", parseError);
+        }
+      });
+    };
+
+    stompClient.onStompError = frame => {
+      console.error("Broker reported error:", frame.headers["message"]);
+      toast.error("Chat connection error");
+    };
+
+    stompClient.onWebSocketError = event => {
+      console.error("WebSocket connection error:", event);
+      toast.error("Unable to establish chat connection");
+    };
+
+    stompClient.activate();
     stompClientRef.current = stompClient;
 
     return () => {
@@ -140,7 +167,6 @@ const ChatPage = ({ userId, regetusers, userName }: ChatPageProps) => {
     };
   }, [token, userId]);
 
-  // Previous handlers remain the same...
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
@@ -158,6 +184,7 @@ const ChatPage = ({ userId, regetusers, userName }: ChatPageProps) => {
       }
 
       setImageFile(file);
+      // Create preview URL
       const previewUrl = URL.createObjectURL(file);
       setImagePreview(previewUrl);
     }
@@ -204,31 +231,13 @@ const ChatPage = ({ userId, regetusers, userName }: ChatPageProps) => {
   };
 
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: "auto" });
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   const groupedMessages = groupMessagesByDate(messages);
 
-  // Close emoji picker when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (showEmojiPicker && !(event.target as Element).closest('.emoji-picker-container')) {
-        setShowEmojiPicker(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [showEmojiPicker]);
-
   return (
     <div className="mx-auto flex h-[700px] w-full flex-col rounded-xl bg-bgPrimary">
-      {/* <div className="relative inline-block p-4">
-        <img className="w-10 h-10 rounded-lg" src="/images/man.png" alt="Jese image" />
-        <Link href="/" className="underline absolute right-4 top-4">
-          View Profile
-        </Link>
-      </div> */}
       <div className="flex-1 overflow-y-auto break-words rounded-xl bg-bgPrimary p-4">
         {isLoading && (
           <div className="flex h-full items-center justify-center">
@@ -287,32 +296,30 @@ const ChatPage = ({ userId, regetusers, userName }: ChatPageProps) => {
         )}
         
         <div className="flex items-center justify-between gap-5 rounded-xl border border-borderPrimary bg-bgPrimary px-4 py-1">
-          <div className="flex items-center gap-2">
-            <div className="grid items-center justify-center">
-              <label className="relative inline-flex cursor-pointer items-center">
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageChange}
-                  className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
-                />
-                <svg
-                  className="h-6 w-6 cursor-pointer"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                  <circle cx="8.5" cy="8.5" r="1.5" />
-                  <polyline points="21 15 16 10 5 21" />
-                </svg>
-              </label>
-            </div>
-            
-            <div className="emoji-picker-container relative">
+          <div className="grid items-center justify-center">
+            <label className="relative inline-flex cursor-pointer items-center">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+              />
+              <svg
+                className="h-6 w-6 cursor-pointer"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                <circle cx="8.5" cy="8.5" r="1.5" />
+                <polyline points="21 15 16 10 5 21" />
+              </svg>
+            </label>
+          </div>
+          <div className="emoji-picker-container relative">
               <button
                 onClick={() => setShowEmojiPicker(!showEmojiPicker)}
                 className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full"
@@ -331,7 +338,6 @@ const ChatPage = ({ userId, regetusers, userName }: ChatPageProps) => {
                 />
               )}
             </div>
-          </div>
 
           <input
             type="text"
