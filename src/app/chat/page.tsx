@@ -17,11 +17,27 @@ import { toast } from "react-toastify";
 
 const ChatPage = dynamic(() => import("@/components/chat"), { ssr: false });
 const Chat = () => {
+  const breadcrumbs = [
+    {
+      nameEn: "Communication",
+      nameAr: "التواصل",
+      nameFr: "Communication",
+      href: "/",
+    },
+    {
+      nameEn: "Reported Chat",
+      nameAr: "الإبلاغات",
+      nameFr: "Discussion signalée",
+      href: "/chat",
+    },
+  ];
+
   const [search, setSearch] = useState("");
   const [userId, setUserId] = useState("");
   const [userName, setUserNane] = useState("");
   const [createChat] = useCreateNewChatMutation();
   const { data: users, isLoading: isGetting } = useGetAllUsersChatQuery(null);
+  console.log("👾 ~ Chat ~ users:", users)
   const [isModalOpen, setModalOpen] = useState(false);
   const [isModalOpen2, setModalOpen2] = useState(false);
   const optionsRigon =

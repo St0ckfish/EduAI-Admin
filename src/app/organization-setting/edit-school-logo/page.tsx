@@ -17,10 +17,16 @@ const EditSchool = () => {
       href: "/",
     },
     {
+      nameEn: "Organization Settings",
+      nameAr: "إعدادات المنظمة",
+      nameFr: "Paramètres org",
+      href: "/organization-setting",
+    },
+    {
       nameEn: "Edit School Logo",
-      nameAr: "إضافة كتاب جديد",
-      nameFr: "Ajouter un nouveau livre",
-      href: "/edit-school-logo",
+      nameAr:  "تعديل شعار المدرسة",
+      nameFr: "Modifier le logo de l'école",
+      href: "/organization-setting/edit-school-logo",
     },
   ];
   const [logo, setLogo] = useState<File | null>(null);

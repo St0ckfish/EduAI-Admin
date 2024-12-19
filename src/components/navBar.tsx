@@ -971,6 +971,19 @@ const NavBar = () => {
                       >
                         <Link
                           className="hover:text-primary"
+                          href="/chat"
+                        >
+                          {currentLanguage === "en"
+                            ? "Reported Chat"
+                            : currentLanguage === "ar"
+                              ? "الإبلاغات"
+                              : currentLanguage === "fr"
+                                ? "Discussion signalée"
+                                : "Reported Chat"}{" "}
+                          {/* Default to English */}
+                        </Link>
+                        <Link
+                          className="hover:text-primary"
                           href="/post-management/news"
                         >
                           {currentLanguage === "en"
