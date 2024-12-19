@@ -396,17 +396,15 @@ const Dashboard: React.FC = () => {
           <div className="flex justify-center">
             <div className="grid overflow-x-auto rounded-2xl">
               <div className="grid w-[550px] items-center justify-center overflow-x-auto rounded-2xl bg-bgPrimary p-2 shadow-xl max-[1536px]:h-[450px] max-[1536px]:w-[850px]">
-              <div
-                dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-                >
-                <h1 className="text-xl font-bold">
-                  {currentLanguage === "ar"
-                    ? "الفعاليات القادمة"
-                    : currentLanguage === "fr"
-                      ? "Événements à venir"
-                      : "Upcoming Events"}
-                </h1>
-              </div>
+                <div dir={currentLanguage === "ar" ? "rtl" : "ltr"}>
+                  <h1 className="text-xl font-bold">
+                    {currentLanguage === "ar"
+                      ? "الفعاليات القادمة"
+                      : currentLanguage === "fr"
+                        ? "Événements à venir"
+                        : "Upcoming Events"}
+                  </h1>
+                </div>
                 {mettings?.data.content.map((meeting: Meeting) => (
                   <div
                     dir={currentLanguage === "ar" ? "rtl" : "ltr"}

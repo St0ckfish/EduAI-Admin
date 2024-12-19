@@ -75,6 +75,7 @@ const Events = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(eventSchema),
@@ -86,6 +87,7 @@ const Events = () => {
 
   const handleCloseModal = () => {
     setModalOpen(false);
+    reset();
   };
   const ID = useSelector((state: RootState) => state.user.id);
   const [deleteEvent] = useDeleteEventsMutation();

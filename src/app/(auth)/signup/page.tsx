@@ -40,22 +40,25 @@ const signupSchema = z.object({
   birthDate: z
     .string()
     .nonempty("Birthdate is required")
-    .refine((val) => {
-      const birthDate = new Date(val);
-      if (isNaN(birthDate.getTime())) return false; // Invalid date
-      const today = new Date();
-      let age = today.getFullYear() - birthDate.getFullYear();
-      const monthDifference = today.getMonth() - birthDate.getMonth();
-      if (
-        monthDifference < 0 ||
-        (monthDifference === 0 && today.getDate() < birthDate.getDate())
-      ) {
-        age--;
-      }
-      return age >= 20;
-    }, {
-      message: "You must be at least 20 years old",
-    }),
+    .refine(
+      val => {
+        const birthDate = new Date(val);
+        if (isNaN(birthDate.getTime())) return false; // Invalid date
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDifference = today.getMonth() - birthDate.getMonth();
+        if (
+          monthDifference < 0 ||
+          (monthDifference === 0 && today.getDate() < birthDate.getDate())
+        ) {
+          age--;
+        }
+        return age >= 20;
+      },
+      {
+        message: "You must be at least 20 years old",
+      },
+    ),
   name_en: z.string().nonempty("English name is required"),
   name_ar: z.string().nonempty("Arabic name is required"),
   name_fr: z.string().nonempty("French name is required"),
@@ -140,7 +143,7 @@ const Signup = () => {
   }, [nationalityData, nationalityError]);
 
   const onSubmit = async (data: any) => {
-    const formData = {...data, religion: "OTHERS"}
+    const formData = { ...data, religion: "OTHERS" };
     try {
       const result = await loginDashboard(formData).unwrap();
       console.log("Account created successfully:", result);
@@ -156,7 +159,8 @@ const Signup = () => {
       setErrorMessage(err.data.data);
       console.log(errorMessage);
 
-      toast.error(currentLanguage === "ar"
+      toast.error(
+        currentLanguage === "ar"
           ? "فشل في إنشاء الحساب"
           : currentLanguage === "fr"
             ? "Échec de la création du compte"
@@ -494,7 +498,7 @@ const Signup = () => {
                 <div className="grid grid-cols-1 gap-3">
                   <label
                     htmlFor="regionId"
-                    className="grid text-start font-sans text-[15px] font-semibold text-[#9a9a9a] w-[400px] max-[458px]:w-[350px]"
+                    className="grid w-[400px] text-start font-sans text-[15px] font-semibold text-[#9a9a9a] max-[458px]:w-[350px]"
                   >
                     <SearchableSelect
                       name="regionId"
@@ -773,47 +777,51 @@ const Signup = () => {
                     )}
                   </label>
                   <label
-  htmlFor="birthDate"
-  className="grid text-start font-sans text-[15px] font-semibold text-[#9a9a9a]"
->
-  {currentLanguage === "ar"
-    ? "تاريخ الميلاد"
-    : currentLanguage === "fr"
-    ? "Date de naissance"
-    : "Birthday"}
-  <input
-    id="birthDate"
-    {...register("birthDate", { required: true })}
-    placeholder={
-      currentLanguage === "ar"
-        ? "تاريخ الميلاد"
-        : currentLanguage === "fr"
-        ? "Date de naissance"
-        : "Birthdate"
-    }
-    className={`rounded-xl border px-4 py-3 ${
-      errors.birthDate ? "border-warning" : "border-borderPrimary"
-    } w-[400px] outline-none max-[458px]:w-[350px]`}
-    type="date"
-  />
-  {errors.birthDate && (
-    <span className="text-[13px] text-error">
-      {errors.birthDate.message?.toString() === "Birthdate is required"
-        ? currentLanguage === "ar"
-          ? "تاريخ الميلاد مطلوب"
-          : currentLanguage === "fr"
-          ? "La date de naissance est requise"
-          : "Birthdate is required"
-        : errors.birthDate.message === "You must be at least 20 years old"
-        ? currentLanguage === "ar"
-          ? "يجب أن يكون عمرك 20 عامًا على الأقل"
-          : currentLanguage === "fr"
-          ? "Vous devez avoir au moins 20 ans"
-          : "You must be at least 20 years old"
-        : errors.birthDate.message?.toString() }
-    </span>
-  )}
-</label>
+                    htmlFor="birthDate"
+                    className="grid text-start font-sans text-[15px] font-semibold text-[#9a9a9a]"
+                  >
+                    {currentLanguage === "ar"
+                      ? "تاريخ الميلاد"
+                      : currentLanguage === "fr"
+                        ? "Date de naissance"
+                        : "Birthday"}
+                    <input
+                      id="birthDate"
+                      {...register("birthDate", { required: true })}
+                      placeholder={
+                        currentLanguage === "ar"
+                          ? "تاريخ الميلاد"
+                          : currentLanguage === "fr"
+                            ? "Date de naissance"
+                            : "Birthdate"
+                      }
+                      className={`rounded-xl border px-4 py-3 ${
+                        errors.birthDate
+                          ? "border-warning"
+                          : "border-borderPrimary"
+                      } w-[400px] outline-none max-[458px]:w-[350px]`}
+                      type="date"
+                    />
+                    {errors.birthDate && (
+                      <span className="text-[13px] text-error">
+                        {errors.birthDate.message?.toString() ===
+                        "Birthdate is required"
+                          ? currentLanguage === "ar"
+                            ? "تاريخ الميلاد مطلوب"
+                            : currentLanguage === "fr"
+                              ? "La date de naissance est requise"
+                              : "Birthdate is required"
+                          : errors.birthDate.message ===
+                              "You must be at least 20 years old"
+                            ? currentLanguage === "ar"
+                              ? "يجب أن يكون عمرك 20 عامًا على الأقل"
+                              : currentLanguage === "fr"
+                                ? "Vous devez avoir au moins 20 ans"
+                                : "You must be at least 20 years old"
+                            : errors.birthDate.message?.toString()}
+                      </span>
+                    )}
+                  </label>
 
                   <div
                     dir="ltr"
@@ -954,7 +962,7 @@ const Signup = () => {
                   </label>
                   <label
                     htmlFor="schoolId"
-                    className="grid text-start font-sans text-[15px] font-semibold text-[#9a9a9a] w-[400px] max-[458px]:w-[350px]"
+                    className="grid w-[400px] text-start font-sans text-[15px] font-semibold text-[#9a9a9a] max-[458px]:w-[350px]"
                   >
                     <SearchableSelect
                       name="schoolId"

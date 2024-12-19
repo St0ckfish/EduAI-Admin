@@ -1,28 +1,36 @@
 "use client";
-import React from "react";
-import { useForm, Controller } from "react-hook-form";
+import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import Spinner from "@/components/spinner";
 import { toast } from "react-toastify";
-import { useCreateScholarshipMutation } from "@/features/Financial/feesApi";
+import {
+  useUpdateScholarshipMutation,
+  useGetScholarshipByIdQuery,
+} from "@/features/Financial/feesApi";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import { useGetAllStudentsQuery } from "@/features/User-Management/studentApi";
 
 // Define a Zod schema that matches your API's expected data structure
-const scholarshipSchema = z.object({
-  studentId: z.string().nonempty("Student ID is required"),
-  scholarshipName: z.string().nonempty("Scholarship Name is required"),
-  scholarshipType: z.string().nonempty("Scholarship Type is required"),
-  paidInvoices: z.array(z.string()),
-  startDate: z.string().nonempty("Start Date is required"),
-  expirationDate: z.string().nonempty("Expiration Date is required"),
-  file: z.any().optional(),
-});
+const scholarshipSchema = z
+  .object({
+    studentId: z.string().nonempty("Student ID is required"),
+    scholarshipName: z.string().nonempty("Scholarship Name is required"),
+    scholarshipType: z.string().nonempty("Scholarship Type is required"),
+    paidInvoices: z.array(z.string()),
+    startDate: z.string().nonempty("Start Date is required"),
+    expirationDate: z.string().nonempty("Expiration Date is required"),
+    file: z.any().optional(),
+  })
+  .refine(data => new Date(data.expirationDate) >= new Date(data.startDate), {
+    message: "Expiration date must be on or after the start date",
+    path: ["expirationDate"], // This will attach the error to the expirationDate field
+  });
 
-const NewScholarship = () => {
+const EditScholarship = ({ params }: { params: { scholarshipId: number } }) => {
   const breadcrumbs = [
     {
       nameEn: "Administration",
@@ -37,19 +45,21 @@ const NewScholarship = () => {
       href: "/financial-management",
     },
     {
-      nameEn: "Add scholarship",
-      nameAr: "إضافة منحة دراسية",
+      nameEn: "Edit scholarship",
+      nameAr: "تعديل منحة دراسية",
       nameFr: "Ajouter des Bourse d'étude",
-      href: "/fees-management/new-scholarship",
+      href: `/fees-management/scholarship/${params.scholarshipId}`,
     },
   ];
 
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
+  const { data: scholarship, isLoading: isScholarshipLoading } =
+    useGetScholarshipByIdQuery(params.scholarshipId);
 
   const {
     register,
     handleSubmit,
-    control,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(scholarshipSchema),
@@ -64,33 +74,44 @@ const NewScholarship = () => {
     },
   });
 
-  const [createScholarship, { isLoading }] = useCreateScholarshipMutation();
-  const { data: students, isLoading: isStudents } = useGetAllStudentsQuery({
-    archived: "false",
-    page: 0,
-    size: 1000000,
-  });
-  const onSubmit = async (data: any) => {
-    const formData = new FormData();
-    formData.append(
-      "request",
-      JSON.stringify({
-        studentId: data.studentId,
-        scholarshipName: data.scholarshipName,
-        scholarshipType: data.scholarshipType,
-        paidInvoices: data.paidInvoices,
-        startDate: data.startDate,
-        expirationDate: data.expirationDate,
-      }),
-    );
-    if (data.file) {
-      formData.append("file", data.file[0]);
+  const [updateScholarship, { isLoading }] = useUpdateScholarshipMutation();
+  const { data: students, isLoading: isStudentsLoading } =
+    useGetAllStudentsQuery({
+      archived: "false",
+      page: 0,
+      size: 1000000,
+    });
+
+  // Pre-fill form when scholarship data is loaded
+  useEffect(() => {
+    if (scholarship?.data) {
+      reset({
+        studentId: scholarship.data.studentId.toString(),
+        scholarshipName: scholarship.data.scholarshipName,
+        scholarshipType: scholarship.data.scholarshipType,
+        paidInvoices: scholarship.data.paidInvoices,
+        startDate: scholarship.data.startDate,
+        expirationDate: scholarship.data.expirationDate,
+      });
     }
+  }, [scholarship, reset]);
+
+  const onSubmit = async (data: any) => {
     try {
-      await createScholarship(formData).unwrap();
-      toast.success("Scholarship created successfully");
+      await updateScholarship({
+        id: params.scholarshipId,
+        formData: {
+          studentId: data.studentId,
+          scholarshipName: data.scholarshipName,
+          scholarshipType: data.scholarshipType,
+          paidInvoices: data.paidInvoices,
+          startDate: data.startDate,
+          expirationDate: data.expirationDate,
+        },
+      }).unwrap();
+      toast.success("Scholarship updated successfully");
     } catch (err) {
-      toast.error("Failed to create scholarship");
+      toast.error("Failed to update scholarship");
     }
   };
 
@@ -98,7 +119,7 @@ const NewScholarship = () => {
     (state: RootState) => state.language,
   );
 
-  if (loading)
+  if (loading || isScholarshipLoading || isStudentsLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -120,7 +141,7 @@ const NewScholarship = () => {
               : "lg:ml-[270px]"
         } mx-3 mt-[40px] grid h-[850px] items-center justify-center`}
       >
-        <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:w-[1000px]">
             <div className="flex items-center justify-start gap-2">
               <h1 className="font-sans text-[22px] font-semibold">
@@ -237,8 +258,6 @@ const NewScholarship = () => {
                 )}
               </label>
 
-              {/* Paid Invoices Checkboxes */}
-
               {/* Start Date Field */}
               <label
                 htmlFor="startDate"
@@ -282,6 +301,8 @@ const NewScholarship = () => {
                   </span>
                 )}
               </label>
+
+              {/* Paid Invoices Checkboxes */}
               <div className="grid font-sans text-[18px] font-semibold">
                 {currentLanguage === "en"
                   ? "Paid Invoices"
@@ -340,18 +361,6 @@ const NewScholarship = () => {
                   <label className="flex gap-2">
                     <input
                       type="checkbox"
-                      value="UNIFORM"
-                      {...register("paidInvoices")}
-                    />
-                    {currentLanguage === "en"
-                      ? "Uniform"
-                      : currentLanguage === "ar"
-                        ? "الرسوم الدراسية"
-                        : "Uniforme"}
-                  </label>
-                  <label className="flex gap-2">
-                    <input
-                      type="checkbox"
                       value="TRANSPORT"
                       {...register("paidInvoices")}
                     />
@@ -363,27 +372,6 @@ const NewScholarship = () => {
                   </label>
                 </div>
               </div>
-
-              {/* File Upload Field */}
-              <label
-                htmlFor="file"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "en"
-                  ? "Upload File"
-                  : currentLanguage === "ar"
-                    ? "تحميل ملف"
-                    : "Télécharger le fichier"}
-                <input
-                  id="file"
-                  {...register("file")}
-                  type="file"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                />
-                {errors.file && (
-                  <span className="text-error">{errors.file.message}</span>
-                )}
-              </label>
             </div>
             <div className="flex justify-center text-center">
               {isLoading ? (
@@ -394,10 +382,10 @@ const NewScholarship = () => {
                   className="w-fit rounded-xl bg-primary px-4 py-2 text-[18px] text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
                 >
                   {currentLanguage === "en"
-                    ? "Add Scholarship"
+                    ? "Update Scholarship"
                     : currentLanguage === "ar"
-                      ? "إضافة منحة دراسية"
-                      : "Ajouter une bourse"}
+                      ? "تحديث المنحة الدراسية"
+                      : "Mettre à jour la bourse"}
                 </button>
               )}
             </div>
@@ -408,4 +396,4 @@ const NewScholarship = () => {
   );
 };
 
-export default NewScholarship;
+export default EditScholarship;

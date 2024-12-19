@@ -23,17 +23,23 @@ const Pagination: React.FC<PaginationProps> = ({
   );
 
   // Memoized page navigation functions to prevent unnecessary re-renders
-  const prevPage = useMemo(() => () => {
-    let prevPage = currentPage - 1;
-    if (prevPage < 0) prevPage = totalPages;
-    onChangePage(prevPage);
-  }, [currentPage, totalPages, onChangePage]);
+  const prevPage = useMemo(
+    () => () => {
+      let prevPage = currentPage - 1;
+      if (prevPage < 0) prevPage = totalPages;
+      onChangePage(prevPage);
+    },
+    [currentPage, totalPages, onChangePage],
+  );
 
-  const nextPage = useMemo(() => () => {
-    let nextPage = currentPage + 1;
-    if (nextPage > totalPages) nextPage = totalPages;
-    onChangePage(nextPage);
-  }, [currentPage, totalPages, onChangePage]);
+  const nextPage = useMemo(
+    () => () => {
+      let nextPage = currentPage + 1;
+      if (nextPage > totalPages) nextPage = totalPages;
+      onChangePage(nextPage);
+    },
+    [currentPage, totalPages, onChangePage],
+  );
 
   // Memoized page button generation to optimize performance
   const pageButtons = useMemo(() => {
@@ -90,9 +96,9 @@ const Pagination: React.FC<PaginationProps> = ({
         const pageNum = currentPage + offset;
         if (pageNum > 0 && pageNum < totalPages - 1) {
           pagesButtons.push(
-            addPageButton({ 
-              pageNum, 
-              activeClass: pageNum === currentPage 
+            addPageButton({
+              pageNum,
+              activeClass: pageNum === currentPage,
             }),
           );
         }
@@ -122,10 +128,14 @@ const Pagination: React.FC<PaginationProps> = ({
   // Localized labels based on selected language
   const getLocalizedLabel = (en: string, ar: string, fr: string) => {
     switch (currentLanguage) {
-      case "en": return en;
-      case "ar": return ar;
-      case "fr": return fr;
-      default: return en;
+      case "en":
+        return en;
+      case "ar":
+        return ar;
+      case "fr":
+        return fr;
+      default:
+        return en;
     }
   };
 
