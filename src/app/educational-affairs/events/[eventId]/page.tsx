@@ -69,7 +69,6 @@ const UpdateEvent = ({ params }: Props) => {
         .nonempty({ message: "This field is required" }),
       startTime: z.string().nonempty({ message: "This field is required" }),
       endTime: z.string().nonempty({ message: "This field is required" }),
-      active: z.number().int().min(0).max(1),
     })
     .refine(data => new Date(data.startTime) <= new Date(data.endTime), {
       message: "Start Time must be before End Time",
@@ -103,7 +102,6 @@ const UpdateEvent = ({ params }: Props) => {
         description_fr: eventData.data.description,
         startTime: eventData.data.startDate,
         endTime: eventData.data.endDate,
-        active: eventData.data.isAttendee ? 1 : 0,
       });
     }
   }, [eventData, reset]);
@@ -369,49 +367,6 @@ const UpdateEvent = ({ params }: Props) => {
                 )}
               </label>
               {/* Active */}
-              <label
-                htmlFor="active"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "en"
-                  ? "Active"
-                  : currentLanguage === "ar"
-                    ? "نشط"
-                    : currentLanguage === "fr"
-                      ? "Actif"
-                      : "Active"}
-                <select
-                  id="active"
-                  {...register("active", {
-                    setValueAs: value => Number(value), // Convert to number
-                  })}
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                >
-                  <option value="1">
-                    {currentLanguage === "en"
-                      ? "Yes"
-                      : currentLanguage === "ar"
-                        ? "نعم"
-                        : currentLanguage === "fr"
-                          ? "Oui"
-                          : "Yes"}
-                  </option>
-                  <option value="0">
-                    {currentLanguage === "en"
-                      ? "No"
-                      : currentLanguage === "ar"
-                        ? "لا"
-                        : currentLanguage === "fr"
-                          ? "Non"
-                          : "No"}
-                  </option>
-                </select>
-                {errors.active && (
-                  <span className="text-error">
-                    {getErrorMessage(errors.active.message || "")}
-                  </span>
-                )}
-              </label>
             </div>
             <div className="flex justify-center text-center">
               {isLoading ? (
