@@ -28,8 +28,8 @@ export const studentApi = createApi({
   }),
   endpoints: builder => ({
     getAllStudents: builder.query({
-      query: ({ archived, page, size }) =>
-        `/api/v1/management/student/all?size=${size}&page=${page}&archived=${archived}`,
+      query: ({ archived, page, size, graduated }) =>
+        `/api/v1/management/student/all?size=${size}&page=${page}&archived=${archived}&graduated=${graduated}`,
     }),
     //
     deleteStudents: builder.mutation({

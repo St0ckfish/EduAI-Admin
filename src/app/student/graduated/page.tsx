@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 import Pagination from "@/components/pagination";
 import BreadCrumbs from "@/components/BreadCrumbs";
 
-const Student = () => {
+const GraduateStudent = () => {
   const breadcrumbs = [
     {
       nameEn: "Administration",
@@ -31,7 +31,7 @@ const Student = () => {
       nameEn: "Student",
       nameAr: "طالب",
       nameFr: "Étudiant",
-      href: "/student",
+      href: "/student/graduated",
     },
   ];
 
@@ -46,7 +46,7 @@ const Student = () => {
     archived: "false",
     page: currentPage,
     size: rowsPerPage,
-    graduated: "false"
+    graduated: "true",
   });
 
 
@@ -141,7 +141,7 @@ const Student = () => {
       >
         <Link
           href="/student"
-          className="text-blue-500 underline"
+          
         >
           {currentLanguage === "ar"
             ? "طالب نشط"
@@ -149,7 +149,7 @@ const Student = () => {
               ? "Étudiant actif"
               : "Active Student"}
         </Link>
-        <Link href="/student/graduated">
+        <Link className="text-blue-500 underline" href="/student/graduated">
           {currentLanguage === "ar"
             ? "طالب خريج"
             : currentLanguage === "fr"
@@ -408,4 +408,4 @@ const Student = () => {
   );
 };
 
-export default Student;
+export default GraduateStudent;
