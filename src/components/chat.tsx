@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { MessageBubble } from "./MessageBubble";
+import Link from "next/link";
 
 interface Message {
   chatId: number | string;
@@ -55,9 +56,11 @@ interface ChatPageProps {
   userId: string | null;
   regetusers: () => void;
   userName: string;
+  userRole: string;
+  realuserId: string;
 }
 
-const ChatPage = ({ userId, regetusers, userName }: ChatPageProps) => {
+const ChatPage = ({ userId, regetusers, userName, userRole, realuserId }: ChatPageProps) => {
   const chatEndRef = useRef<HTMLDivElement | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -238,6 +241,25 @@ const handleEmojiSelect = (emoji: string) => {
 
   return (
     <div className="mx-auto flex h-[700px] w-full flex-col rounded-xl bg-bgPrimary">
+      <div className="relative inline-block p-4">
+        <div className="flex items-center gap-2 font-medium">
+          <img src="/images/userr.png" alt="#" className="w-[50px] h-[50px]" />
+          <p>{userName}</p>
+        </div>
+        <div className="absolute right-3 top-5">
+          {
+            userRole === "Teacher" ? 
+            <Link href={`/teacher/view-teacher/${realuserId}`} className="font-medium text-secondary underline underline-offset-2">View Profile</Link> :
+            userRole === "Student" ?
+            <Link href={`/student/view-student/${realuserId}`} className="font-medium text-secondary underline underline-offset-2">View Profile</Link> :
+            userRole === "Parent" ?
+            <Link href={`/parent/view-parent/${realuserId}`} className="font-medium text-secondary underline underline-offset-2">View Profile</Link> :
+            userRole === "Employee" ?
+            <Link href={`/employee/view-employee/${realuserId}`} className="font-medium text-secondary underline underline-offset-2">View Profile</Link> :
+            <Link href={`/worker/view-worker/${realuserId}`} className="font-medium text-secondary underline underline-offset-2">View Profile</Link>
+          }
+        </div>
+      </div>
       <div className="flex-1 overflow-y-auto break-words rounded-xl bg-bgPrimary p-4">
         {isLoading && (
           <div className="flex h-full items-center justify-center">

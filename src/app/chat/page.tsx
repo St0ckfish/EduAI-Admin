@@ -34,7 +34,9 @@ const Chat = () => {
 
   const [search, setSearch] = useState("");
   const [userId, setUserId] = useState("");
+  const [realuserId, setRealUserId] = useState("");
   const [userName, setUserNane] = useState("");
+  const [userRole, setUserRloe] = useState("");
   const [createChat] = useCreateNewChatMutation();
   const { data: users, isLoading: isGetting } = useGetAllUsersChatQuery(null);
   console.log("👾 ~ Chat ~ users:", users)
@@ -195,6 +197,8 @@ const Chat = () => {
                         onClick={() => {
                           handleClick(chat.chatId);
                           setUserNane(chat.targetUser.name);
+                          setUserRloe(chat.targetUser.Role);
+                          setRealUserId(chat.targetUser.id);
                           regetusers();
                         }}
                         className="flex w-full cursor-pointer items-center border-b border-borderPrimary px-2 py-1 hover:bg-bgSecondary"
@@ -296,6 +300,8 @@ const Chat = () => {
               userId={userId}
               regetusers={regetusers}
               userName={userName}
+              userRole={userRole}
+              realuserId={realuserId}
             />
           )}
         </div>
