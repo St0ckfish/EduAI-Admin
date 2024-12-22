@@ -143,7 +143,7 @@ const TimeTable = ({
               ].map((time, idx) => (
                 <div
                   key={idx}
-                  className="mt-1 h-[60px] border-b-2 border-dashed border-borderPrimary py-2 pr-4 text-right"
+                  className="mt-1 h-[60px] border-b border-borderPrimary py-2 pr-4 text-right"
                 >
                   {time}
                 </div>

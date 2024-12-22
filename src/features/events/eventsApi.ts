@@ -55,6 +55,14 @@ export const eventsApi = createApi({
       }),
     }),
     //
+    uploadEvent: builder.mutation({
+      query: formData => ({
+        url: `/api/v1/upload-data/timetable/excel`,
+        method: "POST",
+        body: formData,
+      }),
+    }),
+    //
     getEventById: builder.query({
       query: id => `/api/v1/event/${id}`,
     }),
@@ -74,6 +82,7 @@ export const {
   useGetAllEventsDashboardQuery,
   useDeleteEventsMutation,
   useGetSchoolLogoQuery,
+  useUploadEventMutation,
   useCreateEventsMutation,
   useGetEventByIdQuery,
   useUpdateEventsMutation,
