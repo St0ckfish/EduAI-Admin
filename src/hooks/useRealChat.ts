@@ -33,7 +33,7 @@ export const useWebSocketChat = ({ userId, initialMessages, onNewMessage }: UseW
     }
 
     const stompClient = new Client({
-      brokerURL: `wss://eduai.vitaparapharma.com/ws?token=${token}`,
+      brokerURL: `wss://api.eduai.tech/ws?token=${token}`,
       debug: function (str) {
         console.log("[STOMP Debug]", str);
       },
@@ -75,7 +75,7 @@ export const useWebSocketChat = ({ userId, initialMessages, onNewMessage }: UseW
     stompClient.activate();
     stompClientRef.current = stompClient;
 
-    return () => {
+    return () => {wss://eduai.vitaparapharma.com/
       stompClient.deactivate();
       stompClientRef.current = null;
       setIsConnected(false);

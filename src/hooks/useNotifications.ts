@@ -30,7 +30,7 @@ export const useNotificationsWebSocket = (userId: string | null): NotificationsH
 
     // Create STOMP client
     const stompClient = new Client({
-      brokerURL: `wss://eduai.vitaparapharma.com/ws?token=${token}`,
+      brokerURL: `wss://api.eduai.tech/ws?token=${token}`,
       debug: function (str) {
         console.log('[STOMP Notifications Debug]', str);
       },
