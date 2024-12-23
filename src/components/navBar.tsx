@@ -519,7 +519,7 @@ const NavBar = () => {
             <div
               dir={currentLanguage === "ar" ? "rtl" : "ltr"}
               id="application-sidebar"
-              className={`hs-overlay hs-overlay-open:translate-x-0 transform transition-all duration-300 [--auto-close:lg] ${small ? "w-[90px]" : "w-[260px]"} drop-shadow-2xl lg:drop-shadow-none ${!isOpen ? "w-0" : ""} fixed inset-y-0 start-0 z-[60] border-e border-borderPrimary bg-bgPrimary duration-300 ease-in lg:bottom-0 lg:end-auto lg:block lg:translate-x-0`}
+              className={`hs-overlay hs-overlay-open:translate-x-0 transform transition-all duration-300 [--auto-close:lg] ${small ? "w-[90px]" : "w-[260px]"} drop-shadow-2xl lg:drop-shadow-none ${!isOpen ? "w-0" : ""} fixed inset-y-0 start-0 z-[60] border-e border-borderPrimary bg-bgPrimary duration-300 ease-in lg:bottom-0 lg:end-auto lg:block lg:translate-x-0 overflow-y-auto`}
             >
               <div className="px-8 pt-4">
                 <Link href="/">
@@ -568,7 +568,7 @@ const NavBar = () => {
               </div>
 
               <nav
-                className={`hs-accordion-group flex w-full flex-col flex-wrap p-6 ${!isOpen ? "hidden" : ""} `}
+                className={`hs-accordion-group flex w-full flex-col flex-wrap p-6 ${!isOpen ? "hidden" : ""}`}
                 data-hs-accordion-always-open
               >
                 <ul className="space-y-1.5">
