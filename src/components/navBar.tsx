@@ -69,7 +69,6 @@ const NavBar = () => {
   const userId = useSelector((state: RootState) => state.user?.id) || null;
 
   const { notificationsCount, isConnected } = useNotificationsWebSocket(userId);
-  
 
   const [pathname, setPathname] = useState("");
   const [small, setSmall] = useState(false);
@@ -266,7 +265,7 @@ const NavBar = () => {
                       <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
                     </svg>
                     {notificationsCount > 0 && (
-                      <div className="absolute top-4 left-5 bg-sky-500 text-white w-4 h-4 rounded-full flex justify-center items-center text-center text-sm">
+                      <div className="absolute left-5 top-4 flex h-4 w-4 items-center justify-center rounded-full bg-sky-500 text-center text-sm text-white">
                         <span>{notificationsCount}</span>
                       </div>
                     )}
@@ -519,7 +518,7 @@ const NavBar = () => {
             <div
               dir={currentLanguage === "ar" ? "rtl" : "ltr"}
               id="application-sidebar"
-              className={`hs-overlay hs-overlay-open:translate-x-0 transform transition-all duration-300 [--auto-close:lg] ${small ? "w-[90px]" : "w-[260px]"} drop-shadow-2xl lg:drop-shadow-none ${!isOpen ? "w-0" : ""} fixed inset-y-0 start-0 z-[60] border-e border-borderPrimary bg-bgPrimary duration-300 ease-in lg:bottom-0 lg:end-auto lg:block lg:translate-x-0`}
+              className={`hs-overlay hs-overlay-open:translate-x-0 transform transition-all duration-300 [--auto-close:lg] ${small ? "w-[90px]" : "w-[260px]"} drop-shadow-2xl lg:drop-shadow-none ${!isOpen ? "w-0" : ""} fixed inset-y-0 start-0 z-[60] overflow-y-auto border-e border-borderPrimary bg-bgPrimary duration-300 ease-in lg:bottom-0 lg:end-auto lg:block lg:translate-x-0`}
             >
               <div className="px-8 pt-4">
                 <Link href="/">
@@ -568,7 +567,7 @@ const NavBar = () => {
               </div>
 
               <nav
-                className={`hs-accordion-group flex w-full flex-col flex-wrap p-6 ${!isOpen ? "hidden" : ""} `}
+                className={`hs-accordion-group flex w-full flex-col flex-wrap p-6 ${!isOpen ? "hidden" : ""}`}
                 data-hs-accordion-always-open
               >
                 <ul className="space-y-1.5">
@@ -969,10 +968,7 @@ const NavBar = () => {
                       <ul
                         className={`${small ? "hidden w-fit translate-x-5 whitespace-nowrap rounded-xl bg-bgPrimary p-2 group-hover:grid" : ""} mx-9 mt-2 grid gap-2 text-[14px] font-semibold`}
                       >
-                        <Link
-                          className="hover:text-primary"
-                          href="/chat"
-                        >
+                        <Link className="hover:text-primary" href="/chat">
                           {currentLanguage === "en"
                             ? "Reported Chat"
                             : currentLanguage === "ar"

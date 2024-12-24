@@ -13,6 +13,7 @@ import BreadCrumbs from "@/components/BreadCrumbs";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import { useGetAllStudentsQuery } from "@/features/User-Management/studentApi";
+import { useRouter } from "next/navigation";
 
 // Define a Zod schema that matches your API's expected data structure
 const scholarshipSchema = z
@@ -52,6 +53,7 @@ const EditScholarship = ({ params }: { params: { scholarshipId: number } }) => {
     },
   ];
 
+  const router = useRouter();
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const { data: scholarship, isLoading: isScholarshipLoading } =
     useGetScholarshipByIdQuery(params.scholarshipId);
@@ -110,6 +112,7 @@ const EditScholarship = ({ params }: { params: { scholarshipId: number } }) => {
         },
       }).unwrap();
       toast.success("Scholarship updated successfully");
+      router.back();
     } catch (err) {
       toast.error("Failed to update scholarship");
     }
