@@ -723,11 +723,11 @@ const AddNewStudent = () => {
                 <input
                   id="studentIdPhoto"
                   type="file"
-                  className="cursor-pointer opacity-0"
-                  {...register("studentIdPhoto")}
+                  className={`cursor-pointer opacity-0`}
+                  {...register("studentIdPhoto", { required: true })}
                   onChange={e => handleFileChange(e, setStudentIdPhoto)}
                 />
-                <span className="-mt-8 w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
+                <span className={`-mt-8 w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border  ${errors.studentIdPhoto ? "border-warning" : "border-borderPrimary"} px-4 py-3 outline-none max-[471px]:w-[350px]`}>
                   <div className="flex">
                     <FaCloudUploadAlt className="mx-2 mt-1" />
                     {studentIdPhoto
@@ -741,6 +741,17 @@ const AddNewStudent = () => {
                             : "Choose a file"}
                   </div>
                 </span>
+                {errors.studentIdPhoto && (
+                  <span className="text-[13px] text-error">
+                    {currentLanguage === "en"
+                        ? "Choose a file"
+                        : currentLanguage === "ar"
+                          ? "اختر ملف"
+                          : currentLanguage === "fr"
+                            ? "Choisir un fichier"
+                            : "Choose a file"}
+                  </span>
+                )}
               </label>
 
               {/* Student Profile Photo */}
@@ -759,10 +770,10 @@ const AddNewStudent = () => {
                   id="studentProfilePhoto"
                   type="file"
                   className="cursor-pointer opacity-0"
-                  {...register("studentProfilePhoto")}
+                  {...register("studentProfilePhoto", { required: true })}
                   onChange={e => handleFileChange(e, setStudentProfilePhoto)}
                 />
-                <span className="-mt-8 w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
+                <span className={`-mt-8 w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border  ${errors.studentProfilePhoto ? "border-warning" : "border-borderPrimary"} px-4 py-3 outline-none max-[471px]:w-[350px]`}>
                   <div className="flex">
                     <FaCloudUploadAlt className="mx-2 mt-1" />
                     {studentProfilePhoto
@@ -776,6 +787,17 @@ const AddNewStudent = () => {
                             : "Choose a file"}
                   </div>
                 </span>
+                {errors.studentProfilePhoto && (
+                  <span className="text-[13px] text-error">
+                    {currentLanguage === "en"
+                        ? "Choose a file"
+                        : currentLanguage === "ar"
+                          ? "اختر ملف"
+                          : currentLanguage === "fr"
+                            ? "Choisir un fichier"
+                            : "Choose a file"}
+                  </span>
+                )}
               </label>
               <label
                 htmlFor="studentCertificatesOfAchievement"
@@ -792,12 +814,12 @@ const AddNewStudent = () => {
                   id="studentCertificatesOfAchievement"
                   type="file"
                   className="cursor-pointer opacity-0"
-                  {...register("studentCertificatesOfAchievement")}
+                  {...register("studentCertificatesOfAchievement", { required: true })}
                   onChange={e =>
                     handleFileChange(e, setStudentCertificatesOfAchievement)
                   }
                 />
-                <span className="-mt-8 w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]">
+                <span className={`-mt-8 w-[400px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap rounded-xl border  ${errors.studentCertificatesOfAchievement ? "border-warning" : "border-borderPrimary"} px-4 py-3 outline-none max-[471px]:w-[350px]`}>
                   <div className="flex">
                     <FaCloudUploadAlt className="mx-2 mt-1" />
                     {studentCertificatesOfAchievement
@@ -811,6 +833,17 @@ const AddNewStudent = () => {
                             : "Choose a file"}
                   </div>
                 </span>
+                {errors.studentCertificatesOfAchievement && (
+                  <span className="text-[13px] text-error">
+                    {currentLanguage === "en"
+                        ? "Choose a file"
+                        : currentLanguage === "ar"
+                          ? "اختر ملف"
+                          : currentLanguage === "fr"
+                            ? "Choisir un fichier"
+                            : "Choose a file"}
+                  </span>
+                )}
               </label>
             </div>
 
