@@ -150,7 +150,7 @@ const AddNewCertificate = () => {
                 <select
                   id="studentId"
                   {...register("studentId")}
-                  className="h-full w-[400px] rounded-xl border px-4 py-3 text-[18px] text-textPrimary outline-none max-[458px]:w-[350px]"
+                  className="h-full w-[400px] rounded-xl border px-4 py-3 text-[18px] outline-none max-[458px]:w-[350px]"
                 >
                   <option value="">
                     {currentLanguage === "en"
