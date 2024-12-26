@@ -17,6 +17,7 @@ const Search = () => {
     archived: "false",
     page: 0,
     size: 1000000,
+    graduated: "false"
   });
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredStudents, setFilteredStudents] = useState<Student[]>([]);

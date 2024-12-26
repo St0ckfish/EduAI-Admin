@@ -279,6 +279,15 @@ const Student = () => {
                       ? "الهاتف المحمول"
                       : "Mobile"}
                 </th>
+                                <th scope="col" className="whitespace-nowrap px-6 py-3">
+                  {currentLanguage === "en"
+                    ? "classroom"
+                    : currentLanguage === "ar"
+                      ? "الفصل الدراسي"
+                      : currentLanguage === "fr"
+                        ? "classe"
+                        : "classe"}{" "}
+                </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "en"
                     ? "View"
@@ -355,6 +364,9 @@ const Student = () => {
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
                       {student.number}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {student.classroomName}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
                       <Link
