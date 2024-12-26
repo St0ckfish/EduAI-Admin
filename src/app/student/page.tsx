@@ -42,13 +42,18 @@ const Student = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [search, setSearch] = useState("");
+
+  // New states to hold selected values of gender & classroom
+  const [selectedGender, setSelectedGender] = useState("");
+  const [selectedClassroom, setSelectedClassroom] = useState("");
+
+  // Fetching data
   const { data, error, isLoading, refetch } = useGetAllStudentsQuery({
     archived: "false",
     page: currentPage,
     size: rowsPerPage,
-    graduated: "false"
+    graduated: "false",
   });
-
 
   const onPageChange = (page: SetStateAction<number>) => {
     setCurrentPage(page);
@@ -57,6 +62,7 @@ const Student = () => {
     setRowsPerPage(ele);
     setCurrentPage(0);
   };
+
   const [deleteStudents] = useDeleteStudentsMutation();
 
   const handleDelete = async (id: string) => {
@@ -75,9 +81,9 @@ const Student = () => {
   const handleSelectAll = () => {
     setSelectAll(!selectAll);
     const checkboxes = document.querySelectorAll<HTMLInputElement>(
-      'input[type="checkbox"]:not(#checkbox-all-search)',
+      'input[type="checkbox"]:not(#checkbox-all-search)'
     );
-    checkboxes.forEach(checkbox => {
+    checkboxes.forEach((checkbox) => {
       checkbox.checked = !selectAll;
     });
   };
@@ -85,13 +91,13 @@ const Student = () => {
   useEffect(() => {
     const handleOtherCheckboxes = () => {
       const allCheckboxes = document.querySelectorAll<HTMLInputElement>(
-        'input[type="checkbox"]:not(#checkbox-all-search)',
+        'input[type="checkbox"]:not(#checkbox-all-search)'
       );
       const allChecked = Array.from(allCheckboxes).every(
-        checkbox => checkbox.checked,
+        (checkbox) => checkbox.checked
       );
       const selectAllCheckbox = document.getElementById(
-        "checkbox-all-search",
+        "checkbox-all-search"
       ) as HTMLInputElement | null;
       if (selectAllCheckbox) {
         selectAllCheckbox.checked = allChecked;
@@ -100,21 +106,21 @@ const Student = () => {
     };
 
     const otherCheckboxes = document.querySelectorAll<HTMLInputElement>(
-      'input[type="checkbox"]:not(#checkbox-all-search)',
+      'input[type="checkbox"]:not(#checkbox-all-search)'
     );
-    otherCheckboxes.forEach(checkbox => {
+    otherCheckboxes.forEach((checkbox) => {
       checkbox.addEventListener("change", handleOtherCheckboxes);
     });
 
     return () => {
-      otherCheckboxes.forEach(checkbox => {
+      otherCheckboxes.forEach((checkbox) => {
         checkbox.removeEventListener("change", handleOtherCheckboxes);
       });
     };
   }, []);
 
   const { language: currentLanguage, loading } = useSelector(
-    (state: RootState) => state.language,
+    (state: RootState) => state.language
   );
 
   if (loading || isLoading)
@@ -123,6 +129,45 @@ const Student = () => {
         <Spinner />
       </div>
     );
+
+  // -----------------------------
+  // Create a unique list of classrooms from backend data
+  // -----------------------------
+  const uniqueClassrooms = Array.from(
+    new Set(
+      (data?.data.content || [])
+        // Take only classroomName that is not empty or null
+        .map((student: Student) => student.classroomName)
+        .filter((classroomName: string | null) => !!classroomName)
+    )
+  );
+
+  // Filter function for the table data
+  const filteredData = data?.data.content.filter((student: Student) => {
+    // Search filter
+    const matchesSearch =
+      search.trim() === ""
+        ? true
+        : (student.name || "")
+            .toLowerCase()
+            .includes(search.toLowerCase());
+
+    // Gender filter
+    const matchesGender =
+      selectedGender === ""
+        ? true
+        : (student.gender || "").toLowerCase() ===
+          selectedGender.toLowerCase();
+
+    // Classroom filter
+    const matchesClassroom =
+      selectedClassroom === ""
+        ? true
+        : (student.classroomName || "").toLowerCase() ===
+          selectedClassroom.toLowerCase();
+
+    return matchesSearch && matchesGender && matchesClassroom;
+  });
 
   return (
     <>
@@ -135,8 +180,8 @@ const Student = () => {
               ? "lg:mr-[100px]"
               : "lg:mr-[270px]"
             : booleanValue
-              ? "lg:ml-[100px]"
-              : "lg:ml-[270px]"
+            ? "lg:ml-[100px]"
+            : "lg:ml-[270px]"
         } justify-left mb-4 ml-4 mt-5 flex gap-5 text-[20px] font-medium`}
       >
         <Link
@@ -146,17 +191,18 @@ const Student = () => {
           {currentLanguage === "ar"
             ? "طالب نشط"
             : currentLanguage === "fr"
-              ? "Étudiant actif"
-              : "Active Student"}
+            ? "Étudiant actif"
+            : "Active Student"}
         </Link>
         <Link href="/student/graduated">
           {currentLanguage === "ar"
             ? "طالب خريج"
             : currentLanguage === "fr"
-              ? "Étudiant diplômé"
-              : "Graduate Student"}
+            ? "Étudiant diplômé"
+            : "Graduate Student"}
         </Link>
       </div>
+
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
         className={`${
@@ -165,12 +211,13 @@ const Student = () => {
               ? "lg:mr-[100px]"
               : "lg:mr-[270px]"
             : booleanValue
-              ? "lg:ml-[100px]"
-              : "lg:ml-[270px]"
+            ? "lg:ml-[100px]"
+            : "lg:ml-[270px]"
         } bg-transstudent relative mx-3 mt-10 h-screen overflow-x-auto sm:rounded-lg`}
       >
-        
-        <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
+        {/* SEARCH + FILTERS + NEW STUDENT BUTTON */}
+        <div className="flex flex-wrap items-center justify-between gap-4 text-center">
+          {/* Search Box */}
           <div className="mb-3">
             <label htmlFor="icon" className="sr-only">
               Search
@@ -194,7 +241,7 @@ const Student = () => {
                 </svg>
               </div>
               <input
-                onChange={e => setSearch(e.target.value)}
+                onChange={(e) => setSearch(e.target.value)}
                 type="text"
                 id="icon"
                 name="icon"
@@ -203,12 +250,89 @@ const Student = () => {
                   currentLanguage === "en"
                     ? "Search"
                     : currentLanguage === "ar"
-                      ? "بحث"
-                      : "Recherche"
+                    ? "بحث"
+                    : "Recherche"
                 }
               />
             </div>
           </div>
+
+          {/* Filter by Gender */}
+          <div className="mb-3 flex items-center gap-5 flex-wrap">
+            <label
+              htmlFor="genderFilter"
+              className="block text-sm font-semibold text-gray-700"
+            >
+              {currentLanguage === "en"
+                ? "Gender"
+                : currentLanguage === "ar"
+                ? "الجنس"
+                : "Genre"}
+            </label>
+            <select
+              id="genderFilter"
+              value={selectedGender}
+              onChange={(e) => setSelectedGender(e.target.value)}
+              className="w-40 rounded-md border border-gray-300 bg-white px-2 py-2 text-sm outline-none focus:border-blue-500 focus:ring-blue-500"
+            >
+              <option value="">
+                {currentLanguage === "en"
+                  ? "All"
+                  : currentLanguage === "ar"
+                  ? "الكل"
+                  : "Tous"}
+              </option>
+              <option value="male">
+                {currentLanguage === "en"
+                  ? "Male"
+                  : currentLanguage === "ar"
+                  ? "ذكر"
+                  : "Masculin"}
+              </option>
+              <option value="female">
+                {currentLanguage === "en"
+                  ? "Female"
+                  : currentLanguage === "ar"
+                  ? "أنثى"
+                  : "Féminin"}
+              </option>
+            </select>
+            <label
+              htmlFor="classroomFilter"
+              className="block text-sm font-semibold text-gray-700"
+            >
+              {currentLanguage === "en"
+                ? "Classroom"
+                : currentLanguage === "ar"
+                ? "الفصل الدراسي"
+                : "Classe"}
+            </label>
+            <select
+              id="classroomFilter"
+              value={selectedClassroom}
+              onChange={(e) => setSelectedClassroom(e.target.value)}
+              className="w-40 rounded-md border border-gray-300 bg-white px-2 py-2 text-sm outline-none focus:border-blue-500 focus:ring-blue-500"
+            >
+              <option value="">
+                {currentLanguage === "en"
+                  ? "All"
+                  : currentLanguage === "ar"
+                  ? "الكل"
+                  : "Tous"}
+              </option>
+              {uniqueClassrooms.map((classroom: any) => (
+                <option key={classroom} value={classroom}>
+                  {classroom}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Filter by Classroom (Dynamically Populated) */}
+
+
+
+          {/* New Student Button */}
           <div className="flex justify-center">
             <Link
               href="/add-new-student"
@@ -217,18 +341,19 @@ const Student = () => {
               {currentLanguage === "en"
                 ? "+ New Student"
                 : currentLanguage === "ar"
-                  ? "+ طالب جديد"
-                  : "+ Nouvel Élève"}
+                ? "+ طالب جديد"
+                : "+ Nouvel Élève"}
             </Link>
           </div>
         </div>
+        {/* END OF SEARCH + FILTERS + NEW STUDENT BUTTON */}
+
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
           <table className="w-full overflow-x-auto text-left text-sm text-textSecondary rtl:text-right">
             <thead className="bg-thead text-xs uppercase text-textPrimary">
               <tr>
                 <th scope="col" className="p-4">
                   <div className="flex items-center">
-                    {/* Add event listener for select all checkbox */}
                     <input
                       id="checkbox-all-search"
                       type="checkbox"
@@ -241,78 +366,73 @@ const Student = () => {
                   {currentLanguage === "en"
                     ? "Name"
                     : currentLanguage === "ar"
-                      ? "الاسم"
-                      : "Nom"}
+                    ? "الاسم"
+                    : "Nom"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "en"
                     ? "ID"
                     : currentLanguage === "ar"
-                      ? "الرقم التعريفي"
-                      : "ID"}
+                    ? "الرقم التعريفي"
+                    : "ID"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "en"
                     ? "Gender"
                     : currentLanguage === "ar"
-                      ? "الجنس"
-                      : "Genre"}
+                    ? "الجنس"
+                    : "Genre"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "en"
                     ? "Nationality"
                     : currentLanguage === "ar"
-                      ? "الجنسية"
-                      : "Nationalité"}
+                    ? "الجنسية"
+                    : "Nationalité"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "en"
                     ? "Email"
                     : currentLanguage === "ar"
-                      ? "البريد الإلكتروني"
-                      : "E-mail"}
+                    ? "البريد الإلكتروني"
+                    : "E-mail"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "en"
                     ? "Mobile"
                     : currentLanguage === "ar"
-                      ? "الهاتف المحمول"
-                      : "Mobile"}
+                    ? "الهاتف المحمول"
+                    : "Mobile"}
                 </th>
-                                <th scope="col" className="whitespace-nowrap px-6 py-3">
+                <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "en"
-                    ? "classroom"
+                    ? "Classroom"
                     : currentLanguage === "ar"
-                      ? "الفصل الدراسي"
-                      : currentLanguage === "fr"
-                        ? "classe"
-                        : "classe"}{" "}
+                    ? "الفصل الدراسي"
+                    : currentLanguage === "fr"
+                    ? "Classe"
+                    : "Classe"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "en"
                     ? "View"
                     : currentLanguage === "ar"
-                      ? "عرض"
-                      : "Voir"}
+                    ? "عرض"
+                    : "Voir"}
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "en"
                     ? "Action"
                     : currentLanguage === "ar"
-                      ? "الإجراء"
-                      : "Action"}
+                    ? "الإجراء"
+                    : "Action"}
                 </th>
               </tr>
             </thead>
 
             <tbody>
-              {data?.data.content
-                .filter((student: Student) => {
-                  return search.toLocaleLowerCase() === ""
-                    ? student
-                    : student.name.toLocaleLowerCase().includes(search);
-                })
-                .map((student: Student) => (
+              {filteredData &&
+                filteredData.map((student: Student) => (
                   <tr
                     key={student.id}
                     className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary"
@@ -320,7 +440,7 @@ const Student = () => {
                     <td className="w-4 p-4">
                       <div className="flex items-center">
                         <input
-                          id="checkbox-table-search-1"
+                          id={`checkbox-table-search-${student.id}`}
                           type="checkbox"
                           className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500"
                         />
@@ -346,8 +466,7 @@ const Student = () => {
                         )}
                       </div>
                       <p className="text-textSecondary">
-                        {" "}
-                        {String(student.name)}{" "}
+                        {String(student.name)}
                       </p>
                     </th>
                     <td className="whitespace-nowrap px-6 py-4">
@@ -376,8 +495,8 @@ const Student = () => {
                         {currentLanguage === "en"
                           ? "View"
                           : currentLanguage === "ar"
-                            ? "عرض"
-                            : "Voir"}
+                          ? "عرض"
+                          : "Voir"}
                       </Link>
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
@@ -388,21 +507,21 @@ const Student = () => {
                         {currentLanguage === "en"
                           ? "Lock"
                           : currentLanguage === "ar"
-                            ? "قفل"
-                            : "Verrouiller"}
+                          ? "قفل"
+                          : "Verrouiller"}
                       </button>
                     </td>
                   </tr>
                 ))}
             </tbody>
           </table>
-          {(data?.data.content.length == 0 || data == null) && (
+          {filteredData && filteredData.length === 0 && (
             <div className="flex w-full justify-center py-3 text-center text-[18px] font-semibold">
               {currentLanguage === "en"
                 ? "There is No Data"
                 : currentLanguage === "ar"
-                  ? "لا توجد بيانات"
-                  : "Aucune donnée"}
+                ? "لا توجد بيانات"
+                : "Aucune donnée"}
             </div>
           )}
         </div>
