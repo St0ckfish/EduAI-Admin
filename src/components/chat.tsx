@@ -5,9 +5,11 @@ import { Client, IMessage } from "@stomp/stompjs";
 import Cookies from "js-cookie";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
+
 import { MessageBubble } from "./MessageBubble";
 import Link from "next/link";
+import { baseUrlStock } from "./BaseURL";
+import { toast } from "react-toastify";
 
 interface Message {
   chatId: number | string;
@@ -122,12 +124,11 @@ const handleEmojiSelect = (emoji: string) => {
 
   useEffect(() => {
     if (!token || !userId) {
-      toast.error("Authentication required to start chat");
       return;
     }
 
     const stompClient = new Client({
-      brokerURL: `wss://api.eduai.tech/ws?token=${token}`,
+      brokerURL: `${baseUrlStock}ws?token=${token}`,
       debug: function (str) {
         console.log("[STOMP Debug]", str);
       },
@@ -153,12 +154,11 @@ const handleEmojiSelect = (emoji: string) => {
 
     stompClient.onStompError = frame => {
       console.error("Broker reported error:", frame.headers["message"]);
-      toast.error("Chat connection error");
+
     };
 
     stompClient.onWebSocketError = event => {
       console.error("WebSocket connection error:", event);
-      toast.error("Unable to establish chat connection");
     };
 
     stompClient.activate();
@@ -208,7 +208,6 @@ const handleEmojiSelect = (emoji: string) => {
     }
 
     if (!stompClientRef.current?.connected) {
-      toast.error("Chat connection lost. Please reconnect.");
       return;
     }
 
@@ -229,7 +228,6 @@ const handleEmojiSelect = (emoji: string) => {
       handleRemoveImage();
     } catch (error) {
       console.error("Message sending failed:", error);
-      toast.error("Failed to send message");
     }
   };
 

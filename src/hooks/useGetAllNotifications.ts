@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Client, IMessage } from '@stomp/stompjs';
 import Cookies from 'js-cookie';
-import { toast } from 'react-toastify';
+import { baseUrlStock } from '@/components/BaseURL';
 
 interface Notification {
   id: string;
@@ -44,7 +44,7 @@ export const useNotificationsSocket = (userId: string | null) => {
 
     // Create STOMP client
     const stompClient = new Client({
-      brokerURL: `wss://api.eduai.tech/ws?token=${token}`,
+      brokerURL: `${baseUrlStock}ws?token=${token}`,
       debug: function (str) {
         console.log('[STOMP Notifications Debug]', str);
       },
