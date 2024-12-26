@@ -55,4 +55,4 @@ jobs:
           git config --global user.email "mahmoudmedany213@gmail.com"
           git add k8s/admin-app.yaml
           git commit -m "Update deployment file with new image tag"
-          git push -f https://${{ secrets.TOKEN_GITHUB }}@github.com/M0staphaTaha/EduAI-Admin.git HEAD:main      
+          git push -f https://${{ secrets.TOKEN_GITHUB }}@github.com/M0staphaTaha/EduAI-Admin.git main      
