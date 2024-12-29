@@ -25,7 +25,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
     pathname === "/choose-account";
 
   useEffect(() => {
-    document.documentElement.style.zoom = "1";
+    (document.documentElement.style as any).zoom = "1";
     // Initialize CometChat
     if (typeof window !== "undefined") {
       import("@/components/chat").then(({ initCometChat }: any) => {
