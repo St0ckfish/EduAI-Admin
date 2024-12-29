@@ -43,7 +43,7 @@ const Student = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const { data, error, isLoading, refetch } = useGetAllStudentsQuery({
-    archived: "false",
+    archived: "true",
     page: currentPage,
     size: rowsPerPage,
     graduated: "false"
