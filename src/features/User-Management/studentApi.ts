@@ -32,6 +32,11 @@ export const studentApi = createApi({
         `/api/v1/management/student/all?size=${size}&page=${page}&archived=${archived}&graduated=${graduated}`,
     }),
     //
+    exportStudentsFile: builder.query({
+      query: ({ archived, page, size, graduated }) =>
+        `/api/v1/export/student/excel?size=${size}&page=${page}&archived=${archived}&graduated=${graduated}`,
+    }),
+    //
     deleteStudents: builder.mutation({
       query: ({ id, lock }) => ({
         url: `/api/v1/management/student/account-lock/${id}?locked=${lock}`,
@@ -74,6 +79,7 @@ export const studentApi = createApi({
 
 export const {
   useGetAllStudentsQuery,
+  useExportStudentsFileQuery,
   useGetStudentByIdUpdateQuery,
   useDeleteStudentsMutation,
   useCreateStudentsMutation,

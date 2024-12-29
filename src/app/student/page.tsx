@@ -5,6 +5,7 @@ import { useState, useEffect, SetStateAction } from "react";
 import {
   useDeleteStudentsMutation,
   useGetAllStudentsQuery,
+  useExportStudentsFileQuery
 } from "@/features/User-Management/studentApi";
 import Spinner from "@/components/spinner";
 import { useSelector } from "react-redux";
@@ -54,6 +55,33 @@ const Student = () => {
     size: rowsPerPage,
     graduated: "false",
   });
+
+  const { data: exportData, refetch: exportRefetch } = useExportStudentsFileQuery({
+    archived: "false",
+    page: currentPage,
+    size: rowsPerPage,
+    graduated: "false",
+  });
+
+  const handleExport = async () => {
+    try {
+      await exportRefetch();
+      if (exportData) {
+        // Create a blob from the response data
+        const blob = new Blob([exportData], { type: 'application/vnd.ms-excel' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'students.xlsx';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      }
+    } catch (error) {
+      toast.error("Failed to export students data");
+    }
+  };
 
   const onPageChange = (page: SetStateAction<number>) => {
     setCurrentPage(page);
@@ -334,6 +362,17 @@ const Student = () => {
 
           {/* New Student Button */}
           <div className="flex justify-center">
+          <button
+              onClick={handleExport}
+              className="mx-3 mb-5 w-[190px] whitespace-nowrap rounded-xl bg-green-600 px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-green-700 hover:shadow-xl"
+            >
+              {currentLanguage === "en"
+                ? "Export Data"
+                : currentLanguage === "ar"
+                ? "تصدير البيانات"
+                : "Exporter les données"}
+            </button>
+
             <Link
               href="/add-new-student"
               className="mx-3 mb-5 w-[190px] whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
