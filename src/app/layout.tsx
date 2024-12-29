@@ -38,8 +38,8 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
       if ((e as KeyboardEvent).ctrlKey || (e as WheelEvent).ctrlKey) {
         e.preventDefault();
         
-        const currentZoom = document.documentElement.style.zoom 
-          ? parseFloat(document.documentElement.style.zoom) 
+        const currentZoom = (document.documentElement.style as any).zoom 
+          ? parseFloat((document.documentElement.style as any).zoom) 
           : 1;
 
         let newZoom = currentZoom;
@@ -62,7 +62,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
           }
         }
         
-        document.documentElement.style.zoom = newZoom.toString();
+        (document.documentElement.style as any).zoom = newZoom.toString();
       }
     };
 
