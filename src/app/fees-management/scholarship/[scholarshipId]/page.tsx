@@ -78,11 +78,12 @@ const EditScholarship = ({ params }: { params: { scholarshipId: number } }) => {
 
   const [updateScholarship, { isLoading }] = useUpdateScholarshipMutation();
   const { data: students, isLoading: isStudentsLoading } =
-    useGetAllStudentsQuery({
-      archived: "false",
-      page: 0,
-      size: 1000000,
-    });
+  useGetAllStudentsQuery({
+    archived: "false",
+    page: 0,
+    size: 1000000,
+    graduated: "false"
+  });
 
   // Pre-fill form when scholarship data is loaded
   useEffect(() => {

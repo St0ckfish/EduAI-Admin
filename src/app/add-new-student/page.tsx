@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import Spinner from "@/components/spinner";
 import { useCreateStudentsMutation, useGetAllEducationsQuery } from "@/features/User-Management/studentApi";
 import { useGetAllParentsQuery } from "@/features/User-Management/parentApi";
+import { useRouter } from "next/navigation";
 import {
   useGetAllCountryCodeQuery,
   useGetAllLanguagesQuery,
@@ -54,7 +55,7 @@ const AddNewStudent = () => {
   const [studentProfilePhoto, setStudentProfilePhoto] = useState("");
   const [studentIdPhoto, setStudentIdPhoto] = useState("");
   const [fileName, setFileName] = useState("");
-
+  const router = useRouter();
   const handleFileChange = (
     event: any,
     setFileName: (name: string) => void,
@@ -148,6 +149,7 @@ const AddNewStudent = () => {
     try {
       await createStudent(formData).unwrap();
       toast.success("Student created successfully");
+      router.push("/student");
     } catch {
       toast.error("Failed to create student");
     }

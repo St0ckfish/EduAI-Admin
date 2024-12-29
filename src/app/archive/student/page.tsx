@@ -43,11 +43,12 @@ const Student = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const { data, error, isLoading, refetch } = useGetAllStudentsQuery({
-    archived: "true",
+    archived: "false",
     page: currentPage,
     size: rowsPerPage,
+    graduated: "false"
   });
-
+  
   const onPageChange = (page: SetStateAction<number>) => {
     setCurrentPage(page);
   };
@@ -261,6 +262,15 @@ const Student = () => {
                 </th>
                 <th scope="col" className="whitespace-nowrap px-6 py-3">
                   {currentLanguage === "en"
+                    ? "classroom"
+                    : currentLanguage === "ar"
+                      ? "الفصل الدراسي"
+                      : currentLanguage === "fr"
+                        ? "classe"
+                        : "classe"}{" "}
+                </th>
+                <th scope="col" className="whitespace-nowrap px-6 py-3">
+                  {currentLanguage === "en"
                     ? "View"
                     : currentLanguage === "ar"
                       ? "عرض"
@@ -338,6 +348,9 @@ const Student = () => {
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
                       {student.number}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {student.classroomName}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
                       <Link
