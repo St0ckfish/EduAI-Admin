@@ -13,6 +13,7 @@ import { RootState } from "@/GlobalRedux/store";
 import { toast } from "react-toastify";
 import Pagination from "@/components/pagination";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import { baseUrl } from "@/components/BaseURL";
 
 const Student = () => {
   const breadcrumbs = [
@@ -35,6 +36,12 @@ const Student = () => {
       href: "/student",
     },
   ];
+  const getCookie = (name: string) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop()?.split(";").shift();
+    return null;
+  };
 
   const [selectAll, setSelectAll] = useState(false);
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
@@ -56,30 +63,52 @@ const Student = () => {
     graduated: "false",
   });
 
-  const [exportStudentsFile, { data: exportData }] = useLazyExportStudentsFileQuery();
-
-  const handleExport = async () => {
+  const handleExport = async (params: any) => {
     try {
-      await exportStudentsFile({
-        archived: "false",
-        page: currentPage,
-        size: rowsPerPage,
-        graduated: "false",
+      const queryParams = new URLSearchParams({
+        size: params.size?.toString() || '',
+        page: params.page?.toString() || '',
+        archived: params.archived?.toString() || '',
+        graduated: params.graduated?.toString() || '',
+        'search-word': params.searchWord || '',
+        genders: params.genders?.join(',') || '',
+        'classroom-names': params.classroomNames?.join(',') || '',
+        address: params.address || ''
       });
-      if (exportData) {
-        const a = document.createElement('a');
-        const url = window.URL.createObjectURL(new Blob([exportData]));
-        a.href = url;
-        a.download = 'students.xlsx';
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
+  
+      const response = await fetch(
+        `${baseUrl}/api/v1/export/student/excel?${queryParams}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${getCookie("token")}`,
+          },
+        }
+      );
+  
+      if (!response.ok) {
+        throw new Error('Export failed');
       }
+  
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'students.xlsx';
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+  
     } catch (error) {
       toast.error("Failed to export students data");
+      console.error('Export error:', error);
     }
   };
+  
+  // Usage example:
+  
 
   const onPageChange = (page: SetStateAction<number>) => {
     setCurrentPage(page);
@@ -361,7 +390,12 @@ const Student = () => {
           {/* New Student Button */}
           <div className="flex justify-center">
           <button
-              onClick={handleExport}
+              onClick={()=>handleExport({
+                size: rowsPerPage,
+                page: currentPage,
+                archived: false,
+                graduated: false
+              })}
               className="mx-3 mb-5 w-[190px] whitespace-nowrap rounded-xl bg-green-600 px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-green-700 hover:shadow-xl"
             >
               {currentLanguage === "en"

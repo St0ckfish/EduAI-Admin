@@ -25,6 +25,7 @@ import { useForm } from "react-hook-form";
 import { FaThumbsUp } from "react-icons/fa";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { FaComment } from "react-icons/fa";
+import ImageComponent from "@/components/ImageSrc";
 
 const News = () => {
   const breadcrumbs = [
@@ -289,12 +290,17 @@ const News = () => {
               <div className="mt-2 flex justify-center">
                 <div className="mt-2 flex flex-wrap justify-center gap-2">
                   {post.attachments.map((img: any, index: number) => (
-                    <img
-                      className="w-[300px] rounded-md max-[450px]:w-[250px]"
-                      src={img.viewLink}
-                      alt="#"
-                      key={index}
-                    />
+                    <ImageComponent
+                        src={img.viewLink}
+                        fallbackSrc="/images/noImage.png"
+                        aspectRatio="aspect-video"
+                        objectFit="cover"
+                        priority={true}
+                        className="rounded-lg"
+                        alt="Example image"
+                        onLoadingComplete={() => console.log('Image loaded')}
+                        onError={(error) => console.error('Image failed to load:', error)}
+                      />
                   ))}
                 </div>
               </div>
