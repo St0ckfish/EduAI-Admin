@@ -221,7 +221,7 @@ const Transcript = () => {
                   </td>
                   <td className="whitespace-nowrap px-6 py-4">
                       <Link
-                        href="/"
+                        href={`/document-management/transcript/${course.courseSemesterRegistrationId}`}
                         className="font-medium text-blue-600 hover:underline"
                       >
                         View

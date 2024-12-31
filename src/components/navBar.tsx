@@ -24,6 +24,7 @@ import { setUser } from "@/features/userSlice";
 import { useGetSchoolLogoQuery } from "@/features/events/eventsApi";
 import { useNotificationsWebSocket } from "@/hooks/useNotifications";
 import { navigationItems } from "./navBarRouts";
+import { cn } from "@/lib/utils";
 
 const NavBar = () => {
   const { language: currentLanguage, loading } = useSelector(
@@ -497,7 +498,15 @@ const NavBar = () => {
             <div
               dir={currentLanguage === "ar" ? "rtl" : "ltr"}
               id="application-sidebar"
-              className={`transform transition-all duration-300 ${small ? "w-[90px]" : "w-[260px]"} fixed inset-y-0 start-0 z-[60] border-e border-borderPrimary bg-bgPrimary duration-300 ease-in lg:bottom-0 lg:end-auto lg:block ${currentLanguage === "ar" ? " max-[1024px]:translate-x-full" : " max-[1024px]:-translate-x-full"}  ${isOpen ? "max-[1024px]:translate-x-0" : "max-[1024px]:-translate-x-full"}`}
+              className={cn("fixed inset-y-0 start-0 z-[60] border-e border-borderPrimary bg-bgPrimary", "transition-all duration-300", "lg:bottom-0 lg:end-auto lg:block", small ? "w-24" : "w-64",
+                currentLanguage === "ar" 
+                  ? isOpen 
+                    ? "max-lg:translate-x-0" 
+                    : "max-lg:translate-x-full"
+                  : isOpen 
+                    ? "max-lg:translate-x-0" 
+                    : "max-lg:-translate-x-full"
+              )}
             >
               <div className="px-8 pt-4">
                 <Link href="/">

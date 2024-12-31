@@ -6,6 +6,7 @@ import BreadCrumbs from "@/components/BreadCrumbs";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import Spinner from "@/components/spinner";
+import { useGetAllListPointsQuery } from "@/features/Document-Management/certificatesApi";
 
 const Points = () => {
   const breadcrumbs = [
@@ -30,7 +31,7 @@ const Points = () => {
   ];
 
   const booleanValue = useSelector((state: RootState) => state.boolean.value); // sidebar
-
+const {data, isLoading} = useGetAllListPointsQuery(null)
   const [selectAll, setSelectAll] = useState(false); // State to track whether select all checkbox is checked
 
   // Function to handle click on select all checkbox
@@ -82,7 +83,7 @@ const Points = () => {
     (state: RootState) => state.language,
   );
 
-  if (loading)
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -179,10 +180,10 @@ const Points = () => {
               </th>
               <th scope="col" className="whitespace-nowrap px-6 py-3">
                 {currentLanguage === "ar"
-                  ? "إجمالي الدورات"
+                  ? "مستوى الدراسة"
                   : currentLanguage === "fr"
-                    ? "Nombre total de cours"
-                    : "Total Courses"}
+                    ? "Niveau d'étude"
+                    : "study Level"}
               </th>
               <th scope="col" className="whitespace-nowrap px-6 py-3">
                 {currentLanguage === "ar"
@@ -201,76 +202,69 @@ const Points = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary">
-              <td className="w-4 p-4">
-                <div className="flex items-center">
-                  <input
-                    id="checkbox-table-search-1"
-                    type="checkbox"
-                    className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-              </td>
-              <th
-                scope="row"
-                className="flex items-center whitespace-nowrap px-6 py-4 font-medium text-textSecondary"
-              >
-                Nahda
-              </th>
-              <td className="whitespace-nowrap px-6 py-4">1321312</td>
-              <td className="whitespace-nowrap px-6 py-4">Male</td>
-              <td className="whitespace-nowrap px-6 py-4">5515151</td>
-              <td className="whitespace-nowrap px-6 py-4">002050030</td>
-              <td className="whitespace-nowrap px-6 py-4">This is text</td>
-              <td className="whitespace-nowrap px-6 py-4">
-                <Link
-                  href="/edit-enrolment"
-                  className="font-medium text-blue-600 hover:underline"
-                >
-                  {currentLanguage === "ar"
-                    ? "تعديل"
-                    : currentLanguage === "fr"
-                      ? "Modifier"
-                      : "Edit"}
-                </Link>
-              </td>
-            </tr>
-            <tr className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary">
-              <td className="w-4 p-4">
-                <div className="flex items-center">
-                  <input
-                    id="checkbox-table-search-1"
-                    type="checkbox"
-                    className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-              </td>
-              <th
-                scope="row"
-                className="flex items-center whitespace-nowrap px-6 py-4 font-medium text-textSecondary"
-              >
-                Nahda
-              </th>
-              <td className="whitespace-nowrap px-6 py-4">1321312</td>
-              <td className="whitespace-nowrap px-6 py-4">Male</td>
-              <td className="whitespace-nowrap px-6 py-4">5513131s</td>
-              <td className="whitespace-nowrap px-6 py-4">00515</td>
-              <td className="whitespace-nowrap px-6 py-4">This is text</td>
-              <td className="whitespace-nowrap px-6 py-4">
-                <Link
-                  href="/edit-book"
-                  className="font-medium text-blue-600 hover:underline"
-                >
-                  {currentLanguage === "ar"
-                    ? "تعديل"
-                    : currentLanguage === "fr"
-                      ? "Modifier"
-                      : "Edit"}
-                </Link>
-              </td>
-            </tr>
+            {
+              data?.data?.content.map((point: any)=>(
+                <tr className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary">
+                  <td className="w-4 p-4">
+                    <div className="flex items-center">
+                      <input
+                        id="checkbox-table-search-1"
+                        type="checkbox"
+                        className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500"
+                      />
+                    </div>
+                  </td>
+                  <th
+                      scope="row"
+                      className="flex items-center gap-2 whitespace-nowrap px-6 py-4 font-medium text-textSecondary"
+                    >
+                      <div className="w-[50px]">
+                        {point.photoLink == null ? (
+                          <img
+                            src="/images/userr.png"
+                            className="mx-2 h-[40px] w-[40px] rounded-full"
+                            alt="#"
+                          />
+                        ) : (
+                          <img
+                            src={point.photoLink}
+                            className="mx-2 h-[40px] w-[40px] rounded-full"
+                            alt="#"
+                          />
+                        )}
+                      </div>
+                      <p className="text-textSecondary">
+                      {point.studentName}
+                      </p>
+                    </th>
+                  <td className="whitespace-nowrap px-6 py-4">{point.studentId}</td>
+                  <td className="whitespace-nowrap px-6 py-4">{point.gender}</td>
+                  <td className="whitespace-nowrap px-6 py-4">{point.age}</td>
+                  <td className="whitespace-nowrap px-6 py-4">{point.studyLevel}</td>
+                  <td className="whitespace-nowrap px-6 py-4">{point.studyStage}</td>
+                  <td className="whitespace-nowrap px-6 py-4">
+                    <Link
+                      href={`/document-management/transcript/points/${point.studentId}`}
+                      className="font-medium text-blue-600 hover:underline"
+                    >
+                      View
+                    </Link>
+                  </td>
+                </tr>
+              ))
+            }
+            
           </tbody>
         </table>
+        {(data?.data.content.length == 0 || data == null) && (
+            <div className="flex w-full justify-center py-3 text-center text-[18px] font-semibold">
+              {currentLanguage === "en"
+                ? "There is No Data"
+                : currentLanguage === "ar"
+                  ? "لا توجد بيانات"
+                  : "Aucune donnée"}
+            </div>
+          )}
       </div>
     </>
   );

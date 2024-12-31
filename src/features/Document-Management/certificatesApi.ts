@@ -56,6 +56,21 @@ export const certificatesApi = createApi({
         url: `/api/v1/transcript/courses?semesterId=${id}`,
       }),
     }),
+    getAllGradeCourse: builder.query({
+      query: ( id ) => ({
+        url: `/api/v1/transcript/grades-of-course?courseSemesterRegistrationId=${id}`,
+      }),
+    }),
+    getAllStudentGrads: builder.query({
+      query: ( id ) => ({
+        url: `/api/v1/transcript/list-of-points/grades-for-all-semesters?student-id=${id}`,
+      }),
+    }),
+    getAllListPoints: builder.query({
+      query: () => ({
+        url: `/api/v1/transcript/list-of-points/students?search&size=1000000&page=0`,
+      }),
+    }),
   }),
 });
 
@@ -64,5 +79,8 @@ export const {
   useDeleteCertificatesMutation,
   useCreateCertificatesMutation,
   useGetCertificateByIdQuery,
+  useGetAllStudentGradsQuery,
   useGetAllTranscriptCoursesQuery,
+  useGetAllGradeCourseQuery,
+  useGetAllListPointsQuery,
 } = certificatesApi;
