@@ -51,11 +51,9 @@ export const certificatesApi = createApi({
       query: id => `/api/v1/management/certificate/completion/${id}`,
     }),
     //
-    updateCertificates: builder.mutation({
-      query: ({ formData, id }) => ({
-        url: `cases/categories/${id}`,
-        method: "PATCH",
-        body: formData,
+    getAllTranscriptCourses: builder.query({
+      query: ( id ) => ({
+        url: `/api/v1/transcript/courses?semesterId=${id}`,
       }),
     }),
   }),
@@ -66,5 +64,5 @@ export const {
   useDeleteCertificatesMutation,
   useCreateCertificatesMutation,
   useGetCertificateByIdQuery,
-  useUpdateCertificatesMutation,
+  useGetAllTranscriptCoursesQuery,
 } = certificatesApi;

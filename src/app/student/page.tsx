@@ -299,7 +299,7 @@ const Student = () => {
               id="genderFilter"
               value={selectedGender}
               onChange={(e) => setSelectedGender(e.target.value)}
-              className="w-40 rounded-md border border-gray-300 bg-white px-2 py-2 text-sm outline-none focus:border-blue-500 focus:ring-blue-500"
+              className="w-40 rounded-md border px-2 py-2 text-sm outline-none focus:border-blue-500 focus:ring-blue-500"
             >
               <option value="">
                 {currentLanguage === "en"
@@ -337,7 +337,7 @@ const Student = () => {
               id="classroomFilter"
               value={selectedClassroom}
               onChange={(e) => setSelectedClassroom(e.target.value)}
-              className="w-40 rounded-md border border-gray-300 bg-white px-2 py-2 text-sm outline-none focus:border-blue-500 focus:ring-blue-500"
+              className="w-40 rounded-md border  px-2 py-2 text-sm outline-none focus:border-blue-500 focus:ring-blue-500"
             >
               <option value="">
                 {currentLanguage === "en"
