@@ -35,6 +35,7 @@ export const studentApi = createApi({
     exportStudentsFile: builder.query({
       query: ({ archived, page, size, graduated }) =>
         `/api/v1/export/student/excel?size=${size}&page=${page}&archived=${archived}&graduated=${graduated}`,
+      transformResponse: (response: any) => response.blob(),
     }),
     //
     deleteStudents: builder.mutation({
@@ -79,7 +80,7 @@ export const studentApi = createApi({
 
 export const {
   useGetAllStudentsQuery,
-  useExportStudentsFileQuery,
+  useLazyExportStudentsFileQuery,
   useGetStudentByIdUpdateQuery,
   useDeleteStudentsMutation,
   useCreateStudentsMutation,

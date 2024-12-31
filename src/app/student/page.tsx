@@ -5,7 +5,7 @@ import { useState, useEffect, SetStateAction } from "react";
 import {
   useDeleteStudentsMutation,
   useGetAllStudentsQuery,
-  useExportStudentsFileQuery
+  useLazyExportStudentsFileQuery
 } from "@/features/User-Management/studentApi";
 import Spinner from "@/components/spinner";
 import { useSelector } from "react-redux";
@@ -56,21 +56,19 @@ const Student = () => {
     graduated: "false",
   });
 
-  const { data: exportData, refetch: exportRefetch } = useExportStudentsFileQuery({
-    archived: "false",
-    page: currentPage,
-    size: rowsPerPage,
-    graduated: "false",
-  });
+  const [exportStudentsFile, { data: exportData }] = useLazyExportStudentsFileQuery();
 
   const handleExport = async () => {
     try {
-      await exportRefetch();
+      await exportStudentsFile({
+        archived: "false",
+        page: currentPage,
+        size: rowsPerPage,
+        graduated: "false",
+      });
       if (exportData) {
-        // Create a blob from the response data
-        const blob = new Blob([exportData], { type: 'application/vnd.ms-excel' });
-        const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
+        const url = window.URL.createObjectURL(new Blob([exportData]));
         a.href = url;
         a.download = 'students.xlsx';
         document.body.appendChild(a);
