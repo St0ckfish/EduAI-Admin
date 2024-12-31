@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import Spinner from "@/components/spinner";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toggle } from "@/features/boolyanSlice";
 import Cookie from "js-cookie";
@@ -42,7 +42,6 @@ const NavBar = () => {
     isLoading: userLoading,
   } = useGetAllCurrentUserQuery(null);
 
-  // Theme Changer
   const { theme, setTheme } = useTheme();
   const [isClient, setIsClient] = useState(false);
 
@@ -69,34 +68,38 @@ const NavBar = () => {
   );
 
   const userId = useSelector((state: RootState) => state.user?.id) || null;
-
-  const { notificationsCount, isConnected } = useNotificationsWebSocket(userId);
-
-  const [pathname, setPathname] = useState("");
+  const { notificationsCount } = useNotificationsWebSocket(userId);
   const [small, setSmall] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [profile, setProfile] = useState(false);
   const toggleProfile = () => {
     setProfile(!profile);
   };
-  const [isOpen2, setIsOpen2] = useState(false);
-  const toggleNavbar2 = () => {
-    setIsOpen2(!isOpen2);
-  };
-  const [isOpen3, setIsOpen3] = useState(false);
-  const toggleNavbar3 = () => {
-    setIsOpen3(!isOpen3);
-  };
-  const [isOpen4, setIsOpen4] = useState(false);
-  const toggleNavbar4 = () => {
-    setIsOpen4(!isOpen4);
-  };
-  const [isOpen5, setIsOpen5] = useState(false);
-  const toggleNavbar5 = () => {
-    setIsOpen5(!isOpen5);
-  };
   const [openDropdowns, setOpenDropdowns] = useState<Record<string, boolean>>({});
+  const navbarRef = useRef<HTMLDivElement>(null);
+  const toggleNavbar = () => {
+    setIsOpen((prev) => !prev);
+  };
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      navbarRef.current &&
+      !navbarRef.current.contains(event.target as Node)
+    ) {
+      setIsOpen(false);
+    }
+  };
 
+  useEffect(() => {
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
   const toggleDropdown = (id: string) => {
     setOpenDropdowns(prev => ({
       ...prev,
@@ -118,46 +121,10 @@ const NavBar = () => {
       setOpenDropdowns({});
     }
   };
-  useEffect(() => {
-    setPathname(window.location.pathname);
-  }, [pathname]);
+
   const OpenSideBar = () => {
     setIsOpen(!isOpen);
   };
-
-  const useWindowDimensions = () => {
-    const isClient = typeof window === "object";
-    const [windowSize, setWindowSize] = useState(
-      isClient
-        ? { width: window.innerWidth, height: window.innerHeight }
-        : { width: undefined, height: undefined },
-    );
-
-    useEffect(() => {
-      if (!isClient) {
-        return;
-      }
-
-      const handleResize = () => {
-        setWindowSize({ width: window.innerWidth, height: window.innerHeight });
-      };
-
-      window.addEventListener("resize", handleResize);
-      handleResize();
-
-      return () => window.removeEventListener("resize", handleResize);
-    }, [isClient]);
-
-    return windowSize;
-  };
-
-  const { width } = useWindowDimensions();
-
-  useEffect(() => {
-    if (width !== undefined && width >= 1023) {
-      setIsOpen(true);
-    }
-  }, [width]);
 
   const DeleteCookie = () => {
     Cookie.remove("token");
@@ -180,7 +147,10 @@ const NavBar = () => {
 
   return (
     <>
-      <header>
+    {isOpen && (
+        <div className="fixed inset-0 z-40 bg-black bg-opacity-40" onClick={toggleNavbar}></div>
+      )}
+      <header ref={navbarRef}>
         <div>
           <header
             dir={currentLanguage === "ar" ? "rtl" : "ltr"}
@@ -523,11 +493,11 @@ const NavBar = () => {
               </button>
             </div>
           </div>
-          {isOpen && (
+
             <div
               dir={currentLanguage === "ar" ? "rtl" : "ltr"}
               id="application-sidebar"
-              className={`hs-overlay hs-overlay-open:translate-x-0 transform transition-all duration-300 [--auto-close:lg] ${small ? "w-[90px]" : "w-[260px]"} drop-shadow-2xl lg:drop-shadow-none ${!isOpen ? "w-0" : ""} fixed inset-y-0 start-0 z-[60] border-e border-borderPrimary bg-bgPrimary duration-300 ease-in lg:bottom-0 lg:end-auto lg:block lg:translate-x-0`}
+              className={`transform transition-all duration-300 ${small ? "w-[90px]" : "w-[260px]"} fixed inset-y-0 start-0 z-[60] border-e border-borderPrimary bg-bgPrimary duration-300 ease-in lg:bottom-0 lg:end-auto lg:block ${currentLanguage === "ar" ? " max-[1024px]:translate-x-full" : " max-[1024px]:-translate-x-full"}  ${isOpen ? "max-[1024px]:translate-x-0" : "max-[1024px]:-translate-x-full"}`}
             >
               <div className="px-8 pt-4">
                 <Link href="/">
@@ -575,7 +545,7 @@ const NavBar = () => {
               </div>
 
               <nav
-                className={`hs-accordion-group flex w-full flex-col flex-wrap p-6 ${!isOpen ? "hidden" : ""}`}
+                className={`hs-accordion-group flex w-full flex-col flex-wrap p-6`}
                 data-hs-accordion-always-open
               >
                 <ul className="space-y-1.5">
@@ -623,6 +593,7 @@ const NavBar = () => {
                             >
                               {item.submenu.map((subItem) => (
                                 <Link
+                                onClick={()=> setIsOpen(false)}
                                   key={subItem.id}
                                   className={`hover:text-primary ${url === subItem.path ? "text-primary" : ""}`}
                                   href={subItem.path}
@@ -636,6 +607,7 @@ const NavBar = () => {
                         </>
                       ) : (
                         <Link
+                        onClick={()=> setIsOpen(false)}
                           className={`flex ${small ? "w-[40px]" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold ${url === item.path ? "bg-bgSecondary text-primary" : "text-secondary"} hover:bg-bgSecondary hover:text-primary`}
                           href={item.path}
                         >
@@ -652,7 +624,7 @@ const NavBar = () => {
                 </ul>
               </nav>
             </div>
-          )}
+
         </div>
         <div></div>
       </header>

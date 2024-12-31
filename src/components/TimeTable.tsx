@@ -236,7 +236,7 @@ const TimeTable = ({
                               ref={el => {
                                 dropdownRefs.current[event.id] = el;
                               }}
-                              className="absolute left-0 right-0 z-50 w-14 rounded-md bg-bgPrimary shadow-lg"
+                              className="absolute right-9 z-50 w-14 rounded-md bg-bgPrimary shadow-lg"
                               style={{ top: `${top - 5}%` }}
                             >
                               <button

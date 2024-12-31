@@ -182,10 +182,10 @@ const Schedule = () => {
               className="mx-3 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
             >
               {currentLanguage === "ar"
-                ? "إضافة حدث"
+                ? "إضافة جدول"
                 : currentLanguage === "fr"
-                  ? "Ajouter un événement"
-                  : "Add Event"}
+                  ? "ajouter un horaire"
+                  : "Add schedule"}
             </button>
             <Link
               className="text-primary underline"
