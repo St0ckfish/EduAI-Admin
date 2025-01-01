@@ -347,7 +347,7 @@ const NavBar = () => {
                           className="border-bgSeconday inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 rounded-full border text-sm font-semibold text-gray-800 outline-none hover:bg-thead disabled:pointer-events-none disabled:opacity-50"
                         >
                           {userLoading ? (
-                            <p>........</p>
+                            <div className="w-full h-full animate-pulse bg-gray-200 rounded-full" />
                           ) : (
                             <div>
                               {!userData?.data.hasPicture ? (

@@ -396,7 +396,7 @@ const Student = () => {
                 archived: false,
                 graduated: false
               })}
-              className="mx-3 mb-5 w-[190px] whitespace-nowrap rounded-xl bg-green-600 px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-green-700 hover:shadow-xl"
+              className="mx-3 mb-5 w-[190px] whitespace-nowrap rounded-xl bg-bgPrimary px-4 py-2 text-[18px] font-semibold text-primary duration-300 ease-in border border-primary hover:shadow-xl"
             >
               {currentLanguage === "en"
                 ? "Export Data"
