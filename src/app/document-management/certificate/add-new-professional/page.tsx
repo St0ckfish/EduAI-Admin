@@ -10,6 +10,7 @@ import { RootState } from "@/GlobalRedux/store";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { useState } from "react";
 import { FaCloudUploadAlt } from "react-icons/fa";
+import { useGetAllStudentsQuery } from "@/features/User-Management/studentApi";
 
 const AddNewProfessional = () => {
   const breadcrumbs = [
@@ -45,6 +46,13 @@ const AddNewProfessional = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const { data: students, isLoading: isStudentsLoading } =
+    useGetAllStudentsQuery({
+      archived: "false",
+      page: 0,
+      size: 1000000,
+      graduated: "false"
+    });
   const [createCertificate, { isLoading }] = useCreateProfessionalsMutation();
   const [fileName, setFileName] = useState("");
 
@@ -132,21 +140,45 @@ const AddNewProfessional = () => {
               </h1>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
-              <label
+            <label
                 htmlFor="userId"
                 className="grid font-sans text-[18px] font-semibold"
               >
-                {currentLanguage === "ar"
-                  ? "معرّف المستخدم"
-                  : currentLanguage === "fr"
-                    ? "Identifiant Utilisateur"
-                    : "User Id"}
-                <input
+                {currentLanguage === "en"
+                  ? "Student ID"
+                  : currentLanguage === "ar"
+                    ? "رقم الطالب"
+                    : "ID de l'étudiant"}
+
+                <select
                   id="userId"
-                  type="text"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
                   {...register("userId", { required: true })}
-                />
+                  className="h-full w-[400px] rounded-xl border px-4 py-3 text-[18px] outline-none max-[458px]:w-[350px]"
+                >
+                  <option value="">
+                    {currentLanguage === "en"
+                      ? "Select Student"
+                      : currentLanguage === "ar"
+                        ? "اختر الطالب"
+                        : "Sélectionner Étudiant"}
+                  </option>
+                  {students?.data.content.map(
+                    (student: {
+                      id: string | null | undefined;
+                      name:
+                        | string
+                        | number
+                        | bigint
+                        | boolean
+                        | null
+                        | undefined;
+                    }) => (
+                      <option key={student.id} value={student.id ?? ""}>
+                        {String(student.name)}
+                      </option>
+                    ),
+                  )}
+                </select>
                 {errors.userId && (
                   <span className="text-error">
                     {currentLanguage === "ar"
