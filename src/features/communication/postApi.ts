@@ -47,6 +47,13 @@ export const postApi = createApi({
       }),
     }),
     //
+    deletePostImages: builder.mutation({
+      query: ({postId, imageId}) => ({
+        url: `/api/v1/management/post/${postId}/files?filesIds=${imageId}`,
+        method: "DELETE",
+      }),
+    }),
+    //
     createPosts: builder.mutation({
       query: formData => ({
         url: `/api/v1/management/post`,
@@ -96,6 +103,7 @@ export const {
   useGetAllPostsQuery,
   useDeletePostsMutation,
   useCreatePostsMutation,
+  useDeletePostImagesMutation,
   useGetPostByIdQuery,
   useUpdatePostsMutation,
   useUpdatePostsFilesMutation,

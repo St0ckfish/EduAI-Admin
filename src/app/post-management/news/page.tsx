@@ -11,7 +11,6 @@ import {
 import Link from "next/link";
 import {
   useState,
-  useEffect,
   SetStateAction,
   JSXElementConstructor,
   ReactElement,
