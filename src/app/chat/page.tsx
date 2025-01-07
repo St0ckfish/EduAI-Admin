@@ -1,5 +1,19 @@
 "use client";
 import { RootState } from "@/GlobalRedux/store";
+import BreadCrumbs from "@/components/BreadCrumbs";
+
+interface ChatData {
+  chatId: string;
+  lastMessage: string;
+  numberOfNewMessages: number;
+  targetUser: {
+    id: string;
+    name: string;
+    Role: string;
+    hasPhoto?: boolean;
+    photoLink?: string;
+  };
+}
 import Modal from "@/components/model";
 import SearchableSelect from "@/components/select";
 import Spinner from "@/components/spinner";
@@ -9,8 +23,9 @@ import {
   useDeleteChatMutation,
   useGetAllChatsQuery,
 } from "@/features/chat/chatApi";
+import { useChatListSocket } from "@/hooks/useRealTimeAllChats";
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -50,7 +65,64 @@ const Chat = () => {
   const { data, isLoading, refetch: regetusers } = useGetAllChatsQuery(null);
   const [deleteChat] = useDeleteChatMutation();
 
+  const [localChats, setLocalChats] = useState(data?.data?.content || []);
+  const currentUserId = useSelector((state: RootState) => state.user?.id) || null;
 
+  useEffect(() => {
+    if (data?.data?.content) {
+      setLocalChats(data.data.content);
+    }
+  }, [data]);
+
+  const handleChatUpdate = useCallback((update: ChatData) => {
+    setLocalChats((prevChats: ChatData[]) => {
+      // Find if the chat already exists
+      const existingChatIndex = prevChats.findIndex(chat => chat.chatId === update.chatId);
+
+      if (existingChatIndex === -1) {
+      // If it's a new chat, add it to the beginning of the list
+      return [update, ...prevChats];
+      }
+
+      // Create a new array with the updated chat
+      const updatedChats: ChatData[] = [...prevChats];
+      updatedChats[existingChatIndex] = {
+      ...updatedChats[existingChatIndex],
+      lastMessage: update.lastMessage,
+      numberOfNewMessages: update.numberOfNewMessages,
+      targetUser: {
+        ...updatedChats[existingChatIndex].targetUser,
+        ...update.targetUser
+      }
+      };
+
+      // Sort chats to bring the most recently updated chat to the top
+      return updatedChats.sort((a: ChatData, b: ChatData) => {
+      if (a.chatId === update.chatId) return -1;
+      if (b.chatId === update.chatId) return 1;
+      return 0;
+      });
+    });
+  }, []);
+
+  const clearNewMessages = useCallback((chatId: string) => {
+    setLocalChats((prevChats: ChatData[]) => 
+      prevChats.map((chat: ChatData): ChatData => 
+      chat.chatId === chatId 
+        ? { ...chat, numberOfNewMessages: 0 }
+        : chat
+      )
+    );
+  }, []);
+
+  // Effect to clear new messages when a chat is selected
+  useEffect(() => {
+    if (userId) {
+      clearNewMessages(userId);
+    }
+  }, [userId, clearNewMessages]);
+
+  const { isConnected } = useChatListSocket(currentUserId, handleChatUpdate);
 
   const handleDelete = async (id: string) => {
     try {
@@ -105,6 +177,9 @@ const Chat = () => {
     );
 
   return (
+<>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
+
     <div
       dir={currentLanguage === "ar" ? "rtl" : "ltr"}
       className={` ${
@@ -117,6 +192,7 @@ const Chat = () => {
             : "lg:ml-[270px]"
       } mt-10`}
     >
+
       <div className="flex w-full justify-between gap-10 rounded-lg p-4 max-[1180px]:grid max-[1180px]:justify-center">
         <div className="h-[700px] w-full overflow-y-auto rounded-xl bg-bgPrimary p-5">
           <div className="flex-1 overflow-y-auto">
@@ -183,14 +259,14 @@ const Chat = () => {
                   </div>
                 </div>
                 <div className="mt-2 grid gap-2">
-                  {data?.data?.content
-                    .filter((chat: any) => {
-                      return search.toLocaleLowerCase() === ""
-                        ? chat
-                        : chat.targetUser.name
-                            .toLocaleLowerCase()
-                            .includes(search);
-                    })
+                {localChats
+                .filter((chat: { targetUser: { name: string; }; }) => {
+                  return search.toLocaleLowerCase() === ""
+                    ? chat
+                    : chat.targetUser.name
+                        .toLocaleLowerCase()
+                        .includes(search);
+                })
                     .map((chat: any) => (
                       <div
                         key={chat.id}
@@ -358,6 +434,7 @@ const Chat = () => {
         )}
       </Modal>
     </div>
+    </>
   );
 };
 
