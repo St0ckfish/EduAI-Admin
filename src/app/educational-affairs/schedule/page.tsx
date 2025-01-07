@@ -179,14 +179,24 @@ const Schedule = () => {
           <div className="ml-2 flex items-center justify-start gap-3 text-xl font-semibold max-[540px]:mb-2 max-[540px]:ml-0 max-[540px]:justify-center">
             <button
               onClick={handleOpenModal}
-              className="mx-3 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover hover:shadow-xl"
+              className="mx-3 flex items-center gap-2 border border-primary whitespace-nowrap rounded-xl bg-bgPrimary px-4 py-2 text-[18px] font-semibold text-primary duration-300 ease-in  hover:shadow-xl"
             >
               {currentLanguage === "ar"
                 ? "إضافة جدول"
                 : currentLanguage === "fr"
                   ? "ajouter un horaire"
                   : "Add schedule"}
+                  <svg className="h-5 w-5"  width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="12" y1="5" x2="12" y2="19" />  <line x1="16" y1="9" x2="12" y2="5" />  <line x1="8" y1="9" x2="12" y2="5" /></svg>
             </button>
+            <Link href="/educational-affairs/schedule/add-schedule"
+              className="mx-3 whitespace-nowrap rounded-xl bg-primary px-4 py-2 text-[18px] font-semibold text-white duration-300 ease-in hover:bg-hover flex items-center gap-2 hover:shadow-xl"
+            >
+              {currentLanguage === "ar"
+                ? "إضافة جدول"
+                : currentLanguage === "fr"
+                  ? "ajouter un horaire"
+                  : "Add schedule"}
+            </Link>
             <Link
               className="text-primary underline"
               href="/educational-affairs/schedule"
