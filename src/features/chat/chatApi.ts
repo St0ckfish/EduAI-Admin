@@ -33,7 +33,7 @@ export const chatApi = createApi({
     //
     getChatMessages: builder.query({
       query: id => ({
-        url: `/api/v1/messages/messagesInChat/${id}`,
+        url: `/api/v1/messages/messagesInChat/${id}?page=0&size=100`,
       }),
     }),
     //
