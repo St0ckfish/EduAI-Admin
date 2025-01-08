@@ -498,7 +498,7 @@ const NavBar = () => {
             <div
               dir={currentLanguage === "ar" ? "rtl" : "ltr"}
               id="application-sidebar"
-              className={cn("fixed inset-y-0 start-0 z-[60] border-e border-borderPrimary bg-bgPrimary", "transition-all duration-300", "lg:bottom-0 lg:end-auto lg:block", small ? "w-24" : "w-64",
+              className={cn("fixed inset-y-0 start-0 z-[60] border-e border-borderPrimary bg-bgPrimary", "transition-all duration-300", "lg:bottom-0 lg:end-auto lg:block", small ? "w-24" : "w-64 overflow-y-auto",
                 currentLanguage === "ar" 
                   ? isOpen 
                     ? "max-lg:translate-x-0" 
@@ -506,7 +506,7 @@ const NavBar = () => {
                   : isOpen 
                     ? "max-lg:translate-x-0" 
                     : "max-lg:-translate-x-full"
-              )}
+              ) }
             >
               <div className="px-8 pt-4">
                 <Link href="/">
