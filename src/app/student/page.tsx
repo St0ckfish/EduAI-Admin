@@ -61,6 +61,8 @@ const Student = () => {
     page: currentPage,
     size: rowsPerPage,
     graduated: "false",
+    gender: selectedGender.toUpperCase(),
+    classRoom: selectedClassroom,
   });
 
   const handleExport = async (params: any) => {
@@ -196,33 +198,6 @@ const Student = () => {
         .filter((classroomName: string | null) => !!classroomName)
     )
   );
-
-  // Filter function for the table data
-  const filteredData = data?.data.content.filter((student: Student) => {
-    // Search filter
-    const matchesSearch =
-      search.trim() === ""
-        ? true
-        : (student.name || "")
-            .toLowerCase()
-            .includes(search.toLowerCase());
-
-    // Gender filter
-    const matchesGender =
-      selectedGender === ""
-        ? true
-        : (student.gender || "").toLowerCase() ===
-          selectedGender.toLowerCase();
-
-    // Classroom filter
-    const matchesClassroom =
-      selectedClassroom === ""
-        ? true
-        : (student.classroomName || "").toLowerCase() ===
-          selectedClassroom.toLowerCase();
-
-    return matchesSearch && matchesGender && matchesClassroom;
-  });
 
   return (
     <>
@@ -502,8 +477,12 @@ const Student = () => {
             </thead>
 
             <tbody>
-              {filteredData &&
-                filteredData.map((student: Student) => (
+              {data?.data.content
+                .filter((student: Student) => {
+                  return search.toLocaleLowerCase() === ""
+                    ? student
+                    : student.name.toLocaleLowerCase().includes(search);
+                }).map((student: Student) => (
                   <tr
                     key={student.id}
                     className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary"
@@ -586,7 +565,7 @@ const Student = () => {
                 ))}
             </tbody>
           </table>
-          {filteredData && filteredData.length === 0 && (
+          {(data?.data.content.length == 0 || data == null) && (
             <div className="flex w-full justify-center py-3 text-center text-[18px] font-semibold">
               {currentLanguage === "en"
                 ? "There is No Data"

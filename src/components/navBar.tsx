@@ -50,6 +50,32 @@ const NavBar = () => {
     setIsClient(true);
   }, []);
 
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen2, setMenuOpen2] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  const toggleMenu = () => setMenuOpen((prev) => !prev);
+  const toggleMenu2 = () => setMenuOpen2((prev) => !prev);
+
+  const closeMenu = () => setMenuOpen(false);
+  const closeMenu2 = () => setMenuOpen2(false);
+
+  // Close menu if clicked outside
+  useEffect(() => {
+    const handleClickOutside = (event: { target: any; }) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        closeMenu();
+        closeMenu2();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+
   useEffect(() => {
     if (userData) console.log("Response Data:", userData);
     if (userError) {
@@ -269,178 +295,153 @@ const NavBar = () => {
                     </svg>
                   </Link>
 
-                  <DropdownMenu.Root>
-                    <DropdownMenu.Trigger asChild>
-                      <button
-                        className="text-violet11 hover:bg-violet3 inline-flex h-[35px] w-[35px] items-center justify-center rounded-full bg-bgPrimary outline-none"
-                        aria-label="Customise options"
-                      >
-                        {currentLanguage === "en" ? (
-                          <img src="/images/en.png" alt="#" />
-                        ) : currentLanguage === "ar" ? (
-                          <img src="/images/morocco.png" alt="#" />
-                        ) : currentLanguage === "fr" ? (
-                          <img src="/images/fr.png" alt="#" />
-                        ) : (
-                          <img src="/images/fr.png" alt="#" />
-                        )}
-                      </button>
-                    </DropdownMenu.Trigger>
-                    <DropdownMenu.Portal>
-                      <DropdownMenu.Content
-                        className="data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade z-50 mx-2 mt-5 grid min-w-[150px] justify-center gap-5 rounded-md bg-bgPrimary p-[5px] font-semibold shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform]"
-                        sideOffset={5}
-                      >
-                        <DropdownMenu.Item className="text-violet11 data-[disabled]:text-mauve8 data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1 group relative mt-2 flex h-[25px] select-none items-center rounded-[3px] px-[5px] text-[13px] leading-none outline-none data-[disabled]:pointer-events-none">
-                          <button
-                            onClick={() => handleLanguageChange("ar")}
-                            className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
-                          >
-                            {currentLanguage === "en"
-                              ? "Arabic"
-                              : currentLanguage === "ar"
-                                ? "العربية"
-                                : currentLanguage === "fr"
-                                  ? "Arabe"
-                                  : "Arabic"}
-                          </button>
-                        </DropdownMenu.Item>
-                        <DropdownMenu.Item className="text-violet11 data-[disabled]:text-mauve8 data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1 group relative flex h-[25px] select-none items-center rounded-[3px] px-[5px] text-[13px] leading-none outline-none data-[disabled]:pointer-events-none">
-                          <button
-                            onClick={() => handleLanguageChange("en")}
-                            className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
-                          >
-                            {currentLanguage === "en"
-                              ? "English"
-                              : currentLanguage === "ar"
-                                ? "الإنجليزية"
-                                : currentLanguage === "fr"
-                                  ? "Anglais"
-                                  : "English"}
-                          </button>
-                        </DropdownMenu.Item>
-                        <DropdownMenu.Item className="text-violet11 data-[disabled]:text-mauve8 data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1 group relative mb-2 flex h-[25px] select-none items-center rounded-[3px] px-[5px] text-[13px] leading-none outline-none data-[disabled]:pointer-events-none">
-                          <button
-                            onClick={() => handleLanguageChange("fr")}
-                            className="rounded-lg px-4 py-2 text-[20px] hover:bg-bgSecondary"
-                          >
-                            {currentLanguage === "en"
-                              ? "French"
-                              : currentLanguage === "ar"
-                                ? "الفرنسية"
-                                : currentLanguage === "fr"
-                                  ? "Français"
-                                  : "French"}
-                          </button>
-                        </DropdownMenu.Item>
-                      </DropdownMenu.Content>
-                    </DropdownMenu.Portal>
-                  </DropdownMenu.Root>
+                  <div className="relative inline-flex" ref={dropdownRef}>
+      <button
+        onClick={()=> {toggleMenu2(); closeMenu();}}
+        className="text-violet11 hover:bg-violet3 mx-3 inline-flex h-[35px] w-[35px] items-center justify-center rounded-full bg-bgPrimary outline-none"
+        aria-label="Customise options"
+      >
+        {currentLanguage === "en" ? (
+          <img src="/images/en.png" alt="#" />
+        ) : currentLanguage === "ar" ? (
+          <img src="/images/morocco.png" alt="#" />
+        ) : currentLanguage === "fr" ? (
+          <img src="/images/fr.png" alt="#" />
+        ) : (
+          <img src="/images/fr.png" alt="#" />
+        )}
+      </button>
 
-                  <div className="hs-dropdown relative inline-flex [--placement:bottom-right]">
-                    <DropdownMenu.Root>
-                      <DropdownMenu.Trigger asChild>
-                        <button
-                          onClick={toggleProfile}
-                          id="hs-dropdown-with-header"
-                          type="button"
-                          className="border-bgSeconday inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 rounded-full border text-sm font-semibold text-gray-800 outline-none hover:bg-thead disabled:pointer-events-none disabled:opacity-50"
-                        >
-                          {userLoading ? (
-                            <div className="w-full h-full animate-pulse bg-gray-200 rounded-full" />
-                          ) : (
-                            <div>
-                              {!userData?.data.hasPicture ? (
-                                <img
-                                  className="inline-block h-[38px] w-[38px] rounded-full ring-2 ring-bgSecondary"
-                                  src="/images/userr.png"
-                                  alt="User Avatar"
-                                />
-                              ) : (
-                                <img
-                                  className="inline-block h-[38px] w-[38px] rounded-full ring-2 ring-bgSecondary"
-                                  src={userData?.data.picture}
-                                  alt="User Avatar"
-                                />
-                              )}
-                            </div>
-                          )}
-                        </button>
-                      </DropdownMenu.Trigger>
+      {menuOpen2 && (
+        <div className={`absolute ${currentLanguage === "ar" ? "-right-10" : "right-0"} top-[40px] mt-5 z-50 min-w-[150px] rounded-md bg-bgPrimary shadow-md`}>
+          <button
+            onClick={() => {
+              handleLanguageChange("ar");
+              closeMenu2();
+              closeMenu();
+            }}
+            className="block w-full px-4 py-2 text-left text-[20px] hover:bg-bgSecondary"
+          >
+            {currentLanguage === "en"
+              ? "Arabic"
+              : currentLanguage === "ar"
+              ? "العربية"
+              : currentLanguage === "fr"
+              ? "Arabe"
+              : "Arabic"}
+          </button>
+          <button
+            onClick={() => {
+              handleLanguageChange("en");
+              closeMenu2();
+              closeMenu();
+            }}
+            className="block w-full px-4 py-2 text-left text-[20px] hover:bg-bgSecondary"
+          >
+            {currentLanguage === "en"
+              ? "English"
+              : currentLanguage === "ar"
+              ? "الإنجليزية"
+              : currentLanguage === "fr"
+              ? "Anglais"
+              : "English"}
+          </button>
+          <button
+            onClick={() => {
+              handleLanguageChange("fr");
+              closeMenu2();
+              closeMenu();
+            }}
+            className="block w-full px-4 py-2 text-left text-[20px] hover:bg-bgSecondary"
+          >
+            {currentLanguage === "en"
+              ? "French"
+              : currentLanguage === "ar"
+              ? "الفرنسية"
+              : currentLanguage === "fr"
+              ? "Français"
+              : "French"}
+          </button>
+        </div>
+      )}
 
-                      {profile && (
-                        <DropdownMenu.Content
-                          className={` ${currentLanguage === "ar" ? "left-[20px]" : "right-[20px]"} fixed top-[20px] min-w-60 rounded-lg bg-bgPrimary p-2 text-textPrimary shadow-md`}
-                          aria-labelledby="hs-dropdown-with-header"
-                          align="end"
-                          sideOffset={5}
-                        >
-                          <div className="rounded-t-lg bg-bgPrimary px-5 py-3">
-                            <p className="text-sm text-textPrimary">
-                              {currentLanguage === "en"
-                                ? "Signed in as"
-                                : currentLanguage === "ar"
-                                  ? "مسجل الدخول باسم"
-                                  : currentLanguage === "fr"
-                                    ? "Connecté en tant que"
-                                    : "Signed in as"}
-                            </p>
-                            <p className="text-sm font-medium text-textPrimary">
-                              {userData?.data.email}
-                            </p>
-                          </div>
-                          <div className="mt-2 py-2">
-                            <DropdownMenu.Item asChild>
-                              <Link
-                                className="flex items-center gap-x-3.5 rounded-lg border-none px-3 py-2 text-sm text-textPrimary outline-none hover:bg-bgSecondary"
-                                href="/profile"
-                              >
-                                <svg
-                                  className="h-4 w-4 flex-shrink-0"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="24"
-                                  height="24"
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  strokeWidth="2"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                >
-                                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                                  <circle cx="9" cy="7" r="4" />
-                                  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                                </svg>
-                                {currentLanguage === "en"
-                                  ? "Profile"
-                                  : currentLanguage === "ar"
-                                    ? "الملف الشخصي"
-                                    : currentLanguage === "fr"
-                                      ? "Profil"
-                                      : "Profile"}
-                              </Link>
-                            </DropdownMenu.Item>
-                            <DropdownMenu.Item asChild>
-                              <a
-                                onClick={DeleteCookie}
-                                className="flex items-center gap-x-3.5 rounded-lg border-none px-3 py-2 text-sm text-textPrimary outline-none hover:bg-error hover:text-white"
-                                href="/login"
-                              >
-                                {currentLanguage === "en"
-                                  ? "Sign out"
-                                  : currentLanguage === "ar"
-                                    ? "تسجيل الخروج"
-                                    : currentLanguage === "fr"
-                                      ? "Déconnexion"
-                                      : "Sign out"}
-                              </a>
-                            </DropdownMenu.Item>
-                          </div>
-                        </DropdownMenu.Content>
-                      )}
-                    </DropdownMenu.Root>
-                  </div>
+      <div className="relative inline-flex">
+        <button
+          onClick={()=> {toggleMenu(); closeMenu2();}}
+          className="border-bgSeconday inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 rounded-full border text-sm font-semibold text-gray-800 outline-none hover:bg-thead"
+        >
+          {userLoading ? (
+            <div className="w-full h-full animate-pulse bg-gray-200 rounded-full" />
+          ) : (
+            <div>
+              {!userData?.data.hasPicture ? (
+                <img
+                  className="inline-block h-[38px] w-[38px] rounded-full ring-2 ring-bgSecondary"
+                  src="/images/userr.png"
+                  alt="User Avatar"
+                />
+              ) : (
+                <img
+                  className="inline-block h-[38px] w-[38px] rounded-full ring-2 ring-bgSecondary"
+                  src={userData?.data.picture}
+                  alt="User Avatar"
+                />
+              )}
+            </div>
+          )}
+        </button>
+
+        {menuOpen && (
+          <div className={`absolute ${currentLanguage === "ar" ? "-right-[250px]" : "right-0"} top-[40px] z-50 min-w-60 rounded-lg bg-bgPrimary p-2 shadow-md`}>
+            <div className="rounded-t-lg bg-bgPrimary px-5 py-3">
+              <p className="text-sm text-textPrimary">
+                {currentLanguage === "en"
+                  ? "Signed in as"
+                  : currentLanguage === "ar"
+                  ? "مسجل الدخول باسم"
+                  : currentLanguage === "fr"
+                  ? "Connecté en tant que"
+                  : "Signed in as"}
+              </p>
+              <p className="text-sm font-medium text-textPrimary">
+                {userData?.data.email}
+              </p>
+            </div>
+            <div className="mt-2 py-2">
+              <Link
+                className="block px-3 py-2 rounded-md text-sm text-textPrimary  hover:bg-bgSecondary"
+                href="/profile"
+                onClick={closeMenu}
+              >
+                {currentLanguage === "en"
+                  ? "Profile"
+                  : currentLanguage === "ar"
+                  ? "الملف الشخصي"
+                  : currentLanguage === "fr"
+                  ? "Profil"
+                  : "Profile"}
+              </Link>
+              <a
+                className="block px-3 py-2 rounded-md text-sm text-textPrimary hover:bg-error hover:text-white"
+                href="/login"
+                onClick={() => {
+                  DeleteCookie();
+                  closeMenu();
+                }}
+              >
+                {currentLanguage === "en"
+                  ? "Sign out"
+                  : currentLanguage === "ar"
+                  ? "تسجيل الخروج"
+                  : currentLanguage === "fr"
+                  ? "Déconnexion"
+                  : "Sign out"}
+              </a>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
                 </div>
               </div>
             </nav>
