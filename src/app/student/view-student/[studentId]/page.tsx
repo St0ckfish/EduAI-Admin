@@ -7,6 +7,7 @@ import { useGetStudentByIdQuery } from "@/features/User-Management/studentApi";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
+import Container from "@/components/Container";
 
 interface ViewStudentProps {
   params: {
@@ -37,19 +38,7 @@ const ViewStudent: React.FC<ViewStudentProps> = ({ params }) => {
       </div>
     );
   return (
-    <>
-      <div
-        dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={`${
-          currentLanguage === "ar"
-            ? booleanValue
-              ? "lg:mr-[40px]"
-              : "lg:mr-[290px]"
-            : booleanValue
-              ? "lg:ml-[40px]"
-              : "lg:ml-[290px]"
-        } grid py-4`}
-      >
+    <Container>
         <div className="grid grid-cols-2 gap-7 pr-7 max-[1342px]:grid-cols-1 max-[1342px]:px-5">
           <StudentInfo data={data} />
           <div className="grid gap-10">
@@ -57,8 +46,7 @@ const ViewStudent: React.FC<ViewStudentProps> = ({ params }) => {
             <Exams />
           </div>
         </div>
-      </div>
-    </>
+        </Container>
   );
 };
 

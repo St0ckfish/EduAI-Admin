@@ -85,11 +85,21 @@ const AddNewStudent = () => {
         label: `${rigion.regionName} - ${rigion.cityName}`,
       }),
     ) || [];
-  const { data: parentData, isLoading: parentLoading } = useGetAllParentsQuery({
-    archived: "false",
-    page: 0,
-    size: 1000000,
-  });
+    const { data: parentData, isLoading: parentLoading } = useGetAllParentsQuery({
+      archived: "false",
+      page: 0,
+      size: 1000000,
+    });
+    const parentOptions =
+      parentData?.data.content?.map(
+        (parent: {
+          id: any;
+          name: any;
+        }) => ({
+          value: parent.id,
+          label: `${parent.name}`,
+        }),
+      ) || [];
   const { data: countryCode, isLoading: isCountryCode } =
     useGetAllCountryCodeQuery(null);
   const { data: LevelData, isLoading: LevelLoading } =
@@ -201,25 +211,14 @@ const AddNewStudent = () => {
                   : currentLanguage === "ar"
                     ? "الوالد"
                     : "Parent"}
-                <select
-                  id="parentId"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("parentId", { required: true })}
-                >
-                  <option value="">
-                    {currentLanguage === "en"
-                      ? "Select Parent"
-                      : currentLanguage === "ar"
-                        ? "اختر الوالد"
-                        : "Sélectionner un parent"}
-                  </option>
-                  {parentData &&
-                    parentData?.data.content?.map((parent: any) => (
-                      <option key={parent.id} value={parent.id}>
-                        {parent.name}
-                      </option>
-                    ))}
-                </select>
+                <SearchableSelect
+                  name="parentId"
+                  control={control}
+                  errors={errors}
+                  options={parentOptions}
+                  currentLanguage={currentLanguage}
+                  placeholder="Select Parent"
+                />
                 {errors.parentId && (
                   <span className="text-error">
                     {currentLanguage === "en"
