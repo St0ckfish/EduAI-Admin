@@ -28,7 +28,7 @@ export const eventsApi = createApi({
   }),
   endpoints: builder => ({
     getAllEvents: builder.query({
-      query: () => "/api/v1/event/all?size=10&page=0&getActive=1",
+      query: () => "/api/v1/event/all?size=1000000&page=0&getActive=1",
     }),
     //
     getSchoolLogo: builder.query({
