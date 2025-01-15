@@ -78,7 +78,7 @@ const Student = () => {
         archived: params.archived?.toString() || '',
         graduated: params.graduated?.toString() || '',
         'search-word': params.searchWord || '',
-        genders: params.genders?.join(',') || '',
+        genders: selectedGender.toUpperCase(),
         'classroom-names': params.classroomNames?.join(',') || '',
         address: params.address || ''
       });
