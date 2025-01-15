@@ -29,7 +29,7 @@ export const scheduleApi = createApi({
   endpoints: builder => ({
     getAllTeacherSchedule: builder.query({
       query: teacherId =>
-        `/api/v1/schedule/teacher?size=&page=&teacherId=${teacherId}&getActive=1`,
+        `/api/v1/schedule/teacher?size=1000000&page=0&teacherId=${teacherId}&getActive=1`,
     }),
     //
     getAllClassSchedule: builder.query({
