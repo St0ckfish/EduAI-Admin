@@ -17,6 +17,7 @@ import { useGetAllPositionsQuery } from "@/features/User-Management/driverApi";
 import SearchableSelect from "@/components/select";
 import PhoneNumberInput from "@/components/PhoneNumberInput";
 import MultiSelectComponent from "@/components/multiSelect";
+import Link from "next/link";
 
 const AddNewTeacher = () => {
   const { data: positionData, isLoading: isPosition } =
@@ -700,6 +701,12 @@ const AddNewTeacher = () => {
                           : "Ce champ est requis"}
                     </span>
                   )}
+{
+  positionData.data.content.length == 0 && (
+    <Link href="/organization-setting/position/add-position" className="mt-4 text-sm text-primary underline font-medium">Add Position</Link>
+
+  )
+}
                 </label>
 
                 <label
