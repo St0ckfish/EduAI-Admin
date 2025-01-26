@@ -69,7 +69,7 @@ const AddNewParent = () => {
     ) || [];
   const { data: countryCode, isLoading: isCountryCode } =
     useGetAllCountryCodeQuery(null);
-
+    const passwordPattern = "^(?=.*[A-Z])(?=.*[~@#$^*()_+\\[\\]{}|\\\\,.?:'\"/;`%-])(?=.*[0-9])(?=.*[a-z]).{8,32}$";
   const onSubmit = async (data: any) => {
     const requestBody = {
       username: data.username,
@@ -222,34 +222,49 @@ const AddNewParent = () => {
                 )}
               </label>
               <label
-                htmlFor="password"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "en"
-                  ? "Password"
-                  : currentLanguage === "ar"
-                    ? "كلمة المرور"
-                    : currentLanguage === "fr"
-                      ? "Mot de passe"
-                      : "Password"}
-                <input
-                  id="password"
-                  type="password"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("password", { required: true })}
-                />
-                {errors.password && (
-                  <span className="text-error">
-                    {currentLanguage === "en"
-                      ? "This field is required"
-                      : currentLanguage === "ar"
-                        ? "هذا الحقل مطلوب"
-                        : currentLanguage === "fr"
-                          ? "Ce champ est requis"
-                          : "This field is required"}
-                  </span>
-                )}
-              </label>
+      htmlFor="password"
+      className="grid font-sans text-[18px] font-semibold"
+    >
+      {currentLanguage === "en"
+        ? "Password"
+        : currentLanguage === "ar"
+          ? "كلمة المرور"
+          : currentLanguage === "fr"
+            ? "Mot de passe"
+            : "Password"}
+      <input
+        id="password"
+        type="password"
+        className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+        {...register("password", {
+          required: {
+            value: true,
+            message: currentLanguage === "en"
+              ? "This field is required"
+              : currentLanguage === "ar"
+                ? "هذا الحقل مطلوب"
+                : currentLanguage === "fr"
+                  ? "Ce champ est requis" 
+                  : "This field is required"
+          },
+          pattern: {
+            value: new RegExp(passwordPattern),
+            message: currentLanguage === "en"
+              ? "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character"
+              : currentLanguage === "ar"
+                ? "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل، حرف كبير، حرف صغير، رقم وحرف خاص"
+                : currentLanguage === "fr"
+                  ? "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial"
+                  : "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character"
+          }
+        })}
+      />
+      {errors.password && (
+        <span className="text-error">
+          {errors.password?.message?.toString()}
+        </span>
+      )}
+    </label>
               <label
                 htmlFor="nid"
                 className="grid font-sans text-[18px] font-semibold"
