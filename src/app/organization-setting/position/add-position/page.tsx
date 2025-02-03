@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { useGetAllPositionsQuery } from "@/features/User-Management/driverApi";
+import { useGetAllDepartmentsQuery } from "@/features/Organization-Setteings/departmentApi";
 
 const AddPosition = () => {
   const breadcrumbs = [
@@ -39,7 +40,7 @@ const AddPosition = () => {
   ];
 
   const { data: positionData, isLoading: isPosition } =
-    useGetAllPositionsQuery(null);
+  useGetAllDepartmentsQuery(null);
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const {
     register,
@@ -164,7 +165,7 @@ const AddPosition = () => {
                         index: React.Key | null | undefined,
                       ) => (
                         <option key={index} value={rigion.id}>
-                          {rigion.title}
+                          {rigion.name}
                         </option>
                       ),
                     )}

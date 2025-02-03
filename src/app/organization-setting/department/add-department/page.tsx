@@ -378,10 +378,10 @@ const AddDepartment = () => {
                 className="grid font-sans text-[18px] font-semibold"
               >
                 {currentLanguage === "ar"
-                  ? "موظف"
+                  ? "حدد الدور"
                   : currentLanguage === "fr"
-                    ? "Employé"
-                    : "Employee"}
+                    ? "sélectionner le rôle"
+                    : "Select Role"}
                 <select
                   defaultValue=""
                   id="roles"
@@ -390,10 +390,10 @@ const AddDepartment = () => {
                 >
                   <option selected value="">
                     {currentLanguage === "ar"
-                      ? "اختر الوظيفة"
-                      : currentLanguage === "fr"
-                        ? "Sélectionnez le poste"
-                        : "Select Position"}
+                      ? "حدد الدور"
+                  : currentLanguage === "fr"
+                    ? "sélectionner le rôle"
+                    : "Select Role"}
                   </option>
                   {data &&
                     Object.entries(data.data).map(([key, value]) => (
