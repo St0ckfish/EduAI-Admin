@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import { useGetAllRolesQuery } from "@/features/signupApi";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import { useRouter } from "next/navigation";
 
 const AddDepartment = () => {
   const breadcrumbs = [
@@ -37,6 +38,7 @@ const AddDepartment = () => {
       href: "/organization-setting/department/add-department",
     },
   ];
+  const router = useRouter();
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const { data, isLoading: isRoles } = useGetAllRolesQuery(null);
   const {
@@ -56,6 +58,7 @@ const AddDepartment = () => {
       };
       await createDepartment(processedData).unwrap();
       toast.success("Department created successfully");
+      router.push("/organization-setting/department");
     } catch (err) {
       toast.error("Failed to create Department");
     }

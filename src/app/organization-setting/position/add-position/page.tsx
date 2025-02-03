@@ -10,6 +10,7 @@ import { RootState } from "@/GlobalRedux/store";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { useGetAllPositionsQuery } from "@/features/User-Management/driverApi";
 import { useGetAllDepartmentsQuery } from "@/features/Organization-Setteings/departmentApi";
+import { useRouter } from "next/navigation";
 
 const AddPosition = () => {
   const breadcrumbs = [
@@ -38,7 +39,7 @@ const AddPosition = () => {
       href: "/organization-setting/position/add-position",
     },
   ];
-
+  const router = useRouter();
   const { data: positionData, isLoading: isPosition } =
   useGetAllDepartmentsQuery(null);
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
@@ -53,6 +54,7 @@ const AddPosition = () => {
     try {
       await createPosition(data).unwrap();
       toast.success("Position created successfully");
+      router.push("/organization-setting/position");
     } catch {
       toast.error("Failed to create Position");
     }
