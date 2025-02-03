@@ -20,6 +20,12 @@ const Infrastructure = () => {
       href: "/",
     },
     {
+      nameEn: "Infrastructures",
+      nameAr: "البنية التحتية",
+      nameFr: "Infrastructures",
+      href: "/infrastructure",
+    },
+    {
       nameEn: "Classes",
       nameAr: "الفصل",
       nameFr: "Classe",
