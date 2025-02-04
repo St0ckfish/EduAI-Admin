@@ -80,15 +80,15 @@ const EditParent: React.FC<ViewParentProps> = ({ params }) => {
   } = useForm();
   useEffect(() => {
     if (data) {
-      setValue("email", data.data.email);
-      setValue("nid", data.data.nid);
-      setValue("about", data.data.about);
-      setValue("number", data.data.number);
-      setValue("salary", data.data.salary);
-      setValue("name_en", data.data.name);
+      setValue("email", data?.data?.email);
+      setValue("nid", data?.data?.nid);
+      setValue("about", data?.data?.about);
+      setValue("number", data?.data?.number);
+      setValue("salary", data?.data?.salary);
+      setValue("name_en", data?.data?.name);
       setValue("name_ar", "");
       setValue("name_fr", "");
-      setValue("birthDate", data.data.birthDate);
+      setValue("birthDate", data?.data?.birthDate);
     }
 
   }, [data, error]);
