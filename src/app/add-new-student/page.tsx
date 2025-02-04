@@ -85,6 +85,7 @@ const AddNewStudent = () => {
         label: `${rigion.regionName} - ${rigion.cityName}`,
       }),
     ) || [];
+    
     const { data: parentData, isLoading: parentLoading } = useGetAllParentsQuery({
       archived: "false",
       page: 0,

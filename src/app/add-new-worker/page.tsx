@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import { useGetAllPositionsQuery } from "@/features/User-Management/driverApi";
 import SearchableSelect from "@/components/select";
 import PhoneNumberInput from "@/components/PhoneNumberInput";
+import { useRouter } from "next/navigation";
 
 const AddNewWorker = () => {
   const { data: positionData, isLoading: isPosition } =
@@ -58,6 +59,8 @@ const AddNewWorker = () => {
   const { data: countryCode, isLoading: isCountryCode } =
     useGetAllCountryCodeQuery(null);
   const { data: rigiond } = useGetAllReginionIDQuery(null);
+  const router = useRouter();
+
   const optionsRigon =
     rigiond?.data?.map(
       (rigion: {
@@ -77,6 +80,7 @@ const AddNewWorker = () => {
     try {
       await createWorker(formData).unwrap();
       toast.success("Wroker created successfully");
+      router.push("/worker");
     } catch {
       toast.error(
         "Failed to create Wroker:  you may enter the passord incorrectly",

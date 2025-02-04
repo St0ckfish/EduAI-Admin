@@ -15,6 +15,7 @@ import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import SearchableSelect from "@/components/select";
 import PhoneNumberInput from "@/components/PhoneNumberInput";
+import { useRouter } from "next/navigation";
 
 const AddNewEmployee = () => {
   const breadcrumbs = [
@@ -56,6 +57,7 @@ const AddNewEmployee = () => {
     control,
     formState: { errors },
   } = useForm();
+  const router = useRouter();
   const [createEmployee, { isLoading }] = useCreateEmployeesMutation();
   const { data: rigiond } = useGetAllReginionIDQuery(null);
   const optionsRigon =
@@ -76,6 +78,7 @@ const AddNewEmployee = () => {
     try {
       await createEmployee(formData).unwrap();
       toast.success("Employee created successfully");
+      router.push("/employee");
     } catch {
       toast.error("Failed to create employee: ");
     }

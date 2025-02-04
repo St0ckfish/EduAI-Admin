@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import SearchableSelect from "@/components/select";
 import PhoneNumberInput from "@/components/PhoneNumberInput";
+import { useRouter } from "next/navigation";
 
 const AddNewParent = () => {
   const breadcrumbs = [
@@ -67,6 +68,8 @@ const AddNewParent = () => {
         label: `${rigion.regionName} - ${rigion.cityName}`,
       }),
     ) || [];
+    const router = useRouter();
+
   const { data: countryCode, isLoading: isCountryCode } =
     useGetAllCountryCodeQuery(null);
     const passwordPattern = "^(?=.*[A-Z])(?=.*[~@#$^*()_+\\[\\]{}|\\\\,.?:'\"/;`%-])(?=.*[0-9])(?=.*[a-z]).{8,32}$";
@@ -95,6 +98,7 @@ const AddNewParent = () => {
     try {
       await createEmployee(requestBody).unwrap();
       toast.success("Parent created successfully");
+      router.push("/parent");
     } catch {
       toast.error("Failed to create parent");
     }

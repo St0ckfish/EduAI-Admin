@@ -18,6 +18,7 @@ import SearchableSelect from "@/components/select";
 import PhoneNumberInput from "@/components/PhoneNumberInput";
 import MultiSelectComponent from "@/components/multiSelect";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const AddNewTeacher = () => {
   const { data: positionData, isLoading: isPosition } =
@@ -86,6 +87,7 @@ const AddNewTeacher = () => {
     formState: { errors },
   } = formMethods;
   const birthDate = watch("birthDate");
+  const router = useRouter();
 
   const [createTeacher, { isLoading }] = useCreateTeachersMutation();
   const { data: rigiond } = useGetAllReginionIDQuery(null);
@@ -111,6 +113,7 @@ const AddNewTeacher = () => {
     try {
       await createTeacher(formData).unwrap();
       toast.success("Teacher created successfully");
+      router.push("/teacher");
     } catch {
       toast.error(
         "Failed to create Teacher: you may have entered the password incorrectly",

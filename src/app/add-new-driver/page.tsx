@@ -17,6 +17,7 @@ import { RootState } from "@/GlobalRedux/store";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import SearchableSelect from "@/components/select";
 import PhoneNumberInput from "@/components/PhoneNumberInput";
+import { useRouter } from "next/navigation";
 
 const AddNewDriver = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
@@ -33,6 +34,8 @@ const AddNewDriver = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const router = useRouter();
+
   const [createDriver, { isLoading }] = useCreateDriversMutation();
   const { data: rigiond } = useGetAllReginionIDQuery(null);
   const optionsRigon =
@@ -53,6 +56,7 @@ const AddNewDriver = () => {
     try {
       await createDriver(formData).unwrap();
       toast.success("Driver created successfully");
+      router.push("/driver");
     } catch {
       toast.error(
         "Failed to create Driver: you may enter the password incorrectly ",
