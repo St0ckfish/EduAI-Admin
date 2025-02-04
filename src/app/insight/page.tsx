@@ -28,6 +28,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import Spinner from "@/components/spinner";
+import { useAverageGradesAtSchoolQuery } from "@/features/Acadimic/scheduleApi";
 
 // Common chart data
 
@@ -42,6 +43,7 @@ const chartConfig2 = {
 };
 
 function InsightPage() {
+  const {data, isLoading} = useAverageGradesAtSchoolQuery(null)
   const booleanValue = useSelector((state: RootState) => state.boolean.value); // sidebar
   const { language: currentLanguage, loading } = useSelector(
     (state: RootState) => state.language,
@@ -101,7 +103,7 @@ function InsightPage() {
 
   if (!isMounted) return null;
 
-  if (loading)
+  if (loading || isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -177,10 +179,10 @@ function InsightPage() {
               </CardHeader>
               <CardContent>
                 <ChartContainer config={chartConfig}>
-                  <BarChart accessibilityLayer data={chartData}>
+                  <BarChart accessibilityLayer data={data}>
                     <CartesianGrid vertical={false} />
                     <XAxis
-                      dataKey="month"
+                      dataKey="stage"
                       tickLine={false}
                       tickMargin={10}
                       axisLine={false}
@@ -191,12 +193,12 @@ function InsightPage() {
                       content={<ChartTooltipContent indicator="dashed" />}
                     />
                     <Bar
-                      dataKey="desktop"
+                      dataKey="AVGGrade"
                       fill="var(--color-desktop)"
                       radius={5}
                     />
                     <Bar
-                      dataKey="mobile"
+                      dataKey="AVGAttendance"
                       fill="var(--color-mobile)"
                       radius={5}
                     />

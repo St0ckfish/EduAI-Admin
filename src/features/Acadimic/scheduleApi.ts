@@ -27,6 +27,11 @@ export const scheduleApi = createApi({
     },
   }),
   endpoints: builder => ({
+    averageGradesAtSchool: builder.query({
+      query: () =>
+        `/api/v1/daily-exam/grade/average-grades-at-school?period=SEMESTER`,
+    }),
+    //
     getAllTeacherSchedule: builder.query({
       query: teacherId =>
         `/api/v1/schedule/teacher?size=1000000&page=0&teacherId=${teacherId}&getActive=1`,
@@ -71,6 +76,7 @@ export const scheduleApi = createApi({
 });
 
 export const {
+  useAverageGradesAtSchoolQuery,
   useGetAllTeacherScheduleQuery,
   useGetAllClassScheduleQuery,
   useGetSchedualByIdQuery,
