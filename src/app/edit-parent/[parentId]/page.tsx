@@ -308,7 +308,7 @@ const EditParent: React.FC<ViewParentProps> = ({ params }) => {
                           : "Select Nationality"}
                   </option>
                   {nationalityData &&
-                    Object.entries(nationalityData.data).map(([key, value]) => (
+                    Object.entries(nationalityData?.data).map(([key, value]) => (
                       <option key={key} value={key}>
                         {String(value)}
                       </option>
