@@ -606,7 +606,7 @@ const EditParent: React.FC<ViewParentProps> = ({ params }) => {
                 )}
               </label>
               <PhoneNumberInput
-                countryCodeData={countryCode?.data}
+                countryCodeData={countryCode?.data !== null ? countryCode?.data : [] }
                 currentLanguage="en"
                 label="Your Phone Number"
                 register={register}
