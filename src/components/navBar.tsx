@@ -174,7 +174,7 @@ const NavBar = () => {
 
   return (
     <>
-    {isOpen && (
+      {isOpen && (
         <div className="fixed inset-0 z-40 bg-black bg-opacity-40" onClick={toggleNavbar}></div>
       )}
       <header ref={navbarRef}>
@@ -296,152 +296,152 @@ const NavBar = () => {
                   </Link>
 
                   <div className="relative inline-flex" ref={dropdownRef}>
-      <button
-        onClick={()=> {toggleMenu2(); closeMenu();}}
-        className="text-violet11 hover:bg-violet3 mx-3 inline-flex h-[35px] w-[35px] items-center justify-center rounded-full bg-bgPrimary outline-none"
-        aria-label="Customise options"
-      >
-        {currentLanguage === "en" ? (
-          <img src="/images/en.png" alt="#" />
-        ) : currentLanguage === "ar" ? (
-          <img src="/images/morocco.png" alt="#" />
-        ) : currentLanguage === "fr" ? (
-          <img src="/images/fr.png" alt="#" />
-        ) : (
-          <img src="/images/fr.png" alt="#" />
-        )}
-      </button>
+                    <button
+                      onClick={() => { toggleMenu2(); closeMenu(); }}
+                      className="text-violet11 hover:bg-violet3 mx-3 inline-flex h-[35px] w-[35px] items-center justify-center rounded-full bg-bgPrimary outline-none"
+                      aria-label="Customise options"
+                    >
+                      {currentLanguage === "en" ? (
+                        <img src="/images/en.png" alt="#" />
+                      ) : currentLanguage === "ar" ? (
+                        <img src="/images/morocco.png" alt="#" />
+                      ) : currentLanguage === "fr" ? (
+                        <img src="/images/fr.png" alt="#" />
+                      ) : (
+                        <img src="/images/fr.png" alt="#" />
+                      )}
+                    </button>
 
-      {menuOpen2 && (
-        <div className={`absolute ${currentLanguage === "ar" ? "-right-10" : "right-0"} top-[40px] mt-5 z-50 min-w-[150px] rounded-md bg-bgPrimary shadow-md`}>
-          <button
-            onClick={() => {
-              handleLanguageChange("ar");
-              closeMenu2();
-              closeMenu();
-            }}
-            className="block w-full px-4 py-2 text-left text-[20px] hover:bg-bgSecondary"
-          >
-            {currentLanguage === "en"
-              ? "Arabic"
-              : currentLanguage === "ar"
-              ? "العربية"
-              : currentLanguage === "fr"
-              ? "Arabe"
-              : "Arabic"}
-          </button>
-          <button
-            onClick={() => {
-              handleLanguageChange("en");
-              closeMenu2();
-              closeMenu();
-            }}
-            className="block w-full px-4 py-2 text-left text-[20px] hover:bg-bgSecondary"
-          >
-            {currentLanguage === "en"
-              ? "English"
-              : currentLanguage === "ar"
-              ? "الإنجليزية"
-              : currentLanguage === "fr"
-              ? "Anglais"
-              : "English"}
-          </button>
-          <button
-            onClick={() => {
-              handleLanguageChange("fr");
-              closeMenu2();
-              closeMenu();
-            }}
-            className="block w-full px-4 py-2 text-left text-[20px] hover:bg-bgSecondary"
-          >
-            {currentLanguage === "en"
-              ? "French"
-              : currentLanguage === "ar"
-              ? "الفرنسية"
-              : currentLanguage === "fr"
-              ? "Français"
-              : "French"}
-          </button>
-        </div>
-      )}
+                    {menuOpen2 && (
+                      <div className={`absolute ${currentLanguage === "ar" ? "-right-10" : "right-0"} top-[40px] mt-5 z-50 min-w-[150px] rounded-md bg-bgPrimary shadow-md`}>
+                        <button
+                          onClick={() => {
+                            handleLanguageChange("ar");
+                            closeMenu2();
+                            closeMenu();
+                          }}
+                          className="block w-full px-4 py-2 text-left text-[20px] hover:bg-bgSecondary"
+                        >
+                          {currentLanguage === "en"
+                            ? "Arabic"
+                            : currentLanguage === "ar"
+                              ? "العربية"
+                              : currentLanguage === "fr"
+                                ? "Arabe"
+                                : "Arabic"}
+                        </button>
+                        <button
+                          onClick={() => {
+                            handleLanguageChange("en");
+                            closeMenu2();
+                            closeMenu();
+                          }}
+                          className="block w-full px-4 py-2 text-left text-[20px] hover:bg-bgSecondary"
+                        >
+                          {currentLanguage === "en"
+                            ? "English"
+                            : currentLanguage === "ar"
+                              ? "الإنجليزية"
+                              : currentLanguage === "fr"
+                                ? "Anglais"
+                                : "English"}
+                        </button>
+                        <button
+                          onClick={() => {
+                            handleLanguageChange("fr");
+                            closeMenu2();
+                            closeMenu();
+                          }}
+                          className="block w-full px-4 py-2 text-left text-[20px] hover:bg-bgSecondary"
+                        >
+                          {currentLanguage === "en"
+                            ? "French"
+                            : currentLanguage === "ar"
+                              ? "الفرنسية"
+                              : currentLanguage === "fr"
+                                ? "Français"
+                                : "French"}
+                        </button>
+                      </div>
+                    )}
 
-      <div className="relative inline-flex">
-        <button
-          onClick={()=> {toggleMenu(); closeMenu2();}}
-          className="border-bgSeconday inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 rounded-full border text-sm font-semibold text-gray-800 outline-none hover:bg-thead"
-        >
-          {userLoading ? (
-            <div className="w-full h-full animate-pulse bg-gray-200 rounded-full" />
-          ) : (
-            <div>
-              {!userData?.data.hasPicture ? (
-                <img
-                  className="inline-block h-[38px] w-[38px] rounded-full ring-2 ring-bgSecondary"
-                  src="/images/userr.png"
-                  alt="User Avatar"
-                />
-              ) : (
-                <img
-                  className="inline-block h-[38px] w-[38px] rounded-full ring-2 ring-bgSecondary"
-                  src={userData?.data.picture}
-                  alt="User Avatar"
-                />
-              )}
-            </div>
-          )}
-        </button>
+                    <div className="relative inline-flex">
+                      <button
+                        onClick={() => { toggleMenu(); closeMenu2(); }}
+                        className="border-bgSeconday inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 rounded-full border text-sm font-semibold text-gray-800 outline-none hover:bg-thead"
+                      >
+                        {userLoading ? (
+                          <div className="w-full h-full animate-pulse bg-gray-200 rounded-full" />
+                        ) : (
+                          <div>
+                            {!userData?.data.hasPicture ? (
+                              <img
+                                className="inline-block h-[38px] w-[38px] rounded-full ring-2 ring-bgSecondary"
+                                src="/images/userr.png"
+                                alt="User Avatar"
+                              />
+                            ) : (
+                              <img
+                                className="inline-block h-[38px] w-[38px] rounded-full ring-2 ring-bgSecondary"
+                                src={userData?.data.picture}
+                                alt="User Avatar"
+                              />
+                            )}
+                          </div>
+                        )}
+                      </button>
 
-        {menuOpen && (
-          <div className={`absolute ${currentLanguage === "ar" ? "-right-[250px]" : "right-0"} top-[40px] z-50 min-w-60 rounded-lg bg-bgPrimary p-2 shadow-md`}>
-            <div className="rounded-t-lg bg-bgPrimary px-5 py-3">
-              <p className="text-sm text-textPrimary">
-                {currentLanguage === "en"
-                  ? "Signed in as"
-                  : currentLanguage === "ar"
-                  ? "مسجل الدخول باسم"
-                  : currentLanguage === "fr"
-                  ? "Connecté en tant que"
-                  : "Signed in as"}
-              </p>
-              <p className="text-sm font-medium text-textPrimary">
-                {userData?.data.email}
-              </p>
-            </div>
-            <div className="mt-2 py-2">
-              <Link
-                className="block px-3 py-2 rounded-md text-sm text-textPrimary  hover:bg-bgSecondary"
-                href="/profile"
-                onClick={closeMenu}
-              >
-                {currentLanguage === "en"
-                  ? "Profile"
-                  : currentLanguage === "ar"
-                  ? "الملف الشخصي"
-                  : currentLanguage === "fr"
-                  ? "Profil"
-                  : "Profile"}
-              </Link>
-              <a
-                className="block px-3 py-2 rounded-md text-sm text-textPrimary hover:bg-error hover:text-white"
-                href="/login"
-                onClick={() => {
-                  DeleteCookie();
-                  closeMenu();
-                }}
-              >
-                {currentLanguage === "en"
-                  ? "Sign out"
-                  : currentLanguage === "ar"
-                  ? "تسجيل الخروج"
-                  : currentLanguage === "fr"
-                  ? "Déconnexion"
-                  : "Sign out"}
-              </a>
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
+                      {menuOpen && (
+                        <div className={`absolute ${currentLanguage === "ar" ? "-right-[250px]" : "right-0"} top-[40px] z-50 min-w-60 rounded-lg bg-bgPrimary p-2 shadow-md`}>
+                          <div className="rounded-t-lg bg-bgPrimary px-5 py-3">
+                            <p className="text-sm text-textPrimary">
+                              {currentLanguage === "en"
+                                ? "Signed in as"
+                                : currentLanguage === "ar"
+                                  ? "مسجل الدخول باسم"
+                                  : currentLanguage === "fr"
+                                    ? "Connecté en tant que"
+                                    : "Signed in as"}
+                            </p>
+                            <p className="text-sm font-medium text-textPrimary">
+                              {userData?.data.email}
+                            </p>
+                          </div>
+                          <div className="mt-2 py-2">
+                            <Link
+                              className="block px-3 py-2 rounded-md text-sm text-textPrimary  hover:bg-bgSecondary"
+                              href="/profile"
+                              onClick={closeMenu}
+                            >
+                              {currentLanguage === "en"
+                                ? "Profile"
+                                : currentLanguage === "ar"
+                                  ? "الملف الشخصي"
+                                  : currentLanguage === "fr"
+                                    ? "Profil"
+                                    : "Profile"}
+                            </Link>
+                            <a
+                              className="block px-3 py-2 rounded-md text-sm text-textPrimary hover:bg-error hover:text-white"
+                              href="/login"
+                              onClick={() => {
+                                DeleteCookie();
+                                closeMenu();
+                              }}
+                            >
+                              {currentLanguage === "en"
+                                ? "Sign out"
+                                : currentLanguage === "ar"
+                                  ? "تسجيل الخروج"
+                                  : currentLanguage === "fr"
+                                    ? "Déconnexion"
+                                    : "Sign out"}
+                            </a>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
             </nav>
@@ -496,130 +496,99 @@ const NavBar = () => {
             </div>
           </div>
 
-            <div
-              dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-              id="application-sidebar"
-              className={cn("fixed inset-y-0 start-0 z-[60] border-e border-borderPrimary bg-bgPrimary", "transition-all duration-300", "lg:bottom-0 lg:end-auto lg:block", small ? "w-24" : "w-64 overflow-y-auto",
-                currentLanguage === "ar" 
-                  ? isOpen 
-                    ? "max-lg:translate-x-0" 
-                    : "max-lg:translate-x-full"
-                  : isOpen 
-                    ? "max-lg:translate-x-0" 
-                    : "max-lg:-translate-x-full"
-              ) }
-            >
-              <div className="px-8 pt-4">
-                <Link href="/">
-                  {small ? (
-                    <img
-                      className="mt-5 scale-[2]"
-                      src="/images/small logo.png"
-                      alt="Logo"
-                    />
-                  ) : (
-                    <img
-                      className="-translate-7 w-[150px] translate-y-3"
-                      src="/images/logo.png"
-                      alt="Logo"
-                    />
-                  )}
-                </Link>
-              </div>
-              <div className="mx-5 flex -translate-y-6 justify-end">
-                {!small && (
-                  <button
-                    onClick={() => {
-                      toggleNavbarSmall();
-                      dispatch(toggle());
-                    }}
-                  >
-                    <svg
-                      className="h-8 w-8 text-secondary"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      strokeWidth="2"
-                      stroke="currentColor"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path stroke="none" d="M0 0h24v24H0z" />
-                      <line x1="4" y1="6" x2="20" y2="6" />
-                      <line x1="4" y1="12" x2="20" y2="12" />
-                      <line x1="4" y1="18" x2="20" y2="18" />
-                    </svg>
-                  </button>
+          <div
+            dir={currentLanguage === "ar" ? "rtl" : "ltr"}
+            id="application-sidebar"
+            className={cn("fixed inset-y-0 start-0 z-[60] border-e border-borderPrimary bg-bgPrimary", "transition-all duration-300", "lg:bottom-0 lg:end-auto lg:block", small ? "w-24" : "w-64 overflow-y-auto",
+              currentLanguage === "ar"
+                ? isOpen
+                  ? "max-lg:translate-x-0"
+                  : "max-lg:translate-x-full"
+                : isOpen
+                  ? "max-lg:translate-x-0"
+                  : "max-lg:-translate-x-full"
+            )}
+          >
+            <div className="px-8 pt-4">
+              <Link href="/">
+                {small ? (
+                  <img
+                    className="mt-5 scale-[2]"
+                    src="/images/small logo.png"
+                    alt="Logo"
+                  />
+                ) : (
+                  <img
+                    className="-translate-7 w-[150px] translate-y-3"
+                    src="/images/logo.png"
+                    alt="Logo"
+                  />
                 )}
-              </div>
+              </Link>
+            </div>
+            <div className="mx-5 flex -translate-y-6 justify-end">
+              {!small && (
+                <button
+                  onClick={() => {
+                    toggleNavbarSmall();
+                    dispatch(toggle());
+                  }}
+                >
+                  <svg
+                    className="h-8 w-8 text-secondary"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    strokeWidth="2"
+                    stroke="currentColor"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" />
+                    <line x1="4" y1="6" x2="20" y2="6" />
+                    <line x1="4" y1="12" x2="20" y2="12" />
+                    <line x1="4" y1="18" x2="20" y2="18" />
+                  </svg>
+                </button>
+              )}
+            </div>
 
-              <nav
-                className={`hs-accordion-group flex w-full flex-col flex-wrap p-6`}
-                data-hs-accordion-always-open
-              >
-                <ul className="space-y-1.5">
-                  <div className={`flex ${small ? "w-[40px]" : ""} justify-center`}>
-                    {small && (
-                      <button
-                        onClick={()=>{toggleNavbarSmall();dispatch(toggle());}}
+            <nav
+              className={`hs-accordion-group flex w-full flex-col flex-wrap p-6`}
+              data-hs-accordion-always-open
+            >
+              <ul className="space-y-1.5">
+                <div className={`flex ${small ? "w-[40px]" : ""} justify-center`}>
+                  {small && (
+                    <button
+                      onClick={() => { toggleNavbarSmall(); dispatch(toggle()); }}
+                    >
+                      <svg
+                        className="h-6 w-6 text-secondary"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        strokeWidth="2"
+                        stroke="currentColor"
+                        fill="none"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       >
-                        <svg
-                          className="h-6 w-6 text-secondary"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          strokeWidth="2"
-                          stroke="currentColor"
-                          fill="none"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path stroke="none" d="M0 0h24v24H0z" />
-                          <polyline points="9 6 15 12 9 18" />
-                        </svg>
-                      </button>
-                    )}
-                  </div>
+                        <path stroke="none" d="M0 0h24v24H0z" />
+                        <polyline points="9 6 15 12 9 18" />
+                      </svg>
+                    </button>
+                  )}
+                </div>
 
-                  {navigationItems.map((item) => (
-                    <li key={item.id} className={item.isDropdown ? "group relative" : ""}>
-                      {item.isDropdown ? (
-                        <>
-                          <button
-                            onClick={() => toggleDropdown(item.id)}
-                            className={`flex ${!small ? "w-full" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-secondary hover:bg-bgSecondary hover:text-primary `}
-                          >
-                            {item.icon}
-                            {!small && (
-                              <p>
-                                {item.translations[currentLanguage as "en" | "ar" | "fr"] || item.translations.en}
-                              </p>
-                            )}
-                          </button>
-                          {openDropdowns[item.id] && (
-                            <ul
-                              className={`${small ? "hidden w-fit translate-x-5 rounded-xl bg-bgPrimary p-2 group-hover:grid" : ""} mx-9 mt-2 grid gap-2 text-[14px] whitespace-nowrap text-nowrap font-semibold`}
-                            >
-                              {item.submenu.map((subItem) => (
-                                <Link
-                                onClick={()=> setIsOpen(false)}
-                                  key={subItem.id}
-                                  className={`hover:text-primary ${url === subItem.path ? "text-primary" : ""}`}
-                                  href={subItem.path}
-                                >
-                                  {subItem.translations[currentLanguage as "en" | "ar" | "fr"] ||
-                                    subItem.translations.en}
-                                </Link>
-                              ))}
-                            </ul>
-                          )}
-                        </>
-                      ) : (
-                        <Link
-                        onClick={()=> setIsOpen(false)}
-                          className={`flex ${small ? "w-[40px]" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold ${url === item.path ? "bg-bgSecondary text-primary" : "text-secondary"} hover:bg-bgSecondary hover:text-primary`}
-                          href={item.path}
+                {navigationItems.map((item) => (
+                  <li key={item.id} className={item.isDropdown ? "group relative" : ""}>
+                    {item.isDropdown ? (
+                      <>
+                        <button
+                          onClick={() => toggleDropdown(item.id)}
+                          className={`flex ${!small ? "w-full" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-secondary hover:bg-bgSecondary hover:text-primary `}
                         >
                           {item.icon}
                           {!small && (
@@ -627,13 +596,44 @@ const NavBar = () => {
                               {item.translations[currentLanguage as "en" | "ar" | "fr"] || item.translations.en}
                             </p>
                           )}
-                        </Link>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            </div>
+                        </button>
+                        {openDropdowns[item.id] && (
+                          <ul
+                            className={`${small ? "hidden w-fit translate-x-5 rounded-xl bg-bgPrimary p-2 group-hover:grid" : ""} mx-9 mt-2 grid gap-2 text-[14px] whitespace-nowrap text-nowrap font-semibold`}
+                          >
+                            {item.submenu.map((subItem) => (
+                              <Link
+                                onClick={() => setIsOpen(false)}
+                                key={subItem.id}
+                                className={`hover:text-primary ${url === subItem.path ? "text-primary" : ""}`}
+                                href={subItem.path}
+                              >
+                                {subItem.translations[currentLanguage as "en" | "ar" | "fr"] ||
+                                  subItem.translations.en}
+                              </Link>
+                            ))}
+                          </ul>
+                        )}
+                      </>
+                    ) : (
+                      <Link
+                        onClick={() => setIsOpen(false)}
+                        className={`flex ${small ? "w-[40px]" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold ${url === item.path ? "bg-bgSecondary text-primary" : "text-secondary"} hover:bg-bgSecondary hover:text-primary`}
+                        href={item.path}
+                      >
+                        {item.icon}
+                        {!small && (
+                          <p>
+                            {item.translations[currentLanguage as "en" | "ar" | "fr"] || item.translations.en}
+                          </p>
+                        )}
+                      </Link>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
 
         </div>
         <div></div>
