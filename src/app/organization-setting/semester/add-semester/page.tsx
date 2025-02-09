@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import Spinner from "@/components/spinner";
 import { useCreateSemestersMutation } from "@/features/Organization-Setteings/semesterApi";
@@ -8,8 +9,8 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import BreadCrumbs from "@/components/BreadCrumbs";
-
 const AddSemester = () => {
+  const router = useRouter();
   const breadcrumbs = [
     {
       nameEn: "Administration",
@@ -49,6 +50,7 @@ const AddSemester = () => {
     try {
       await createSemester(data).unwrap();
       toast.success("Semester created successfully");
+      router.push("/organization-setting/semester");
     } catch (err) {
       toast.error("Failed to create Semester");
     }

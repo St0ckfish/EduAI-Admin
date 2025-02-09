@@ -7,8 +7,10 @@ import BreadCrumbs from "@/components/BreadCrumbs";
 import { RootState } from "@/GlobalRedux/store";
 import { useSelector } from "react-redux";
 import Spinner from "@/components/spinner";
+import { useRouter } from "next/navigation";
 
 const AddClass = () => {
+  const router = useRouter();
   const studyLevels = {
     GRADE12: "الصف 12",
     GRADE9: "الصف 9",
@@ -70,6 +72,7 @@ const AddClass = () => {
     try {
       await createDriver(data).unwrap();
       toast.success("Class created successfully");
+      router.push("/classes")
     } catch {
       toast.error("Failed to create Class: you may enter data incorrectly ");
     }
