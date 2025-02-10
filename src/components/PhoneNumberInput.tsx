@@ -47,7 +47,8 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
     return translations[key][currentLanguage] || translations[key]["en"];
   };
 
-  const countryOptions = Object.entries(countryCodeData).map(
+  const safeCountryCodeData = countryCodeData || {};
+  const countryOptions = Object.entries(safeCountryCodeData).map(
     ([key, value]) => ({
       value: key,
       label: `+${key} (${value})`,
