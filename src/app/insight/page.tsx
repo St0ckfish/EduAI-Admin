@@ -66,14 +66,20 @@ function InsightPage() {
     },
   ];
 
-  const chartData2 = [
-    { month: "January", desktop: 186, mobile: 80 },
-    { month: "February", desktop: 305, mobile: 200 },
-    { month: "March", desktop: 237, mobile: 120 },
-    { month: "April", desktop: 73, mobile: 190 },
-    { month: "May", desktop: 209, mobile: 130 },
-    { month: "June", desktop: 214, mobile: 140 },
+  const attendanceData = [
+    { "stage": "KINDERGARTEN", "MonthsAttendance": { "OCTOBER": 0.0, "NOVEMBER": 0.0, "DECEMBER": 0.0, "JANUARY": 0.0, "FEBRUARY": 0.0 } },
+    { "stage": "PRIMARY", "MonthsAttendance": { "OCTOBER": 0.0, "NOVEMBER": 0.0, "DECEMBER": 0.0, "JANUARY": 0.0, "FEBRUARY": 0.0 } },
+    { "stage": "PREPARATORY", "MonthsAttendance": { "OCTOBER": 0.0, "NOVEMBER": 0.0, "DECEMBER": 0.0, "JANUARY": 0.0, "FEBRUARY": 0.0 } },
+    { "stage": "SECONDARY", "MonthsAttendance": { "OCTOBER": 3.0, "NOVEMBER": 1.2, "DECEMBER": 2.17, "JANUARY": 1.0, "FEBRUARY": 0.0 } }
   ];
+  type MonthKey = keyof typeof attendanceData[0]['MonthsAttendance'];
+  const transformedData = Object.keys(attendanceData[0].MonthsAttendance).map(month => ({
+    month,
+    KINDERGARTEN: attendanceData[0].MonthsAttendance[month as MonthKey],
+    PRIMARY: attendanceData[1].MonthsAttendance[month as MonthKey],
+    PREPARATORY: attendanceData[2].MonthsAttendance[month as MonthKey],
+    SECONDARY: attendanceData[3].MonthsAttendance[month as MonthKey],
+  }));
 
   const chartData3 = [
     { name: "Ahmed Mohamed", attendance: 30, grade: 80 },
@@ -220,34 +226,46 @@ function InsightPage() {
               </CardHeader>
               <CardContent>
                 <ChartContainer config={chartConfig2}>
-                  <LineChart data={chartData2} margin={{ left: 12, right: 12 }}>
-                    <CartesianGrid vertical={false} />
-                    <XAxis
-                      dataKey="month"
-                      tickLine={false}
-                      axisLine={false}
-                      tickMargin={8}
-                      tickFormatter={value => value.slice(0, 3)}
-                    />
-                    <ChartTooltip
-                      cursor={false}
-                      content={<ChartTooltipContent />}
-                    />
-                    <Line
-                      dataKey="desktop"
-                      type="monotone"
-                      stroke="var(--color-desktop)"
-                      strokeWidth={4}
-                      dot={false}
-                    />
-                    <Line
-                      dataKey="mobile"
-                      type="monotone"
-                      stroke="var(--color-mobile)"
-                      strokeWidth={4}
-                      dot={false}
-                    />
-                  </LineChart>
+                <LineChart data={transformedData} margin={{ left: 12, right: 12 }}>
+          <CartesianGrid vertical={false} />
+          <XAxis
+            dataKey="month"
+            tickLine={false}
+            axisLine={false}
+            tickMargin={8}
+            tickFormatter={value => value.slice(0, 3)}
+          />
+          <Tooltip />
+          <Legend />
+          <Line
+            dataKey="KINDERGARTEN"
+            type="monotone"
+            stroke="#8884d8"
+            strokeWidth={4}
+            dot={false}
+          />
+          <Line
+            dataKey="PRIMARY"
+            type="monotone"
+            stroke="#82ca9d"
+            strokeWidth={4}
+            dot={false}
+          />
+          <Line
+            dataKey="PREPARATORY"
+            type="monotone"
+            stroke="#ffc658"
+            strokeWidth={4}
+            dot={false}
+          />
+          <Line
+            dataKey="SECONDARY"
+            type="monotone"
+            stroke="#ff7300"
+            strokeWidth={4}
+            dot={false}
+          />
+        </LineChart>
                 </ChartContainer>
               </CardContent>
             </Card>

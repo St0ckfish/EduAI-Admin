@@ -380,7 +380,7 @@ const AddNewPost = () => {
                       {...register("files")}
                       id="dropzone-file"
                       type="file"
-                      className="hidden"
+                      className="opacity-0"
                       onChange={handleImageChange}
                       accept="image/*"
                     />
