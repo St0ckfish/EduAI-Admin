@@ -10,6 +10,7 @@ import { RootState } from "@/GlobalRedux/store";
 import { useGetAllRolesQuery } from "@/features/signupApi";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { useRouter } from "next/navigation";
+import { useGetAllEmployeesQuery } from "@/features/User-Management/employeeApi";
 
 const AddDepartment = () => {
   const breadcrumbs = [
@@ -41,6 +42,11 @@ const AddDepartment = () => {
   const router = useRouter();
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const { data, isLoading: isRoles } = useGetAllRolesQuery(null);
+    const { data: employees, error, refetch } = useGetAllEmployeesQuery({
+      archived: "false",
+      page: 0,
+      size: 1000000,
+    });
   const {
     register,
     handleSubmit,
@@ -351,31 +357,44 @@ const AddDepartment = () => {
                 )}
               </label>
               <label
-                htmlFor="headId"
-                className="grid font-sans text-[18px] font-semibold"
-              >
-                {currentLanguage === "ar"
-                  ? "المعرف الرئيسي"
-                  : currentLanguage === "fr"
-                    ? "ID du Responsable"
-                    : "HeadId"}
+  htmlFor="headId"
+  className="grid font-sans text-[18px] font-semibold"
+>
+  {currentLanguage === "ar"
+    ? "المعرف الرئيسي"
+    : currentLanguage === "fr"
+      ? "ID du Responsable"
+      : "HeadId"}
 
-                <input
-                  id="headId"
-                  type="number"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("headId", { required: true })}
-                />
-                {errors.headId && (
-                  <span className="text-error">
-                    {currentLanguage === "ar"
-                      ? "هذا الحقل مطلوب"
-                      : currentLanguage === "fr"
-                        ? "Ce champ est requis"
-                        : "This field is required"}
-                  </span>
-                )}
-              </label>
+  <select
+    id="headId"
+    className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
+    {...register("headId", { required: true })}
+  >
+    <option value="">
+      {currentLanguage === "ar"
+        ? "اختر موظفًا"
+        : currentLanguage === "fr"
+          ? "Sélectionner un employé"
+          : "Select an employee"}
+    </option>
+    {employees?.data?.content?.map((employee) => (
+      <option key={employee.id} value={employee.id}>
+        {employee.name}
+      </option>
+    ))}
+  </select>
+  
+  {errors.headId && (
+    <span className="text-error">
+      {currentLanguage === "ar"
+        ? "هذا الحقل مطلوب"
+        : currentLanguage === "fr"
+          ? "Ce champ est requis"
+          : "This field is required"}
+    </span>
+  )}
+</label>
               <label
                 htmlFor="roles"
                 className="grid font-sans text-[18px] font-semibold"
