@@ -28,9 +28,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import Spinner from "@/components/spinner";
-import { useAverageGradesAtSchoolQuery } from "@/features/Acadimic/scheduleApi";
-
-// Common chart data
+import { useAverageGradesAtSchoolQuery, useAverageAttendanceQuery } from "@/features/Acadimic/scheduleApi";
 
 const chartConfig = {
   desktop: { label: "My school", color: "#e23670" },
@@ -43,11 +41,13 @@ const chartConfig2 = {
 };
 
 function InsightPage() {
-  const {data, isLoading} = useAverageGradesAtSchoolQuery(null)
-  const booleanValue = useSelector((state: RootState) => state.boolean.value); // sidebar
+  const {data, isLoading} = useAverageGradesAtSchoolQuery(null);
+  const {data: averageAttendance, isLoading: isAverage} = useAverageAttendanceQuery(null);
+  const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const { language: currentLanguage, loading } = useSelector(
     (state: RootState) => state.language,
   );
+
   const chartData = [
     {
       month: `${currentLanguage === "ar" ? "المدرسة الابتدائية" : currentLanguage === "fr" ? "École primaire" : "Primary school"}`,
@@ -66,20 +66,14 @@ function InsightPage() {
     },
   ];
 
-  const attendanceData = [
-    { "stage": "KINDERGARTEN", "MonthsAttendance": { "OCTOBER": 0.0, "NOVEMBER": 0.0, "DECEMBER": 0.0, "JANUARY": 0.0, "FEBRUARY": 0.0 } },
-    { "stage": "PRIMARY", "MonthsAttendance": { "OCTOBER": 0.0, "NOVEMBER": 0.0, "DECEMBER": 0.0, "JANUARY": 0.0, "FEBRUARY": 0.0 } },
-    { "stage": "PREPARATORY", "MonthsAttendance": { "OCTOBER": 0.0, "NOVEMBER": 0.0, "DECEMBER": 0.0, "JANUARY": 0.0, "FEBRUARY": 0.0 } },
-    { "stage": "SECONDARY", "MonthsAttendance": { "OCTOBER": 3.0, "NOVEMBER": 1.2, "DECEMBER": 2.17, "JANUARY": 1.0, "FEBRUARY": 0.0 } }
-  ];
-  type MonthKey = keyof typeof attendanceData[0]['MonthsAttendance'];
-  const transformedData = Object.keys(attendanceData[0].MonthsAttendance).map(month => ({
+  // Transform averageAttendance data for the chart
+  const transformedAttendanceData = averageAttendance ? Object.keys(averageAttendance[0].MonthsAttendance).map(month => ({
     month,
-    KINDERGARTEN: attendanceData[0].MonthsAttendance[month as MonthKey],
-    PRIMARY: attendanceData[1].MonthsAttendance[month as MonthKey],
-    PREPARATORY: attendanceData[2].MonthsAttendance[month as MonthKey],
-    SECONDARY: attendanceData[3].MonthsAttendance[month as MonthKey],
-  }));
+    KINDERGARTEN: averageAttendance[0].MonthsAttendance[month],
+    PRIMARY: averageAttendance[1].MonthsAttendance[month],
+    PREPARATORY: averageAttendance[2].MonthsAttendance[month],
+    SECONDARY: averageAttendance[3].MonthsAttendance[month],
+  })) : [];
 
   const chartData3 = [
     { name: "Ahmed Mohamed", attendance: 30, grade: 80 },
@@ -92,6 +86,7 @@ function InsightPage() {
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
   const breadcrumbs = [
     {
       nameEn: "Ai Insights",
@@ -109,7 +104,7 @@ function InsightPage() {
 
   if (!isMounted) return null;
 
-  if (loading || isLoading)
+  if (loading || isLoading || isAverage)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -171,7 +166,6 @@ function InsightPage() {
           </div>
         </div>
         <div className="mt-5 flex flex-wrap justify-evenly gap-5 overflow-x-auto">
-          {/* Student Performance Bar Chart */}
           <div className="flex items-center justify-center overflow-x-auto">
             <Card className="w-[850px] overflow-x-auto bg-bgPrimary max-[1170px]:w-[550px] max-[605px]:w-[450px]">
               <CardHeader>
@@ -226,51 +220,50 @@ function InsightPage() {
               </CardHeader>
               <CardContent>
                 <ChartContainer config={chartConfig2}>
-                <LineChart data={transformedData} margin={{ left: 12, right: 12 }}>
-          <CartesianGrid vertical={false} />
-          <XAxis
-            dataKey="month"
-            tickLine={false}
-            axisLine={false}
-            tickMargin={8}
-            tickFormatter={value => value.slice(0, 3)}
-          />
-          <Tooltip />
-          <Legend />
-          <Line
-            dataKey="KINDERGARTEN"
-            type="monotone"
-            stroke="#8884d8"
-            strokeWidth={4}
-            dot={false}
-          />
-          <Line
-            dataKey="PRIMARY"
-            type="monotone"
-            stroke="#82ca9d"
-            strokeWidth={4}
-            dot={false}
-          />
-          <Line
-            dataKey="PREPARATORY"
-            type="monotone"
-            stroke="#ffc658"
-            strokeWidth={4}
-            dot={false}
-          />
-          <Line
-            dataKey="SECONDARY"
-            type="monotone"
-            stroke="#ff7300"
-            strokeWidth={4}
-            dot={false}
-          />
-        </LineChart>
+                  <LineChart data={transformedAttendanceData} margin={{ left: 12, right: 12 }}>
+                    <CartesianGrid vertical={false} />
+                    <XAxis
+                      dataKey="month"
+                      tickLine={false}
+                      axisLine={false}
+                      tickMargin={8}
+                      tickFormatter={value => value.slice(0, 3)}
+                    />
+                    <Tooltip />
+                    <Legend />
+                    <Line
+                      dataKey="KINDERGARTEN"
+                      type="monotone"
+                      stroke="#8884d8"
+                      strokeWidth={4}
+                      dot={false}
+                    />
+                    <Line
+                      dataKey="PRIMARY"
+                      type="monotone"
+                      stroke="#82ca9d"
+                      strokeWidth={4}
+                      dot={false}
+                    />
+                    <Line
+                      dataKey="PREPARATORY"
+                      type="monotone"
+                      stroke="#ffc658"
+                      strokeWidth={4}
+                      dot={false}
+                    />
+                    <Line
+                      dataKey="SECONDARY"
+                      type="monotone"
+                      stroke="#ff7300"
+                      strokeWidth={4}
+                      dot={false}
+                    />
+                  </LineChart>
                 </ChartContainer>
               </CardContent>
             </Card>
 
-            {/* Low Achievers Bar Chart */}
             <Card className="w-[550px] overflow-x-auto whitespace-nowrap text-nowrap bg-bgPrimary max-[605px]:w-[450px]">
               <CardHeader>
                 <CardTitle>
@@ -312,7 +305,6 @@ function InsightPage() {
               </CardContent>
             </Card>
           </div>
-          {/* Improving Student Attendance Line Chart */}
         </div>
       </div>
     </>

@@ -32,6 +32,11 @@ export const scheduleApi = createApi({
         `/api/v1/daily-exam/grade/average-grades-at-school?period=SEMESTER`,
     }),
     //
+    averageAttendance: builder.query({
+      query: () =>
+        `/api/v1/aiInsights/average-attendance-at-school`,
+    }),
+    //
     getAllTeacherSchedule: builder.query({
       query: teacherId =>
         `/api/v1/schedule/teacher?size=1000000&page=0&teacherId=${teacherId}&getActive=1`,
@@ -77,6 +82,7 @@ export const scheduleApi = createApi({
 
 export const {
   useAverageGradesAtSchoolQuery,
+  useAverageAttendanceQuery,
   useGetAllTeacherScheduleQuery,
   useGetAllClassScheduleQuery,
   useGetSchedualByIdQuery,
