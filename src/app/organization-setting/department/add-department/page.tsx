@@ -378,7 +378,7 @@ const AddDepartment = () => {
           ? "Sélectionner un employé"
           : "Select an employee"}
     </option>
-    {employees?.data?.content?.map((employee) => (
+    {employees?.data?.content?.map((employee: any) => (
       <option key={employee.id} value={employee.id}>
         {employee.name}
       </option>
