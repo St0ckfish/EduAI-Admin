@@ -56,6 +56,11 @@ export const studentApi = createApi({
     getStudentById: builder.query({
       query: id => `/api/v1/management/student/${id}`,
     }),
+    //
+    getStudentExams: builder.query({
+      query: ({id, date}) => `/api/v1/student-study/schedule-at-date-for-admin-to-student?date=${date}&studentId=${id}`,
+    }),
+    //
     getStudentUpdateById: builder.query({
       query: id => `/api/v1/management/student/${id}/update`,
     }),
@@ -80,6 +85,7 @@ export const studentApi = createApi({
 
 export const {
   useGetAllStudentsQuery,
+  useGetStudentExamsQuery,
   useLazyExportStudentsFileQuery,
   useGetStudentByIdUpdateQuery,
   useDeleteStudentsMutation,
