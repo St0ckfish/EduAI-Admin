@@ -236,15 +236,15 @@ const Infrastructure = () => {
                           ? "عدد الطلاب"
                           : currentLanguage === "fr"
                             ? "N. Étudiant"
-                            : "N.Student"}
+                            : "Class Capacity"}
                       </p>
                       <p>30</p>
                       <p className="text-secondary">
                         {currentLanguage === "ar"
-                          ? "عدد الطلاب"
+                          ? "قم الغرفة"
                           : currentLanguage === "fr"
-                            ? "N. Étudiant"
-                            : "N.Student"}
+                            ? "Numéro de chambre"
+                            : "Room Number"}
                       </p>
                       <p>4</p>
                     </div>

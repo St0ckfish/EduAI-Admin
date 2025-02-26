@@ -114,10 +114,8 @@ const AddNewTeacher = () => {
       await createTeacher(formData).unwrap();
       toast.success("Teacher created successfully");
       router.push("/teacher");
-    } catch {
-      toast.error(
-        "Failed to create Teacher: you may have entered the password incorrectly",
-      );
+    } catch(error: any) {
+      toast.error(error.message);
     }
   };
 
