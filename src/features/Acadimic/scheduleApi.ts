@@ -33,8 +33,16 @@ export const scheduleApi = createApi({
     }),
     //
     averageAttendance: builder.query({
+      query: formData => ({
+        url: `/api/v1/aiInsights/average-attendance-at-school`,
+        method: "GET",
+        body: formData,
+      }),
+    }),
+    //
+    topStudentsInClass: builder.query({
       query: () =>
-        `/api/v1/aiInsights/average-attendance-at-school`,
+        `/api/v1/ai-insights/top-student-in-classroom`,
     }),
     //
     getAllTeacherSchedule: builder.query({
@@ -83,6 +91,7 @@ export const scheduleApi = createApi({
 export const {
   useAverageGradesAtSchoolQuery,
   useAverageAttendanceQuery,
+  useTopStudentsInClassQuery,
   useGetAllTeacherScheduleQuery,
   useGetAllClassScheduleQuery,
   useGetSchedualByIdQuery,

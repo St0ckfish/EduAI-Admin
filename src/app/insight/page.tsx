@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { AwaitedReactNode, JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal, useEffect, useState } from "react";
 import {
   Bar,
   BarChart,
@@ -17,7 +17,7 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from "../../components/ui/card";
+} from "@/components/ui/card";
 import {
   ChartContainer,
   ChartTooltip,
@@ -28,7 +28,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import Spinner from "@/components/spinner";
-import { useAverageGradesAtSchoolQuery, useAverageAttendanceQuery } from "@/features/Acadimic/scheduleApi";
+import { useAverageGradesAtSchoolQuery, useAverageAttendanceQuery, useTopStudentsInClassQuery } from "@/features/Acadimic/scheduleApi";
+import { useGetAllClasssQuery } from "@/features/Infrastructure/classApi";
 
 const chartConfig = {
   desktop: { label: "My school", color: "#e23670" },
@@ -43,6 +44,12 @@ const chartConfig2 = {
 function InsightPage() {
   const {data, isLoading} = useAverageGradesAtSchoolQuery(null);
   const {data: averageAttendance, isLoading: isAverage} = useAverageAttendanceQuery(null);
+  const [classroomId, setClassroomId] = useState<string | null>(null);
+  const { data: classes, isLoading: isClassing } = useGetAllClasssQuery(null);
+  const {data: strugglingStudents, isLoading: isStudentsLoading} = useTopStudentsInClassQuery(classroomId, {
+    skip: classroomId === null
+  });
+  
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const { language: currentLanguage, loading } = useSelector(
     (state: RootState) => state.language,
@@ -75,12 +82,20 @@ function InsightPage() {
     SECONDARY: averageAttendance[3].MonthsAttendance[month],
   })) : [];
 
-  const chartData3 = [
-    { name: "Ahmed Mohamed", attendance: 30, grade: 80 },
-    { name: "Ahmed Mohamed", attendance: 60, grade: 55 },
-    { name: "Ahmed Mohamed", attendance: 45, grade: 70 },
-    { name: "Ahmed Mohamed", attendance: 50, grade: 65 },
-  ];
+  interface Student {
+    studentName: string;
+    averageGrade: number;
+    attendanceRate: number;
+  }
+
+  // Transform struggling students data for the chart
+  const chartData3 = strugglingStudents && classroomId 
+    ? strugglingStudents.map((student: Student) => ({
+        name: student.studentName,
+        grade: student.averageGrade,
+        attendance: student.attendanceRate
+      })) 
+    : [];
 
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
@@ -104,7 +119,7 @@ function InsightPage() {
 
   if (!isMounted) return null;
 
-  if (loading || isLoading || isAverage)
+  if (loading || isLoading || isAverage || isClassing)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -275,33 +290,70 @@ function InsightPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <BarChart
-                  className="whitespace-nowrap text-nowrap font-semibold"
-                  width={400}
-                  height={300}
-                  data={chartData3}
-                  layout="vertical"
-                  margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-                >
-                  <XAxis type="number" domain={[0, 100]} />
-                  <YAxis dataKey="name" type="category" />
-                  <Tooltip />
-                  <Legend />
-                  <Bar
-                    dataKey="attendance"
-                    fill="#e23670"
-                    name={`${currentLanguage === "ar" ? "الحضور (متوسط)" : currentLanguage === "fr" ? "(AVG) Présences" : "(AVG) Attendances"}`}
-                    barSize={17}
-                    radius={10}
-                  />
-                  <Bar
-                    dataKey="grade"
-                    fill="#2560d4"
-                    name={`${currentLanguage === "ar" ? "النقاط (متوسط)" : currentLanguage === "fr" ? "(AVG) Note" : "(AVG) Grade"}`}
-                    barSize={17}
-                    radius={10}
-                  />
-                </BarChart>
+                <div className="mb-4">
+                  <label className="mr-2">
+                    {currentLanguage === "ar"
+                      ? "اختر الفصل:"
+                      : currentLanguage === "fr"
+                        ? "Sélectionner une classe:"
+                        : "Select Class:"}
+                  </label>
+                  <select
+                    className="mx-3 rounded-lg border border-borderPrimary bg-bgPrimary px-4 py-2 shadow-sm outline-none"
+                    value={classroomId || ""}
+                    onChange={(e) => setClassroomId(e.target.value || null)}
+                  >
+                    <option value="">Select Class</option>
+                    {classes?.data?.content?.map((classroom: { roomId: string; classroomName: string }) => (
+                      <option key={classroom.roomId} value={classroom.roomId}>
+                        {classroom.classroomName}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                {classroomId ? (
+                  isStudentsLoading ? (
+                    <div className="flex h-[300px] items-center justify-center">
+                      <Spinner />
+                    </div>
+                  ) : (
+                    <BarChart
+                      className="whitespace-nowrap text-nowrap font-semibold"
+                      width={400}
+                      height={300}
+                      data={chartData3}
+                      layout="vertical"
+                      margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                    >
+                      <XAxis type="number" domain={[0, 100]} />
+                      <YAxis dataKey="name" type="category" />
+                      <Tooltip />
+                      <Legend />
+                      <Bar
+                        dataKey="attendance"
+                        fill="#e23670"
+                        name={`${currentLanguage === "ar" ? "الحضور (متوسط)" : currentLanguage === "fr" ? "(AVG) Présences" : "(AVG) Attendances"}`}
+                        barSize={17}
+                        radius={10}
+                      />
+                      <Bar
+                        dataKey="grade"
+                        fill="#2560d4"
+                        name={`${currentLanguage === "ar" ? "النقاط (متوسط)" : currentLanguage === "fr" ? "(AVG) Note" : "(AVG) Grade"}`}
+                        barSize={17}
+                        radius={10}
+                      />
+                    </BarChart>
+                  )
+                ) : (
+                  <div className="flex h-[300px] items-center justify-center text-center text-gray-500">
+                    {currentLanguage === "ar"
+                      ? "الرجاء اختيار فصل لعرض بيانات الطلاب"
+                      : currentLanguage === "fr"
+                        ? "Veuillez sélectionner une classe pour afficher les données des élèves"
+                        : "Please select a class to view student data"}
+                  </div>
+                )}
               </CardContent>
             </Card>
           </div>
