@@ -38,12 +38,12 @@ const eventSchema = z.object({
   creatorId: z.string().optional(),
   startTime: z.string().min(1, "Start time is required"),
   endTime: z.string().min(1, "End time is required"),
-  title_en: z.string().optional(),
-  title_ar: z.string().optional(),
-  title_fr: z.string().optional(),
-  description_en: z.string().optional(),
-  description_ar: z.string().optional(),
-  description_fr: z.string().optional(),
+  title_en: z.string().min(1, "English title is required"),
+  title_ar: z.string().min(1, "Arabic title is required"),
+  title_fr: z.string().min(1, "French title is required"),
+  description_en: z.string().min(1, "English description is required"),
+  description_ar: z.string().min(1, "Arabic description is required"),
+  description_fr: z.string().min(1, "French description is required"),
   file: z.any().optional(),
 });
 

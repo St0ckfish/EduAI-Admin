@@ -46,9 +46,13 @@ function InsightPage() {
   const {data: averageAttendance, isLoading: isAverage} = useAverageAttendanceQuery(null);
   const [classroomId, setClassroomId] = useState<string | null>(null);
   const { data: classes, isLoading: isClassing } = useGetAllClasssQuery(null);
-  const {data: strugglingStudents, isLoading: isStudentsLoading} = useTopStudentsInClassQuery(classroomId, {
+  const {data: strugglingStudents, isLoading: isStudentsLoading} = useTopStudentsInClassQuery({
+    "classRoom": classroomId
+  }, {
     skip: classroomId === null
   });
+  console.log(classroomId);
+  
   
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   const { language: currentLanguage, loading } = useSelector(
