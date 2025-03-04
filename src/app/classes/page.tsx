@@ -238,7 +238,7 @@ const Infrastructure = () => {
                             ? "N. Étudiant"
                             : "Class Capacity"}
                       </p>
-                      <p>30</p>
+                      <p>{classItem.maxCapacity}</p>
                       <p className="text-secondary">
                         {currentLanguage === "ar"
                           ? "قم الغرفة"
@@ -246,7 +246,7 @@ const Infrastructure = () => {
                             ? "Numéro de chambre"
                             : "Room Number"}
                       </p>
-                      <p>4</p>
+                      <p>{classItem.roomNumber}</p>
                     </div>
                   </div>
                 </Link>
