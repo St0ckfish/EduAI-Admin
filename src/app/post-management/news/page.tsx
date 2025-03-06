@@ -295,7 +295,7 @@ const News = () => {
                         aspectRatio="aspect-video"
                         objectFit="cover"
                         priority={true}
-                        cacheKey={`product-${img.id}`} 
+                        // cacheKey={`product-${img.id}`} 
                         className="rounded-lg"
                         alt="Example image"
                         onLoadingComplete={() => console.log('Image loaded')}
