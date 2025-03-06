@@ -45,6 +45,13 @@ export const examsApi = createApi({
       }),
     }),
     //
+    deleteExamType: builder.mutation({
+      query: id => ({
+        url: `/api/v1/academic/educationalAffairs/exam-types/1${id}`,
+        method: "DELETE",
+      }),
+    }),
+    //
     createExams: builder.mutation({
       query: formData => ({
         url: `/api/v1/academic/educationalAffairs/exams`,
@@ -85,6 +92,7 @@ export const {
   useCreateExamsMutation,
   useGetExamResByIdQuery,
   useCreateExamTypeMutation,
+  useDeleteExamTypeMutation,
   useUpdateExamMutation,
   useGetExamTypeByCourseIdQuery,
   useDeleteExamResultMutation,

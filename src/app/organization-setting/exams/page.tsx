@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import { toast } from "react-toastify";
 import Spinner from "@/components/spinner";
-import { useGetExamTypeByCourseIdQuery } from "@/features/Acadimic/examsApi";
+import { useDeleteExamTypeMutation, useGetExamTypeByCourseIdQuery } from "@/features/Acadimic/examsApi";
 import { useGetAllCoursesQuery } from "@/features/Acadimic/courseApi";
 
 const Exams = () => {
@@ -42,6 +42,18 @@ const Exams = () => {
   );
   const [selectAll, setSelectAll] = useState(false); // State to track whether select all checkbox is checked
 
+  const [deleteExamType, { isLoading: isDeleting }] =
+    useDeleteExamTypeMutation();
+
+  const handleDelete = async (id: any) => {
+    try {
+      await deleteExamType(id).unwrap();
+      toast.success(`Semester with ID ${id} deleted successfully`);
+      refetchExam();
+    } catch (err: any) {
+      toast.error(err.data.statusMsg);
+    }
+  };
   // Function to handle click on select all checkbox
   const handleSelectAll = () => {
     setSelectAll(!selectAll); // Toggle select all state
@@ -235,8 +247,8 @@ const Exams = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {exams?.data?.content?.length > 0 ? (
-                    exams.data.content.map((exam: any, index: number) => (
+                  {exams?.data?.length > 0 ? (
+                    exams.data.map((exam: any, index: number) => (
                       <tr key={index} className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary">
                         <td className="w-4 p-4">
                           <div className="flex items-center">
@@ -251,14 +263,14 @@ const Exams = () => {
                           scope="row"
                           className="flex items-center whitespace-nowrap px-6 py-4 font-medium text-textSecondary"
                         >
-                          {exam.name || "Nahda"}
+                          {exam.name}
                         </th>
-                        <td className="whitespace-nowrap px-6 py-4">{exam.examGrade || "This is text"}</td>
-                        <td className="whitespace-nowrap px-6 py-4">{exam.passingGrade || "This is text"}</td>
-                        <td className="whitespace-nowrap px-6 py-4">{exam.studyLevel || "This is text"}</td>
+                        <td className="whitespace-nowrap px-6 py-4">{exam.examGrade}</td>
+                        <td className="whitespace-nowrap px-6 py-4">{exam.passingGrade}</td>
+                        <td className="whitespace-nowrap px-6 py-4">{exam.studyLevel}</td>
                         <td className="whitespace-nowrap px-6 py-4">
-                          <Link
-                            href={`/organization-setting/exams/edit-exam/${exam.id}`}
+                          {/* <Link
+                            href={`/organization-setting/exams/edit-exam/${exam.examTypeId}`}
                             className="font-medium text-blue-600 hover:underline"
                           >
                             {currentLanguage === "ar"
@@ -266,7 +278,18 @@ const Exams = () => {
                               : currentLanguage === "fr"
                                 ? "Modifier"
                                 : "Edit"}
-                          </Link>
+                          </Link> */}
+                          <button
+                           disabled={isDeleting}
+                           onClick={() => handleDelete(exam.examTypeId)}
+                        className="rounded-lg bg-error px-2 py-1 font-semibold text-white shadow-lg delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+                      >
+                        {currentLanguage === "ar"
+                          ? "حذف"
+                          : currentLanguage === "fr"
+                            ? "Supprimer"
+                            : "Delete"}
+                      </button>
                         </td>
                       </tr>
                     ))
