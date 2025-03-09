@@ -1,5 +1,8 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import type { ImgHTMLAttributes, ReactNode } from 'react';
+
+// Global in-memory cache to avoid duplicate fetches for the same image URL
+const inMemoryImageCache = new Map<string, Promise<string>>();
 
 interface ImageProps extends Omit<ImgHTMLAttributes<HTMLImageElement>, 'src' | 'onError'> {
   src: string | null;
@@ -25,7 +28,7 @@ const ImageComponent: React.FC<ImageProps> = ({
   onError,
   className = '',
   aspectRatio = 'aspect-square',
-  objectFit = 'cover',
+  objectFit = 'fill',
   priority = false,
   cacheExpiry = 7 * 24 * 60 * 60 * 1000, // Default 1 week
   ...props
@@ -34,13 +37,57 @@ const ImageComponent: React.FC<ImageProps> = ({
   const [error, setError] = useState<Error | null>(null);
   const [imageSrc, setImageSrc] = useState<string>(src || fallbackSrc);
   const [isVisible, setIsVisible] = useState(priority);
-  
-  // Function to create a cache key from URL
+
+  // Create a cache key from URL
   const getCacheKey = useCallback((url: string): string => {
     return `img_cache_${url}`;
   }, []);
 
-  // Set up image with caching logic
+  // Fetch and cache image as base64, using the in-memory cache to prevent duplicate requests
+  const fetchAndCacheImage = useCallback(async (imageUrl: string) => {
+    if (inMemoryImageCache.has(imageUrl)) {
+      return inMemoryImageCache.get(imageUrl)!;
+    }
+    const promise = (async () => {
+      try {
+        // Fetch the image
+        const response = await fetch(imageUrl);
+        if (!response.ok) throw new Error(`Failed to fetch image: ${imageUrl}`);
+
+        // Get the blob
+        const blob = await response.blob();
+
+        // Convert to base64
+        return new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            const base64data = reader.result as string;
+
+            // Cache the base64 data in localStorage
+            try {
+              const cacheKey = getCacheKey(imageUrl);
+              localStorage.setItem(cacheKey, JSON.stringify({
+                data: base64data,
+                timestamp: Date.now()
+              }));
+            } catch (e) {
+              console.warn('Cache write error:', e);
+            }
+            resolve(base64data);
+          };
+          reader.onerror = reject;
+          reader.readAsDataURL(blob);
+        });
+      } catch (error) {
+        console.error('Error fetching or caching image:', error);
+        throw error;
+      }
+    })();
+    inMemoryImageCache.set(imageUrl, promise);
+    return promise;
+  }, [getCacheKey]);
+
+  // Always load and cache the image, regardless of visibility.
   useEffect(() => {
     if (!src) {
       setImageSrc(fallbackSrc);
@@ -48,37 +95,40 @@ const ImageComponent: React.FC<ImageProps> = ({
       return;
     }
 
-    // Try to get from cache first
-    try {
-      const cacheKey = getCacheKey(src);
-      const cachedData = localStorage.getItem(cacheKey);
-      
-      if (cachedData) {
-        const parsedData = JSON.parse(cachedData);
-        
-        // Check if cache is still valid
-        if (parsedData && 
-            parsedData.timestamp && 
-            Date.now() - parsedData.timestamp < cacheExpiry) {
-          // Use cached image source
-          setImageSrc(src);
-          setLoading(false);
-          onLoadingComplete?.();
-          return;
-        }
-      }
-    } catch (e) {
-      console.warn('Cache access error:', e);
-      // Continue with normal loading if cache fails
-    }
-    
-    // If not in cache or cache expired, use the original source
-    setImageSrc(src);
-    setLoading(true);
-    
-  }, [src, fallbackSrc, getCacheKey, cacheExpiry, onLoadingComplete]);
+    const loadImage = async () => {
+      try {
+        const cacheKey = getCacheKey(src);
+        const cachedData = localStorage.getItem(cacheKey);
 
-  // Intersection Observer setup for lazy loading
+        if (cachedData) {
+          const parsedData = JSON.parse(cachedData);
+          if (
+            parsedData &&
+            parsedData.timestamp &&
+            parsedData.data &&
+            Date.now() - parsedData.timestamp < cacheExpiry
+          ) {
+            setImageSrc(parsedData.data);
+            setLoading(false);
+            onLoadingComplete?.();
+          }
+        }
+
+        // Always fetch (and cache) the image so that even off-screen images are cached
+        const base64Image = await fetchAndCacheImage(src);
+        setImageSrc(base64Image);
+        setLoading(false);
+        onLoadingComplete?.();
+      } catch (e) {
+        console.error('Image loading error:', e);
+        handleError();
+      }
+    };
+
+    loadImage();
+  }, [src, fallbackSrc, getCacheKey, cacheExpiry, onLoadingComplete, fetchAndCacheImage]);
+
+  // Intersection Observer for lazy rendering only
   useEffect(() => {
     if (!priority) {
       const observer = new IntersectionObserver((entries) => {
@@ -89,13 +139,11 @@ const ImageComponent: React.FC<ImageProps> = ({
           }
         });
       });
-      
       const elementId = `image-${src || fallbackSrc}`.replace(/[^\w-]/g, '_');
       const element = document.getElementById(elementId);
       if (element) {
         observer.observe(element);
       }
-      
       return () => observer.disconnect();
     }
   }, [src, fallbackSrc, priority]);
@@ -103,28 +151,16 @@ const ImageComponent: React.FC<ImageProps> = ({
   const handleLoad = useCallback(() => {
     setLoading(false);
     onLoadingComplete?.();
-    
-    // Cache the successfully loaded image
-    if (src) {
-      try {
-        const cacheKey = getCacheKey(src);
-        localStorage.setItem(cacheKey, JSON.stringify({
-          timestamp: Date.now()
-        }));
-      } catch (e) {
-        console.warn('Cache write error:', e);
-      }
-    }
-  }, [src, getCacheKey, onLoadingComplete]);
+  }, [onLoadingComplete]);
 
   const handleError = useCallback(() => {
-    const error = new Error(`Failed to load image: ${imageSrc}`);
+    const error = new Error(`Failed to load image: ${src}`);
     setError(error);
     setLoading(false);
     setImageSrc(fallbackSrc);
     onError?.(error);
-  }, [imageSrc, fallbackSrc, onError]);
-  
+  }, [src, fallbackSrc, onError]);
+
   const defaultLoadingPlaceholder = (
     <div className="w-full h-full animate-pulse bg-gray-200 rounded" />
   );
@@ -181,6 +217,28 @@ const ImageComponent: React.FC<ImageProps> = ({
       )}
     </div>
   );
+};
+
+// Helper function to clean the cache - can be exported and used elsewhere
+export const cleanImageCache = (maxAge?: number) => {
+  try {
+    const now = Date.now();
+    const maxAgeMs = maxAge || 30 * 24 * 60 * 60 * 1000; // Default 30 days
+    Object.keys(localStorage).forEach(key => {
+      if (key.startsWith('img_cache_')) {
+        try {
+          const item = JSON.parse(localStorage.getItem(key) || '{}');
+          if (item.timestamp && (now - item.timestamp > maxAgeMs)) {
+            localStorage.removeItem(key);
+          }
+        } catch (e) {
+          localStorage.removeItem(key);
+        }
+      }
+    });
+  } catch (e) {
+    console.warn('Error cleaning image cache:', e);
+  }
 };
 
 export default ImageComponent;

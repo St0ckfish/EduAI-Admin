@@ -288,20 +288,20 @@ const News = () => {
               </div>
               <div className="mt-2 flex justify-center">
                 <div className="mt-2 flex flex-wrap justify-center gap-2">
-                  {post.attachments.map((img: any, index: number) => (
-                    <ImageComponent
-                        src={img.viewLink}
-                        fallbackSrc="/images/noImage.png"
-                        aspectRatio="aspect-video"
-                        objectFit="cover"
-                        priority={true}
-                        // cacheKey={`product-${img.id}`} 
-                        className="rounded-lg"
-                        alt="Example image"
-                        onLoadingComplete={() => console.log('Image loaded')}
-                        onError={(error) => console.error('Image failed to load:', error)}
-                      />
-                  ))}
+                {post.attachments.map((img: any, index: number) => (
+                  <ImageComponent
+                    src={img.viewLink}
+                    fallbackSrc="/images/noImage.png"
+                    aspectRatio="aspect-video"
+                    objectFit="cover"
+                    priority={true}
+                    key={index} 
+                    className="rounded-lg"
+                    alt={`product-${img.id}`} 
+                    onLoadingComplete={() => console.log('Image loaded')}
+                    onError={(error) => console.error('Image failed to load:', error)}
+                  />
+                ))}
                 </div>
               </div>
               <div className="mb-3 mt-2 flex items-center justify-between font-semibold">
