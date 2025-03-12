@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Spinner from "@/components/spinner";
 import { useCreateProfessionalsMutation } from "@/features/Document-Management/professionalApi";
@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { RootState } from "@/GlobalRedux/store";
 import BreadCrumbs from "@/components/BreadCrumbs";
-import { useState } from "react";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { useGetAllStudentsQuery } from "@/features/User-Management/studentApi";
 
@@ -73,7 +72,8 @@ const AddNewProfessional = () => {
         issueDate: formData.issueDate,
       }),
     );
-    data.append("file", formData.endDate[0]); // Assuming 'endDate' is the file input
+    // Corrected: use formData.endData instead of formData.endDate
+    data.append("file", formData.endData[0]);
 
     try {
       await createCertificate(data).unwrap();
@@ -82,6 +82,7 @@ const AddNewProfessional = () => {
       toast.error("Failed to create Certificate");
     }
   };
+
   const { language: currentLanguage, loading } = useSelector(
     (state: RootState) => state.language,
   );
@@ -92,12 +93,13 @@ const AddNewProfessional = () => {
         <Spinner />
       </div>
     );
+
   return (
     <>
       <BreadCrumbs breadcrumbs={breadcrumbs} />
       <div
         dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-        className={` ${
+        className={`${
           currentLanguage === "ar"
             ? booleanValue
               ? "lg:mr-[100px]"
@@ -140,7 +142,7 @@ const AddNewProfessional = () => {
               </h1>
             </div>
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
-            <label
+              <label
                 htmlFor="userId"
                 className="grid font-sans text-[18px] font-semibold"
               >
@@ -149,7 +151,6 @@ const AddNewProfessional = () => {
                   : currentLanguage === "ar"
                     ? "رقم الطالب"
                     : "ID de l'étudiant"}
-
                 <select
                   id="userId"
                   {...register("userId", { required: true })}

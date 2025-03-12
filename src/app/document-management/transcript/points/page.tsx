@@ -33,7 +33,7 @@ const Points = () => {
   const booleanValue = useSelector((state: RootState) => state.boolean.value); // sidebar
 const {data, isLoading} = useGetAllListPointsQuery(null)
   const [selectAll, setSelectAll] = useState(false); // State to track whether select all checkbox is checked
-
+  const [search, setSearch] = useState("");
   // Function to handle click on select all checkbox
   const handleSelectAll = () => {
     setSelectAll(!selectAll); // Toggle select all state
@@ -135,6 +135,46 @@ const {data, isLoading} = useGetAllListPointsQuery(null)
               : "lg:ml-[270px]"
         } relative mx-3 mt-10 h-screen overflow-x-auto bg-transparent sm:rounded-lg`}
       >
+        <div className="flex justify-between text-center max-[502px]:grid max-[502px]:justify-center">
+        <div className="mb-3">
+            <label htmlFor="icon" className="sr-only">
+              Search
+            </label>
+            <div className="relative min-w-72 md:min-w-80">
+              <div className="pointer-events-none absolute inset-y-0 start-0 z-20 flex items-center ps-4">
+                <svg
+                  className="size-4 flex-shrink-0 text-secondary"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="m21 21-4.3-4.3" />
+                </svg>
+              </div>
+              <input
+                onChange={e => setSearch(e.target.value)}
+                type="text"
+                id="icon"
+                name="icon"
+                className="block w-full rounded-lg border-2 border-borderPrimary px-4 py-2 ps-11 text-sm outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
+                placeholder={
+                  currentLanguage === "en"
+                    ? "Search"
+                    : currentLanguage === "ar"
+                      ? "بحث"
+                      : "Recherche"
+                }
+              />
+            </div>
+          </div>
+          </div>
         <table className="w-full overflow-x-auto text-left text-sm text-gray-500 rtl:text-right">
           <thead className="bg-thead text-xs uppercase text-textPrimary">
             <tr>
@@ -202,8 +242,12 @@ const {data, isLoading} = useGetAllListPointsQuery(null)
             </tr>
           </thead>
           <tbody>
-            {
-              data?.data?.content.map((point: any)=>(
+            {data?.data.content
+                .filter((employee: any) => {
+                  return search.toLocaleLowerCase() === ""
+                    ? employee
+                    : employee.studentName.toLocaleLowerCase().includes(search);
+                }).map((point: any)=>(
                 <tr className="border-b border-borderPrimary bg-bgPrimary hover:bg-bgSecondary">
                   <td className="w-4 p-4">
                     <div className="flex items-center">

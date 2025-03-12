@@ -125,7 +125,7 @@ const ViewPoint = ({ params }: ParamsType) => {
                   key={idx}
                   className="grid grid-cols-2 gap-4 border-t border-borderPrimary p-4"
                 >
-                  <div className="text-secondary">{course}hhh</div>
+                  <div className="text-secondary">{course}</div>
                   <div className="font-medium text-secondary">{grade as React.ReactNode}</div>
                 </div>
               ))}
