@@ -41,7 +41,7 @@ const Chat = () => {
     },
     {
       nameEn: "Reported Chat",
-      nameAr: "الإبلاغات",
+      nameAr: "دردشة",
       nameFr: "Discussion signalée",
       href: "/chat",
     },
