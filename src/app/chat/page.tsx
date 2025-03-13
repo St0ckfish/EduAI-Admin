@@ -193,7 +193,7 @@ const Chat = () => {
       } mt-10`}
     >
 
-      <div className="flex w-full justify-between gap-10 rounded-lg p-4 max-[1180px]:grid max-[1180px]:justify-center">
+      <div dir={currentLanguage === "ar" ? "rtl" : "ltr"} className="flex w-full justify-between gap-10 rounded-lg p-4 max-[1180px]:grid max-[1180px]:justify-center">
         <div className="h-[700px] w-full overflow-y-auto rounded-xl bg-bgPrimary p-5">
           <div className="flex-1 overflow-y-auto">
             {isLoading ? (
@@ -201,7 +201,13 @@ const Chat = () => {
             ) : (
               <>
                 <div className="flex justify-between text-start text-[22px] font-semibold">
-                  <h1>Contacts</h1>
+                  <h1>{
+                          currentLanguage === "en"
+                            ? "Contacts"
+                            : currentLanguage === "ar"
+                              ? "جهات الاتصال"
+                              : "Contacts"
+                        }</h1>
                   <button onClick={handleOpenModal}>
                     <svg
                       className="h-8 w-8"

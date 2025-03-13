@@ -69,7 +69,9 @@ const ChatPage = ({ userId, regetusers, userName, userRole, realuserId }: ChatPa
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-
+  const { language: currentLanguage, loading } = useSelector(
+    (state: RootState) => state.language,
+  );
 const handleEmojiSelect = (emoji: string) => {
     setInput(prev => prev + emoji);
   };
@@ -239,12 +241,12 @@ const handleEmojiSelect = (emoji: string) => {
 
   return (
     <div className="mx-auto flex h-[700px] w-full flex-col rounded-xl bg-bgPrimary">
-      <div className="relative inline-block p-4">
+      <div dir={currentLanguage === "ar" ? "rtl" : "ltr"} className="relative inline-block p-4">
         <div className="flex items-center gap-2 font-medium">
           <img src="/images/userr.png" alt="#" className="w-[50px] h-[50px]" />
           <p>{userName}</p>
         </div>
-        <div className="absolute right-3 top-5">
+        <div className={`absolute ${currentLanguage === "ar" ? "left-3" : "right-3"}  top-5`}>
           {
             userRole === "Teacher" ? 
             <Link href={`/teacher/view-teacher/${realuserId}`} className="font-medium text-secondary underline underline-offset-2">View Profile</Link> :
