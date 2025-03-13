@@ -92,32 +92,32 @@ const DocumentManagement = () => {
               ? "Quelques informations sur les formulaires d'admission, le statut d'inscription, et les dates d'inscription"
               : "Some information about Admission Forms, Enrollment Status, and Enrollment Dates", // Default to English
     },
-    {
-      href: "/document-management/attendance",
-      icon: <FaRegCalendarCheck size={40} />,
-      title:
-        currentLanguage === "en"
-          ? "Attendance"
-          : currentLanguage === "ar"
-            ? "الحضور"
-            : currentLanguage === "fr"
-              ? "Présence"
-              : "Attendance", // Default to English
-      description:
-        currentLanguage === "en"
-          ? "Some Information about Absence Reports and Early Departure Records"
-          : currentLanguage === "ar"
-            ? "بعض المعلومات حول تقارير الغياب وسجلات المغادرة المبكرة"
-            : currentLanguage === "fr"
-              ? "Quelques informations sur les rapports d'absence et les enregistrements de départ anticipé"
-              : "Some Information about Absence Reports and Early Departure Records", // Default to English
-    },
+    // {
+    //   href: "/document-management/attendance",
+    //   icon: <FaRegCalendarCheck size={40} />,
+    //   title:
+    //     currentLanguage === "en"
+    //       ? "Attendance"
+    //       : currentLanguage === "ar"
+    //         ? "الحضور"
+    //         : currentLanguage === "fr"
+    //           ? "Présence"
+    //           : "Attendance", // Default to English
+    //   description:
+    //     currentLanguage === "en"
+    //       ? "Some Information about Absence Reports and Early Departure Records"
+    //       : currentLanguage === "ar"
+    //         ? "بعض المعلومات حول تقارير الغياب وسجلات المغادرة المبكرة"
+    //         : currentLanguage === "fr"
+    //           ? "Quelques informations sur les rapports d'absence et les enregistrements de départ anticipé"
+    //           : "Some Information about Absence Reports and Early Departure Records", // Default to English
+    // },
     {
       href: "/document-management/other",
       icon: <MdDescription size={40} />,
       title:
         currentLanguage === "en"
-          ? "Other Official Documents"
+          ? "Official Documents"
           : currentLanguage === "ar"
             ? "وثائق رسمية أخرى"
             : currentLanguage === "fr"
@@ -125,12 +125,12 @@ const DocumentManagement = () => {
               : "Other Official Documents", // Default to English
       description:
         currentLanguage === "en"
-          ? "Some information about ID Cards, Medical Records, Disciplinary Records, Financial Aid Documents, Legal Documents"
+          ? "Some information about ID Cards, Medical Records, Disciplinary Records, Financial Aid Documents"
           : currentLanguage === "ar"
             ? "بعض المعلومات حول بطاقات الهوية، السجلات الطبية، السجلات التأديبية، وثائق المساعدة المالية، الوثائق القانونية"
             : currentLanguage === "fr"
               ? "Quelques informations sur les cartes d'identité, les dossiers médicaux, les dossiers disciplinaires, les documents d'aide financière"
-              : "Some information about ID Cards, Medical Records, Disciplinary Records, Financial Aid Documents, Legal Documents", // Default to English
+              : "Some information about ID Cards, Medical Records, Disciplinary Records, Financial Aid Documents", // Default to English
     },
   ];
 

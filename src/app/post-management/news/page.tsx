@@ -293,7 +293,7 @@ const News = () => {
                     src={img.viewLink}
                     fallbackSrc="/images/noImage.png"
                     aspectRatio="aspect-video"
-                    objectFit="cover"
+                    objectFit="fill"
                     priority={true}
                     key={index} 
                     className="rounded-lg"
