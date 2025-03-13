@@ -340,13 +340,9 @@ const Login = () => {
             </form>
           </div>
         </div>
-        <div className="flex h-full w-full justify-end">
-          <div className="flex h-full w-[600px] items-center justify-end bg-[#2a3469] max-[1040px]:hidden">
-            <img
-              className="h-[530px] w-[500px] -translate-x-[260px]"
-              src="images/labtop.png"
-              alt="#"
-            />
+        <div className="flex h-full w-full justify-end max-[1040px]:hidden">
+          <div className="flex h-full w-[700px] items-center justify-end">
+            <img className="h-full w-full" src="images/login.png" alt="#" />
           </div>
         </div>
       </div>
