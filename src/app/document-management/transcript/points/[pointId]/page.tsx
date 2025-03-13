@@ -30,6 +30,12 @@ const ViewPoint = ({ params }: ParamsType) => {
       nameEn: "Points",
       nameAr: "النقاط",
       nameFr: "Points",
+      href: `/document-management/transcript/points`,
+    },
+    {
+      nameEn: "View Student",
+      nameAr: "عرض الطالب",
+      nameFr: "Voir l'étudiant",
       href: `/document-management/transcript/points/${params.pointId}`,
     },
   ];
