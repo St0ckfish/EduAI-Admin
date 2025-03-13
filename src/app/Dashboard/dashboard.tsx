@@ -405,7 +405,7 @@ const Dashboard: React.FC = () => {
                           "dd - MMMM - yyyy",
                         )}
                       </p>
-                      <p className="text-[16px] text-gray-400">
+                      <p className="text-[16px] text-gray-400 truncate">
                         {meeting.title}
                       </p>
                       <div className="h-2.5 w-full rounded-full bg-gray-200">
