@@ -25,6 +25,7 @@ import { FaThumbsUp } from "react-icons/fa";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { FaComment } from "react-icons/fa";
 import ImageComponent from "@/components/ImageSrc";
+import Comment from "@/components/Comment";
 
 const News = () => {
   const breadcrumbs = [
@@ -50,6 +51,10 @@ const News = () => {
 
   const booleanValue = useSelector((state: RootState) => state.boolean.value);
   type Post = Record<string, any>;
+  const [selectedPostId, setSelectedPostId] = useState<number | null>(null);
+  const handleCommentClick = (postId: number) => {
+    setSelectedPostId(postId === selectedPostId ? null : postId);
+  };
   const { data, error, isLoading, refetch } = useGetAllAllPostsQuery(null);
   const [deletePosts] = useDeletePostsMutation();
   const [putLike] = usePutPostLikeMutation();
@@ -329,6 +334,7 @@ const News = () => {
                     onClick={() => {
                       handleClick(post.id);
                       toggleNavbar3(index);
+                      handleCommentClick(post.id);
                     }}
                     className="primary:border-b border-spacing-2 text-textSecondary"
                   >
@@ -422,36 +428,26 @@ const News = () => {
                     <Spinner />
                   ) : (
                     <div className="grid h-full w-full overflow-y-auto">
-                      {Comments.data.content.map(
-                        (
-                          comment: {
-                            creatorName: ReactNode;
-                            comment:
-                              | string
-                              | number
-                              | bigint
-                              | boolean
-                              | ReactElement<
-                                  any,
-                                  string | JSXElementConstructor<any>
-                                >
-                              | Iterable<ReactNode>
-                              | ReactPortal
-                              | null
-                              | undefined;
-                          },
-                          index: number,
-                        ) => (
-                          <div key={index} className="flex items-center gap-2">
-                            <h1 className="font-semibold text-gray-400">
-                              {comment.creatorName}:
-                            </h1>
-                            <p className="font-semibold">
-                              {String(comment.comment)}
-                            </p>
-                          </div>
-                        ),
-                      )}
+                      {Comments?.data.content.map((comment: any) => (
+                          <Comment
+                            refetchComments={refetchComment}
+                            key={comment.id}
+                            userName={comment.creatorName}
+                            comment={comment.comment}
+                            time={new Date(
+                              comment.createdDate,
+                            ).toLocaleTimeString()}
+                            imageUrl={
+                              comment.isCreatorPictureExists
+                                ? comment.creatorPicture
+                                : "/images/default.png"
+                            }
+                            postId={selectedPostId}
+                            commentId={comment.id}
+                            isLiked={comment.isLiked}
+                            likesCount={comment.likesCount}
+                          />
+                        ))}
                     </div>
                   )}
                 </div>

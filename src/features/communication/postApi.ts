@@ -54,6 +54,28 @@ export const postApi = createApi({
       }),
     }),
     //
+    deletePostComment: builder.mutation({
+      query: ({postId, commentId}) => ({
+        url: `/api/v1/post/${postId}/comment/${commentId}`,
+        method: "DELETE",
+      }),
+    }),
+    //
+    UpdatePostComment: builder.mutation({
+      query: ({postId, commentId, comment}) => ({
+        url: `/api/v1/post/${postId}/comment/${commentId}`,
+        method: "PUT",
+        body: { comment },
+      }),
+    }),
+    //
+    LikePostComment: builder.mutation({
+      query: ({postId, commentId, liked}) => ({
+        url: `/api/v1/post/${postId}/comment/${commentId}/like?liked=${liked}`,
+        method: "PUT",
+      }),
+    }),
+    //
     createPosts: builder.mutation({
       query: formData => ({
         url: `/api/v1/management/post`,
@@ -107,6 +129,9 @@ export const {
   useGetPostByIdQuery,
   useUpdatePostsMutation,
   useUpdatePostsFilesMutation,
+  useDeletePostCommentMutation,
+  useUpdatePostCommentMutation,
+  useLikePostCommentMutation,
   useGetAllAllPostsQuery,
   usePutPostLikeMutation,
   useCreateCommentMutation,
