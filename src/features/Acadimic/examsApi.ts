@@ -47,7 +47,7 @@ export const examsApi = createApi({
     //
     deleteExamType: builder.mutation({
       query: id => ({
-        url: `/api/v1/academic/educationalAffairs/exam-types/1${id}`,
+        url: `/api/v1/academic/educationalAffairs/exam-types/${id}`,
         method: "DELETE",
       }),
     }),

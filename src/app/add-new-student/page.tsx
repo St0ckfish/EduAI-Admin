@@ -22,6 +22,7 @@ import PhoneNumberInput from "@/components/PhoneNumberInput";
 import SearchableSelect from "@/components/select";
 
 const AddNewStudent = () => {
+  const [backendError, setBackendError] = useState<string | null>(null);
   const breadcrumbs = [
     {
       nameEn: "Administration",
@@ -161,8 +162,13 @@ const AddNewStudent = () => {
       await createStudent(formData).unwrap();
       toast.success("Student created successfully");
       router.push("/student");
-    } catch {
-      toast.error("Failed to create student");
+    } catch (error: any) {
+      if (error.data && error.data.data && error.data.data.length > 0) {
+        setBackendError(error.data.data[0]);
+      } else {
+        setBackendError("Failed to create parent");
+      }
+      toast.error(error.data.message);
     }
   };
 
@@ -201,6 +207,11 @@ const AddNewStudent = () => {
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="my-10 grid items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:w-[1000px]">
+          {backendError && (
+              <div className="text-error text-center">
+                {backendError}
+              </div>
+            )}
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
               {/* Parent ID dropdown */}
               <label

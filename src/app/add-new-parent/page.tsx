@@ -106,7 +106,7 @@ const AddNewParent = () => {
       } else {
         setBackendError("Failed to create parent");
       }
-      toast.error("Failed to create parent");
+      toast.error(error.data.message);
     }
   };
 
