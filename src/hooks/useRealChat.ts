@@ -3,6 +3,9 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import Cookies from "js-cookie";
 import { baseUrlStock } from "../components/BaseURL";
 
+// DEBUG: Log base URL for troubleshooting
+console.log("Current baseUrlStock value:", baseUrlStock);
+
 // Interface definitions for attachment and message types
 interface Attachment {
   id: string;
@@ -54,9 +57,9 @@ const getHttpUrl = (wsUrl: string) => {
   const cleanUrl = wsUrl.replace(/\/+$/, '');
   
   if (cleanUrl.startsWith('wss://')) {
-    return 'https://' + cleanUrl.substring(6) + '/';
+    return 'https://' + cleanUrl.substring(6);
   } else if (cleanUrl.startsWith('ws://')) {
-    return 'http://' + cleanUrl.substring(5) + '/';
+    return 'http://' + cleanUrl.substring(5);
   }
   
   // If it's already an HTTP URL, ensure it ends with a slash
@@ -73,6 +76,7 @@ const safeStringify = (id: string | number | null | undefined): string => {
   return id != null ? String(id) : '';
 };
 
+// The main WebSocket hook
 export const useWebSocketChat = ({
   userId,
   initialMessages,
@@ -82,6 +86,9 @@ export const useWebSocketChat = ({
   const [isConnected, setIsConnected] = useState(false);
   const stompClientRef = useRef<StompClient | null>(null);
   const messagesMapRef = useRef<Map<string, Message>>(new Map());
+  const reconnectTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const connectionAttempts = useRef(0);
+  const MAX_RECONNECT_ATTEMPTS = 5;
 
   // Token management
   const getToken = useCallback(() => {
@@ -100,124 +107,174 @@ export const useWebSocketChat = ({
     }
   }, [initialMessages]);
 
-  useEffect(() => {
-    // Connect only once when the component mounts or when userId changes
-    let active = true;
-    let disconnectTimeoutId: NodeJS.Timeout | null = null;
+  // Setup WebSocket connection
+  const setupWebSocket = useCallback(() => {
+    const token = getToken();
     
-    const setupWebSocket = async () => {
-      const token = getToken();
+    if (!token || !userId) {
+      console.log("Cannot setup WebSocket: token or userId missing");
+      return;
+    }
+
+    // Don't try to reconnect too many times
+    if (connectionAttempts.current >= MAX_RECONNECT_ATTEMPTS) {
+      console.log(`Maximum reconnection attempts (${MAX_RECONNECT_ATTEMPTS}) reached. Giving up.`);
+      return;
+    }
+    
+    connectionAttempts.current += 1;
+    
+    // Clean up any existing connection first
+    if (stompClientRef.current) {
+      stompClientRef.current.deactivate();
+      stompClientRef.current = null;
+    }
+
+    // IMPORTANT: Use the exact WebSocket URL from the error logs
+    // Notice we're not modifying the URL - using it exactly as shown in the error logs
+    const brokerURL = `wss://api.eduai.tech/ws?token=${token}`;
+    
+    console.log("Connecting to WebSocket URL:", brokerURL);
+
+    // Create a new STOMP client
+    const stompClient = new Client({
+      brokerURL: brokerURL,
+      debug: function (str: string) {
+        console.log("[STOMP Debug]", str);
+      },
+      reconnectDelay: 5000,
+      heartbeatIncoming: 4000,
+      heartbeatOutgoing: 4000,
+      connectionTimeout: 10000,  // Give it more time to connect
+    });
+
+    stompClient.onConnect = () => {
+      console.log("WebSocket Connected Successfully");
+      setIsConnected(true);
+      connectionAttempts.current = 0; // Reset counter on successful connection
       
-      if (!token || !userId) {
-        return;
+      try {
+        // Using the exact subscription path from the logs
+        const subscriptionPath = `/direct-chat/${userId}`;
+        console.log(`Subscribing to: ${subscriptionPath}`);
+        
+        const subscription = stompClient.subscribe(subscriptionPath, (message: IMessage) => {
+          console.log("Received message via WebSocket:", message);
+          
+          try {
+            const newMessage: Message = JSON.parse(message.body);
+            console.log("Parsed message:", newMessage);
+            
+            setMessages(prevMessages => {
+              const messageId = safeStringify(newMessage.id);
+              
+              // Check if message already exists
+              const messageExists = prevMessages.some(msg => 
+                safeStringify(msg.id) === messageId
+              );
+              
+              if (messageExists) {
+                console.log("Duplicate message detected, skipping:", messageId);
+                return prevMessages;
+              }
+              
+              console.log("Adding new message to state:", newMessage);
+              messagesMapRef.current.set(messageId, newMessage);
+              
+              // Notify about new message in a setTimeout to avoid React batching issues
+              if (onNewMessage) {
+                console.log("Calling onNewMessage callback");
+                setTimeout(onNewMessage, 0);
+              }
+              
+              return [...prevMessages, newMessage];
+            });
+          } catch (parseError) {
+            console.error("Error parsing incoming message:", parseError, "Raw message:", message.body);
+          }
+        });
+        
+        console.log("Subscription successful:", subscription);
+      } catch (error) {
+        console.error("Error subscribing to chat:", error);
+      }
+    };
+
+    stompClient.onStompError = frame => {
+      console.error("Broker reported error:", frame.headers.message);
+      setIsConnected(false);
+    };
+
+    stompClient.onWebSocketError = event => {
+      console.error("WebSocket connection error:", event);
+      setIsConnected(false);
+    };
+
+    stompClient.onWebSocketClose = () => {
+      console.log("WebSocket connection closed");
+      setIsConnected(false);
+    };
+
+    // Store the client reference before activating
+    stompClientRef.current = stompClient;
+    
+    try {
+      stompClient.activate();
+    } catch (error) {
+      console.error("Error activating STOMP client:", error);
+      stompClientRef.current = null;
+    }
+  }, [userId, getToken, onNewMessage]);
+
+  // Connect when component mounts or userId changes
+  useEffect(() => {
+    if (userId) {
+      setupWebSocket();
+    }
+
+    // Clean up function
+    return () => {
+      if (reconnectTimeoutRef.current) {
+        clearTimeout(reconnectTimeoutRef.current);
+        reconnectTimeoutRef.current = null;
       }
       
-      // Clean up any existing connection first
       if (stompClientRef.current) {
+        console.log("Cleaning up WebSocket connection");
         stompClientRef.current.deactivate();
         stompClientRef.current = null;
       }
-
-      // Create a new STOMP client
-      const stompClient = new Client({
-        brokerURL: `${baseUrlStock}ws?token=${token}`,
-        debug: function (str: string) {
-          console.log("[STOMP Debug]", str);
-        },
-        reconnectDelay: 5000,
-        heartbeatIncoming: 4000,
-        heartbeatOutgoing: 4000,
-      });
-
-      stompClient.onConnect = () => {
-        if (!active) return; // Don't continue if component has unmounted
-        
-        console.log("WebSocket Connected Successfully");
-        setIsConnected(true);
-        
-        try {
-          const subscription = stompClient.subscribe(`/direct-chat/${userId}`, (message: IMessage) => {
-            if (!active) return; // Skip processing messages if component unmounted
-            
-            try {
-              const newMessage: Message = JSON.parse(message.body);
-              
-              // Simplified message handling to match old hook
-              setMessages(prevMessages => {
-                // Check if message already exists
-                const messageExists = prevMessages.some(msg => 
-                  safeStringify(msg.id) === safeStringify(newMessage.id)
-                );
-                
-                if (messageExists) {
-                  return prevMessages;
-                }
-                
-                // Add new message
-                return [...prevMessages, newMessage];
-              });
-              
-              onNewMessage?.();
-            } catch (parseError) {
-              console.error("Error parsing incoming message:", parseError);
-            }
-          });
-          
-          // Store the subscription in case we need to unsubscribe
-          return subscription;
-        } catch (error) {
-          console.error("Error subscribing to chat:", error);
-        }
-      };
-
-      stompClient.onStompError = frame => {
-        if (!active) return;
-        console.error("Broker reported error:", frame.headers.message);
-        setIsConnected(false);
-      };
-
-      stompClient.onWebSocketError = event => {
-        if (!active) return;
-        console.error("WebSocket connection error:", event);
-        setIsConnected(false);
-      };
-
-      stompClient.onWebSocketClose = () => {
-        if (!active) return;
-        console.log("WebSocket connection closed");
-        setIsConnected(false);
-      };
-
-      // Only activate if we're still mounted
-      if (active) {
-        // Store the client reference before activating
-        stompClientRef.current = stompClient;
-        stompClient.activate();
-      }
+      setIsConnected(false);
     };
+  }, [userId, setupWebSocket]);
 
-    setupWebSocket();
-
-    // Clean up when unmounting
-    return () => {
-      active = false;
+  // Monitor connection status and implement reconnection
+  useEffect(() => {
+    console.log("WebSocket connection status:", isConnected ? "CONNECTED" : "DISCONNECTED");
+    
+    // Auto-reconnect on disconnection with exponential backoff
+    if (!isConnected && userId && getToken()) {
+      const backoffTime = Math.min(1000 * Math.pow(2, connectionAttempts.current), 30000);
       
-      // Clear any pending timeouts
-      if (disconnectTimeoutId) {
-        clearTimeout(disconnectTimeoutId);
+      console.log(`Scheduling reconnect attempt in ${backoffTime/1000} seconds...`);
+      
+      if (reconnectTimeoutRef.current) {
+        clearTimeout(reconnectTimeoutRef.current);
       }
       
-      // Use a short delay to ensure we don't disconnect during quick re-renders
-      disconnectTimeoutId = setTimeout(() => {
-        if (stompClientRef.current) {
-          console.log("Cleaning up WebSocket connection");
-          stompClientRef.current.deactivate();
-          stompClientRef.current = null;
+      reconnectTimeoutRef.current = setTimeout(() => {
+        console.log("Attempting to reconnect WebSocket...");
+        setupWebSocket();
+      }, backoffTime);
+      
+      return () => {
+        if (reconnectTimeoutRef.current) {
+          clearTimeout(reconnectTimeoutRef.current);
+          reconnectTimeoutRef.current = null;
         }
-        setIsConnected(false);
-      }, 100);
-    };
-  }, [userId, getToken]); // Removed onNewMessage from dependencies to prevent reconnections
+      };
+    }
+  }, [isConnected, userId, getToken, setupWebSocket]);
 
   // Upload file to server with retry logic
   const uploadFile = async (file: File, retryCount = 0): Promise<string> => {
@@ -232,9 +289,8 @@ export const useWebSocketChat = ({
     formData.append("file", file);
 
     try {
-      // Get the correct API URL
-      const apiUrl = getHttpUrl(baseUrlStock);
-      // Ensure endpoint is correctly formatted 
+      // Use the exact domain from the WebSocket URL
+      const apiUrl = "https://api.eduai.tech/";
       const uploadUrl = `${apiUrl}api/v1/messages/${userId}/file`;
       
       console.log(`Uploading file to ${uploadUrl}`);
@@ -302,9 +358,8 @@ export const useWebSocketChat = ({
         attachmentId: attachmentId || undefined,
       };
 
-      // Get the correct API URL
-      const apiUrl = getHttpUrl(baseUrlStock);
-      // Ensure endpoint is correctly formatted
+      // Use the exact domain from the WebSocket URL
+      const apiUrl = "https://api.eduai.tech/";
       const sendUrl = `${apiUrl}api/v1/messages/new`;
       
       // تهيئة الرسالة بتنسيق URLSearchParams لإرسال البيانات كمعلمة طلب
@@ -319,7 +374,6 @@ export const useWebSocketChat = ({
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        // إرسال جسم فارغ لأن البيانات موجودة في URL
         body: JSON.stringify({}),
       });
 
@@ -346,7 +400,9 @@ export const useWebSocketChat = ({
         });
         
         // Notify about new message
-        onNewMessage?.();
+        if (onNewMessage) {
+          setTimeout(onNewMessage, 0);
+        }
         return true;
       }
       
@@ -364,79 +420,90 @@ export const useWebSocketChat = ({
       chatId: String(messagePayload.chatId)
     };
     
-    if (!stompClientRef.current?.connected) {
-      // If WebSocket isn't connected, use REST API as fallback
+    // Try to send via WebSocket first if connected
+    if (stompClientRef.current?.connected) {
       try {
-        const token = getToken();
-        if (!token) {
-          console.error("Cannot send message: missing token");
-          return false;
-        }
+        console.log("Sending message via WebSocket:", normalizedPayload);
         
-        // Get the correct API URL
-        const apiUrl = getHttpUrl(baseUrlStock);
-        // Ensure endpoint is correctly formatted
-        const sendUrl = `${apiUrl}api/v1/messages/new`;
-        
-        // تهيئة الرسالة بتنسيق URLSearchParams لإرسال البيانات كمعلمة طلب
-        const urlParams = new URLSearchParams();
-        urlParams.append('request', JSON.stringify(normalizedPayload));
-        
-        console.log(`Sending message via REST API to ${sendUrl} with params:`, urlParams.toString());
-        
-        const response = await fetch(`${sendUrl}?${urlParams.toString()}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          // إرسال جسم فارغ لأن البيانات موجودة في URL
-          body: JSON.stringify({}),
+        // Use the standard STOMP destination pattern - may need adjustment
+        stompClientRef.current.publish({
+          destination: "/app/sendMessage",  // Use this standard destination based on STOMP patterns
+          body: JSON.stringify(normalizedPayload),
+          headers: { 'content-type': 'application/json' }
         });
         
-        if (!response.ok) {
-          const errorText = await response.text();
-          throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
-        }
-        
-        const responseData = await response.json();
-        
-        if (responseData.success && responseData.data) {
-          // Add the message to our local state
-          const newMessage = responseData.data;
-          
-          setMessages(prev => {
-            // Check if message already exists
-            if (prev.some(msg => safeStringify(msg.id) === safeStringify(newMessage.id))) {
-              return prev;
-            }
-            // Add new message
-            return [...prev, newMessage];
-          });
-          
-          onNewMessage?.();
-          return true;
-        }
-        
-        return false;
+        console.log("Message sent via WebSocket successfully");
+        return true;
       } catch (error) {
-        console.error("REST API message sending failed:", error);
+        console.error("WebSocket message sending failed:", error);
+        console.log("Falling back to REST API...");
+        // Fall through to REST API
+      }
+    } else {
+      console.log("WebSocket not connected, using REST API");
+    }
+    
+    // Fallback to REST API if WebSocket isn't connected or failed
+    try {
+      const token = getToken();
+      if (!token) {
+        console.error("Cannot send message: missing token");
         return false;
       }
-    }
-
-    try {
-      // Match the old hook's message format exactly
-      stompClientRef.current.publish({
-        destination: "/app/sendMessage",
-        body: JSON.stringify(normalizedPayload),
-        headers: { 'content-type': 'application/json' }
+      
+      // Use the exact domain from the WebSocket URL
+      const apiUrl = "https://api.eduai.tech/";
+      const sendUrl = `${apiUrl}api/v1/messages/new`;
+      
+      // تهيئة الرسالة بتنسيق URLSearchParams لإرسال البيانات كمعلمة طلب
+      const urlParams = new URLSearchParams();
+      urlParams.append('request', JSON.stringify(normalizedPayload));
+      
+      console.log(`Sending message via REST API to ${sendUrl} with params:`, urlParams.toString());
+      
+      const response = await fetch(`${sendUrl}?${urlParams.toString()}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({}),
       });
       
-      console.log("Message sent via WebSocket:", normalizedPayload);
-      return true;
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+      }
+      
+      const responseData = await response.json();
+      console.log("REST API message response:", responseData);
+      
+      if (responseData.success && responseData.data) {
+        // Add the message to our local state
+        const newMessage = responseData.data;
+        
+        setMessages(prev => {
+          // Check if message already exists
+          const messageId = safeStringify(newMessage.id);
+          if (prev.some(msg => safeStringify(msg.id) === messageId)) {
+            return prev;
+          }
+          
+          // Add new message and update our message map
+          messagesMapRef.current.set(messageId, newMessage);
+          return [...prev, newMessage];
+        });
+        
+        // Notify about new message
+        if (onNewMessage) {
+          setTimeout(onNewMessage, 0);
+        }
+        return true;
+      }
+      
+      return false;
     } catch (error) {
-      console.error("Message sending failed:", error);
+      console.error("REST API message sending failed:", error);
       return false;
     }
   };

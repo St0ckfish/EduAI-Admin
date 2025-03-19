@@ -407,7 +407,6 @@ const ChatPage = ({ userId, regetusers, userName, userRole, realuserId }: ChatPa
   return (
     <div className="mx-auto flex h-[700px] w-full flex-col rounded-xl bg-bgPrimary shadow-lg">
       <div dir={currentLanguage === "ar" ? "rtl" : "ltr"} className="relative inline-block p-4 border-b border-borderPrimary">
-        <ConnectionStatus isConnected={isConnected} />
         <div className="flex items-center gap-2 font-medium">
           <img src="/images/userr.png" alt="User avatar" className="w-[50px] h-[50px] rounded-full object-cover" />
           <div>

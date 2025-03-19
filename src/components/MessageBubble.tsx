@@ -15,6 +15,7 @@ interface Message {
   chatId?: number | string;
   content: string;
   creationTime: string;
+  creatorName: string; // Using this to identify message sender
   imageUrl?: string;
   hasAttachment?: boolean;
   attachment?: Attachment;
@@ -37,6 +38,14 @@ export const MessageBubble = ({ message, isCurrentUser, userName, currentChatId 
     return null; // Don't render messages from other chats
   }
 
+  // Determine if the current user is the sender by comparing creatorName with userName
+  // This provides a more reliable way to determine message ownership
+  const isSentByCurrentUser = message.creatorName === userName;
+console.log("username", userName);
+console.log("creatorName", message.creatorName);
+console.log();
+
+
   const formatTime = (datetimeString: string) => {
     const date = new Date(datetimeString);
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -58,9 +67,9 @@ export const MessageBubble = ({ message, isCurrentUser, userName, currentChatId 
   return (
     <>
       <div 
-        dir={`${!isCurrentUser ? "ltr" : "rtl"}`} 
+        dir={`${!isSentByCurrentUser ? "ltr" : "rtl"}`} 
         className={`mb-4 flex w-[320px] break-words rounded-lg p-3 font-semibold ${
-          !isCurrentUser
+          isSentByCurrentUser
             ? "mr-auto text-left text-white"
             : "ml-auto text-right text-black"
         }`}
@@ -68,14 +77,14 @@ export const MessageBubble = ({ message, isCurrentUser, userName, currentChatId 
         <img className="w-8 h-8 rounded-full" src="/images/man.png" alt="User avatar" />
         <div 
           className={`flex flex-col w-full max-w-[320px] leading-1.5 p-4 border-gray-200 ${
-            !isCurrentUser ? "bg-gray-100" : "bg-chat"
+            isSentByCurrentUser ? "bg-gray-100" : "bg-[#fcead1]"
           } rounded-e-xl rounded-es-xl ${
-            !isCurrentUser ? "dark:bg-gray-700" : "dark:bg-blue-900"
+            isSentByCurrentUser ? "dark:bg-gray-700" : "dark:bg-blue-900"
           }`}
         >
           <div className="flex items-center space-x-2 rtl:space-x-reverse">
             <span className="text-sm font-semibold text-gray-900 dark:text-white">
-              {!isCurrentUser ? userName : "You"}
+              {isSentByCurrentUser ? "You" : message.creatorName}
             </span>
             <span className="text-sm font-normal text-gray-500 dark:text-gray-400" dir="ltr">
               {formatTime(message.creationTime)}
@@ -233,8 +242,8 @@ export const MessageBubble = ({ message, isCurrentUser, userName, currentChatId 
             </div>
           )}
 
-          <span className="text-sm font-normal flex justify-end text-gray-500 dark:text-gray-400">
-            {!isCurrentUser ? "" : (
+          <span className="text-sm font-normal flex justify-start text-gray-500 dark:text-gray-400">
+            {isSentByCurrentUser ? "" : (
               <svg 
                 className="shrink-0 size-3" 
                 xmlns="http://www.w3.org/2000/svg" 
