@@ -128,6 +128,7 @@ const AddNewStudent = () => {
         nid: data.nid,
         gender: data.gender,
         religion: "OTHERS",
+        graduated: false,
         nationality: data.nationality,
         regionId: data.regionId,
         name_en: data.name_en,
