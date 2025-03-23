@@ -41,9 +41,6 @@ export const MessageBubble = ({ message, isCurrentUser, userName, currentChatId 
   // Determine if the current user is the sender by comparing creatorName with userName
   // This provides a more reliable way to determine message ownership
   const isSentByCurrentUser = message.creatorName === userName;
-console.log("username", userName);
-console.log("creatorName", message.creatorName);
-console.log();
 
 
   const formatTime = (datetimeString: string) => {
@@ -84,7 +81,7 @@ console.log();
         >
           <div className="flex items-center space-x-2 rtl:space-x-reverse">
             <span className="text-sm font-semibold text-gray-900 dark:text-white">
-              {isSentByCurrentUser ? "You" : message.creatorName}
+              {!isSentByCurrentUser ? "You" : message.creatorName}
             </span>
             <span className="text-sm font-normal text-gray-500 dark:text-gray-400" dir="ltr">
               {formatTime(message.creationTime)}

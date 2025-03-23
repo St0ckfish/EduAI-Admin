@@ -125,7 +125,7 @@ const AddTaxes = () => {
   const onSubmit = async (data: any) => {
     // Create FormData object
     const formData = new FormData();
-
+  
     // Append JSON stringified tax data
     const taxData = {
       taxType: data.taxType,
@@ -138,12 +138,17 @@ const AddTaxes = () => {
       about: data.about,
     };
     formData.append("request", JSON.stringify(taxData));
-
-    // Append file data
-    if (data.file && data.file[0]) {
-      formData.append("file", data.file[0]);
+  
+    // Append file data - ensure a file is always present
+    if (selectedFile) {
+      formData.append("file", selectedFile);
+    } else {
+      // Create an empty file if none is selected (to satisfy the server requirement)
+      const emptyBlob = new Blob([""], { type: "application/octet-stream" });
+      const emptyFile = new File([emptyBlob], "empty.txt", { type: "application/octet-stream" });
+      formData.append("file", emptyFile);
     }
-
+  
     try {
       await createTax(formData).unwrap();
       toast.success(
@@ -154,6 +159,7 @@ const AddTaxes = () => {
             : "Tax record created successfully",
       );
     } catch (err) {
+      console.error("Error submitting form:", err);
       toast.error(
         currentLanguage === "ar"
           ? "فشل في إنشاء سجل الضريبة"
@@ -564,7 +570,7 @@ const AddTaxes = () => {
                         {...register("file")}
                         id="dropzone-file"
                         type="file"
-                        className="hidden"
+                        className="opacity-0"
                         onChange={handleFileChange}
                       />
                     </label>

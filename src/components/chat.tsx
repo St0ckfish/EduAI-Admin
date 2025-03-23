@@ -156,23 +156,19 @@ const ChatPage = ({ userId, regetusers, userName, userRole, realuserId }: ChatPa
   // Initialize WebSocket chat hook
   const { messages: wsMessages, isConnected, sendMessage, sendMessageWithAttachment } = useWebSocketChat({
     userId,
-    initialMessages: messagesData || [],
-    onNewMessage: () => {
-      // Callback when new message is received - update chat list
-      regetusers();
-      
-      // Also refetch messages via REST API to ensure we have the latest data
-      // This helps with attachments and other metadata that might not come through WebSocket
-      refetch();
-      
-      // Scroll to bottom only if we were already at the bottom
-      if (wasAtBottom) {
-        setTimeout(() => {
-          chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-        }, 100);
-      } 
+  initialMessages: messagesData || [],
+  refetchFunction: refetch, // Pass the refetch function from RTK Query
+  onNewMessage: () => {
+    regetusers();
+    // The hook will handle calling refetch automatically
+    
+    if (wasAtBottom) {
+      setTimeout(() => {
+        chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
     }
-  });
+  }
+});
 
   // Reset messages when changing between chats
   useEffect(() => {
