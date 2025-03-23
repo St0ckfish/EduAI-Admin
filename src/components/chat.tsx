@@ -157,7 +157,7 @@ const ChatPage = ({ userId, regetusers, userName, userRole, realuserId }: ChatPa
   const { messages: wsMessages, isConnected, sendMessage, sendMessageWithAttachment } = useWebSocketChat({
     userId,
   initialMessages: messagesData || [],
-  refetchFunction: refetch, // Pass the refetch function from RTK Query
+  refetchFunction: async () => { await refetch(); }, // Wrap refetch to return Promise<void>
   onNewMessage: () => {
     regetusers();
     // The hook will handle calling refetch automatically
