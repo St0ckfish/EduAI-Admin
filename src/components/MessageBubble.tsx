@@ -264,7 +264,7 @@ export const MessageBubble = ({ message, isCurrentUser, userName, currentChatId 
       {/* Fullscreen image modal */}
       {isImageFullscreen && message.attachment?.isImage && message.attachment?.viewLink && (
         <div 
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black bg-opacity-75"
           onClick={toggleFullscreen}
         >
           <div className="relative max-h-screen max-w-screen-lg p-4">
