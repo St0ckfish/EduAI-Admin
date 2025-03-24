@@ -498,7 +498,7 @@ const Parent = () => {
                       {parent.email}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
-                      {parent.number}
+                      {parent.phoneNumber}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
                       <Link
