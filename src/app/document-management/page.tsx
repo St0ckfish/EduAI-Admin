@@ -45,11 +45,11 @@ const DocumentManagement = () => {
               : "Certificate", // Default to English
       description:
         currentLanguage === "en"
-          ? "All certificates: Completion, Achievement, Participation, and Professional Development Certificates"
+          ? "Completion and achievement documents"
           : currentLanguage === "ar"
-            ? "جميع الشهادات: إتمام، إنجاز، مشاركة، وشهادات التطوير المهني"
+            ? "وثائق الإنجاز والإنجاز"
             : currentLanguage === "fr"
-              ? "Tous les certificats : d'achèvement, d'accomplissement, de participation et de développement professionnel"
+              ? "Documents d'achèvement et de réalisation"
               : "All certificates: Completion, Achievement, Participation, and Professional Development Certificates", // Default to English
     },
     {
@@ -65,11 +65,11 @@ const DocumentManagement = () => {
               : "Transcripts", // Default to English
       description:
         currentLanguage === "en"
-          ? "Some information about Course List, List of points and GPA"
+          ? "Course grades and GPA"
           : currentLanguage === "ar"
-            ? "بعض المعلومات حول قائمة الدورات، قائمة النقاط والمعدل التراكمي"
+            ? "درجات المقررات الدراسية ومعدل التراكمي"
             : currentLanguage === "fr"
-              ? "Quelques informations sur la liste des cours, la liste des points et le GPA"
+              ? "Notes de cours et GPA"
               : "Some information about Course List, List of points and GPA", // Default to English
     },
     {
@@ -85,11 +85,11 @@ const DocumentManagement = () => {
               : "Enrollment", // Default to English
       description:
         currentLanguage === "en"
-          ? "Some information about Admission Forms, Enrollment Status, and Enrollment Dates"
+          ? " Admission and enrollment info"
           : currentLanguage === "ar"
-            ? "بعض المعلومات حول استمارات القبول، حالة التسجيل، وتواريخ التسجيل"
+            ? "معلومات القبول والتسجيل"
             : currentLanguage === "fr"
-              ? "Quelques informations sur les formulaires d'admission, le statut d'inscription, et les dates d'inscription"
+              ? "Informations sur l'admission et l'inscription"
               : "Some information about Admission Forms, Enrollment Status, and Enrollment Dates", // Default to English
     },
     // {
@@ -125,11 +125,11 @@ const DocumentManagement = () => {
               : "Other Official Documents", // Default to English
       description:
         currentLanguage === "en"
-          ? "Some information about ID Cards, Medical Records, Disciplinary Records, Financial Aid Documents"
+          ? "IDs, medical and legal docs"
           : currentLanguage === "ar"
-            ? "بعض المعلومات حول بطاقات الهوية، السجلات الطبية، السجلات التأديبية، وثائق المساعدة المالية، الوثائق القانونية"
+            ? "بطاقات الهوية والوثائق الطبية والقانونية"
             : currentLanguage === "fr"
-              ? "Quelques informations sur les cartes d'identité, les dossiers médicaux, les dossiers disciplinaires, les documents d'aide financière"
+              ? "Pièces d'identité, documents médicaux et juridiques"
               : "Some information about ID Cards, Medical Records, Disciplinary Records, Financial Aid Documents", // Default to English
     },
   ];
