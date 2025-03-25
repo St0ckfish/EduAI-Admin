@@ -22,6 +22,7 @@ import PhoneNumberInput from "@/components/PhoneNumberInput";
 import SearchableSelect from "@/components/select";
 
 const AddNewStudent = () => {
+  const [backendError, setBackendError] = useState<string | null>(null);
   const breadcrumbs = [
     {
       nameEn: "Administration",
@@ -85,11 +86,22 @@ const AddNewStudent = () => {
         label: `${rigion.regionName} - ${rigion.cityName}`,
       }),
     ) || [];
-  const { data: parentData, isLoading: parentLoading } = useGetAllParentsQuery({
-    archived: "false",
-    page: 0,
-    size: 1000000,
-  });
+    
+    const { data: parentData, isLoading: parentLoading } = useGetAllParentsQuery({
+      archived: "false",
+      page: 0,
+      size: 1000000,
+    });
+    const parentOptions =
+      parentData?.data.content?.map(
+        (parent: {
+          id: any;
+          name: any;
+        }) => ({
+          value: parent.id,
+          label: `${parent.name}`,
+        }),
+      ) || [];
   const { data: countryCode, isLoading: isCountryCode } =
     useGetAllCountryCodeQuery(null);
   const { data: LevelData, isLoading: LevelLoading } =
@@ -116,6 +128,7 @@ const AddNewStudent = () => {
         nid: data.nid,
         gender: data.gender,
         religion: "OTHERS",
+        graduated: false,
         nationality: data.nationality,
         regionId: data.regionId,
         name_en: data.name_en,
@@ -150,8 +163,13 @@ const AddNewStudent = () => {
       await createStudent(formData).unwrap();
       toast.success("Student created successfully");
       router.push("/student");
-    } catch {
-      toast.error("Failed to create student");
+    } catch (error: any) {
+      if (error.data && error.data.data && error.data.data.length > 0) {
+        setBackendError(error.data.data[0]);
+      } else {
+        setBackendError("Failed to create parent");
+      }
+      toast.error(error.data.message);
     }
   };
 
@@ -190,6 +208,11 @@ const AddNewStudent = () => {
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="my-10 grid items-center justify-center gap-5 rounded-xl bg-bgPrimary p-10 sm:w-[500px] md:w-[600px] lg:w-[750px] xl:w-[1000px]">
+          {backendError && (
+              <div className="text-error text-center">
+                {backendError}
+              </div>
+            )}
             <div className="grid grid-cols-2 gap-4 max-[1278px]:grid-cols-1">
               {/* Parent ID dropdown */}
               <label
@@ -201,25 +224,14 @@ const AddNewStudent = () => {
                   : currentLanguage === "ar"
                     ? "الوالد"
                     : "Parent"}
-                <select
-                  id="parentId"
-                  className="w-[400px] rounded-xl border border-borderPrimary px-4 py-3 outline-none max-[471px]:w-[350px]"
-                  {...register("parentId", { required: true })}
-                >
-                  <option value="">
-                    {currentLanguage === "en"
-                      ? "Select Parent"
-                      : currentLanguage === "ar"
-                        ? "اختر الوالد"
-                        : "Sélectionner un parent"}
-                  </option>
-                  {parentData &&
-                    parentData?.data.content?.map((parent: any) => (
-                      <option key={parent.id} value={parent.id}>
-                        {parent.name}
-                      </option>
-                    ))}
-                </select>
+                <SearchableSelect
+                  name="parentId"
+                  control={control}
+                  errors={errors}
+                  options={parentOptions}
+                  currentLanguage={currentLanguage}
+                  placeholder="Select Parent"
+                />
                 {errors.parentId && (
                   <span className="text-error">
                     {currentLanguage === "en"
