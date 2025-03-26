@@ -282,15 +282,6 @@ const OTP = () => {
             className="h-auto w-full object-contain"
           />
         </div>
-        {/* <div className="flex h-full justify-end">
-          <div className="h-full w-[250px] lg:w-[600px] items-center justify-end hidden md:flex">
-            <img
-              className="h-[150px] -translate-x-[40px] xl:-translate-x-[260px] lg:h-[300px] lg:w-[500px]"
-              src="images/forget.png"
-              alt="#"
-            />
-          </div>
-        </div> */}
       </div>
     </>
   );

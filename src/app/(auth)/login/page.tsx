@@ -152,7 +152,7 @@ const Login = () => {
         {/* Background */}
         <div className="absolute inset-0 flex">
           <div className="w-full bg-bgPrimary lg:w-2/3"></div>
-          <div className="w-0 bg-bgPrimary opacity-40 lg:w-1/3 lg:bg-[#3E5AF0]" />
+          <div className="w-0 bg-bgPrimary lg:w-1/3 lg:bg-[#B2BDF9] dark:lg:bg-[#2a3469]" />
         </div>
         {/* Card */}
         <div
