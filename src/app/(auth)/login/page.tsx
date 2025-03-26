@@ -32,6 +32,15 @@ const Login = () => {
   const [emailFocused, setEmailFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
 
+  const [theme, setTheme] = useState("light");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedTheme = localStorage.getItem("theme") || "light";
+      setTheme(storedTheme);
+    }
+  }, []);
+
   const { language: currentLanguage, loading } = useSelector(
     (state: RootState) => state.language,
   );
@@ -134,7 +143,11 @@ const Login = () => {
           className={`absolute -bottom-40 ${currentLanguage === "ar" ? "right-0 scale-x-[-1]" : "left-0"} z-10 hidden h-[600px] w-[600px] lg:block`}
         >
           <img
-            src="/images/bottomleft-login.png"
+            src={
+              theme === "light"
+                ? "/images/bottomleft-login.png"
+                : "/images/bottomleft-login-dark.png"
+            }
             alt="Logo"
             className="m-0 w-full p-0"
           />
@@ -184,7 +197,7 @@ const Login = () => {
             </Text>
             <form
               dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-              className="mt-6 grid w-full z-20 gap-10 md:w-fit"
+              className="z-20 mt-6 grid w-full gap-10 md:w-fit"
               onSubmit={handleSubmit(onSubmit)}
             >
               <div className="relative mt-6 w-full md:w-fit">
@@ -346,7 +359,7 @@ const Login = () => {
             </form>
           </div>
           <div
-            className={`absolute ${currentLanguage === "ar" ? "left-5 scale-x-[-1]" : "right-5"} z-20 top-5`}
+            className={`absolute ${currentLanguage === "ar" ? "left-5 scale-x-[-1]" : "right-5"} top-5 z-20`}
           >
             <DropdownMenu.Root>
               <DropdownMenu.Trigger asChild>

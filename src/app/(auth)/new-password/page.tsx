@@ -14,12 +14,21 @@ import {
   initializeLanguage,
   setLanguage,
 } from "@/features/language/languageSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const ResetPassword = () => {
   const { language: currentLanguage, loading } = useSelector(
     (state: RootState) => state.language,
   );
+
+  const [theme, setTheme] = useState("light");
+  
+    useEffect(() => {
+      if (typeof window !== "undefined") {
+        const storedTheme = localStorage.getItem("theme") || "light";
+        setTheme(storedTheme);
+      }
+    }, []);
 
   const dispatchLang = useDispatch();
   useEffect(() => {
@@ -219,7 +228,8 @@ const ResetPassword = () => {
           className={`absolute -bottom-40 ${currentLanguage === "ar" ? "right-0 scale-x-[-1]" : "left-0"} z-10 hidden h-[600px] w-[600px] lg:block`}
         >
           <img
-            src="/images/bottomleft-login.png"
+            src={theme === "light" ? "/images/bottomleft-login.png" : "/images/bottomleft-login-dark.png"}
+            // src="/images/bottomleft-login.png"
             alt="Logo"
             className="m-0 w-full p-0"
           />

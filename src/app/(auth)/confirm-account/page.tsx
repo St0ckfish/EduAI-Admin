@@ -23,6 +23,15 @@ const OTP = () => {
   const { language: currentLanguage, loading } = useSelector(
     (state: RootState) => state.language,
   );
+  const [theme, setTheme] = useState("light");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedTheme = localStorage.getItem("theme") || "light";
+      setTheme(storedTheme);
+    }
+  }, []);
+  
 
   const ID = useSelector((state: RootState) => state.user.id);
   const EMAIL = useSelector((state: RootState) => state.user.email);
@@ -111,6 +120,7 @@ const OTP = () => {
     const remainingSeconds = seconds % 60;
     return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
+ 
 
   if (loading) {
     return (
@@ -119,6 +129,8 @@ const OTP = () => {
       </div>
     );
   }
+
+
   return (
     <>
       <div className="absolute right-5 top-5 z-30">
@@ -268,7 +280,7 @@ const OTP = () => {
           className={`absolute ${currentLanguage === "ar" ? "-left-20 scale-x-[-1] lg:-left-6" : "-right-20 lg:-right-6"} top-0 z-10 hidden w-[400px] md:block md:w-[450px]`}
         >
           <img
-            src="/images/topright-signup.png"
+            src={theme === "light" ? "/images/topright-signup.png" : "/images/topright-signup-dark.png"}
             alt="Logo"
             className="h-auto w-full object-contain"
           />
