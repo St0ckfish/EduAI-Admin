@@ -224,12 +224,44 @@ const Signup = () => {
   }, [currentLanguage, errors]);
 
   const steps = [
-    { id: 1, label: "User Credentials" },
-    { id: 2, label: "Personal Info" },
-    { id: 3, label: "Address Details" },
-    { id: 4, label: "Professional Info" },
+    {
+      id: 1,
+      label:
+        currentLanguage === "ar"
+          ? "بيانات الحساب"
+          : currentLanguage === "fr"
+            ? "Identifiants utilisateur"
+            : "User Credentials",
+    },
+    {
+      id: 2,
+      label:
+        currentLanguage === "ar"
+          ? "معلومات شخصية"
+          : currentLanguage === "fr"
+            ? "Informations personnelles"
+            : "Personal Info",
+    },
+    {
+      id: 3,
+      label:
+        currentLanguage === "ar"
+          ? "معلومات العنوان"
+          : currentLanguage === "fr"
+            ? "Détails de l'adresse"
+            : "Address Details",
+    },
+    {
+      id: 4,
+      label:
+        currentLanguage === "ar"
+          ? "معلومات الوظيفة"
+          : currentLanguage === "fr"
+            ? "Infos professionnelles"
+            : "Professional Info",
+    },
   ];
-
+  
   if (loading) {
     return (
       <div className="flex h-screen w-full items-center justify-center bg-bgSecondary duration-300 ease-in">
@@ -245,7 +277,7 @@ const Signup = () => {
         className="relative flex h-[100vh] w-full items-center justify-center overflow-hidden"
       >
         <div
-          className={`absolute ${currentLanguage === "ar" ? "-left-6 scale-x-[-1]" : "-right-6"} top-0 z-10 hidden w-[600px] lg:block`}
+          className={`absolute ${currentLanguage === "ar" ? "-left-6 scale-x-[-1]" : "-right-6"} top-0 z-10 hidden w-[450px] xl:w-[600px] lg:block`}
         >
           <img
             src="/images/topright-signup.png"
@@ -254,7 +286,7 @@ const Signup = () => {
           />
         </div>
         <div
-          className={`absolute ${currentLanguage === "ar" ? "left-10 scale-x-[-1]" : "right-10"} z-10 hidden max-h-[80vh] max-w-[30vw] md:bottom-52 lg:bottom-48 lg:block xl:bottom-32 2xl:bottom-[175px]`}
+          className={`absolute ${currentLanguage === "ar" ? "left-10 scale-x-[-1]" : "right-10"} z-10 hidden max-h-[80vh] max-w-[30vw] md:bottom-52 lg:bottom-80 lg:block xl:bottom-32 2xl:bottom-[175px]`}
         >
           <img
             src="/images/dashboard-signup.png"
@@ -270,7 +302,7 @@ const Signup = () => {
         {/* Card */}
         <div
           style={{ height: `${pageHeight - 100}px` }}
-          className="relative my-0 w-full rounded-xl bg-transparent md:my-[40px] md:w-[80%] md:shadow-2xl"
+          className="relative my-0 w-full rounded-xl dark:border border-borderPrimary bg-transparent md:my-[40px] lg:w-[75%] xl:w-[80%] md:shadow-2xl"
         >
           <div className="mb-20">
             <img
@@ -305,7 +337,7 @@ const Signup = () => {
                       className={`flex h-12 w-12 items-center justify-center rounded-full border-2 text-sm font-semibold ${
                         step > idx + 1
                           ? "border-primary bg-primary text-white"
-                          : "border-gray-300 bg-white text-gray-500"
+                          : "border-borderPrimary bg-bgPrimary text-textSecondary"
                       }`}
                     >
                       {step > idx + 1 ? (
@@ -325,12 +357,12 @@ const Signup = () => {
                       )}
                     </div>
                     {idx < steps.length - 1 && (
-                      <div className="h-10 w-px bg-gray-300" />
+                      <div className="h-10 w-px bg-bgSecondary" />
                     )}
                   </div>
                   <div className="-mt-12">
                     <span
-                      className={`absolute -left-[120px] text-sm ${
+                      className={`absolute ${currentLanguage === "ar" ? "lg:-right-[90px] xl:-right-[120px]" : "lg:-left-[120px]  xl:-left-[120px]"} text-xs lg:text-sm ${
                         step >= idx + 1
                           ? "font-bold text-primary"
                           : "text-gray-500"
@@ -468,7 +500,7 @@ const Signup = () => {
                     dir="ltr"
                     className="z-30 mt-12 flex w-full justify-center gap-3"
                   >
-                    <button className="flex w-fit cursor-no-drop items-center justify-center gap-2 rounded-xl border border-[#e6e8e7] bg-white px-8 py-2 font-semibold text-primary">
+                    <button className="flex w-fit cursor-no-drop items-center justify-center gap-2 rounded-xl border border-borderPrimary bg-bgPrimary px-8 py-2 font-semibold text-primary">
                       <svg
                         className="h-5 w-5"
                         width="24"
@@ -605,7 +637,7 @@ const Signup = () => {
                     className="z-30 mt-12 flex w-full items-end justify-center gap-3"
                   >
                     <button
-                      className="flex w-fit cursor-pointer items-center justify-center gap-2 rounded-xl border border-[#e6e8e7] bg-white px-8 py-2 font-semibold text-primary"
+                      className="flex w-fit cursor-pointer items-center justify-center gap-2 rounded-xl border border-borderPrimary bg-bgPrimary px-8 py-2 font-semibold text-primary"
                       onClick={handlePrevious}
                     >
                       <svg
@@ -849,7 +881,7 @@ const Signup = () => {
                     className="z-30 mt-12 flex w-full justify-center gap-3"
                   >
                     <button
-                      className="flex w-fit cursor-pointer items-center justify-center gap-2 rounded-xl border border-[#e6e8e7] bg-white px-8 py-2 font-semibold text-primary"
+                      className="flex w-fit cursor-pointer items-center justify-center gap-2 rounded-xl border border-borderPrimary bg-bgPrimary px-8 py-2 font-semibold text-primary"
                       onClick={handlePrevious}
                     >
                       <svg
@@ -1025,7 +1057,7 @@ const Signup = () => {
                     className="z-30 mt-12 flex w-full justify-center gap-3"
                   >
                     <button
-                      className="flex w-fit cursor-pointer items-center justify-center gap-2 rounded-xl border border-[#e6e8e7] bg-white px-8 py-2 font-semibold text-primary"
+                      className="flex w-fit cursor-pointer items-center justify-center gap-2 rounded-xl border border-borderPrimary bg-bgPrimary px-8 py-2 font-semibold text-primary"
                       onClick={handlePrevious}
                     >
                       <svg

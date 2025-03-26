@@ -131,7 +131,7 @@ const Login = () => {
         className="relative flex h-[100vh] w-full items-center justify-center overflow-hidden"
       >
         <div
-          className={`absolute -bottom-28 ${currentLanguage === "ar" ? "right-0 scale-x-[-1]" : "left-0"} z-10 hidden h-[400px] w-[400px] lg:block`}
+          className={`absolute -bottom-40 ${currentLanguage === "ar" ? "right-0 scale-x-[-1]" : "left-0"} z-10 hidden h-[600px] w-[600px] lg:block`}
         >
           <img
             src="/images/bottomleft-login.png"
@@ -184,7 +184,7 @@ const Login = () => {
             </Text>
             <form
               dir={currentLanguage === "ar" ? "rtl" : "ltr"}
-              className="mt-6 grid w-full gap-10 md:w-fit"
+              className="mt-6 grid w-full z-20 gap-10 md:w-fit"
               onSubmit={handleSubmit(onSubmit)}
             >
               <div className="relative mt-6 w-full md:w-fit">
@@ -263,7 +263,7 @@ const Login = () => {
                         ? "Entrez votre mot de passe"
                         : "Enter Your Password"
                   }
-                  className={`w-full rounded-xl border bg-white p-4 text-textPrimary outline-none transition-all duration-200 md:w-[450px] ${
+                  className={`w-full rounded-xl border bg-bgPrimary p-4 text-textPrimary outline-none transition-all duration-200 md:w-[450px] ${
                     errors.password
                       ? "border-warning"
                       : passwordFocused
