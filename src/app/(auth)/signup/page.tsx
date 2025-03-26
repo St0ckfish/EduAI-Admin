@@ -372,7 +372,7 @@ const Signup = () => {
                       )}
                     </div>
                     {idx < steps.length - 1 && (
-                      <div className="h-0 w-px bg-bgSecondary md:h-10" />
+                      <div className="h-0 w-1 bg-bgSecondary md:h-10" />
                     )}
                   </div>
                   <div className="-mt-12">
