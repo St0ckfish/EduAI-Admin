@@ -106,7 +106,7 @@ const ClassDetails: React.FC<ClassDetailsProps> = ({ params }) => {
       reset(data.data);
     }
   }, [data, reset]);
-//test
+
   const onSubmit = async (formData: any) => {
     try {
       await updateClass({
