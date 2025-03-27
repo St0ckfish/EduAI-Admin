@@ -25,11 +25,17 @@ import { useGetSchoolLogoQuery } from "@/features/events/eventsApi";
 import { useNotificationsWebSocket } from "@/hooks/useNotifications";
 import { navigationItems } from "./navBarRouts";
 import { cn } from "@/lib/utils";
+import Switch from "./Switch";
+import { IoIosArrowDown, IoMdNotificationsOutline } from "react-icons/io";
+import { BiSearchAlt } from "react-icons/bi";
+import { RiWechatLine } from "react-icons/ri";
 
 const NavBar = () => {
   const { language: currentLanguage, loading } = useSelector(
     (state: RootState) => state.language,
   );
+  const [search, setSearch] = useState("");
+
   const { data, isLoading } = useGetSchoolLogoQuery(null);
   const dispatchLang = useDispatch();
   useEffect(() => {
@@ -194,115 +200,62 @@ const NavBar = () => {
               className="mx-auto flex w-full basis-full items-center px-4 sm:px-6"
               aria-label="Global"
             >
-              <div className="max-[1024px]:hidden">
-                <Link
-                  className="inline-block flex-none rounded-xl text-xl font-semibold focus:opacity-80 focus:outline-none"
-                  href="/"
-                  aria-label="Preline"
-                >
-                  {isLoading ? (
-                    <p></p>
-                  ) : (
-                    <img
-                      src={data?.data?.logoLink}
-                      alt="#"
-                      className="h-[60px] w-[100px]"
-                    />
-                  )}
-                </Link>
+              <div className="mb-3 hidden md:block">
+                <label htmlFor="icon" className="sr-only">
+                  Search
+                </label>
+                <div className="relative min-w-72 md:min-w-80">
+                  <div className="pointer-events-none absolute inset-y-0 start-0 z-20 flex items-center ps-4">
+                    <BiSearchAlt className="text-secondary" size={18} />
+                  </div>
+
+                  <input
+                    onChange={e => setSearch(e.target.value)}
+                    type="text"
+                    id="icon"
+                    name="icon"
+                    className="block w-full rounded-lg border-none px-4 py-2 ps-11 text-lg outline-none focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
+                    placeholder={
+                      currentLanguage === "ar"
+                        ? "ابحث عن أي شيء"
+                        : currentLanguage === "fr"
+                          ? "Rechercher n'importe quoi"
+                          : "Search anything"
+                    }
+                  />
+                </div>
               </div>
 
               <div className="ms-auto flex w-full items-center justify-end sm:order-3 sm:justify-between sm:gap-x-3">
-                <div className="sm:hidden">
-                  <button
-                    type="button"
-                    className="inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 disabled:pointer-events-none disabled:opacity-50"
-                  >
-                    <svg
-                      className="size-4 flex-shrink-0"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <circle cx="11" cy="11" r="8" />
-                      <path d="m21 21-4.3-4.3" />
-                    </svg>
-                  </button>
-                </div>
-
                 <div className="hidden sm:block"></div>
 
                 <div className="flex flex-row items-center justify-end gap-2">
-                  {isClient && (
-                    <>
-                      {theme == "dark" ? (
-                        <button
-                          className="text-textPrimary"
-                          onClick={() => setTheme("light")}
-                        >
-                          <FiMoon />
-                        </button>
-                      ) : (
-                        <button
-                          className="text-textPrimary"
-                          onClick={() => setTheme("dark")}
-                        >
-                          <FiSun />
-                        </button>
-                      )}
-                    </>
-                  )}
+                  <Link
+                    href="/chat"
+                    className="inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-textPrimary hover:bg-bgSecondary disabled:pointer-events-none disabled:opacity-50"
+                  >
+                    <RiWechatLine className="size-24 text-secondary md:size-40" />
+                  </Link>
                   <Link
                     href="/notifies"
                     className="relative inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-textPrimary hover:bg-bgSecondary disabled:pointer-events-none disabled:opacity-50"
                   >
-                    <svg
-                      className="size-4 flex-shrink-0"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
-                      <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
-                    </svg>
+                    <IoMdNotificationsOutline className="size-24 text-secondary md:size-40" />
+
                     {notificationsCount > 0 && (
                       <div className="absolute left-5 top-4 flex h-4 w-4 items-center justify-center rounded-full bg-sky-500 text-center text-sm text-white">
                         <span>{notificationsCount}</span>
                       </div>
                     )}
                   </Link>
-                  <Link
-                    href="/chat"
-                    className="inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-textPrimary hover:bg-bgSecondary disabled:pointer-events-none disabled:opacity-50"
-                  >
-                    <svg
-                      className="h-5 w-5 text-textPrimary"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"
-                      />
-                    </svg>
-                  </Link>
 
-                  <div className="relative inline-flex" ref={dropdownRef}>
+                  {isClient && (
+                    <Switch theme={theme || "light"} setTheme={setTheme} />
+                  )}
+                  <div
+                    className="relative inline-flex items-center"
+                    ref={dropdownRef}
+                  >
                     <button
                       onClick={() => {
                         toggleMenu2();
@@ -383,27 +336,41 @@ const NavBar = () => {
                           toggleMenu();
                           closeMenu2();
                         }}
-                        className="border-bgSeconday inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 rounded-full border text-sm font-semibold text-gray-800 outline-none hover:bg-thead"
+                        className="relative flex items-center gap-2 rounded-full p-1 text-sm font-semibold text-gray-800 hover:bg-thead"
                       >
                         {userLoading ? (
-                          <div className="h-full w-full animate-pulse rounded-full bg-gray-200" />
+                          <div className="h-[38px] w-[38px] animate-pulse rounded-full bg-gray-200" />
                         ) : (
-                          <div>
-                            {!userData?.data.hasPicture ? (
-                              <img
-                                className="inline-block h-[38px] w-[38px] rounded-full ring-2 ring-bgSecondary"
-                                src="/images/userr.png"
-                                alt="User Avatar"
-                              />
-                            ) : (
-                              <img
-                                className="inline-block h-[38px] w-[38px] rounded-full ring-2 ring-bgSecondary"
-                                src={userData?.data.picture}
-                                alt="User Avatar"
-                              />
-                            )}
-                          </div>
+                          <img
+                            className="h-[38px] w-[38px] rounded-full ring-2 ring-bgSecondary"
+                            src={
+                              userData?.data.hasPicture
+                                ? userData?.data.picture
+                                : "/images/userr.png"
+                            }
+                            alt="User Avatar"
+                          />
                         )}
+
+                        <div
+                          className={`flex flex-col text-left ${currentLanguage === "ar" ? "mr-2" : "ml-2"}`}
+                        >
+                          <span className="text-[16px] text-primary">
+                            {currentLanguage === "ar"
+                              ? "المسؤول"
+                              : currentLanguage === "fr"
+                                ? "Administrateur"
+                                : "Administrator"}
+                          </span>
+                          <div className="flex items-center gap-1">
+                            <span className="text-sm font-medium text-textPrimary">
+                              {userData?.data.name || "User"}
+                            </span>
+                            <IoIosArrowDown
+                              className={`${currentLanguage === "ar" ? "mr-6" : "ml-6"} text-textPrimary`}
+                            />
+                          </div>
+                        </div>
                       </button>
 
                       {menuOpen && (
@@ -617,7 +584,7 @@ const NavBar = () => {
                       <>
                         <button
                           onClick={() => toggleDropdown(item.id)}
-                          className={`flex ${!small ? "w-full" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-bold text-secondary hover:bg-bgSecondary hover:text-primary`}
+                          className={`flex ${!small ? "w-full" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-secondary hover:bg-bgSecondary hover:text-primary`}
                         >
                           {item.icon}
                           {!small && (
@@ -650,7 +617,7 @@ const NavBar = () => {
                     ) : (
                       <Link
                         onClick={() => setIsOpen(false)}
-                        className={`flex ${small ? "w-[40px]" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-bold ${url === item.path ? "bg-bgSecondary text-primary" : "text-secondary"} hover:bg-bgSecondary hover:text-primary`}
+                        className={`flex ${small ? "w-[40px]" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold ${url === item.path ? "bg-bgSecondary text-primary" : "text-secondary"} hover:bg-bgSecondary hover:text-primary`}
                         href={item.path}
                       >
                         {item.icon}
