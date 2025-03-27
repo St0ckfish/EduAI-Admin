@@ -399,7 +399,7 @@ const Signup = () => {
                 <div className="grid w-full grid-cols-1 gap-3">
                   <label
                     htmlFor="username"
-                    className="grid w-full text-start font-sans text-[15px] font-semibold text-[#9a9a9a]"
+                    className="grid w-full text-start text-[15px] font-semibold text-[#9a9a9a]"
                   >
                     <input
                       id="username"
@@ -432,7 +432,7 @@ const Signup = () => {
                   </label>
                   <label
                     htmlFor="email"
-                    className="grid w-full text-start font-sans text-[15px] font-semibold text-[#9a9a9a]"
+                    className="grid w-full text-start text-[15px] font-semibold text-[#9a9a9a]"
                   >
                     <input
                       id="email"
@@ -459,7 +459,7 @@ const Signup = () => {
                   </label>
                   <label
                     htmlFor="password"
-                    className="grid w-full text-start font-sans text-[15px] font-semibold text-[#9a9a9a]"
+                    className="grid w-full text-start text-[15px] font-semibold text-[#9a9a9a]"
                   >
                     <input
                       id="password"
@@ -486,7 +486,7 @@ const Signup = () => {
                   </label>
                   <label
                     htmlFor="nid"
-                    className="grid w-full text-start font-sans text-[15px] font-semibold text-[#9a9a9a]"
+                    className="grid w-full text-start text-[15px] font-semibold text-[#9a9a9a]"
                   >
                     <input
                       id="nid"
@@ -566,7 +566,7 @@ const Signup = () => {
                 <div className="grid grid-cols-1 gap-3">
                   <label
                     htmlFor="regionId"
-                    className="grid w-[400px] text-start font-sans text-[15px] font-semibold text-[#9a9a9a] max-[458px]:w-[350px]"
+                    className="grid w-[400px] text-start text-[15px] font-semibold text-[#9a9a9a] max-[458px]:w-[350px]"
                   >
                     <SearchableSelect
                       name="regionId"
@@ -579,7 +579,7 @@ const Signup = () => {
                   </label>
                   <label
                     htmlFor="gender"
-                    className="grid text-start font-sans text-[15px] font-semibold text-[#9a9a9a]"
+                    className="grid text-start text-[15px] font-semibold text-[#9a9a9a]"
                   >
                     <select
                       defaultValue=""
@@ -622,7 +622,7 @@ const Signup = () => {
                   </label>
                   <label
                     htmlFor="number"
-                    className="grid text-start font-sans text-[15px] font-semibold text-[#9a9a9a]"
+                    className="grid text-start text-[15px] font-semibold text-[#9a9a9a]"
                   >
                     <input
                       id="number"
@@ -705,7 +705,7 @@ const Signup = () => {
                 <div className="grid grid-cols-1 gap-3">
                   <label
                     htmlFor="nationality"
-                    className="grid text-start font-sans text-[15px] font-semibold text-[#9a9a9a]"
+                    className="grid text-start text-[15px] font-semibold text-[#9a9a9a]"
                   >
                     <select
                       defaultValue=""
@@ -741,7 +741,7 @@ const Signup = () => {
                   </label>
                   <label
                     htmlFor="employeeType"
-                    className="grid text-start font-sans text-[15px] font-semibold text-[#9a9a9a]"
+                    className="grid text-start text-[15px] font-semibold text-[#9a9a9a]"
                   >
                     <select
                       defaultValue=""
@@ -790,7 +790,7 @@ const Signup = () => {
                   </label>
                   <label
                     htmlFor="qualification"
-                    className="grid text-start font-sans text-[15px] font-semibold text-[#9a9a9a]"
+                    className="grid text-start text-[15px] font-semibold text-[#9a9a9a]"
                   >
                     <select
                       defaultValue=""
@@ -846,7 +846,7 @@ const Signup = () => {
                   </label>
                   <label
                     htmlFor="birthDate"
-                    className="grid text-start font-sans text-[15px] font-semibold text-[#9a9a9a]"
+                    className="grid text-start text-[15px] font-semibold text-[#9a9a9a]"
                   >
                     {currentLanguage === "ar"
                       ? "تاريخ الميلاد"
@@ -949,7 +949,7 @@ const Signup = () => {
                 <div className="grid grid-cols-1 gap-3">
                   <label
                     htmlFor="name_en"
-                    className="grid text-start font-sans text-[15px] font-semibold text-[#9a9a9a]"
+                    className="grid text-start text-[15px] font-semibold text-[#9a9a9a]"
                   >
                     <input
                       id="name_en"
@@ -976,7 +976,7 @@ const Signup = () => {
                   </label>
                   <label
                     htmlFor="name_ar"
-                    className="grid text-start font-sans text-[15px] font-semibold text-[#9a9a9a]"
+                    className="grid text-start text-[15px] font-semibold text-[#9a9a9a]"
                   >
                     <input
                       id="name_ar"
@@ -1003,7 +1003,7 @@ const Signup = () => {
                   </label>
                   <label
                     htmlFor="name_fr"
-                    className="grid text-start font-sans text-[15px] font-semibold text-[#9a9a9a]"
+                    className="grid text-start text-[15px] font-semibold text-[#9a9a9a]"
                   >
                     <input
                       id="name_fr"
@@ -1030,7 +1030,7 @@ const Signup = () => {
                   </label>
                   <label
                     htmlFor="schoolId"
-                    className="grid w-[400px] text-start font-sans text-[15px] font-semibold text-[#9a9a9a] max-[458px]:w-[350px]"
+                    className="grid w-[400px] text-start text-[15px] font-semibold text-[#9a9a9a] max-[458px]:w-[350px]"
                   >
                     <SearchableSelect
                       name="schoolId"
@@ -1043,7 +1043,7 @@ const Signup = () => {
                   </label>
                   <label
                     htmlFor="about"
-                    className="grid w-full text-start font-sans text-[15px] font-semibold text-[#9a9a9a]"
+                    className="grid w-full text-start text-[15px] font-semibold text-[#9a9a9a]"
                   >
                     <textarea
                       id="about"

@@ -54,15 +54,15 @@ const NavBar = () => {
   const [menuOpen2, setMenuOpen2] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
-  const toggleMenu = () => setMenuOpen((prev) => !prev);
-  const toggleMenu2 = () => setMenuOpen2((prev) => !prev);
+  const toggleMenu = () => setMenuOpen(prev => !prev);
+  const toggleMenu2 = () => setMenuOpen2(prev => !prev);
 
   const closeMenu = () => setMenuOpen(false);
   const closeMenu2 = () => setMenuOpen2(false);
 
   // Close menu if clicked outside
   useEffect(() => {
-    const handleClickOutside = (event: { target: any; }) => {
+    const handleClickOutside = (event: { target: any }) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         closeMenu();
         closeMenu2();
@@ -74,7 +74,6 @@ const NavBar = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
 
   useEffect(() => {
     if (userData) console.log("Response Data:", userData);
@@ -102,10 +101,12 @@ const NavBar = () => {
   const toggleProfile = () => {
     setProfile(!profile);
   };
-  const [openDropdowns, setOpenDropdowns] = useState<Record<string, boolean>>({});
+  const [openDropdowns, setOpenDropdowns] = useState<Record<string, boolean>>(
+    {},
+  );
   const navbarRef = useRef<HTMLDivElement>(null);
   const toggleNavbar = () => {
-    setIsOpen((prev) => !prev);
+    setIsOpen(prev => !prev);
   };
   const handleClickOutside = (event: MouseEvent) => {
     if (
@@ -130,7 +131,7 @@ const NavBar = () => {
   const toggleDropdown = (id: string) => {
     setOpenDropdowns(prev => ({
       ...prev,
-      [id]: !prev[id]
+      [id]: !prev[id],
     }));
   };
 
@@ -139,10 +140,13 @@ const NavBar = () => {
     if (!small) {
       const allOpen = navigationItems
         .filter(item => item.isDropdown)
-        .reduce((acc, item) => ({
-          ...acc,
-          [item.id]: true
-        }), {});
+        .reduce(
+          (acc, item) => ({
+            ...acc,
+            [item.id]: true,
+          }),
+          {},
+        );
       setOpenDropdowns(allOpen);
     } else {
       setOpenDropdowns({});
@@ -175,7 +179,10 @@ const NavBar = () => {
   return (
     <>
       {isOpen && (
-        <div className="fixed inset-0 z-40 bg-black bg-opacity-40" onClick={toggleNavbar}></div>
+        <div
+          className="fixed inset-0 z-40 bg-black bg-opacity-40"
+          onClick={toggleNavbar}
+        ></div>
       )}
       <header ref={navbarRef}>
         <div>
@@ -297,7 +304,10 @@ const NavBar = () => {
 
                   <div className="relative inline-flex" ref={dropdownRef}>
                     <button
-                      onClick={() => { toggleMenu2(); closeMenu(); }}
+                      onClick={() => {
+                        toggleMenu2();
+                        closeMenu();
+                      }}
                       className="text-violet11 hover:bg-violet3 mx-3 inline-flex h-[35px] w-[35px] items-center justify-center rounded-full bg-bgPrimary outline-none"
                       aria-label="Customise options"
                     >
@@ -313,7 +323,9 @@ const NavBar = () => {
                     </button>
 
                     {menuOpen2 && (
-                      <div className={`absolute ${currentLanguage === "ar" ? "-right-10" : "right-0"} top-[40px] mt-5 z-50 min-w-[150px] rounded-md bg-bgPrimary shadow-md`}>
+                      <div
+                        className={`absolute ${currentLanguage === "ar" ? "-right-10" : "right-0"} top-[40px] z-50 mt-5 min-w-[150px] rounded-md bg-bgPrimary shadow-md`}
+                      >
                         <button
                           onClick={() => {
                             handleLanguageChange("ar");
@@ -367,11 +379,14 @@ const NavBar = () => {
 
                     <div className="relative inline-flex">
                       <button
-                        onClick={() => { toggleMenu(); closeMenu2(); }}
+                        onClick={() => {
+                          toggleMenu();
+                          closeMenu2();
+                        }}
                         className="border-bgSeconday inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 rounded-full border text-sm font-semibold text-gray-800 outline-none hover:bg-thead"
                       >
                         {userLoading ? (
-                          <div className="w-full h-full animate-pulse bg-gray-200 rounded-full" />
+                          <div className="h-full w-full animate-pulse rounded-full bg-gray-200" />
                         ) : (
                           <div>
                             {!userData?.data.hasPicture ? (
@@ -392,7 +407,9 @@ const NavBar = () => {
                       </button>
 
                       {menuOpen && (
-                        <div className={`absolute ${currentLanguage === "ar" ? "-right-[250px]" : "right-0"} top-[40px] z-50 min-w-60 rounded-lg bg-bgPrimary p-2 shadow-md`}>
+                        <div
+                          className={`absolute ${currentLanguage === "ar" ? "-right-[250px]" : "right-0"} top-[40px] z-50 min-w-60 rounded-lg bg-bgPrimary p-2 shadow-md`}
+                        >
                           <div className="rounded-t-lg bg-bgPrimary px-5 py-3">
                             <p className="text-sm text-textPrimary">
                               {currentLanguage === "en"
@@ -409,7 +426,7 @@ const NavBar = () => {
                           </div>
                           <div className="mt-2 py-2">
                             <Link
-                              className="block px-3 py-2 rounded-md text-sm text-textPrimary  hover:bg-bgSecondary"
+                              className="block rounded-md px-3 py-2 text-sm text-textPrimary hover:bg-bgSecondary"
                               href="/profile"
                               onClick={closeMenu}
                             >
@@ -422,7 +439,7 @@ const NavBar = () => {
                                     : "Profile"}
                             </Link>
                             <a
-                              className="block px-3 py-2 rounded-md text-sm text-textPrimary hover:bg-error hover:text-white"
+                              className="block rounded-md px-3 py-2 text-sm text-textPrimary hover:bg-error hover:text-white"
                               href="/login"
                               onClick={() => {
                                 DeleteCookie();
@@ -499,14 +516,18 @@ const NavBar = () => {
           <div
             dir={currentLanguage === "ar" ? "rtl" : "ltr"}
             id="application-sidebar"
-            className={cn("fixed inset-y-0 start-0 z-[60] border-e border-borderPrimary bg-bgPrimary", "transition-all duration-300", "lg:bottom-0 lg:end-auto lg:block", small ? "w-24" : "w-64 overflow-y-auto",
+            className={cn(
+              "fixed inset-y-0 start-0 z-[60] border-e border-borderPrimary bg-bgPrimary",
+              "transition-all duration-300",
+              "lg:bottom-0 lg:end-auto lg:block",
+              small ? "w-24" : "w-64 overflow-y-auto",
               currentLanguage === "ar"
                 ? isOpen
                   ? "max-lg:translate-x-0"
                   : "max-lg:translate-x-full"
                 : isOpen
                   ? "max-lg:translate-x-0"
-                  : "max-lg:-translate-x-full"
+                  : "max-lg:-translate-x-full",
             )}
           >
             <div className="px-8 pt-4">
@@ -559,10 +580,15 @@ const NavBar = () => {
               data-hs-accordion-always-open
             >
               <ul className="space-y-1.5">
-                <div className={`flex ${small ? "w-[40px]" : ""} justify-center`}>
+                <div
+                  className={`flex ${small ? "w-[40px]" : ""} justify-center`}
+                >
                   {small && (
                     <button
-                      onClick={() => { toggleNavbarSmall(); dispatch(toggle()); }}
+                      onClick={() => {
+                        toggleNavbarSmall();
+                        dispatch(toggle());
+                      }}
                     >
                       <svg
                         className="h-6 w-6 text-secondary"
@@ -582,34 +608,40 @@ const NavBar = () => {
                   )}
                 </div>
 
-                {navigationItems.map((item) => (
-                  <li key={item.id} className={item.isDropdown ? "group relative" : ""}>
+                {navigationItems.map(item => (
+                  <li
+                    key={item.id}
+                    className={item.isDropdown ? "group relative" : ""}
+                  >
                     {item.isDropdown ? (
                       <>
                         <button
                           onClick={() => toggleDropdown(item.id)}
-                          className={`flex ${!small ? "w-full" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-secondary hover:bg-bgSecondary hover:text-primary `}
+                          className={`flex ${!small ? "w-full" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-bold text-secondary hover:bg-bgSecondary hover:text-primary`}
                         >
                           {item.icon}
                           {!small && (
                             <p>
-                              {item.translations[currentLanguage as "en" | "ar" | "fr"] || item.translations.en}
+                              {item.translations[
+                                currentLanguage as "en" | "ar" | "fr"
+                              ] || item.translations.en}
                             </p>
                           )}
                         </button>
                         {openDropdowns[item.id] && (
                           <ul
-                            className={`${small ? "hidden w-fit translate-x-5 rounded-xl bg-bgPrimary p-2 group-hover:grid" : ""} mx-9 mt-2 grid gap-2 text-[14px] whitespace-nowrap text-nowrap font-semibold`}
+                            className={`${small ? "hidden w-fit translate-x-5 rounded-xl bg-bgPrimary p-2 group-hover:grid" : ""} mx-9 mt-2 grid gap-2 whitespace-nowrap text-nowrap text-[14px] font-semibold`}
                           >
-                            {item.submenu.map((subItem) => (
+                            {item.submenu.map(subItem => (
                               <Link
                                 onClick={() => setIsOpen(false)}
                                 key={subItem.id}
                                 className={`hover:text-primary ${url === subItem.path ? "text-primary" : ""}`}
                                 href={subItem.path}
                               >
-                                {subItem.translations[currentLanguage as "en" | "ar" | "fr"] ||
-                                  subItem.translations.en}
+                                {subItem.translations[
+                                  currentLanguage as "en" | "ar" | "fr"
+                                ] || subItem.translations.en}
                               </Link>
                             ))}
                           </ul>
@@ -618,13 +650,15 @@ const NavBar = () => {
                     ) : (
                       <Link
                         onClick={() => setIsOpen(false)}
-                        className={`flex ${small ? "w-[40px]" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold ${url === item.path ? "bg-bgSecondary text-primary" : "text-secondary"} hover:bg-bgSecondary hover:text-primary`}
+                        className={`flex ${small ? "w-[40px]" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-bold ${url === item.path ? "bg-bgSecondary text-primary" : "text-secondary"} hover:bg-bgSecondary hover:text-primary`}
                         href={item.path}
                       >
                         {item.icon}
                         {!small && (
                           <p>
-                            {item.translations[currentLanguage as "en" | "ar" | "fr"] || item.translations.en}
+                            {item.translations[
+                              currentLanguage as "en" | "ar" | "fr"
+                            ] || item.translations.en}
                           </p>
                         )}
                       </Link>
@@ -634,7 +668,6 @@ const NavBar = () => {
               </ul>
             </nav>
           </div>
-
         </div>
         <div></div>
       </header>
