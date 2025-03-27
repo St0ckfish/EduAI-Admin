@@ -584,7 +584,7 @@ const NavBar = () => {
                       <>
                         <button
                           onClick={() => toggleDropdown(item.id)}
-                          className={`flex ${!small ? "w-full" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold text-secondary hover:bg-bgSecondary hover:text-primary`}
+                          className={`flex ${!small ? "w-full" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-bold text-secondary hover:bg-bgSecondary hover:text-primary`}
                         >
                           {item.icon}
                           {!small && (
@@ -617,7 +617,7 @@ const NavBar = () => {
                     ) : (
                       <Link
                         onClick={() => setIsOpen(false)}
-                        className={`flex ${small ? "w-[40px]" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-sans font-bold ${url === item.path ? "bg-bgSecondary text-primary" : "text-secondary"} hover:bg-bgSecondary hover:text-primary`}
+                        className={`flex ${small ? "w-[40px]" : ""} text-md group mt-4 items-center gap-x-3.5 rounded-lg px-2.5 py-2 font-bold ${url === item.path ? "bg-bgSecondary text-primary" : "text-secondary"} hover:bg-bgSecondary hover:text-primary`}
                         href={item.path}
                       >
                         {item.icon}
